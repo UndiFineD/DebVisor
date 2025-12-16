@@ -119,42 +119,42 @@ import json
 import logging
 
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class VulnerabilitySeverity(Enum):
     """Severity levels for vulnerabilities."""
 
-    CRITICAL="critical"
-    HIGH="high"
-    MEDIUM="medium"
-    LOW="low"
-    INFO="info"
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+    INFO = "info"
 
 
 class ComplianceFramework(Enum):
     """Security compliance frameworks."""
 
-    OWASP_TOP_10="owasp_top_10"
-    CWE_TOP_25="cwe_top_25"
-    PCI_DSS="pci_dss"
-    HIPAA="hipaa"
-    SOC2="soc2"
+    OWASP_TOP_10 = "owasp_top_10"
+    CWE_TOP_25 = "cwe_top_25"
+    PCI_DSS = "pci_dss"
+    HIPAA = "hipaa"
+    SOC2 = "soc2"
 
 
 class SecurityCheckType(Enum):
     """Types of security checks."""
 
-    INPUT_VALIDATION="input_validation"
-    SQL_INJECTION="sql_injection"
-    XSS="xss"
-    CSRF="csrf"
-    AUTHENTICATION="authentication"
-    AUTHORIZATION="authorization"
-    CRYPTOGRAPHY="cryptography"
-    DEPENDENCY="dependency"
-    CONTAINER="container"
-    CONFIGURATION="configuration"
+    INPUT_VALIDATION = "input_validation"
+    SQL_INJECTION = "sql_injection"
+    XSS = "xss"
+    CSRF = "csrf"
+    AUTHENTICATION = "authentication"
+    AUTHORIZATION = "authorization"
+    CRYPTOGRAPHY = "cryptography"
+    DEPENDENCY = "dependency"
+    CONTAINER = "container"
+    CONFIGURATION = "configuration"
 
 
 @dataclass
@@ -179,8 +179,8 @@ class SecurityCheckResult:
 
     check_type: SecurityCheckType
     passed: bool
-    vulnerabilities: List[Vulnerability] = field(default_factory=list)
-    details: Dict[str, Any] = field(default_factory=dict)
+    vulnerabilities: List[Vulnerability] = field(default_factory = list)
+    details: Dict[str, Any] = field(default_factory = dict)
     timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -222,7 +222,7 @@ class SecurityReport:
 class OWASPTop10Checker:
     """OWASP Top 10 security vulnerability checker."""
 
-    CHECKS=[
+    CHECKS = [
         ("A01:2021 - Broken Access Control", "authorization"),
         ("A02:2021 - Cryptographic Failures", "cryptography"),
         ("A03:2021 - Injection", "sql_injection"),
@@ -238,66 +238,66 @@ class OWASPTop10Checker:
     @staticmethod
     def check_input_validation(code: str) -> SecurityCheckResult:
         """Check for proper input validation."""
-        passed=True
-        vulnerabilities=[]
+        passed = True
+        vulnerabilities = []
 
         # Check for common input validation patterns
         if "strip()" not in code and "validate" not in code.lower():
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="INP-001",
-                    _severity=VulnerabilitySeverity.MEDIUM,
-                    _type=SecurityCheckType.INPUT_VALIDATION,
-                    _title="Missing Input Validation",
-                    _description="User input not properly validated",
-                    _affected_component="input_handlers",
-                    _remediation="Implement input validation for all user inputs",
-                    _cwe="CWE-20",
+                    _id = "INP-001",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.INPUT_VALIDATION,
+                    _title = "Missing Input Validation",
+                    _description = "User input not properly validated",
+                    _affected_component = "input_handlers",
+                    _remediation = "Implement input validation for all user inputs",
+                    _cwe = "CWE-20",
                 )
             )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.INPUT_VALIDATION,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,
-            _details={"validation_patterns": "strip, validate"},
+            _check_type = SecurityCheckType.INPUT_VALIDATION,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {"validation_patterns": "strip, validate"},
         )
 
     @staticmethod
     def check_sql_injection(code: str) -> SecurityCheckResult:
         """Check for SQL injection vulnerabilities."""
-        passed=True
-        vulnerabilities=[]
+        passed = True
+        vulnerabilities = []
 
         # Check for parameterized queries
         if ".format(" in code or '"' in code and "SELECT" in code:
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="SQL-001",
-                    _severity=VulnerabilitySeverity.CRITICAL,
-                    _type=SecurityCheckType.SQL_INJECTION,
-                    _title="Potential SQL Injection",
-                    _description="String formatting used with SQL queries",
-                    _affected_component="database_layer",
-                    _remediation="Use parameterized queries instead of string formatting",
-                    _cwe="CWE-89",
+                    _id = "SQL-001",
+                    _severity = VulnerabilitySeverity.CRITICAL,
+                    _type = SecurityCheckType.SQL_INJECTION,
+                    _title = "Potential SQL Injection",
+                    _description = "String formatting used with SQL queries",
+                    _affected_component = "database_layer",
+                    _remediation = "Use parameterized queries instead of string formatting",
+                    _cwe = "CWE-89",
                 )
             )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.SQL_INJECTION,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,
-            _details={"parameterized": "query_params" in code},
+            _check_type = SecurityCheckType.SQL_INJECTION,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {"parameterized": "query_params" in code},
         )
 
     @staticmethod
     def check_xss(code: str) -> SecurityCheckResult:
         """Check for XSS vulnerabilities."""
-        passed=True
-        vulnerabilities=[]
+        passed = True
+        vulnerabilities = []
 
         # Check for HTML escaping
         if (
@@ -305,72 +305,72 @@ class OWASPTop10Checker:
             and "escape" not in code.lower()
             and "encode" not in code.lower()
         ):
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="XSS-001",
-                    _severity=VulnerabilitySeverity.HIGH,
-                    _type=SecurityCheckType.XSS,
-                    _title="Potential XSS Vulnerability",
-                    _description="User input may not be properly escaped",
-                    _affected_component="template_rendering",
-                    _remediation="Escape HTML special characters in user input",
-                    _cwe="CWE-79",
+                    _id = "XSS-001",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.XSS,
+                    _title = "Potential XSS Vulnerability",
+                    _description = "User input may not be properly escaped",
+                    _affected_component = "template_rendering",
+                    _remediation = "Escape HTML special characters in user input",
+                    _cwe = "CWE-79",
                 )
             )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.XSS,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,
-            _details={"escaping": "html_escape" in code},
+            _check_type = SecurityCheckType.XSS,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {"escaping": "html_escape" in code},
         )
 
     @staticmethod
     def check_authentication(code: str) -> SecurityCheckResult:
         """Check authentication mechanisms."""
-        passed=True
-        vulnerabilities=[]
+        passed = True
+        vulnerabilities = []
 
         # Check for hardcoded credentials (look for assignment of literal strings)
         # Pattern: password = "..." or PASSWORD = "..." or api_key = "..." etc.
         import re
 
-        _hardcoded_pattern=r'(password|api_key|secret|token)\s*=\s*["\']'
+        _hardcoded_pattern = r'(password|api_key|secret|token)\s*=\s*["\']'
         if re.search(hardcoded_pattern, code, re.IGNORECASE):  # type: ignore[name-defined]
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="AUTH-001",
-                    _severity=VulnerabilitySeverity.CRITICAL,
-                    _type=SecurityCheckType.AUTHENTICATION,
-                    _title="Hardcoded Credentials",
-                    _description="Credentials may be hardcoded in source",
-                    _affected_component="authentication",
-                    _remediation="Use environment variables or secure vaults",
-                    _cwe="CWE-798",
+                    _id = "AUTH-001",
+                    _severity = VulnerabilitySeverity.CRITICAL,
+                    _type = SecurityCheckType.AUTHENTICATION,
+                    _title = "Hardcoded Credentials",
+                    _description = "Credentials may be hardcoded in source",
+                    _affected_component = "authentication",
+                    _remediation = "Use environment variables or secure vaults",
+                    _cwe = "CWE-798",
                 )
             )
 
         # Check for password hashing
-        weak_hashes=["md5", "sha1", "sha256"]    # These are too fast for passwords
-        _has_weak_hash=any(weak in code.lower() for weak in weak_hashes)
+        weak_hashes = ["md5", "sha1", "sha256"]    # These are too fast for passwords
+        _has_weak_hash = any(weak in code.lower() for weak in weak_hashes)
         has_strong_hash=(
             "bcrypt" in code or "argon2" in code or "pbkdf2" in code.lower()
         )
 
         if has_weak_hash and not has_strong_hash:  # type: ignore[name-defined]
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="AUTH-002",
-                    _severity=VulnerabilitySeverity.HIGH,
-                    _type=SecurityCheckType.AUTHENTICATION,
-                    _title="Weak Password Hashing",
-                    _description="Password hashing using weak algorithms (MD5/SHA)",
-                    _affected_component="authentication",
-                    _remediation="Use bcrypt, argon2, or PBKDF2",
-                    _cwe="CWE-916",
+                    _id = "AUTH-002",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.AUTHENTICATION,
+                    _title = "Weak Password Hashing",
+                    _description = "Password hashing using weak algorithms (MD5/SHA)",
+                    _affected_component = "authentication",
+                    _remediation = "Use bcrypt, argon2, or PBKDF2",
+                    _cwe = "CWE-916",
                 )
             )
         elif (
@@ -378,99 +378,99 @@ class OWASPTop10Checker:
             and "password" in code.lower()
             and "hash" in code.lower()
         ):
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="AUTH-002",
-                    _severity=VulnerabilitySeverity.HIGH,
-                    _type=SecurityCheckType.AUTHENTICATION,
-                    _title="Weak Password Hashing",
-                    _description="Password hashing not using strong algorithms",
-                    _affected_component="authentication",
-                    _remediation="Use bcrypt, argon2, or PBKDF2",
-                    _cwe="CWE-916",
+                    _id = "AUTH-002",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.AUTHENTICATION,
+                    _title = "Weak Password Hashing",
+                    _description = "Password hashing not using strong algorithms",
+                    _affected_component = "authentication",
+                    _remediation = "Use bcrypt, argon2, or PBKDF2",
+                    _cwe = "CWE-916",
                 )
             )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.AUTHENTICATION,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,
-            _details={"hashing": "bcrypt" in code or "argon2" in code},
+            _check_type = SecurityCheckType.AUTHENTICATION,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {"hashing": "bcrypt" in code or "argon2" in code},
         )
 
     @staticmethod
     def check_authorization(code: str) -> SecurityCheckResult:
         """Check authorization mechanisms."""
-        passed=True
-        vulnerabilities=[]
+        passed = True
+        vulnerabilities = []
 
         # Check for permission checks
         if "permission" not in code.lower() and "role" not in code.lower():
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="AUTHZ-001",
-                    _severity=VulnerabilitySeverity.HIGH,
-                    _type=SecurityCheckType.AUTHORIZATION,
-                    _title="Missing Authorization Checks",
-                    _description="No authorization checks found",
-                    _affected_component="authorization_layer",
-                    _remediation="Implement role-based access control (RBAC)",
-                    _cwe="CWE-862",
+                    _id = "AUTHZ-001",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.AUTHORIZATION,
+                    _title = "Missing Authorization Checks",
+                    _description = "No authorization checks found",
+                    _affected_component = "authorization_layer",
+                    _remediation = "Implement role-based access control (RBAC)",
+                    _cwe = "CWE-862",
                 )
             )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.AUTHORIZATION,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,
-            _details={"rbac": "role" in code.lower()},
+            _check_type = SecurityCheckType.AUTHORIZATION,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {"rbac": "role" in code.lower()},
         )
 
     @staticmethod
     def check_cryptography(code: str) -> SecurityCheckResult:
         """Check cryptographic practices."""
-        passed=True
-        vulnerabilities=[]
+        passed = True
+        vulnerabilities = []
 
         # Check for weak encryption
         if "md5" in code.lower() or "sha1" in code.lower():
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="CRYPT-001",
-                    _severity=VulnerabilitySeverity.HIGH,
-                    _type=SecurityCheckType.CRYPTOGRAPHY,
-                    _title="Weak Encryption Algorithm",
-                    _description="MD5 or SHA1 used for hashing",
-                    _affected_component="cryptography",
-                    _remediation="Use SHA-256 or stronger algorithms",
-                    _cwe="CWE-327",
+                    _id = "CRYPT-001",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.CRYPTOGRAPHY,
+                    _title = "Weak Encryption Algorithm",
+                    _description = "MD5 or SHA1 used for hashing",
+                    _affected_component = "cryptography",
+                    _remediation = "Use SHA-256 or stronger algorithms",
+                    _cwe = "CWE-327",
                 )
             )
 
         # Check for secure random
         if "random" in code.lower() and "secrets" not in code:
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="CRYPT-002",
-                    _severity=VulnerabilitySeverity.MEDIUM,
-                    _type=SecurityCheckType.CRYPTOGRAPHY,
-                    _title="Weak Random Generator",
-                    _description="Using random instead of secrets module",
-                    _affected_component="cryptography",
-                    _remediation="Use secrets module for cryptographic randomness",
-                    _cwe="CWE-338",
+                    _id = "CRYPT-002",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.CRYPTOGRAPHY,
+                    _title = "Weak Random Generator",
+                    _description = "Using random instead of secrets module",
+                    _affected_component = "cryptography",
+                    _remediation = "Use secrets module for cryptographic randomness",
+                    _cwe = "CWE-338",
                 )
             )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.CRYPTOGRAPHY,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,
-            _details={
+            _check_type = SecurityCheckType.CRYPTOGRAPHY,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {
                 "weak_algorithms": "md5" in code.lower() or "sha1" in code.lower(),
                 "secure_random": "secrets" in code,
             },
@@ -480,7 +480,7 @@ class OWASPTop10Checker:
 class DependencyVulnerabilityChecker:
     """Check for vulnerable dependencies."""
 
-    VULNERABLE_PACKAGES={
+    VULNERABLE_PACKAGES = {
         "requests": ["2.0.0", "2.1.0"],    # Example vulnerable versions
         "django": ["1.0.0", "1.1.0"],
         "flask": ["0.1.0", "0.2.0"],
@@ -489,8 +489,8 @@ class DependencyVulnerabilityChecker:
     @staticmethod
     def scan_requirements(requirements: Dict[str, str]) -> SecurityCheckResult:
         """Scan requirements for vulnerabilities."""
-        _vulnerabilities=[]  # type: ignore[var-annotated]
-        passed=True
+        _vulnerabilities = []  # type: ignore[var-annotated]
+        passed = True
 
         for package, version in requirements.items():
             if package in DependencyVulnerabilityChecker.VULNERABLE_PACKAGES:
@@ -498,25 +498,25 @@ class DependencyVulnerabilityChecker:
                     DependencyVulnerabilityChecker.VULNERABLE_PACKAGES[package]
                 )
                 if version in vulnerable_versions:
-                    _passed=False
+                    _passed = False
                     vulnerabilities.append(  # type: ignore[name-defined]
                         Vulnerability(  # type: ignore[call-arg]
-                            _id=f"DEP-{package.upper()}",
-                            _severity=VulnerabilitySeverity.HIGH,
-                            _type=SecurityCheckType.DEPENDENCY,
-                            _title=f"Vulnerable {package}",
-                            _description=f"{package} {version} has known vulnerabilities",
-                            _affected_component=f"dependencies/{package}",
-                            _remediation=f"Update {package} to latest version",
-                            _cve="CVE-XXXX-XXXXX",
+                            _id = f"DEP-{package.upper()}",
+                            _severity = VulnerabilitySeverity.HIGH,
+                            _type = SecurityCheckType.DEPENDENCY,
+                            _title = f"Vulnerable {package}",
+                            _description = f"{package} {version} has known vulnerabilities",
+                            _affected_component = f"dependencies/{package}",
+                            _remediation = f"Update {package} to latest version",
+                            _cve = "CVE-XXXX-XXXXX",
                         )
                     )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.DEPENDENCY,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,  # type: ignore[name-defined]
-            _details={"scanned_packages": len(requirements)},
+            _check_type = SecurityCheckType.DEPENDENCY,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,  # type: ignore[name-defined]
+            _details = {"scanned_packages": len(requirements)},
         )
 
 
@@ -526,38 +526,38 @@ class ContainerSecurityChecker:
     @staticmethod
     def scan_dockerfile(dockerfilecontent: str) -> SecurityCheckResult:
         """Scan Dockerfile for security issues."""
-        vulnerabilities=[]
-        passed=True
+        vulnerabilities = []
+        passed = True
 
         # Check for running as root
         if "USER root" in dockerfile_content or "USER" not in dockerfile_content:  # type: ignore[name-defined]
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="CONT-001",
-                    _severity=VulnerabilitySeverity.MEDIUM,
-                    _type=SecurityCheckType.CONTAINER,
-                    _title="Container runs as root",
-                    _description="Container processes run with root privileges",
-                    _affected_component="container_image",
-                    _remediation="Create non-root user and use USER directive",
-                    _cwe="CWE-250",
+                    _id = "CONT-001",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.CONTAINER,
+                    _title = "Container runs as root",
+                    _description = "Container processes run with root privileges",
+                    _affected_component = "container_image",
+                    _remediation = "Create non-root user and use USER directive",
+                    _cwe = "CWE-250",
                 )
             )
 
         # Check for secrets in Dockerfile
         if "PASSWORD" in dockerfile_content or "API_KEY" in dockerfile_content:  # type: ignore[name-defined]
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="CONT-002",
-                    _severity=VulnerabilitySeverity.CRITICAL,
-                    _type=SecurityCheckType.CONTAINER,
-                    _title="Secrets in Dockerfile",
-                    _description="Sensitive data may be exposed in image layers",
-                    _affected_component="container_image",
-                    _remediation="Use build secrets or environment variables",
-                    _cwe="CWE-798",
+                    _id = "CONT-002",
+                    _severity = VulnerabilitySeverity.CRITICAL,
+                    _type = SecurityCheckType.CONTAINER,
+                    _title = "Secrets in Dockerfile",
+                    _description = "Sensitive data may be exposed in image layers",
+                    _affected_component = "container_image",
+                    _remediation = "Use build secrets or environment variables",
+                    _cwe = "CWE-798",
                 )
             )
 
@@ -566,25 +566,25 @@ class ContainerSecurityChecker:
             "ubuntu:latest" in dockerfile_content  # type: ignore[name-defined]
             or "alpine:latest" in dockerfile_content  # type: ignore[name-defined]
         ):
-            _passed=False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(  # type: ignore[call-arg]
-                    _id="CONT-003",
-                    _severity=VulnerabilitySeverity.MEDIUM,
-                    _type=SecurityCheckType.CONTAINER,
-                    _title="Using latest base image",
-                    _description="Using 'latest' tag instead of specific version",
-                    _affected_component="container_image",
-                    _remediation="Pin base image to specific version",
-                    _cwe="CWE-1104",
+                    _id = "CONT-003",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.CONTAINER,
+                    _title = "Using latest base image",
+                    _description = "Using 'latest' tag instead of specific version",
+                    _affected_component = "container_image",
+                    _remediation = "Pin base image to specific version",
+                    _cwe = "CWE-1104",
                 )
             )
 
         return SecurityCheckResult(  # type: ignore[call-arg]
-            _check_type=SecurityCheckType.CONTAINER,
-            _passed=passed,
-            _vulnerabilities=vulnerabilities,
-            _details={
+            _check_type = SecurityCheckType.CONTAINER,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {
                 "runs_as_root": "USER root" in dockerfile_content,  # type: ignore[name-defined]
                 "has_secrets": "PASSWORD" in dockerfile_content,  # type: ignore[name-defined]
                 "uses_latest": "latest" in dockerfile_content,  # type: ignore[name-defined]
@@ -604,7 +604,7 @@ class SecurityTestingFramework:
         """Run OWASP Top 10 checks."""
         logger.info("Running OWASP Top 10 checks...")  # type: ignore[name-defined]
 
-        checks=[
+        checks = [
             OWASPTop10Checker.check_input_validation(code),
             OWASPTop10Checker.check_sql_injection(code),
             OWASPTop10Checker.check_xss(code),
@@ -621,7 +621,7 @@ class SecurityTestingFramework:
         """Scan dependencies."""
         logger.info("Scanning dependencies...")  # type: ignore[name-defined]
 
-        _check=DependencyVulnerabilityChecker.scan_requirements(requirements)
+        _check = DependencyVulnerabilityChecker.scan_requirements(requirements)
         self.results.append(check)  # type: ignore[name-defined]
         self.vulnerabilities.extend(check.vulnerabilities)  # type: ignore[name-defined]
 
@@ -629,61 +629,61 @@ class SecurityTestingFramework:
         """Scan container configuration."""
         logger.info("Scanning container configuration...")  # type: ignore[name-defined]
 
-        _check=ContainerSecurityChecker.scan_dockerfile(dockerfile_content)  # type: ignore[name-defined]
+        _check = ContainerSecurityChecker.scan_dockerfile(dockerfile_content)  # type: ignore[name-defined]
         self.results.append(check)  # type: ignore[name-defined]
         self.vulnerabilities.extend(check.vulnerabilities)  # type: ignore[name-defined]
 
     def generate_report(self, framework: ComplianceFramework) -> SecurityReport:
         """Generate security report."""
-        _total=len(self.results)
-        _passed=sum(1 for r in self.results if r.passed)
-        _failed=total - passed  # type: ignore[name-defined]
+        _total = len(self.results)
+        _passed = sum(1 for r in self.results if r.passed)
+        _failed = total - passed  # type: ignore[name-defined]
 
-        _critical=sum(
+        _critical = sum(
             1
             for v in self.vulnerabilities
             if v.severity == VulnerabilitySeverity.CRITICAL
         )
-        _high=sum(
+        _high = sum(
             1 for v in self.vulnerabilities if v.severity == VulnerabilitySeverity.HIGH
         )
-        _medium=sum(
+        _medium = sum(
             1
             for v in self.vulnerabilities
             if v.severity == VulnerabilitySeverity.MEDIUM
         )
-        _low=sum(
+        _low = sum(
             1 for v in self.vulnerabilities if v.severity == VulnerabilitySeverity.LOW
         )
 
         # Calculate compliance score (0-100)
         # Deduct points for vulnerabilities
-        score=100.0
+        score = 100.0
         score -= critical * 25  # type: ignore[name-defined]
         score -= high * 15  # type: ignore[name-defined]
         score -= medium * 5  # type: ignore[name-defined]
         score -= low * 1  # type: ignore[name-defined]
-        _score=max(0, min(100, score))
+        _score = max(0, min(100, score))
 
-        _report_id=f"sec-{datetime.now(timezone.utc).timestamp()}"
+        _report_id = f"sec-{datetime.now(timezone.utc).timestamp()}"
 
         return SecurityReport(  # type: ignore[call-arg]
-            _report_id=report_id,  # type: ignore[name-defined]
-            _framework=framework,
-            _total_checks=total,  # type: ignore[name-defined]
-            _passed_checks=passed,  # type: ignore[name-defined]
-            _failed_checks=failed,  # type: ignore[name-defined]
-            _vulnerabilities=self.vulnerabilities,
-            _critical_count=critical,  # type: ignore[name-defined]
-            _high_count=high,  # type: ignore[name-defined]
-            _medium_count=medium,  # type: ignore[name-defined]
-            _low_count=low,  # type: ignore[name-defined]
-            _compliance_score=score,
+            _report_id = report_id,  # type: ignore[name-defined]
+            _framework = framework,
+            _total_checks = total,  # type: ignore[name-defined]
+            _passed_checks = passed,  # type: ignore[name-defined]
+            _failed_checks = failed,  # type: ignore[name-defined]
+            _vulnerabilities = self.vulnerabilities,
+            _critical_count = critical,  # type: ignore[name-defined]
+            _high_count = high,  # type: ignore[name-defined]
+            _medium_count = medium,  # type: ignore[name-defined]
+            _low_count = low,  # type: ignore[name-defined]
+            _compliance_score = score,
         )
 
     def to_json(self, report: SecurityReport) -> str:
         """Convert report to JSON."""
-        _data=report.to_dict()
+        _data = report.to_dict()
         data["vulnerabilities"] = [  # type: ignore[name-defined]
             {
                 "id": v.id,
@@ -699,4 +699,4 @@ class SecurityTestingFramework:
             for v in report.vulnerabilities
         ]
 
-        return json.dumps(data, indent=2)  # type: ignore[name-defined]
+        return json.dumps(data, indent = 2)  # type: ignore[name-defined]

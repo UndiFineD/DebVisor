@@ -55,10 +55,10 @@ def convert_pylint_to_sarif(inputfile: str, outputfile: str) -> None:
     """Convert pylint JSON output to SARIF v2.1.0 format."""
     try:
         with open(input_file) as f:
-            _pylint_results=json.load(f)
+            _pylint_results = json.load(f)
 
         # Build SARIF structure
-        sarif={
+        sarif = {
             "version": "2.1.0",
             "$schema": (
                 "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/"
@@ -80,7 +80,7 @@ def convert_pylint_to_sarif(inputfile: str, outputfile: str) -> None:
 
         # Convert pylint results to SARIF results (limit to 1000)
         for item in pylint_results[:1000]:
-            _result={
+            _result = {
                 "ruleId": item.get("message-id", "unknown"),
                 "level": "error" if item.get("type") == "error" else "warning",
                 "message": {"text": item.get("message", "")},
@@ -103,18 +103,18 @@ def convert_pylint_to_sarif(inputfile: str, outputfile: str) -> None:
 
         # Write SARIF output
         with open(output_file, "w") as out:
-            json.dump(sarif, out, indent=2)
+            json.dump(sarif, out, indent = 2)
 
         print(f"? Converted {len(sarif['runs'][0]['results'])} pylint issues to SARIF")  # type: ignore[index]
 
     except FileNotFoundError:
-        print(f"[warn] Input file not found: {input_file}", file=sys.stderr)
+        print(f"[warn] Input file not found: {input_file}", file = sys.stderr)
         # Create empty SARIF
         with open(output_file, "w") as out:
             json.dump({"version": "2.1.0", "runs": []}, out)
 
     except Exception as e:
-        print(f"[warn] SARIF conversion failed: {e}", file=sys.stderr)
+        print(f"[warn] SARIF conversion failed: {e}", file = sys.stderr)
         sys.exit(0)    # Don't fail the workflow
 
 

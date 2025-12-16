@@ -128,7 +128,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -137,38 +137,38 @@ _logger=logging.getLogger(__name__)
 class SSHAuthMethod(Enum):
     """SSH authentication methods."""
 
-    PASSWORD="password"    # nosec B105
-    PUBLICKEY="publickey"
-    KEYBOARD_INTERACTIVE="keyboard-interactive"
-    GSSAPI="gssapi-with-mic"
-    HOSTBASED="hostbased"
+    PASSWORD = "password"    # nosec B105
+    PUBLICKEY = "publickey"
+    KEYBOARD_INTERACTIVE = "keyboard-interactive"
+    GSSAPI = "gssapi-with-mic"
+    HOSTBASED = "hostbased"
 
 
 class SSHKeyType(Enum):
     """SSH key types."""
 
-    RSA="rsa"
-    ECDSA="ecdsa"
-    ED25519="ed25519"
-    DSA="dsa"    # Deprecated
+    RSA = "rsa"
+    ECDSA = "ecdsa"
+    ED25519 = "ed25519"
+    DSA = "dsa"    # Deprecated
 
 
 class MFAProvider(Enum):
     """MFA provider types."""
 
-    TOTP="totp"    # Time-based OTP (Google Authenticator)
-    FIDO2="fido2"    # Hardware security keys
-    DUO="duo"    # Duo Security
-    YUBIKEY="yubikey"    # YubiKey OTP
-    NONE="none"
+    TOTP = "totp"    # Time-based OTP (Google Authenticator)
+    FIDO2 = "fido2"    # Hardware security keys
+    DUO = "duo"    # Duo Security
+    YUBIKEY = "yubikey"    # YubiKey OTP
+    NONE = "none"
 
 
 class SSHSecurityLevel(Enum):
     """SSH security levels."""
 
-    BASIC="basic"    # Minimum security
-    STANDARD="standard"    # Recommended security
-    HARDENED="hardened"    # Maximum security
+    BASIC = "basic"    # Minimum security
+    STANDARD = "standard"    # Recommended security
+    HARDENED = "hardened"    # Maximum security
 
 
 # =============================================================================
@@ -180,53 +180,53 @@ class SSHSecurityLevel(Enum):
 class SSHKeyConfig:
     """SSH key configuration."""
 
-    key_type: SSHKeyType=SSHKeyType.ED25519
-    key_bits: int=4096    # For RSA
-    comment: str=""
-    passphrase_required: bool=True
+    key_type: SSHKeyType = SSHKeyType.ED25519
+    key_bits: int = 4096    # For RSA
+    comment: str = ""
+    passphrase_required: bool = True
 
 
 @dataclass
 class SSHHostKeyConfig:
     """Host key configuration."""
 
-    regenerate: bool=False
+    regenerate: bool = False
     allowed_types: List[SSHKeyType] = field(
         _default_factory=lambda: [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
     )
-    remove_weak_keys: bool=True
+    remove_weak_keys: bool = True
 
 
 @dataclass
 class SSHRateLimitConfig:
     """Rate limiting configuration."""
 
-    max_auth_tries: int=3
-    login_grace_time: int=30    # seconds
-    max_startups: str="10:30:60"    # start:rate:full
-    max_sessions: int=10
+    max_auth_tries: int = 3
+    login_grace_time: int = 30    # seconds
+    max_startups: str = "10:30:60"    # start:rate:full
+    max_sessions: int = 10
 
 
 @dataclass
 class SSHLoggingConfig:
     """SSH logging configuration."""
 
-    log_level: str="VERBOSE"    # QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG
-    log_facility: str="AUTH"
-    log_successful_logins: bool=True
-    log_failed_logins: bool=True
+    log_level: str = "VERBOSE"    # QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG
+    log_facility: str = "AUTH"
+    log_successful_logins: bool = True
+    log_failed_logins: bool = True
 
 
 @dataclass
 class MFAConfig:
     """Multi-factor authentication configuration."""
 
-    enabled: bool=True
-    provider: MFAProvider=MFAProvider.TOTP
-    required_for_root: bool=True
-    required_for_sudo: bool=True
-    grace_period_seconds: int=300
-    backup_codes_count: int=10
+    enabled: bool = True
+    provider: MFAProvider = MFAProvider.TOTP
+    required_for_root: bool = True
+    required_for_sudo: bool = True
+    grace_period_seconds: int = 300
+    backup_codes_count: int = 10
 
 
 @dataclass
@@ -234,30 +234,30 @@ class SSHDConfig:
     """Complete SSH daemon configuration."""
 
     # Basic settings
-    port: int=22
+    port: int = 22
     listen_addresses: List[str] = field(
         _default_factory=lambda: ["0.0.0.0", "::"]
     )    # nosec B104
-    address_family: str="any"    # any, inet, inet6
+    address_family: str = "any"    # any, inet, inet6
 
     # Authentication
     permit_root_login: str=(
         "prohibit-password"    # yes, no, prohibit-password, forced-commands-only
     )
-    password_authentication: bool=False
-    pubkey_authentication: bool=True
-    challenge_response_authentication: bool=False
-    keyboard_interactive_authentication: bool=True    # For MFA
-    gssapi_authentication: bool=False
-    hostbased_authentication: bool=False
-    permit_empty_passwords: bool=False
+    password_authentication: bool = False
+    pubkey_authentication: bool = True
+    challenge_response_authentication: bool = False
+    keyboard_interactive_authentication: bool = True    # For MFA
+    gssapi_authentication: bool = False
+    hostbased_authentication: bool = False
+    permit_empty_passwords: bool = False
 
     # Security
-    strict_modes: bool=True
-    max_auth_tries: int=3
-    max_sessions: int=10
-    login_grace_time: int=30
-    max_startups: str="10:30:60"
+    strict_modes: bool = True
+    max_auth_tries: int = 3
+    max_sessions: int = 10
+    login_grace_time: int = 30
+    max_startups: str = "10:30:60"
 
     # Cryptography
     ciphers: List[str] = field(
@@ -302,42 +302,42 @@ class SSHDConfig:
     )
 
     # Forwarding
-    allow_tcp_forwarding: str="no"    # yes, no, local, remote
-    allow_agent_forwarding: bool=False
-    allow_stream_local_forwarding: str="no"
-    x11_forwarding: bool=False
-    gateway_ports: bool=False
-    permit_tunnel: str="no"
+    allow_tcp_forwarding: str = "no"    # yes, no, local, remote
+    allow_agent_forwarding: bool = False
+    allow_stream_local_forwarding: str = "no"
+    x11_forwarding: bool = False
+    gateway_ports: bool = False
+    permit_tunnel: str = "no"
 
     # Environment
-    permit_user_environment: bool=False
+    permit_user_environment: bool = False
     accept_env: List[str] = field(default_factory=lambda: ["LANG", "LC_*"])
 
     # Misc
-    print_motd: bool=True
-    print_last_log: bool=True
-    tcp_keep_alive: bool=True
-    client_alive_interval: int=300
-    client_alive_count_max: int=3
-    compression: str="no"    # yes, no, delayed
-    use_dns: bool=False
-    use_pam: bool=True
+    print_motd: bool = True
+    print_last_log: bool = True
+    tcp_keep_alive: bool = True
+    client_alive_interval: int = 300
+    client_alive_count_max: int = 3
+    compression: str = "no"    # yes, no, delayed
+    use_dns: bool = False
+    use_pam: bool = True
 
     # Subsystems
-    sftp_server: str="/usr/lib/openssh/sftp-server"
+    sftp_server: str = "/usr/lib/openssh/sftp-server"
 
     # Logging
-    log_level: str="VERBOSE"
-    syslog_facility: str="AUTH"
+    log_level: str = "VERBOSE"
+    syslog_facility: str = "AUTH"
 
     # Access control
-    allow_users: List[str] = field(default_factory=list)
-    allow_groups: List[str] = field(default_factory=list)
-    deny_users: List[str] = field(default_factory=list)
-    deny_groups: List[str] = field(default_factory=list)
+    allow_users: List[str] = field(default_factory = list)
+    allow_groups: List[str] = field(default_factory = list)
+    deny_users: List[str] = field(default_factory = list)
+    deny_groups: List[str] = field(default_factory = list)
 
     # Match blocks
-    match_blocks: List[Dict[str, Any]] = field(default_factory=list)
+    match_blocks: List[Dict[str, Any]] = field(default_factory = list)
 
 
 # =============================================================================
@@ -357,14 +357,14 @@ class SSHHardeningManager:
     """
 
     def __init__(self, configpath: str="/etc/ssh") -> None:
-        self.config_path=Path(config_path)
-        self.sshd_config_path=self.config_path / "sshd_config"
-        self.backup_path=self.config_path / "backups"
-        self._security_level=SSHSecurityLevel.STANDARD
+        self.config_path = Path(config_path)
+        self.sshd_config_path = self.config_path / "sshd_config"
+        self.backup_path = self.config_path / "backups"
+        self._security_level = SSHSecurityLevel.STANDARD
 
         # Default configuration
-        self._config=SSHDConfig()
-        self._mfa_config=MFAConfig()
+        self._config = SSHDConfig()
+        self._mfa_config = MFAConfig()
 
     # -------------------------------------------------------------------------
     # Configuration Management
@@ -372,7 +372,7 @@ class SSHHardeningManager:
 
     def set_security_level(self, level: SSHSecurityLevel) -> None:
         """Apply security preset."""
-        self._security_level=level
+        self._security_level = level
 
         if level == SSHSecurityLevel.BASIC:
             self._apply_basic_security()
@@ -385,60 +385,60 @@ class SSHHardeningManager:
 
     def enable_mfa(self, enabled: bool=True) -> None:
         """Enable or disable MFA."""
-        self._mfa_config.enabled=enabled
+        self._mfa_config.enabled = enabled
         if enabled:
-            self._config.challenge_response_authentication=True
-            self._config.keyboard_interactive_authentication=True
-            self._config.use_pam=True
+            self._config.challenge_response_authentication = True
+            self._config.keyboard_interactive_authentication = True
+            self._config.use_pam = True
             logger.info("MFA enabled for SSH")
         else:
             logger.info("MFA disabled for SSH")
 
     def _apply_basic_security(self) -> None:
         """Apply basic security settings."""
-        self._config.permit_root_login="prohibit-password"
-        self._config.password_authentication=True
-        self._config.max_auth_tries=6
-        self._config.login_grace_time=120
+        self._config.permit_root_login = "prohibit-password"
+        self._config.password_authentication = True
+        self._config.max_auth_tries = 6
+        self._config.login_grace_time = 120
 
     def _apply_standard_security(self) -> None:
         """Apply standard security settings (recommended)."""
-        self._config.permit_root_login="prohibit-password"
-        self._config.password_authentication=False
-        self._config.max_auth_tries=3
-        self._config.login_grace_time=30
-        self._config.allow_tcp_forwarding="no"
-        self._config.allow_agent_forwarding=False
-        self._config.x11_forwarding=False
+        self._config.permit_root_login = "prohibit-password"
+        self._config.password_authentication = False
+        self._config.max_auth_tries = 3
+        self._config.login_grace_time = 30
+        self._config.allow_tcp_forwarding = "no"
+        self._config.allow_agent_forwarding = False
+        self._config.x11_forwarding = False
 
     def _apply_hardened_security(self) -> None:
         """Apply maximum security settings."""
         self._apply_standard_security()
-        self._config.permit_root_login="no"
-        self._config.max_auth_tries=2
-        self._config.login_grace_time=20
-        self._config.max_startups="3:50:10"
-        self._config.max_sessions=3
-        self._config.compression="no"
-        self._config.client_alive_count_max=2
+        self._config.permit_root_login = "no"
+        self._config.max_auth_tries = 2
+        self._config.login_grace_time = 20
+        self._config.max_startups = "3:50:10"
+        self._config.max_sessions = 3
+        self._config.compression = "no"
+        self._config.client_alive_count_max = 2
 
         # Restrict to modern ciphers only
-        self._config.ciphers=[
+        self._config.ciphers = [
             "chacha20-poly1305@openssh.com",
             "aes256-gcm@openssh.com",
         ]
-        self._config.macs=[
+        self._config.macs = [
             "hmac-sha2-512-etm@openssh.com",
             "hmac-sha2-256-etm@openssh.com",
         ]
-        self._config.kex_algorithms=[
+        self._config.kex_algorithms = [
             "curve25519-sha256",
             "curve25519-sha256@libssh.org",
         ]
 
     def generate_sshd_config(self) -> str:
         """Generate sshd_config file content."""
-        _lines=[
+        _lines = [
             "    # DebVisor SSH Hardening Configuration",
             f"    # Generated: {datetime.now(timezone.utc).isoformat()}",
             f"    # Security Level: {self._security_level.value}",
@@ -551,9 +551,9 @@ class SSHHardeningManager:
         if not self.sshd_config_path.exists():
             return None
 
-        self.backup_path.mkdir(parents=True, exist_ok=True)
-        _timestamp=datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-        backup_file=self.backup_path / f"sshd_config.{timestamp}.bak"
+        self.backup_path.mkdir(parents = True, exist_ok = True)
+        _timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        backup_file = self.backup_path / f"sshd_config.{timestamp}.bak"
 
         shutil.copy2(self.sshd_config_path, backup_file)
         logger.info(f"Backed up SSH config to {backup_file}")
@@ -561,7 +561,7 @@ class SSHHardeningManager:
 
     def apply_config(self, dryrun: bool=False) -> Tuple[bool, str]:
         """Apply SSH configuration."""
-        _config_content=self.generate_sshd_config()
+        _config_content = self.generate_sshd_config()
 
         if dry_run:
             return True, config_content
@@ -575,15 +575,15 @@ class SSHHardeningManager:
                 f.write(config_content)
 
             # Test configuration
-            _result=subprocess.run(
+            _result = subprocess.run(
                 [
                     "/usr/sbin/sshd",
                     "-t",
                     "-f",
                     str(self.sshd_config_path),
                 ],    # nosec B603
-                _capture_output=True,
-                _text=True,
+                _capture_output = True,
+                _text = True,
             )
 
             if result.returncode != 0:
@@ -600,18 +600,18 @@ class SSHHardeningManager:
     def reload_sshd(self) -> Tuple[bool, str]:
         """Reload SSH daemon."""
         try:
-            result=subprocess.run(
+            result = subprocess.run(
                 ["/usr/bin/systemctl", "reload", "sshd"],    # nosec B603
-                _capture_output=True,
-                _text=True,
+                _capture_output = True,
+                _text = True,
             )
 
             if result.returncode != 0:
             # Try ssh instead of sshd
-                result=subprocess.run(
+                result = subprocess.run(
                     ["/usr/bin/systemctl", "reload", "ssh"],    # nosec B603
-                    _capture_output=True,
-                    _text=True,
+                    _capture_output = True,
+                    _text = True,
                 )
 
             if result.returncode == 0:
@@ -631,15 +631,15 @@ class SSHHardeningManager:
         self, key_types: Optional[List[SSHKeyType]] = None
     ) -> Dict[str, Path]:
         """Generate new host keys."""
-        key_types=key_types or [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
-        _generated={}
+        key_types = key_types or [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
+        _generated = {}
 
         for key_type in key_types:
-            key_file=self.config_path / f"ssh_host_{key_type.value}_key"
+            key_file = self.config_path / f"ssh_host_{key_type.value}_key"
 
             # Backup existing key
             if key_file.exists():
-                backup=key_file.with_suffix(
+                backup = key_file.with_suffix(
                     f".{datetime.now(timezone.utc).strftime('%Y%m%d')}.bak"
                 )
                 shutil.move(key_file, backup)
@@ -649,7 +649,7 @@ class SSHHardeningManager:
                     )
 
             # Generate new key
-            _cmd=[
+            _cmd = [
                 "/usr/bin/ssh-keygen",
                 "-t",
                 key_type.value,
@@ -665,7 +665,7 @@ class SSHHardeningManager:
                 cmd.extend(["-b", "521"])
 
             try:
-                subprocess.run(cmd, check=True, capture_output=True)    # nosec B603
+                subprocess.run(cmd, check = True, capture_output = True)    # nosec B603
                 generated[key_type.value] = key_file
                 logger.info(f"Generated {key_type.value} host key")
             except subprocess.CalledProcessError as e:
@@ -675,12 +675,12 @@ class SSHHardeningManager:
 
     def remove_weak_host_keys(self) -> List[str]:
         """Remove weak or deprecated host keys."""
-        weak_types=["dsa"]
-        removed=[]
+        weak_types = ["dsa"]
+        removed = []
 
         for key_type in weak_types:
-            key_file=self.config_path / f"ssh_host_{key_type}_key"
-            _pub_file=key_file.with_suffix(".pub")
+            key_file = self.config_path / f"ssh_host_{key_type}_key"
+            _pub_file = key_file.with_suffix(".pub")
 
             for f in [key_file, pub_file]:
                 if f.exists():
@@ -692,14 +692,14 @@ class SSHHardeningManager:
 
     def get_host_key_fingerprints(self) -> Dict[str, str]:
         """Get fingerprints of all host keys."""
-        _fingerprints={}
+        _fingerprints = {}
 
         for key_file in self.config_path.glob("ssh_host_*_key.pub"):
             try:
-                result=subprocess.run(
+                result = subprocess.run(
                     ["/usr/bin/ssh-keygen", "-l", "-f", str(key_file)],    # nosec B603
-                    _capture_output=True,
-                    _text=True,
+                    _capture_output = True,
+                    _text = True,
                 )
                 if result.returncode == 0:
                     fingerprints[key_file.stem] = result.stdout.strip()
@@ -716,7 +716,7 @@ class SSHHardeningManager:
         self,
         username: str,
         public_key: str,
-        comment: str="",
+        comment: str = "",
         options: Optional[List[str]] = None,
     ) -> Tuple[bool, str]:
         """Add public key to user's authorized_keys."""
@@ -724,26 +724,26 @@ class SSHHardeningManager:
         # Get user home directory
             import pwd
 
-            _user_info=pwd.getpwnam(username)    # type: ignore
-            _home_dir=Path(user_info.pw_dir)
-            ssh_dir=home_dir / ".ssh"
-            _auth_keys=ssh_dir / "authorized_keys"
+            _user_info = pwd.getpwnam(username)    # type: ignore
+            _home_dir = Path(user_info.pw_dir)
+            ssh_dir = home_dir / ".ssh"
+            _auth_keys = ssh_dir / "authorized_keys"
 
             # Create .ssh directory if needed
-            ssh_dir.mkdir(mode=0o700, exist_ok=True)
+            ssh_dir.mkdir(mode = 0o700, exist_ok = True)
             os.chown(ssh_dir, user_info.pw_uid, user_info.pw_gid)    # type: ignore
 
             # Build key line
-            _key_line=public_key.strip()
+            _key_line = public_key.strip()
             if options:
-                _key_line=f"{', '.join(options)} {key_line}"
+                _key_line = f"{', '.join(options)} {key_line}"
             if comment:
-                key_line=f"{key_line} {comment}"
+                key_line = f"{key_line} {comment}"
             key_line += "\n"
 
             # Check for duplicate
             if auth_keys.exists():
-                _existing=auth_keys.read_text()
+                _existing = auth_keys.read_text()
                 if public_key.strip() in existing:
                     return False, "Key already exists"
 
@@ -769,15 +769,15 @@ class SSHHardeningManager:
         try:
             import pwd
 
-            _user_info=pwd.getpwnam(username)    # type: ignore
-            _auth_keys=Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
+            _user_info = pwd.getpwnam(username)    # type: ignore
+            _auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
                 return False, "No authorized_keys file"
 
-            _lines=auth_keys.read_text().splitlines()
-            new_lines=[]
-            _removed=False
+            _lines = auth_keys.read_text().splitlines()
+            new_lines = []
+            _removed = False
 
             for line in lines:
                 if not line.strip() or line.strip().startswith("    #"):
@@ -789,7 +789,7 @@ class SSHHardeningManager:
                 if key_fingerprint not in line:
                     new_lines.append(line)
                 else:
-                    removed=True
+                    removed = True
 
             if removed:
                 auth_keys.write_text("\n".join(new_lines) + "\n")
@@ -809,8 +809,8 @@ class SSHHardeningManager:
         try:
             import pwd
 
-            _user_info=pwd.getpwnam(username)    # type: ignore
-            _auth_keys=Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
+            _user_info = pwd.getpwnam(username)    # type: ignore
+            _auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
                 return keys
@@ -819,10 +819,10 @@ class SSHHardeningManager:
                 if not line.strip() or line.strip().startswith("    #"):
                     continue
 
-                _parts=line.split()
+                _parts = line.split()
                 if len(parts) >= 2:
-                    _key_type=parts[0] if parts[0].startswith("ssh-") else "unknown"
-                    _comment=parts[-1] if len(parts) > 2 else ""
+                    _key_type = parts[0] if parts[0].startswith("ssh-") else "unknown"
+                    _comment = parts[-1] if len(parts) > 2 else ""
 
                     keys.append(
                         {
@@ -850,14 +850,14 @@ class SSHHardeningManager:
         # This would typically integrate with google-authenticator-libpam
             # For now, we'll generate the configuration
 
-            _secret=secrets.token_hex(20)
-            _recovery_codes=[secrets.token_hex(4) for _ in range(10)]
+            _secret = secrets.token_hex(20)
+            _recovery_codes = [secrets.token_hex(4) for _ in range(10)]
 
             # Generate provisioning URI
-            issuer="DebVisor"
-            uri=f"otpauth://totp/{issuer}:{user}?secret={secret}&issuer={issuer}"
+            issuer = "DebVisor"
+            uri = f"otpauth://totp/{issuer}:{user}?secret = {secret}&issuer = {issuer}"
 
-            _result={
+            _result = {
                 "user": user,
                 "secret": secret,
                 "provisioning_uri": uri,
@@ -880,7 +880,7 @@ class SSHHardeningManager:
 
     def generate_pam_config(self) -> str:
         """Generate PAM configuration for SSH MFA."""
-        _config="""    # DebVisor SSH PAM Configuration with MFA
+        _config = """    # DebVisor SSH PAM Configuration with MFA
 # /etc/pam.d/sshd
 
 # Standard authentication
@@ -906,42 +906,42 @@ class SSHHardeningManager:
 
     def generate_fail2ban_config(self) -> str:
         """Generate Fail2ban jail configuration for SSH."""
-        _config="""    # DebVisor SSH Fail2ban Configuration
+        _config = """    # DebVisor SSH Fail2ban Configuration
 # /etc/fail2ban/jail.d/debvisor-sshd.conf
 
 [sshd]
-_enabled=true
-_mode=aggressive
-_port=ssh
-_filter=sshd
+_enabled = true
+_mode = aggressive
+_port = ssh
+_filter = sshd
 _logpath=/var/log/auth.log
-_backend=systemd
+_backend = systemd
 
 # Ban configuration
-_maxretry=3
-_findtime=600
-bantime=3600
+_maxretry = 3
+_findtime = 600
+bantime = 3600
 
 # Progressive banning (requires fail2ban >= 0.11)
-bantime.increment=true
-bantime.factor=2
-bantime.maxtime=1w
-bantime.rndtime=30m
+bantime.increment = true
+bantime.factor = 2
+bantime.maxtime = 1w
+bantime.rndtime = 30m
 
 # Whitelist
-_ignoreip=127.0.0.1/8 ::1
+_ignoreip = 127.0.0.1/8 ::1
 
 # Actions
 _action=%(action_mwl)s
 
 [sshd-ddos]
-_enabled=true
-_port=ssh
-_filter=sshd-ddos
+_enabled = true
+_port = ssh
+_filter = sshd-ddos
 _logpath=/var/log/auth.log
-_maxretry=6
-_findtime=30
-_bantime=86400
+_maxretry = 6
+_findtime = 30
+_bantime = 86400
 """
         return config
 
@@ -951,8 +951,8 @@ _bantime=86400
 
     def audit_ssh_config(self) -> Dict[str, Any]:
         """Audit current SSH configuration."""
-        findings=[]
-        _score=100
+        findings = []
+        _score = 100
 
         # Check root login
         if self._config.permit_root_login == "yes":
@@ -1009,7 +1009,7 @@ _bantime=86400
             score -= 10
 
         # Check ciphers
-        weak_ciphers=["3des-cbc", "arcfour", "blowfish-cbc"]
+        weak_ciphers = ["3des-cbc", "arcfour", "blowfish-cbc"]
         for cipher in self._config.ciphers:
             if any(weak in cipher.lower() for weak in weak_ciphers):
                 findings.append(
@@ -1053,9 +1053,9 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
         from flask import Blueprint, jsonify, Response
         from opt.web.panel.rbac import require_permission, Resource, Action
 
-        _bp=Blueprint("ssh", __name__, url_prefix="/api/ssh")
+        _bp = Blueprint("ssh", __name__, url_prefix = "/api/ssh")
 
-        @bp.route("/config", methods=["GET"])
+        @bp.route("/config", methods = ["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
         def get_config() -> Response:
             """Get current SSH configuration."""
@@ -1070,26 +1070,26 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
                 }
             )
 
-        @bp.route("/config/preview", methods=["GET"])
+        @bp.route("/config/preview", methods = ["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
         def preview_config() -> Response:
             """Preview generated SSH configuration."""
-            _config=manager.generate_sshd_config()
+            _config = manager.generate_sshd_config()
             return jsonify({"config": config})
 
-        @bp.route("/audit", methods=["GET"])
+        @bp.route("/audit", methods = ["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
         def audit() -> Response:
             """Audit SSH configuration."""
             return jsonify(manager.audit_ssh_config())
 
-        @bp.route("/host-keys/fingerprints", methods=["GET"])
+        @bp.route("/host-keys/fingerprints", methods = ["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
         def host_key_fingerprints() -> Response:
             """Get host key fingerprints."""
             return jsonify(manager.get_host_key_fingerprints())
 
-        @bp.route("/fail2ban/config", methods=["GET"])
+        @bp.route("/fail2ban/config", methods = ["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
         def fail2ban_config() -> Response:
             """Get Fail2ban configuration."""
@@ -1106,7 +1106,7 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
 # Module Exports
 # =============================================================================
 
-__all__=[
+__all__ = [
     "SSHAuthMethod",
     "SSHKeyType",
     "MFAProvider",

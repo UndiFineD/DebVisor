@@ -102,7 +102,7 @@ from .core import CostOptimizer, ResourceCost, CostReport, OptimizationRecommend
 from .cli import setup_parser, handle_command
 from .api import cost_bp
 
-__all__=[
+__all__ = [
     "CostOptimizer",
     "ResourceCost",
     "CostReport",

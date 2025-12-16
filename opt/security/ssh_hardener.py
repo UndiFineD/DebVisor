@@ -115,13 +115,13 @@ import logging
 import sys
 
 logging.basicConfig(  # type: ignore[call-arg]
-    _level=logging.INFO,
-    _format="%(asctime)s - SSH-HARDENER - %(levelname)s - %(message)s",
+    _level = logging.INFO,
+    _format = "%(asctime)s - SSH-HARDENER - %(levelname)s - %(message)s",
 )
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
-SSHD_CONFIG="/etc/ssh/sshd_config"
-BACKUP_CONFIG="/etc/ssh/sshd_config.bak"
+SSHD_CONFIG = "/etc/ssh/sshd_config"
+BACKUP_CONFIG = "/etc/ssh/sshd_config.bak"
 
 
 def backup_config() -> None:
@@ -136,11 +136,11 @@ def backup_config() -> None:
 def apply_hardening() -> None:
     """Reads the config, modifies lines, and writes it back."""
     with open(SSHD_CONFIG, "r") as f:
-        _lines=f.readlines()
+        _lines = f.readlines()
 
-    _new_lines=[]  # type: ignore[var-annotated]
+    _new_lines = []  # type: ignore[var-annotated]
     # Configuration map
-    _config_map={
+    _config_map = {
         "PasswordAuthentication": "no",
         "PermitRootLogin": "prohibit-password",
         "PubkeyAuthentication": "yes",
@@ -152,16 +152,16 @@ def apply_hardening() -> None:
     }
 
     # Track what we've seen to append missing keys later
-    _seen_keys=set()  # type: ignore[var-annotated]
+    _seen_keys = set()  # type: ignore[var-annotated]
 
     for line in lines:  # type: ignore[name-defined]
-        _line_stripped=line.strip()
+        _line_stripped = line.strip()
         if not line_stripped or line_stripped.startswith("    #"):  # type: ignore[name-defined]
             new_lines.append(line)  # type: ignore[name-defined]
             continue
 
-        _parts=line_stripped.split()  # type: ignore[name-defined]
-        key=parts[0]  # type: ignore[name-defined]
+        _parts = line_stripped.split()  # type: ignore[name-defined]
+        key = parts[0]  # type: ignore[name-defined]
 
         if key in config_map:  # type: ignore[name-defined]
             seen_keys.add(key)  # type: ignore[name-defined]

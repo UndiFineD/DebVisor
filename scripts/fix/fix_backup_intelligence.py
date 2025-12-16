@@ -15,12 +15,12 @@ content = content.replace(
 )
 
 content = content.replace(
-    '_total_mb=sum(',
+    '_total_mb = sum(',
     'total_mb = sum('
 )
 
 content = content.replace(
-    '_now=datetime.now(',
+    '_now = datetime.now(',
     'now = datetime.now('
 )
 
@@ -35,321 +35,321 @@ content = content.replace(
 )
 
 content = content.replace(
-    '_hour_rate=',
+    '_hour_rate = ',
     'hour_rate = '
 )
 
 content = content.replace(
-    '_day_rate=',
+    '_day_rate = ',
     'day_rate = '
 )
 
 content = content.replace(
-    '_window=',
+    '_window = ',
     'window = '
 )
 
 content = content.replace(
-    '_score=',
+    '_score = ',
     'score = '
 )
 
 # Fix remaining underscore variable issues
 content = content.replace(
-    '_timestamp=',
+    '_timestamp = ',
     'timestamp = '
 )
 
 content = content.replace(
-    '_rate_per_hour=',
+    '_rate_per_hour = ',
     'rate_per_hour = '
 )
 
 content = content.replace(
-    '_weekday=',
+    '_weekday = ',
     'weekday = '
 )
 
 content = content.replace(
-    '_recent_avg=',
+    '_recent_avg = ',
     'recent_avg = '
 )
 
 content = content.replace(
-    '_recent_std=',
+    '_recent_std = ',
     'recent_std = '
 )
 
 content = content.replace(
-    '_cv=',
+    '_cv = ',
     'cv = '
 )
 
 content = content.replace(
-    '_sample_confidence=',
+    '_sample_confidence = ',
     'sample_confidence = '
 )
 
 content = content.replace(
-    '_variance_confidence=',
+    '_variance_confidence = ',
     'variance_confidence = '
 )
 
 content = content.replace(
-    '_now=',
+    '_now = ',
     'now = '
 )
 
 content = content.replace(
-    '_hour_factor=',
+    '_hour_factor = ',
     'hour_factor = '
 )
 
 content = content.replace(
-    '_day_factor=',
+    '_day_factor = ',
     'day_factor = '
 )
 
 content = content.replace(
-    '_check_time=',
+    '_check_time = ',
     'check_time = '
 )
 
 content = content.replace(
-    '_sandbox_id=',
+    '_sandbox_id = ',
     'sandbox_id = '
 )
 
 content = content.replace(
-    '_result=',
+    '_result = ',
     'result = '
 )
 
 content = content.replace(
-    '_recent_restores=',
+    '_recent_restores = ',
     'recent_restores = '
 )
 
 content = content.replace(
-    '_recent_std=',
+    '_recent_std = ',
     'recent_std = '
 )
 
 content = content.replace(
-    '_recent_avg=',
+    '_recent_avg = ',
     'recent_avg = '
 )
 
 content = content.replace(
-    '_successful=',
+    '_successful = ',
     'successful = '
 )
 
 content = content.replace(
-    '_failed=',
+    '_failed = ',
     'failed = '
 )
 
 content = content.replace(
-    '_validator=',
+    '_validator = ',
     'validator = '
 )
 
 content = content.replace(
-    '_check_date=',
+    '_check_date = ',
     'check_date = '
 )
 
 content = content.replace(
-    '_tests=',
+    '_tests = ',
     'tests = '
 )
 
 content = content.replace(
-    '_policy_id=',
+    '_policy_id = ',
     'policy_id = '
 )
 
 content = content.replace(
-    '_timestamp=',
+    '_timestamp = ',
     'timestamp = '
 )
 
 content = content.replace(
-    '_sla=',
+    '_sla = ',
     'sla = '
 )
 
 content = content.replace(
-    '_priority=',
+    '_priority = ',
     'priority = '
 )
 
 content = content.replace(
-    '_optimal_time=',
+    '_optimal_time = ',
     'optimal_time = '
 )
 
 content = content.replace(
-    '_rate=',
+    '_rate = ',
     'rate = '
 )
 
 content = content.replace(
-    '_hours_ahead=',
+    '_hours_ahead = ',
     'hours_ahead = '
 )
 
 content = content.replace(
-    '_estimated_duration=',
+    '_estimated_duration = ',
     'estimated_duration = '
 )
 
 content = content.replace(
-    '_schedule=',
+    '_schedule = ',
     'schedule = '
 )
 
 content = content.replace(
-    '_report=',
+    '_report = ',
     'report = '
 )
 
 content = content.replace(
-    '_all_vms=',
+    '_all_vms = ',
     'all_vms = '
 )
 
 content = content.replace(
-    '_compliance_reports=',
+    '_compliance_reports = ',
     'compliance_reports = '
 )
 
 content = content.replace(
-    '_compliant=',
+    '_compliant = ',
     'compliant = '
 )
 
 content = content.replace(
-    '_dedup_stats=',
+    '_dedup_stats = ',
     'dedup_stats = '
 )
 
 content = content.replace(
-    '_all_tests=',
+    '_all_tests = ',
     'all_tests = '
 )
 
 content = content.replace(
-    '_restore_rate=',
+    '_restore_rate = ',
     'restore_rate = '
 )
 
 content = content.replace(
-    '_dedup_ratio=',
+    '_dedup_ratio = ',
     'dedup_ratio = '
 )
 
 content = content.replace(
-    '_analytics=',
+    '_analytics = ',
     'analytics = '
 )
 
 content = content.replace(
-    '_total_logical=',
+    '_total_logical = ',
     'total_logical = '
 )
 
 content = content.replace(
-    '_total_physical=',
+    '_total_physical = ',
     'total_physical = '
 )
 
 content = content.replace(
-    '_start_time=',
+    '_start_time = ',
     'start_time = '
 )
 
 content = content.replace(
-    '_rpo_deadline=',
+    '_rpo_deadline = ',
     'rpo_deadline = '
 )
 
 content = content.replace(
-    '_thirty_days_ago=',
+    '_thirty_days_ago = ',
     'thirty_days_ago = '
 )
 
 content = content.replace(
-    '_sorted_backups=',
+    '_sorted_backups = ',
     'sorted_backups = '
 )
 
 content = content.replace(
-    '_gap=',
+    '_gap = ',
     'gap = '
 )
 
 content = content.replace(
-    '_backup_count=',
+    '_backup_count = ',
     'backup_count = '
 )
 
 content = content.replace(
-    '_restores=',
+    '_restores = ',
     'restores = '
 )
 
 content = content.replace(
-    '_test_id=',
+    '_test_id = ',
     'test_id = '
 )
 
 content = content.replace(
-    '_next_due=',
+    '_next_due = ',
     'next_due = '
 )
 
 content = content.replace(
-    '_status=',
+    '_status = ',
     'status = '
 )
 
 content = content.replace(
-    '_minutes_since_backup=',
+    '_minutes_since_backup = ',
     'minutes_since_backup = '
 )
 
 content = content.replace(
-    '_minutes_until_breach=',
+    '_minutes_until_breach = ',
     'minutes_until_breach = '
 )
 
 content = content.replace(
-    '_dedup_ratio=',
+    '_dedup_ratio = ',
     'dedup_ratio = '
 )
 
 # Now fix missing spaces around = operators in assignments
 replacements = [
-    ('m=self.metrics', 'm = self.metrics'),
-    ('m=self.metrics', 'm = self.metrics'),
-    ('recent_samples=m.samples', 'recent_samples = m.samples'),
-    ('hour=timestamp.hour', 'hour = timestamp.hour'),
-    ('alpha=0.3', 'alpha = 0.3'),
-    ('alpha=0.2', 'alpha = 0.2'),
-    ('_default_factory=dict', 'default_factory = dict'),
-    ('predicted_rate=m.samples', 'predicted_rate = m.samples'),
-    ('confidence=0.1', 'confidence = 0.1'),
-    ('m.predicted_rate=m.samples', 'm.predicted_rate = m.samples'),
-    ('m.confidence=0.1', 'm.confidence = 0.1'),
-    ('pattern_weight=min', 'pattern_weight = min'),
-    ('predicted=recent_avg', 'predicted = recent_avg'),
-    ('m.predicted_rate=max', 'm.predicted_rate = max'),
-    ('m.confidence=sample_confidence', 'm.confidence = sample_confidence'),
-    ('m.last_updated=timestamp', 'm.last_updated = timestamp'),
-    ('m.samples=m.samples', 'm.samples = m.samples'),
-    ('m.sample_times=m.sample_times', 'm.sample_times = m.sample_times'),
+    ('m = self.metrics', 'm = self.metrics'),
+    ('m = self.metrics', 'm = self.metrics'),
+    ('recent_samples = m.samples', 'recent_samples = m.samples'),
+    ('hour = timestamp.hour', 'hour = timestamp.hour'),
+    ('alpha = 0.3', 'alpha = 0.3'),
+    ('alpha = 0.2', 'alpha = 0.2'),
+    ('_default_factory = dict', 'default_factory = dict'),
+    ('predicted_rate = m.samples', 'predicted_rate = m.samples'),
+    ('confidence = 0.1', 'confidence = 0.1'),
+    ('m.predicted_rate = m.samples', 'm.predicted_rate = m.samples'),
+    ('m.confidence = 0.1', 'm.confidence = 0.1'),
+    ('pattern_weight = min', 'pattern_weight = min'),
+    ('predicted = recent_avg', 'predicted = recent_avg'),
+    ('m.predicted_rate = max', 'm.predicted_rate = max'),
+    ('m.confidence = sample_confidence', 'm.confidence = sample_confidence'),
+    ('m.last_updated = timestamp', 'm.last_updated = timestamp'),
+    ('m.samples = m.samples', 'm.samples = m.samples'),
+    ('m.sample_times = m.sample_times', 'm.sample_times = m.sample_times'),
 ]
 
 for old, new in replacements:

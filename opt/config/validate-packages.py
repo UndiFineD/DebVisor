@@ -36,14 +36,14 @@ class PackageValidator:
     """Validate Debian packages against repository."""
 
     # Debian suite mappings for architecture support
-    DEBIAN_SUITES={
+    DEBIAN_SUITES = {
         "bookworm": "stable",
         "trixie": "testing",
         "sid": "unstable",
         "bookworm-backports": "backports",
     }
 
-    SUPPORTED_ARCHS={"amd64", "arm64", "i386", "armh", "ppc64el", "s390x"}
+    SUPPORTED_ARCHS = {"amd64", "arm64", "i386", "armh", "ppc64el", "s390x"}
 
     def __init__(self, dist: str, arch: str, verbose: bool=False) -> None:
         """Initialize validator.
@@ -53,9 +53,9 @@ class PackageValidator:
             arch: Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)
             verbose: Enable verbose output
         """
-        self.dist=dist
-        self.arch=arch
-        self.verbose=verbose
+        self.dist = dist
+        self.arch = arch
+        self.verbose = verbose
         self.packages: Dict[str, Dict[str, Any]] = {}
         self.errors: List[str] = []
         self.warnings: List[str] = []
@@ -68,8 +68,8 @@ class PackageValidator:
         Returns:
             List of Path objects for .list.chroot files
         """
-        _config_dir=Path(".")
-        _list_files=list(config_dir.glob("*.list.chroot"))  # type: ignore[name-defined]
+        _config_dir = Path(".")
+        _list_files = list(config_dir.glob("*.list.chroot"))  # type: ignore[name-defined]
 
         if not list_files:  # type: ignore[name-defined]
             self.errors.append("No .list.chroot files found in current directory")
@@ -91,18 +91,18 @@ class PackageValidator:
         Returns:
             Set of unique package names
         """
-        _packages=set()  # type: ignore[var-annotated]
+        _packages = set()  # type: ignore[var-annotated]
 
         for list_file in list_files:  # type: ignore[name-defined]
             try:
                 with open(list_file, "r") as f:
                     for line in f:
-                        _line=line.strip()
+                        _line = line.strip()
                         # Skip comments and empty lines
                         if not line or line.startswith("    #"):
                             continue
                         # Extract package name (may have conditions like 'package !i386')
-                        _pkg_name=re.split(r"\s+", line)[0]
+                        _pkg_name = re.split(r"\s+", line)[0]
                         if pkg_name:  # type: ignore[name-defined]
                             packages.add(pkg_name)  # type: ignore[name-defined]
                             if self.verbose:
@@ -154,11 +154,11 @@ class PackageValidator:
         try:
         # Use apt-cache to check availability
             # This works if apt is available and cache is up to date
-            result=subprocess.run(  # type: ignore[call-overload]
+            result = subprocess.run(  # type: ignore[call-overload]
                 ["apt-cache", "policy", package],
-                _capture_output=True,
-                _text=True,
-                _timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )    # nosec B603, B607
 
             if result.returncode != 0:
@@ -198,11 +198,11 @@ class PackageValidator:
             "unknown": [],
         }
 
-        _total=len(packages)
+        _total = len(packages)
         print(f"\nValidating {total} packages for {self.dist}/{self.arch}...")  # type: ignore[name-defined]
 
         for i, pkg in enumerate(sorted(packages), 1):
-            _status=f"({i}/{total})"  # type: ignore[name-defined]
+            _status = f"({i}/{total})"  # type: ignore[name-defined]
 
             # Check for conditional packages (e.g., architecture-specific)
             if re.search(r"[!]", pkg) or re.search(r"[amd64|arm64|i386]", pkg):
@@ -218,7 +218,7 @@ class PackageValidator:
                 continue
 
             # Check availability
-            exists, msg=self.check_package_in_apt(pkg)
+            exists, msg = self.check_package_in_apt(pkg)
 
             if exists:
                 results["available"].append(pkg)
@@ -240,7 +240,7 @@ class PackageValidator:
         Returns:
             True if package is conditional/optional
         """
-        _optional_patterns=[
+        _optional_patterns = [
             r"ceph-",    # Ceph packages (only if ceph profile)
             r"zfs",    # ZFS packages (only if zfs/mixed profile)
             r"kubeadm",    # Kubernetes (only if k8s enabled)
@@ -263,7 +263,7 @@ class PackageValidator:
         Returns:
             Formatted report string
         """
-        _report_lines=[
+        _report_lines = [
             "?" * 80,
             "PACKAGE VALIDATION REPORT",
             "?" * 80,
@@ -341,20 +341,20 @@ class PackageValidator:
             return 1
 
         # Parse package lists
-        _list_files=self.parse_package_lists()
+        _list_files = self.parse_package_lists()
         if not list_files:  # type: ignore[name-defined]
             print("\n".join(self.errors))
             return 1
 
         # Load packages
-        _packages=self.load_packages(list_files)  # type: ignore[name-defined]
+        _packages = self.load_packages(list_files)  # type: ignore[name-defined]
         print(f"Loaded {len(packages)} unique packages")  # type: ignore[name-defined]
 
         # Validate each package
-        _results=self.validate_packages(packages)  # type: ignore[name-defined]
+        _results = self.validate_packages(packages)  # type: ignore[name-defined]
 
         # Generate report
-        _report=self.generate_report(results)  # type: ignore[name-defined]
+        _report = self.generate_report(results)  # type: ignore[name-defined]
         print(report)  # type: ignore[name-defined]
 
         # Return exit code based on errors
@@ -363,38 +363,38 @@ class PackageValidator:
 
 def main() -> None:
     """Main entry point."""
-    parser=argparse.ArgumentParser(  # type: ignore[call-arg]
-        _description="Validate Debian packages for DebVisor ISO build"
+    parser = argparse.ArgumentParser(  # type: ignore[call-arg]
+        _description = "Validate Debian packages for DebVisor ISO build"
     )
     parser.add_argument(
-        "--dist", default="bookworm", help="Debian distribution (bookworm, trixie, sid)"
+        "--dist", default = "bookworm", help = "Debian distribution (bookworm, trixie, sid)"
     )
     parser.add_argument(
         "--arch",
-        _default="amd64",
-        _help="Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)",
+        _default = "amd64",
+        _help = "Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)",
     )
     parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose output"
+        "--verbose", "-v", action = "store_true", help = "Enable verbose output"
     )
-    parser.add_argument("--json", action="store_true", help="Output results as JSON")
+    parser.add_argument("--json", action = "store_true", help = "Output results as JSON")
 
-    _args=parser.parse_args()
+    _args = parser.parse_args()
 
     # Run validator
-    _validator=PackageValidator(args.dist, args.arch, args.verbose)  # type: ignore[name-defined]
-    _exit_code=validator.run()  # type: ignore[name-defined]
+    _validator = PackageValidator(args.dist, args.arch, args.verbose)  # type: ignore[name-defined]
+    _exit_code = validator.run()  # type: ignore[name-defined]
 
     # Output JSON if requested
     if args.json:  # type: ignore[name-defined]
-        json_output={
+        json_output = {
             "distribution": args.dist,  # type: ignore[name-defined]
             "architecture": args.arch,  # type: ignore[name-defined]
             "errors": validator.errors,  # type: ignore[name-defined]
             "warnings": validator.warnings,  # type: ignore[name-defined]
             "exit_code": exit_code,  # type: ignore[name-defined]
         }
-        print(json.dumps(json_output, indent=2))
+        print(json.dumps(json_output, indent = 2))
 
     sys.exit(exit_code)  # type: ignore[name-defined]
 

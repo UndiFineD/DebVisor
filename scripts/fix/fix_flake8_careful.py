@@ -8,7 +8,7 @@ with open('opt/services/backup/backup_intelligence.py', 'r') as f:
 fixes = [
     # E225: Missing whitespace around operators
     (
-        '_logger=logging.getLogger(__name__)',
+        '_logger = logging.getLogger(__name__)',
         '_logger = logging.getLogger(__name__)'
     ),
     # Function definition parameter spacing
@@ -31,7 +31,7 @@ fixes = [
     (
         'def schedule_test(\n        self,\n        backup_id: str,\n'
         '        vm_id: str,\n        policy_id: str,\n'
-        '        profile: str="default",\n        priority: int=0,',
+        '        profile: str = "default",\n        priority: int = 0,',
         'def schedule_test(\n        self,\n        backup_id: str,\n'
         '        vm_id: str,\n        policy_id: str,\n'
         '        profile: str = "default",\n        priority: int = 0,'
@@ -39,17 +39,17 @@ fixes = [
     # Function body parameter spacing
     (
         'RestoreTest(  # type: ignore[call-arg]\n'
-        '            _id=test_id,  # type: ignore[name-defined]\n'
-        '            _backup_id=backup_id,\n'
-        '            _vm_id=vm_id,\n'
+        '            _id = test_id,  # type: ignore[name-defined]\n'
+        '            _backup_id = backup_id,\n'
+        '            _vm_id = vm_id,\n'
         '            policy_id = policy_id,\n'
         '            status = RestoreTestStatus.PENDING,',
         'RestoreTest(  # type: ignore[call-arg]\n'
-        '            _id=test_id,  # type: ignore[name-defined]\n'
-        '            _backup_id=backup_id,\n'
-        '            _vm_id=vm_id,\n'
-        '            policy_id=policy_id,\n'
-        '            status=RestoreTestStatus.PENDING,'
+        '            _id = test_id,  # type: ignore[name-defined]\n'
+        '            _backup_id = backup_id,\n'
+        '            _vm_id = vm_id,\n'
+        '            policy_id = policy_id,\n'
+        '            status = RestoreTestStatus.PENDING,'
     ),
     (
         'if test_id not in self.tests:',
@@ -57,18 +57,18 @@ fixes = [
     ),
     (
         'def __init__(\n        self,\n'
-        '        sandbox_network: str="isolated-restore-test",\n'
-        '        max_concurrent_tests: int=3,\n'
-        '        test_timeout_minutes: int=60,',
+        '        sandbox_network: str = "isolated-restore-test",\n'
+        '        max_concurrent_tests: int = 3,\n'
+        '        test_timeout_minutes: int = 60,',
         'def __init__(\n        self,\n'
         '        sandbox_network: str = "isolated-restore-test",\n'
         '        max_concurrent_tests: int = 3,\n'
         '        test_timeout_minutes: int = 60,'
     ),
     (
-        'self.sandbox_network=sandbox_network\n'
+        'self.sandbox_network = sandbox_network\n'
         '        self.max_concurrenttests = max_concurrent_tests\n'
-        '        self.test_timeout_minutes=test_timeout_minutes',
+        '        self.test_timeout_minutes = test_timeout_minutes',
         'self.sandbox_network = sandbox_network\n'
         '        self.max_concurrent_tests = max_concurrent_tests\n'
         '        self.test_timeout_minutes = test_timeout_minutes'

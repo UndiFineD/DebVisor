@@ -8,8 +8,8 @@ agent_dir = r'c:\Users\kdejo\DEV\DebVisor\scripts\agent'
 
 # Get all F401 issues
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True, text=True, cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True, text = True, cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 # Collect F401 issues by file and line
@@ -36,11 +36,11 @@ for filename, line_issues in f401_map.items():
     if not os.path.exists(filepath):
         continue
     
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     # Process in reverse so line numbers don't shift
-    for lineno in sorted(line_issues.keys(), reverse=True):
+    for lineno in sorted(line_issues.keys(), reverse = True):
         lineno_idx = lineno - 1  # Convert to 0-indexed
         if lineno_idx < len(lines):
             line = lines[lineno_idx]
@@ -60,7 +60,7 @@ for filename, line_issues in f401_map.items():
                     fixed += 1
     
     # Write back if modified
-    with open(filepath, 'w', encoding='utf-8') as f:
+    with open(filepath, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
 
 print(f"F401 imports safely removed: {fixed}")

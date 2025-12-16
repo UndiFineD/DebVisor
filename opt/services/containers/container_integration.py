@@ -122,7 +122,7 @@ import asyncio
 import time
 import os
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -131,31 +131,31 @@ _logger=logging.getLogger(__name__)
 class RuntimeType(Enum):
     """Container runtime types."""
 
-    DOCKER="docker"
-    CONTAINERD="containerd"
-    CRIO="cri-o"
-    LXD="lxd"
-    PODMAN="podman"
+    DOCKER = "docker"
+    CONTAINERD = "containerd"
+    CRIO = "cri-o"
+    LXD = "lxd"
+    PODMAN = "podman"
 
 
 class CNIType(Enum):
     """CNI plugin types."""
 
-    CALICO="calico"
-    CILIUM="cilium"
-    FLANNEL="flannel"
-    WEAVE="weave"
-    CANAL="canal"
+    CALICO = "calico"
+    CILIUM = "cilium"
+    FLANNEL = "flannel"
+    WEAVE = "weave"
+    CANAL = "canal"
 
 
 class NetworkMode(Enum):
     """Container network modes."""
 
-    BRIDGE="bridge"
-    HOST="host"
-    NONE="none"
-    OVERLAY="overlay"
-    MACVLAN="macvlan"
+    BRIDGE = "bridge"
+    HOST = "host"
+    NONE = "none"
+    OVERLAY = "overlay"
+    MACVLAN = "macvlan"
 
 
 @dataclass
@@ -167,13 +167,13 @@ class ContainerRuntime:
     version: str
     socket_path: str
     binary_path: str
-    rootless: bool=False
-    cgroup_driver: str="systemd"
-    storage_driver: str="overlay2"
-    features: List[str] = field(default_factory=list)
-    health_status: str="unknown"
-    containers_running: int=0
-    images_count: int=0
+    rootless: bool = False
+    cgroup_driver: str = "systemd"
+    storage_driver: str = "overlay2"
+    features: List[str] = field(default_factory = list)
+    health_status: str = "unknown"
+    containers_running: int = 0
+    images_count: int = 0
 
 
 @dataclass
@@ -185,11 +185,11 @@ class LXDProfile:
     cpu_limit: Optional[str] = None
     memory_limit: Optional[str] = None
     disk_size: Optional[str] = None
-    network_mode: str="bridged"
-    security_privileged: bool=False
-    security_nesting: bool=False
-    raw_lxc: List[str] = field(default_factory=list)
-    devices: Dict[str, Dict[str, str]] = field(default_factory=dict)
+    network_mode: str = "bridged"
+    security_privileged: bool = False
+    security_nesting: bool = False
+    raw_lxc: List[str] = field(default_factory = list)
+    devices: Dict[str, Dict[str, str]] = field(default_factory = dict)
 
 
 @dataclass
@@ -199,14 +199,14 @@ class LXDContainer:
     name: str
     image: str
     profile: str
-    status: str="stopped"
-    ephemeral: bool=False
+    status: str = "stopped"
+    ephemeral: bool = False
     ipv4_address: Optional[str] = None
     ipv6_address: Optional[str] = None
     pid: Optional[int] = None
     created_at: Optional[str] = None
-    cpu_usage: float=0.0
-    memory_usage: int=0
+    cpu_usage: float = 0.0
+    memory_usage: int = 0
 
 
 @dataclass
@@ -217,17 +217,17 @@ class CNIConfig:
     cni_type: CNIType
     version: str
     pod_cidr: str
-    service_cidr: str="10.96.0.0/12"
-    mtu: int=1500
-    features: List[str] = field(default_factory=list)
-    encryption_enabled: bool=False
+    service_cidr: str = "10.96.0.0/12"
+    mtu: int = 1500
+    features: List[str] = field(default_factory = list)
+    encryption_enabled: bool = False
     encryption_type: Optional[str] = None
-    hubble_enabled: bool=False
-    policy_mode: str="default"
-    ipam_mode: str="cluster-pool"
-    status: str="unknown"
-    healthy_nodes: int=0
-    total_nodes: int=0
+    hubble_enabled: bool = False
+    policy_mode: str = "default"
+    ipam_mode: str = "cluster-pool"
+    status: str = "unknown"
+    healthy_nodes: int = 0
+    total_nodes: int = 0
 
 
 @dataclass
@@ -240,10 +240,10 @@ class CiliumEndpoint:
     pod_name: str
     ipv4: Optional[str] = None
     ipv6: Optional[str] = None
-    labels: Dict[str, str] = field(default_factory=dict)
-    policy_enforcement: str="default"
-    ingress_enforced: bool=False
-    egress_enforced: bool=False
+    labels: Dict[str, str] = field(default_factory = dict)
+    policy_enforcement: str = "default"
+    ingress_enforced: bool = False
+    egress_enforced: bool = False
 
 
 @dataclass
@@ -253,9 +253,9 @@ class CiliumNetworkPolicy:
     name: str
     namespace: str
     endpoint_selector: Dict[str, str]
-    ingress_rules: List[Dict[str, Any]] = field(default_factory=list)
-    egress_rules: List[Dict[str, Any]] = field(default_factory=list)
-    labels: Dict[str, str] = field(default_factory=dict)
+    ingress_rules: List[Dict[str, Any]] = field(default_factory = list)
+    egress_rules: List[Dict[str, Any]] = field(default_factory = list)
+    labels: Dict[str, str] = field(default_factory = dict)
 
 
 @dataclass
@@ -271,7 +271,7 @@ class RootlessConfig:
     subgid_count: int
     socket_path: str
     data_root: str
-    enabled: bool=False
+    enabled: bool = False
 
 
 @dataclass
@@ -279,13 +279,13 @@ class CgroupConfig:
     """Cgroup configuration for containers."""
 
     version: int    # 1 or 2
-    cpu_shares: int=1024
+    cpu_shares: int = 1024
     cpu_quota: int=-1
-    cpu_period: int=100000
+    cpu_period: int = 100000
     memory_limit: int=-1
     memory_swap: int=-1
     pids_limit: int=-1
-    io_weight: int=100
+    io_weight: int = 100
 
 
 @dataclass
@@ -313,10 +313,10 @@ class LXDManager:
     """Manages LXD container runtime integration."""
 
     def __init__(self, socketpath: str="/var/snap/lxd/common/lxd/unix.socket") -> None:
-        self.socket_path=socket_path  # type: ignore[name-defined]
+        self.socket_path = socket_path  # type: ignore[name-defined]
         self._profiles: Dict[str, LXDProfile] = {}
         self._containers: Dict[str, LXDContainer] = {}
-        self._connected=False
+        self._connected = False
 
     async def connect(self) -> bool:
         """Connect to LXD daemon."""
@@ -324,23 +324,23 @@ class LXDManager:
         # Check socket exists
             if not Path(self.socket_path).exists():
             # Try alternative paths
-                alt_paths=[
+                alt_paths = [
                     "/var/lib/lxd/unix.socket",
                     "/var/snap/lxd/common/lxd/unix.socket",
                     os.path.expanduser("~/.local/share/lxd/unix.socket"),
                 ]
                 for alt in alt_paths:
                     if Path(alt).exists():
-                        self.socket_path=alt
+                        self.socket_path = alt
                         break
                 else:
                     logger.warning("LXD socket not found")  # type: ignore[name-defined]
                     return False
 
             # Test connection
-            _result=await self._run_lxc(["version"])
+            _result = await self._run_lxc(["version"])
             if result.returncode == 0:  # type: ignore[name-defined]
-                self._connected=True
+                self._connected = True
                 logger.info(f"Connected to LXD: {result.stdout.strip()}")
                 return True
             return False
@@ -352,15 +352,15 @@ class LXDManager:
         self, args: List[str], input_data: Optional[str] = None
     ) -> subprocess.CompletedProcess:
         """Run lxc command."""
-        cmd=["lxc"] + args
+        cmd = ["lxc"] + args
         try:
-            proc=await asyncio.create_subprocess_exec(
+            proc = await asyncio.create_subprocess_exec(
                 *cmd,
-                _stdin=asyncio.subprocess.PIPE if input_data else None,
-                _stdout=asyncio.subprocess.PIPE,
-                _stderr=asyncio.subprocess.PIPE,
+                _stdin = asyncio.subprocess.PIPE if input_data else None,
+                _stdout = asyncio.subprocess.PIPE,
+                _stderr = asyncio.subprocess.PIPE,
             )
-            stdout, stderr=await proc.communicate(
+            stdout, stderr = await proc.communicate(
                 input_data.encode() if input_data else None
             )
             return subprocess.CompletedProcess(
@@ -371,7 +371,7 @@ class LXDManager:
 
     async def get_info(self) -> Dict[str, Any]:
         """Get LXD server info."""
-        _result=await self._run_lxc(["info", "--format=json"])
+        _result = await self._run_lxc(["info", "--format = json"])
         if result.returncode == 0:
             return json.loads(result.stdout)
         return {}
@@ -379,7 +379,7 @@ class LXDManager:
     async def create_profile(self, profile: LXDProfile) -> bool:
         """Create or update LXD profile."""
         # Build profile config
-        config={
+        config = {
             "name": profile.name,
             "description": profile.description,
             "config": {},
@@ -398,18 +398,18 @@ class LXDManager:
         if profile.raw_lxc:
             config["config"]["raw.lxc"] = "\n".join(profile.raw_lxc)  # type: ignore[index]
         # Check if profile exists
-        _check=await self._run_lxc(["profile", "show", profile.name])
+        _check = await self._run_lxc(["profile", "show", profile.name])
         if check.returncode == 0:
         # Update existing
-            result=await self._run_lxc(
-                ["profile", "edit", profile.name], input_data=json.dumps(config)
+            result = await self._run_lxc(
+                ["profile", "edit", profile.name], input_data = json.dumps(config)
             )
         else:
         # Create new
-            _result=await self._run_lxc(["profile", "create", profile.name])
+            _result = await self._run_lxc(["profile", "create", profile.name])
             if result.returncode == 0:
-                result=await self._run_lxc(
-                    ["profile", "edit", profile.name], input_data=json.dumps(config)
+                result = await self._run_lxc(
+                    ["profile", "edit", profile.name], input_data = json.dumps(config)
                 )
 
         if result.returncode == 0:
@@ -421,21 +421,21 @@ class LXDManager:
         return False
 
     async def create_container(
-        self, name: str, image: str, profile: str="default", ephemeral: bool=False
+        self, name: str, image: str, profile: str = "default", ephemeral: bool = False
     ) -> Optional[LXDContainer]:
         """Create LXD container."""
-        args=["launch", image, name, f"--profile={profile}"]
+        args = ["launch", image, name, f"--profile = {profile}"]
         if ephemeral:
             args.append("--ephemeral")
 
-        _result=await self._run_lxc(args)
+        _result = await self._run_lxc(args)
         if result.returncode == 0:
-            container=LXDContainer(  # type: ignore[call-arg]
-                _name=name,
-                _image=image,
-                _profile=profile,
-                _status="running",
-                _ephemeral=ephemeral,
+            container = LXDContainer(  # type: ignore[call-arg]
+                _name = name,
+                _image = image,
+                _profile = profile,
+                _status = "running",
+                _ephemeral = ephemeral,
             )
             self._containers[name] = container
             logger.info(f"Created LXD container: {name}")
@@ -449,46 +449,46 @@ class LXDManager:
 
     async def _update_container_info(self, name: str) -> None:
         """Update container info from LXD."""
-        _result=await self._run_lxc(["info", name, "--format=json"])
+        _result = await self._run_lxc(["info", name, "--format = json"])
         if result.returncode == 0:
-            _info=json.loads(result.stdout)
+            _info = json.loads(result.stdout)
             if name in self._containers:
-                container=self._containers[name]
-                container.status=info.get("status", "unknown")
-                container.pid=info.get("state", {}).get("pid")
-                container.created_at=info.get("created_at")
+                container = self._containers[name]
+                container.status = info.get("status", "unknown")
+                container.pid = info.get("state", {}).get("pid")
+                container.created_at = info.get("created_at")
 
                 # Get IP addresses
-                _network=info.get("state", {}).get("network", {})
+                _network = info.get("state", {}).get("network", {})
                 for iface_name, iface in network.items():
                     for addr in iface.get("addresses", []):
                         if addr.get("family") == "inet":
-                            container.ipv4_address=addr.get("address")
+                            container.ipv4_address = addr.get("address")
                         elif addr.get("family") == "inet6" and not addr.get(
                             "address", ""
                         ).startswith("fe80"):
-                            container.ipv6_address=addr.get("address")
+                            container.ipv6_address = addr.get("address")
 
     async def stop_container(self, name: str, force: bool=False) -> bool:
         """Stop LXD container."""
-        args=["stop", name]
+        args = ["stop", name]
         if force:
             args.append("--force")
 
-        _result=await self._run_lxc(args)
+        _result = await self._run_lxc(args)
         if result.returncode == 0:
             if name in self._containers:
-                self._containers[name].status="stopped"
+                self._containers[name].status = "stopped"
             return True
         return False
 
     async def delete_container(self, name: str, force: bool=False) -> bool:
         """Delete LXD container."""
-        args=["delete", name]
+        args = ["delete", name]
         if force:
             args.append("--force")
 
-        _result=await self._run_lxc(args)
+        _result = await self._run_lxc(args)
         if result.returncode == 0:
             self._containers.pop(name, None)
             return True
@@ -498,7 +498,7 @@ class LXDManager:
         self, name: str, command: List[str], user: Optional[str] = None
     ) -> subprocess.CompletedProcess:
         """Execute command in container."""
-        args=["exec", name]
+        args = ["exec", name]
         if user:
             args.extend(["--user", user])
         args.append("--")
@@ -508,15 +508,15 @@ class LXDManager:
 
     async def list_containers(self) -> List[LXDContainer]:
         """List all LXD containers."""
-        _result=await self._run_lxc(["list", "--format=json"])
+        _result = await self._run_lxc(["list", "--format = json"])
         if result.returncode == 0:
-            containers=[]
+            containers = []
             for c in json.loads(result.stdout):
-                container=LXDContainer(  # type: ignore[call-arg]
-                    _name=c["name"],
-                    _image=c.get("config", {}).get("image.description", "unknown"),
-                    _profile=c.get("profiles", ["default"])[0],
-                    _status=c.get("status", "unknown").lower(),
+                container = LXDContainer(  # type: ignore[call-arg]
+                    _name = c["name"],
+                    _image = c.get("config", {}).get("image.description", "unknown"),
+                    _profile = c.get("profiles", ["default"])[0],
+                    _status = c.get("status", "unknown").lower(),
                 )
                 containers.append(container)
                 self._containers[container.name] = container
@@ -525,39 +525,39 @@ class LXDManager:
 
     async def get_container_metrics(self, name: str) -> Optional[ContainerMetrics]:
         """Get container resource metrics."""
-        _result=await self._run_lxc(["info", name, "--format=json"])
+        _result = await self._run_lxc(["info", name, "--format = json"])
         if result.returncode != 0:
             return None
 
-        _info=json.loads(result.stdout)
-        _state=info.get("state", {})
+        _info = json.loads(result.stdout)
+        _state = info.get("state", {})
 
         return ContainerMetrics(  # type: ignore[call-arg]
-            _container_id=name,
-            _name=name,
-            _cpu_percent=state.get("cpu", {}).get("usage", 0)
+            _container_id = name,
+            _name = name,
+            _cpu_percent = state.get("cpu", {}).get("usage", 0)
             / 1e9,    # nanoseconds to seconds
-            _memory_usage=state.get("memory", {}).get("usage", 0),
-            _memory_limit=state.get("memory", {}).get("usage_peak", 0),
-            _memory_percent=0.0,
-            _network_rx_bytes=sum(
+            _memory_usage = state.get("memory", {}).get("usage", 0),
+            _memory_limit = state.get("memory", {}).get("usage_peak", 0),
+            _memory_percent = 0.0,
+            _network_rx_bytes = sum(
                 n.get("counters", {}).get("bytes_received", 0)
                 for n in state.get("network", {}).values()
             ),
-            _network_tx_bytes=sum(
+            _network_tx_bytes = sum(
                 n.get("counters", {}).get("bytes_sent", 0)
                 for n in state.get("network", {}).values()
             ),
-            _block_read_bytes=sum(
+            _block_read_bytes = sum(
                 d.get("counters", {}).get("bytes_read", 0)
                 for d in state.get("disk", {}).values()
             ),
-            _block_write_bytes=sum(
+            _block_write_bytes = sum(
                 d.get("counters", {}).get("bytes_written", 0)
                 for d in state.get("disk", {}).values()
             ),
-            _pids=state.get("processes", 0),
-            _timestamp=time.time(),
+            _pids = state.get("processes", 0),
+            _timestamp = time.time(),
         )
 
 
@@ -568,19 +568,19 @@ class CiliumCNIManager:
     """Manages Cilium CNI installation and configuration."""
 
     def __init__(self, kubeconfig: str="/etc/kubernetes/admin.conf") -> None:
-        self.kubeconfig=kubeconfig
+        self.kubeconfig = kubeconfig
         self._config: Optional[CNIConfig] = None
         self._endpoints: Dict[int, CiliumEndpoint] = {}
         self._policies: Dict[str, CiliumNetworkPolicy] = {}
 
     async def _run_kubectl(self, args: List[str]) -> subprocess.CompletedProcess:
         """Run kubectl command."""
-        cmd=["kubectl", f"--kubeconfig={self.kubeconfig}"] + args
+        cmd = ["kubectl", f"--kubeconfig = {self.kubeconfig}"] + args
         try:
-            proc=await asyncio.create_subprocess_exec(
-                *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            proc = await asyncio.create_subprocess_exec(
+                *cmd, stdout = asyncio.subprocess.PIPE, stderr = asyncio.subprocess.PIPE
             )
-            stdout, stderr=await proc.communicate()
+            stdout, stderr = await proc.communicate()
             return subprocess.CompletedProcess(
                 cmd, proc.returncode, stdout.decode(), stderr.decode()  # type: ignore[arg-type]
             )
@@ -589,12 +589,12 @@ class CiliumCNIManager:
 
     async def _run_cilium(self, args: List[str]) -> subprocess.CompletedProcess:
         """Run cilium CLI command."""
-        cmd=["cilium"] + args
+        cmd = ["cilium"] + args
         try:
-            proc=await asyncio.create_subprocess_exec(
-                *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            proc = await asyncio.create_subprocess_exec(
+                *cmd, stdout = asyncio.subprocess.PIPE, stderr = asyncio.subprocess.PIPE
             )
-            stdout, stderr=await proc.communicate()
+            stdout, stderr = await proc.communicate()
             return subprocess.CompletedProcess(
                 cmd, proc.returncode, stdout.decode(), stderr.decode()  # type: ignore[arg-type]
             )
@@ -603,16 +603,16 @@ class CiliumCNIManager:
 
     async def install(
         self,
-        pod_cidr: str="10.0.0.0/8",
-        service_cidr: str="10.96.0.0/12",
-        version: str="1.15.0",
-        enable_hubble: bool=True,
-        enable_encryption: bool=False,
-        encryption_type: str="wireguard",
+        pod_cidr: str = "10.0.0.0/8",
+        service_cidr: str = "10.96.0.0/12",
+        version: str = "1.15.0",
+        enable_hubble: bool = True,
+        enable_encryption: bool = False,
+        encryption_type: str = "wireguard",
     ) -> Optional[CNIConfig]:
         """Install Cilium CNI using Helm."""
         # Build Helm values
-        _helm_args=[
+        _helm_args = [
             "upgrade",
             "--install",
             "cilium",
@@ -622,26 +622,26 @@ class CiliumCNIManager:
             "--namespace",
             "kube-system",
             "--set",
-            f"ipam.operator.clusterPoolIPv4PodCIDR={pod_cidr}",
+            f"ipam.operator.clusterPoolIPv4PodCIDR = {pod_cidr}",
             "--set",
-            "k8sServiceHost=localhost",
+            "k8sServiceHost = localhost",
             "--set",
-            "k8sServicePort=6443",
+            "k8sServicePort = 6443",
             "--set",
-            "operator.replicas=1",
+            "operator.replicas = 1",
         ]
 
-        _features=["ebpf-host-routing", "bpf-masquerade"]
+        _features = ["ebpf-host-routing", "bpf-masquerade"]
 
         if enable_hubble:
             helm_args.extend(
                 [
                     "--set",
-                    "hubble.enabled=true",
+                    "hubble.enabled = true",
                     "--set",
-                    "hubble.relay.enabled=true",
+                    "hubble.relay.enabled = true",
                     "--set",
-                    "hubble.ui.enabled=true",
+                    "hubble.ui.enabled = true",
                 ]
             )
             features.append("hubble")
@@ -651,9 +651,9 @@ class CiliumCNIManager:
                 helm_args.extend(
                     [
                         "--set",
-                        "encryption.enabled=true",
+                        "encryption.enabled = true",
                         "--set",
-                        "encryption.type=wireguard",
+                        "encryption.type = wireguard",
                     ]
                 )
                 features.append("wireguard-encryption")
@@ -661,25 +661,25 @@ class CiliumCNIManager:
                 helm_args.extend(
                     [
                         "--set",
-                        "encryption.enabled=true",
+                        "encryption.enabled = true",
                         "--set",
-                        "encryption.type=ipsec",
+                        "encryption.type = ipsec",
                     ]
                 )
                 features.append("ipsec-encryption")
 
         # Add Helm repo
         await self._run_kubectl(
-            ["create", "namespace", "kube-system", "--dry-run=client", "-o", "yaml"]
+            ["create", "namespace", "kube-system", "--dry-run = client", "-o", "yaml"]
         )
 
         # Run Helm install
-        cmd=["helm"] + helm_args
+        cmd = ["helm"] + helm_args
         try:
-            proc=await asyncio.create_subprocess_exec(
-                *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            proc = await asyncio.create_subprocess_exec(
+                *cmd, stdout = asyncio.subprocess.PIPE, stderr = asyncio.subprocess.PIPE
             )
-            stdout, stderr=await proc.communicate()
+            stdout, stderr = await proc.communicate()
 
             if proc.returncode != 0:
                 logger.error(f"Helm install failed: {stderr.decode()}")
@@ -687,17 +687,17 @@ class CiliumCNIManager:
         except FileNotFoundError:
             logger.warning("Helm not found, simulating Cilium install")
 
-        self._config=CNIConfig(  # type: ignore[call-arg]
-            _name="cilium",
-            _cni_type=CNIType.CILIUM,
-            _version=version,
-            _pod_cidr=pod_cidr,
-            _service_cidr=service_cidr,
-            _features=features,
-            _encryption_enabled=enable_encryption,
-            _encryption_type=encryption_type if enable_encryption else None,
-            _hubble_enabled=enable_hubble,
-            _status="installed",
+        self._config = CNIConfig(  # type: ignore[call-arg]
+            _name = "cilium",
+            _cni_type = CNIType.CILIUM,
+            _version = version,
+            _pod_cidr = pod_cidr,
+            _service_cidr = service_cidr,
+            _features = features,
+            _encryption_enabled = enable_encryption,
+            _encryption_type = encryption_type if enable_encryption else None,
+            _hubble_enabled = enable_hubble,
+            _status = "installed",
         )
 
         logger.info(f"Installed Cilium CNI v{version}")
@@ -705,15 +705,15 @@ class CiliumCNIManager:
 
     async def get_status(self) -> Dict[str, Any]:
         """Get Cilium cluster status."""
-        _result=await self._run_cilium(["status", "--output=json"])
+        _result = await self._run_cilium(["status", "--output = json"])
         if result.returncode == 0:
             try:
-                _status=json.loads(result.stdout)
+                _status = json.loads(result.stdout)
                 if self._config:
                     self._config.healthy_nodes=(
                         status.get("cluster", {}).get("ciliumHealth", {}).get("ok", 0)
                     )
-                    self._config.total_nodes=status.get("cluster", {}).get("nodes", 0)
+                    self._config.total_nodes = status.get("cluster", {}).get("nodes", 0)
                 return status
             except json.JSONDecodeError:
                 pass
@@ -727,33 +727,33 @@ class CiliumCNIManager:
 
     async def list_endpoints(self) -> List[CiliumEndpoint]:
         """List Cilium endpoints (pod networking)."""
-        _result=await self._run_cilium(["endpoint", "list", "-o", "json"])
+        _result = await self._run_cilium(["endpoint", "list", "-o", "json"])
         if result.returncode == 0:
             try:
-                _endpoints_data=json.loads(result.stdout)
-                endpoints=[]
+                _endpoints_data = json.loads(result.stdout)
+                endpoints = []
                 for ep in endpoints_data:
-                    _endpoint=CiliumEndpoint(  # type: ignore[call-arg]
-                        _id=ep.get("id", 0),
-                        _identity=ep.get("status", {}).get("identity", {}).get("id", 0),
-                        _namespace=ep.get("status", {})
+                    _endpoint = CiliumEndpoint(  # type: ignore[call-arg]
+                        _id = ep.get("id", 0),
+                        _identity = ep.get("status", {}).get("identity", {}).get("id", 0),
+                        _namespace = ep.get("status", {})
                         .get("external-identifiers", {})
                         .get("k8s-namespace", ""),
-                        _pod_name=ep.get("status", {})
+                        _pod_name = ep.get("status", {})
                         .get("external-identifiers", {})
                         .get("k8s-pod-name", ""),
-                        _ipv4=ep.get("status", {})
+                        _ipv4 = ep.get("status", {})
                         .get("networking", {})
                         .get("addressing", [{}])[0]
                         .get("ipv4"),
-                        _ipv6=ep.get("status", {})
+                        _ipv6 = ep.get("status", {})
                         .get("networking", {})
                         .get("addressing", [{}])[0]
                         .get("ipv6"),
-                        _labels=ep.get("status", {})
+                        _labels = ep.get("status", {})
                         .get("labels", {})
                         .get("security-relevant", []),
-                        _policy_enforcement=ep.get("status", {})
+                        _policy_enforcement = ep.get("status", {})
                         .get("policy", {})
                         .get("realized", {})
                         .get("policy-revision", 0),
@@ -768,7 +768,7 @@ class CiliumCNIManager:
     async def apply_network_policy(self, policy: CiliumNetworkPolicy) -> bool:
         """Apply Cilium network policy."""
         # Convert to Kubernetes CiliumNetworkPolicy
-        _manifest={
+        _manifest = {
             "apiVersion": "cilium.io/v2",
             "kind": "CiliumNetworkPolicy",
             "metadata": {
@@ -802,7 +802,7 @@ class CiliumCNIManager:
                 "kube-system",
                 "svc/hubble-ui",
                 "12000:80",
-                "--address=0.0.0.0",
+                "--address = 0.0.0.0",
             ]
         )
         return "http://localhost:12000"
@@ -811,18 +811,18 @@ class CiliumCNIManager:
         self,
         namespace: Optional[str] = None,
         pod: Optional[str] = None,
-        limit: int=100,
+        limit: int = 100,
     ) -> List[Dict[str, Any]]:
         """Get Hubble flow logs."""
-        _args=["hubble", "observe", "-o", "json", "--last", str(limit)]
+        _args = ["hubble", "observe", "-o", "json", "--last", str(limit)]
         if namespace:
             args.extend(["--namespace", namespace])
         if pod:
             args.extend(["--pod", pod])
 
-        _result=await self._run_cilium(args)
+        _result = await self._run_cilium(args)
         if result.returncode == 0:
-            flows=[]
+            flows = []
             for line in result.stdout.strip().split("\n"):
                 if line:
                     try:
@@ -844,7 +844,7 @@ class RootlessDockerManager:
 
     async def check_prerequisites(self) -> Dict[str, bool]:
         """Check prerequisites for rootless Docker."""
-        _checks={
+        _checks = {
             "uidmap_installed": False,
             "newuidmap_setuid": False,
             "user_namespaces_enabled": False,
@@ -856,11 +856,11 @@ class RootlessDockerManager:
 
         # Check uidmap package
         try:
-            proc=await asyncio.create_subprocess_exec(
+            proc = await asyncio.create_subprocess_exec(
                 "which",
                 "newuidmap",
-                _stdout=asyncio.subprocess.PIPE,
-                _stderr=asyncio.subprocess.PIPE,
+                _stdout = asyncio.subprocess.PIPE,
+                _stderr = asyncio.subprocess.PIPE,
             )
             await proc.communicate()
             checks["uidmap_installed"] = proc.returncode == 0
@@ -869,7 +869,7 @@ class RootlessDockerManager:
 
         # Check user namespaces
         try:
-            _userns_path=Path("/proc/sys/kernel/unprivileged_userns_clone")
+            _userns_path = Path("/proc/sys/kernel/unprivileged_userns_clone")
             if userns_path.exists():
                 checks["user_namespaces_enabled"] = (
                     userns_path.read_text().strip() == "1"
@@ -881,26 +881,26 @@ class RootlessDockerManager:
             pass    # nosec B110
 
         # Check subuid/subgid
-        _user=os.environ.get("USER", "root")
+        _user = os.environ.get("USER", "root")
         try:
-            _subuid_path=Path("/etc/subuid")
+            _subuid_path = Path("/etc/subuid")
             if subuid_path.exists():
-                _content=subuid_path.read_text()
+                _content = subuid_path.read_text()
                 checks["subuid_configured"] = user in content
         except Exception:
             pass    # nosec B110
 
         try:
-            _subgid_path=Path("/etc/subgid")
+            _subgid_path = Path("/etc/subgid")
             if subgid_path.exists():
-                _content=subgid_path.read_text()
+                _content = subgid_path.read_text()
                 checks["subgid_configured"] = user in content
         except Exception:
             pass    # nosec B110
 
         # Check cgroup v2
         try:
-            _cgroup_path=Path("/sys/fs/cgroup")
+            _cgroup_path = Path("/sys/fs/cgroup")
             if cgroup_path.exists():
             # cgroup v2 has cgroup.controllers file at root
                 checks["cgroup_v2"] = (cgroup_path / "cgroup.controllers").exists()
@@ -909,12 +909,12 @@ class RootlessDockerManager:
 
         # Check systemd user session
         try:
-            proc=await asyncio.create_subprocess_exec(
+            proc = await asyncio.create_subprocess_exec(
                 "systemctl",
                 "--user",
                 "status",
-                _stdout=asyncio.subprocess.PIPE,
-                _stderr=asyncio.subprocess.PIPE,
+                _stdout = asyncio.subprocess.PIPE,
+                _stderr = asyncio.subprocess.PIPE,
             )
             await proc.communicate()
             checks["systemd_user"] = proc.returncode == 0
@@ -929,21 +929,21 @@ class RootlessDockerManager:
         try:
             import pwd
 
-            _pw=pwd.getpwnam(user)  # type: ignore[attr-defined]
-            uid=pw.pw_uid
-            gid=pw.pw_gid
+            _pw = pwd.getpwnam(user)  # type: ignore[attr-defined]
+            uid = pw.pw_uid
+            gid = pw.pw_gid
         except KeyError:
             logger.error(f"User {user} not found")
             return False
 
         # Calculate ranges (start at UID * 65536 to avoid conflicts)
-        _subuid_start=100000 + (uid * 65536)
-        _subgid_start=100000 + (gid * 65536)
+        _subuid_start = 100000 + (uid * 65536)
+        _subgid_start = 100000 + (gid * 65536)
 
         # Update /etc/subuid
         try:
-            _subuid_path=Path("/etc/subuid")
-            _content=subuid_path.read_text() if subuid_path.exists() else ""
+            _subuid_path = Path("/etc/subuid")
+            _content = subuid_path.read_text() if subuid_path.exists() else ""
             if user not in content:
                 with open(subuid_path, "a") as f:
                     f.write(f"{user}:{subuid_start}:{count}\n")
@@ -954,8 +954,8 @@ class RootlessDockerManager:
 
         # Update /etc/subgid
         try:
-            _subgid_path=Path("/etc/subgid")
-            _content=subgid_path.read_text() if subgid_path.exists() else ""
+            _subgid_path = Path("/etc/subgid")
+            _content = subgid_path.read_text() if subgid_path.exists() else ""
             if user not in content:
                 with open(subgid_path, "a") as f:
                     f.write(f"{user}:{subgid_start}:{count}\n")
@@ -969,15 +969,15 @@ class RootlessDockerManager:
     async def install(self, user: Optional[str] = None) -> Optional[RootlessConfig]:
         """Install rootless Docker for user."""
         if user is None:
-            _user=os.environ.get("USER", "root")
+            _user = os.environ.get("USER", "root")
 
         if user == "root":
             logger.error("Cannot install rootless Docker for root user")
             return None
 
         # Check prerequisites
-        _prereqs=await self.check_prerequisites()
-        _missing=[k for k, v in prereqs.items() if not v]
+        _prereqs = await self.check_prerequisites()
+        _missing = [k for k, v in prereqs.items() if not v]
         if missing:
             logger.warning(f"Missing prerequisites: {missing}")
 
@@ -985,29 +985,29 @@ class RootlessDockerManager:
         try:
             import pwd
 
-            _pw=pwd.getpwnam(user)  # type: ignore[attr-defined]
-            _uid=pw.pw_uid
-            _gid=pw.pw_gid
-            _home=pw.pw_dir
+            _pw = pwd.getpwnam(user)  # type: ignore[attr-defined]
+            _uid = pw.pw_uid
+            _gid = pw.pw_gid
+            _home = pw.pw_dir
         except KeyError:
             logger.error(f"User {user} not found")
             return None
 
         # Run dockerd-rootless-setuptool.sh
-        setup_script="/usr/bin/dockerd-rootless-setuptool.sh"
+        setup_script = "/usr/bin/dockerd-rootless-setuptool.sh"
         if not Path(setup_script).exists():
-            setup_script="/usr/local/bin/dockerd-rootless-setuptool.sh"
+            setup_script = "/usr/local/bin/dockerd-rootless-setuptool.sh"
 
         if Path(setup_script).exists():
             try:
-                proc=await asyncio.create_subprocess_exec(
+                proc = await asyncio.create_subprocess_exec(
                     setup_script,
                     "install",
-                    _stdout=asyncio.subprocess.PIPE,
-                    _stderr=asyncio.subprocess.PIPE,
-                    _env={**os.environ, "HOME": home, "USER": user},
+                    _stdout = asyncio.subprocess.PIPE,
+                    _stderr = asyncio.subprocess.PIPE,
+                    _env = {**os.environ, "HOME": home, "USER": user},
                 )
-                stdout, stderr=await proc.communicate()
+                stdout, stderr = await proc.communicate()
                 if proc.returncode != 0:
                     logger.error(f"Rootless setup failed: {stderr.decode()}")
             except Exception as e:
@@ -1018,40 +1018,40 @@ class RootlessDockerManager:
             )
 
         # Read subuid/subgid ranges
-        subuid_start, subuid_count=100000, 65536
-        subgid_start, subgid_count=100000, 65536
+        subuid_start, subuid_count = 100000, 65536
+        subgid_start, subgid_count = 100000, 65536
 
         try:
             for line in Path("/etc/subuid").read_text().splitlines():
-                _parts=line.split(":")
+                _parts = line.split(":")
                 if parts[0] == user:
-                    _subuid_start=int(parts[1])
-                    _subuid_count=int(parts[2])
+                    _subuid_start = int(parts[1])
+                    _subuid_count = int(parts[2])
                     break
         except Exception:
             pass    # nosec B110
 
         try:
             for line in Path("/etc/subgid").read_text().splitlines():
-                _parts=line.split(":")
+                _parts = line.split(":")
                 if parts[0] == user:
-                    _subgid_start=int(parts[1])
-                    _subgid_count=int(parts[2])
+                    _subgid_start = int(parts[1])
+                    _subgid_count = int(parts[2])
                     break
         except Exception:
             pass    # nosec B110
 
-        self._config=RootlessConfig(  # type: ignore[call-arg]
-            _user=user,
-            _uid=uid,
-            _gid=gid,
-            _subuid_start=subuid_start,
-            _subuid_count=subuid_count,
-            _subgid_start=subgid_start,
-            _subgid_count=subgid_count,
-            _socket_path=f"/run/user/{uid}/docker.sock",
-            _data_root=f"{home}/.local/share/docker",
-            _enabled=True,
+        self._config = RootlessConfig(  # type: ignore[call-arg]
+            _user = user,
+            _uid = uid,
+            _gid = gid,
+            _subuid_start = subuid_start,
+            _subuid_count = subuid_count,
+            _subgid_start = subgid_start,
+            _subgid_count = subgid_count,
+            _socket_path = f"/run/user/{uid}/docker.sock",
+            _data_root = f"{home}/.local/share/docker",
+            _enabled = True,
         )
 
         logger.info(f"Configured rootless Docker for user {user}")
@@ -1061,34 +1061,34 @@ class RootlessDockerManager:
         """Enable rootless Docker systemd service."""
         try:
         # Enable user service
-            proc=await asyncio.create_subprocess_exec(
+            proc = await asyncio.create_subprocess_exec(
                 "systemctl",
                 "--user",
                 "enable",
                 "docker",
-                _stdout=asyncio.subprocess.PIPE,
-                _stderr=asyncio.subprocess.PIPE,
+                _stdout = asyncio.subprocess.PIPE,
+                _stderr = asyncio.subprocess.PIPE,
             )
             await proc.communicate()
 
             # Start service
-            proc=await asyncio.create_subprocess_exec(
+            proc = await asyncio.create_subprocess_exec(
                 "systemctl",
                 "--user",
                 "start",
                 "docker",
-                _stdout=asyncio.subprocess.PIPE,
-                _stderr=asyncio.subprocess.PIPE,
+                _stdout = asyncio.subprocess.PIPE,
+                _stderr = asyncio.subprocess.PIPE,
             )
             await proc.communicate()
 
             # Enable lingering for user (so service runs without login)
-            proc=await asyncio.create_subprocess_exec(
+            proc = await asyncio.create_subprocess_exec(
                 "loginctl",
                 "enable-linger",
                 user,
-                _stdout=asyncio.subprocess.PIPE,
-                _stderr=asyncio.subprocess.PIPE,
+                _stdout = asyncio.subprocess.PIPE,
+                _stderr = asyncio.subprocess.PIPE,
             )
             await proc.communicate()
 
@@ -1117,61 +1117,61 @@ class CRIManager:
     """Container Runtime Interface abstraction."""
 
     def __init__(self, socketpath: str="/run/containerd/containerd.sock") -> None:
-        self.socket_path=socket_path
-        self._runtime_type=RuntimeType.CONTAINERD
+        self.socket_path = socket_path
+        self._runtime_type = RuntimeType.CONTAINERD
 
     async def detect_runtime(self) -> Optional[ContainerRuntime]:
         """Detect container runtime."""
         # Check containerd
-        containerd_sockets=[
+        containerd_sockets = [
             "/run/containerd/containerd.sock",
             "/var/run/containerd/containerd.sock",
         ]
         for sock in containerd_sockets:
             if Path(sock).exists():
-                _result=await self._run_crictl(["version"])
+                _result = await self._run_crictl(["version"])
                 if result.returncode == 0:
-                    version_info={}
+                    version_info = {}
                     for line in result.stdout.splitlines():
                         if ":" in line:
-                            k, v=line.split(":", 1)
+                            k, v = line.split(":", 1)
                             version_info[k.strip()] = v.strip()
 
                     return ContainerRuntime(  # type: ignore[call-arg]
-                        _name="containerd",
-                        _runtime_type=RuntimeType.CONTAINERD,
-                        _version=version_info.get("RuntimeVersion", "unknown"),
-                        _socket_path=sock,
-                        _binary_path="/usr/bin/containerd",
-                        _cgroup_driver="systemd",
-                        _storage_driver="overlayfs",
-                        _features=["cri", "namespaces", "snapshots"],
+                        _name = "containerd",
+                        _runtime_type = RuntimeType.CONTAINERD,
+                        _version = version_info.get("RuntimeVersion", "unknown"),
+                        _socket_path = sock,
+                        _binary_path = "/usr/bin/containerd",
+                        _cgroup_driver = "systemd",
+                        _storage_driver = "overlayfs",
+                        _features = ["cri", "namespaces", "snapshots"],
                     )
 
         # Check CRI-O
-        crio_sockets=["/run/crio/crio.sock", "/var/run/crio/crio.sock"]
+        crio_sockets = ["/run/crio/crio.sock", "/var/run/crio/crio.sock"]
         for sock in crio_sockets:
             if Path(sock).exists():
                 return ContainerRuntime(  # type: ignore[call-arg]
-                    _name="cri-o",
-                    _runtime_type=RuntimeType.CRIO,
-                    _version="unknown",
-                    _socket_path=sock,
-                    _binary_path="/usr/bin/crio",
-                    _cgroup_driver="systemd",
-                    _storage_driver="overlay",
+                    _name = "cri-o",
+                    _runtime_type = RuntimeType.CRIO,
+                    _version = "unknown",
+                    _socket_path = sock,
+                    _binary_path = "/usr/bin/crio",
+                    _cgroup_driver = "systemd",
+                    _storage_driver = "overlay",
                 )
 
         return None
 
     async def _run_crictl(self, args: List[str]) -> subprocess.CompletedProcess:
         """Run crictl command."""
-        cmd=["crictl", f"--runtime-endpoint=unix://{self.socket_path}"] + args
+        cmd = ["crictl", f"--runtime-endpoint = unix://{self.socket_path}"] + args
         try:
-            proc=await asyncio.create_subprocess_exec(
-                *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            proc = await asyncio.create_subprocess_exec(
+                *cmd, stdout = asyncio.subprocess.PIPE, stderr = asyncio.subprocess.PIPE
             )
-            stdout, stderr=await proc.communicate()
+            stdout, stderr = await proc.communicate()
             return subprocess.CompletedProcess(
                 cmd, proc.returncode, stdout.decode(), stderr.decode()  # type: ignore[arg-type]
             )
@@ -1180,10 +1180,10 @@ class CRIManager:
 
     async def list_pods(self) -> List[Dict[str, Any]]:
         """List pods via CRI."""
-        _result=await self._run_crictl(["pods", "-o", "json"])
+        _result = await self._run_crictl(["pods", "-o", "json"])
         if result.returncode == 0:
             try:
-                _data=json.loads(result.stdout)
+                _data = json.loads(result.stdout)
                 return data.get("items", [])
             except json.JSONDecodeError:
                 pass
@@ -1191,10 +1191,10 @@ class CRIManager:
 
     async def list_containers(self) -> List[Dict[str, Any]]:
         """List containers via CRI."""
-        _result=await self._run_crictl(["ps", "-a", "-o", "json"])
+        _result = await self._run_crictl(["ps", "-a", "-o", "json"])
         if result.returncode == 0:
             try:
-                _data=json.loads(result.stdout)
+                _data = json.loads(result.stdout)
                 return data.get("containers", [])
             except json.JSONDecodeError:
                 pass
@@ -1202,35 +1202,35 @@ class CRIManager:
 
     async def get_container_stats(self) -> List[ContainerMetrics]:
         """Get container stats via CRI."""
-        _result=await self._run_crictl(["stats", "-o", "json"])
+        _result = await self._run_crictl(["stats", "-o", "json"])
         if result.returncode == 0:
             try:
-                _data=json.loads(result.stdout)
-                metrics=[]
+                _data = json.loads(result.stdout)
+                metrics = []
                 for stat in data.get("stats", []):
                     metrics.append(
                         ContainerMetrics(  # type: ignore[call-arg]
-                            _container_id=stat.get("id", ""),
-                            _name=stat.get("attributes", {})
+                            _container_id = stat.get("id", ""),
+                            _name = stat.get("attributes", {})
                             .get("metadata", {})
                             .get("name", ""),
-                            _cpu_percent=float(
+                            _cpu_percent = float(
                                 stat.get("cpu", {}).get("usageNanoCores", 0)
                             )
                             / 1e9,
-                            _memory_usage=stat.get("memory", {}).get(
+                            _memory_usage = stat.get("memory", {}).get(
                                 "workingSetBytes", 0
                             ),
-                            _memory_limit=stat.get("memory", {}).get("limitBytes", 0),
-                            _memory_percent=0.0,
-                            _network_rx_bytes=0,
-                            _network_tx_bytes=0,
-                            _block_read_bytes=stat.get("writableLayer", {}).get(
+                            _memory_limit = stat.get("memory", {}).get("limitBytes", 0),
+                            _memory_percent = 0.0,
+                            _network_rx_bytes = 0,
+                            _network_tx_bytes = 0,
+                            _block_read_bytes = stat.get("writableLayer", {}).get(
                                 "usedBytes", 0
                             ),
-                            _block_write_bytes=0,
-                            _pids=0,
-                            _timestamp=time.time(),
+                            _block_write_bytes = 0,
+                            _pids = 0,
+                            _timestamp = time.time(),
                         )
                     )
                 return metrics
@@ -1240,12 +1240,12 @@ class CRIManager:
 
     async def pull_image(self, image: str) -> bool:
         """Pull container image via CRI."""
-        _result=await self._run_crictl(["pull", image])
+        _result = await self._run_crictl(["pull", image])
         return result.returncode == 0
 
     async def remove_image(self, image: str) -> bool:
         """Remove container image via CRI."""
-        _result=await self._run_crictl(["rmi", image])
+        _result = await self._run_crictl(["rmi", image])
         return result.returncode == 0
 
 
@@ -1258,29 +1258,29 @@ class ContainerIntegrationManager:
     def __init__(self) -> None:
         self._runtimes: Dict[str, ContainerRuntime] = {}
         self._cni: Optional[CNIConfig] = None
-        self._lxd=LXDManager()
-        self._cilium=CiliumCNIManager()
-        self._rootless=RootlessDockerManager()
-        self._cri=CRIManager()
+        self._lxd = LXDManager()
+        self._cilium = CiliumCNIManager()
+        self._rootless = RootlessDockerManager()
+        self._cri = CRIManager()
         self._metrics_callbacks: List[Callable[[ContainerMetrics], None]] = []
 
     async def initialize(self) -> None:
         """Initialize all container managers."""
         # Detect CRI runtime
-        _runtime=await self._cri.detect_runtime()
+        _runtime = await self._cri.detect_runtime()
         if runtime:
             self._runtimes[runtime.name] = runtime
             logger.info(f"Detected CRI runtime: {runtime.name} v{runtime.version}")
 
         # Connect to LXD
         if await self._lxd.connect():
-            lxd_runtime=ContainerRuntime(  # type: ignore[call-arg]
-                _name="lxd",
-                _runtime_type=RuntimeType.LXD,
-                _version="detected",
-                _socket_path=self._lxd.socket_path,
-                _binary_path="/snap/bin/lxc",
-                _features=["system-containers", "vms", "clustering"],
+            lxd_runtime = ContainerRuntime(  # type: ignore[call-arg]
+                _name = "lxd",
+                _runtime_type = RuntimeType.LXD,
+                _version = "detected",
+                _socket_path = self._lxd.socket_path,
+                _binary_path = "/snap/bin/lxc",
+                _features = ["system-containers", "vms", "clustering"],
             )
             self._runtimes["lxd"] = lxd_runtime
 
@@ -1292,24 +1292,24 @@ class ContainerIntegrationManager:
         self, profile_name: str, limits: Dict[str, str]
     ) -> bool:
         """Create LXD profile for resource limits."""
-        profile=LXDProfile(  # type: ignore[call-arg]
-            _name=profile_name,
-            _description=f"DebVisor managed profile: {profile_name}",
-            _cpu_limit=limits.get("cpu"),
-            _memory_limit=limits.get("memory"),
-            _disk_size=limits.get("disk"),
+        profile = LXDProfile(  # type: ignore[call-arg]
+            _name = profile_name,
+            _description = f"DebVisor managed profile: {profile_name}",
+            _cpu_limit = limits.get("cpu"),
+            _memory_limit = limits.get("memory"),
+            _disk_size = limits.get("disk"),
         )
         return await self._lxd.create_profile(profile)
 
     async def create_lxd_container(
-        self, name: str, image: str="ubuntu:22.04", profile: str="default"
+        self, name: str, image: str = "ubuntu:22.04", profile: str = "default"
     ) -> Optional[LXDContainer]:
         """Create LXD container."""
         return await self._lxd.create_container(name, image, profile)
 
     async def enable_rootless_docker(self, user: Optional[str] = None) -> bool:
         """Configure Docker in rootless mode."""
-        _config=await self._rootless.install(user)
+        _config = await self._rootless.install(user)
         if config:
             await self._rootless.enable_systemd_service(config.user)
             return True
@@ -1317,18 +1317,18 @@ class ContainerIntegrationManager:
 
     async def install_cilium_cni(
         self,
-        pod_cidr: str="10.0.0.0/8",
-        enable_hubble: bool=True,
-        enable_encryption: bool=False,
+        pod_cidr: str = "10.0.0.0/8",
+        enable_hubble: bool = True,
+        enable_encryption: bool = False,
     ) -> Optional[CNIConfig]:
         """Install Cilium as CNI instead of Calico."""
-        config=await self._cilium.install(
-            _pod_cidr=pod_cidr,
-            _enable_hubble=enable_hubble,
-            _enable_encryption=enable_encryption,
+        config = await self._cilium.install(
+            _pod_cidr = pod_cidr,
+            _enable_hubble = enable_hubble,
+            _enable_encryption = enable_encryption,
         )
         if config:
-            self._cni=config
+            self._cni = config
         return config
 
     async def get_cni_status(self) -> Dict[str, Any]:
@@ -1347,27 +1347,27 @@ class ContainerIntegrationManager:
         egress: Optional[List[Dict[str, Any]]] = None,
     ) -> bool:
         """Apply Cilium network policy."""
-        policy=CiliumNetworkPolicy(  # type: ignore[call-arg]
-            _name=name,
-            _namespace=namespace,
-            _endpoint_selector=selector,
-            _ingress_rules=ingress or [],
-            _egress_rules=egress or [],
+        policy = CiliumNetworkPolicy(  # type: ignore[call-arg]
+            _name = name,
+            _namespace = namespace,
+            _endpoint_selector = selector,
+            _ingress_rules = ingress or [],
+            _egress_rules = egress or [],
         )
         return await self._cilium.apply_network_policy(policy)
 
     async def get_all_container_metrics(self) -> List[ContainerMetrics]:
         """Get metrics from all container runtimes."""
-        metrics=[]
+        metrics = []
 
         # CRI containers
-        _cri_metrics=await self._cri.get_container_stats()
+        _cri_metrics = await self._cri.get_container_stats()
         metrics.extend(cri_metrics)
 
         # LXD containers
-        _containers=await self._lxd.list_containers()
+        _containers = await self._lxd.list_containers()
         for container in containers:
-            _m=await self._lxd.get_container_metrics(container.name)
+            _m = await self._lxd.get_container_metrics(container.name)
             if m:
                 metrics.append(m)
 
@@ -1389,7 +1389,7 @@ class ContainerIntegrationManager:
 
     async def get_runtime_info(self) -> Dict[str, Any]:
         """Get comprehensive runtime information."""
-        info: Any={"runtimes": {}, "cni": None, "rootless": None}  # type: ignore[var-annotated]
+        info: Any = {"runtimes": {}, "cni": None, "rootless": None}  # type: ignore[var-annotated]
 
         for name, runtime in self._runtimes.items():
             info["runtimes"][name] = {  # type: ignore[index]
@@ -1429,18 +1429,18 @@ class ContainerIntegrationManager:
 async def main() -> None:
     """Demo container integration."""
     logging.basicConfig(
-        _level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        _level = logging.INFO, format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
-    _mgr=ContainerIntegrationManager()
+    _mgr = ContainerIntegrationManager()
     await mgr.initialize()
 
     # Get runtime info
-    _info=await mgr.get_runtime_info()
-    print(f"Container Runtimes: {json.dumps(info, indent=2)}")
+    _info = await mgr.get_runtime_info()
+    print(f"Container Runtimes: {json.dumps(info, indent = 2)}")
 
     # Check LXD
-    _lxd=mgr.detect_lxd()
+    _lxd = mgr.detect_lxd()
     if lxd:
         print(f"LXD detected: {lxd.version}")
 
@@ -1451,30 +1451,30 @@ async def main() -> None:
 
     # Install Cilium
     print("\nInstalling Cilium CNI...")
-    cni=await mgr.install_cilium_cni(
-        _pod_cidr="10.244.0.0/16", enable_hubble=True, enable_encryption=True
+    cni = await mgr.install_cilium_cni(
+        _pod_cidr = "10.244.0.0/16", enable_hubble = True, enable_encryption = True
     )
     if cni:
         print(f"CNI configured: {cni.name} v{cni.version}")
         print(f"Features: {cni.features}")
 
     # Get CNI status
-    _status=await mgr.get_cni_status()
-    print(f"\nCNI Status: {json.dumps(status, indent=2)}")
+    _status = await mgr.get_cni_status()
+    print(f"\nCNI Status: {json.dumps(status, indent = 2)}")
 
     # Check rootless prerequisites
     print("\nRootless Docker Prerequisites:")
-    _prereqs=await mgr._rootless.check_prerequisites()
+    _prereqs = await mgr._rootless.check_prerequisites()
     for check, passed in prereqs.items():
-        status_icon="?" if passed else "?"
+        status_icon = "?" if passed else "?"
         print(f"  {status_icon} {check}")
 
     # Get container metrics
     print("\nContainer Metrics:")
-    _metrics=await mgr.get_all_container_metrics()
+    _metrics = await mgr.get_all_container_metrics()
     for m in metrics[:5]:    # Show first 5
         print(
-            f"  {m.name}: CPU={m.cpu_percent:.2f}%, Mem={m.memory_usage / 1024 / 1024:.1f}MB"
+            f"  {m.name}: CPU = {m.cpu_percent:.2f}%, Mem = {m.memory_usage / 1024 / 1024:.1f}MB"
         )
 
 

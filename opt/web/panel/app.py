@@ -43,11 +43,11 @@ try:
     from opt.core.logging import configure_logging
     import structlog
 
-    configure_logging(service_name="web-panel")
-    _logger=structlog.get_logger(__name__)
+    configure_logging(service_name = "web-panel")
+    _logger = structlog.get_logger(__name__)
 except ImportError:
-    logging.basicConfig(level=logging.INFO)
-    _logger=logging.getLogger(__name__)
+    logging.basicConfig(level = logging.INFO)
+    _logger = logging.getLogger(__name__)
 
 # Graceful Shutdown
 from opt.web.panel.graceful_shutdown import (
@@ -82,9 +82,9 @@ try:
         CONTENT_TYPE_LATEST,
     )
 
-    HAS_PROMETHEUS=True
+    HAS_PROMETHEUS = True
 except ImportError:
-    HAS_PROMETHEUS=False
+    HAS_PROMETHEUS = False
 
 
 # =============================================================================
@@ -94,7 +94,7 @@ class JSONFormatter(logging.Formatter):
     """JSON log formatter for structured logging."""
 
     def format(self, record: logging.LogRecord) -> str:
-        _log_data={
+        _log_data = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
             "logger": record.name,
@@ -121,7 +121,7 @@ class JSONFormatter(logging.Formatter):
 
 def setup_logging(jsonformat: bool=True) -> logging.Logger:
     """Configure structured logging."""
-    _handler=logging.StreamHandler()
+    _handler = logging.StreamHandler()
 
     if json_format and os.getenv("LOG_FORMAT", "json") == "json":
         handler.setFormatter(JSONFormatter())
@@ -130,14 +130,14 @@ def setup_logging(jsonformat: bool=True) -> logging.Logger:
             logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         )
 
-    _root_logger=logging.getLogger()
+    _root_logger = logging.getLogger()
     root_logger.setLevel(logging.INFO)
     root_logger.addHandler(handler)
 
     return logging.getLogger(__name__)
 
 
-_logger=setup_logging()
+_logger = setup_logging()
 
 
 # =============================================================================
@@ -145,17 +145,17 @@ _logger=setup_logging()
 # =============================================================================
 
 if HAS_PROMETHEUS:
-    REQUEST_COUNT=Counter(
+    REQUEST_COUNT = Counter(
         "debvisor_http_requests_total",
         "Total HTTP requests",
         ["method", "endpoint", "status"],
     )
-    REQUEST_LATENCY=Histogram(
+    REQUEST_LATENCY = Histogram(
         "debvisor_http_request_duration_seconds",
         "HTTP request latency",
         ["method", "endpoint"],
     )
-    ACTIVE_SESSIONS=Counter(
+    ACTIVE_SESSIONS = Counter(
         "debvisor_active_sessions_total", "Total active user sessions"
     )
 
@@ -253,7 +253,7 @@ OPENAPI_SPEC: Dict[str, Any] = {
 # =============================================================================
 def get_csp_header() -> str:
     """Generate Content Security Policy header."""
-    _policies=[
+    _policies = [
         "default-src 'self'",
         "script-src 'sel' 'unsafe-inline' 'unsafe-eval'",    # Adjust based on needs
         "style-src 'sel' 'unsafe-inline'",
@@ -281,11 +281,11 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
             if not request.is_json:
                 return jsonify({"error": "Content-Type must be application/json"}), 400
 
-            _data=request.get_json()
+            _data = request.get_json()
 
             # Basic schema validation (for complex validation use jsonschema)
-            _required=schema.get("required", [])
-            _properties=schema.get("properties", {})
+            _required = schema.get("required", [])
+            _properties = schema.get("properties", {})
 
             for field in required:
                 if field not in data:
@@ -293,7 +293,7 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 
             for field, rules in properties.items():
                 if field in data:
-                    value=data[field]
+                    value = data[field]
                     if rules.get("type") == "string" and not isinstance(value, str):
                         return (
                             jsonify({"error": f"Field {field} must be a string"}),
@@ -323,7 +323,7 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 # Application Factory
 # =============================================================================
 def create_app(configname: str="production") -> Flask:
-    _app=Flask(__name__)
+    _app = Flask(__name__)
 
     # Load configuration from centralized settings
     from opt.core.config import settings
@@ -351,7 +351,7 @@ def create_app(configname: str="production") -> Flask:
 
     db.init_app(app)
     # DB-001: Database Migrations
-    migrate.init_app(app, db, directory="opt/migrations")
+    migrate.init_app(app, db, directory = "opt/migrations")
 
     # API-001: Initialize Socket.IO
     socketio_server.init_app(app)
@@ -359,10 +359,10 @@ def create_app(configname: str="production") -> Flask:
     login_manager.init_app(app)
     csrf.init_app(app)
     # Configure global rate limit defaults if provided
-    _default_limit=app.config.get("RATELIMIT_DEFAULT", None)
+    _default_limit = app.config.get("RATELIMIT_DEFAULT", None)
     if default_limit:
         try:
-            limiter._default_limits=[
+            limiter._default_limits = [
                 default_limit
             ]    # apply string like "100 per minute"
             logger.info(f"Global rate limit default set: {default_limit}")
@@ -374,10 +374,10 @@ def create_app(configname: str="production") -> Flask:
     FlaskTracingMiddleware(app)
 
     # INFRA-001 & INFRA-002: Graceful Shutdown & Health Checks
-    shutdown_config=ShutdownConfig(
-        _drain_timeout_seconds=30.0, request_timeout_seconds=60.0
+    shutdown_config = ShutdownConfig(
+        _drain_timeout_seconds = 30.0, request_timeout_seconds = 60.0
     )
-    _shutdown_manager=init_graceful_shutdown(app, shutdown_config)
+    _shutdown_manager = init_graceful_shutdown(app, shutdown_config)
 
     def check_db_health() -> bool:
         try:
@@ -393,12 +393,12 @@ def create_app(configname: str="production") -> Flask:
     def check_redis_health() -> bool:
         from opt.core.config import settings
 
-        url=settings.REDIS_URL
+        url = settings.REDIS_URL
         if not url:
             return True
         try:
 
-            _r=redis.Redis.from_url(url)
+            _r = redis.Redis.from_url(url)
             return r.ping()
         except Exception as e:
             app.logger.error(f"Health check failed (redis): {e}")
@@ -407,14 +407,14 @@ def create_app(configname: str="production") -> Flask:
     shutdown_manager.register_health_check("redis", check_redis_health)
 
     def check_smtp_health() -> bool:
-        _host=os.getenv("SMTP_HOST")
+        _host = os.getenv("SMTP_HOST")
         if not host:
             return True
         try:
             import smtplib
 
-            _port=int(os.getenv("SMTP_PORT", "587"))
-            with smtplib.SMTP(host, port, timeout=5) as client:
+            _port = int(os.getenv("SMTP_PORT", "587"))
+            with smtplib.SMTP(host, port, timeout = 5) as client:
                 client.noop()
             return True
         except Exception as e:
@@ -429,7 +429,7 @@ def create_app(configname: str="production") -> Flask:
     )
 
     # Initialize CORS with whitelist validation
-    cors_config={
+    cors_config = {
         "origins": app.config.get("CORS_ALLOWED_ORIGINS", []),
         "methods": app.config.get("CORS_ALLOWED_METHODS", ["GET", "POST"]),
         "allow_headers": app.config.get("CORS_ALLOWED_HEADERS", ["Content-Type"]),
@@ -437,12 +437,12 @@ def create_app(configname: str="production") -> Flask:
         "supports_credentials": app.config.get("CORS_ALLOW_CREDENTIALS", True),
         "max_age": app.config.get("CORS_MAX_AGE", 3600),
     }
-    CORS(app, resources={r"/api/*": cors_config})
+    CORS(app, resources = {r"/api/*": cors_config})
 
     app.config["SESSION_COOKIE_SECURE"] = True
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=8)
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours = 8)
 
     # -------------------------------------------------------------------------
     # Request Lifecycle Hooks
@@ -451,20 +451,20 @@ def create_app(configname: str="production") -> Flask:
     @app.before_request
     def before_request_handler() -> None:
         """Pre-request processing."""
-        request.start_time=time.time()    # type: ignore
-        request.request_id=request.headers.get("X-Request-ID", os.urandom(8).hex())    # type: ignore
+        request.start_time = time.time()    # type: ignore
+        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex())    # type: ignore
 
     @app.before_request
     def validate_cors_origin() -> None:
         """Validate incoming cross-origin requests against whitelist."""
-        _origin=request.headers.get("Origin")
+        _origin = request.headers.get("Origin")
 
         if origin:
-            _allowed_origins=app.config.get("CORS_ALLOWED_ORIGINS", [])
+            _allowed_origins = app.config.get("CORS_ALLOWED_ORIGINS", [])
             if not CORSConfig.validate_origin(origin, allowed_origins):
                 logger.warning(
                     f"CORS validation failed: {origin} not in whitelist",
-                    _extra={"request_id": getattr(request, "request_id", "unknown")},
+                    _extra = {"request_id": getattr(request, "request_id", "unknown")},
                 )
 
     @app.before_request
@@ -472,8 +472,8 @@ def create_app(configname: str="production") -> Flask:
         if not app.debug and not request.is_secure:
         # Validate host header to prevent Host Header Injection
             # In production, this should be handled by the web server (Nginx/Apache)
-            _allowed_hosts=app.config.get("ALLOWED_HOSTS", [])
-            _host=request.host.split(':')[0]
+            _allowed_hosts = app.config.get("ALLOWED_HOSTS", [])
+            _host = request.host.split(':')[0]
 
             if allowed_hosts:
                 if host not in allowed_hosts:
@@ -492,7 +492,7 @@ def create_app(configname: str="production") -> Flask:
             parsed = urlparse(request.url)
             # Reconstruct with https scheme and validated host
             safe_url = urlunparse(('https', host, parsed.path, parsed.params, parsed.query, parsed.fragment))
-            return redirect(safe_url, code=301)
+            return redirect(safe_url, code = 301)
         return None
     @app.after_request
     def set_security_headers(response: Response) -> Response:
@@ -501,9 +501,9 @@ def create_app(configname: str="production") -> Flask:
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Strict-Transport-Security"] = (
-            "max-age=31536000; includeSubDomains; preload"
+            "max-age = 31536000; includeSubDomains; preload"
         )
-        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["X-XSS-Protection"] = "1; mode = block"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
 
         # Content Security Policy
@@ -524,12 +524,12 @@ def create_app(configname: str="production") -> Flask:
     def record_metrics(response: Response) -> Response:
         """Record Prometheus metrics."""
         if HAS_PROMETHEUS:
-            _duration=time.time() - getattr(request, "start_time", time.time())
-            endpoint=request.endpoint or "unknown"
+            _duration = time.time() - getattr(request, "start_time", time.time())
+            endpoint = request.endpoint or "unknown"
             REQUEST_COUNT.labels(
-                _method=request.method, endpoint=endpoint, status=response.status_code
+                _method = request.method, endpoint = endpoint, status = response.status_code
             ).inc()
-            REQUEST_LATENCY.labels(method=request.method, endpoint=endpoint).observe(
+            REQUEST_LATENCY.labels(method = request.method, endpoint = endpoint).observe(
                 duration
             )
         return response
@@ -558,7 +558,7 @@ def create_app(configname: str="production") -> Flask:
     def metrics() -> Any:
         """Prometheus metrics endpoint."""
         if HAS_PROMETHEUS:
-            return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
+            return Response(generate_latest(), mimetype = CONTENT_TYPE_LATEST)
         return jsonify({"error": "Prometheus client not installed"}), 501
 
     @app.route("/api/openapi.json")
@@ -580,11 +580,11 @@ def create_app(configname: str="production") -> Flask:
         <html>
         <head>
             <title>DebVisor API Documentation</title>
-            <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css">
+            <link rel = "stylesheet" href = "https://unpkg.com/swagger-ui-dist@5/swagger-ui.css">
         </head>
         <body>
-            <div id="swagger-ui"></div>
-            <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+            <div id = "swagger-ui"></div>
+            <script src = "https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
             <script>
                 SwaggerUIBundle({
                     url: '/api/openapi.json',
@@ -607,8 +607,8 @@ def create_app(configname: str="production") -> Flask:
         Surfaces version/build info and dependency statuses (DB/Redis/SMTP).
         """
         # Version/build info
-        _version=OPENAPI_SPEC.get("info", {}).get("version", "unknown")
-        _build={
+        _version = OPENAPI_SPEC.get("info", {}).get("version", "unknown")
+        _build = {
             "version": version,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "hostname": request.host,
@@ -619,51 +619,51 @@ def create_app(configname: str="production") -> Flask:
         # Database
         try:
             db.session.execute(db.text("SELECT 1"))
-            db_status="ok"
+            db_status = "ok"
         except Exception:
-            _db_status="error"
+            _db_status = "error"
 
         # Redis
-        redis_status="skipped"
+        redis_status = "skipped"
         try:
-            _url=os.getenv("REDIS_URL")
+            _url = os.getenv("REDIS_URL")
             if url:
 
-                _r=redis.Redis.from_url(url)
+                _r = redis.Redis.from_url(url)
                 r.ping()
-                redis_status="ok"
+                redis_status = "ok"
         except Exception:
-            _redis_status="error"
+            _redis_status = "error"
 
         # SMTP
-        _smtp_status="skipped"
+        _smtp_status = "skipped"
         try:
-            _host=os.getenv("SMTP_HOST")
+            _host = os.getenv("SMTP_HOST")
             if host:
                 import smtplib
 
-                _port=int(os.getenv("SMTP_PORT", "587"))
-                _starttls=os.getenv("SMTP_STARTTLS", "true").lower() in (
+                _port = int(os.getenv("SMTP_PORT", "587"))
+                _starttls = os.getenv("SMTP_STARTTLS", "true").lower() in (
                     "1",
                     "true",
                     "yes",
                 )
-                _user=os.getenv("SMTP_USER")
-                _password=os.getenv("SMTP_PASSWORD")
-                _client=smtplib.SMTP(host, port, timeout=5)
+                _user = os.getenv("SMTP_USER")
+                _password = os.getenv("SMTP_PASSWORD")
+                _client = smtplib.SMTP(host, port, timeout = 5)
                 try:
                     if starttls:
                         client.starttls()
                     if user and password:
                         client.login(user, password)
-                    smtp_status="ok"
+                    smtp_status = "ok"
                 finally:
                     try:
                         client.quit()
                     except Exception as e:
                         logger.debug(f"SMTP quit error: {e}")
         except Exception:
-            smtp_status="error"
+            smtp_status = "error"
 
         is_healthy=(
             db_status == "ok"
@@ -671,7 +671,7 @@ def create_app(configname: str="production") -> Flask:
             and smtp_status in ("ok", "skipped")
         )
 
-        detail={
+        detail = {
             "status": "ok" if is_healthy else "degraded",
             "build": build,
             "checks": {
@@ -728,19 +728,19 @@ def create_app(configname: str="production") -> Flask:
 
     logger.info(
         "DebVisor Web Panel initialized",
-        _extra={"config": config_name, "debug": app.debug},
+        _extra = {"config": config_name, "debug": app.debug},
     )
 
     return app
 
 
 # Export for external use
-__all__=["create_app", "db", "limiter", "validate_json_schema", "socketio_server"]
+__all__ = ["create_app", "db", "limiter", "validate_json_schema", "socketio_server"]
 
 
 if _name__== "__main__":
-    _app=create_app(os.getenv("FLASK_ENV", "production"))
+    _app = create_app(os.getenv("FLASK_ENV", "production"))
     # nosec B104 - Binding to all interfaces is intended for containerized deployment
     app.run(
-        _host=os.getenv("FLASK_HOST", "0.0.0.0"), port=443, debug=False
+        _host = os.getenv("FLASK_HOST", "0.0.0.0"), port = 443, debug = False
     )    # nosec B104

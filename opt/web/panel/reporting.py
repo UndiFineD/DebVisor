@@ -122,26 +122,26 @@ from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ReportType(Enum):
     """Supported report types."""
 
-    HEALTH="health"
-    CAPACITY_PLANNING="capacity_planning"
-    PERFORMANCE="performance"
-    COMPLIANCE="compliance"
-    CUSTOM="custom"
+    HEALTH = "health"
+    CAPACITY_PLANNING = "capacity_planning"
+    PERFORMANCE = "performance"
+    COMPLIANCE = "compliance"
+    CUSTOM = "custom"
 
 
 class ReportFormat(Enum):
     """Report output formats."""
 
-    PDF="pdf"
-    HTML="html"
-    JSON="json"
-    CSV="csv"
+    PDF = "pdf"
+    HTML = "html"
+    JSON = "json"
+    CSV = "csv"
 
 
 @dataclass
@@ -167,7 +167,7 @@ class HealthMetric:
     @property
     def status_emoji(self) -> str:
         """Get status emoji."""
-        status_map={
+        status_map = {
             "healthy": "?",
             "warning": "[warn]?",
             "critical": "[U+1F534]",
@@ -183,7 +183,7 @@ class StoragePool:
     pool_name: str
     used_bytes: int
     total_bytes: int
-    reserved_bytes: int=0
+    reserved_bytes: int = 0
 
     @property
     def used_percent(self) -> float:
@@ -217,13 +217,13 @@ class PerformanceMetric:
 class ReportConfig:
     """Configuration for report generation."""
 
-    title: str="DebVisor Report"
+    title: str = "DebVisor Report"
     subtitle: Optional[str] = None
-    generated_by: str="DebVisor Web Panel"
-    include_recommendations: bool=True
-    include_charts: bool=True
-    date_format: str="%Y-%m-%d %H:%M:%S"
-    page_size: str="A4"
+    generated_by: str = "DebVisor Web Panel"
+    include_recommendations: bool = True
+    include_charts: bool = True
+    date_format: str = "%Y-%m-%d %H:%M:%S"
+    page_size: str = "A4"
 
 
 class HealthReport:
@@ -236,7 +236,7 @@ class HealthReport:
         Args:
             config: ReportConfig instance
         """
-        self.config=config or ReportConfig(title="Cluster Health Report")
+        self.config = config or ReportConfig(title = "Cluster Health Report")
         self.metrics: List[HealthMetric] = []
         self.nodes: Dict[str, Dict[str, Any]] = {}
         self.alerts: List[Dict[str, Any]] = []
@@ -274,12 +274,12 @@ class HealthReport:
 
     def get_summary(self) -> Dict[str, Any]:
         """Get report summary."""
-        healthy_nodes=sum(1 for n in self.nodes.values() if n["status"] == "online")
-        _total_nodes=len(self.nodes)
+        healthy_nodes = sum(1 for n in self.nodes.values() if n["status"] == "online")
+        _total_nodes = len(self.nodes)
 
-        healthy_metrics=sum(1 for m in self.metrics if m.status== "healthy")
-        warning_metrics=sum(1 for m in self.metrics if m.status== "warning")
-        critical_metrics=sum(1 for m in self.metrics if m.status== "critical")
+        healthy_metrics = sum(1 for m in self.metrics if m.status== "healthy")
+        warning_metrics = sum(1 for m in self.metrics if m.status== "warning")
+        critical_metrics = sum(1 for m in self.metrics if m.status== "critical")
 
         return {
             "nodes": {"healthy": healthy_nodes, "total": total_nodes},
@@ -297,10 +297,10 @@ class HealthReport:
 
     def get_recommendations(self) -> List[str]:
         """Get health recommendations."""
-        recommendations=[]
+        recommendations = []
 
         # Check for critical metrics
-        critical=[m for m in self.metrics if m.status == "critical"]
+        critical = [m for m in self.metrics if m.status == "critical"]
         if critical:
             for m in critical:
                 recommendations.append(
@@ -309,28 +309,28 @@ class HealthReport:
                 )
 
         # Check for offline nodes
-        offline=[n for n, s in self.nodes.items() if s["status"] != "online"]
+        offline = [n for n, s in self.nodes.items() if s["status"] != "online"]
         if offline:
             recommendations.append(f"Investigate offline nodes: {', '.join(offline)}")
 
         # Check for high memory usage
-        high_memory=[
+        high_memory = [
             (n, s["memory_usage"])
             for n, s in self.nodes.items()
             if s["memory_usage"] > 80
         ]
         if high_memory:
-            _nodes=", ".join([f"{n} ({m}%)" for n, m in high_memory])
+            _nodes = ", ".join([f"{n} ({m}%)" for n, m in high_memory])
             recommendations.append(f"High memory usage on nodes: {nodes}")
 
         return recommendations
 
     def generate_html(self) -> str:
         """Generate HTML report."""
-        _summary=self.get_summary()
-        _recommendations=self.get_recommendations()
+        _summary = self.get_summary()
+        _recommendations = self.get_recommendations()
 
-        html="""
+        html = """
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -357,18 +357,18 @@ class HealthReport:
             <h1>{self.config.title}</h1>
             {f'<h2>{self.config.subtitle}</h2>' if self.config.subtitle else ''}
 
-            <div class="summary">
+            <div class = "summary">
                 <h2>Executive Summary</h2>
-                <div class="metric">
+                <div class = "metric">
                     <strong>Nodes Online:</strong> {summary['nodes']['healthy']}/{summary['nodes']['total']}
                 </div>
-                <div class="metric">
+                <div class = "metric">
                     <strong>Healthy Metrics:</strong> {summary['metrics']['healthy']}
                 </div>
-                <div class="metric">
+                <div class = "metric">
                     <strong>Warnings:</strong> {summary['metrics']['warning']}
                 </div>
-                <div class="metric">
+                <div class = "metric">
                     <strong>Critical:</strong> {summary['metrics']['critical']}
                 </div>
             </div>
@@ -399,7 +399,7 @@ class HealthReport:
             {self._generate_alerts_section()}
             {self._generate_recommendations_section(recommendations)}
 
-            <div class="footer">
+            <div class = "footer">
                 <p>Generated by {self.config.generated_by}</p>
                 <p>Report Date: {datetime.now(timezone.utc).strftime(self.config.date_format)}</p>
             </div>
@@ -410,9 +410,9 @@ class HealthReport:
 
     def _generate_node_rows(self) -> str:
         """Generate node table rows."""
-        rows=[]
+        rows = []
         for node_id, data in self.nodes.items():
-            status_icon="[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
+            status_icon = "[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
             rows.append(
                 """
                 <tr>
@@ -424,11 +424,11 @@ class HealthReport:
                 </tr>
                 """
             )
-        return "\n".join(rows) if rows else "<tr><td colspan='5'>No nodes</td></tr>"
+        return "\n".join(rows) if rows else "<tr><td colspan = '5'>No nodes</td></tr>"
 
     def _generate_metric_rows(self) -> str:
         """Generate metric table rows."""
-        rows=[]
+        rows = []
         for metric in self.metrics:
             rows.append(
                 """
@@ -440,16 +440,16 @@ class HealthReport:
                 </tr>
                 """
             )
-        return "\n".join(rows) if rows else "<tr><td colspan='4'>No metrics</td></tr>"
+        return "\n".join(rows) if rows else "<tr><td colspan = '4'>No metrics</td></tr>"
 
     def _generate_alerts_section(self) -> str:
         """Generate alerts section."""
         if not self.alerts:
             return ""
 
-        alerts_html="<h2>Recent Alerts</h2>\n"
+        alerts_html = "<h2>Recent Alerts</h2>\n"
         for alert in self.alerts:
-            _severity_class=alert["severity"].lower()
+            _severity_class = alert["severity"].lower()
             alerts_html += """
             <div class=\"alert {severity_class}\">
                 <strong>[{alert['severity'].upper()}]</strong> {alert['type']}: {alert['message']}
@@ -463,9 +463,9 @@ class HealthReport:
         if not recommendations:
             return ""
 
-        recs_html="<h2>Recommendations</h2>\n"
+        recs_html = "<h2>Recommendations</h2>\n"
         for rec in recommendations:
-            recs_html += f'<div class="recommendation">-> {rec}</div>\n'
+            recs_html += f'<div class = "recommendation">-> {rec}</div>\n'
         return recs_html
 
 
@@ -479,10 +479,10 @@ class CapacityPlanningReport:
         Args:
             config: ReportConfig instance
         """
-        self.config=config or ReportConfig(title="Storage Capacity Planning Report")
+        self.config = config or ReportConfig(title = "Storage Capacity Planning Report")
         self.pools: List[StoragePool] = []
-        self.growth_rate: float=0.05    # 5% monthly growth
-        self.forecast_months: int=12
+        self.growth_rate: float = 0.05    # 5% monthly growth
+        self.forecast_months: int = 12
 
     def add_pool(self, pool: StoragePool) -> None:
         """Add storage pool."""
@@ -494,8 +494,8 @@ class CapacityPlanningReport:
             return datetime.now(timezone.utc)
 
         # Calculate based on growth rate
-        available_space=pool.available_bytes
-        monthly_growth=pool.used_bytes * self.growth_rate
+        available_space = pool.available_bytes
+        monthly_growth = pool.used_bytes * self.growth_rate
         months_to_full=(
             available_space / monthly_growth if monthly_growth > 0 else float("inf")
         )
@@ -503,15 +503,15 @@ class CapacityPlanningReport:
         if months_to_full== float("in") or months_to_full > 120:
             return None
 
-        return datetime.now(timezone.utc) + timedelta(days=months_to_full * 30)
+        return datetime.now(timezone.utc) + timedelta(days = months_to_full * 30)
 
     def get_summary(self) -> Dict[str, Any]:
         """Get capacity planning summary."""
-        _total_used=sum(p.used_bytes for p in self.pools)
-        _total_capacity=sum(p.total_bytes for p in self.pools)
+        _total_used = sum(p.used_bytes for p in self.pools)
+        _total_capacity = sum(p.total_bytes for p in self.pools)
 
-        _pools_at_risk=sum(1 for p in self.pools if p.used_percent > 80)
-        _pools_critical=sum(1 for p in self.pools if p.used_percent > 95)
+        _pools_at_risk = sum(1 for p in self.pools if p.used_percent > 80)
+        _pools_critical = sum(1 for p in self.pools if p.used_percent > 95)
 
         return {
             "total_capacity_gb": total_capacity / (1024**3),
@@ -526,8 +526,8 @@ class CapacityPlanningReport:
 
     def get_recommendations(self) -> List[str]:
         """Get capacity recommendations."""
-        recommendations=[]
-        _summary=self.get_summary()
+        recommendations = []
+        _summary = self.get_summary()
 
         if summary["pools_critical"] > 0:
             recommendations.append(
@@ -543,7 +543,7 @@ class CapacityPlanningReport:
 
         # Check forecast
         for pool in self.pools:
-            _full_date=self.calculate_full_date(pool)
+            _full_date = self.calculate_full_date(pool)
             if full_date:
                 _days_until_full=(full_date - datetime.now(timezone.utc)).days
                 if days_until_full < 90:
@@ -556,10 +556,10 @@ class CapacityPlanningReport:
 
     def generate_html(self) -> str:
         """Generate HTML report."""
-        _summary=self.get_summary()
-        _recommendations=self.get_recommendations()
+        _summary = self.get_summary()
+        _recommendations = self.get_recommendations()
 
-        html="""
+        html = """
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -586,18 +586,18 @@ class CapacityPlanningReport:
         <body>
             <h1>{self.config.title}</h1>
 
-            <div class="summary">
+            <div class = "summary">
                 <h2>Capacity Summary</h2>
-                <div class="stat">
+                <div class = "stat">
                     <strong>Total Capacity:</strong> {summary['total_capacity_gb']:.2f} GB
                 </div>
-                <div class="stat">
+                <div class = "stat">
                     <strong>Total Used:</strong> {summary['total_used_gb']:.2f} GB
                 </div>
-                <div class="stat">
+                <div class = "stat">
                     <strong>Usage:</strong> {summary['total_used_percent']:.1f}%
                 </div>
-                <div class="stat">
+                <div class = "stat">
                     <strong>Pools:</strong> {summary['pools']}
                 </div>
             </div>
@@ -607,7 +607,7 @@ class CapacityPlanningReport:
 
             {self._generate_recommendations_section(recommendations)}
 
-            <div class="footer">
+            <div class = "footer">
                 <p>Generated by {self.config.generated_by}</p>
                 <p>Report Date: {datetime.now(timezone.utc).strftime(self.config.date_format)}</p>
                 <p>Forecast Period: {self.forecast_months} months</p>
@@ -619,20 +619,20 @@ class CapacityPlanningReport:
 
     def _generate_pool_details(self) -> str:
         """Generate pool details."""
-        pools_html=""
+        pools_html = ""
         for pool in self.pools:
-            _full_date=self.calculate_full_date(pool)
-            _full_date_str=full_date.strftime("%Y-%m-%d") if full_date else "N/A"
+            _full_date = self.calculate_full_date(pool)
+            _full_date_str = full_date.strftime("%Y-%m-%d") if full_date else "N/A"
 
             pools_html += """
-            <div class="pool">
+            <div class = "pool">
                 <h3>{pool.pool_name}</h3>
                 <p>ID: {pool.pool_id}</p>
                 <p>Total: {pool.total_bytes / (1024**3):.2f} GB |
                 Used: {pool.used_bytes / (1024**3):.2f} GB |
                 Available: {pool.available_bytes / (1024**3):.2f} GB</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: {pool.used_percent:.1f}%"></div>
+                <div class = "progress-bar">
+                    <div class = "progress-fill" style = "width: {pool.used_percent:.1f}%"></div>
                 </div>
                 <p>Usage: {pool.used_percent:.1f}% | Projected Full: {full_date_str}</p>
             </div>
@@ -644,7 +644,7 @@ class CapacityPlanningReport:
         if not recommendations:
             return "<h2>No capacity issues detected</h2>"
 
-        recs_html="<h2>Recommendations</h2>\n"
+        recs_html = "<h2>Recommendations</h2>\n"
         for rec in recommendations:
-            recs_html += f'<div class="recommendation">-> {rec}</div>\n'
+            recs_html += f'<div class = "recommendation">-> {rec}</div>\n'
         return recs_html

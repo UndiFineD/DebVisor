@@ -153,7 +153,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error adding metric: {e}", exc_info=True)
+            self.logger.error(f"Error adding metric: {e}", exc_info = True)
             return self._error_response("Failed to add metric", 500)
 
     def list_metrics(self) -> Tuple[str, int]:
@@ -197,7 +197,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing metrics: {e}", exc_info=True)
+            self.logger.error(f"Error listing metrics: {e}", exc_info = True)
             return self._error_response("Failed to list metrics", 500)
 
     def get_metric_history(
@@ -244,7 +244,7 @@ class AnomalyAPI:
         except ValueError:
             return self._error_response("Invalid limit parameter", 400)
         except Exception as e:
-            self.logger.error(f"Error getting history: {e}", exc_info=True)
+            self.logger.error(f"Error getting history: {e}", exc_info = True)
             return self._error_response("Failed to get metric history", 500)
 
     # ========================================================================
@@ -286,7 +286,7 @@ class AnomalyAPI:
                 )
 
             baseline = self.engine.establish_baseline(
-                resource_id, metric_type, percentile_based=percentile_based
+                resource_id, metric_type, percentile_based = percentile_based
             )
 
             if not baseline:
@@ -299,7 +299,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error establishing baseline: {e}", exc_info=True)
+            self.logger.error(f"Error establishing baseline: {e}", exc_info = True)
             return self._error_response("Failed to establish baseline", 500)
 
     def list_baselines(self) -> Tuple[str, int]:
@@ -329,7 +329,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing baselines: {e}", exc_info=True)
+            self.logger.error(f"Error listing baselines: {e}", exc_info = True)
             return self._error_response("Failed to list baselines", 500)
 
     def get_baseline(self, resourceid: str, metrictype_str: str) -> Tuple[str, int]:
@@ -358,7 +358,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error getting baseline: {e}", exc_info=True)
+            self.logger.error(f"Error getting baseline: {e}", exc_info = True)
             return self._error_response("Failed to get baseline", 500)
 
     # ========================================================================
@@ -427,7 +427,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error detecting anomalies: {e}", exc_info=True)
+            self.logger.error(f"Error detecting anomalies: {e}", exc_info = True)
             return self._error_response("Failed to detect anomalies", 500)
 
     def get_recent_detections(self) -> Tuple[str, int]:
@@ -444,7 +444,7 @@ class AnomalyAPI:
             limit = int(request.args.get("limit", 50))
 
             alerts = self.engine.get_alert_history(
-                resource_id=resource_filter, hours=hours, limit=limit
+                resource_id = resource_filter, hours = hours, limit = limit
             )
 
             return self._json_response(
@@ -459,7 +459,7 @@ class AnomalyAPI:
         except ValueError:
             return self._error_response("Invalid query parameters", 400)
         except Exception as e:
-            self.logger.error(f"Error getting detections: {e}", exc_info=True)
+            self.logger.error(f"Error getting detections: {e}", exc_info = True)
             return self._error_response("Failed to get detections", 500)
 
     # ========================================================================
@@ -487,7 +487,7 @@ class AnomalyAPI:
                     )
 
             alerts = self.engine.get_active_alerts(
-                resource_id=resource_filter, severity=severity
+                resource_id = resource_filter, severity = severity
             )
 
             return self._json_response(
@@ -500,7 +500,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing alerts: {e}", exc_info=True)
+            self.logger.error(f"Error listing alerts: {e}", exc_info = True)
             return self._error_response("Failed to list alerts", 500)
 
     def get_alert_history(self) -> Tuple[str, int]:
@@ -517,7 +517,7 @@ class AnomalyAPI:
             limit = int(request.args.get("limit", 100))
 
             alerts = self.engine.get_alert_history(
-                resource_id=resource_filter, hours=hours, limit=limit
+                resource_id = resource_filter, hours = hours, limit = limit
             )
 
             return self._json_response(
@@ -532,7 +532,7 @@ class AnomalyAPI:
         except ValueError:
             return self._error_response("Invalid query parameters", 400)
         except Exception as e:
-            self.logger.error(f"Error getting alert history: {e}", exc_info=True)
+            self.logger.error(f"Error getting alert history: {e}", exc_info = True)
             return self._error_response("Failed to get alert history", 500)
 
     def acknowledge_alert(self) -> Tuple[str, int]:
@@ -580,7 +580,7 @@ class AnomalyAPI:
                 return self._error_response(f"Alert not found: {alert_id}", 404)
 
         except Exception as e:
-            self.logger.error(f"Error acknowledging alert: {e}", exc_info=True)
+            self.logger.error(f"Error acknowledging alert: {e}", exc_info = True)
             return self._error_response("Failed to acknowledge alert", 500)
 
     def get_alert(self, alertid: str) -> Tuple[str, int]:
@@ -595,7 +595,7 @@ class AnomalyAPI:
             return self._error_response(f"Alert not found: {alertid}", 404)
 
         except Exception as e:
-            self.logger.error(f"Error getting alert: {e}", exc_info=True)
+            self.logger.error(f"Error getting alert: {e}", exc_info = True)
             return self._error_response("Failed to get alert", 500)
 
     # ========================================================================
@@ -636,7 +636,7 @@ class AnomalyAPI:
                     f"Unknown metric type: {metric_type_str}", 400
                 )
 
-            trend = self.engine.analyze_trend(resource_id, metric_type, hours=hours)
+            trend = self.engine.analyze_trend(resource_id, metric_type, hours = hours)
 
             if trend:
                 return self._json_response(
@@ -646,7 +646,7 @@ class AnomalyAPI:
                 return self._error_response("Insufficient data for trend analysis", 400)
 
         except Exception as e:
-            self.logger.error(f"Error analyzing trend: {e}", exc_info=True)
+            self.logger.error(f"Error analyzing trend: {e}", exc_info = True)
             return self._error_response("Failed to analyze trend", 500)
 
     def list_trends(self) -> Tuple[str, int]:
@@ -672,7 +672,7 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing trends: {e}", exc_info=True)
+            self.logger.error(f"Error listing trends: {e}", exc_info = True)
             return self._error_response("Failed to list trends", 500)
 
     # ========================================================================
@@ -687,7 +687,7 @@ class AnomalyAPI:
             return self._json_response({"status": "success", "statistics": stats}, 200)
 
         except Exception as e:
-            self.logger.error(f"Error getting statistics: {e}", exc_info=True)
+            self.logger.error(f"Error getting statistics: {e}", exc_info = True)
             return self._error_response("Failed to get statistics", 500)
 
     def get_health(self) -> Tuple[str, int]:
@@ -745,15 +745,15 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
     # Metric Routes
     # ========================================================================
 
-    @app.route("/metrics", methods=["POST"])
+    @app.route("/metrics", methods = ["POST"])
     def add_metric() -> Any:
         return api.add_metric()
 
-    @app.route("/metrics", methods=["GET"])
+    @app.route("/metrics", methods = ["GET"])
     def list_metrics() -> Any:
         return api.list_metrics()
 
-    @app.route("/metrics/<resource_id>/<metric_type>", methods=["GET"])
+    @app.route("/metrics/<resource_id>/<metric_type>", methods = ["GET"])
     def get_metric_history(resourceid: str, metrictype: str) -> Any:
         return api.get_metric_history(resourceid, metrictype)
 
@@ -761,15 +761,15 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
     # Baseline Routes
     # ========================================================================
 
-    @app.route("/baselines", methods=["POST"])
+    @app.route("/baselines", methods = ["POST"])
     def establish_baseline() -> Any:
         return api.establish_baseline()
 
-    @app.route("/baselines", methods=["GET"])
+    @app.route("/baselines", methods = ["GET"])
     def list_baselines() -> Any:
         return api.list_baselines()
 
-    @app.route("/baselines/<resource_id>/<metric_type>", methods=["GET"])
+    @app.route("/baselines/<resource_id>/<metric_type>", methods = ["GET"])
     def get_baseline(resourceid: str, metrictype: str) -> Any:
         return api.get_baseline(resourceid, metrictype)
 
@@ -777,11 +777,11 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
     # Detection Routes
     # ========================================================================
 
-    @app.route("/detect", methods=["POST"])
+    @app.route("/detect", methods = ["POST"])
     def detect_anomalies() -> Any:
         return api.detect_anomalies()
 
-    @app.route("/detect/recent", methods=["GET"])
+    @app.route("/detect/recent", methods = ["GET"])
     def get_recent_detections() -> Any:
         return api.get_recent_detections()
 
@@ -789,19 +789,19 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
     # Alert Routes
     # ========================================================================
 
-    @app.route("/alerts", methods=["GET"])
+    @app.route("/alerts", methods = ["GET"])
     def list_alerts() -> Any:
         return api.list_alerts()
 
-    @app.route("/alerts/history", methods=["GET"])
+    @app.route("/alerts/history", methods = ["GET"])
     def get_alert_history() -> Any:
         return api.get_alert_history()
 
-    @app.route("/alerts/<alert_id>", methods=["GET"])
+    @app.route("/alerts/<alert_id>", methods = ["GET"])
     def get_alert(alertid: str) -> Any:
         return api.get_alert(alertid)
 
-    @app.route("/alerts/<alert_id>/acknowledge", methods=["POST"])
+    @app.route("/alerts/<alert_id>/acknowledge", methods = ["POST"])
     def acknowledge_alert(alertid: str) -> Any:
         request.view_args = {"alert_id": alertid}
         return api.acknowledge_alert()
@@ -810,11 +810,11 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
     # Trend Routes
     # ========================================================================
 
-    @app.route("/trends", methods=["POST"])
+    @app.route("/trends", methods = ["POST"])
     def analyze_trend() -> Any:
         return api.analyze_trend()
 
-    @app.route("/trends", methods=["GET"])
+    @app.route("/trends", methods = ["GET"])
     def list_trends() -> Any:
         return api.list_trends()
 
@@ -822,11 +822,11 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
     # System Routes
     # ========================================================================
 
-    @app.route("/system/stats", methods=["GET"])
+    @app.route("/system/stats", methods = ["GET"])
     def get_statistics() -> Any:
         return api.get_statistics()
 
-    @app.route("/health", methods=["GET"])
+    @app.route("/health", methods = ["GET"])
     def get_health() -> Any:
         return api.get_health()
 
@@ -839,8 +839,8 @@ if __name__ == "__main__":
         print("Install with: pip install flask")
         sys.exit(1)
 
-    configure_logging(service_name="anomaly-detection-api")
+    configure_logging(service_name = "anomaly-detection-api")
 
     engine = get_anomaly_engine()
     app = create_flask_app(engine)
-    app.run(host="0.0.0.0", port=5000, debug=False)    # nosec B104
+    app.run(host = "0.0.0.0", port = 5000, debug = False)    # nosec B104

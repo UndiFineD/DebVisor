@@ -114,21 +114,21 @@ from typing import List, Optional, Tuple, Any
 try:
     import curses
 except ImportError:
-    _curses=None    # type: ignore
+    _curses = None    # type: ignore
 
 
 class InterfaceConfig:
 
     def __init__(self, name: str, kind: str) -> None:
-        self.name=name
-        self.kind=kind    # wired|wireless|infiniband|other
-        self.method="dhcp"    # dhcp|static
-        self.address=""
-        self.prefix=24
-        self.gateway=""
-        self.ipv6_address=""
-        self.ipv6_prefix=64
-        self.ipv6_gateway=""
+        self.name = name
+        self.kind = kind    # wired|wireless|infiniband|other
+        self.method = "dhcp"    # dhcp|static
+        self.address = ""
+        self.prefix = 24
+        self.gateway = ""
+        self.ipv6_address = ""
+        self.ipv6_prefix = 64
+        self.ipv6_gateway = ""
         self.dns: List[str] = []
         # Wireless extras
         self.ssid: Optional[str] = None
@@ -136,59 +136,59 @@ class InterfaceConfig:
         # VLAN (optional, create child .netdev)
         self.vlan_id: Optional[int] = None
         # Master device (bridge/bond)
-        self.master: str=""
+        self.master: str = ""
 
     def summary(self) -> str:
-        _base=f"{self.name} ({self.kind}) {self.method}"
+        _base = f"{self.name} ({self.kind}) {self.method}"
         if self.master:
-            base += f" master={self.master}"  # type: ignore[name-defined]
+            base += f" master = {self.master}"  # type: ignore[name-defined]
         if self.method == "static":
             if self.address:
                 base += f" {self.address}/{self.prefix}"  # type: ignore[name-defined]
             if self.ipv6_address:
                 base += f" {self.ipv6_address}/{self.ipv6_prefix}"  # type: ignore[name-defined]
         if self.vlan_id is not None:
-            base += f" vlan={self.vlan_id}"  # type: ignore[name-defined]
+            base += f" vlan = {self.vlan_id}"  # type: ignore[name-defined]
         if self.kind == "wireless" and self.ssid:
-            base += f' ssid="{self.ssid}"'  # type: ignore[name-defined]
+            base += f' ssid = "{self.ssid}"'  # type: ignore[name-defined]
         return base  # type: ignore[name-defined]
 
 
 class BridgeConfig:
 
     def __init__(self, name: str="br0") -> None:
-        self.name=name
-        self.method="dhcp"    # dhcp|static
-        self.address=""
-        self.prefix=24
-        self.gateway=""
-        self.ipv6_address=""
-        self.ipv6_prefix=64
-        self.ipv6_gateway=""
+        self.name = name
+        self.method = "dhcp"    # dhcp|static
+        self.address = ""
+        self.prefix = 24
+        self.gateway = ""
+        self.ipv6_address = ""
+        self.ipv6_prefix = 64
+        self.ipv6_gateway = ""
         self.dns: List[str] = []
-        self.stp: bool=True    # Spanning Tree Protocol enabled by default
+        self.stp: bool = True    # Spanning Tree Protocol enabled by default
         # Optional timers (seconds). If None, defaults apply.
         self.forward_delay: Optional[int] = None
         self.hello_time: Optional[int] = None
         self.max_age: Optional[int] = None
 
     def summary(self) -> str:
-        _base=f"{self.name} (bridge) {self.method}"
+        _base = f"{self.name} (bridge) {self.method}"
         if self.method == "static":
             if self.address:
                 base += f" {self.address}/{self.prefix}"  # type: ignore[name-defined]
             if self.ipv6_address:
                 base += f" {self.ipv6_address}/{self.ipv6_prefix}"  # type: ignore[name-defined]
         if self.dns:
-            base += f" dns={' '.join(self.dns)}"  # type: ignore[name-defined]
-        base += f" stp={'on' if self.stp else 'off'}"  # type: ignore[name-defined]
-        timers=[]
+            base += f" dns = {' '.join(self.dns)}"  # type: ignore[name-defined]
+        base += f" stp = {'on' if self.stp else 'off'}"  # type: ignore[name-defined]
+        timers = []
         if self.forward_delay is not None:
-            timers.append(f"fd={self.forward_delay}")
+            timers.append(f"fd = {self.forward_delay}")
         if self.hello_time is not None:
-            timers.append(f"hello={self.hello_time}")
+            timers.append(f"hello = {self.hello_time}")
         if self.max_age is not None:
-            timers.append(f"maxage={self.max_age}")
+            timers.append(f"maxage = {self.max_age}")
         if timers:
             base += " (" + ", ".join(timers) + ")"  # type: ignore[name-defined]
         return base  # type: ignore[name-defined]
@@ -225,7 +225,7 @@ def validate_cidr(ip: str, prefix: int) -> Tuple[bool, str]:
 
 
 def validate_dns_servers(servers: List[str]) -> Tuple[bool, List[str]]:
-    errors=[]
+    errors = []
     for server in servers:
         try:
             ipaddress.IPv4Address(server)
@@ -235,13 +235,13 @@ def validate_dns_servers(servers: List[str]) -> Tuple[bool, List[str]]:
 
 
 def detect_interfaces(
-    mock_mode: bool=False, benchmark_count: int=0
+    mock_mode: bool = False, benchmark_count: int = 0
 ) -> List[InterfaceConfig]:
     items: List[InterfaceConfig] = []
 
     if mock_mode or benchmark_count > 0:
     # Mock interfaces for testing/demo
-        count=benchmark_count if benchmark_count > 0 else 4
+        count = benchmark_count if benchmark_count > 0 else 4
         if benchmark_count > 0:
             for i in range(count):
                 items.append(InterfaceConfig(f"eth{i}", "wired"))
@@ -254,25 +254,25 @@ def detect_interfaces(
 
     if not is_linux():
         return items
-    sys_net="/sys/class/net"
+    sys_net = "/sys/class/net"
     try:
         for name in sorted(os.listdir(sys_net)):
         # Skip loopback
             if name == "lo":
                 continue
-            kind="wired"
+            kind = "wired"
             # Wireless hint: wireless dir exists
             if os.path.isdir(os.path.join(sys_net, name, "wireless")):
-                kind="wireless"
+                kind = "wireless"
             else:
             # InfiniBand: ARPHRD_INFINIBAND (32) in 'type'
                 try:
                     with open(
-                        os.path.join(sys_net, name, "type"), "r", encoding="utf-8"
+                        os.path.join(sys_net, name, "type"), "r", encoding = "utf-8"
                     ) as f:
-                        _t=f.read().strip()
+                        _t = f.read().strip()
                         if t == "32":  # type: ignore[name-defined]
-                            kind="infiniband"
+                            kind = "infiniband"
                 except Exception:
                     pass    # nosec B110
             items.append(InterfaceConfig(name, kind))
@@ -283,7 +283,7 @@ def detect_interfaces(
 
 def prompt(stdscr, yx, prompttext: str, default: str="") -> str:
     curses.echo()
-    y, x=yx
+    y, x = yx
     stdscr.addstr(y, x, " " * (curses.COLS - x - 1))
     stdscr.addstr(y, x, f"{prompt_text} [{default}]: ")  # type: ignore[name-defined]
     stdscr.refresh()
@@ -309,30 +309,30 @@ def draw_help(stdscr: Any) -> None:
 def edit_interface(
     stdscr: Any, cfg: InterfaceConfig, masters: Optional[List[str]] = None
 ) -> None:
-    row=curses.LINES - 3
+    row = curses.LINES - 3
     # Master
     if masters:
-        master_str=prompt(
+        master_str = prompt(
             stdscr, (row, 2), f"Master ({', '.join(masters)})", cfg.master
         )
         if master_str in masters or master_str == "":
-            cfg.master=master_str
+            cfg.master = master_str
 
     # Method
-    _method=prompt(stdscr, (row, 2), "Method (dhcp/static)", cfg.method)
+    _method = prompt(stdscr, (row, 2), "Method (dhcp/static)", cfg.method)
     if method in ("dhcp", "static"):  # type: ignore[name-defined]
-        cfg.method=method  # type: ignore[name-defined]
+        cfg.method = method  # type: ignore[name-defined]
     if cfg.method == "static":
     # Address
         while True:
-            addr=prompt(
+            addr = prompt(
                 stdscr, (row, 2), "Address (e.g. 192.168.1.10)", cfg.address or ""
             )
             if not addr:
                 break
-            valid, msg=validate_ipv4_address(addr)
+            valid, msg = validate_ipv4_address(addr)
             if valid:
-                cfg.address=addr
+                cfg.address = addr
                 break
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
@@ -341,15 +341,15 @@ def edit_interface(
 
         # Prefix
         while True:
-            _prefix=prompt(stdscr, (row, 2), "Prefix (e.g. 24)", str(cfg.prefix))
+            _prefix = prompt(stdscr, (row, 2), "Prefix (e.g. 24)", str(cfg.prefix))
             try:
-                _p=int(prefix)  # type: ignore[has-type]
+                _p = int(prefix)  # type: ignore[has-type]
                 if 0 <= p <= 32:  # type: ignore[name-defined]
-                    cfg.prefix=p  # type: ignore[name-defined]
+                    cfg.prefix = p  # type: ignore[name-defined]
                     break
-                msg="Prefix must be 0-32"
+                msg = "Prefix must be 0-32"
             except ValueError:
-                msg="Prefix must be an integer"
+                msg = "Prefix must be an integer"
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
             stdscr.move(row - 1, 0)
@@ -357,13 +357,13 @@ def edit_interface(
 
         # Gateway
         while True:
-            _gw=prompt(stdscr, (row, 2), "Gateway (optional)", cfg.gateway or "")
+            _gw = prompt(stdscr, (row, 2), "Gateway (optional)", cfg.gateway or "")
             if not gw:  # type: ignore[has-type]
-                cfg.gateway=""
+                cfg.gateway = ""
                 break
-            valid, msg=validate_ipv4_address(gw)  # type: ignore[has-type]
+            valid, msg = validate_ipv4_address(gw)  # type: ignore[has-type]
             if valid:
-                cfg.gateway=gw  # type: ignore[has-type]
+                cfg.gateway = gw  # type: ignore[has-type]
                 break
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
@@ -372,15 +372,15 @@ def edit_interface(
 
         # IPv6 Address
         while True:
-            addr=prompt(
+            addr = prompt(
                 stdscr, (row, 2), "IPv6 Address (optional)", cfg.ipv6_address or ""
             )
             if not addr:
-                cfg.ipv6_address=""
+                cfg.ipv6_address = ""
                 break
-            valid, msg=validate_ipv6_address(addr)
+            valid, msg = validate_ipv6_address(addr)
             if valid:
-                cfg.ipv6_address=addr
+                cfg.ipv6_address = addr
                 break
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
@@ -390,17 +390,17 @@ def edit_interface(
         # IPv6 Prefix
         if cfg.ipv6_address:
             while True:
-                prefix=prompt(
+                prefix = prompt(
                     stdscr, (row, 2), "IPv6 Prefix (e.g. 64)", str(cfg.ipv6_prefix)
                 )
                 try:
-                    _p=int(prefix)
+                    _p = int(prefix)
                     if 0 <= p <= 128:  # type: ignore[name-defined]
-                        cfg.ipv6_prefix=p  # type: ignore[name-defined]
+                        cfg.ipv6_prefix = p  # type: ignore[name-defined]
                         break
-                    msg="Prefix must be 0-128"
+                    msg = "Prefix must be 0-128"
                 except ValueError:
-                    msg="Prefix must be an integer"
+                    msg = "Prefix must be an integer"
                 stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
                 stdscr.getch()
                 stdscr.move(row - 1, 0)
@@ -408,15 +408,15 @@ def edit_interface(
 
             # IPv6 Gateway
             while True:
-                gw=prompt(
+                gw = prompt(
                     stdscr, (row, 2), "IPv6 Gateway (optional)", cfg.ipv6_gateway or ""
                 )
                 if not gw:
-                    cfg.ipv6_gateway=""
+                    cfg.ipv6_gateway = ""
                     break
-                valid, msg=validate_ipv6_address(gw)
+                valid, msg = validate_ipv6_address(gw)
                 if valid:
-                    cfg.ipv6_gateway=gw
+                    cfg.ipv6_gateway = gw
                     break
                 stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
                 stdscr.getch()
@@ -425,26 +425,26 @@ def edit_interface(
 
         # DNS
         while True:
-            dns=prompt(
+            dns = prompt(
                 stdscr,
                 (row, 2),
                 "DNS (space-separated)",
                 " ".join(cfg.dns) if cfg.dns else "",
             )
-            _dns_list=[d for d in dns.split() if d]
+            _dns_list = [d for d in dns.split() if d]
             if not dns_list:  # type: ignore[name-defined]
-                cfg.dns=[]
+                cfg.dns = []
                 break
             # Validate both IPv4 and IPv6 DNS
-            errors=[]
+            errors = []
             for d in dns_list:  # type: ignore[name-defined]
-                v4, _=validate_ipv4_address(d)
-                v6, _=validate_ipv6_address(d)
+                v4, _ = validate_ipv4_address(d)
+                v6, _ = validate_ipv6_address(d)
                 if not v4 and not v6:
                     errors.append(f"Invalid DNS: {d}")
 
             if not errors:
-                cfg.dns=dns_list  # type: ignore[name-defined]
+                cfg.dns = dns_list  # type: ignore[name-defined]
                 break
             stdscr.addstr(row - 1, 2, f"Error: {errors[0]} (Press any key)")
             stdscr.getch()
@@ -452,36 +452,36 @@ def edit_interface(
             stdscr.clrtoeol()
 
     # VLAN
-    _vlan=prompt(stdscr, (row, 2), "VLAN ID (empty for none)", str(cfg.vlan_id or ""))
+    _vlan = prompt(stdscr, (row, 2), "VLAN ID (empty for none)", str(cfg.vlan_id or ""))
     if vlan.strip() == "":  # type: ignore[name-defined]
-        cfg.vlan_id=None
+        cfg.vlan_id = None
     else:
         try:
-            cfg.vlan_id=int(vlan)  # type: ignore[name-defined]
+            cfg.vlan_id = int(vlan)  # type: ignore[name-defined]
         except ValueError:
             pass
     # Wireless
     if cfg.kind == "wireless":
-        _ssid=prompt(stdscr, (row, 2), "WiFi SSID", cfg.ssid or "")
-        _psk=prompt(stdscr, (row, 2), "WiFi passphrase", cfg.psk or "")
-        cfg.ssid=ssid if ssid else None  # type: ignore[name-defined]
-        cfg.psk=psk if psk else None  # type: ignore[name-defined]
+        _ssid = prompt(stdscr, (row, 2), "WiFi SSID", cfg.ssid or "")
+        _psk = prompt(stdscr, (row, 2), "WiFi passphrase", cfg.psk or "")
+        cfg.ssid = ssid if ssid else None  # type: ignore[name-defined]
+        cfg.psk = psk if psk else None  # type: ignore[name-defined]
 
 
 def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
-    row=curses.LINES - 3
-    _method=prompt(stdscr, (row, 2), "Bridge method (dhcp/static)", br.method)
+    row = curses.LINES - 3
+    _method = prompt(stdscr, (row, 2), "Bridge method (dhcp/static)", br.method)
     if method in ("dhcp", "static"):  # type: ignore[name-defined]
-        br.method=method  # type: ignore[name-defined]
+        br.method = method  # type: ignore[name-defined]
     if br.method == "static":
     # Address
         while True:
-            _addr=prompt(stdscr, (row, 2), "Bridge address", br.address or "")
+            _addr = prompt(stdscr, (row, 2), "Bridge address", br.address or "")
             if not addr:  # type: ignore[has-type]
                 break
-            valid, msg=validate_ipv4_address(addr)  # type: ignore[has-type]
+            valid, msg = validate_ipv4_address(addr)  # type: ignore[has-type]
             if valid:
-                br.address=addr  # type: ignore[has-type]
+                br.address = addr  # type: ignore[has-type]
                 break
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
@@ -490,15 +490,15 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
 
         # Prefix
         while True:
-            _prefix=prompt(stdscr, (row, 2), "Bridge prefix", str(br.prefix))
+            _prefix = prompt(stdscr, (row, 2), "Bridge prefix", str(br.prefix))
             try:
-                _p=int(prefix)  # type: ignore[has-type]
+                _p = int(prefix)  # type: ignore[has-type]
                 if 0 <= p <= 32:  # type: ignore[name-defined]
-                    br.prefix=p  # type: ignore[name-defined]
+                    br.prefix = p  # type: ignore[name-defined]
                     break
-                msg="Prefix must be 0-32"
+                msg = "Prefix must be 0-32"
             except ValueError:
-                msg="Prefix must be an integer"
+                msg = "Prefix must be an integer"
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
             stdscr.move(row - 1, 0)
@@ -506,13 +506,13 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
 
         # Gateway
         while True:
-            _gw=prompt(stdscr, (row, 2), "Bridge gateway (optional)", br.gateway or "")
+            _gw = prompt(stdscr, (row, 2), "Bridge gateway (optional)", br.gateway or "")
             if not gw:  # type: ignore[has-type]
-                br.gateway=""
+                br.gateway = ""
                 break
-            valid, msg=validate_ipv4_address(gw)  # type: ignore[has-type]
+            valid, msg = validate_ipv4_address(gw)  # type: ignore[has-type]
             if valid:
-                br.gateway=gw  # type: ignore[has-type]
+                br.gateway = gw  # type: ignore[has-type]
                 break
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
@@ -521,18 +521,18 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
 
         # IPv6 Address
         while True:
-            addr=prompt(
+            addr = prompt(
                 stdscr,
                 (row, 2),
                 "Bridge IPv6 Address (optional)",
                 br.ipv6_address or "",
             )
             if not addr:
-                br.ipv6_address=""
+                br.ipv6_address = ""
                 break
-            valid, msg=validate_ipv6_address(addr)
+            valid, msg = validate_ipv6_address(addr)
             if valid:
-                br.ipv6_address=addr
+                br.ipv6_address = addr
                 break
             stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
             stdscr.getch()
@@ -542,17 +542,17 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
         # IPv6 Prefix
         if br.ipv6_address:
             while True:
-                prefix=prompt(
+                prefix = prompt(
                     stdscr, (row, 2), "Bridge IPv6 Prefix", str(br.ipv6_prefix)
                 )
                 try:
-                    _p=int(prefix)
+                    _p = int(prefix)
                     if 0 <= p <= 128:  # type: ignore[name-defined]
-                        br.ipv6_prefix=p  # type: ignore[name-defined]
+                        br.ipv6_prefix = p  # type: ignore[name-defined]
                         break
-                    msg="Prefix must be 0-128"
+                    msg = "Prefix must be 0-128"
                 except ValueError:
-                    msg="Prefix must be an integer"
+                    msg = "Prefix must be an integer"
                 stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
                 stdscr.getch()
                 stdscr.move(row - 1, 0)
@@ -560,18 +560,18 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
 
             # IPv6 Gateway
             while True:
-                gw=prompt(
+                gw = prompt(
                     stdscr,
                     (row, 2),
                     "Bridge IPv6 Gateway (optional)",
                     br.ipv6_gateway or "",
                 )
                 if not gw:
-                    br.ipv6_gateway=""
+                    br.ipv6_gateway = ""
                     break
-                valid, msg=validate_ipv6_address(gw)
+                valid, msg = validate_ipv6_address(gw)
                 if valid:
-                    br.ipv6_gateway=gw
+                    br.ipv6_gateway = gw
                     break
                 stdscr.addstr(row - 1, 2, f"Error: {msg} (Press any key)")
                 stdscr.getch()
@@ -580,62 +580,62 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
 
     # DNS
     while True:
-        dns=prompt(
+        dns = prompt(
             stdscr,
             (row, 2),
             "Bridge DNS (space-separated)",
             " ".join(br.dns) if br.dns else "",
         )
-        _dns_list=[d for d in dns.split() if d]
+        _dns_list = [d for d in dns.split() if d]
         if not dns_list:  # type: ignore[name-defined]
-            br.dns=[]
+            br.dns = []
             break
         # Validate both IPv4 and IPv6 DNS
-        errors=[]
+        errors = []
         for d in dns_list:  # type: ignore[name-defined]
-            v4, _=validate_ipv4_address(d)
-            v6, _=validate_ipv6_address(d)
+            v4, _ = validate_ipv4_address(d)
+            v6, _ = validate_ipv6_address(d)
             if not v4 and not v6:
                 errors.append(f"Invalid DNS: {d}")
 
         if not errors:
-            br.dns=dns_list  # type: ignore[name-defined]
+            br.dns = dns_list  # type: ignore[name-defined]
             break
         stdscr.addstr(row - 1, 2, f"Error: {errors[0]} (Press any key)")
         stdscr.getch()
         stdscr.move(row - 1, 0)
         stdscr.clrtoeol()
 
-    stp=prompt(
+    stp = prompt(
         stdscr, (row, 2), "Bridge STP (yes/no)", "yes" if br.stp else "no"
     ).lower()
     if stp in ("yes", "no"):
-        br.stp=stp == "yes"
-    fd=prompt(
+        br.stp = stp == "yes"
+    fd = prompt(
         stdscr,
         (row, 2),
-        "STP ForwardDelay sec (blank=default)",
+        "STP ForwardDelay sec (blank = default)",
         str(br.forward_delay or ""),
     )
-    br.forward_delay=int(fd) if fd.strip().isdigit() else None
-    ht=prompt(
-        stdscr, (row, 2), "STP HelloTime sec (blank=default)", str(br.hello_time or "")
+    br.forward_delay = int(fd) if fd.strip().isdigit() else None
+    ht = prompt(
+        stdscr, (row, 2), "STP HelloTime sec (blank = default)", str(br.hello_time or "")
     )
-    br.hello_time=int(ht) if ht.strip().isdigit() else None
-    ma=prompt(
-        stdscr, (row, 2), "STP MaxAge sec (blank=default)", str(br.max_age or "")
+    br.hello_time = int(ht) if ht.strip().isdigit() else None
+    ma = prompt(
+        stdscr, (row, 2), "STP MaxAge sec (blank = default)", str(br.max_age or "")
     )
-    br.max_age=int(ma) if ma.strip().isdigit() else None
+    br.max_age = int(ma) if ma.strip().isdigit() else None
 
 
 class BondConfig:
 
     def __init__(self, name: str="bond0") -> None:
-        self.name=name
+        self.name = name
         # common modes: active-backup, 802.3ad, balance-xor, broadcast, balance-tlb, balance-alb
-        self.mode="active-backup"
+        self.mode = "active-backup"
         # auto-include all wired (non-wireless, non-ib) members
-        self.auto_members=False
+        self.auto_members = False
         # specific members (optional)
         self.members: List[str] = []
 
@@ -645,14 +645,14 @@ class BondConfig:
             if self.auto_members
             else (", ".join(self.members) or "(no members)")
         )
-        return f"{self.name} (bond mode={self.mode} members={scope})"
+        return f"{self.name} (bond mode = {self.mode} members = {scope})"
 
 
 def edit_bond(
     stdscr: Any, bond: BondConfig, interfaces: List[InterfaceConfig]
 ) -> None:
-    row=curses.LINES - 3
-    mode=prompt(
+    row = curses.LINES - 3
+    mode = prompt(
         stdscr,
         (row, 2),
         "Bond mode (active-backup|802.3ad|balance-xor|broadcast|balance-tlb|balance-alb)",
@@ -666,22 +666,22 @@ def edit_bond(
         "balance-tlb",
         "balance-alb",
     ):
-        bond.mode=mode
-    auto=prompt(
+        bond.mode = mode
+    auto = prompt(
         stdscr,
         (row, 2),
         "Auto include all wired? (yes/no)",
         "yes" if bond.auto_members else "no",
     ).lower()
     if auto in ("yes", "no"):
-        bond.auto_members=auto == "yes"
+        bond.auto_members = auto == "yes"
     if not bond.auto_members:
     # allow comma-separated members by name
-        _current=", ".join(bond.members)
-        names=prompt(
+        _current = ", ".join(bond.members)
+        names = prompt(
             stdscr, (row, 2), "Members (comma-separated iface names)", current  # type: ignore[name-defined]
         )
-        bond.members=[n.strip() for n in names.split(", ") if n.strip()]
+        bond.members = [n.strip() for n in names.split(", ") if n.strip()]
 
 
 def write_networkd(
@@ -690,111 +690,111 @@ def write_networkd(
     bridges: Optional[List[BridgeConfig]] = None,
     bond: Optional[BondConfig] = None,
 ) -> List[str]:
-    os.makedirs(outdir, exist_ok=True)
+    os.makedirs(outdir, exist_ok = True)
     emitted: List[str] = []
 
     if bridges is None:
-        bridges=[]
+        bridges = []
 
     # Create bridges
     for bridge in bridges:
-        _br_netdev=os.path.join(outdir, f"10-{bridge.name}.netdev")
-        with open(br_netdev, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
+        _br_netdev = os.path.join(outdir, f"10-{bridge.name}.netdev")
+        with open(br_netdev, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
             f.write("[NetDev]\n")
-            f.write(f"Name={bridge.name}\n")
-            f.write("Kind=bridge\n\n")
+            f.write(f"Name = {bridge.name}\n")
+            f.write("Kind = bridge\n\n")
             f.write("[Bridge]\n")
-            f.write(f"STP={'yes' if bridge.stp else 'no'}\n")
+            f.write(f"STP = {'yes' if bridge.stp else 'no'}\n")
             if bridge.forward_delay is not None:
-                f.write(f"ForwardDelay={bridge.forward_delay}\n")
+                f.write(f"ForwardDelay = {bridge.forward_delay}\n")
             if bridge.hello_time is not None:
-                f.write(f"HelloTime={bridge.hello_time}\n")
+                f.write(f"HelloTime = {bridge.hello_time}\n")
             if bridge.max_age is not None:
-                f.write(f"MaxAge={bridge.max_age}\n")
+                f.write(f"MaxAge = {bridge.max_age}\n")
         emitted.append(br_netdev)  # type: ignore[name-defined]
 
-        _br_network=os.path.join(outdir, f"10-{bridge.name}.network")
-        with open(br_network, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
+        _br_network = os.path.join(outdir, f"10-{bridge.name}.network")
+        with open(br_network, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
             f.write("[Match]\n")
-            f.write(f"Name={bridge.name}\n\n")
+            f.write(f"Name = {bridge.name}\n\n")
             f.write("[Network]\n")
             if bridge.method == "dhcp":
-                f.write("DHCP=yes\n")
+                f.write("DHCP = yes\n")
             else:
-                f.write("DHCP=no\n")
+                f.write("DHCP = no\n")
                 if bridge.address:
-                    f.write(f"Address={bridge.address}/{bridge.prefix}\n")
+                    f.write(f"Address = {bridge.address}/{bridge.prefix}\n")
                 if bridge.gateway:
-                    f.write(f"Gateway={bridge.gateway}\n")
+                    f.write(f"Gateway = {bridge.gateway}\n")
                 if bridge.ipv6_address:
-                    f.write(f"Address={bridge.ipv6_address}/{bridge.ipv6_prefix}\n")
+                    f.write(f"Address = {bridge.ipv6_address}/{bridge.ipv6_prefix}\n")
                 if bridge.ipv6_gateway:
-                    f.write(f"Gateway={bridge.ipv6_gateway}\n")
+                    f.write(f"Gateway = {bridge.ipv6_gateway}\n")
             if bridge.dns:
-                f.write(f"DNS={' '.join(bridge.dns)}\n")
+                f.write(f"DNS = {' '.join(bridge.dns)}\n")
         emitted.append(br_network)  # type: ignore[name-defined]
 
     # Optional bond first
     if bond is not None:
-        _bond_netdev=os.path.join(outdir, f"10-{bond.name}.netdev")
-        with open(bond_netdev, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
+        _bond_netdev = os.path.join(outdir, f"10-{bond.name}.netdev")
+        with open(bond_netdev, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
             f.write("[NetDev]\n")
-            f.write(f"Name={bond.name}\n")
-            f.write("Kind=bond\n\n")
+            f.write(f"Name = {bond.name}\n")
+            f.write("Kind = bond\n\n")
             f.write("[Bond]\n")
-            f.write(f"Mode={bond.mode}\n")
+            f.write(f"Mode = {bond.mode}\n")
         emitted.append(bond_netdev)  # type: ignore[name-defined]
 
     for c in cfgs:
     # Create VLAN netdev first if requested
-        _enslave_name=c.name
+        _enslave_name = c.name
         if c.vlan_id is not None:
-            vlan_name=f"{c.name}.{c.vlan_id}"
-            _netdev_path=os.path.join(outdir, f"10-{vlan_name}.netdev")
-            with open(netdev_path, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
+            vlan_name = f"{c.name}.{c.vlan_id}"
+            _netdev_path = os.path.join(outdir, f"10-{vlan_name}.netdev")
+            with open(netdev_path, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
                 f.write("[NetDev]\n")
-                f.write(f"Name={vlan_name}\n")
-                f.write("Kind=vlan\n\n")
+                f.write(f"Name = {vlan_name}\n")
+                f.write("Kind = vlan\n\n")
                 f.write("[VLAN]\n")
-                f.write(f"Id={c.vlan_id}\n")
+                f.write(f"Id = {c.vlan_id}\n")
             emitted.append(netdev_path)  # type: ignore[name-defined]
-            _enslave_name=vlan_name
+            _enslave_name = vlan_name
 
         # WPA supplicant for wireless (regardless of bridge)
         if c.kind == "wireless" and c.ssid and c.psk:
-            _wpa_dir=os.path.join(outdir, "wpa_supplicant")
-            os.makedirs(wpa_dir, exist_ok=True)  # type: ignore[name-defined]
-            _wpa_path=os.path.join(wpa_dir, f"wpa_supplicant-{c.name}.conf")  # type: ignore[name-defined]
-            with open(wpa_path, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
-                f.write("ctrl_interface=DIR=/run/wpa_supplicant GROUP=netdev\n")
-                f.write("update_config=1\n")
-                f.write("country=US\n\n")
-                f.write("network={\n")
-                f.write(f'    ssid="{c.ssid}"\n')
-                f.write(f'    psk="{c.psk}"\n')
+            _wpa_dir = os.path.join(outdir, "wpa_supplicant")
+            os.makedirs(wpa_dir, exist_ok = True)  # type: ignore[name-defined]
+            _wpa_path = os.path.join(wpa_dir, f"wpa_supplicant-{c.name}.conf")  # type: ignore[name-defined]
+            with open(wpa_path, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
+                f.write("ctrl_interface = DIR=/run/wpa_supplicant GROUP = netdev\n")
+                f.write("update_config = 1\n")
+                f.write("country = US\n\n")
+                f.write("network = {\n")
+                f.write(f'    ssid = "{c.ssid}"\n')
+                f.write(f'    psk = "{c.psk}"\n')
                 f.write("}\n")
             emitted.append(wpa_path)  # type: ignore[name-defined]
 
         # .network per interface
-        _network_path=os.path.join(outdir, f"10-{enslave_name}.network")  # type: ignore[name-defined]
-        with open(network_path, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
+        _network_path = os.path.join(outdir, f"10-{enslave_name}.network")  # type: ignore[name-defined]
+        with open(network_path, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
             f.write("[Match]\n")
-            f.write(f"Name={enslave_name}\n\n")  # type: ignore[name-defined]
+            f.write(f"Name = {enslave_name}\n\n")  # type: ignore[name-defined]
             f.write("[Network]\n")
 
             # Determine master
-            master=c.master
+            master = c.master
 
             # Legacy logic: if bond enabled and auto_members, or in members list
             if bond is not None and (
                 (bond.auto_members and c.kind== "wired")
                 or (enslave_name in bond.members)  # type: ignore[name-defined]
             ):
-                master=bond.name
+                master = bond.name
 
             if master:
             # Systemd-networkd uses Bridge= for both bridge and bond? No, Bond= for bond.
-                f.write(f"Bridge={master}\n")
+                f.write(f"Bridge = {master}\n")
                 # Actually, for systemd-networkd:
                     # [Network]
                 # Bond=bond0  (if master is bond)
@@ -803,25 +803,25 @@ def write_networkd(
                 # We need to know if master is a bond or bridge.
                 # Check against bond name
                 if bond and master == bond.name:
-                    f.write(f"Bond={master}\n")
+                    f.write(f"Bond = {master}\n")
                 else:
                 # Assume bridge
-                    f.write(f"Bridge={master}\n")
+                    f.write(f"Bridge = {master}\n")
             else:
                 if c.method == "dhcp":
-                    f.write("DHCP=yes\n")
+                    f.write("DHCP = yes\n")
                 else:
-                    f.write("DHCP=no\n")
+                    f.write("DHCP = no\n")
                     if c.address:
-                        f.write(f"Address={c.address}/{c.prefix}\n")
+                        f.write(f"Address = {c.address}/{c.prefix}\n")
                     if c.gateway:
-                        f.write(f"Gateway={c.gateway}\n")
+                        f.write(f"Gateway = {c.gateway}\n")
                     if c.ipv6_address:
-                        f.write(f"Address={c.ipv6_address}/{c.ipv6_prefix}\n")
+                        f.write(f"Address = {c.ipv6_address}/{c.ipv6_prefix}\n")
                     if c.ipv6_gateway:
-                        f.write(f"Gateway={c.ipv6_gateway}\n")
+                        f.write(f"Gateway = {c.ipv6_gateway}\n")
                 if c.dns:
-                    f.write(f"DNS={' '.join(c.dns)}\n")
+                    f.write(f"DNS = {' '.join(c.dns)}\n")
         emitted.append(network_path)  # type: ignore[name-defined]
     return emitted
 
@@ -832,12 +832,12 @@ def write_netplan(
     bridges: Optional[List[BridgeConfig]] = None,
     bond: Optional[BondConfig] = None,
 ) -> List[str]:
-    os.makedirs(outdir, exist_ok=True)
+    os.makedirs(outdir, exist_ok = True)
     emitted: List[str] = []
-    _path=os.path.join(outdir, "99-debvisor.yaml")
+    _path = os.path.join(outdir, "99-debvisor.yaml")
 
     if bridges is None:
-        _bridges=[]  # type: ignore[var-annotated]
+        _bridges = []  # type: ignore[var-annotated]
 
     # Construct a minimal netplan
     lines: List[str] = []
@@ -851,7 +851,7 @@ def write_netplan(
 
     # Collect interfaces
     for c in cfgs:
-        target=c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
+        target = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
         if c.vlan_id is not None:
             vlans.append(target)
         if c.kind == "wired":
@@ -866,7 +866,7 @@ def write_netplan(
     def is_enslaved(name: str) -> bool:
     # Check if master is set on config
         for c in cfgs:
-            t=c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
+            t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
             if t == name and c.master:
                 return True
         # Check legacy bond auto-members
@@ -874,7 +874,7 @@ def write_netplan(
         # If wired, it's enslaved
             # Find config for name
             for c in cfgs:
-                t=c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
+                t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
                 if t == name and c.kind == "wired":
                     return True
         return False
@@ -893,9 +893,9 @@ def write_netplan(
                 # For now, let's just set dhcp4: false if enslaved.
                 # If not enslaved, we need to write IP config.
                 # Let's find the config object.
-                _found=False
+                _found = False
                 for c in cfgs:
-                    t=c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
+                    t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
                     if t == e:
                         if c.method == "dhcp":
                             lines.append("      dhcp4: true")
@@ -905,7 +905,7 @@ def write_netplan(
                                 lines.append(
                                     f"      addresses: [{c.address}/{c.prefix}]"
                                 )
-                        found=True
+                        found = True
                         break
                 if not found:
                     lines.append("      dhcp4: false")
@@ -926,7 +926,7 @@ def write_netplan(
     if vlans:
         lines.append("  vlans:")
         for v in vlans:
-            parent, vid=v.split(".")
+            parent, vid = v.split(".")
             lines.append(f"    {v}:")
             lines.append(f"      id: {vid}")
             lines.append(f"      link: {parent}")
@@ -936,14 +936,14 @@ def write_netplan(
         lines.append(f"    {bond.name}:")
         # Members
         # We need to find members that have master=bond.name OR are auto-included
-        members=[]
+        members = []
         if bond.auto_members:
             members.extend([e for e in eths])    # All wired
         else:
         # Check explicit master
             for c in cfgs:
                 if c.master == bond.name:
-                    t=c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
+                    t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
                     members.append(t)
             # Also check legacy bond.members list
             members.extend(bond.members)
@@ -960,10 +960,10 @@ def write_netplan(
             lines.append(f"    {bridge.name}:")
             lines.append("      interfaces:")
             # Find members
-            members=[]
+            members = []
             for c in cfgs:
                 if c.master == bridge.name:
-                    t=c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
+                    t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
                     members.append(t)
 
             # If bond is enslaved to this bridge (legacy logic supported?)
@@ -1000,7 +1000,7 @@ def write_netplan(
                 for d in bridge.dns:
                     lines.append(f"          - {d}")
 
-    with open(path, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
+    with open(path, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
         f.write("\n".join(lines) + "\n")
     emitted.append(path)  # type: ignore[name-defined]
     return emitted
@@ -1013,8 +1013,8 @@ def generate_apply_script(
     cfgs: List[InterfaceConfig],
     bond: Optional[BondConfig],
 ) -> str:
-    _script_path=os.path.join(outdir, "apply.sh")
-    lines=[
+    _script_path = os.path.join(outdir, "apply.sh")
+    lines = [
         "    #!/usr/bin/env bash",
         "set -euo pipefail",
         "echo 'Applying network configuration (requires sudo)'",
@@ -1038,7 +1038,7 @@ def generate_apply_script(
             f"sudo cp -v {outdir}/99-debvisor.yaml /etc/netplan/",
             "sudo netplan apply",
         ]
-    with open(script_path, "w", encoding="utf-8") as f:  # type: ignore[name-defined]
+    with open(script_path, "w", encoding = "utf-8") as f:  # type: ignore[name-defined]
         f.write("\n".join(lines) + "\n")
     try:
         os.chmod(script_path, 0o755)    # nosec B103 - Script must be executable  # type: ignore[name-defined]
@@ -1051,9 +1051,9 @@ def check_connectivity(target: str="8.8.8.8", count: int=3) -> bool:
     try:
         subprocess.run(  # type: ignore[call-overload]
             ["ping", "-c", str(count), target],
-            _check=True,
-            _stdout=subprocess.DEVNULL,
-            _stderr=subprocess.DEVNULL,
+            _check = True,
+            _stdout = subprocess.DEVNULL,
+            _stderr = subprocess.DEVNULL,
         )    # nosec B603, B607
         return True
     except subprocess.CalledProcessError:
@@ -1061,7 +1061,7 @@ def check_connectivity(target: str="8.8.8.8", count: int=3) -> bool:
 
 
 def preflight_checks(backend: str) -> List[str]:
-    errors=[]
+    errors = []
     if hasattr(os, "geteuid") and os.geteuid() != 0:
         errors.append("Must run as root to apply configuration.")
 
@@ -1071,9 +1071,9 @@ def preflight_checks(backend: str) -> List[str]:
         try:
             subprocess.run(  # type: ignore[call-overload]
                 ["systemctl", "is-active", "systemd-networkd"],
-                _check=True,
-                _stdout=subprocess.DEVNULL,
-                _stderr=subprocess.DEVNULL,
+                _check = True,
+                _stdout = subprocess.DEVNULL,
+                _stderr = subprocess.DEVNULL,
             )    # nosec B603, B607
         except subprocess.CalledProcessError:
             errors.append("systemd-networkd is not active.")
@@ -1088,23 +1088,23 @@ def apply_config(outdir: str, backend: str) -> bool:
     print("Starting configuration application...")
 
     # 1. Pre-flight checks
-    _errors=preflight_checks(backend)
+    _errors = preflight_checks(backend)
     if errors:  # type: ignore[name-defined]
         for e in errors:  # type: ignore[name-defined]
             print(f"Pre-flight check failed: {e}")
         return False
 
     # 2. Backup
-    _backup_path=f"{tempfile.gettempdir()}/netcfg_backup_{int(time.time())}.tar.gz"
+    _backup_path = f"{tempfile.gettempdir()}/netcfg_backup_{int(time.time())}.tar.gz"
     print(f"Creating backup at {backup_path}...")  # type: ignore[name-defined]
     try:
         with tarfile.open(backup_path, "w:gz") as tar:  # type: ignore[name-defined]
             if backend == "networkd":
                 if os.path.exists("/etc/systemd/network"):
-                    tar.add("/etc/systemd/network", arcname="network")
+                    tar.add("/etc/systemd/network", arcname = "network")
             else:
                 if os.path.exists("/etc/netplan"):
-                    tar.add("/etc/netplan", arcname="netplan")
+                    tar.add("/etc/netplan", arcname = "netplan")
     except Exception as e:
         print(f"Backup failed: {e}")
         return False
@@ -1119,22 +1119,22 @@ def apply_config(outdir: str, backend: str) -> bool:
             # For now, let's just copy over.
             subprocess.run(  # type: ignore[call-overload]
                 f"cp -v {outdir}/*.network /etc/systemd/network/",
-                _shell=True,
-                _check=True,
+                _shell = True,
+                _check = True,
             )    # nosec B602, B607
             subprocess.run(  # type: ignore[call-overload]
                 f"cp -v {outdir}/*.netdev /etc/systemd/network/ 2>/dev/null || true",
-                _shell=True,
-                _check=True,
+                _shell = True,
+                _check = True,
             )    # nosec B602, B607
             subprocess.run(
-                "systemctl restart systemd-networkd", shell=True, check=True
+                "systemctl restart systemd-networkd", shell = True, check = True
             )    # nosec B602, B607
         else:
             subprocess.run(
-                f"cp -v {outdir}/*.yaml /etc/netplan/", shell=True, check=True
+                f"cp -v {outdir}/*.yaml /etc/netplan/", shell = True, check = True
             )    # nosec B602, B607
-            subprocess.run("netplan apply", shell=True, check=True)    # nosec B602, B607
+            subprocess.run("netplan apply", shell = True, check = True)    # nosec B602, B607
 
         # 4. Verify
         print("Verifying connectivity...")
@@ -1160,17 +1160,17 @@ def apply_config(outdir: str, backend: str) -> bool:
                 shutil.rmtree("/etc/systemd/network")
                 os.makedirs("/etc/systemd/network")
                 with tarfile.open(backup_path, "r:gz") as tar:  # type: ignore[name-defined]
-                    tar.extractall(path="/etc/systemd")    # nosec B202
+                    tar.extractall(path = "/etc/systemd")    # nosec B202
                 subprocess.run(
-                    "systemctl restart systemd-networkd", shell=True, check=True
+                    "systemctl restart systemd-networkd", shell = True, check = True
                 )    # nosec B602, B607
             else:
                 shutil.rmtree("/etc/netplan")
                 os.makedirs("/etc/netplan")
                 with tarfile.open(backup_path, "r:gz") as tar:  # type: ignore[name-defined]
-                    tar.extractall(path="/etc")    # nosec B202
+                    tar.extractall(path = "/etc")    # nosec B202
                 subprocess.run(
-                    "netplan apply", shell=True, check=True
+                    "netplan apply", shell = True, check = True
                 )    # nosec B602, B607
             print("Rollback successful.")
         except Exception as rollback_err:
@@ -1181,32 +1181,32 @@ def apply_config(outdir: str, backend: str) -> bool:
 
 def scan_wifi(interface: str) -> List[str]:
     """Scan for WiFi networks using iwlist or iw."""
-    _networks=[]  # type: ignore[var-annotated]
+    _networks = []  # type: ignore[var-annotated]
     try:
     # Try iwlist first (more detailed output usually)
         # iwlist wlan0 scan
-        result=subprocess.run(
-            ["iwlist", interface, "scan"], capture_output=True, text=True
+        result = subprocess.run(
+            ["iwlist", interface, "scan"], capture_output = True, text = True
         )    # nosec B603, B607
         if result.returncode == 0:
         # Parse ESSID:"..."
             for line in result.stdout.splitlines():
-                _line=line.strip()
+                _line = line.strip()
                 if line.startswith("ESSID:"):
-                    _ssid=line.split(":", 1)[1].strip('"')
+                    _ssid = line.split(":", 1)[1].strip('"')
                     if ssid:  # type: ignore[name-defined]
                         networks.append(ssid)  # type: ignore[name-defined]
         else:
         # Try iw
             # iw dev wlan0 scan
-            result=subprocess.run(
-                ["iw", "dev", interface, "scan"], capture_output=True, text=True
+            result = subprocess.run(
+                ["iw", "dev", interface, "scan"], capture_output = True, text = True
             )    # nosec B603, B607
             if result.returncode == 0:
                 for line in result.stdout.splitlines():
-                    _line=line.strip()
+                    _line = line.strip()
                     if line.startswith("SSID:"):
-                        _ssid=line.split(":", 1)[1].strip()
+                        _ssid = line.split(":", 1)[1].strip()
                         if ssid:  # type: ignore[name-defined]
                             networks.append(ssid)  # type: ignore[name-defined]
     except FileNotFoundError:
@@ -1223,7 +1223,7 @@ def select_wifi_network(stdscr: Any, interface: str) -> Optional[str]:
     stdscr.addstr(0, 2, f"Scanning WiFi on {interface}...")
     stdscr.refresh()
 
-    _networks=scan_wifi(interface)
+    _networks = scan_wifi(interface)
 
     if not networks:  # type: ignore[name-defined]
         stdscr.addstr(2, 2, "No networks found or scan failed.")
@@ -1231,7 +1231,7 @@ def select_wifi_network(stdscr: Any, interface: str) -> Optional[str]:
         stdscr.getch()
         return None
 
-    selected=0
+    selected = 0
     while True:
         stdscr.erase()
         stdscr.addstr(0, 2, f"WiFi Networks on {interface}")
@@ -1248,13 +1248,13 @@ def select_wifi_network(stdscr: Any, interface: str) -> Optional[str]:
         stdscr.addstr(curses.LINES - 1, 0, "Enter: select  q: cancel  arrows: navigate")
         stdscr.refresh()
 
-        _ch=stdscr.getch()
+        _ch = stdscr.getch()
         if ch in (ord("q"), 27):  # type: ignore[name-defined]
             return None
         elif ch in (curses.KEY_DOWN, ord("j")):  # type: ignore[name-defined]
-            _selected=min(len(networks) - 1, selected + 1)  # type: ignore[name-defined]
+            _selected = min(len(networks) - 1, selected + 1)  # type: ignore[name-defined]
         elif ch in (curses.KEY_UP, ord("k")):  # type: ignore[name-defined]
-            _selected=max(0, selected - 1)
+            _selected = max(0, selected - 1)
         elif ch in (curses.KEY_ENTER, 10, 13):  # type: ignore[name-defined]
             return networks[selected]  # type: ignore[name-defined]
 
@@ -1262,18 +1262,18 @@ def select_wifi_network(stdscr: Any, interface: str) -> Optional[str]:
 def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
     curses.curs_set(0)
     stdscr.nodelay(False)
-    _selected=0
-    _viewport_start=0    # Index of the first visible item
+    _selected = 0
+    _viewport_start = 0    # Index of the first visible item
 
-    _cfgs=detect_interfaces(args.mock_mode, args.benchmark_count)
+    _cfgs = detect_interfaces(args.mock_mode, args.benchmark_count)
 
     # Initialize bridges
     bridges: List[BridgeConfig] = []
     if args.single_bridge:
-        bridges.append(BridgeConfig(name=args.bridge_name))
+        bridges.append(BridgeConfig(name = args.bridge_name))
 
-    _bond_cfg=BondConfig(name=args.bond_name) if args.enable_bond else None
-    _msg=""
+    _bond_cfg = BondConfig(name = args.bond_name) if args.enable_bond else None
+    _msg = ""
 
     while True:
         stdscr.erase()
@@ -1296,33 +1296,33 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             display_items.append(("iface", c))
 
         # Viewport Logic
-        _list_start_y=3
-        _list_height=curses.LINES - 5    # Reserve lines for header (3) and footer (2)
+        _list_start_y = 3
+        _list_height = curses.LINES - 5    # Reserve lines for header (3) and footer (2)
         if list_height < 1:  # type: ignore[has-type]
-            list_height=1
+            list_height = 1
 
         # Adjust viewport to keep selected item visible
         if selected < viewport_start:  # type: ignore[has-type, name-defined]
-            viewport_start=selected  # type: ignore[name-defined]
+            viewport_start = selected  # type: ignore[name-defined]
         elif selected >= viewport_start + list_height:  # type: ignore[name-defined]
-            viewport_start=selected - list_height + 1  # type: ignore[name-defined]
+            viewport_start = selected - list_height + 1  # type: ignore[name-defined]
 
         # Ensure viewport doesn't go out of bounds (though the above logic should handle it)
-        _viewport_start=max(0, min(viewport_start, len(display_items) - list_height))
+        _viewport_start = max(0, min(viewport_start, len(display_items) - list_height))
         if len(display_items) < list_height:
-            viewport_start=0
+            viewport_start = 0
 
         # Draw List
-        visible_items=display_items[viewport_start : viewport_start + list_height]
+        visible_items = display_items[viewport_start : viewport_start + list_height]
         for i, item in enumerate(visible_items):
-            actual_idx=viewport_start + i
-            kind, obj=item
-            _line=f" {obj.summary()}"
+            actual_idx = viewport_start + i
+            kind, obj = item
+            _line = f" {obj.summary()}"
 
             # Truncate to fit screen width
-            max_width=curses.COLS - 4
+            max_width = curses.COLS - 4
             if len(line) > max_width:  # type: ignore[misc]
-                line=line[:max_width]  # type: ignore[misc]
+                line = line[:max_width]  # type: ignore[misc]
 
             if actual_idx == selected:  # type: ignore[name-defined]
                 stdscr.attron(curses.A_REVERSE)
@@ -1345,98 +1345,98 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             stdscr.addstr(curses.LINES - 2, 2, msg[: curses.COLS - 4])  # type: ignore[has-type]
         stdscr.refresh()
 
-        _ch=stdscr.getch()
-        _msg=""
+        _ch = stdscr.getch()
+        _msg = ""
 
         if ch in (ord("q"), 27):  # type: ignore[name-defined]
             break
         elif ch in (curses.KEY_DOWN, ord("j")):  # type: ignore[name-defined]
             if display_items:
-                _selected=min(len(display_items) - 1, selected + 1)  # type: ignore[name-defined]
+                _selected = min(len(display_items) - 1, selected + 1)  # type: ignore[name-defined]
         elif ch in (curses.KEY_UP, ord("k")):  # type: ignore[name-defined]
             if display_items:
-                _selected=max(0, selected - 1)  # type: ignore[name-defined]
+                _selected = max(0, selected - 1)  # type: ignore[name-defined]
         elif ch in (curses.KEY_NPAGE,):    # Page Down  # type: ignore[name-defined]
             if display_items:
-                _selected=min(len(display_items) - 1, selected + list_height)  # type: ignore[name-defined]
+                _selected = min(len(display_items) - 1, selected + list_height)  # type: ignore[name-defined]
         elif ch in (curses.KEY_PPAGE,):    # Page Up  # type: ignore[name-defined]
             if display_items:
-                _selected=max(0, selected - list_height)  # type: ignore[name-defined]
+                _selected = max(0, selected - list_height)  # type: ignore[name-defined]
         elif ch== ord("r"):  # type: ignore[name-defined]
-            _cfgs=detect_interfaces(args.mock_mode, args.benchmark_count)
-            _selected=0
-            _viewport_start=0
-            msg="Interfaces reloaded"
+            _cfgs = detect_interfaces(args.mock_mode, args.benchmark_count)
+            _selected = 0
+            _viewport_start = 0
+            msg = "Interfaces reloaded"
         elif ch== ord("b"):  # type: ignore[name-defined]
         # Add bridge
-            name=prompt(
+            name = prompt(
                 stdscr, (curses.LINES - 3, 2), "New Bridge Name", f"br{len(bridges)}"
             )
             if name:
-                bridges.append(BridgeConfig(name=name))
-                msg=f"Added bridge {name}"
+                bridges.append(BridgeConfig(name = name))
+                msg = f"Added bridge {name}"
         elif ch== ord("d"):  # type: ignore[name-defined]
         # Delete bridge
             if display_items:
-                kind, obj=display_items[selected]  # type: ignore[name-defined]
+                kind, obj = display_items[selected]  # type: ignore[name-defined]
                 if kind == "bridge":
                     bridges.remove(obj)
-                    _selected=max(0, selected - 1)  # type: ignore[name-defined]
-                    msg=f"Deleted bridge {obj.name}"
+                    _selected = max(0, selected - 1)  # type: ignore[name-defined]
+                    msg = f"Deleted bridge {obj.name}"
                 else:
-                    _msg="Can only delete bridges"
+                    _msg = "Can only delete bridges"
         elif ch== ord("w"):  # type: ignore[name-defined]
         # WiFi Scan
             if display_items:
-                kind, obj=display_items[selected]  # type: ignore[name-defined]
+                kind, obj = display_items[selected]  # type: ignore[name-defined]
                 if kind == "iface" and obj.kind == "wireless":
-                    _ssid=select_wifi_network(stdscr, obj.name)
+                    _ssid = select_wifi_network(stdscr, obj.name)
                     if ssid:  # type: ignore[name-defined]
-                        obj.ssid=ssid  # type: ignore[name-defined]
+                        obj.ssid = ssid  # type: ignore[name-defined]
                         # Prompt for PSK
-                        psk=prompt(
+                        psk = prompt(
                             stdscr,
                             (curses.LINES - 3, 2),
                             f"Passphrase for {ssid}",  # type: ignore[name-defined]
                             obj.psk or "",
                         )
-                        obj.psk=psk
-                        msg=f"Set WiFi: {ssid}"  # type: ignore[name-defined]
+                        obj.psk = psk
+                        msg = f"Set WiFi: {ssid}"  # type: ignore[name-defined]
                     else:
-                        msg="Scan cancelled or no network selected"
+                        msg = "Scan cancelled or no network selected"
                 else:
-                    _msg="Select a wireless interface to scan"
+                    _msg = "Select a wireless interface to scan"
         elif ch== ord("e"):  # type: ignore[name-defined]
             if not display_items:
                 continue
             curses.curs_set(1)
-            kind, obj=display_items[selected]  # type: ignore[name-defined]
+            kind, obj = display_items[selected]  # type: ignore[name-defined]
 
             if kind == "bridge":
             # obj is BridgeConfig
                 edit_bridge(stdscr, obj)
-                msg=f"Edited {obj.name}"
+                msg = f"Edited {obj.name}"
             elif kind == "bond":
             # obj is BondConfig
                 edit_bond(stdscr, obj, cfgs)  # type: ignore[name-defined]
-                msg=f"Edited {obj.name}"
+                msg = f"Edited {obj.name}"
             else:
             # obj is InterfaceConfig
                 # Collect masters
-                masters=[b.name for b in bridges]
+                masters = [b.name for b in bridges]
                 if bond_cfg:  # type: ignore[name-defined]
                     masters.append(bond_cfg.name)  # type: ignore[name-defined]
                 edit_interface(stdscr, obj, masters)
-                _msg=f"Edited {obj.name}"
+                _msg = f"Edited {obj.name}"
             curses.curs_set(0)
         elif ch== ord("s"):  # type: ignore[name-defined]
             if args.backend == "netplan":
-                emitted=write_netplan(
-                    cfgs, args.output_dir, bridges=bridges, bond=bond_cfg  # type: ignore[name-defined]
+                emitted = write_netplan(
+                    cfgs, args.output_dir, bridges = bridges, bond = bond_cfg  # type: ignore[name-defined]
                 )
             else:
-                _emitted=write_networkd(
-                    cfgs, args.output_dir, bridges=bridges, bond=bond_cfg  # type: ignore[name-defined]
+                _emitted = write_networkd(
+                    cfgs, args.output_dir, bridges = bridges, bond = bond_cfg  # type: ignore[name-defined]
                 )
 
             # Note: generate_apply_script needs update too, but for now passing first bridge or None
@@ -1449,7 +1449,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             # It uses it to decide if to copy files? No, it copies *.*
             # So passing None might be fine if we update the signature.
 
-            script=generate_apply_script(
+            script = generate_apply_script(
                 args.output_dir,
                 args.backend,
                 bridges[0] if bridges else None,
@@ -1469,11 +1469,11 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                 )
                 stdscr.refresh()
                 while True:
-                    _ans=stdscr.getch()
+                    _ans = stdscr.getch()
                     if ans in (ord("y"), ord("Y")):  # type: ignore[name-defined]
                         curses.def_prog_mode()
                         curses.endwin()
-                        _success=apply_config(args.output_dir, args.backend)
+                        _success = apply_config(args.output_dir, args.backend)
                         print("\nPress Enter to continue...")
                         input()
                         curses.reset_prog_mode()
@@ -1486,72 +1486,72 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                         )
                         break
                     elif ans in (ord("n"), ord("N"), 27):  # type: ignore[name-defined]
-                        _msg="Application cancelled."
+                        _msg = "Application cancelled."
                         break
 
 
 def main() -> int:
-    parser=argparse.ArgumentParser(  # type: ignore[call-arg]
-        _description="DebVisor curses-based network configurator"
+    parser = argparse.ArgumentParser(  # type: ignore[call-arg]
+        _description = "DebVisor curses-based network configurator"
     )
     parser.add_argument(
-        "--output-dir", default="./out-networkd", help="Where to write config files"
+        "--output-dir", default = "./out-networkd", help = "Where to write config files"
     )
     parser.add_argument(
         "--backend",
-        _choices=["networkd", "netplan"],
-        _default="networkd",
-        _help="Config backend to generate (default: networkd)",
+        _choices = ["networkd", "netplan"],
+        _default = "networkd",
+        _help = "Config backend to generate (default: networkd)",
     )
     parser.add_argument(
         "--single-bridge",
-        _action="store_true",
-        _default=True,
-        _help="Place all interfaces into a single bridge and configure IP on it (default: on)",
+        _action = "store_true",
+        _default = True,
+        _help = "Place all interfaces into a single bridge and configure IP on it (default: on)",
     )
     parser.add_argument(
         "--bridge-name",
-        _default="br0",
-        _help="Name of the bridge when single-bridge is enabled",
+        _default = "br0",
+        _help = "Name of the bridge when single-bridge is enabled",
     )
     parser.add_argument(
         "--enable-bond",
-        _action="store_true",
-        _default=False,
+        _action = "store_true",
+        _default = False,
         _help=(
             "Create a bond (bond0) and include wired members; "
             "attach bond to bridge if present"
         ),
     )
     parser.add_argument(
-        "--bond-name", default="bond0", help="Name of the bond when bonding is enabled"
+        "--bond-name", default = "bond0", help = "Name of the bond when bonding is enabled"
     )
     parser.add_argument(
         "--no-ui",
-        _action="store_true",
-        _help="Non-interactive: only detect and print interfaces",
+        _action = "store_true",
+        _help = "Non-interactive: only detect and print interfaces",
     )
     parser.add_argument(
         "--apply",
-        _action="store_true",
-        _help="Enable apply capability in UI (requires root)",
+        _action = "store_true",
+        _help = "Enable apply capability in UI (requires root)",
     )
     parser.add_argument(
-        "--check", action="store_true", help="Run pre-flight checks only"
+        "--check", action = "store_true", help = "Run pre-flight checks only"
     )
     parser.add_argument(
-        "--mock-mode", action="store_true", help="Use mock interfaces for testing/demo"
+        "--mock-mode", action = "store_true", help = "Use mock interfaces for testing/demo"
     )
     parser.add_argument(
         "--benchmark-count",
-        _type=int,
-        _default=0,
-        _help="Generate N mock interfaces for performance testing",
+        _type = int,
+        _default = 0,
+        _help = "Generate N mock interfaces for performance testing",
     )
-    _args=parser.parse_args()
+    _args = parser.parse_args()
 
     if args.check:  # type: ignore[name-defined]
-        _errors=preflight_checks(args.backend)  # type: ignore[name-defined]
+        _errors = preflight_checks(args.backend)  # type: ignore[name-defined]
         if errors:  # type: ignore[name-defined]
             for e in errors:  # type: ignore[name-defined]
                 print(f"FAIL: {e}")

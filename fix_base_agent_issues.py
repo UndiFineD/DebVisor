@@ -7,10 +7,10 @@ file_path = r"c:\Users\kdejo\DEV\DebVisor\scripts\agent\base_agent.py"
 
 # Read file with proper encoding
 try:
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
 except UnicodeDecodeError:
-    with open(file_path, 'r', encoding='latin-1') as f:
+    with open(file_path, 'r', encoding = 'latin-1') as f:
         lines = f.readlines()
 
 # Fix 1: Remove unused subprocess import (line 27)
@@ -48,12 +48,12 @@ print(f"Fixed {w293_count} W293 (blank line whitespace) issues")
 
 # Write file
 try:
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
     print(f"Successfully wrote fixed file to {file_path}")
 except Exception as e:
     print(f"Error writing file: {e}")
-    with open(file_path, 'w', encoding='latin-1') as f:
+    with open(file_path, 'w', encoding = 'latin-1') as f:
         f.writelines(lines)
     print(f"Successfully wrote fixed file (latin-1) to {file_path}")
 

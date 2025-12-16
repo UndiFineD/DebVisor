@@ -110,7 +110,7 @@ from datetime import datetime, timezone
 from typing import Callable, Dict, Any, Optional
 from flask import Blueprint, jsonify
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 def create_health_blueprint(
@@ -128,10 +128,10 @@ def create_health_blueprint(
     Returns:
         Flask Blueprint with /health/live and /health/ready routes.
     """
-    _bp=Blueprint("health_standard", __name__, url_prefix="/health")
-    _checks=readiness_checks or {}
+    _bp = Blueprint("health_standard", __name__, url_prefix = "/health")
+    _checks = readiness_checks or {}
 
-    @bp.route("/live", methods=["GET"])  # type: ignore[name-defined]
+    @bp.route("/live", methods = ["GET"])  # type: ignore[name-defined]
     def liveness() -> Any:
         """Liveness probe."""
         return jsonify({
@@ -140,28 +140,28 @@ def create_health_blueprint(
             "service": service_name
         }), 200
 
-    @bp.route("/ready", methods=["GET"])  # type: ignore[name-defined]
+    @bp.route("/ready", methods = ["GET"])  # type: ignore[name-defined]
     def readiness() -> Any:
         """Readiness probe."""
-        results={}
-        all_healthy=True
+        results = {}
+        all_healthy = True
 
         for check_name, check_func in checks.items():  # type: ignore[name-defined]
             try:
-                _result=check_func()
+                _result = check_func()
                 results[check_name] = result  # type: ignore[name-defined]
                 if result.get("status") == "error":  # type: ignore[name-defined]
-                    all_healthy=False
+                    all_healthy = False
             except Exception as e:
                 logger.error(f"Health check '{check_name}' failed: {e}")  # type: ignore[name-defined]
                 results[check_name] = {
                     "status": "error",
                     "message": str(e)
                 }
-                all_healthy=False
+                all_healthy = False
 
-        status_code=200 if all_healthy else 503
-        response={
+        status_code = 200 if all_healthy else 503
+        response = {
             "status": "ready" if all_healthy else "not_ready",
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "service": service_name,

@@ -11,7 +11,7 @@ for py_file in sorted(agent_dir.glob('*.py')):
         continue
     
     try:
-        content = py_file.read_text(encoding='utf-8')
+        content = py_file.read_text(encoding = 'utf-8')
     except:
         continue
     
@@ -30,7 +30,7 @@ for py_file in sorted(agent_dir.glob('*.py')):
     
     if new_content != original:
         try:
-            py_file.write_text(new_content, encoding='utf-8')
+            py_file.write_text(new_content, encoding = 'utf-8')
             if fixes > 0:
                 print(f"{py_file.name}: {fixes} W293 fixes")
                 total_fixes += fixes

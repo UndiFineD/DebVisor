@@ -68,7 +68,7 @@ class MetricDefinition:
     name: str
     type: MetricType
     help_text: str
-    labels: List[str] = field(default_factory=list)
+    labels: List[str] = field(default_factory = list)
     buckets: Optional[List[float]] = None    # For histograms
     quantiles: Optional[List[float]] = None    # For summaries
 
@@ -144,8 +144,8 @@ class ScrapeConfig:
     scheme: str = "http"
     scrape_interval: timedelta = field(default_factory=lambda: timedelta(minutes=1))
     scrape_timeout: timedelta = field(default_factory=lambda: timedelta(seconds=10))
-    static_configs: List[Dict[str, Any]] = field(default_factory=list)
-    relabel_configs: List[Dict[str, Any]] = field(default_factory=list)
+    static_configs: List[Dict[str, Any]] = field(default_factory = list)
+    relabel_configs: List[Dict[str, Any]] = field(default_factory = list)
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
@@ -195,59 +195,59 @@ class MonitoringConfigManager:
         """Initialize default metrics"""
         default_metrics = [
             MetricDefinition(
-                name="debvisor_cluster_nodes_total",
-                type=MetricType.GAUGE,
-                help_text="Total number of nodes in cluster",
-                labels=["cluster"],
+                name = "debvisor_cluster_nodes_total",
+                type = MetricType.GAUGE,
+                help_text = "Total number of nodes in cluster",
+                labels = ["cluster"],
             ),
             MetricDefinition(
-                name="debvisor_cluster_pods_total",
-                type=MetricType.GAUGE,
-                help_text="Total number of pods in cluster",
-                labels=["cluster", "namespace"],
+                name = "debvisor_cluster_pods_total",
+                type = MetricType.GAUGE,
+                help_text = "Total number of pods in cluster",
+                labels = ["cluster", "namespace"],
             ),
             MetricDefinition(
-                name="debvisor_node_cpu_usage_percent",
-                type=MetricType.GAUGE,
-                help_text="CPU usage percentage per node",
-                labels=["node"],
+                name = "debvisor_node_cpu_usage_percent",
+                type = MetricType.GAUGE,
+                help_text = "CPU usage percentage per node",
+                labels = ["node"],
             ),
             MetricDefinition(
-                name="debvisor_node_memory_usage_bytes",
-                type=MetricType.GAUGE,
-                help_text="Memory usage in bytes per node",
-                labels=["node"],
+                name = "debvisor_node_memory_usage_bytes",
+                type = MetricType.GAUGE,
+                help_text = "Memory usage in bytes per node",
+                labels = ["node"],
             ),
             MetricDefinition(
-                name="debvisor_disk_used_bytes",
-                type=MetricType.GAUGE,
-                help_text="Disk usage in bytes",
-                labels=["node", "mount_point"],
+                name = "debvisor_disk_used_bytes",
+                type = MetricType.GAUGE,
+                help_text = "Disk usage in bytes",
+                labels = ["node", "mount_point"],
             ),
             MetricDefinition(
-                name="debvisor_network_bytes_in_total",
-                type=MetricType.COUNTER,
-                help_text="Total bytes received",
-                labels=["interface"],
+                name = "debvisor_network_bytes_in_total",
+                type = MetricType.COUNTER,
+                help_text = "Total bytes received",
+                labels = ["interface"],
             ),
             MetricDefinition(
-                name="debvisor_network_bytes_out_total",
-                type=MetricType.COUNTER,
-                help_text="Total bytes transmitted",
-                labels=["interface"],
+                name = "debvisor_network_bytes_out_total",
+                type = MetricType.COUNTER,
+                help_text = "Total bytes transmitted",
+                labels = ["interface"],
             ),
             MetricDefinition(
-                name="debvisor_rpc_requests_total",
-                type=MetricType.COUNTER,
-                help_text="Total RPC requests",
-                labels=["method", "status"],
+                name = "debvisor_rpc_requests_total",
+                type = MetricType.COUNTER,
+                help_text = "Total RPC requests",
+                labels = ["method", "status"],
             ),
             MetricDefinition(
-                name="debvisor_rpc_request_duration_seconds",
-                type=MetricType.HISTOGRAM,
-                help_text="RPC request duration in seconds",
-                labels=["method"],
-                buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0],
+                name = "debvisor_rpc_request_duration_seconds",
+                type = MetricType.HISTOGRAM,
+                help_text = "RPC request duration in seconds",
+                labels = ["method"],
+                buckets = [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0],
             ),
         ]
 
@@ -258,46 +258,46 @@ class MonitoringConfigManager:
         """Initialize default alert rules"""
         default_alerts = [
             AlertRule(
-                name="HighCPUUsage",
-                expr="debvisor_node_cpu_usage_percent > 80",
-                severity=AlertSeverity.WARNING,
-                description="Node CPU usage is above 80%",
-                runbook_url="/docs/runbooks/high-cpu",
+                name = "HighCPUUsage",
+                expr = "debvisor_node_cpu_usage_percent > 80",
+                severity = AlertSeverity.WARNING,
+                description = "Node CPU usage is above 80%",
+                runbook_url = "/docs/runbooks/high-cpu",
             ),
             AlertRule(
-                name="HighMemoryUsage",
+                name = "HighMemoryUsage",
                 expr=(
                     "(debvisor_node_memory_usage_bytes / "
                     "debvisor_node_memory_available_bytes) > 0.9"
                 ),
-                severity=AlertSeverity.WARNING,
-                description="Node memory usage is above 90%",
-                runbook_url="/docs/runbooks/high-memory",
+                severity = AlertSeverity.WARNING,
+                description = "Node memory usage is above 90%",
+                runbook_url = "/docs/runbooks/high-memory",
             ),
             AlertRule(
-                name="DiskSpaceCritical",
-                expr="(debvisor_disk_used_bytes / debvisor_disk_total_bytes) > 0.95",
-                severity=AlertSeverity.CRITICAL,
-                description="Disk usage is above 95%",
-                runbook_url="/docs/runbooks/disk-space",
+                name = "DiskSpaceCritical",
+                expr = "(debvisor_disk_used_bytes / debvisor_disk_total_bytes) > 0.95",
+                severity = AlertSeverity.CRITICAL,
+                description = "Disk usage is above 95%",
+                runbook_url = "/docs/runbooks/disk-space",
             ),
             AlertRule(
-                name="NodeNotReady",
-                expr="debvisor_node_status == 0",
-                for_duration=timedelta(minutes=5),
-                severity=AlertSeverity.CRITICAL,
-                description="Node is not ready",
-                runbook_url="/docs/runbooks/node-not-ready",
+                name = "NodeNotReady",
+                expr = "debvisor_node_status == 0",
+                for_duration = timedelta(minutes = 5),
+                severity = AlertSeverity.CRITICAL,
+                description = "Node is not ready",
+                runbook_url = "/docs/runbooks/node-not-ready",
             ),
             AlertRule(
-                name="HighRPCErrorRate",
+                name = "HighRPCErrorRate",
                 expr=(
-                    "(debvisor_rpc_requests_total{status='error'} / "
+                    "(debvisor_rpc_requests_total{status = 'error'} / "
                     "debvisor_rpc_requests_total) > 0.05"
                 ),
-                severity=AlertSeverity.WARNING,
-                description="RPC error rate is above 5%",
-                runbook_url="/docs/runbooks/rpc-errors",
+                severity = AlertSeverity.WARNING,
+                description = "RPC error rate is above 5%",
+                runbook_url = "/docs/runbooks/rpc-errors",
             ),
         ]
 
@@ -393,10 +393,10 @@ class MonitoringTemplates:
 
         # Add K8s-specific scrape config
         k8s_config = ScrapeConfig(
-            job_name="kubernetes-apiserver",
-            metrics_path="/metrics",
-            scheme="https",
-            static_configs=[
+            job_name = "kubernetes-apiserver",
+            metrics_path = "/metrics",
+            scheme = "https",
+            static_configs = [
                 {
                     "targets": ["kubernetes.default.svc.cluster.local:443"],
                 }
@@ -406,9 +406,9 @@ class MonitoringTemplates:
 
         # Add K8s-specific recording rule
         k8s_recording = RecordingRule(
-            name="kubernetes:pod_memory_usage_mb",
-            expr="kubernetes_pod_memory_rss_bytes / 1024 / 1024",
-            description="Pod memory usage in MB",
+            name = "kubernetes:pod_memory_usage_mb",
+            expr = "kubernetes_pod_memory_rss_bytes / 1024 / 1024",
+            description = "Pod memory usage in MB",
         )
         mgr.register_recording_rule(k8s_recording)
 
@@ -421,8 +421,8 @@ class MonitoringTemplates:
 
         # Add node scrape config
         node_config = ScrapeConfig(
-            job_name="node-exporter",
-            static_configs=[
+            job_name = "node-exporter",
+            static_configs = [
                 {"targets": ["localhost:9100"], "labels": {"instance": "infra-node"}}
             ],
         )
@@ -430,9 +430,9 @@ class MonitoringTemplates:
 
         # Add node recording rules
         node_recording = RecordingRule(
-            name="node:cpu_usage_percent",
-            expr="100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
-            description="CPU usage percentage",
+            name = "node:cpu_usage_percent",
+            expr = "100 - (avg(rate(node_cpu_seconds_total{mode = 'idle'}[5m])) * 100)",
+            description = "CPU usage percentage",
         )
         mgr.register_recording_rule(node_recording)
 
@@ -445,8 +445,8 @@ class MonitoringTemplates:
 
         # Add storage scrape config
         storage_config = ScrapeConfig(
-            job_name="ceph-exporter",
-            static_configs=[
+            job_name = "ceph-exporter",
+            static_configs = [
                 {
                     "targets": ["localhost:9283"],
                 }
@@ -462,26 +462,26 @@ class MonitoringTemplates:
 ###############################################################################
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level = logging.INFO)
 
     # Create manager
     mgr = MonitoringConfigManager()
 
     # Add custom metric
     custom_metric = MetricDefinition(
-        name="debvisor_custom_metric",
-        type=MetricType.GAUGE,
-        help_text="Custom application metric",
-        labels=["app", "instance"],
+        name = "debvisor_custom_metric",
+        type = MetricType.GAUGE,
+        help_text = "Custom application metric",
+        labels = ["app", "instance"],
     )
     mgr.register_metric(custom_metric)
 
     # Add custom alert
     custom_alert = AlertRule(
-        name="CustomAlertExample",
-        expr="debvisor_custom_metric > 100",
-        severity=AlertSeverity.WARNING,
-        description="Custom metric exceeded threshold",
+        name = "CustomAlertExample",
+        expr = "debvisor_custom_metric > 100",
+        severity = AlertSeverity.WARNING,
+        description = "Custom metric exceeded threshold",
     )
     mgr.register_alert_rule(custom_alert)
 

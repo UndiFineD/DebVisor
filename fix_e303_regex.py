@@ -10,9 +10,9 @@ from pathlib import Path
 def get_e303_files():
     """Get files with E303 issues."""
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     files = set()
@@ -26,7 +26,7 @@ def get_e303_files():
 def fix_file_e303(filepath):
     """Fix E303 in file by regex."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             content = f.read()
     except:
         return 0
@@ -41,7 +41,7 @@ def fix_file_e303(filepath):
     
     if content != original:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.write(content)
             return 1
         except:

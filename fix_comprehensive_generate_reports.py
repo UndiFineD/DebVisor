@@ -55,7 +55,7 @@ if text.endswith('\n'):
     result += '\n'
 
 # Write back
-with open(filepath, 'w', encoding='utf-8') as f:
+with open(filepath, 'w', encoding = 'utf-8') as f:
     f.write(result)
 
 print(f"Fixed {e261_fixed} E261 (comment spacing) issues")

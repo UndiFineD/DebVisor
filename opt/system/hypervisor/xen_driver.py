@@ -125,40 +125,40 @@ import os
 import tempfile
 from pathlib import Path
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 # Enums and Constants
 # -----------------------------------------------------------------------------
 class XenVMType(Enum):
-    PV="pv"    # Paravirtualized (Linux guests)
-    HVM="hvm"    # Hardware Virtual Machine (Windows/full virt)
-    PVH="pvh"    # PV in HVM container (modern hybrid)
-    PVSHIM="pvshim"    # PV shim for HVM guests
+    PV = "pv"    # Paravirtualized (Linux guests)
+    HVM = "hvm"    # Hardware Virtual Machine (Windows/full virt)
+    PVH = "pvh"    # PV in HVM container (modern hybrid)
+    PVSHIM = "pvshim"    # PV shim for HVM guests
 
 
 class VMState(Enum):
-    RUNNING="running"
-    PAUSED="paused"
-    BLOCKED="blocked"
-    SHUTDOWN="shutdown"
-    CRASHED="crashed"
-    DYING="dying"
-    UNKNOWN="unknown"
+    RUNNING = "running"
+    PAUSED = "paused"
+    BLOCKED = "blocked"
+    SHUTDOWN = "shutdown"
+    CRASHED = "crashed"
+    DYING = "dying"
+    UNKNOWN = "unknown"
 
 
 class MigrationMode(Enum):
-    LIVE="live"    # Live migration (minimal downtime)
-    OFFLINE="offline"    # Cold migration (VM stopped)
-    POSTCOPY="postcopy"    # Post-copy migration
+    LIVE = "live"    # Live migration (minimal downtime)
+    OFFLINE = "offline"    # Cold migration (VM stopped)
+    POSTCOPY = "postcopy"    # Post-copy migration
 
 
 class SchedulerType(Enum):
-    CREDIT="credit"
-    CREDIT2="credit2"
-    RTDS="rtds"    # Real-time scheduler
-    ARINC653="arinc653"
-    NULL="null"
+    CREDIT = "credit"
+    CREDIT2 = "credit2"
+    RTDS = "rtds"    # Real-time scheduler
+    ARINC653 = "arinc653"
+    NULL = "null"
 
 
 @dataclass
@@ -189,10 +189,10 @@ class XenVMConfig:
 
     name: str
     uuid: Optional[str] = None
-    vm_type: XenVMType=XenVMType.HVM
-    vcpus: int=1
+    vm_type: XenVMType = XenVMType.HVM
+    vcpus: int = 1
     maxvcpus: Optional[int] = None
-    memory_mb: int=1024
+    memory_mb: int = 1024
     maxmem_mb: Optional[int] = None
 
     # Boot configuration
@@ -200,48 +200,48 @@ class XenVMConfig:
     ramdisk: Optional[str] = None
     cmdline: Optional[str] = None
     bootloader: Optional[str] = None
-    boot_device: str="c"    # For HVM: c=disk, d=cdrom, n=network
+    boot_device: str = "c"    # For HVM: c = disk, d = cdrom, n = network
 
     # Disks
-    disks: List[Dict[str, Any]] = field(default_factory=list)
+    disks: List[Dict[str, Any]] = field(default_factory = list)
     # Format: [{"vdev": "xvda", "target": "/dev/zvol/...", "format": "raw", "mode": "rw"}]
 
     # Network
-    vifs: List[Dict[str, Any]] = field(default_factory=list)
+    vifs: List[Dict[str, Any]] = field(default_factory = list)
     # Format: [{"bridge": "xenbr0", "mac": "...", "model": "rtl8139", "rate": "10MB/s"}]
 
     # HVM-specific
-    firmware: str="uefi"    # bios, uefi, seabios, ovmf
-    viridian: bool=False    # Hyper-V enlightenments
-    usb: bool=False
+    firmware: str = "uefi"    # bios, uefi, seabios, ovmf
+    viridian: bool = False    # Hyper-V enlightenments
+    usb: bool = False
     usbdevice: Optional[str] = None
-    serial: str="pty"
-    vnc: bool=True
-    vnclisten: str="0.0.0.0"    # nosec B104
+    serial: str = "pty"
+    vnc: bool = True
+    vnclisten: str = "0.0.0.0"    # nosec B104
     vncpasswd: Optional[str] = None
-    spice: bool=False
+    spice: bool = False
 
     # Resource control
-    cpu_weight: int=256
-    cpu_cap: int=0    # 0=no cap, 100=1 physical CPU
+    cpu_weight: int = 256
+    cpu_cap: int = 0    # 0=no cap, 100=1 physical CPU
     cpus: Optional[str] = None    # CPU pinning: "0-3", "0, 2, 4"
     numa_placement: Optional[str] = None
 
     # Security
     seclabel: Optional[str] = None    # XSM/Flask label
-    device_model_stubdomain: bool=False
+    device_model_stubdomain: bool = False
 
     # Misc
-    on_crash: str="restart"
-    on_reboot: str="restart"
-    on_watchdog: str="destroy"
-    timer_mode: str="delay_for_missed_ticks"
+    on_crash: str = "restart"
+    on_reboot: str = "restart"
+    on_watchdog: str = "destroy"
+    timer_mode: str = "delay_for_missed_ticks"
 
     # Passthrough
-    pci: List[str] = field(default_factory=list)    # ["0000:01:00.0"]
+    pci: List[str] = field(default_factory = list)    # ["0000:01:00.0"]
 
     # Extra options
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -257,7 +257,7 @@ class XenVM:
     cpu_time_ns: int
     uptime_seconds: float
     vm_type: XenVMType
-    ssidref: int=0    # Security ID
+    ssidref: int = 0    # Security ID
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -297,22 +297,22 @@ class XenCommandExecutor:
     """Execute xl/xm commands with error handling."""
 
     def __init__(self, tool: str="xl") -> None:
-        self.tool=tool    # xl (modern) or xm (legacy)
-        self.timeout=60
+        self.tool = tool    # xl (modern) or xm (legacy)
+        self.timeout = 60
 
     def run(
-        self, args: List[str], timeout: Optional[int] = None, check: bool=True
+        self, args: List[str], timeout: Optional[int] = None, check: bool = True
     ) -> Tuple[int, str, str]:
         """Run xl command and return (returncode, stdout, stderr)."""
-        cmd=[self.tool] + args
-        actual_timeout=timeout or self.timeout
+        cmd = [self.tool] + args
+        actual_timeout = timeout or self.timeout
 
         try:
-            result=subprocess.run(
+            result = subprocess.run(
                 cmd,    # nosec B603
-                _capture_output=True,
-                _text=True,
-                _timeout=actual_timeout,
+                _capture_output = True,
+                _text = True,
+                _timeout = actual_timeout,
             )
 
             if check and result.returncode != 0:
@@ -331,7 +331,7 @@ class XenCommandExecutor:
     def run_json(self, args: List[str]) -> Optional[Any]:
         """Run command expecting JSON output."""
         # xl doesn't natively output JSON, so we parse text output
-        code, stdout, stderr=self.run(args, check=False)
+        code, stdout, stderr = self.run(args, check = False)
         if code != 0:
             return None
         return stdout
@@ -346,45 +346,45 @@ class XenConfigGenerator:
     @staticmethod
     def generate(config: XenVMConfig) -> str:
         """Generate xl.cfg content."""
-        lines=[]
+        lines = []
 
         # Basic settings
-        lines.append(f'name="{config.name}"')
+        lines.append(f'name = "{config.name}"')
         if config.uuid:
-            lines.append(f'uuid="{config.uuid}"')
-        lines.append(f'type="{config.vm_type.value}"')
-        lines.append(f"vcpus={config.vcpus}")
+            lines.append(f'uuid = "{config.uuid}"')
+        lines.append(f'type = "{config.vm_type.value}"')
+        lines.append(f"vcpus = {config.vcpus}")
         if config.maxvcpus:
-            lines.append(f"maxvcpus={config.maxvcpus}")
-        lines.append(f"memory={config.memory_mb}")
+            lines.append(f"maxvcpus = {config.maxvcpus}")
+        lines.append(f"memory = {config.memory_mb}")
         if config.maxmem_mb:
-            lines.append(f"maxmem={config.maxmem_mb}")
+            lines.append(f"maxmem = {config.maxmem_mb}")
 
         # Boot configuration
         if config.vm_type == XenVMType.PV:
             if config.kernel:
-                lines.append(f'kernel="{config.kernel}"')
+                lines.append(f'kernel = "{config.kernel}"')
             if config.ramdisk:
-                lines.append(f'ramdisk="{config.ramdisk}"')
+                lines.append(f'ramdisk = "{config.ramdisk}"')
             if config.cmdline:
-                lines.append(f'extra="{config.cmdline}"')
+                lines.append(f'extra = "{config.cmdline}"')
             if config.bootloader:
-                lines.append(f'bootloader="{config.bootloader}"')
+                lines.append(f'bootloader = "{config.bootloader}"')
         else:    # HVM
-            lines.append(f'boot="{config.boot_device}"')
+            lines.append(f'boot = "{config.boot_device}"')
             if config.firmware == "uefi":
-                lines.append('bios="ovmf"')
+                lines.append('bios = "ovmf"')
             else:
-                lines.append(f'bios="{config.firmware}"')
+                lines.append(f'bios = "{config.firmware}"')
 
         # Disks
         if config.disks:
-            disk_strs=[]
+            disk_strs = []
             for disk in config.disks:
-                _target=disk.get("target", "")
-                _vdev=disk.get("vdev", "xvda")
-                _fmt=disk.get("format", "raw")
-                _mode=disk.get("mode", "rw")
+                _target = disk.get("target", "")
+                _vdev = disk.get("vdev", "xvda")
+                _fmt = disk.get("format", "raw")
+                _mode = disk.get("mode", "rw")
 
                 if config.vm_type in [XenVMType.HVM, XenVMType.PVH]:
                 # HVM format: phy:/dev/...,hda,w
@@ -393,71 +393,71 @@ class XenConfigGenerator:
                 # PV format: phy:/dev/...,xvda,w
                     disk_strs.append(f'"phy:{target}, {vdev}, {mode}"')
 
-            lines.append(f'disk=[{", ".join(disk_strs)}]')
+            lines.append(f'disk = [{", ".join(disk_strs)}]')
 
         # Network interfaces
         if config.vifs:
-            _vif_strs=[]
+            _vif_strs = []
             for vif in config.vifs:
-                parts=[]
+                parts = []
                 if vif.get("mac"):
-                    parts.append(f'mac={vif["mac"]}')
+                    parts.append(f'mac = {vif["mac"]}')
                 if vif.get("bridge"):
-                    parts.append(f'bridge={vif["bridge"]}')
+                    parts.append(f'bridge = {vif["bridge"]}')
                 if vif.get("model") and config.vm_type != XenVMType.PV:
-                    parts.append(f'model={vif["model"]}')
+                    parts.append(f'model = {vif["model"]}')
                 if vif.get("rate"):
-                    parts.append(f'rate={vif["rate"]}')
+                    parts.append(f'rate = {vif["rate"]}')
                 vif_strs.append(f'"{", ".join(parts)}"')
 
-            lines.append(f'vif=[{", ".join(vif_strs)}]')
+            lines.append(f'vif = [{", ".join(vif_strs)}]')
 
         # HVM-specific
         if config.vm_type != XenVMType.PV:
             if config.viridian:
-                lines.append("viridian=1")
+                lines.append("viridian = 1")
             if config.usb:
-                lines.append("usb=1")
+                lines.append("usb = 1")
                 if config.usbdevice:
-                    lines.append(f'usbdevice="{config.usbdevice}"')
-            lines.append(f'serial="{config.serial}"')
+                    lines.append(f'usbdevice = "{config.usbdevice}"')
+            lines.append(f'serial = "{config.serial}"')
             if config.vnc:
-                lines.append("vnc=1")
-                lines.append(f'vnclisten="{config.vnclisten}"')
+                lines.append("vnc = 1")
+                lines.append(f'vnclisten = "{config.vnclisten}"')
                 if config.vncpasswd:
-                    lines.append(f'vncpasswd="{config.vncpasswd}"')
+                    lines.append(f'vncpasswd = "{config.vncpasswd}"')
             if config.spice:
-                lines.append("spice=1")
+                lines.append("spice = 1")
 
         # Resource control
         if config.cpu_weight != 256:
-            lines.append(f"cpu_weight={config.cpu_weight}")
+            lines.append(f"cpu_weight = {config.cpu_weight}")
         if config.cpu_cap > 0:
-            lines.append(f"cap={config.cpu_cap}")
+            lines.append(f"cap = {config.cpu_cap}")
         if config.cpus:
-            lines.append(f'cpus="{config.cpus}"')
+            lines.append(f'cpus = "{config.cpus}"')
         if config.numa_placement:
-            lines.append(f"numa={config.numa_placement}")
+            lines.append(f"numa = {config.numa_placement}")
 
         # Security
         if config.seclabel:
-            lines.append(f'seclabel="{config.seclabel}"')
+            lines.append(f'seclabel = "{config.seclabel}"')
         if config.device_model_stubdomain:
-            lines.append("device_model_stubdomain_override=1")
+            lines.append("device_model_stubdomain_override = 1")
 
         # Lifecycle
-        lines.append(f'on_crash="{config.on_crash}"')
-        lines.append(f'on_reboot="{config.on_reboot}"')
-        lines.append(f'on_watchdog="{config.on_watchdog}"')
+        lines.append(f'on_crash = "{config.on_crash}"')
+        lines.append(f'on_reboot = "{config.on_reboot}"')
+        lines.append(f'on_watchdog = "{config.on_watchdog}"')
 
         # PCI passthrough
         if config.pci:
-            pci_strs=[f'"{p}"' for p in config.pci]
-            lines.append(f'pci=[{", ".join(pci_strs)}]')
+            pci_strs = [f'"{p}"' for p in config.pci]
+            lines.append(f'pci = [{", ".join(pci_strs)}]')
 
         # Timer mode
         if config.vm_type != XenVMType.PV:
-            lines.append(f'timer_mode="{config.timer_mode}"')
+            lines.append(f'timer_mode = "{config.timer_mode}"')
 
         # Extra options
         for key, value in config.extra.items():
@@ -478,9 +478,9 @@ class XenDriver:
     """Enterprise Xen hypervisor driver."""
 
     def __init__(self, configdir: str="/etc/xen") -> None:
-        self.config_dir=Path(config_dir)
-        self.executor=XenCommandExecutor()
-        self.config_generator=XenConfigGenerator()
+        self.config_dir = Path(config_dir)
+        self.executor = XenCommandExecutor()
+        self.config_generator = XenConfigGenerator()
         self._available: Optional[bool] = None
         self._host_info: Optional[XenHostInfo] = None
         self._callbacks: List[Callable[[str, XenVM], None]] = []
@@ -489,8 +489,8 @@ class XenDriver:
     def available(self) -> bool:
         """Check if Xen tools are available."""
         if self._available is None:
-            code, _, _=self.executor.run(["info"], check=False)
-            self.available=code == 0
+            code, _, _ = self.executor.run(["info"], check = False)
+            self.available = code == 0
         return self._available
 
     def register_callback(self, callback: Callable[[str, XenVM], None]) -> None:
@@ -512,35 +512,35 @@ class XenDriver:
         if self._host_info and not refresh:
             return self._host_info
 
-        code, stdout, _=self.executor.run(["info"])
+        code, stdout, _ = self.executor.run(["info"])
         if code != 0:
             return None
 
-        _info=self._parse_xl_info(stdout)
+        _info = self._parse_xl_info(stdout)
 
         # Also get physical info
-        code, phys_out, _=self.executor.run(["info", "-n"])
+        code, phys_out, _ = self.executor.run(["info", "-n"])
         if code == 0:
             info.update(self._parse_xl_info(phys_out))
 
         try:
-            self._host_info=XenHostInfo(
-                _xen_version=info.get("xen_version", "unknown"),
-                _xen_major=int(info.get("xen_major", 0)),
-                _xen_minor=int(info.get("xen_minor", 0)),
-                _xen_extra=info.get("xen_extra", ""),
-                _capabilities=info.get("xen_caps", "").split(),
-                _total_memory_mb=int(info.get("total_memory", 0)),
-                _free_memory_mb=int(info.get("free_memory", 0)),
-                _total_cpus=int(info.get("nr_cpus", 0)),
-                _online_cpus=int(info.get("online_cpus", info.get("nr_cpus", 0))),
-                _cpu_mhz=int(info.get("cpu_mhz", 0)),
-                _hw_caps=info.get("hw_caps", "").split(),
-                _scheduler=SchedulerType(info.get("sched_id", "credit")),
-                _virt_caps=info.get("virt_caps", "").split(),
-                _numa_nodes=int(info.get("nr_nodes", 1)),
-                _host_name=info.get("host", ""),
-                _xen_commandline=info.get("xen_commandline", ""),
+            self._host_info = XenHostInfo(
+                _xen_version = info.get("xen_version", "unknown"),
+                _xen_major = int(info.get("xen_major", 0)),
+                _xen_minor = int(info.get("xen_minor", 0)),
+                _xen_extra = info.get("xen_extra", ""),
+                _capabilities = info.get("xen_caps", "").split(),
+                _total_memory_mb = int(info.get("total_memory", 0)),
+                _free_memory_mb = int(info.get("free_memory", 0)),
+                _total_cpus = int(info.get("nr_cpus", 0)),
+                _online_cpus = int(info.get("online_cpus", info.get("nr_cpus", 0))),
+                _cpu_mhz = int(info.get("cpu_mhz", 0)),
+                _hw_caps = info.get("hw_caps", "").split(),
+                _scheduler = SchedulerType(info.get("sched_id", "credit")),
+                _virt_caps = info.get("virt_caps", "").split(),
+                _numa_nodes = int(info.get("nr_nodes", 1)),
+                _host_name = info.get("host", ""),
+                _xen_commandline = info.get("xen_commandline", ""),
             )
         except (ValueError, KeyError) as e:
             logger.warning(f"Error parsing xl info: {e}")
@@ -550,10 +550,10 @@ class XenDriver:
 
     def _parse_xl_info(self, output: str) -> Dict[str, str]:
         """Parse xl info key:value output."""
-        result={}
+        result = {}
         for line in output.strip().split("\n"):
             if ":" in line:
-                key, _, value=line.partition(":")
+                key, _, value = line.partition(":")
                 result[key.strip()] = value.strip()
         return result
 
@@ -562,57 +562,57 @@ class XenDriver:
         if not self.available:
             return []
 
-        code, stdout, _=self.executor.run(["list"])
+        code, stdout, _ = self.executor.run(["list"])
         if code != 0:
             return []
 
-        _vms=[]
-        _lines=stdout.strip().split("\n")[1:]    # Skip header
+        _vms = []
+        _lines = stdout.strip().split("\n")[1:]    # Skip header
 
         for line in lines:
-            _parts=line.split()
+            _parts = line.split()
             if len(parts) < 6:
                 continue
 
-            _name=parts[0]
-            _domid=int(parts[1])
+            _name = parts[0]
+            _domid = int(parts[1])
 
             if domid == 0 and not include_dom0:
                 continue
 
-            _mem=int(parts[2])
-            _vcpus=int(parts[3])
-            state_str=parts[4]
-            _cpu_time=float(parts[5]) if len(parts) > 5 else 0.0
+            _mem = int(parts[2])
+            _vcpus = int(parts[3])
+            state_str = parts[4]
+            _cpu_time = float(parts[5]) if len(parts) > 5 else 0.0
 
             # Parse state
-            state=VMState.UNKNOWN
+            state = VMState.UNKNOWN
             if "r" in state_str:
-                state=VMState.RUNNING
+                state = VMState.RUNNING
             elif "b" in state_str:
-                state=VMState.BLOCKED
+                state = VMState.BLOCKED
             elif "p" in state_str:
-                state=VMState.PAUSED
+                state = VMState.PAUSED
             elif "s" in state_str:
-                state=VMState.SHUTDOWN
+                state = VMState.SHUTDOWN
             elif "c" in state_str:
-                state=VMState.CRASHED
+                state = VMState.CRASHED
             elif "d" in state_str:
-                state=VMState.DYING
+                state = VMState.DYING
 
             # Get additional info
-            _vm_info=self._get_vm_info(domid)
+            _vm_info = self._get_vm_info(domid)
 
-            vm=XenVM(
-                _domid=domid,
-                _name=name,
-                _uuid=vm_info.get("uuid", ""),
-                _state=state,
-                _vcpus=vcpus,
-                _memory_mb=mem,
-                _cpu_time_ns=int(cpu_time * 1e9),
-                _uptime_seconds=vm_info.get("uptime", 0.0),
-                _vm_type=XenVMType(vm_info.get("type", "hvm")),
+            vm = XenVM(
+                _domid = domid,
+                _name = name,
+                _uuid = vm_info.get("uuid", ""),
+                _state = state,
+                _vcpus = vcpus,
+                _memory_mb = mem,
+                _cpu_time_ns = int(cpu_time * 1e9),
+                _uptime_seconds = vm_info.get("uptime", 0.0),
+                _vm_type = XenVMType(vm_info.get("type", "hvm")),
             )
             vms.append(vm)
 
@@ -620,14 +620,14 @@ class XenDriver:
 
     def _get_vm_info(self, domid: int) -> Dict[str, Any]:
         """Get detailed VM info."""
-        info={"type": "hvm", "uuid": "", "uptime": 0.0}
+        info = {"type": "hvm", "uuid": "", "uptime": 0.0}
 
         # Get UUID and type from xl list -l (long format)
-        code, stdout, _=self.executor.run(["list", "-l", str(domid)], check=False)
+        code, stdout, _ = self.executor.run(["list", "-l", str(domid)], check = False)
         if code == 0:
         # Parse SXPR or JSON output
             if "uuid" in stdout:
-                _match=re.search(r'uuid\s*[:=]\s*"?([a-f0-9-]+)"?', stdout, re.I)
+                _match = re.search(r'uuid\s*[:=]\s*"?([a-f0-9-]+)"?', stdout, re.I)
                 if match:
                     info["uuid"] = match.group(1)
             if "type" in stdout.lower():
@@ -637,10 +637,10 @@ class XenDriver:
                     info["type"] = "pvh"
 
         # Get uptime
-        code, stdout, _=self.executor.run(["uptime", str(domid)], check=False)
+        code, stdout, _ = self.executor.run(["uptime", str(domid)], check = False)
         if code == 0:
         # Parse uptime output
-            _match=re.search(r"(\d+)\s*s", stdout)
+            _match = re.search(r"(\d+)\s*s", stdout)
             if match:
                 info["uptime"] = float(match.group(1))
 
@@ -648,7 +648,7 @@ class XenDriver:
 
     def get_vm(self, nameor_id: str) -> Optional[XenVM]:
         """Get VM by name or domid."""
-        _vms=self.list_vms()
+        _vms = self.list_vms()
         for vm in vms:
             if vm.name== name_or_id or str(vm.domid) == name_or_id:
                 return vm
@@ -660,18 +660,18 @@ class XenDriver:
             return False, "Xen not available"
 
         # Generate config file
-        _cfg_content=self.config_generator.generate(config)
+        _cfg_content = self.config_generator.generate(config)
 
         # Write to temp file
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".cfg", delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode = "w", suffix = ".cfg", delete = False) as f:
             f.write(cfg_content)
-            cfg_path=f.name
+            cfg_path = f.name
 
         try:
-            code, stdout, stderr=self.executor.run(["create", cfg_path])
+            code, stdout, stderr = self.executor.run(["create", cfg_path])
             if code == 0:
                 logger.info(f"Created VM {config.name}")
-                _vm=self.get_vm(config.name)
+                _vm = self.get_vm(config.name)
                 if vm:
                     self._notify("created", vm)
                 return True, f"VM {config.name} created"
@@ -682,30 +682,30 @@ class XenDriver:
 
     def destroy_vm(self, nameor_id: str) -> Tuple[bool, str]:
         """Forcefully destroy a VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(["destroy", str(vm.domid)])
+        code, stdout, stderr = self.executor.run(["destroy", str(vm.domid)])
         if code == 0:
             self._notify("destroyed", vm)
             return True, f"VM {vm.name} destroyed"
         return False, stderr
 
     def shutdown_vm(
-        self, name_or_id: str, wait: bool=True, timeout: int=120
+        self, name_or_id: str, wait: bool = True, timeout: int = 120
     ) -> Tuple[bool, str]:
         """Gracefully shutdown a VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        args=["shutdown"]
+        args = ["shutdown"]
         if wait:
             args.extend(["-w", "-t", str(timeout)])
         args.append(str(vm.domid))
 
-        code, stdout, stderr=self.executor.run(args, timeout=timeout + 10)
+        code, stdout, stderr = self.executor.run(args, timeout = timeout + 10)
         if code == 0:
             self._notify("shutdown", vm)
             return True, f"VM {vm.name} shutdown"
@@ -713,11 +713,11 @@ class XenDriver:
 
     def reboot_vm(self, nameor_id: str) -> Tuple[bool, str]:
         """Reboot a VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(["reboot", str(vm.domid)])
+        code, stdout, stderr = self.executor.run(["reboot", str(vm.domid)])
         if code == 0:
             self._notify("rebooted", vm)
             return True, f"VM {vm.name} rebooted"
@@ -725,26 +725,26 @@ class XenDriver:
 
     def pause_vm(self, nameor_id: str) -> Tuple[bool, str]:
         """Pause a VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(["pause", str(vm.domid)])
+        code, stdout, stderr = self.executor.run(["pause", str(vm.domid)])
         if code == 0:
-            vm.state=VMState.PAUSED
+            vm.state = VMState.PAUSED
             self._notify("paused", vm)
             return True, f"VM {vm.name} paused"
         return False, stderr
 
     def unpause_vm(self, nameor_id: str) -> Tuple[bool, str]:
         """Unpause/resume a VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(["unpause", str(vm.domid)])
+        code, stdout, stderr = self.executor.run(["unpause", str(vm.domid)])
         if code == 0:
-            vm.state=VMState.RUNNING
+            vm.state = VMState.RUNNING
             self._notify("resumed", vm)
             return True, f"VM {vm.name} resumed"
         return False, stderr
@@ -753,15 +753,15 @@ class XenDriver:
         self,
         name_or_id: str,
         dest_host: str,
-        mode: MigrationMode=MigrationMode.LIVE,
-        ssl: bool=True,
+        mode: MigrationMode = MigrationMode.LIVE,
+        ssl: bool = True,
     ) -> Tuple[bool, str]:
         """Migrate VM to another host."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        args=["migrate"]
+        args = ["migrate"]
         if mode == MigrationMode.LIVE:
             args.append("-l")
         if ssl:
@@ -769,7 +769,7 @@ class XenDriver:
         args.extend([str(vm.domid), dest_host])
 
         # Migration can take a while
-        code, stdout, stderr=self.executor.run(args, timeout=3600)
+        code, stdout, stderr = self.executor.run(args, timeout = 3600)
         if code == 0:
             self._notify("migrated", vm)
             return True, f"VM {vm.name} migrated to {dest_host}"
@@ -777,11 +777,11 @@ class XenDriver:
 
     def save_vm(self, nameor_id: str, savepath: str) -> Tuple[bool, str]:
         """Save VM state to file (hibernate)."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(["save", str(vm.domid), save_path])
+        code, stdout, stderr = self.executor.run(["save", str(vm.domid), save_path])
         if code == 0:
             self._notify("saved", vm)
             return True, f"VM {vm.name} saved to {save_path}"
@@ -789,33 +789,33 @@ class XenDriver:
 
     def restore_vm(self, savepath: str, paused: bool=False) -> Tuple[bool, str]:
         """Restore VM from saved state."""
-        args=["restore"]
+        args = ["restore"]
         if paused:
             args.append("-p")
         args.append(save_path)
 
-        code, stdout, stderr=self.executor.run(args)
+        code, stdout, stderr = self.executor.run(args)
         if code == 0:
             return True, "VM restored"
         return False, stderr
 
     def console_vm(self, nameor_id: str) -> Tuple[bool, str]:
         """Get console device path for VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
         # Return the TTY path
-        tty_path=f"/dev/pts/{vm.domid}"    # Simplified
+        tty_path = f"/dev/pts/{vm.domid}"    # Simplified
         return True, tty_path
 
     def set_vcpus(self, nameor_id: str, vcpucount: int) -> Tuple[bool, str]:
         """Hot-plug/unplug vCPUs."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(
+        code, stdout, stderr = self.executor.run(
             ["vcpu-set", str(vm.domid), str(vcpu_count)]
         )
         if code == 0:
@@ -824,11 +824,11 @@ class XenDriver:
 
     def set_memory(self, nameor_id: str, memorymb: int) -> Tuple[bool, str]:
         """Hot-plug/unplug memory (balloon)."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(
+        code, stdout, stderr = self.executor.run(
             ["mem-set", str(vm.domid), str(memory_mb)]
         )
         if code == 0:
@@ -839,11 +839,11 @@ class XenDriver:
         self, name_or_id: str, disk_spec: str, vdev: str
     ) -> Tuple[bool, str]:
         """Hot-attach a disk to VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(
+        code, stdout, stderr = self.executor.run(
             ["block-attach", str(vm.domid), disk_spec, vdev]
         )
         if code == 0:
@@ -852,22 +852,22 @@ class XenDriver:
 
     def detach_disk(self, nameor_id: str, vdev: str) -> Tuple[bool, str]:
         """Hot-detach a disk from VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        code, stdout, stderr=self.executor.run(["block-detach", str(vm.domid), vdev])
+        code, stdout, stderr = self.executor.run(["block-detach", str(vm.domid), vdev])
         if code == 0:
             return True, f"Disk {vdev} detached"
         return False, stderr
 
     def get_vm_metrics(self, nameor_id: str) -> Optional[Dict[str, Any]]:
         """Get VM performance metrics."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return None
 
-        _metrics={
+        _metrics = {
             "domid": vm.domid,
             "name": vm.name,
             "cpu_time_ns": vm.cpu_time_ns,
@@ -877,11 +877,11 @@ class XenDriver:
         }
 
         # Get detailed CPU stats
-        code, stdout, _=self.executor.run(["vcpu-list", str(vm.domid)], check=False)
+        code, stdout, _ = self.executor.run(["vcpu-list", str(vm.domid)], check = False)
         if code == 0:
-            vcpu_stats=[]
+            vcpu_stats = []
             for line in stdout.strip().split("\n")[1:]:
-                _parts=line.split()
+                _parts = line.split()
                 if len(parts) >= 5:
                     vcpu_stats.append(
                         {
@@ -897,24 +897,24 @@ class XenDriver:
 
     def get_scheduler_params(self, nameor_id: str) -> Optional[Dict[str, Any]]:
         """Get scheduler parameters for VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return None
 
-        code, stdout, _=self.executor.run(
-            ["sched-credit", "-d", str(vm.domid)], check=False
+        code, stdout, _ = self.executor.run(
+            ["sched-credit", "-d", str(vm.domid)], check = False
         )
 
         if code == 0:
         # Parse weight and cap
-            params={}
+            params = {}
             for line in stdout.strip().split("\n"):
                 if "weight" in line.lower():
-                    _match=re.search(r"weight\s*[:=]\s*(\d+)", line, re.I)
+                    _match = re.search(r"weight\s*[:=]\s*(\d+)", line, re.I)
                     if match:
                         params["weight"] = int(match.group(1))
                 if "cap" in line.lower():
-                    _match=re.search(r"cap\s*[:=]\s*(\d+)", line, re.I)
+                    _match = re.search(r"cap\s*[:=]\s*(\d+)", line, re.I)
                     if match:
                         params["cap"] = int(match.group(1))
             return params
@@ -924,17 +924,17 @@ class XenDriver:
         self, name_or_id: str, weight: Optional[int] = None, cap: Optional[int] = None
     ) -> Tuple[bool, str]:
         """Set scheduler parameters for VM."""
-        _vm=self.get_vm(name_or_id)
+        _vm = self.get_vm(name_or_id)
         if not vm:
             return False, f"VM {name_or_id} not found"
 
-        _args=["sched-credit", "-d", str(vm.domid)]
+        _args = ["sched-credit", "-d", str(vm.domid)]
         if weight is not None:
             args.extend(["-w", str(weight)])
         if cap is not None:
             args.extend(["-c", str(cap)])
 
-        code, stdout, stderr=self.executor.run(args)
+        code, stdout, stderr = self.executor.run(args)
         if code == 0:
             return True, "Scheduler params updated"
         return False, stderr
@@ -975,7 +975,7 @@ class XenHypervisorDriver(HypervisorDriver):
     """Xen implementation of hypervisor abstraction."""
 
     def __init__(self) -> None:
-        self.driver=XenDriver()
+        self.driver = XenDriver()
 
     def get_name(self) -> str:
         return "xen"
@@ -984,7 +984,7 @@ class XenHypervisorDriver(HypervisorDriver):
         return self.driver.available
 
     def get_host_info(self) -> Optional[Dict[str, Any]]:
-        _info=self.driver.get_host_info()
+        _info = self.driver.get_host_info()
         if not info:
             return None
         return {
@@ -1001,14 +1001,14 @@ class XenHypervisorDriver(HypervisorDriver):
         return [vm.to_dict() for vm in self.driver.list_vms()]
 
     def create_vm(self, config: Dict[str, Any]) -> Tuple[bool, str]:
-        xen_config=XenVMConfig(
-            _name=config["name"],
-            _uuid=config.get("uuid"),
-            _vm_type=XenVMType(config.get("type", "hvm")),
-            _vcpus=config.get("vcpus", 1),
-            _memory_mb=config.get("memory_mb", 1024),
-            _disks=config.get("disks", []),
-            _vifs=config.get("vifs", []),
+        xen_config = XenVMConfig(
+            _name = config["name"],
+            _uuid = config.get("uuid"),
+            _vm_type = XenVMType(config.get("type", "hvm")),
+            _vcpus = config.get("vcpus", 1),
+            _memory_mb = config.get("memory_mb", 1024),
+            _disks = config.get("disks", []),
+            _vifs = config.get("vifs", []),
         )
         return self.driver.create_vm(xen_config)
 
@@ -1021,9 +1021,9 @@ class XenHypervisorDriver(HypervisorDriver):
 # -----------------------------------------------------------------------------
 
 if _name__== "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(level = logging.INFO, format = "%(levelname)s: %(message)s")
 
-    _driver=XenDriver()
+    _driver = XenDriver()
 
     print("Xen Driver Status")
     print("=" * 40)
@@ -1031,7 +1031,7 @@ if _name__== "__main__":
     if driver.available:
         print("Xen tools: Available")
 
-        _info=driver.get_host_info()
+        _info = driver.get_host_info()
         if info:
             print("\nHost Information:")
             print(f"  Xen Version: {info.xen_version}")
@@ -1041,25 +1041,25 @@ if _name__== "__main__":
             print(f"  Scheduler: {info.scheduler.value}")
             print(f"  Capabilities: {', '.join(info.virt_caps)}")
 
-        _vms=driver.list_vms()
+        _vms = driver.list_vms()
         if vms:
             print(f"\nRunning VMs ({len(vms)}):")
             for vm in vms:
                 print(
-                    f"  - {vm.name} (domid={vm.domid}, state={vm.state.value}, "
-                    f"vcpus={vm.vcpus}, mem={vm.memory_mb}MB)"
+                    f"  - {vm.name} (domid = {vm.domid}, state = {vm.state.value}, "
+                    f"vcpus = {vm.vcpus}, mem = {vm.memory_mb}MB)"
                 )
         else:
             print("\nNo VMs running (excluding dom0)")
 
         # Demo: Generate a sample config
         print("\nSample HVM Config:")
-        _sample_config=XenVMConfig(
-            _name="test-hvm",
-            _vm_type=XenVMType.HVM,
-            _vcpus=2,
-            _memory_mb=2048,
-            _disks=[
+        _sample_config = XenVMConfig(
+            _name = "test-hvm",
+            _vm_type = XenVMType.HVM,
+            _vcpus = 2,
+            _memory_mb = 2048,
+            _disks = [
                 {
                     "target": "/dev/zvol/pool/test",
                     "vdev": "xvda",
@@ -1067,8 +1067,8 @@ if _name__== "__main__":
                     "mode": "rw",
                 }
             ],
-            _vifs=[{"bridge": "xenbr0"}],
-            _vnc=True,
+            _vifs = [{"bridge": "xenbr0"}],
+            _vnc = True,
         )
         print(XenConfigGenerator.generate(sample_config))
     else:

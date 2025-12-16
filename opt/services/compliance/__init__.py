@@ -107,7 +107,7 @@ from .core import (
 from .cli import setup_parser, handle_command
 from .api import compliance_bp  # type: ignore[attr-defined]
 
-__all__=[
+__all__ = [
     "ComplianceEngine",
     "CompliancePolicy",
     "ComplianceReport",

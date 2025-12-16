@@ -310,8 +310,8 @@ class TestGitIntegration(unittest.TestCase):
             "-    def old_function():",
         ]
 
-        additions = [l for l in diff_lines if l.startswith("+")]
-        deletions = [l for l in diff_lines if l.startswith("-")]
+        additions = [line for line in diff_lines if line.startswith("+")]
+        deletions = [line for line in diff_lines if line.startswith("-")]
 
         assert len(additions) == 1
         assert len(deletions) == 1

@@ -6,7 +6,7 @@ from datetime import datetime
 def process_file(improvements_path):
     print(f"Processing {improvements_path}")
     try:
-        content = improvements_path.read_text(encoding='utf-8')
+        content = improvements_path.read_text(encoding = 'utf-8')
     except Exception as e:
         print(f"Error reading {improvements_path}: {e}")
         return
@@ -40,11 +40,11 @@ def process_file(improvements_path):
             new_changes += f"- {item}\n"
             
         if changes_path.exists():
-            changes_content = changes_path.read_text(encoding='utf-8')
+            changes_content = changes_path.read_text(encoding = 'utf-8')
             # Append to end
-            changes_path.write_text(changes_content + new_changes, encoding='utf-8')
+            changes_path.write_text(changes_content + new_changes, encoding = 'utf-8')
         else:
-            changes_path.write_text(f"# Changes\n{new_changes}", encoding='utf-8')
+            changes_path.write_text(f"# Changes\n{new_changes}", encoding = 'utf-8')
             
         # Update improvements.md
         # Remove empty sections if they become empty?
@@ -52,7 +52,7 @@ def process_file(improvements_path):
         # We might want to clean up multiple newlines.
         new_content = '\n'.join(remaining_lines)
         new_content = re.sub(r'\n{3,}', '\n\n', new_content)
-        improvements_path.write_text(new_content, encoding='utf-8')
+        improvements_path.write_text(new_content, encoding = 'utf-8')
         print(f"Moved {len(fixed_lines)} items to {changes_path.name}")
 
     # Suggest new improvements
@@ -73,7 +73,7 @@ def process_file(improvements_path):
             return
 
     try:
-        source_content = source_path.read_text(encoding='utf-8')
+        source_content = source_path.read_text(encoding = 'utf-8')
     except Exception as e:
         print(f"Error reading source {source_path}: {e}")
         return
@@ -102,20 +102,20 @@ def process_file(improvements_path):
         suggestions.append("- Review `type: ignore` comments and try to fix types.")
 
     # Advanced Checks
-    if 'subprocess.run' in source_content and 'check=' not in source_content:
-        suggestions.append("- Security: Use `check=True` or `check=False` explicitly in `subprocess.run`.")
+    if 'subprocess.run' in source_content and 'check = ' not in source_content:
+        suggestions.append("- Security: Use `check = True` or `check = False` explicitly in `subprocess.run`.")
 
     if 'def ' in source_content and '->' not in source_content:
         suggestions.append("- Type Hints: Add return type annotations to functions.")
 
     if re.search(r'def\s+\w+\s*\(.*=\s*\[\].*\):', source_content):
-        suggestions.append("- Bug Risk: Avoid mutable default arguments (e.g., `list=[]`).")
+        suggestions.append("- Bug Risk: Avoid mutable default arguments (e.g., `list = []`).")
 
     if re.search(r'def\s+\w+\s*\(.*=\s*\{.*\}.*\):', source_content):
-        suggestions.append("- Bug Risk: Avoid mutable default arguments (e.g., `dict={}`).")
+        suggestions.append("- Bug Risk: Avoid mutable default arguments (e.g., `dict = {}`).")
 
     # Check for existing suggestions to avoid duplicates
-    current_improvements = improvements_path.read_text(encoding='utf-8')
+    current_improvements = improvements_path.read_text(encoding = 'utf-8')
     new_suggestions = []
     for suggestion in suggestions:
         # Simple check if suggestion is already present
@@ -125,7 +125,7 @@ def process_file(improvements_path):
             new_suggestions.append(suggestion)
             
     if new_suggestions:
-        with open(improvements_path, 'a', encoding='utf-8') as f:
+        with open(improvements_path, 'a', encoding = 'utf-8') as f:
             # Ensure we have a newline before appending
             if not current_improvements.endswith('\n'):
                 f.write('\n')

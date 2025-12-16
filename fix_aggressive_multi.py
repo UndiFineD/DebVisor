@@ -13,8 +13,8 @@ stats = {
 
 # Get flake8 output for F401 and E999 issues
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True, text=True, cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True, text = True, cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 # Parse F401 and E999
@@ -37,7 +37,7 @@ for filename in os.listdir(agent_dir):
     if not filename.endswith('.py'):
         continue
     filepath = os.path.join(agent_dir, filename)
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     modified = False
@@ -122,7 +122,7 @@ for filename in os.listdir(agent_dir):
         i += 1
     
     if modified and new_lines != lines:
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
             f.writelines(new_lines)
 
 print("=" * 60)

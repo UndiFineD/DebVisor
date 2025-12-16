@@ -35,26 +35,26 @@ from enum import Enum
 from typing import Dict, List, Optional, Tuple, Any
 
 logging.basicConfig(  # type: ignore[call-arg]
-    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format = "%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class VMState(Enum):
     """Virtual machine states."""
 
-    RUNNING="running"
-    PAUSED="paused"
-    STOPPED="shut off"
-    CRASHED="crashed"
+    RUNNING = "running"
+    PAUSED = "paused"
+    STOPPED = "shut off"
+    CRASHED = "crashed"
 
 
 class MigrationStrategy(Enum):
     """VM migration strategies."""
 
-    LIVE="live"
-    OFFLINE="offline"
-    SHARED_STORAGE="shared_storage"
+    LIVE = "live"
+    OFFLINE = "offline"
+    SHARED_STORAGE = "shared_storage"
 
 
 @dataclass
@@ -80,7 +80,7 @@ class HostStats:
     memory_usage_percent: float
     available_memory_gb: int
     active_vms: int
-    score: float=0.0
+    score: float = 0.0
 
 
 @dataclass
@@ -97,7 +97,7 @@ class MigrationPlan:
     estimated_duration_seconds: int
     risk_level: str
     rollback_procedure: str
-    pre_warm: bool=False
+    pre_warm: bool = False
 
 
 @dataclass
@@ -164,10 +164,10 @@ class HypervisorCLI:
             verbose: If True, print verbose output
             hypervisor: Hypervisor type ('kvm' or 'xen')
         """
-        self.dry_run=dry_run  # type: ignore[name-defined]
-        self.verbose=verbose
-        self.hypervisor=hypervisor
-        self.connection_uri="xen:///system" if hypervisor == "xen" else "qemu:///system"
+        self.dry_run = dry_run  # type: ignore[name-defined]
+        self.verbose = verbose
+        self.hypervisor = hypervisor
+        self.connection_uri = "xen:///system" if hypervisor == "xen" else "qemu:///system"
 
     def execute_command(self, cmd: List[str]) -> Tuple[int, str, str]:
         """
@@ -181,7 +181,7 @@ class HypervisorCLI:
         """
         # Inject connection URI for virsh commands
         if cmd and cmd[0] == "virsh" and "-c" not in cmd:
-            cmd=["virsh", "-c", self.connection_uri] + cmd[1:]
+            cmd = ["virsh", "-c", self.connection_uri] + cmd[1:]
 
         if self.verbose:
             logger.info(f"Executing: {' '.join(cmd)}")  # type: ignore[name-defined]
@@ -191,8 +191,8 @@ class HypervisorCLI:
             return 0, "", ""
 
         try:
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, timeout=60
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, timeout = 60
             )    # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
@@ -211,7 +211,7 @@ class HypervisorCLI:
         """
         vms: List[VMInfo] = []
         try:
-            rc, stdout, stderr=self.execute_command(
+            rc, stdout, stderr = self.execute_command(
                 ["virsh", "list", "--all", "--name"]
             )
 
@@ -224,27 +224,27 @@ class HypervisorCLI:
                     continue
 
                 # Get VM details
-                rc, info, _=self.execute_command(["virsh", "dominfo", vm_name])
+                rc, info, _ = self.execute_command(["virsh", "dominfo", vm_name])
 
                 if rc == 0:
                 # Parse dominfo output
-                    info_dict={}
+                    info_dict = {}
                     for line in info.split("\n"):
                         if ":" in line:
-                            key, val=line.split(":", 1)
+                            key, val = line.split(":", 1)
                             info_dict[key.strip()] = val.strip()
 
                     vms.append(
                         VMInfo(  # type: ignore[call-arg]
-                            _vm_id=info_dict.get("Id", "N/A"),
-                            _name=vm_name,
-                            _vcpus=int(info_dict.get("CPU(s)", 0)),
-                            _memory_gb=int(info_dict.get("Max memory", "0").split()[0])
+                            _vm_id = info_dict.get("Id", "N/A"),
+                            _name = vm_name,
+                            _vcpus = int(info_dict.get("CPU(s)", 0)),
+                            _memory_gb = int(info_dict.get("Max memory", "0").split()[0])
                             // 1048576,
-                            _state=str(info_dict.get("State", "unknown")),
-                            _storage_gb=0,    # Would need to query disk info
-                            _network_interfaces=1,    # Would need to query network
-                            _timestamp=datetime.now(timezone.utc).isoformat(),
+                            _state = str(info_dict.get("State", "unknown")),
+                            _storage_gb = 0,    # Would need to query disk info
+                            _network_interfaces = 1,    # Would need to query network
+                            _timestamp = datetime.now(timezone.utc).isoformat(),
                         )
                     )
 
@@ -261,14 +261,14 @@ class HypervisorCLI:
         # Mock implementation for demonstration
         import random
 
-        _cpu=random.uniform(10.0, 90.0)    # nosec B311
-        _mem=random.uniform(20.0, 80.0)    # nosec B311
+        _cpu = random.uniform(10.0, 90.0)    # nosec B311
+        _mem = random.uniform(20.0, 80.0)    # nosec B311
         return HostStats(  # type: ignore[call-arg]
-            _hostname=hostname,
-            _cpu_usage_percent=cpu,  # type: ignore[name-defined]
-            _memory_usage_percent=mem,  # type: ignore[name-defined]
-            _available_memory_gb=int(random.uniform(16, 128)),    # nosec B311
-            _active_vms=random.randint(0, 10),    # nosec B311
+            _hostname = hostname,
+            _cpu_usage_percent = cpu,  # type: ignore[name-defined]
+            _memory_usage_percent = mem,  # type: ignore[name-defined]
+            _available_memory_gb = int(random.uniform(16, 128)),    # nosec B311
+            _active_vms = random.randint(0, 10),    # nosec B311
         )
 
     def select_optimal_host(
@@ -281,18 +281,18 @@ class HypervisorCLI:
         if not candidates:
             return None, "No candidate hosts provided"
 
-        _scored_hosts=[]  # type: ignore[var-annotated]
+        _scored_hosts = []  # type: ignore[var-annotated]
         for host in candidates:
-            _stats=self.get_host_stats(host)
+            _stats = self.get_host_stats(host)
 
             # Scoring logic (lower is better for usage, higher is better for availability)
             # We want low CPU, low Memory usage, high Available Memory
 
             # 1. CPU Score (0-100, lower is better)
-            _cpu_score=stats.cpu_usage_percent  # type: ignore[name-defined]
+            _cpu_score = stats.cpu_usage_percent  # type: ignore[name-defined]
 
             # 2. Memory Score (0-100, lower is better)
-            mem_score=stats.memory_usage_percent  # type: ignore[name-defined]
+            mem_score = stats.memory_usage_percent  # type: ignore[name-defined]
 
             # 3. Capacity Check
             if stats.available_memory_gb < vm_info.memory_gb:  # type: ignore[name-defined]
@@ -303,7 +303,7 @@ class HypervisorCLI:
             final_score=(
                 (cpu_score * 0.4) + (mem_score * 0.4) + (stats.active_vms * 2.0)  # type: ignore[name-defined]
             )
-            stats.score=final_score  # type: ignore[name-defined]
+            stats.score = final_score  # type: ignore[name-defined]
             scored_hosts.append(stats)  # type: ignore[name-defined]
 
         if not scored_hosts:  # type: ignore[name-defined]
@@ -311,7 +311,7 @@ class HypervisorCLI:
 
         # Sort by score (ascending)
         scored_hosts.sort(key=lambda x: x.score)  # type: ignore[name-defined]
-        best=scored_hosts[0]  # type: ignore[name-defined]
+        best = scored_hosts[0]  # type: ignore[name-defined]
 
         reason=(
             f"Selected {best.hostname} (Score: {best.score:.1f}): "
@@ -325,8 +325,8 @@ class HypervisorCLI:
         self,
         vm_name: str,
         target_host: Optional[str] = None,
-        strategy: str="live",
-        pre_warm: bool=False,
+        strategy: str = "live",
+        pre_warm: bool = False,
         candidate_hosts: Optional[List[str]] = None,
     ) -> Optional[MigrationPlan]:
         """
@@ -344,38 +344,38 @@ class HypervisorCLI:
         """
         try:
         # Get current VM info
-            rc, stdout, stderr=self.execute_command(["virsh", "dominfo", vm_name])
+            rc, stdout, stderr = self.execute_command(["virsh", "dominfo", vm_name])
 
             if rc != 0:
                 logger.error(f"VM {vm_name} not found: {stderr}")  # type: ignore[name-defined]
                 return None
 
             # Parse basic info for selection
-            info_dict={}
+            info_dict = {}
             for line in stdout.split("\n"):
                 if ":" in line:
-                    key, val=line.split(":", 1)
+                    key, val = line.split(":", 1)
                     info_dict[key.strip()] = val.strip()
 
-            _vm_info=VMInfo(  # type: ignore[call-arg]
-                _vm_id=info_dict.get("Id", "N/A"),
-                _name=vm_name,
-                _vcpus=int(info_dict.get("CPU(s)", 0)),
-                _memory_gb=int(info_dict.get("Max memory", "0").split()[0]) // 1048576,
-                _state=str(info_dict.get("State", "unknown")),
-                _storage_gb=0,
-                _network_interfaces=1,
-                _timestamp=datetime.now(timezone.utc).isoformat(),
+            _vm_info = VMInfo(  # type: ignore[call-arg]
+                _vm_id = info_dict.get("Id", "N/A"),
+                _name = vm_name,
+                _vcpus = int(info_dict.get("CPU(s)", 0)),
+                _memory_gb = int(info_dict.get("Max memory", "0").split()[0]) // 1048576,
+                _state = str(info_dict.get("State", "unknown")),
+                _storage_gb = 0,
+                _network_interfaces = 1,
+                _timestamp = datetime.now(timezone.utc).isoformat(),
             )
 
             # Auto-selection if needed
-            selection_reason=""
+            selection_reason = ""
             if not target_host:
                 if not candidate_hosts:
                 # Default candidates for demo
-                    candidate_hosts=["node2", "node3", "node4"]
+                    candidate_hosts = ["node2", "node3", "node4"]
 
-                target_host, selection_reason=self.select_optimal_host(
+                target_host, selection_reason = self.select_optimal_host(
                     vm_info, candidate_hosts  # type: ignore[name-defined]
                 )
                 if not target_host:
@@ -384,9 +384,9 @@ class HypervisorCLI:
                 logger.info(f"Auto-selected target: {selection_reason}")  # type: ignore[name-defined]
 
             # Determine source host (current host)
-            _source_host="localhost"
+            _source_host = "localhost"
 
-            _pre_steps=[
+            _pre_steps = [
                 f"Verify VM {vm_name} is running",
                 f"Check target host {target_host} connectivity",
                 "Verify libvirt daemon on target host",
@@ -405,14 +405,14 @@ class HypervisorCLI:
 
             # Normalize strategy to string value in case an Enum was passed
             try:
-                strategy_value=strategy.value    # type: ignore[attr-defined]
+                strategy_value = strategy.value    # type: ignore[attr-defined]
             except AttributeError:
                 strategy_value=(
                     str(strategy).lower() if strategy is not None else "live"
                 )
 
             if strategy_value == "live":
-                _migration_steps=[
+                _migration_steps = [
                     f"Enable live migration: virsh migrate-setmaxdowntime {vm_name} 1000",
                     (
                         f"Start live migration: virsh migrate --live --persistent {vm_name} "
@@ -421,9 +421,9 @@ class HypervisorCLI:
                     f"Monitor migration progress: virsh domjobinfo {vm_name}",
                     "Wait for migration completion",
                 ]
-                _estimated_time=120
+                _estimated_time = 120
             elif strategy_value == "offline":
-                _migration_steps=[
+                _migration_steps = [
                     f"Stop VM: virsh shutdown {vm_name}",
                     "Wait for shutdown",
                     (
@@ -435,9 +435,9 @@ class HypervisorCLI:
                     f"Define VM on target: virsh define {vm_name}.xml",
                     f"Start VM on target: virsh start {vm_name}",
                 ]
-                _estimated_time=300
+                _estimated_time = 300
             else:    # shared_storage or unknown
-                _migration_steps=[
+                _migration_steps = [
                     "Verify shared storage mount on both hosts",
                     (
                         f"Start live migration: virsh migrate --live --persistent {vm_name} "
@@ -446,9 +446,9 @@ class HypervisorCLI:
                     "Monitor migration",
                     "Verify VM runs on target host",
                 ]
-                _estimated_time=60
+                _estimated_time = 60
 
-            post_steps=[
+            post_steps = [
                 f"Verify VM running on {target_host}",
                 "Verify all services operational",
                 "Update DNS/Load balancer if needed",
@@ -460,17 +460,17 @@ class HypervisorCLI:
                 post_steps.append("Release pre-warmed resources on target (if any)")
 
             return MigrationPlan(  # type: ignore[call-arg]
-                _vm_name=vm_name,
-                _source_host=source_host,
-                _target_host=target_host,
-                _strategy=strategy_value,
-                _pre_migration_steps=pre_steps,  # type: ignore[name-defined]
-                _migration_steps=migration_steps,  # type: ignore[name-defined]
-                _post_migration_steps=post_steps,
-                _estimated_duration_seconds=estimated_time,  # type: ignore[name-defined]
-                risk_level="low" if strategy_value == "live" else "medium",
-                _rollback_procedure="Migrate back to source host using same procedure",
-                _pre_warm=pre_warm,
+                _vm_name = vm_name,
+                _source_host = source_host,
+                _target_host = target_host,
+                _strategy = strategy_value,
+                _pre_migration_steps = pre_steps,  # type: ignore[name-defined]
+                _migration_steps = migration_steps,  # type: ignore[name-defined]
+                _post_migration_steps = post_steps,
+                _estimated_duration_seconds = estimated_time,  # type: ignore[name-defined]
+                risk_level = "low" if strategy_value == "live" else "medium",
+                _rollback_procedure = "Migrate back to source host using same procedure",
+                _pre_warm = pre_warm,
             )
 
         except Exception as e:
@@ -482,7 +482,7 @@ class HypervisorCLI:
         vm_name: str,
         operation: str,
         snapshot_name: Optional[str] = None,
-        description: str="",
+        description: str = "",
     ) -> Optional[SnapshotOperation]:
         """
         Manage VM snapshots.
@@ -498,7 +498,7 @@ class HypervisorCLI:
         """
         try:
             if operation == "create":
-                cmd=[
+                cmd = [
                     "virsh",
                     "snapshot-create-as",
                     vm_name,
@@ -506,80 +506,80 @@ class HypervisorCLI:
                     "--description",
                     description or "Auto-snapshot",
                 ]
-                rc, stdout, stderr=self.execute_command(cmd)
+                rc, stdout, stderr = self.execute_command(cmd)
 
                 if rc != 0:
                     logger.error(f"Failed to create snapshot: {stderr}")  # type: ignore[name-defined]
                     return None
 
                 return SnapshotOperation(  # type: ignore[call-arg]
-                    _vm_name=vm_name,
-                    _snapshot_name=snapshot_name or "auto",
-                    _operation_type="create",
-                    _description=description,
-                    _size_gb=10,    # Would calculate actual size
-                    _timestamp=datetime.now(timezone.utc).isoformat(),
-                    _estimated_time_seconds=30,
+                    _vm_name = vm_name,
+                    _snapshot_name = snapshot_name or "auto",
+                    _operation_type = "create",
+                    _description = description,
+                    _size_gb = 10,    # Would calculate actual size
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 30,
                 )
 
             elif operation == "restore":
                 if not snapshot_name:
                     logger.error("Snapshot name required for restore")  # type: ignore[name-defined]
                     return None
-                cmd=["virsh", "snapshot-revert", vm_name, snapshot_name]
-                rc, stdout, stderr=self.execute_command(cmd)
+                cmd = ["virsh", "snapshot-revert", vm_name, snapshot_name]
+                rc, stdout, stderr = self.execute_command(cmd)
 
                 if rc != 0:
                     logger.error(f"Failed to restore snapshot: {stderr}")  # type: ignore[name-defined]
                     return None
 
                 return SnapshotOperation(  # type: ignore[call-arg]
-                    _vm_name=vm_name,
-                    _snapshot_name=snapshot_name or "unknown",
-                    _operation_type="restore",
-                    _description="Restored from snapshot",
-                    _size_gb=0,
-                    _timestamp=datetime.now(timezone.utc).isoformat(),
-                    _estimated_time_seconds=60,
+                    _vm_name = vm_name,
+                    _snapshot_name = snapshot_name or "unknown",
+                    _operation_type = "restore",
+                    _description = "Restored from snapshot",
+                    _size_gb = 0,
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 60,
                 )
 
             elif operation == "delete":
                 if not snapshot_name:
                     logger.error("Snapshot name required for delete")  # type: ignore[name-defined]
                     return None
-                cmd=["virsh", "snapshot-delete", vm_name, snapshot_name]
-                rc, stdout, stderr=self.execute_command(cmd)
+                cmd = ["virsh", "snapshot-delete", vm_name, snapshot_name]
+                rc, stdout, stderr = self.execute_command(cmd)
 
                 if rc != 0:
                     logger.error(f"Failed to delete snapshot: {stderr}")  # type: ignore[name-defined]
                     return None
 
                 return SnapshotOperation(  # type: ignore[call-arg]
-                    _vm_name=vm_name,
-                    _snapshot_name=snapshot_name or "unknown",
-                    _operation_type="delete",
-                    _description="Snapshot deleted",
-                    _size_gb=0,
-                    _timestamp=datetime.now(timezone.utc).isoformat(),
-                    _estimated_time_seconds=10,
+                    _vm_name = vm_name,
+                    _snapshot_name = snapshot_name or "unknown",
+                    _operation_type = "delete",
+                    _description = "Snapshot deleted",
+                    _size_gb = 0,
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 10,
                 )
 
             elif operation == "list":
-                cmd=["virsh", "snapshot-list", vm_name]
-                rc, stdout, stderr=self.execute_command(cmd)
+                cmd = ["virsh", "snapshot-list", vm_name]
+                rc, stdout, stderr = self.execute_command(cmd)
 
                 if rc != 0:
                     logger.error(f"Failed to list snapshots: {stderr}")  # type: ignore[name-defined]
                     return None
 
                 return SnapshotOperation(  # type: ignore[call-arg]
-                    _vm_name=vm_name,
-                    _snapshot_name="",
-                    _operation_type="list",
-                    _description=stdout,
-                    _size_gb=0,
-                    _timestamp=datetime.now(timezone.utc).isoformat(),
-                    _estimated_time_seconds=5,
+                    _vm_name = vm_name,
+                    _snapshot_name = "",
+                    _operation_type = "list",
+                    _description = stdout,
+                    _size_gb = 0,
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 5,
                 )
 
             return None
@@ -599,7 +599,7 @@ class HypervisorCLI:
             HostDrainPlan with steps
         """
         try:
-            _vms=self.list_vms()
+            _vms = self.list_vms()
 
             migratable: List[str] = []
             non_migratable: List[str] = []
@@ -610,7 +610,7 @@ class HypervisorCLI:
                 else:
                     non_migratable.append(vm.name)
 
-            drain_steps=[
+            drain_steps = [
                 "Notify users of maintenance window",
                 f"Mark {host_name} for maintenance",  # type: ignore[name-defined]
                 "Disable new VM launches on host",
@@ -635,13 +635,13 @@ class HypervisorCLI:
             )
 
             return HostDrainPlan(  # type: ignore[call-arg]
-                _host_name=host_name,  # type: ignore[name-defined]
-                _total_vms=len(vms),  # type: ignore[name-defined]
-                _migratable_vms=len(migratable),
-                _non_migratable_vms=non_migratable,
-                _drain_steps=drain_steps,
-                _evacuation_time_minutes=len(migratable) * 5,    # Rough estimate
-                _risk_assessment="Low if all VMs migratable, medium otherwise",
+                _host_name = host_name,  # type: ignore[name-defined]
+                _total_vms = len(vms),  # type: ignore[name-defined]
+                _migratable_vms = len(migratable),
+                _non_migratable_vms = non_migratable,
+                _drain_steps = drain_steps,
+                _evacuation_time_minutes = len(migratable) * 5,    # Rough estimate
+                _risk_assessment = "Low if all VMs migratable, medium otherwise",
             )
 
         except Exception as e:
@@ -656,7 +656,7 @@ class HypervisorCLI:
             PerformanceDiagnostics with analysis
         """
         try:
-            _recommendations=[
+            _recommendations = [
                 "Monitor VM memory balloon status",
                 "Check for oversubscription of vCPUs",
                 "Verify storage backend performance",
@@ -664,15 +664,15 @@ class HypervisorCLI:
             ]
 
             return PerformanceDiagnostics(  # type: ignore[call-arg]
-                _host_name="localhost",
-                _cpu_utilization_percent=45.5,
-                _memory_utilization_percent=62.3,
-                _disk_io_read_mbps=120.5,
-                _disk_io_write_mbps=85.2,
-                _network_io_rx_mbps=450.0,
-                _network_io_tx_mbps=420.5,
-                _bottleneck="network_io",
-                _recommendations=recommendations,  # type: ignore[name-defined]
+                _host_name = "localhost",
+                _cpu_utilization_percent = 45.5,
+                _memory_utilization_percent = 62.3,
+                _disk_io_read_mbps = 120.5,
+                _disk_io_write_mbps = 85.2,
+                _network_io_rx_mbps = 450.0,
+                _network_io_tx_mbps = 420.5,
+                _bottleneck = "network_io",
+                _recommendations = recommendations,  # type: ignore[name-defined]
             )
 
         except Exception as e:
@@ -686,16 +686,16 @@ class HypervisorCLI:
         """
         try:
         # 1. Gather state
-            _host_stats={h: self.get_host_stats(h) for h in hosts}
+            _host_stats = {h: self.get_host_stats(h) for h in hosts}
 
             # Mock VM list for each host (since we can't query remote libvirt easily here)
             # In real implementation, we'd query each host.
             # Here we simulate some VMs on each host.
             import random
 
-            cluster_vms=[]
+            cluster_vms = []
             for h in hosts:
-                num_vms=host_stats[h].active_vms  # type: ignore[name-defined]
+                num_vms = host_stats[h].active_vms  # type: ignore[name-defined]
                 for i in range(num_vms):
                     cluster_vms.append(
                         {
@@ -718,7 +718,7 @@ class HypervisorCLI:
             # Actually available_memory_gb is free memory. Total = Free / (1 - usage%)
 
             # Let's just use a simple score: Number of hosts used.
-            _initial_hosts_used=len(
+            _initial_hosts_used = len(
                 [h for h in host_stats.values() if h.active_vms > 0]  # type: ignore[name-defined]
             )
 
@@ -730,18 +730,18 @@ class HypervisorCLI:
             # We want to fill the largest/most capable hosts first to empty the smaller ones?
             # Or fill the already most used ones?
             # Strategy: Fill hosts that are already heavily used to free up lightly used ones.
-            _sorted_hosts=sorted(
+            _sorted_hosts = sorted(
                 hosts, key=lambda h: float(host_stats[h].memory_usage_percent), reverse=True  # type: ignore[name-defined]
             )
 
             # Simulation of placement
             placements: Dict[str, List[Dict[str, Any]]] = {h: [] for h in hosts}
-            host_remaining_mem={h: host_stats[h].available_memory_gb for h in hosts}  # type: ignore[name-defined]
+            host_remaining_mem = {h: host_stats[h].available_memory_gb for h in hosts}  # type: ignore[name-defined]
 
             migrations: List[Dict[str, Any]] = []
 
             for vm in cluster_vms:
-                _placed=False
+                _placed = False
                 for h in sorted_hosts:  # type: ignore[name-defined]
                     if host_remaining_mem[h] >= int(str(vm["memory_gb"])):
                         placements[h].append(vm)
@@ -755,7 +755,7 @@ class HypervisorCLI:
                                     "size_gb": str(vm["memory_gb"]),
                                 }
                             )
-                        placed=True
+                        placed = True
                         break
 
                 if not placed:
@@ -765,19 +765,19 @@ class HypervisorCLI:
                     )
 
             # 4. Results
-            _final_hosts_used=len([h for h in hosts if len(placements[h]) > 0])
-            _freed_hosts=[
+            _final_hosts_used = len([h for h in hosts if len(placements[h]) > 0])
+            _freed_hosts = [
                 h
                 for h in hosts
                 if len(placements[h]) == 0 and host_stats[h].active_vms > 0  # type: ignore[name-defined]
             ]
 
             return DefragPlan(  # type: ignore[call-arg]
-                _initial_fragmentation_score=initial_hosts_used / len(hosts),  # type: ignore[name-defined]
-                _target_fragmentation_score=final_hosts_used / len(hosts),  # type: ignore[name-defined]
-                _migrations=migrations,
-                _freed_hosts=freed_hosts,  # type: ignore[name-defined]
-                _estimated_duration_seconds=len(migrations)
+                _initial_fragmentation_score = initial_hosts_used / len(hosts),  # type: ignore[name-defined]
+                _target_fragmentation_score = final_hosts_used / len(hosts),  # type: ignore[name-defined]
+                _migrations = migrations,
+                _freed_hosts = freed_hosts,  # type: ignore[name-defined]
+                _estimated_duration_seconds = len(migrations)
                 * 120,    # 2 mins per migration
             )
 
@@ -788,74 +788,74 @@ class HypervisorCLI:
 
 def main() -> int:
     """Main CLI entry point."""
-    _parser=argparse.ArgumentParser(description="Enhanced hypervisor management CLI")
-    parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")  # type: ignore[name-defined]
-    parser.add_argument("--verbose", action="store_true", help="Verbose output")  # type: ignore[name-defined]
+    _parser = argparse.ArgumentParser(description = "Enhanced hypervisor management CLI")
+    parser.add_argument("--dry-run", action = "store_true", help = "Don't execute commands")  # type: ignore[name-defined]
+    parser.add_argument("--verbose", action = "store_true", help = "Verbose output")  # type: ignore[name-defined]
     parser.add_argument(  # type: ignore[name-defined]
-        "--hypervisor", choices=["kvm", "xen"], default="kvm", help="Hypervisor type"
+        "--hypervisor", choices = ["kvm", "xen"], default = "kvm", help = "Hypervisor type"
     )
     parser.add_argument(  # type: ignore[name-defined]
-        "--format", choices=["json", "text"], default="text", help="Output format"
+        "--format", choices = ["json", "text"], default = "text", help = "Output format"
     )
 
-    _subparsers=parser.add_subparsers(dest="command", help="Commands")  # type: ignore[name-defined]
+    _subparsers = parser.add_subparsers(dest = "command", help = "Commands")  # type: ignore[name-defined]
 
     # VM migrate command
-    migrate_parser=subparsers.add_parser(  # type: ignore[name-defined]
-        "vm-migrate", help="Migrate VM to another host"
+    migrate_parser = subparsers.add_parser(  # type: ignore[name-defined]
+        "vm-migrate", help = "Migrate VM to another host"
     )
-    migrate_parser.add_argument("vm_name", help="VM name to migrate")
+    migrate_parser.add_argument("vm_name", help = "VM name to migrate")
     migrate_parser.add_argument(
         "--target",
-        _dest="target_host",
-        _help="Target host (optional, auto-selected if omitted)",
+        _dest = "target_host",
+        _help = "Target host (optional, auto-selected if omitted)",
     )
     migrate_parser.add_argument(
         "--strategy",
-        _choices=["live", "offline", "shared_storage"],
-        _default="live",
-        _help="Migration strategy",
+        _choices = ["live", "offline", "shared_storage"],
+        _default = "live",
+        _help = "Migration strategy",
     )
     migrate_parser.add_argument(
-        "--pre-warm", action="store_true", help="Enable predictive pre-warming"
+        "--pre-warm", action = "store_true", help = "Enable predictive pre-warming"
     )
     migrate_parser.set_defaults(func=lambda args: handle_vm_migrate(args))
 
     # VM snapshot command
-    _snap_parser=subparsers.add_parser("vm-snapshot", help="Manage VM snapshots")  # type: ignore[name-defined]
-    snap_parser.add_argument("vm_name", help="VM name")  # type: ignore[name-defined]
+    _snap_parser = subparsers.add_parser("vm-snapshot", help = "Manage VM snapshots")  # type: ignore[name-defined]
+    snap_parser.add_argument("vm_name", help = "VM name")  # type: ignore[name-defined]
     snap_parser.add_argument(  # type: ignore[name-defined]
         "operation",
-        _choices=["create", "restore", "delete", "list"],
-        _help="Snapshot operation",
+        _choices = ["create", "restore", "delete", "list"],
+        _help = "Snapshot operation",
     )
-    snap_parser.add_argument("--name", help="Snapshot name")  # type: ignore[name-defined]
-    snap_parser.add_argument("--description", default="", help="Snapshot description")  # type: ignore[name-defined]
+    snap_parser.add_argument("--name", help = "Snapshot name")  # type: ignore[name-defined]
+    snap_parser.add_argument("--description", default = "", help = "Snapshot description")  # type: ignore[name-defined]
     snap_parser.set_defaults(func=lambda args: handle_vm_snapshot(args))  # type: ignore[name-defined]
 
     # Host drain command
-    drain_parser=subparsers.add_parser(  # type: ignore[name-defined]
-        "host-drain", help="Plan host maintenance drain"
+    drain_parser = subparsers.add_parser(  # type: ignore[name-defined]
+        "host-drain", help = "Plan host maintenance drain"
     )
-    drain_parser.add_argument("--host", default="localhost", help="Host name")
+    drain_parser.add_argument("--host", default = "localhost", help = "Host name")
     drain_parser.set_defaults(func=lambda args: handle_host_drain(args))
 
     # Performance analyze command
-    _perf_parser=subparsers.add_parser("perf-diagnose", help="Analyze performance")  # type: ignore[name-defined]
+    _perf_parser = subparsers.add_parser("perf-diagnose", help = "Analyze performance")  # type: ignore[name-defined]
     perf_parser.set_defaults(func=lambda args: handle_perf_diagnose(args))  # type: ignore[name-defined]
 
     # Cluster defrag command
-    defrag_parser=subparsers.add_parser(  # type: ignore[name-defined]
-        "cluster-defrag", help="Defragment cluster resources"
+    defrag_parser = subparsers.add_parser(  # type: ignore[name-defined]
+        "cluster-defrag", help = "Defragment cluster resources"
     )
     defrag_parser.add_argument(
         "--hosts",
-        _default="node1, node2, node3, node4",
-        _help="Comma-separated list of hosts",
+        _default = "node1, node2, node3, node4",
+        _help = "Comma-separated list of hosts",
     )
     defrag_parser.set_defaults(func=lambda args: handle_cluster_defrag(args))
 
-    _args=parser.parse_args()  # type: ignore[name-defined]
+    _args = parser.parse_args()  # type: ignore[name-defined]
 
     if not args.command:  # type: ignore[name-defined]
         parser.print_help()  # type: ignore[name-defined]
@@ -866,8 +866,8 @@ def main() -> int:
 
 def handle_vm_migrate(args: argparse.Namespace) -> int:
     """Handle vm-migrate command."""
-    _cli=HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)  # type: ignore[call-arg]
-    result=cli.plan_vm_migration(  # type: ignore[name-defined]
+    _cli = HypervisorCLI(dry_run = args.dry_run, verbose = args.verbose, hypervisor = args.hypervisor)  # type: ignore[call-arg]
+    result = cli.plan_vm_migration(  # type: ignore[name-defined]
         args.vm_name, args.target_host, args.strategy, args.pre_warm
     )
 
@@ -876,7 +876,7 @@ def handle_vm_migrate(args: argparse.Namespace) -> int:
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))
+        print(json.dumps(asdict(result), indent = 2))
     else:
         print(f"VM Migration Plan: {result.vm_name}")
         print(f"  Source: {result.source_host}")
@@ -900,8 +900,8 @@ def handle_vm_migrate(args: argparse.Namespace) -> int:
 
 def handle_vm_snapshot(args: argparse.Namespace) -> int:
     """Handle vm-snapshot command."""
-    _cli=HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)  # type: ignore[call-arg]
-    result=cli.manage_snapshot(  # type: ignore[name-defined]
+    _cli = HypervisorCLI(dry_run = args.dry_run, verbose = args.verbose, hypervisor = args.hypervisor)  # type: ignore[call-arg]
+    result = cli.manage_snapshot(  # type: ignore[name-defined]
         args.vm_name, args.operation, args.name, args.description
     )
 
@@ -910,7 +910,7 @@ def handle_vm_snapshot(args: argparse.Namespace) -> int:
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))
+        print(json.dumps(asdict(result), indent = 2))
     else:
         print(f"Snapshot Operation: {result.operation_type}")
         print(f"  VM: {result.vm_name}")
@@ -924,15 +924,15 @@ def handle_vm_snapshot(args: argparse.Namespace) -> int:
 
 def handle_host_drain(args: argparse.Namespace) -> int:
     """Handle host-drain command."""
-    _cli=HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)  # type: ignore[call-arg]
-    _result=cli.plan_host_drain(args.host)  # type: ignore[name-defined]
+    _cli = HypervisorCLI(dry_run = args.dry_run, verbose = args.verbose, hypervisor = args.hypervisor)  # type: ignore[call-arg]
+    _result = cli.plan_host_drain(args.host)  # type: ignore[name-defined]
 
     if not result:  # type: ignore[name-defined]
         logger.error("Failed to plan host drain")  # type: ignore[name-defined]
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))  # type: ignore[name-defined]
+        print(json.dumps(asdict(result), indent = 2))  # type: ignore[name-defined]
     else:
         print(f"Host Drain Plan: {result.host_name}")  # type: ignore[name-defined]
         print(f"  Total VMs: {result.total_vms}")  # type: ignore[name-defined]
@@ -952,15 +952,15 @@ def handle_host_drain(args: argparse.Namespace) -> int:
 
 def handle_perf_diagnose(args: argparse.Namespace) -> int:
     """Handle perf-diagnose command."""
-    _cli=HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)  # type: ignore[call-arg]
-    _result=cli.analyze_performance()  # type: ignore[name-defined]
+    _cli = HypervisorCLI(dry_run = args.dry_run, verbose = args.verbose, hypervisor = args.hypervisor)  # type: ignore[call-arg]
+    _result = cli.analyze_performance()  # type: ignore[name-defined]
 
     if not result:  # type: ignore[name-defined]
         logger.error("Failed to analyze performance")  # type: ignore[name-defined]
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))  # type: ignore[name-defined]
+        print(json.dumps(asdict(result), indent = 2))  # type: ignore[name-defined]
     else:
         print(f"Performance Diagnostics: {result.host_name}")  # type: ignore[name-defined]
         print(f"  CPU: {result.cpu_utilization_percent:.1f}%")  # type: ignore[name-defined]
@@ -983,16 +983,16 @@ def handle_perf_diagnose(args: argparse.Namespace) -> int:
 
 def handle_cluster_defrag(args: argparse.Namespace) -> int:
     """Handle cluster-defrag command."""
-    _cli=HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)  # type: ignore[call-arg]
-    _hosts=[h.strip() for h in args.hosts.split(", ") if h.strip()]
-    _result=cli.defragment_cluster(hosts)  # type: ignore[name-defined]
+    _cli = HypervisorCLI(dry_run = args.dry_run, verbose = args.verbose, hypervisor = args.hypervisor)  # type: ignore[call-arg]
+    _hosts = [h.strip() for h in args.hosts.split(", ") if h.strip()]
+    _result = cli.defragment_cluster(hosts)  # type: ignore[name-defined]
 
     if not result:  # type: ignore[name-defined]
         logger.error("Failed to plan defragmentation")  # type: ignore[name-defined]
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))  # type: ignore[name-defined]
+        print(json.dumps(asdict(result), indent = 2))  # type: ignore[name-defined]
     else:
         print("Cluster Defragmentation Plan")
         print(f"  Initial Fragmentation: {result.initial_fragmentation_score:.2f}")  # type: ignore[name-defined]

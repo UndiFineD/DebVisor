@@ -34,24 +34,24 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from functools import wraps
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ErrorSeverity(Enum):
     """Error severity levels."""
 
-    INFO="info"
-    WARNING="warning"
-    ERROR="error"
-    CRITICAL="critical"
+    INFO = "info"
+    WARNING = "warning"
+    ERROR = "error"
+    CRITICAL = "critical"
 
 
 class RetryStrategy(Enum):
     """Retry strategies."""
 
-    EXPONENTIAL="exponential"
-    LINEAR="linear"
-    FIXED="fixed"
+    EXPONENTIAL = "exponential"
+    LINEAR = "linear"
+    FIXED = "fixed"
 
 
 @dataclass
@@ -60,7 +60,7 @@ class ValidationRule:
 
     field_name: str
     rule_type: str    # "required", "min_length", "max_length", "regex", "range", "enum", "callable"
-    rule_value: Any=None
+    rule_value: Any = None
     error_message: Optional[str] = None
 
 
@@ -73,13 +73,13 @@ class AuditLogEntry:
     actor: str
     resource: str
     result: str    # "success", "failure", "partial"
-    details: Dict[str, Any] = field(default_factory=dict)
+    details: Dict[str, Any] = field(default_factory = dict)
     error: Optional[str] = None
     duration_ms: Optional[float] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
-        _data=asdict(self)
+        _data = asdict(self)
         data["timestamp"] = self.timestamp.isoformat()  # type: ignore[name-defined]
         return data  # type: ignore[name-defined]
 
@@ -92,12 +92,12 @@ class AuditLogEntry:
 class RetryConfig:
     """Retry configuration."""
 
-    max_attempts: int=3
-    initial_delay: float=1.0    # seconds
-    max_delay: float=60.0
-    strategy: RetryStrategy=RetryStrategy.EXPONENTIAL
-    backoff_factor: float=2.0
-    jitter: bool=True
+    max_attempts: int = 3
+    initial_delay: float = 1.0    # seconds
+    max_delay: float = 60.0
+    strategy: RetryStrategy = RetryStrategy.EXPONENTIAL
+    backoff_factor: float = 2.0
+    jitter: bool = True
     retryable_exceptions: List[Type[Exception]] = field(  # type: ignore[call-overload, misc]
         _default_factory=lambda: [Exception]
     )
@@ -119,7 +119,7 @@ class AuditLogger:
         Args:
             log_file: Optional file path for audit logs
         """
-        self.log_file=log_file  # type: ignore[name-defined]
+        self.log_file = log_file  # type: ignore[name-defined]
         self.entries: List[AuditLogEntry] = []
 
     def log_action(
@@ -147,15 +147,15 @@ class AuditLogger:
         Returns:
             AuditLogEntry
         """
-        _entry=AuditLogEntry(  # type: ignore[call-arg]
-            _timestamp=datetime.now(timezone.utc),
-            _action=action,
-            _actor=actor,
-            _resource=resource,
-            _result=result,
-            _details=details or {},
-            _error=error,
-            _duration_ms=duration_ms,
+        _entry = AuditLogEntry(  # type: ignore[call-arg]
+            _timestamp = datetime.now(timezone.utc),
+            _action = action,
+            _actor = actor,
+            _resource = resource,
+            _result = result,
+            _details = details or {},
+            _error = error,
+            _duration_ms = duration_ms,
         )
 
         self.entries.append(entry)  # type: ignore[name-defined]
@@ -169,7 +169,7 @@ class AuditLogger:
                 logger.error(f"Failed to write audit log: {e}")  # type: ignore[name-defined]
 
         # Log to standard logger
-        level=logging.INFO if result == "success" else logging.WARNING
+        level = logging.INFO if result == "success" else logging.WARNING
         logger.log(level, f"AUDIT: {action} by {actor} on {resource}: {result}")  # type: ignore[name-defined]
 
         return entry  # type: ignore[name-defined]
@@ -177,13 +177,13 @@ class AuditLogger:
     def get_entries(
         self,
         action: Optional[str] = None,
-        limit: int=100,
+        limit: int = 100,
     ) -> List[AuditLogEntry]:
         """Get audit entries."""
-        entries=self.entries
+        entries = self.entries
 
         if action:
-            entries=[e for e in entries if e.action == action]
+            entries = [e for e in entries if e.action == action]
 
         return entries[-limit:]
 
@@ -212,13 +212,13 @@ class InputValidator:
         Returns:
             Tuple of (is_valid, error_messages)
         """
-        errors=[]
+        errors = []
 
         for field_name, field_rules in self.rules.items():
-            _value=data.get(field_name)
+            _value = data.get(field_name)
 
             for rule in field_rules:
-                _error=self._validate_rule(value, rule)  # type: ignore[name-defined]
+                _error = self._validate_rule(value, rule)  # type: ignore[name-defined]
                 if error:  # type: ignore[name-defined]
                     errors.append(error)  # type: ignore[name-defined]
 
@@ -227,7 +227,7 @@ class InputValidator:
     @staticmethod
     def _validate_rule(value: Any, rule: ValidationRule) -> Optional[str]:
         """Validate single rule."""
-        message=rule.error_message or f"Validation failed for {rule.field_name}"
+        message = rule.error_message or f"Validation failed for {rule.field_name}"
 
         if rule.rule_type == "required":
             if value is None or (isinstance(value, str) and not value.strip()):
@@ -242,7 +242,7 @@ class InputValidator:
                 return message
 
         elif rule.rule_type == "range":
-            min_val, max_val=rule.rule_value
+            min_val, max_val = rule.rule_value
             if value is not None and (value < min_val or value > max_val):
                 return message
 
@@ -270,7 +270,7 @@ class RetryManager:
         Args:
             config: RetryConfig instance
         """
-        self.config=config or RetryConfig()  # type: ignore[call-arg]
+        self.config = config or RetryConfig()  # type: ignore[call-arg]
 
     def execute_with_retry(
         self,
@@ -292,16 +292,16 @@ class RetryManager:
         Raises:
             Original exception if all retries exhausted
         """
-        last_exception=None
+        last_exception = None
 
         for attempt in range(self.config.max_attempts):
             try:
                 return func(*args, **kwargs)
             except tuple(self.config.retryable_exceptions) as e:
-                _last_exception=e
+                _last_exception = e
 
                 if attempt < self.config.max_attempts - 1:
-                    _delay=self._calculate_delay(attempt)
+                    _delay = self._calculate_delay(attempt)
                     logger.warning(  # type: ignore[name-defined]
                         f"Attempt {attempt + 1} failed, retrying in {delay:.1f}s: {e}"  # type: ignore[name-defined]
                     )
@@ -316,14 +316,14 @@ class RetryManager:
     def _calculate_delay(self, attempt: int) -> float:
         """Calculate delay for attempt."""
         if self.config.strategy == RetryStrategy.EXPONENTIAL:
-            _delay=self.config.initial_delay * (self.config.backoff_factor**attempt)
+            _delay = self.config.initial_delay * (self.config.backoff_factor**attempt)
         elif self.config.strategy == RetryStrategy.LINEAR:
-            _delay=self.config.initial_delay * (attempt + 1)
+            _delay = self.config.initial_delay * (attempt + 1)
         else:    # FIXED
-            delay=self.config.initial_delay
+            delay = self.config.initial_delay
 
         # Cap at max delay
-        _delay=min(delay, self.config.max_delay)
+        _delay = min(delay, self.config.max_delay)
 
         # Add jitter
         if self.config.jitter:
@@ -360,11 +360,11 @@ class StandardizedHelper:
             audit_log_file: Audit log file path
             retry_config: Retry configuration
         """
-        self.name=name
-        self.audit_logger=AuditLogger(audit_log_file)
-        self.validator=InputValidator()
-        self.retry_manager=RetryManager(retry_config)
-        self.logger=logging.getLogger(self.name)
+        self.name = name
+        self.audit_logger = AuditLogger(audit_log_file)
+        self.validator = InputValidator()
+        self.retry_manager = RetryManager(retry_config)
+        self.logger = logging.getLogger(self.name)
 
     def validate_input(self, data: Dict[str, Any]) -> None:
         """
@@ -376,16 +376,16 @@ class StandardizedHelper:
         Raises:
             ValidationError: If validation fails
         """
-        is_valid, errors=self.validator.validate(data)
+        is_valid, errors = self.validator.validate(data)
 
         if not is_valid:
-            _error_msg="; ".join(errors)
+            _error_msg = "; ".join(errors)
             self.audit_logger.log_action(  # type: ignore[call-arg]
-                _action="validate_input",
-                _actor="system",
-                _resource=self.name,
-                _result="failure",
-                _error=error_msg,  # type: ignore[name-defined]
+                _action = "validate_input",
+                _actor = "system",
+                _resource = self.name,
+                _result = "failure",
+                _error = error_msg,  # type: ignore[name-defined]
             )
             raise ValidationError(error_msg)  # type: ignore[name-defined]
 
@@ -401,13 +401,13 @@ class StandardizedHelper:
     ) -> None:
         """Log an action."""
         self.audit_logger.log_action(  # type: ignore[call-arg]
-            _action=action,
-            _actor=actor,
-            _resource=resource,
-            _result=result,
-            _details=details,
-            _error=error,
-            _duration_ms=duration_ms,
+            _action = action,
+            _actor = actor,
+            _resource = resource,
+            _result = result,
+            _details = details,
+            _error = error,
+            _duration_ms = duration_ms,
         )
 
     def execute_with_error_handling(
@@ -433,22 +433,22 @@ class StandardizedHelper:
         Returns:
             Tuple of (success, result, error_message)
         """
-        _start_time=datetime.now(timezone.utc)
+        _start_time = datetime.now(timezone.utc)
 
         try:
-            _result=self.retry_manager.execute_with_retry(func, *args, **kwargs)
+            _result = self.retry_manager.execute_with_retry(func, *args, **kwargs)
 
             _duration_ms=(
                 datetime.now(timezone.utc) - start_time  # type: ignore[name-defined]
             ).total_seconds() * 1000
 
             self.log_action(  # type: ignore[call-arg]
-                _action=action_name,
-                _actor=actor,
-                _resource=resource,
-                _result="success",
-                _details={"result_type": type(result).__name__},  # type: ignore[name-defined]
-                _duration_ms=duration_ms,  # type: ignore[name-defined]
+                _action = action_name,
+                _actor = actor,
+                _resource = resource,
+                _result = "success",
+                _details = {"result_type": type(result).__name__},  # type: ignore[name-defined]
+                _duration_ms = duration_ms,  # type: ignore[name-defined]
             )
 
             return True, result, None  # type: ignore[name-defined]
@@ -458,15 +458,15 @@ class StandardizedHelper:
                 datetime.now(timezone.utc) - start_time  # type: ignore[name-defined]
             ).total_seconds() * 1000
 
-            _error_msg=f"{type(e).__name__}: {str(e)}"
+            _error_msg = f"{type(e).__name__}: {str(e)}"
 
             self.log_action(  # type: ignore[call-arg]
-                _action=action_name,
-                _actor=actor,
-                _resource=resource,
-                _result="failure",
-                _error=error_msg,  # type: ignore[name-defined]
-                _duration_ms=duration_ms,  # type: ignore[name-defined]
+                _action = action_name,
+                _actor = actor,
+                _resource = resource,
+                _result = "failure",
+                _error = error_msg,  # type: ignore[name-defined]
+                _duration_ms = duration_ms,  # type: ignore[name-defined]
             )
 
             self.logger.error(
@@ -489,20 +489,20 @@ def standardized_script(
     """
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
-        _helper=StandardizedHelper(name, audit_log_file)
+        _helper = StandardizedHelper(name, audit_log_file)
 
         @wraps(func)
         def wrapper(*args, **kwargs) -> None:
             try:
                 logger.info(f"Starting {name}")  # type: ignore[name-defined]
-                _result=func(*args, **kwargs)
+                _result = func(*args, **kwargs)
                 logger.info(f"Completed {name} successfully")  # type: ignore[name-defined]
                 return result  # type: ignore[name-defined]
             except Exception as e:
                 logger.error(f"Script {name} failed: {e}")  # type: ignore[name-defined]
                 raise
 
-        wrapper.helper=helper  # type: ignore[attr-defined, name-defined]
+        wrapper.helper = helper  # type: ignore[attr-defined, name-defined]
         return wrapper
 
     return decorator
@@ -518,7 +518,7 @@ class ConfigurationManager:
         Args:
             config_file: Path to JSON configuration file
         """
-        self.config_file=config_file  # type: ignore[name-defined]
+        self.config_file = config_file  # type: ignore[name-defined]
         self.config: Dict[str, Any] = {}
 
         if config_file:  # type: ignore[name-defined]
@@ -528,7 +528,7 @@ class ConfigurationManager:
         """Load configuration from file."""
         try:
             with open(config_file, "r") as f:  # type: ignore[name-defined]
-                self.config=json.load(f)
+                self.config = json.load(f)
             logger.info(f"Loaded configuration from {config_file}")  # type: ignore[name-defined]
         except Exception as e:
             logger.error(f"Failed to load configuration: {e}")  # type: ignore[name-defined]
@@ -536,12 +536,12 @@ class ConfigurationManager:
 
     def get(self, key: str, default: Any=None) -> Any:
         """Get configuration value."""
-        _keys=key.split(".")
-        value=self.config
+        _keys = key.split(".")
+        value = self.config
 
         for k in keys:  # type: ignore[name-defined]
             if isinstance(value, dict):
-                _value=value.get(k)  # type: ignore[assignment]
+                _value = value.get(k)  # type: ignore[assignment]
             else:
                 return default
 
@@ -549,26 +549,26 @@ class ConfigurationManager:
 
     def set(self, key: str, value: Any) -> None:
         """Set configuration value."""
-        _keys=key.split(".")
-        config=self.config
+        _keys = key.split(".")
+        config = self.config
 
         for k in keys[:-1]:  # type: ignore[name-defined]
             if k not in config:
                 config[k] = {}
-            config=config[k]
+            config = config[k]
 
         config[keys[-1]] = value  # type: ignore[name-defined]
 
     def save_config(self, configfile: Optional[str] = None) -> None:
         """Save configuration to file."""
-        file_path=config_file or self.config_file  # type: ignore[name-defined]
+        file_path = config_file or self.config_file  # type: ignore[name-defined]
 
         if not file_path:
             raise ValueError("No configuration file specified")
 
         try:
             with open(file_path, "w") as f:
-                json.dump(self.config, f, indent=2)
+                json.dump(self.config, f, indent = 2)
             logger.info(f"Saved configuration to {file_path}")  # type: ignore[name-defined]
         except Exception as e:
             logger.error(f"Failed to save configuration: {e}")  # type: ignore[name-defined]

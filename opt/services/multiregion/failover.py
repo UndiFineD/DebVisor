@@ -117,9 +117,9 @@ from dataclasses import dataclass
 from typing import Dict, List, Callable
 
 logging.basicConfig(
-    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format = "%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -135,25 +135,25 @@ class FailoverManager:
     """Manages geo-redundancy and failover."""
 
     def __init__(
-        self, local_region: str, peers: List[str], quorum_size: int=2
+        self, local_region: str, peers: List[str], quorum_size: int = 2
     ) -> None:
-        self.local_region=local_region
-        self.peers=peers
-        self.quorum_size=quorum_size
+        self.local_region = local_region
+        self.peers = peers
+        self.quorum_size = quorum_size
         self.region_states: Dict[str, RegionStatus] = {}
         self.failover_hooks: List[Callable[[str, str], None]] = []
-        self.is_active=True
+        self.is_active = True
 
     def update_peer_status(
-        self, region_id: str, is_healthy: bool, load: float=0.0
+        self, region_id: str, is_healthy: bool, load: float = 0.0
     ) -> None:
         """Update status of a peer region."""
         self.region_states[region_id] = RegionStatus(
-            _region_id=region_id,
-            _is_healthy=is_healthy,
-            _last_seen=time.time(),
-            _load=load,
-            _active_connections=0,
+            _region_id = region_id,
+            _is_healthy = is_healthy,
+            _last_seen = time.time(),
+            _load = load,
+            _active_connections = 0,
         )
         self._check_failover_conditions()
 
@@ -166,7 +166,7 @@ class FailoverManager:
         # Simple logic: if a peer is down and we are healthy, take over.
         # In real Active-Active, we might just update DNS weights.
 
-        _healthy_count=sum(1 for r in self.region_states.values() if r.is_healthy)
+        _healthy_count = sum(1 for r in self.region_states.values() if r.is_healthy)
         if self.is_active:
             healthy_count += 1    # Count self
 
@@ -203,7 +203,7 @@ class FailoverManager:
 
 # Example usage / CLI
 if _name__== "__main__":
-    _mgr=FailoverManager("us-east", ["us-west", "eu-central"])
+    _mgr = FailoverManager("us-east", ["us-west", "eu-central"])
 
     def dns_update_hook(failed, target) -> None:
         print(f"HOOK: Updating DNS to point {failed} -> {target}")

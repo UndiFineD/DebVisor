@@ -59,8 +59,8 @@ from typing import Dict, List, Set, Tuple, Optional
 
 # Configure logging for better error visibility
 logging.basicConfig(
-    level=logging.WARNING,
-    format='%(levelname)s: %(message)s'
+    level = logging.WARNING,
+    format = '%(levelname)s: %(message)s'
 )
 logger = logging.getLogger(__name__)
 
@@ -74,7 +74,7 @@ def load_codeignore(root: Path) -> Set[str]:
     codeignore_path = root / ".codeignore"
     if codeignore_path.exists():
         try:
-            content = codeignore_path.read_text(encoding='utf-8')
+            content = codeignore_path.read_text(encoding = 'utf-8')
             return {line.strip() for line in content.split('\n') if line.strip() and not line.strip().startswith('#')}
         except Exception as e:
             print(f"Warning: Could not read .codeignore file: {e}")
@@ -115,7 +115,7 @@ class Issue:
 
 @dataclass
 class RunStats:
-    issues: List[Issue] = field(default_factory=list)
+    issues: List[Issue] = field(default_factory = list)
     summary: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
 
     def add(self, file_path: str, issue_type: str, line: int = 0, message: str = "", fixed: bool = False):
@@ -160,7 +160,7 @@ class WhitespaceFixer(BaseFixer):
             if CRLF_FIXES_ENABLED and b'\r\n' in content_bytes:
                 if self.apply:
                     content_bytes = content_bytes.replace(b'\r\n', b'\n')
-                    stats.add(str(path), "CRLF", 0, "CRLF line endings found", fixed=True)
+                    stats.add(str(path), "CRLF", 0, "CRLF line endings found", fixed = True)
                 else:
                     stats.add(str(path), "CRLF", 0, "CRLF line endings found")
 
@@ -192,8 +192,8 @@ class WhitespaceFixer(BaseFixer):
 
             if self.apply and (modified or content_bytes != original_bytes):
                 new_content = '\n'.join(lines[:-1]) + '\n'  # Reconstruct
-                path.write_text(new_content, encoding='utf-8', newline='\n')
-                stats.add(str(path), "Whitespace", 0, "Applied whitespace fixes", fixed=True)
+                path.write_text(new_content, encoding = 'utf-8', newline = '\n')
+                stats.add(str(path), "Whitespace", 0, "Applied whitespace fixes", fixed = True)
 
         except Exception as e:
             print(f"Error processing {path}: {e}")
@@ -210,7 +210,7 @@ class MarkdownFixer(BaseFixer):
             # First apply code fence formatting (from fix_markdown.py)
             fence_fixed = self._fix_code_fence_formatting(path)
 
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             original = content
             lines = content.split('\n')
 
@@ -233,9 +233,9 @@ class MarkdownFixer(BaseFixer):
 
             content = '\\n'.join(lines)
             if content != original or fence_fixed:
-                stats.add(str(path), "Markdown", 0, "Applied markdown fixes", fixed=self.apply)
+                stats.add(str(path), "Markdown", 0, "Applied markdown fixes", fixed = self.apply)
                 if self.apply:
-                    path.write_text(content, encoding='utf-8')
+                    path.write_text(content, encoding = 'utf-8')
 
         except Exception as e:
             print(f"Error processing {path}: {e}")
@@ -662,7 +662,7 @@ class MarkdownFixer(BaseFixer):
     def _fix_code_fence_formatting(self, filepath: Path) -> bool:
         """Fix code fence formatting and language detection (from fix_markdown.py)."""
         try:
-            lines = filepath.read_text(encoding='utf-8').splitlines(keepends=True)
+            lines = filepath.read_text(encoding = 'utf-8').splitlines(keepends = True)
             output = []
             i = 0
             fence_stack: List[bool] = []  # Track if we're inside a code block
@@ -733,7 +733,7 @@ class MarkdownFixer(BaseFixer):
             content = re.sub(r'\n\n\n+', '\n\n', content)
 
             if self.apply:
-                filepath.write_text(content, encoding='utf-8')
+                filepath.write_text(content, encoding = 'utf-8')
             return content != ''.join(lines)
 
         except Exception:
@@ -756,7 +756,7 @@ class ShellCheckFixer(BaseFixer):
                 # Get JSON output for reporting
                 proc = subprocess.run(
                     ["shellcheck", "-f", "json", str(sh_file)],
-                    capture_output=True, text=True
+                    capture_output = True, text = True
                 )
 
                 if proc.stdout.strip():
@@ -777,7 +777,7 @@ class ShellCheckFixer(BaseFixer):
                     # Apply diffs
                     diff_proc = subprocess.run(
                         ["shellcheck", "-f", "diff", str(sh_file)],
-                        capture_output=True, text=True
+                        capture_output = True, text = True
                     )
                     if diff_proc.stdout:
                         # Apply patch using git apply
@@ -785,9 +785,9 @@ class ShellCheckFixer(BaseFixer):
                             # git apply expects input from stdin
                             subprocess.run(
                                 ["git", "apply", "-"],
-                                input=diff_proc.stdout, text=True, check=True, cwd=self.root
+                                input = diff_proc.stdout, text = True, check = True, cwd = self.root
                             )
-                            stats.add(str(sh_file), "ShellCheck", 0, "Applied shellcheck auto-fixes", fixed=True)
+                            stats.add(str(sh_file), "ShellCheck", 0, "Applied shellcheck auto-fixes", fixed = True)
                         except (subprocess.CalledProcessError, FileNotFoundError):
                             # Fallback if git is not available or fails
                             print(f"Failed to apply shellcheck patch for {sh_file}")
@@ -806,7 +806,7 @@ class ShellCheckFixer(BaseFixer):
             fixed = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
             if fixed != data:
                 path.write_bytes(fixed)
-                stats.add(str(path), "ShellCheck", 0, "Removed carriage returns", fixed=True)
+                stats.add(str(path), "ShellCheck", 0, "Removed carriage returns", fixed = True)
         except (KeyboardInterrupt, SystemExit):
             raise
         except Exception as e:
@@ -837,7 +837,7 @@ class MyPyFixer(BaseFixer):
             # Run mypy
             proc = subprocess.run(
                 [sys.executable, "-m", "mypy", "opt", "scripts", "--no-error-summary"],
-                capture_output=True, text=True
+                capture_output = True, text = True
             )
 
             # Parse output and collect errors by file
@@ -871,7 +871,7 @@ class MyPyFixer(BaseFixer):
                 for filepath, names in missing_imports.items():
                     if self._add_missing_imports(filepath, names):
                         for name in names:
-                            stats.add(filepath, "MyPy", 0, f"Added import for {name}", fixed=True)
+                            stats.add(filepath, "MyPy", 0, f"Added import for {name}", fixed = True)
                 self._apply_type_ignore_fixes(errors_by_file, stats)
 
         except Exception as e:
@@ -894,7 +894,7 @@ class MyPyFixer(BaseFixer):
             for line_num, codes in sorted(lines_to_fix.items()):
                 if self._add_type_ignore_to_line(file_path, line_num, codes):
                     file_fixed += 1
-                    stats.add(file_path, "MyPy", line_num, "Added type: ignore", fixed=True)
+                    stats.add(file_path, "MyPy", line_num, "Added type: ignore", fixed = True)
 
             if file_fixed > 0:
                 print(f"Fixed {file_fixed} errors in {file_path}")
@@ -907,8 +907,8 @@ class MyPyFixer(BaseFixer):
             return False
 
         try:
-            content = path.read_text(encoding="utf-8")
-            lines = content.splitlines(keepends=False)
+            content = path.read_text(encoding = "utf-8")
+            lines = content.splitlines(keepends = False)
 
             if line_num < 1 or line_num > len(lines):
                 return False
@@ -938,7 +938,7 @@ class MyPyFixer(BaseFixer):
             # Add type: ignore comment with sorted, comma-separated codes
             sorted_codes = ", ".join(sorted(all_codes))
             lines[idx] = line.rstrip() + f"  # type: ignore[{sorted_codes}]"
-            path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            path.write_text("\n".join(lines) + "\n", encoding = "utf-8")
             return True
         except Exception as e:
             print(f"Error processing {file_path}:{line_num}: {e}")
@@ -951,8 +951,8 @@ class MyPyFixer(BaseFixer):
             return False
 
         try:
-            content = path.read_text(encoding="utf-8")
-            lines = content.splitlines(keepends=False)
+            content = path.read_text(encoding = "utf-8")
+            lines = content.splitlines(keepends = False)
 
             # Categorize imports by module
             typing_imports = {
@@ -1037,7 +1037,7 @@ class MyPyFixer(BaseFixer):
                 else:
                     lines.insert(insert_idx, import_str)
 
-            path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            path.write_text("\n".join(lines) + "\n", encoding = "utf-8")
             return True
         except Exception as e:
             logger.debug(f"Could not add imports to {file_path}: {e}")
@@ -1095,7 +1095,7 @@ class SecurityScanFixer(BaseFixer):
             removed_dirs.append(cache_dir)
             stats.add(str(cache_dir), "BinaryArtifact", 0, "Cache directory")
             if self.apply:
-                shutil.rmtree(cache_dir, ignore_errors=True)
+                shutil.rmtree(cache_dir, ignore_errors = True)
 
         return removed_files, removed_dirs
 
@@ -1108,7 +1108,7 @@ class SecurityScanFixer(BaseFixer):
         )
 
         try:
-            with scan_path.open(encoding="utf-8") as f:
+            with scan_path.open(encoding = "utf-8") as f:
                 for line in f:
                     match = row_pattern.match(line.strip())
                     if match:
@@ -1135,7 +1135,7 @@ class SecurityScanFixer(BaseFixer):
 
         for file_path, entries in by_file.items():
             try:
-                lines = file_path.read_text(encoding="utf-8").split("\n")
+                lines = file_path.read_text(encoding = "utf-8").split("\n")
                 original_lines = lines[:]
 
                 for entry in sorted(entries, key=lambda e: int(e.get("line", 0)), reverse=True):
@@ -1147,12 +1147,12 @@ class SecurityScanFixer(BaseFixer):
                                 indent = len(line) - len(line.lstrip())
                                 lines[line_num] = " " * indent + "# " + line.lstrip()
                                 fixed_ids.add(entry["id"])
-                                stats.add(str(file_path), "F401", line_num + 1, "Commented unused import", fixed=True)
+                                stats.add(str(file_path), "F401", line_num + 1, "Commented unused import", fixed = True)
                     except (ValueError, KeyError):
                         pass
 
                 if self.apply and lines != original_lines:
-                    file_path.write_text("\n".join(lines), encoding="utf-8")
+                    file_path.write_text("\n".join(lines), encoding = "utf-8")
             except Exception:
                 pass
 
@@ -1172,7 +1172,7 @@ class SecurityScanFixer(BaseFixer):
 
         for file_path, entries in by_file.items():
             try:
-                lines = file_path.read_text(encoding="utf-8").split("\n")
+                lines = file_path.read_text(encoding = "utf-8").split("\n")
                 original_lines = lines[:]
 
                 for entry in sorted(entries, key=lambda e: int(e.get("line", 0)), reverse=True):
@@ -1185,12 +1185,12 @@ class SecurityScanFixer(BaseFixer):
                             line = re.sub(r"\bf'([^']*)'", r"'\1'", line)
                             lines[line_num] = line
                             fixed_ids.add(entry["id"])
-                            stats.add(str(file_path), "F541", line_num + 1, "Fixed f-string", fixed=True)
+                            stats.add(str(file_path), "F541", line_num + 1, "Fixed f-string", fixed = True)
                     except (ValueError, KeyError):
                         pass
 
                 if self.apply and lines != original_lines:
-                    file_path.write_text("\n".join(lines), encoding="utf-8")
+                    file_path.write_text("\n".join(lines), encoding = "utf-8")
             except Exception:
                 pass
 
@@ -1210,7 +1210,7 @@ class SecurityScanFixer(BaseFixer):
 
         for file_path, entries in by_file.items():
             try:
-                lines = file_path.read_text(encoding="utf-8").split("\n")
+                lines = file_path.read_text(encoding = "utf-8").split("\n")
                 original_lines = lines[:]
 
                 for entry in sorted(entries, key=lambda e: int(e.get("line", 0)), reverse=True):
@@ -1223,15 +1223,15 @@ class SecurityScanFixer(BaseFixer):
                             if match:
                                 var_name = match.group(1)
                                 if re.search(rf"\b{var_name}\s* = ", line):
-                                    lines[line_num] = re.sub(rf"\b{var_name}\s* = ", "_  = ", line, count=1)
+                                    lines[line_num] = re.sub(rf"\b{var_name}\s* = ", "_ = ", line, count = 1)
                                     fixed_ids.add(entry["id"])
                                     stats.add(str(file_path), "F841", line_num + 1, "Replaced with underscore",
-                                              fixed=True)
+                                              fixed = True)
                     except (ValueError, KeyError):
                         pass
 
                 if self.apply and lines != original_lines:
-                    file_path.write_text("\n".join(lines), encoding="utf-8")
+                    file_path.write_text("\n".join(lines), encoding = "utf-8")
             except Exception:
                 pass
 
@@ -1243,7 +1243,7 @@ class SecurityScanFixer(BaseFixer):
             return
 
         try:
-            lines = scan_path.read_text(encoding="utf-8").split("\n")
+            lines = scan_path.read_text(encoding = "utf-8").split("\n")
             kept = []
             removed = 0
 
@@ -1260,7 +1260,7 @@ class SecurityScanFixer(BaseFixer):
                     kept.append(line)
 
             if removed > 0:
-                scan_path.write_text("\n".join(kept), encoding="utf-8")
+                scan_path.write_text("\n".join(kept), encoding = "utf-8")
         except (KeyboardInterrupt, SystemExit):
             raise
         except Exception as e:
@@ -1298,7 +1298,7 @@ class SecurityScanFixer(BaseFixer):
             if not file_path.exists() or file_path.suffix != ".py":
                 continue
             try:
-                content = file_path.read_text(encoding="utf-8").split("\n")
+                content = file_path.read_text(encoding = "utf-8").split("\n")
                 original = content[:]
                 insertion_idx = self._import_insertion_index(content)
 
@@ -1316,7 +1316,7 @@ class SecurityScanFixer(BaseFixer):
                         insertion_idx += 1
 
                 if content != original:
-                    file_path.write_text("\n".join(content), encoding="utf-8")
+                    file_path.write_text("\n".join(content), encoding = "utf-8")
             except Exception:
                 pass
 
@@ -1357,7 +1357,7 @@ class SecurityScanFixer(BaseFixer):
             if not file_path.exists() or file_path.suffix != ".py":
                 continue
             try:
-                lines = file_path.read_text(encoding="utf-8").split("\n")
+                lines = file_path.read_text(encoding = "utf-8").split("\n")
                 original = lines[:]
 
                 future_lines = [ln for ln in lines if ln.strip().startswith("from __future__ import")]
@@ -1376,10 +1376,10 @@ class SecurityScanFixer(BaseFixer):
                     insert_idx += 1
 
                 if lines != original:
-                    file_path.write_text("\n".join(lines), encoding="utf-8")
+                    file_path.write_text("\n".join(lines), encoding = "utf-8")
                     for id_ in ids:
                         fixed_ids.add(id_)
-                        stats.add(str(file_path), "F404", 0, "Reordered __future__ imports", fixed=True)
+                        stats.add(str(file_path), "F404", 0, "Reordered __future__ imports", fixed = True)
             except Exception:
                 pass
 
@@ -1396,7 +1396,7 @@ class JsonRepairFixer(BaseFixer):
 
     def fix_json(self, path: Path, stats: RunStats) -> None:
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
         except (KeyboardInterrupt, SystemExit):
             raise
         except Exception as e:
@@ -1442,8 +1442,8 @@ class JsonRepairFixer(BaseFixer):
                             extracted = content[start_pos:i + 1]
                             json.loads(extracted)
                             if self.apply:
-                                path.write_text(extracted, encoding='utf-8')
-                            stats.add(str(path), "JSON", 0, "Fixed malformed JSON", fixed=self.apply)
+                                path.write_text(extracted, encoding = 'utf-8')
+                            stats.add(str(path), "JSON", 0, "Fixed malformed JSON", fixed = self.apply)
                             return
                         except (KeyboardInterrupt, SystemExit):
                             raise
@@ -1460,8 +1460,8 @@ class JsonRepairFixer(BaseFixer):
                             extracted = content[start_pos:i + 1]
                             json.loads(extracted)
                             if self.apply:
-                                path.write_text(extracted, encoding='utf-8')
-                            stats.add(str(path), "JSON", 0, "Fixed malformed JSON", fixed=self.apply)
+                                path.write_text(extracted, encoding = 'utf-8')
+                            stats.add(str(path), "JSON", 0, "Fixed malformed JSON", fixed = self.apply)
                             return
                         except (KeyboardInterrupt, SystemExit):
                             raise
@@ -1478,7 +1478,7 @@ class NotificationsReportFixer(BaseFixer):
             return
 
         try:
-            raw = path.read_text(encoding="utf-8").split("\n")
+            raw = path.read_text(encoding = "utf-8").split("\n")
         except Exception:
             return
 
@@ -1513,9 +1513,9 @@ class NotificationsReportFixer(BaseFixer):
         existing = "\n".join(raw)
 
         if new_content != existing:
-            stats.add(str(path), "NotificationsReport", 0, "Normalized notifications report", fixed=self.apply)
+            stats.add(str(path), "NotificationsReport", 0, "Normalized notifications report", fixed = self.apply)
             if self.apply:
-                path.write_text(new_content, encoding="utf-8")
+                path.write_text(new_content, encoding = "utf-8")
 
     def _extract_value(self, lines: List[str], pattern: str) -> Optional[str]:
         regex = re.compile(pattern)
@@ -1577,7 +1577,7 @@ class ConfigFixer(BaseFixer):
     def validate_json(self, path: Path, stats: RunStats):
         """Validate JSON syntax."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             json.loads(content)
         except json.JSONDecodeError as e:
             stats.add(str(path), "JSON", 0, f"Invalid JSON: {e}")
@@ -1589,7 +1589,7 @@ class ConfigFixer(BaseFixer):
     def validate_yaml(self, path: Path, stats: RunStats):
         """Validate YAML syntax."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             # Basic YAML validation - check for common issues
             if content.strip() \
                     and not any(line.strip().startswith('#')
@@ -1615,16 +1615,16 @@ class CI_MarkdownLintFixer(BaseFixer):
     def fix_markdown_file(self, path: Path, stats: RunStats):
         """Fix markdown formatting issues."""
         try:
-            content = path.read_text(encoding="utf-8")
+            content = path.read_text(encoding = "utf-8")
             original = content
 
             # Fix common markdown lint issues
             # 1. Ensure proper heading spacing (MD022, MD023)
-            content = re.sub(r'^(#{1,6}) +', r'\1 ', content, flags=re.MULTILINE)  # Remove extra spaces after #
-            content = re.sub(r'^(#{1,6})([^ #])', r'\1 \2', content, flags=re.MULTILINE)  # Add space after #
+            content = re.sub(r'^(#{1,6}) +', r'\1 ', content, flags = re.MULTILINE)  # Remove extra spaces after #
+            content = re.sub(r'^(#{1,6})([^ #])', r'\1 \2', content, flags = re.MULTILINE)  # Add space after #
 
             # 2. Fix list spacing (MD030)
-            content = re.sub(r'^( *)([*+\-]) {2,}', r'\1\2 ', content, flags=re.MULTILINE)  # Fix list item spacing
+            content = re.sub(r'^( *)([*+\-]) {2,}', r'\1\2 ', content, flags = re.MULTILINE)  # Fix list item spacing
 
             # 3. Fix line length issues (MD013) - wrap long lines at 120 chars
             lines = content.split('\n')
@@ -1662,8 +1662,8 @@ class CI_MarkdownLintFixer(BaseFixer):
 
             if content != original:
                 if self.apply:
-                    path.write_text(content, encoding="utf-8")
-                    stats.add(str(path), "Markdown Lint", 0, "Fixed markdown formatting issues", fixed=True)
+                    path.write_text(content, encoding = "utf-8")
+                    stats.add(str(path), "Markdown Lint", 0, "Fixed markdown formatting issues", fixed = True)
                 else:
                     stats.add(str(path), "Markdown Lint", 0, "Markdown formatting issues found")
         except Exception as e:
@@ -1684,7 +1684,7 @@ class CI_LicenseHeaderFixer(BaseFixer):
     def check_license_header(self, path: Path, stats: RunStats):
         """Check and add license header if missing."""
         try:
-            content = path.read_text(encoding="utf-8")
+            content = path.read_text(encoding = "utf-8")
 
             # Check if license header exists
             has_license = any(line in content.split('\n')[:15] for line in LICENSE_HEADER)
@@ -1708,8 +1708,8 @@ class CI_LicenseHeaderFixer(BaseFixer):
                 new_content = header + content
 
                 if self.apply:
-                    path.write_text(new_content, encoding="utf-8")
-                    stats.add(str(path), "License Header", 0, "Added missing license header", fixed=True)
+                    path.write_text(new_content, encoding = "utf-8")
+                    stats.add(str(path), "License Header", 0, "Added missing license header", fixed = True)
                 else:
                     stats.add(str(path), "License Header", 0, "Missing license header")
         except Exception as e:
@@ -1733,7 +1733,7 @@ class CI_WorkflowValidationFixer(BaseFixer):
         """Check workflow for common issues."""
         try:
             import yaml
-            content = path.read_text(encoding="utf-8")
+            content = path.read_text(encoding = "utf-8")
 
             try:
                 data = yaml.safe_load(content)
@@ -1758,9 +1758,9 @@ class CI_WorkflowValidationFixer(BaseFixer):
                         'push': {'branches': ['main']},
                         'pull_request': {'branches': ['main']}
                     }
-                    new_content = yaml.safe_dump(data, sort_keys=False)
-                    path.write_text(new_content, encoding="utf-8")
-                    stats.add(str(path), "Workflow Validation", 0, "Added minimal 'on' triggers", fixed=True)
+                    new_content = yaml.safe_dump(data, sort_keys = False)
+                    path.write_text(new_content, encoding = "utf-8")
+                    stats.add(str(path), "Workflow Validation", 0, "Added minimal 'on' triggers", fixed = True)
 
             if 'jobs' not in data or not data['jobs']:
                 stats.add(str(path), "Workflow Validation", 0, "Missing or empty 'jobs' field")
@@ -1806,10 +1806,10 @@ class CI_TypeCheckingFixer(BaseFixer):
         try:
             result = subprocess.run(
                 ["mypy", "opt", "tests", "--config-file", "mypy.ini", "--show-error-codes"],
-                capture_output=True,
-                text=True,
-                cwd=self.root,
-                timeout=60
+                capture_output = True,
+                text = True,
+                cwd = self.root,
+                timeout = 60
             )
 
             if result.returncode != 0:
@@ -1824,11 +1824,11 @@ class CI_TypeCheckingFixer(BaseFixer):
                         error_codes[code] = error_codes.get(code, 0) + 1
 
                 if error_codes:
-                    stats.add("mypy", "Type Check", 0, f"Type errors found: {error_codes}", fixed=False)
+                    stats.add("mypy", "Type Check", 0, f"Type errors found: {error_codes}", fixed = False)
                 else:
                     stats.add("mypy", "Type Check", 0, "Type checking completed")
             else:
-                stats.add("mypy", "Type Check", 0, "All type checks passed!", fixed=True)
+                stats.add("mypy", "Type Check", 0, "All type checks passed!", fixed = True)
 
         except subprocess.TimeoutExpired:
             stats.add("mypy", "Type Check", 0, "Type checking timed out")
@@ -1851,10 +1851,10 @@ class CI_UnitTestFixer(BaseFixer):
             # Run pytest with collection-only to detect syntax errors
             result = subprocess.run(
                 ["pytest", "--collect-only", "-q"],
-                cwd=str(self.root),
-                capture_output=True,
-                text=True,
-                timeout=30
+                cwd = str(self.root),
+                capture_output = True,
+                text = True,
+                timeout = 30
             )
 
             if result.returncode != 0:
@@ -1874,7 +1874,7 @@ class CI_UnitTestFixer(BaseFixer):
         """Insert common imports into tests when missing."""
         for path in testdir.rglob("test_*.py"):
             try:
-                content = path.read_text(encoding="utf-8")
+                content = path.read_text(encoding = "utf-8")
                 original = content
                 lines = content.split("\n")
 
@@ -1927,8 +1927,8 @@ class CI_UnitTestFixer(BaseFixer):
 
                 new_content = "\n".join(lines)
                 if added and new_content != original:
-                    path.write_text(new_content + "\n", encoding="utf-8")
-                    stats.add(str(path), "Unit Tests", 0, "Inserted missing test imports", fixed=True)
+                    path.write_text(new_content + "\n", encoding = "utf-8")
+                    stats.add(str(path), "Unit Tests", 0, "Inserted missing test imports", fixed = True)
             except Exception as e:
                 logger.debug(f"Could not fix imports in {path}: {e}")
 
@@ -1943,7 +1943,7 @@ class CI_LintQualityFixer(BaseFixer):
                 continue
 
             try:
-                content = path.read_text(encoding="utf-8")
+                content = path.read_text(encoding = "utf-8")
                 original = content
                 lines = content.split('\n')
 
@@ -1963,7 +1963,7 @@ class CI_LintQualityFixer(BaseFixer):
                 content = '\n'.join(new_lines)
 
                 if content != original and self.apply:
-                    path.write_text(content, encoding="utf-8")
+                    path.write_text(content, encoding = "utf-8")
                     stats.mark_fixed(str(path), "Lint Quality")  # type: ignore[attr-defined]
 
             except Exception as e:
@@ -1987,7 +1987,7 @@ class CI_DocumentationFixer(BaseFixer):
                     continue
 
                 try:
-                    content = path.read_text(encoding="utf-8")
+                    content = path.read_text(encoding = "utf-8")
                     original = content
                     modified = False
 
@@ -2009,7 +2009,7 @@ class CI_DocumentationFixer(BaseFixer):
                                     missing_file = path.parent / link_target
                                     missing_file.write_text(
                                         f"# {link_text}\n\nTODO: Add content\n",
-                                        encoding="utf-8"
+                                        encoding = "utf-8"
                                     )
                                     modified = True
 
@@ -2027,7 +2027,7 @@ class CI_DocumentationFixer(BaseFixer):
                                   "Document appears too short or empty")
 
                     if modified and content != original:
-                        path.write_text(content, encoding="utf-8")
+                        path.write_text(content, encoding = "utf-8")
                         stats.mark_fixed(str(path), "Documentation")  # type: ignore[attr-defined]
 
                 except Exception as e:
@@ -2047,7 +2047,7 @@ class CI_ReleasePleaseFixer(BaseFixer):
             return
 
         try:
-            content = release_config.read_text(encoding="utf-8")
+            content = release_config.read_text(encoding = "utf-8")
             config = json.loads(content)
             modified = False
 
@@ -2083,8 +2083,8 @@ class CI_ReleasePleaseFixer(BaseFixer):
             if modified:
                 # Write back with proper formatting
                 release_config.write_text(
-                    json.dumps(config, indent=2) + "\n",
-                    encoding="utf-8"
+                    json.dumps(config, indent = 2) + "\n",
+                    encoding = "utf-8"
                 )
                 stats.mark_fixed(str(release_config), "Release Please")  # type: ignore[attr-defined]
 
@@ -2105,7 +2105,7 @@ class CI_SecretScanFixer(BaseFixer):
             return
 
         try:
-            content = secret_scan.read_text(encoding="utf-8")
+            content = secret_scan.read_text(encoding = "utf-8")
             original = content
 
             # Check if there's a YAML error first
@@ -2128,7 +2128,7 @@ class CI_SecretScanFixer(BaseFixer):
                                     step['uses'] = 'trufflesecurity/trufflehog@main'
                                     modified = True
                 if modified and self.apply:
-                    fixed_content = yaml.safe_dump(doc, sort_keys=False)
+                    fixed_content = yaml.safe_dump(doc, sort_keys = False)
                 else:
                     fixed_content = content
             except Exception:
@@ -2162,7 +2162,7 @@ class CI_SecretScanFixer(BaseFixer):
 
             if fixed_content != original:
                 if self.apply:
-                    secret_scan.write_text(fixed_content, encoding="utf-8")
+                    secret_scan.write_text(fixed_content, encoding = "utf-8")
                     stats.mark_fixed(str(secret_scan), "Secret Scan")  # type: ignore[attr-defined]
                 else:
                     # Report only, no destructive change
@@ -2183,7 +2183,7 @@ class CI_SyntaxConfigFixer(BaseFixer):
                 continue
 
             try:
-                content = path.read_text(encoding="utf-8")
+                content = path.read_text(encoding = "utf-8")
                 compile(content, str(path), 'exec')
             except SyntaxError as e:
                 stats.add(str(path), "Syntax", e.lineno or 0,
@@ -2198,7 +2198,7 @@ class CI_SyntaxConfigFixer(BaseFixer):
                 continue
 
             try:
-                content = path.read_text(encoding="utf-8")
+                content = path.read_text(encoding = "utf-8")
                 json.loads(content)
             except json.JSONDecodeError as e:
                 stats.add(str(path), "Syntax", e.lineno,
@@ -2212,7 +2212,7 @@ class CI_SyntaxConfigFixer(BaseFixer):
                 continue
 
             try:
-                content = path.read_text(encoding="utf-8")
+                content = path.read_text(encoding = "utf-8")
 
                 # Try loading as single document first
                 try:
@@ -2253,7 +2253,7 @@ class CI_WorkflowOnFieldFixer(BaseFixer):
     def _fix_workflow_on_field(self, path: Path, stats: RunStats):
         """Replace 'true:' with proper 'on:' field."""
         try:
-            content = path.read_text(encoding="utf-8")
+            content = path.read_text(encoding = "utf-8")
 
             # Fix: replace 'true:' at start of line with 'on:'
             if '\ntrue:' in content or content.startswith('true:'):
@@ -2262,9 +2262,9 @@ class CI_WorkflowOnFieldFixer(BaseFixer):
                     fixed_content = content.replace('true:', 'on:', 1)
 
                 if fixed_content != content and self.apply:
-                    path.write_text(fixed_content, encoding="utf-8")
+                    path.write_text(fixed_content, encoding = "utf-8")
                     stats.add(str(path), "Workflow Validation", 0,
-                              "Fixed malformed 'true:' to 'on:' field", fixed=True)
+                              "Fixed malformed 'true:' to 'on:' field", fixed = True)
         except Exception as e:
             logger.debug(f"Error fixing workflow {path}: {e}")
 
@@ -2295,7 +2295,7 @@ class CI_RemainingTestImportFixer(BaseFixer):
     def _add_missing_imports(self, path: Path, imports: list, stats: RunStats):
         """Add imports if not already present."""
         try:
-            content = path.read_text(encoding="utf-8")
+            content = path.read_text(encoding = "utf-8")
             modified = False
 
             for imp in imports:
@@ -2318,8 +2318,8 @@ class CI_RemainingTestImportFixer(BaseFixer):
                     modified = True
 
             if modified and self.apply:
-                path.write_text(content, encoding="utf-8")
-                stats.add(str(path), "Unit Tests", 0, "Added missing test imports", fixed=True)
+                path.write_text(content, encoding = "utf-8")
+                stats.add(str(path), "Unit Tests", 0, "Added missing test imports", fixed = True)
         except Exception as e:
             logger.debug(f"Error fixing imports in {path}: {e}")
 
@@ -2345,7 +2345,7 @@ class CI_AdditionalTestImportFixer(BaseFixer):
                 if not path.exists():
                     continue
 
-                content = path.read_text(encoding="utf-8")
+                content = path.read_text(encoding = "utf-8")
                 lines = content.split('\n')
 
                 # Common imports for test files
@@ -2380,8 +2380,8 @@ class CI_AdditionalTestImportFixer(BaseFixer):
                         modified = True
 
                 if modified and self.apply:
-                    path.write_text('\n'.join(lines), encoding="utf-8")
-                    stats.add(str(path), "Unit Tests", 0, "Added missing test imports", fixed=True)
+                    path.write_text('\n'.join(lines), encoding = "utf-8")
+                    stats.add(str(path), "Unit Tests", 0, "Added missing test imports", fixed = True)
 
             except Exception as e:
                 logger.debug(f"Error fixing {path}: {e}")
@@ -2406,7 +2406,7 @@ class CI_LineLengthFixer(BaseFixer):
                 if not filepath.exists():
                     continue
 
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 lines = content.split('\n')
 
                 if line_num > len(lines):
@@ -2427,8 +2427,8 @@ class CI_LineLengthFixer(BaseFixer):
                             lines = lines[:line_num - 1] + new_lines + lines[line_num:]
 
                             if self.apply:
-                                filepath.write_text('\n'.join(lines), encoding="utf-8")
-                                stats.add(str(filepath), "Lint Quality", line_num, "Broke long line", fixed=True)
+                                filepath.write_text('\n'.join(lines), encoding = "utf-8")
+                                stats.add(str(filepath), "Lint Quality", line_num, "Broke long line", fixed = True)
             except Exception as e:
                 logger.debug(f"Error fixing line length in {filepath}: {e}")
 
@@ -2456,7 +2456,7 @@ class CI_ComprehensiveLineLengthFixer(BaseFixer):
                 continue
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 lines = content.split('\n')
                 modified = False
                 new_lines = []
@@ -2486,10 +2486,10 @@ class CI_ComprehensiveLineLengthFixer(BaseFixer):
                         new_lines.append(line)
 
                 if modified and self.apply:
-                    filepath.write_text('\n'.join(new_lines), encoding="utf-8")
+                    filepath.write_text('\n'.join(new_lines), encoding = "utf-8")
                     for i in range(len(lines)):
                         if len(lines[i]) > 120 and i < len(new_lines):
-                            stats.add(str(filepath), "Lint Quality", i + 1, "Broke long line", fixed=True)
+                            stats.add(str(filepath), "Lint Quality", i + 1, "Broke long line", fixed = True)
                             break
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
@@ -2513,11 +2513,11 @@ class CI_TargetedLineLengthFixer(BaseFixer):
             if not filepath.exists():
                 continue
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 lines = content.split('\n')
                 modified = False
 
-                for line_num in sorted(line_nums, reverse=True):
+                for line_num in sorted(line_nums, reverse = True):
                     if line_num > len(lines):
                         continue
                     line = lines[line_num - 1]
@@ -2543,10 +2543,10 @@ class CI_TargetedLineLengthFixer(BaseFixer):
                                 modified = True
 
                 if modified and self.apply:
-                    filepath.write_text('\n'.join(lines), encoding="utf-8")
+                    filepath.write_text('\n'.join(lines), encoding = "utf-8")
                     for ln in line_nums:
                         if ln <= len(lines):
-                            stats.add(str(filepath), "Lint Quality", ln, "Broke long line", fixed=True)
+                            stats.add(str(filepath), "Lint Quality", ln, "Broke long line", fixed = True)
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -2560,7 +2560,7 @@ class CI_ShellScriptFixer(BaseFixer):
 
         for filepath in shell_files:
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 original = content
 
                 # Fix common shell issues
@@ -2583,8 +2583,8 @@ class CI_ShellScriptFixer(BaseFixer):
                 content = '\n'.join(lines)
 
                 if content != original and self.apply:
-                    filepath.write_text(content, encoding="utf-8")
-                    stats.add(str(filepath), "ShellCheck", 0, "Fixed shell script issues", fixed=True)
+                    filepath.write_text(content, encoding = "utf-8")
+                    stats.add(str(filepath), "ShellCheck", 0, "Fixed shell script issues", fixed = True)
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -2598,7 +2598,7 @@ class CI_EnhancedMarkdownFixer(BaseFixer):
 
         for filepath in md_files:
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 original = content
 
                 if CRLF_FIXES_ENABLED:
@@ -2628,8 +2628,8 @@ class CI_EnhancedMarkdownFixer(BaseFixer):
                 content = content.replace('\n\n```', '\n```')
 
                 if content != original and self.apply:
-                    filepath.write_text(content, encoding="utf-8")
-                    stats.add(str(filepath), "Markdown", 0, "Fixed markdown formatting", fixed=True)
+                    filepath.write_text(content, encoding = "utf-8")
+                    stats.add(str(filepath), "Markdown", 0, "Fixed markdown formatting", fixed = True)
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -2644,7 +2644,7 @@ class CI_NotificationsFixer(BaseFixer):
             if not report_file.exists():
                 return
 
-            content = report_file.read_text(encoding="utf-8")
+            content = report_file.read_text(encoding = "utf-8")
             original = content
 
             # Ensure proper structure
@@ -2659,8 +2659,8 @@ class CI_NotificationsFixer(BaseFixer):
                 content = "# Notifications Report\n\n" + content
 
             if content != original and self.apply:
-                report_file.write_text(content, encoding="utf-8")
-                stats.add(str(report_file), "NotificationsReport", 0, "Fixed notifications report", fixed=True)
+                report_file.write_text(content, encoding = "utf-8")
+                stats.add(str(report_file), "NotificationsReport", 0, "Fixed notifications report", fixed = True)
         except Exception as e:
             logger.debug(f"Error in notifications fixer: {e}")
 
@@ -2685,11 +2685,11 @@ class CI_RemainingLineLengthFixer(BaseFixer):
                 line_nums = [line_nums]
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 lines = content.split('\n')
                 modified = False
 
-                for line_num in sorted(line_nums, reverse=True):
+                for line_num in sorted(line_nums, reverse = True):
                     if line_num > len(lines):
                         continue
                     line = lines[line_num - 1]
@@ -2722,12 +2722,12 @@ class CI_RemainingLineLengthFixer(BaseFixer):
                                 modified = True
 
                 if modified and self.apply:
-                    filepath.write_text('\n'.join(lines), encoding="utf-8")
+                    filepath.write_text('\n'.join(lines), encoding = "utf-8")
                     for ln in line_nums:
                         line_num_int: int = int(ln)  # type: ignore[arg-type]
                         if line_num_int <= len(lines):
                             stats.add(str(filepath), "Lint Quality", line_num_int, "Broke remaining long line",
-                                      fixed=True)
+                                      fixed = True)
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -2742,7 +2742,7 @@ class CI_SyntaxErrorFixer(BaseFixer):
             if not test_file.exists():
                 return
 
-            content = test_file.read_text(encoding="utf-8")
+            content = test_file.read_text(encoding = "utf-8")
             original = content
 
             # Check for common syntax issues
@@ -2769,8 +2769,8 @@ class CI_SyntaxErrorFixer(BaseFixer):
                 content += '\n'
 
             if content != original and self.apply:
-                test_file.write_text(content, encoding="utf-8")
-                stats.add(str(test_file), "MyPy", 1, "Fixed syntax error", fixed=True)
+                test_file.write_text(content, encoding = "utf-8")
+                stats.add(str(test_file), "MyPy", 1, "Fixed syntax error", fixed = True)
         except Exception as e:
             logger.debug(f"Error fixing syntax: {e}")
 
@@ -2788,7 +2788,7 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
                 continue
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 original = content
                 lines = content.split('\n')
 
@@ -2836,8 +2836,8 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
                     content = '\n'.join(new_lines)
 
                     if content != original and self.apply:
-                        filepath.write_text(content, encoding="utf-8")
-                        stats.add(str(filepath), "License Header", 0, "Removed duplicate license headers", fixed=True)
+                        filepath.write_text(content, encoding = "utf-8")
+                        stats.add(str(filepath), "License Header", 0, "Removed duplicate license headers", fixed = True)
 
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
@@ -2853,7 +2853,7 @@ class CI_Flake8E265Fixer(BaseFixer):
                 continue
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 lines = content.split('\n')
                 modified = False
 
@@ -2868,13 +2868,13 @@ class CI_Flake8E265Fixer(BaseFixer):
                         fixed_line = line[:leading_spaces] + '# ' + stripped[1:]
                         new_lines.append(fixed_line)
                         stats.add(str(filepath), "Flake8 E265", i + 1, "Block comment should start with '# '",
-                                  fixed=True)
+                                  fixed = True)
                         modified = True
                     else:
                         new_lines.append(line)
 
                 if modified and self.apply:
-                    filepath.write_text('\n'.join(new_lines), encoding="utf-8")
+                    filepath.write_text('\n'.join(new_lines), encoding = "utf-8")
 
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
@@ -2906,7 +2906,7 @@ class CI_AggressiveCRLFFixer(BaseFixer):
                     new_content = content.replace(b'\r\n', b'\n')
                     if self.apply:
                         filepath.write_bytes(new_content)
-                        stats.add(str(filepath), "CRLF", 0, "Converted CRLF to LF", fixed=True)
+                        stats.add(str(filepath), "CRLF", 0, "Converted CRLF to LF", fixed = True)
             except Exception as e:
                 logger.debug(f"Error processing {filepath}: {e}")
 
@@ -2921,7 +2921,7 @@ class CI_AggressiveLongLineFixer(BaseFixer):
                 continue
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 lines = content.split('\n')
                 modified = False
                 fixed_count = 0
@@ -2958,9 +2958,9 @@ class CI_AggressiveLongLineFixer(BaseFixer):
                                 fixed_count += 1
 
                 if modified and self.apply and fixed_count > 0:
-                    filepath.write_text('\n'.join(lines), encoding="utf-8")
+                    filepath.write_text('\n'.join(lines), encoding = "utf-8")
                     for _ in range(fixed_count):
-                        stats.add(str(filepath), "Lint Quality", 0, "Broke long lines", fixed=True)
+                        stats.add(str(filepath), "Lint Quality", 0, "Broke long lines", fixed = True)
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -2981,7 +2981,7 @@ class CI_E115ExpectedIndentationFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         """Fix E115 indentation in a single file."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             original = content
             lines = content.split('\n')
             fixed_count = 0
@@ -3007,8 +3007,8 @@ class CI_E115ExpectedIndentationFixer(BaseFixer):
             if fixed_count > 0 and self.apply:
                 new_content = '\n'.join(lines)
                 if new_content != original:
-                    path.write_text(new_content, encoding='utf-8')
-                    stats.add(str(path), "E115", 0, f"Fixed {fixed_count} indentation issues", fixed=True)
+                    path.write_text(new_content, encoding = 'utf-8')
+                    stats.add(str(path), "E115", 0, f"Fixed {fixed_count} indentation issues", fixed = True)
 
         except Exception as e:
             logger.debug(f"Error fixing E115 in {path}: {e}")
@@ -3063,7 +3063,7 @@ class CI_E116UnexpectedIndentationFixer(BaseFixer):
     def fix_file(self, filepath: Path, stats: RunStats):
         """Fix E116 in a single file."""
         try:
-            content = filepath.read_text(encoding="utf-8")
+            content = filepath.read_text(encoding = "utf-8")
             original = content
             lines = content.split('\n')
             modified = False
@@ -3088,8 +3088,8 @@ class CI_E116UnexpectedIndentationFixer(BaseFixer):
             if modified and self.apply:
                 new_content = '\n'.join(lines)
                 if new_content != original:
-                    filepath.write_text(new_content, encoding="utf-8")
-                    stats.add(str(filepath), "E116", 0, "Fixed unexpected indentation", fixed=True)
+                    filepath.write_text(new_content, encoding = "utf-8")
+                    stats.add(str(filepath), "E116", 0, "Fixed unexpected indentation", fixed = True)
 
         except Exception as e:
             logger.debug(f"Error in {filepath}: {e}")
@@ -3146,12 +3146,12 @@ class CI_DocumentationFiller(BaseFixer):
 
         for filepath, content in doc_files.items():
             if filepath.exists():
-                current = filepath.read_text(encoding="utf-8").strip()
+                current = filepath.read_text(encoding = "utf-8").strip()
                 if not current or len(current) < 50:  # Too short
                     if self.apply:
-                        filepath.write_text(content, encoding="utf-8")
+                        filepath.write_text(content, encoding = "utf-8")
                         stats.add(str(filepath), "Documentation", 0,
-                                  "Added minimal content to empty doc", fixed=True)
+                                  "Added minimal content to empty doc", fixed = True)
 
 
 class CI_TrailingWhitespaceFixer(BaseFixer):
@@ -3167,7 +3167,7 @@ class CI_TrailingWhitespaceFixer(BaseFixer):
                 continue
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 original = content
                 lines = content.split('\n')
 
@@ -3180,9 +3180,9 @@ class CI_TrailingWhitespaceFixer(BaseFixer):
                 if fixed_count > 0:
                     new_content = '\n'.join(lines)
                     if new_content != original and self.apply:
-                        filepath.write_text(new_content, encoding="utf-8")
+                        filepath.write_text(new_content, encoding = "utf-8")
                         stats.add(str(filepath), "Trailing Whitespace", 0,
-                                  f"Removed {fixed_count} lines with trailing whitespace", fixed=True)
+                                  f"Removed {fixed_count} lines with trailing whitespace", fixed = True)
 
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
@@ -3201,7 +3201,7 @@ class CI_BlankLineWhitespaceFixer(BaseFixer):
                 continue
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 original = content
                 lines = content.split('\n')
 
@@ -3214,9 +3214,9 @@ class CI_BlankLineWhitespaceFixer(BaseFixer):
                 if fixed_count > 0:
                     new_content = '\n'.join(lines)
                     if new_content != original and self.apply:
-                        filepath.write_text(new_content, encoding="utf-8")
+                        filepath.write_text(new_content, encoding = "utf-8")
                         stats.add(str(filepath), "Blank Line Whitespace", 0,
-                                  f"Removed whitespace from {fixed_count} blank lines", fixed=True)
+                                  f"Removed whitespace from {fixed_count} blank lines", fixed = True)
 
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
@@ -3235,7 +3235,7 @@ class CI_EndOfFileFixer(BaseFixer):
                 continue
 
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 original = content
 
                 # Remove trailing blank lines but keep single newline at end
@@ -3246,8 +3246,8 @@ class CI_EndOfFileFixer(BaseFixer):
                     new_content = ''
 
                 if new_content != original and self.apply:
-                    filepath.write_text(new_content, encoding="utf-8")
-                    stats.add(str(filepath), "End Of File", 0, "Removed trailing blank lines", fixed=True)
+                    filepath.write_text(new_content, encoding = "utf-8")
+                    stats.add(str(filepath), "End Of File", 0, "Removed trailing blank lines", fixed = True)
 
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
@@ -3274,7 +3274,7 @@ class E251UnexpectedSpacesFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         """Fix E251 in a single file."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             original = content
             lines = content.split('\n')
             fixed_count = 0
@@ -3297,8 +3297,8 @@ class E251UnexpectedSpacesFixer(BaseFixer):
             if fixed_count > 0 and self.apply:
                 new_content = '\n'.join(lines)
                 if new_content != original:
-                    path.write_text(new_content, encoding='utf-8')
-                    stats.add(str(path), "E251", 0, f"Fixed {fixed_count} spacing issues", fixed=True)
+                    path.write_text(new_content, encoding = 'utf-8')
+                    stats.add(str(path), "E251", 0, f"Fixed {fixed_count} spacing issues", fixed = True)
 
         except Exception as e:
             logger.debug(f"Error fixing E251 in {path}: {e}")
@@ -3364,7 +3364,7 @@ class F821UndefinedNameFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         """Fix F821 by removing underscore prefixes from variable assignments."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             original = content
             lines = content.split('\n')
             fixed_count = 0
@@ -3401,8 +3401,8 @@ class F821UndefinedNameFixer(BaseFixer):
             if fixed_count > 0 and self.apply:
                 new_content = '\n'.join(lines)
                 if new_content != original:
-                    path.write_text(new_content, encoding='utf-8')
-                    stats.add(str(path), "F821", 0, f"Fixed {fixed_count} undefined names", fixed=True)
+                    path.write_text(new_content, encoding = 'utf-8')
+                    stats.add(str(path), "F821", 0, f"Fixed {fixed_count} undefined names", fixed = True)
 
         except Exception as e:
             logger.debug(f"Error fixing F821 in {path}: {e}")
@@ -3420,7 +3420,7 @@ class E304BlankLinesAfterDecoratorFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         """Fix E304 by removing blank lines after decorators."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             original = content
             lines = content.split('\n')
             fixed_count = 0
@@ -3469,8 +3469,8 @@ class E304BlankLinesAfterDecoratorFixer(BaseFixer):
 
                 new_content = '\n'.join(result_lines)
                 if new_content != original:
-                    path.write_text(new_content, encoding='utf-8')
-                    stats.add(str(path), "E304", 0, f"Removed {fixed_count} blank lines after decorators", fixed=True)
+                    path.write_text(new_content, encoding = 'utf-8')
+                    stats.add(str(path), "E304", 0, f"Removed {fixed_count} blank lines after decorators", fixed = True)
 
         except Exception as e:
             logger.debug(f"Error fixing E304 in {path}: {e}")
@@ -3492,7 +3492,7 @@ class F401UnusedImportFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         """Remove unused imports from a file."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             original = content
             lines = content.split('\n')
             fixed_count = 0
@@ -3516,15 +3516,15 @@ class F401UnusedImportFixer(BaseFixer):
                                 fixed_count += 1
 
             # Remove lines in reverse order to maintain indices
-            for line_idx in sorted(import_lines_to_remove, reverse=True):
+            for line_idx in sorted(import_lines_to_remove, reverse = True):
                 del lines[line_idx]
 
             if fixed_count > 0 and self.apply:
                 new_content = '\n'.join(lines)
                 if new_content != original:
-                    path.write_text(new_content, encoding='utf-8')
+                    path.write_text(new_content, encoding = 'utf-8')
                     stats.add(str(path), "F401", 0,
-                              f"Removed {fixed_count} unused imports", fixed=True)
+                              f"Removed {fixed_count} unused imports", fixed = True)
 
         except Exception as e:
             logger.debug(f"Error fixing F401 in {path}: {e}")
@@ -3593,7 +3593,7 @@ class F841UnusedVariableFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         """Fix F841 by adding underscore prefix to intentionally unused vars."""
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding = 'utf-8')
             original = content
             lines = content.split('\n')
             fixed_count = 0
@@ -3629,9 +3629,9 @@ class F841UnusedVariableFixer(BaseFixer):
             if fixed_count > 0 and self.apply:
                 new_content = '\n'.join(lines)
                 if new_content != original:
-                    path.write_text(new_content, encoding='utf-8')
+                    path.write_text(new_content, encoding = 'utf-8')
                     stats.add(str(path), "F841", 0,
-                              f"Fixed {fixed_count} unused variables", fixed=True)
+                              f"Fixed {fixed_count} unused variables", fixed = True)
 
         except Exception as e:
             logger.debug(f"Error fixing F841 in {path}: {e}")
@@ -3713,15 +3713,15 @@ def reset_file_view_counts():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Fix all errors in the workspace.")
-    parser.add_argument("--dry-run", action="store_true", help="Only report issues, do not fix.")
-    parser.add_argument("--apply", action="store_true", help="Apply fixes.")
-    parser.add_argument("--open-only", action="store_true", help="Only include [OPEN] items in the report details.")
+    parser = argparse.ArgumentParser(description = "Fix all errors in the workspace.")
+    parser.add_argument("--dry-run", action = "store_true", help = "Only report issues, do not fix.")
+    parser.add_argument("--apply", action = "store_true", help = "Apply fixes.")
+    parser.add_argument("--open-only", action = "store_true", help = "Only include [OPEN] items in the report details.")
     parser.add_argument(
         "paths",
-        nargs="*",
-        type=Path,
-        help="Specific files or directories to process. If not specified, processes entire workspace."
+        nargs = "*",
+        type = Path,
+        help = "Specific files or directories to process. If not specified, processes entire workspace."
     )
     args = parser.parse_args()
 
@@ -3812,7 +3812,7 @@ def main():
 
     # Write report
     report_path = root / "fix_all_errors.txt"
-    with open(report_path, "w", encoding="utf-8") as f:
+    with open(report_path, "w", encoding = "utf-8") as f:
         f.write("Fix All Errors Report\n")
         f.write(" = = = = = = = = = = = = = = = = = = = = = \n\n")
 
@@ -3866,7 +3866,7 @@ class ComprehensiveMarkdownFixer(BaseFixer):
 
         for filepath in md_files:
             try:
-                content = filepath.read_text(encoding="utf-8")
+                content = filepath.read_text(encoding = "utf-8")
                 original = content
 
                 # Apply all fixes in sequence
@@ -3881,9 +3881,9 @@ class ComprehensiveMarkdownFixer(BaseFixer):
                     content = self._fix_crlf(content)
 
                 if content != original and self.apply:
-                    filepath.write_text(content, encoding="utf-8")
+                    filepath.write_text(content, encoding = "utf-8")
                     stats.add(str(filepath), "ComprehensiveMarkdown", 0, "Applied comprehensive markdown fixes",
-                              fixed=True)
+                              fixed = True)
             except Exception as e:
                 logger.debug(f"Error in comprehensive markdown fixer for {filepath}: {e}")
 
@@ -4106,7 +4106,7 @@ class MarkdownLintJSONFixer(BaseFixer):
         for filepath in md_files:
             if not self.should_skip(filepath):
                 try:
-                    content = filepath.read_text(encoding="utf-8")
+                    content = filepath.read_text(encoding = "utf-8")
                     original = content
 
                     # Additional fixes
@@ -4114,8 +4114,8 @@ class MarkdownLintJSONFixer(BaseFixer):
                     content = self._fix_list_spacing(content)
 
                     if content != original and self.apply:
-                        filepath.write_text(content, encoding="utf-8")
-                        stats.add(str(filepath), "MarkdownLintJSON", 0, "Fixed markdown lint issues", fixed=True)
+                        filepath.write_text(content, encoding = "utf-8")
+                        stats.add(str(filepath), "MarkdownLintJSON", 0, "Fixed markdown lint issues", fixed = True)
                 except Exception as e:
                     logger.debug(f"Error in markdown lint JSON fixer for {filepath}: {e}")
 

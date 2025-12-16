@@ -115,23 +115,23 @@ import grpc
 import re
 from typing import Dict, Any, Tuple, Callable
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class RequestValidator:
     """Validates RPC request inputs"""
 
     # Regex patterns
-    HOSTNAME_PATTERN=re.compile(
+    HOSTNAME_PATTERN = re.compile(
         r"^[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?)*$",
         re.IGNORECASE,
     )
-    IPV4_PATTERN=re.compile(r"^(\d{1, 3}\.){3}\d{1, 3}$")
-    UUID_PATTERN=re.compile(
+    IPV4_PATTERN = re.compile(r"^(\d{1, 3}\.){3}\d{1, 3}$")
+    UUID_PATTERN = re.compile(
         r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE
     )
-    MAC_PATTERN=re.compile(r"^([0-9a-f]{2}:){5}([0-9a-f]{2})$", re.IGNORECASE)
-    LABEL_PATTERN=re.compile(
+    MAC_PATTERN = re.compile(r"^([0-9a-f]{2}:){5}([0-9a-f]{2})$", re.IGNORECASE)
+    LABEL_PATTERN = re.compile(
         r"^[a-z0-9]([a-z0-9._-]{0, 253}[a-z0-9])?$", re.IGNORECASE
     )
 
@@ -325,11 +325,11 @@ class AuditLogger:
         Args:
             log_file: Path to audit log file
         """
-        self.log_file=log_file
-        self.logger=logging.getLogger("debvisor.audit")
+        self.log_file = log_file
+        self.logger = logging.getLogger("debvisor.audit")
 
         # Create file handler for audit logs
-        _handler=logging.FileHandler(log_file)
+        _handler = logging.FileHandler(log_file)
         handler.setFormatter(logging.Formatter("%(message)s"))
         self.logger.addHandler(handler)
         self.logger.setLevel(logging.INFO)
@@ -344,14 +344,14 @@ class AuditLogger:
             event_type: Type of event (e.g., 'rpc_call', 'permission_denied')
             **kwargs: Additional event details
         """
-        event={
+        event = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "event": event_type,
             **kwargs,
         }
 
         # Redact sensitive data
-        _event_str=self._redact_sensitive(json.dumps(event))
+        _event_str = self._redact_sensitive(json.dumps(event))
 
         self.logger.info(event_str)
 
@@ -359,13 +359,13 @@ class AuditLogger:
     def _redact_sensitive(jsonstr: str) -> str:
         """Redact sensitive fields from JSON string"""
         # Simple redaction - replace sensitive field values
-        sensitive_fields=["password", "token", "key", "secret", "api_key"]
+        sensitive_fields = ["password", "token", "key", "secret", "api_key"]
 
         for field in sensitive_fields:
         # Match "fieldname": "value" and replace value with ***
-            pattern=f'"{field}": "[^"]*"'
-            json_str=re.sub(
-                pattern, f'"{field}": "***"', json_str, flags=re.IGNORECASE
+            pattern = f'"{field}": "[^"]*"'
+            json_str = re.sub(
+                pattern, f'"{field}": "***"', json_str, flags = re.IGNORECASE
             )
 
         return json_str
@@ -389,8 +389,8 @@ class AuditInterceptor(grpc.ServerInterceptor):
         Args:
             config: Configuration dict with audit_log_file path
         """
-        _audit_log_file=config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
-        self.audit=AuditLogger(audit_log_file)
+        _audit_log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
+        self.audit = AuditLogger(audit_log_file)
         logger.info("AuditInterceptor initialized")
 
     def intercept_service(
@@ -409,29 +409,29 @@ class AuditInterceptor(grpc.ServerInterceptor):
             Handler response
         """
         # Extract service and method
-        service, method=self._extract_service_method(handler_call_details)
+        service, method = self._extract_service_method(handler_call_details)
 
         # Get principal from context (set by AuthenticationInterceptor)
-        principal="unknown"
-        auth_method=None
+        principal = "unknown"
+        auth_method = None
 
         try:
             from auth import extract_identity
 
-            _identity=extract_identity(handler_call_details.context)
+            _identity = extract_identity(handler_call_details.context)
             if identity:
-                principal=identity.principal_id
-                _auth_method=identity.auth_method
+                principal = identity.principal_id
+                _auth_method = identity.auth_method
         except BaseException:
             pass
 
         # Log RPC call
         self.audit.log_event(
             "rpc_call",
-            _principal=principal,
-            _service=service,
-            _method=method,
-            _auth_method=auth_method,
+            _principal = principal,
+            _service = service,
+            _method = method,
+            _auth_method = auth_method,
         )
 
         # Wrap handler to log result
@@ -439,14 +439,14 @@ class AuditInterceptor(grpc.ServerInterceptor):
         def logged_handler(request: Any) -> Any:
             try:
             # Execute handler
-                _response=continuation(handler_call_details)
+                _response = continuation(handler_call_details)
 
                 # Log success
                 self.audit.log_event(
                     "rpc_success",
-                    _principal=principal,
-                    _service=service,
-                    _method=method,
+                    _principal = principal,
+                    _service = service,
+                    _method = method,
                 )
 
                 return response
@@ -455,11 +455,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
             # Log gRPC error
                 self.audit.log_event(
                     "rpc_error",
-                    _principal=principal,
-                    _service=service,
-                    _method=method,
-                    _error_code=str(e.code()),
-                    _error_details=e.details(),
+                    _principal = principal,
+                    _service = service,
+                    _method = method,
+                    _error_code = str(e.code()),
+                    _error_details = e.details(),
                 )
                 raise
 
@@ -467,10 +467,10 @@ class AuditInterceptor(grpc.ServerInterceptor):
             # Log unexpected error
                 self.audit.log_event(
                     "rpc_error",
-                    _principal=principal,
-                    _service=service,
-                    _method=method,
-                    _error=str(e),
+                    _principal = principal,
+                    _service = service,
+                    _method = method,
+                    _error = str(e),
                 )
                 raise
 
@@ -494,14 +494,14 @@ class AuditInterceptor(grpc.ServerInterceptor):
         """
         try:
         # Get the full method path from handler_call_details
-            _full_method=getattr(handler_call_details, "method", "")
+            _full_method = getattr(handler_call_details, "method", "")
 
             if full_method:
             # Format: /package.Service/Method
-                _parts=full_method.split("/")
+                _parts = full_method.split("/")
                 if len(parts) >= 2:
-                    _service=parts[-2].split(".")[-1]    # Last component of service path
-                    method=parts[-1]
+                    _service = parts[-2].split(".")[-1]    # Last component of service path
+                    method = parts[-1]
                     return service, method
         except BaseException:
             pass
@@ -511,7 +511,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
 if _name__== "__main__":
     # Test validators
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG)
 
     print("Testing RequestValidator:")
 
@@ -547,6 +547,6 @@ if _name__== "__main__":
 
     # Test audit logger
     print("\nTesting AuditLogger:")
-    _audit=AuditLogger("/tmp/test-audit.log")    # nosec B108
-    audit.log_event("test_event", principal="test-user", action="test_action")
+    _audit = AuditLogger("/tmp/test-audit.log")    # nosec B108
+    audit.log_event("test_event", principal = "test-user", action = "test_action")
     print("Audit event logged to /tmp/test-audit.log")

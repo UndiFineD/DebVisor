@@ -116,7 +116,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List, Dict, Optional, Tuple
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 ###############################################################################
@@ -125,17 +125,17 @@ _logger=logging.getLogger(__name__)
 class AddressFamily(Enum):
     """IP address family"""
 
-    IPV4="inet"
-    IPV6="inet6"
-    BOTH="both"
+    IPV4 = "inet"
+    IPV6 = "inet6"
+    BOTH = "both"
 
 
 class InterfaceState(Enum):
     """Interface state"""
 
-    UP="UP"
-    DOWN="DOWN"
-    UNKNOWN="UNKNOWN"
+    UP = "UP"
+    DOWN = "DOWN"
+    UNKNOWN = "UNKNOWN"
 
 
 @dataclass
@@ -145,7 +145,7 @@ class IPAddress:
     address: str
     prefix_len: int
     gateway: Optional[str] = None
-    family: AddressFamily=AddressFamily.IPV4
+    family: AddressFamily = AddressFamily.IPV4
 
     def to_cidr(self) -> str:
         """Convert to CIDR notation"""
@@ -154,10 +154,10 @@ class IPAddress:
     @classmethod
     def from_cidr(cls, cidr: str) -> "IPAddress":
         """Create from CIDR notation"""
-        _parts=cidr.split("/")
+        _parts = cidr.split("/")
         if len(parts) != 2:  # type: ignore[name-defined]
             raise ValueError(f"Invalid CIDR: {cidr}")
-        return cls(address=parts[0], prefix_len=int(parts[1]))  # type: ignore[name-defined]
+        return cls(address = parts[0], prefix_len = int(parts[1]))  # type: ignore[name-defined]
 
 
 @dataclass
@@ -165,19 +165,19 @@ class InterfaceConfig:
     """Network interface configuration"""
 
     name: str
-    state: InterfaceState=InterfaceState.DOWN
-    mtu: int=1500
+    state: InterfaceState = InterfaceState.DOWN
+    mtu: int = 1500
     addresses: Optional[List[IPAddress]] = None
     dns_servers: Optional[List[str]] = None
     domain_search: Optional[List[str]] = None
 
     def __post_init__(self) -> None:
         if self.addresses is None:
-            self.addresses=[]
+            self.addresses = []
         if self.dns_servers is None:
-            self.dns_servers=[]
+            self.dns_servers = []
         if self.domain_search is None:
-            self.domain_search=[]
+            self.domain_search = []
 
 
 @dataclass
@@ -187,8 +187,8 @@ class BondConfig:
     name: str
     mode: str
     slaves: List[str]
-    mii_monitor: int=100
-    ad_select: str="stable"
+    mii_monitor: int = 100
+    ad_select: str = "stable"
 
 
 @dataclass
@@ -198,8 +198,8 @@ class VLANConfig:
     name: str
     parent: str
     vlan_id: int
-    protocol: str="802.1q"
-    mtu: int=1500
+    protocol: str = "802.1q"
+    mtu: int = 1500
 
 
 ###############################################################################
@@ -210,8 +210,8 @@ class NetworkBackend(ABC):
 
     def __init__(self, name: str) -> None:
         """Initialize backend"""
-        self.name=name
-        self.is_available=self._check_availability()
+        self.name = name
+        self.is_available = self._check_availability()
         logger.info(f"{name} backend initialized (available: {self.is_available})")  # type: ignore[name-defined]
 
     @abstractmethod
@@ -265,12 +265,12 @@ class NetworkBackend(ABC):
         pass
 
     def execute_command(
-        self, cmd: List[str], check: bool=True
+        self, cmd: List[str], check: bool = True
     ) -> Tuple[int, str, str]:
         """Execute shell command"""
         try:
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, check=check
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, check = check
             )    # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.CalledProcessError as e:
@@ -290,41 +290,41 @@ class Iproute2Backend(NetworkBackend):
 
     def _check_availability(self) -> bool:
         """Check if iproute2 is available"""
-        rc, _, _=self.execute_command(["which", "ip"], check=False)
+        rc, _, _ = self.execute_command(["which", "ip"], check = False)
         return rc == 0
 
     def get_interface(self, name: str) -> Optional[InterfaceConfig]:
         """Get interface configuration using 'ip addr'"""
-        rc, output, _=self.execute_command(["ip", "link", "show", name], check=False)
+        rc, output, _ = self.execute_command(["ip", "link", "show", name], check = False)
 
         if rc != 0:
             logger.warning(f"Interface not found: {name}")  # type: ignore[name-defined]
             return None
 
         # Parse output
-        _config=InterfaceConfig(name=name)
+        _config = InterfaceConfig(name = name)
 
         # Extract state
         if "UP" in output:
-            config.state=InterfaceState.UP  # type: ignore[name-defined]
+            config.state = InterfaceState.UP  # type: ignore[name-defined]
         else:
-            config.state=InterfaceState.DOWN  # type: ignore[name-defined]
+            config.state = InterfaceState.DOWN  # type: ignore[name-defined]
 
         # Extract MTU
-        _mtu_match=re.search(r"mtu\s+(\d+)", output)
+        _mtu_match = re.search(r"mtu\s+(\d+)", output)
         if mtu_match:  # type: ignore[name-defined]
-            config.mtu=int(mtu_match.group(1))  # type: ignore[name-defined]
+            config.mtu = int(mtu_match.group(1))  # type: ignore[name-defined]
 
         # Get addresses
-        rc, addr_output, _=self.execute_command(
-            ["ip", "addr", "show", name], check=False
+        rc, addr_output, _ = self.execute_command(
+            ["ip", "addr", "show", name], check = False
         )
         if rc == 0:
             for line in addr_output.split("\n"):
                 if "inet" in line:
-                    _parts=line.split()
+                    _parts = line.split()
                     if len(parts) >= 2:  # type: ignore[name-defined]
-                        cidr=parts[1]  # type: ignore[name-defined]
+                        cidr = parts[1]  # type: ignore[name-defined]
                         config.addresses.append(IPAddress.from_cidr(cidr))  # type: ignore[name-defined, union-attr]
 
         logger.debug(f"Interface retrieved: {name}")  # type: ignore[name-defined]
@@ -332,8 +332,8 @@ class Iproute2Backend(NetworkBackend):
 
     def set_interface_up(self, name: str) -> bool:
         """Bring interface up"""
-        rc, _, err=self.execute_command(
-            ["ip", "link", "set", name, "up"], check=False
+        rc, _, err = self.execute_command(
+            ["ip", "link", "set", name, "up"], check = False
         )
         if rc != 0:
             logger.error(f"Failed to set interface up: {name}: {err}")  # type: ignore[name-defined]
@@ -343,8 +343,8 @@ class Iproute2Backend(NetworkBackend):
 
     def set_interface_down(self, name: str) -> bool:
         """Bring interface down"""
-        rc, _, err=self.execute_command(
-            ["ip", "link", "set", name, "down"], check=False
+        rc, _, err = self.execute_command(
+            ["ip", "link", "set", name, "down"], check = False
         )
         if rc != 0:
             logger.error(f"Failed to set interface down: {name}: {err}")  # type: ignore[name-defined]
@@ -354,8 +354,8 @@ class Iproute2Backend(NetworkBackend):
 
     def add_ip_address(self, name: str, address: IPAddress) -> bool:
         """Add IP address using 'ip addr add'"""
-        _cmd=["ip", "addr", "add", address.to_cidr(), "dev", name]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        _cmd = ["ip", "addr", "add", address.to_cidr(), "dev", name]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to add address: {err}")  # type: ignore[name-defined]
             return False
@@ -364,8 +364,8 @@ class Iproute2Backend(NetworkBackend):
 
     def remove_ip_address(self, name: str, address: IPAddress) -> bool:
         """Remove IP address using 'ip addr del'"""
-        _cmd=["ip", "addr", "del", address.to_cidr(), "dev", name]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        _cmd = ["ip", "addr", "del", address.to_cidr(), "dev", name]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to remove address: {err}")  # type: ignore[name-defined]
             return False
@@ -374,8 +374,8 @@ class Iproute2Backend(NetworkBackend):
 
     def set_mtu(self, name: str, mtu: int) -> bool:
         """Set interface MTU"""
-        _cmd=["ip", "link", "set", name, "mtu", str(mtu)]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        _cmd = ["ip", "link", "set", name, "mtu", str(mtu)]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to set MTU: {err}")  # type: ignore[name-defined]
             return False
@@ -385,16 +385,16 @@ class Iproute2Backend(NetworkBackend):
     def create_bond(self, config: BondConfig) -> bool:
         """Create bond interface"""
         # Create bond
-        cmd=["ip", "link", "add", config.name, "type", "bond", "mode", config.mode]
-        rc, _, err=self.execute_command(cmd, check=False)
+        cmd = ["ip", "link", "add", config.name, "type", "bond", "mode", config.mode]
+        rc, _, err = self.execute_command(cmd, check = False)
         if rc != 0:
             logger.error(f"Failed to create bond: {err}")  # type: ignore[name-defined]
             return False
 
         # Add slaves
         for slave in config.slaves:
-            slave_cmd=["ip", "link", "set", slave, "master", config.name]
-            rc, _, err=self.execute_command(slave_cmd, check=False)
+            slave_cmd = ["ip", "link", "set", slave, "master", config.name]
+            rc, _, err = self.execute_command(slave_cmd, check = False)
             if rc != 0:
                 logger.error(f"Failed to add slave: {err}")  # type: ignore[name-defined]
                 return False
@@ -407,7 +407,7 @@ class Iproute2Backend(NetworkBackend):
 
     def create_vlan(self, config: VLANConfig) -> bool:
         """Create VLAN interface"""
-        _cmd=[
+        _cmd = [
             "ip",
             "link",
             "add",
@@ -420,7 +420,7 @@ class Iproute2Backend(NetworkBackend):
             "id",
             str(config.vlan_id),
         ]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to create VLAN: {err}")  # type: ignore[name-defined]
             return False
@@ -437,8 +437,8 @@ class Iproute2Backend(NetworkBackend):
 
     def delete_interface(self, name: str) -> bool:
         """Delete interface"""
-        cmd=["ip", "link", "del", name]
-        rc, _, err=self.execute_command(cmd, check=False)
+        cmd = ["ip", "link", "del", name]
+        rc, _, err = self.execute_command(cmd, check = False)
         if rc != 0:
             logger.error(f"Failed to delete interface: {err}")  # type: ignore[name-defined]
             return False
@@ -458,45 +458,45 @@ class NetworkManagerBackend(NetworkBackend):
 
     def _check_availability(self) -> bool:
         """Check if NetworkManager and nmcli are available"""
-        rc, _, _=self.execute_command(["which", "nmcli"], check=False)
+        rc, _, _ = self.execute_command(["which", "nmcli"], check = False)
         return rc == 0
 
     def get_interface(self, name: str) -> Optional[InterfaceConfig]:
         """Get interface configuration using nmcli"""
-        rc, output, _=self.execute_command(
-            ["nmcli", "device", "show", name], check=False
+        rc, output, _ = self.execute_command(
+            ["nmcli", "device", "show", name], check = False
         )
 
         if rc != 0:
             logger.warning(f"Interface not found: {name}")  # type: ignore[name-defined]
             return None
 
-        _config=InterfaceConfig(name=name)
+        _config = InterfaceConfig(name = name)
 
         # Parse output
         for line in output.split("\n"):
             if line.startswith("GENERAL.CONNECTION:"):
             # Connection is active
-                config.state=InterfaceState.UP  # type: ignore[name-defined]
+                config.state = InterfaceState.UP  # type: ignore[name-defined]
             elif line.startswith("GENERAL.STATE:"):
                 if "connected" in line.lower():
-                    config.state=InterfaceState.UP  # type: ignore[name-defined]
+                    config.state = InterfaceState.UP  # type: ignore[name-defined]
                 else:
-                    config.state=InterfaceState.DOWN  # type: ignore[name-defined]
+                    config.state = InterfaceState.DOWN  # type: ignore[name-defined]
             elif line.startswith("WIRED-PROPERTIES.MTU:"):
-                _parts=line.split(":")
+                _parts = line.split(":")
                 if len(parts) > 1:  # type: ignore[name-defined]
-                    config.mtu=int(parts[1].strip())  # type: ignore[name-defined]
+                    config.mtu = int(parts[1].strip())  # type: ignore[name-defined]
             elif line.startswith("IP4.ADDRESS"):
-                _parts=line.split(":")
+                _parts = line.split(":")
                 if len(parts) > 1:  # type: ignore[name-defined]
-                    _address_str=parts[1].strip()  # type: ignore[name-defined]
+                    _address_str = parts[1].strip()  # type: ignore[name-defined]
                     if address_str:  # type: ignore[name-defined]
                         config.addresses.append(IPAddress.from_cidr(address_str))  # type: ignore[name-defined, union-attr]
             elif line.startswith("IP4.DNS"):
-                _parts=line.split(":")
+                _parts = line.split(":")
                 if len(parts) > 1:  # type: ignore[name-defined]
-                    _dns=parts[1].strip()  # type: ignore[name-defined]
+                    _dns = parts[1].strip()  # type: ignore[name-defined]
                     if dns:  # type: ignore[name-defined]
                         config.dns_servers.append(dns)  # type: ignore[name-defined, union-attr]
 
@@ -505,8 +505,8 @@ class NetworkManagerBackend(NetworkBackend):
 
     def set_interface_up(self, name: str) -> bool:
         """Bring interface up using nmcli"""
-        rc, _, err=self.execute_command(
-            ["nmcli", "device", "connect", name], check=False
+        rc, _, err = self.execute_command(
+            ["nmcli", "device", "connect", name], check = False
         )
         if rc != 0:
             logger.error(f"Failed to set interface up: {err}")  # type: ignore[name-defined]
@@ -516,8 +516,8 @@ class NetworkManagerBackend(NetworkBackend):
 
     def set_interface_down(self, name: str) -> bool:
         """Bring interface down using nmcli"""
-        rc, _, err=self.execute_command(
-            ["nmcli", "device", "disconnect", name], check=False
+        rc, _, err = self.execute_command(
+            ["nmcli", "device", "disconnect", name], check = False
         )
         if rc != 0:
             logger.error(f"Failed to set interface down: {err}")  # type: ignore[name-defined]
@@ -528,7 +528,7 @@ class NetworkManagerBackend(NetworkBackend):
     def add_ip_address(self, name: str, address: IPAddress) -> bool:
         """Add IP address using nmcli connection modify"""
         # This is more complex with nmcli - requires connection modification
-        _cmd=[
+        _cmd = [
             "nmcli",
             "connection",
             "modify",
@@ -538,20 +538,20 @@ class NetworkManagerBackend(NetworkBackend):
             "ipv4.method",
             "manual",
         ]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to add address via nmcli: {err}")  # type: ignore[name-defined]
             return False
 
         # Reactivate connection
-        self.execute_command(["nmcli", "connection", "up", name], check=False)
+        self.execute_command(["nmcli", "connection", "up", name], check = False)
 
         logger.info(f"Address added via nmcli: {name} -> {address.to_cidr()}")  # type: ignore[name-defined]
         return True
 
     def remove_ip_address(self, name: str, address: IPAddress) -> bool:
         """Remove IP address using nmcli"""
-        cmd=[
+        cmd = [
             "nmcli",
             "connection",
             "modify",
@@ -559,7 +559,7 @@ class NetworkManagerBackend(NetworkBackend):
             "-ipv4.addresses",
             address.to_cidr(),
         ]
-        rc, _, err=self.execute_command(cmd, check=False)
+        rc, _, err = self.execute_command(cmd, check = False)
         if rc != 0:
             logger.error(f"Failed to remove address via nmcli: {err}")  # type: ignore[name-defined]
             return False
@@ -569,8 +569,8 @@ class NetworkManagerBackend(NetworkBackend):
 
     def set_mtu(self, name: str, mtu: int) -> bool:
         """Set MTU via nmcli"""
-        _cmd=["nmcli", "connection", "modify", name, "ethernet.mtu", str(mtu)]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        _cmd = ["nmcli", "connection", "modify", name, "ethernet.mtu", str(mtu)]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to set MTU via nmcli: {err}")  # type: ignore[name-defined]
             return False
@@ -581,7 +581,7 @@ class NetworkManagerBackend(NetworkBackend):
     def create_bond(self, config: BondConfig) -> bool:
         """Create bond via nmcli"""
         # Create connection
-        _cmd=[
+        _cmd = [
             "nmcli",
             "connection",
             "add",
@@ -592,16 +592,16 @@ class NetworkManagerBackend(NetworkBackend):
             "con-name",
             config.name,
             "bond.options",
-            f"mode={config.mode}",
+            f"mode = {config.mode}",
         ]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to create bond via nmcli: {err}")  # type: ignore[name-defined]
             return False
 
         # Add slaves
         for slave in config.slaves:
-            _slave_cmd=[
+            _slave_cmd = [
                 "nmcli",
                 "connection",
                 "add",
@@ -614,7 +614,7 @@ class NetworkManagerBackend(NetworkBackend):
                 "slave-type",
                 "bond",
             ]
-            rc, _, err=self.execute_command(slave_cmd, check=False)  # type: ignore[name-defined]
+            rc, _, err = self.execute_command(slave_cmd, check = False)  # type: ignore[name-defined]
             if rc != 0:
                 logger.error(f"Failed to add slave via nmcli: {err}")  # type: ignore[name-defined]
                 return False
@@ -624,7 +624,7 @@ class NetworkManagerBackend(NetworkBackend):
 
     def create_vlan(self, config: VLANConfig) -> bool:
         """Create VLAN via nmcli"""
-        _cmd=[
+        _cmd = [
             "nmcli",
             "connection",
             "add",
@@ -639,7 +639,7 @@ class NetworkManagerBackend(NetworkBackend):
             "id",
             str(config.vlan_id),
         ]
-        rc, _, err=self.execute_command(cmd, check=False)  # type: ignore[name-defined]
+        rc, _, err = self.execute_command(cmd, check = False)  # type: ignore[name-defined]
         if rc != 0:
             logger.error(f"Failed to create VLAN via nmcli: {err}")  # type: ignore[name-defined]
             return False
@@ -649,8 +649,8 @@ class NetworkManagerBackend(NetworkBackend):
 
     def delete_interface(self, name: str) -> bool:
         """Delete interface via nmcli"""
-        cmd=["nmcli", "connection", "delete", name]
-        rc, _, err=self.execute_command(cmd, check=False)
+        cmd = ["nmcli", "connection", "delete", name]
+        rc, _, err = self.execute_command(cmd, check = False)
         if rc != 0:
             logger.error(f"Failed to delete interface via nmcli: {err}")  # type: ignore[name-defined]
             return False
@@ -674,14 +674,14 @@ class NetworkBackendFactory:
     def create_backend(cls, backendname: Optional[str] = None) -> NetworkBackend:
         """Create backend instance"""
         if backend_name and backend_name in cls._backends:  # type: ignore[name-defined]
-            _backend=cls._backends[backend_name]()  # type: ignore[name-defined]
+            _backend = cls._backends[backend_name]()  # type: ignore[name-defined]
             if backend.is_available:  # type: ignore[name-defined]
                 return backend  # type: ignore[name-defined]
             logger.warning(f"Backend {backend_name} not available on system")  # type: ignore[name-defined]
 
         # Try backends in order of preference
         for name in ["iproute2", "nmcli"]:
-            _backend=cls._backends[name]()
+            _backend = cls._backends[name]()
             if backend.is_available:  # type: ignore[name-defined]
                 logger.info(f"Using {name} backend")  # type: ignore[name-defined]
                 return backend  # type: ignore[name-defined]
@@ -700,25 +700,25 @@ class NetworkBackendFactory:
 ###############################################################################
 
 if _name__== "__main__":  # type: ignore[name-defined]
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG)
 
     # Create backend
-    _factory=NetworkBackendFactory()
-    _backend=factory.create_backend()  # type: ignore[name-defined]
+    _factory = NetworkBackendFactory()
+    _backend = factory.create_backend()  # type: ignore[name-defined]
 
     print(f"Using backend: {backend.name}")  # type: ignore[name-defined]
 
     # Get interface
-    _if_config=backend.get_interface("eth0")  # type: ignore[name-defined]
+    _if_config = backend.get_interface("eth0")  # type: ignore[name-defined]
     if if_config:  # type: ignore[name-defined]
         print(f"Interface: {if_config.name}, State: {if_config.state.value}")  # type: ignore[name-defined]
 
     # Add IP address
-    _new_addr=IPAddress(address="192.168.1.100", prefix_len=24)
-    _result=backend.add_ip_address("eth0", new_addr)  # type: ignore[name-defined]
+    _new_addr = IPAddress(address = "192.168.1.100", prefix_len = 24)
+    _result = backend.add_ip_address("eth0", new_addr)  # type: ignore[name-defined]
     print(f"Address added: {result}")  # type: ignore[name-defined]
 
     # Create VLAN
-    _vlan_config=VLANConfig(name="eth0.100", parent="eth0", vlan_id=100)
-    _result=backend.create_vlan(vlan_config)  # type: ignore[name-defined]
+    _vlan_config = VLANConfig(name = "eth0.100", parent = "eth0", vlan_id = 100)
+    _result = backend.create_vlan(vlan_config)  # type: ignore[name-defined]
     print(f"VLAN created: {result}")  # type: ignore[name-defined]

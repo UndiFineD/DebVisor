@@ -118,7 +118,7 @@ class QualityScore:
     complexity: float = 0.0
     documentation: float = 0.0
     test_coverage: float = 0.0
-    issues: List[str] = field(default_factory=list)
+    issues: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -134,32 +134,32 @@ class RefactoringPattern:
 # Default style rules for Python
 DEFAULT_PYTHON_STYLE_RULES: List[StyleRule] = [
     StyleRule(
-        name="line_length",
-        pattern=r"^.{89,}$",
-        message="Line exceeds 88 characters",
-        severity=StyleRuleSeverity.WARNING,
-        language=CodeLanguage.PYTHON
+        name = "line_length",
+        pattern = r"^.{89,}$",
+        message = "Line exceeds 88 characters",
+        severity = StyleRuleSeverity.WARNING,
+        language = CodeLanguage.PYTHON
     ),
     StyleRule(
-        name="trailing_whitespace",
-        pattern=r"[ \t]+$",
-        message="Trailing whitespace detected",
-        severity=StyleRuleSeverity.WARNING,
-        language=CodeLanguage.PYTHON
+        name = "trailing_whitespace",
+        pattern = r"[ \t]+$",
+        message = "Trailing whitespace detected",
+        severity = StyleRuleSeverity.WARNING,
+        language = CodeLanguage.PYTHON
     ),
     StyleRule(
-        name="multiple_blank_lines",
-        pattern=r"\n{4,}",
-        message="More than 2 consecutive blank lines",
-        severity=StyleRuleSeverity.INFO,
-        language=CodeLanguage.PYTHON
+        name = "multiple_blank_lines",
+        pattern = r"\n{4,}",
+        message = "More than 2 consecutive blank lines",
+        severity = StyleRuleSeverity.INFO,
+        language = CodeLanguage.PYTHON
     ),
     StyleRule(
-        name="missing_docstring",
-        pattern=r"^def\s+\w+\([^)]*\):\s*\n\s+(?!\"\"\")",
-        message="Function missing docstring",
-        severity=StyleRuleSeverity.WARNING,
-        language=CodeLanguage.PYTHON
+        name = "missing_docstring",
+        pattern = r"^def\s+\w+\([^)]*\):\s*\n\s+(?!\"\"\")",
+        message = "Function missing docstring",
+        severity = StyleRuleSeverity.WARNING,
+        language = CodeLanguage.PYTHON
     ),
 ]
 
@@ -367,7 +367,7 @@ class TestGap:
     file_path: str
     line_number: int
     complexity: int
-    suggested_tests: List[str] = field(default_factory=list)
+    suggested_tests: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -417,8 +417,8 @@ class DependencyNode:
     """
     name: str
     type: DependencyType
-    depends_on: List[str] = field(default_factory=list)
-    depended_by: List[str] = field(default_factory=list)
+    depends_on: List[str] = field(default_factory = list)
+    depended_by: List[str] = field(default_factory = list)
     file_path: str = ""
 
 
@@ -437,10 +437,10 @@ class MigrationManager:
     Example:
         >>> manager = MigrationManager()
         >>> manager.add_rule(MigrationRule(
-        ...     name="urllib2_to_urllib",
-        ...     old_pattern=r"import urllib2",
-        ...     new_pattern="import urllib.request",
-        ...     description="Migrate urllib2 to urllib.request"
+        ...     name = "urllib2_to_urllib",
+        ...     old_pattern = r"import urllib2",
+        ...     new_pattern = "import urllib.request",
+        ...     description = "Migrate urllib2 to urllib.request"
         ... ))
         >>> code, results = manager.apply_migrations("import urllib2")
     """
@@ -530,34 +530,34 @@ class CodeReviewer:
             # Style checks
             if len(line) > 120:
                 self.findings.append(ReviewFinding(
-                    category=ReviewCategory.STYLE,
-                    message=f"Line exceeds 120 characters ({len(line)})",
-                    line_number=i,
-                    severity=2,
-                    suggestion="Break line into multiple lines",
-                    auto_fixable=False
+                    category = ReviewCategory.STYLE,
+                    message = f"Line exceeds 120 characters ({len(line)})",
+                    line_number = i,
+                    severity = 2,
+                    suggestion = "Break line into multiple lines",
+                    auto_fixable = False
                 ))
 
             # Security checks
             if re.search(r"password\s*=\s*['\"][^'\"]+['\"]", line, re.I):
                 self.findings.append(ReviewFinding(
-                    category=ReviewCategory.SECURITY,
-                    message="Potential hardcoded password",
-                    line_number=i,
-                    severity=5,
-                    suggestion="Use environment variables or secure vault",
-                    auto_fixable=False
+                    category = ReviewCategory.SECURITY,
+                    message = "Potential hardcoded password",
+                    line_number = i,
+                    severity = 5,
+                    suggestion = "Use environment variables or secure vault",
+                    auto_fixable = False
                 ))
 
             # Performance checks
             if re.search(r"for\s+\w+\s+in\s+range\(len\(", line):
                 self.findings.append(ReviewFinding(
-                    category=ReviewCategory.PERFORMANCE,
-                    message="Inefficient iteration pattern",
-                    line_number=i,
-                    severity=2,
-                    suggestion="Use 'enumerate()' instead of 'range(len())'",
-                    auto_fixable=True
+                    category = ReviewCategory.PERFORMANCE,
+                    message = "Inefficient iteration pattern",
+                    line_number = i,
+                    severity = 2,
+                    suggestion = "Use 'enumerate()' instead of 'range(len())'",
+                    auto_fixable = True
                 ))
 
             # Documentation checks
@@ -565,12 +565,12 @@ class CodeReviewer:
                 # Check for docstring on next line
                 if i < len(lines) and '"""' not in lines[i]:
                     self.findings.append(ReviewFinding(
-                        category=ReviewCategory.DOCUMENTATION,
-                        message="Function missing docstring",
-                        line_number=i,
-                        severity=3,
-                        suggestion="Add docstring describing function purpose",
-                        auto_fixable=False
+                        category = ReviewCategory.DOCUMENTATION,
+                        message = "Function missing docstring",
+                        line_number = i,
+                        severity = 3,
+                        suggestion = "Add docstring describing function purpose",
+                        auto_fixable = False
                     ))
 
         return self.findings
@@ -635,12 +635,12 @@ class PerformanceOptimizer:
                 match = re.search(pattern, line)
                 if match:
                     self.suggestions.append(OptimizationSuggestion(
-                        type=opt_type,
-                        description=desc,
-                        impact="medium",
-                        code_location=f"line {i}",
-                        before_snippet=line.strip(),
-                        after_snippet=fix.format(*match.groups()) if match.groups() else fix
+                        type = opt_type,
+                        description = desc,
+                        impact = "medium",
+                        code_location = f"line {i}",
+                        before_snippet = line.strip(),
+                        after_snippet = fix.format(*match.groups()) if match.groups() else fix
                     ))
 
         return self.suggestions
@@ -671,7 +671,7 @@ class SecurityScanner:
         (r"os\.system\s*\([^)]*\+",
          SecurityIssueType.COMMAND_INJECTION, "critical",
          "Potential command injection vulnerability",
-         "Use subprocess with shell=False and proper escaping"),
+         "Use subprocess with shell = False and proper escaping"),
         (r"eval\s*\(",
          SecurityIssueType.INSECURE_DESERIALIZATION, "critical",
          "Use of eval() is dangerous",
@@ -706,11 +706,11 @@ class SecurityScanner:
             for pattern, issue_type, severity, desc, fix in self.SECURITY_PATTERNS:
                 if re.search(pattern, line, re.I):
                     self.vulnerabilities.append(SecurityVulnerability(
-                        type=issue_type,
-                        severity=severity,
-                        description=desc,
-                        line_number=i,
-                        fix_suggestion=fix
+                        type = issue_type,
+                        severity = severity,
+                        description = desc,
+                        line_number = i,
+                        fix_suggestion = fix
                     ))
 
         return self.vulnerabilities
@@ -769,11 +769,11 @@ class ModernizationAdvisor:
         for pattern, new_api, dep_ver, rem_ver, guide in self.DEPRECATIONS:
             if re.search(pattern, content):
                 self.suggestions.append(ModernizationSuggestion(
-                    old_api=pattern,
-                    new_api=new_api,
-                    deprecation_version=dep_ver,
-                    removal_version=rem_ver,
-                    migration_guide=guide
+                    old_api = pattern,
+                    new_api = new_api,
+                    deprecation_version = dep_ver,
+                    removal_version = rem_ver,
+                    migration_guide = guide
                 ))
 
         return self.suggestions
@@ -824,11 +824,11 @@ class TestGapAnalyzer:
                 suggested_tests = self._suggest_tests(node)
 
                 self.gaps.append(TestGap(
-                    function_name=node.name,
-                    file_path=file_path,
-                    line_number=node.lineno,
-                    complexity=complexity,
-                    suggested_tests=suggested_tests
+                    function_name = node.name,
+                    file_path = file_path,
+                    line_number = node.lineno,
+                    complexity = complexity,
+                    suggested_tests = suggested_tests
                 ))
 
         return self.gaps
@@ -931,10 +931,10 @@ class ConsistencyChecker:
 
         if snake_case_files and camel_case_files:
             self.issues.append(ConsistencyIssue(
-                issue_type="naming_convention",
-                description="Mixed naming conventions detected",
-                occurrences=snake_case_files[:3] + camel_case_files[:3],
-                recommended_style="snake_case for functions (PEP 8)"
+                issue_type = "naming_convention",
+                description = "Mixed naming conventions detected",
+                occurrences = snake_case_files[:3] + camel_case_files[:3],
+                recommended_style = "snake_case for functions (PEP 8)"
             ))
 
     def _check_import_consistency(self, file_contents: Dict[str, str]) -> None:
@@ -954,10 +954,10 @@ class ConsistencyChecker:
 
         if absolute_imports and relative_imports:
             self.issues.append(ConsistencyIssue(
-                issue_type="import_style",
-                description="Mixed import styles (absolute and relative)",
-                occurrences=absolute_imports[:3] + relative_imports[:3],
-                recommended_style="Prefer absolute imports (PEP 8)"
+                issue_type = "import_style",
+                description = "Mixed import styles (absolute and relative)",
+                occurrences = absolute_imports[:3] + relative_imports[:3],
+                recommended_style = "Prefer absolute imports (PEP 8)"
             ))
 
 
@@ -1024,29 +1024,29 @@ class ProfilingAdvisor:
 
         if has_loop:
             self.suggestions.append(ProfilingSuggestion(
-                category=ProfilingCategory.CPU_BOUND,
-                function_name=node.name,
-                reason="Contains loops that may be CPU-intensive",
-                estimated_impact="medium",
-                profiling_approach="Use cProfile or line_profiler"
+                category = ProfilingCategory.CPU_BOUND,
+                function_name = node.name,
+                reason = "Contains loops that may be CPU-intensive",
+                estimated_impact = "medium",
+                profiling_approach = "Use cProfile or line_profiler"
             ))
 
         if has_io:
             self.suggestions.append(ProfilingSuggestion(
-                category=ProfilingCategory.IO_BOUND,
-                function_name=node.name,
-                reason="Contains I/O operations that may block",
-                estimated_impact="high",
-                profiling_approach="Use async profiling or io tracing"
+                category = ProfilingCategory.IO_BOUND,
+                function_name = node.name,
+                reason = "Contains I/O operations that may block",
+                estimated_impact = "high",
+                profiling_approach = "Use async profiling or io tracing"
             ))
 
         if has_network:
             self.suggestions.append(ProfilingSuggestion(
-                category=ProfilingCategory.NETWORK_BOUND,
-                function_name=node.name,
-                reason="Contains network operations",
-                estimated_impact="high",
-                profiling_approach="Monitor network latency and throughput"
+                category = ProfilingCategory.NETWORK_BOUND,
+                function_name = node.name,
+                reason = "Contains network operations",
+                estimated_impact = "high",
+                profiling_approach = "Monitor network latency and throughput"
             ))
 
 
@@ -1116,9 +1116,9 @@ class DependencyAnalyzer:
         """
         if name not in self.nodes:
             self.nodes[name] = DependencyNode(
-                name=name,
-                type=dep_type,
-                file_path=file_path
+                name = name,
+                type = dep_type,
+                file_path = file_path
             )
         else:
             self.nodes[name].depended_by.append(file_path)
@@ -1241,13 +1241,13 @@ class AccessibilityReport:
         recommendations: High-level recommendations.
     """
     file_path: str
-    issues: List[AccessibilityIssue] = field(default_factory=list)
+    issues: List[AccessibilityIssue] = field(default_factory = list)
     total_elements: int = 0
     wcag_level: WCAGLevel = WCAGLevel.AA
     compliance_score: float = 100.0
     critical_count: int = 0
     serious_count: int = 0
-    recommendations: List[str] = field(default_factory=list)
+    recommendations: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -1264,7 +1264,7 @@ class ARIAAttribute:
     name: str
     value: str = ""
     is_valid: bool = True
-    allowed_values: List[str] = field(default_factory=list)
+    allowed_values: List[str] = field(default_factory = list)
     suggestion: Optional[str] = None
 
 
@@ -1329,9 +1329,9 @@ class AccessibilityAnalyzer:
         path = Path(file_path)
 
         if not path.exists():
-            return AccessibilityReport(file_path=file_path)
+            return AccessibilityReport(file_path = file_path)
 
-        content = path.read_text(encoding="utf-8")
+        content = path.read_text(encoding = "utf-8")
 
         # Analyze based on file type
         if path.suffix in (".html", ".htm"):
@@ -1373,57 +1373,57 @@ class AccessibilityAnalyzer:
         # Check for images without alt text
         img_pattern = r'<img\s+[^>]*?(?<!alt=)[^>]*?>'
         for match in re.finditer(img_pattern, content, re.IGNORECASE):
-            if 'alt=' not in match.group().lower():
+            if 'alt = ' not in match.group().lower():
                 line_num = content[:match.start()].count('\n') + 1
                 self.issues.append(AccessibilityIssue(
-                    issue_type=AccessibilityIssueType.MISSING_ALT_TEXT,
-                    severity=AccessibilitySeverity.CRITICAL,
-                    wcag_level=WCAGLevel.A,
-                    wcag_criterion="1.1.1",
-                    description="Image missing alt attribute",
-                    element=match.group()[:50],
-                    line_number=line_num,
-                    suggested_fix='Add alt="" for decorative or alt="description" for meaningful images',
-                    auto_fixable=False
+                    issue_type = AccessibilityIssueType.MISSING_ALT_TEXT,
+                    severity = AccessibilitySeverity.CRITICAL,
+                    wcag_level = WCAGLevel.A,
+                    wcag_criterion = "1.1.1",
+                    description = "Image missing alt attribute",
+                    element = match.group()[:50],
+                    line_number = line_num,
+                    suggested_fix = 'Add alt = "" for decorative or alt = "description" for meaningful images',
+                    auto_fixable = False
                 ))
 
         # Check for form inputs without labels
         input_pattern = r'<input\s+[^>]*?>'
         for match in re.finditer(input_pattern, content, re.IGNORECASE):
             input_tag = match.group()
-            if 'type="hidden"' not in input_tag.lower():
+            if 'type = "hidden"' not in input_tag.lower():
                 # Check if there's a label for this input
-                input_id_match = re.search(r'id=["\']([^"\']+)["\']', input_tag)
+                input_id_match = re.search(r'id = ["\']([^"\']+)["\']', input_tag)
                 if input_id_match:
                     input_id = input_id_match.group(1)
-                    if f'for="{input_id}"' not in content and f"for='{input_id}'" not in content:
+                    if f'for = "{input_id}"' not in content and f"for = '{input_id}'" not in content:
                         line_num = content[:match.start()].count('\n') + 1
                         self.issues.append(AccessibilityIssue(
-                            issue_type=AccessibilityIssueType.MISSING_LABEL,
-                            severity=AccessibilitySeverity.SERIOUS,
-                            wcag_level=WCAGLevel.A,
-                            wcag_criterion="3.3.2",
-                            description="Form input missing associated label",
-                            element=input_tag[:50],
-                            line_number=line_num,
-                            suggested_fix=f'Add <label for="{input_id}">Label text</label>',
-                            auto_fixable=False
+                            issue_type = AccessibilityIssueType.MISSING_LABEL,
+                            severity = AccessibilitySeverity.SERIOUS,
+                            wcag_level = WCAGLevel.A,
+                            wcag_criterion = "3.3.2",
+                            description = "Form input missing associated label",
+                            element = input_tag[:50],
+                            line_number = line_num,
+                            suggested_fix = f'Add <label for = "{input_id}">Label text</label>',
+                            auto_fixable = False
                         ))
 
         # Check for missing ARIA landmarks
         landmarks = ['main', 'nav', 'header', 'footer', 'aside']
-        has_landmark = any(f'<{tag}' in content.lower() or f'role="{tag}"' in content.lower()
+        has_landmark = any(f'<{tag}' in content.lower() or f'role = "{tag}"' in content.lower()
                           for tag in landmarks)
         if not has_landmark and '<body' in content.lower():
             self.issues.append(AccessibilityIssue(
-                issue_type=AccessibilityIssueType.ARIA_MISSING,
-                severity=AccessibilitySeverity.MODERATE,
-                wcag_level=WCAGLevel.A,
-                wcag_criterion="4.1.2",
-                description="Page missing landmark regions",
-                element="document",
-                suggested_fix="Add semantic HTML5 elements (main, nav, header, footer) or ARIA landmarks",
-                auto_fixable=False
+                issue_type = AccessibilityIssueType.ARIA_MISSING,
+                severity = AccessibilitySeverity.MODERATE,
+                wcag_level = WCAGLevel.A,
+                wcag_criterion = "4.1.2",
+                description = "Page missing landmark regions",
+                element = "document",
+                suggested_fix = "Add semantic HTML5 elements (main, nav, header, footer) or ARIA landmarks",
+                auto_fixable = False
             ))
 
         # Check heading hierarchy
@@ -1434,28 +1434,28 @@ class AccessibilityAnalyzer:
         if heading_levels:
             if heading_levels[0] != 1:
                 self.issues.append(AccessibilityIssue(
-                    issue_type=AccessibilityIssueType.HEADING_HIERARCHY,
-                    severity=AccessibilitySeverity.MODERATE,
-                    wcag_level=WCAGLevel.AA,
-                    wcag_criterion="2.4.6",
-                    description="Page should start with an h1 heading",
-                    element="headings",
-                    suggested_fix="Start page with <h1> element",
-                    auto_fixable=False
+                    issue_type = AccessibilityIssueType.HEADING_HIERARCHY,
+                    severity = AccessibilitySeverity.MODERATE,
+                    wcag_level = WCAGLevel.AA,
+                    wcag_criterion = "2.4.6",
+                    description = "Page should start with an h1 heading",
+                    element = "headings",
+                    suggested_fix = "Start page with <h1> element",
+                    auto_fixable = False
                 ))
 
             # Check for skipped levels
             for i in range(1, len(heading_levels)):
                 if heading_levels[i] > heading_levels[i-1] + 1:
                     self.issues.append(AccessibilityIssue(
-                        issue_type=AccessibilityIssueType.HEADING_HIERARCHY,
-                        severity=AccessibilitySeverity.MODERATE,
-                        wcag_level=WCAGLevel.AA,
-                        wcag_criterion="2.4.6",
-                        description=f"Heading level skipped: h{heading_levels[i-1]} to h{heading_levels[i]}",
-                        element=f"h{heading_levels[i]}",
-                        suggested_fix="Use sequential heading levels without skipping",
-                        auto_fixable=False
+                        issue_type = AccessibilityIssueType.HEADING_HIERARCHY,
+                        severity = AccessibilitySeverity.MODERATE,
+                        wcag_level = WCAGLevel.AA,
+                        wcag_criterion = "2.4.6",
+                        description = f"Heading level skipped: h{heading_levels[i-1]} to h{heading_levels[i]}",
+                        element = f"h{heading_levels[i]}",
+                        suggested_fix = "Use sequential heading levels without skipping",
+                        auto_fixable = False
                     ))
 
     def _analyze_python_ui(self, content: str) -> None:
@@ -1485,15 +1485,15 @@ class AccessibilityAnalyzer:
                 # Check for tooltips/accessibility text
                 if 'tooltip' not in widget_call.lower() and 'help' not in widget_call.lower():
                     self.issues.append(AccessibilityIssue(
-                        issue_type=AccessibilityIssueType.ARIA_MISSING,
-                        severity=AccessibilitySeverity.MINOR,
-                        wcag_level=WCAGLevel.AA,
-                        wcag_criterion="4.1.2",
-                        description=f"{widget_name} widget may benefit from tooltip or help text",
-                        element=widget_call[:50],
-                        line_number=line_num,
-                        suggested_fix="Consider adding tooltip or accessibility description",
-                        auto_fixable=False
+                        issue_type = AccessibilityIssueType.ARIA_MISSING,
+                        severity = AccessibilitySeverity.MINOR,
+                        wcag_level = WCAGLevel.AA,
+                        wcag_criterion = "4.1.2",
+                        description = f"{widget_name} widget may benefit from tooltip or help text",
+                        element = widget_call[:50],
+                        line_number = line_num,
+                        suggested_fix = "Consider adding tooltip or accessibility description",
+                        auto_fixable = False
                     ))
 
     def _analyze_javascript_ui(self, content: str) -> None:
@@ -1510,15 +1510,15 @@ class AccessibilityAnalyzer:
             context = content[max(0, match.start()-100):match.end()+100]
             if 'onKeyPress' not in context and 'onKeyDown' not in context:
                 self.issues.append(AccessibilityIssue(
-                    issue_type=AccessibilityIssueType.KEYBOARD_NAVIGATION,
-                    severity=AccessibilitySeverity.SERIOUS,
-                    wcag_level=WCAGLevel.A,
-                    wcag_criterion="2.1.1",
-                    description="Click handler without keyboard equivalent",
-                    element=match.group()[:50],
-                    line_number=line_num,
-                    suggested_fix="Add onKeyPress or onKeyDown handler for keyboard users",
-                    auto_fixable=False
+                    issue_type = AccessibilityIssueType.KEYBOARD_NAVIGATION,
+                    severity = AccessibilitySeverity.SERIOUS,
+                    wcag_level = WCAGLevel.A,
+                    wcag_criterion = "2.1.1",
+                    description = "Click handler without keyboard equivalent",
+                    element = match.group()[:50],
+                    line_number = line_num,
+                    suggested_fix = "Add onKeyPress or onKeyDown handler for keyboard users",
+                    auto_fixable = False
                 ))
 
         # Check for div/span used as interactive elements
@@ -1526,17 +1526,17 @@ class AccessibilityAnalyzer:
         for match in re.finditer(interactive_div, content, re.IGNORECASE):
             line_num = content[:match.start()].count('\n') + 1
             context = match.group()
-            if 'role=' not in context and 'tabIndex' not in context:
+            if 'role = ' not in context and 'tabIndex' not in context:
                 self.issues.append(AccessibilityIssue(
-                    issue_type=AccessibilityIssueType.SEMANTIC_HTML,
-                    severity=AccessibilitySeverity.SERIOUS,
-                    wcag_level=WCAGLevel.A,
-                    wcag_criterion="1.3.1",
-                    description="Interactive div should be a button or have role/tabIndex",
-                    element=context[:50],
-                    line_number=line_num,
-                    suggested_fix='Use <button> or add role="button" tabIndex="0"',
-                    auto_fixable=False
+                    issue_type = AccessibilityIssueType.SEMANTIC_HTML,
+                    severity = AccessibilitySeverity.SERIOUS,
+                    wcag_level = WCAGLevel.A,
+                    wcag_criterion = "1.3.1",
+                    description = "Interactive div should be a button or have role/tabIndex",
+                    element = context[:50],
+                    line_number = line_num,
+                    suggested_fix = 'Use <button> or add role = "button" tabIndex = "0"',
+                    auto_fixable = False
                 ))
 
     def check_color_contrast(
@@ -1568,13 +1568,13 @@ class AccessibilityAnalyzer:
         min_aaa = 4.5 if is_large_text else 7.0
 
         return ColorContrastResult(
-            foreground=foreground,
-            background=background,
-            contrast_ratio=round(contrast_ratio, 2),
-            passes_aa=contrast_ratio >= min_aa,
-            passes_aaa=contrast_ratio >= min_aaa,
-            min_ratio_aa=min_aa,
-            min_ratio_aaa=min_aaa
+            foreground = foreground,
+            background = background,
+            contrast_ratio = round(contrast_ratio, 2),
+            passes_aa = contrast_ratio >= min_aa,
+            passes_aaa = contrast_ratio >= min_aaa,
+            min_ratio_aa = min_aa,
+            min_ratio_aaa = min_aaa
         )
 
     def _relative_luminance(self, hex_color: str) -> float:
@@ -1634,14 +1634,14 @@ class AccessibilityAnalyzer:
             recommendations.append("Continue to test with screen readers and keyboard navigation")
 
         return AccessibilityReport(
-            file_path=file_path,
-            issues=list(self.issues),
-            total_elements=len(self.issues),
-            wcag_level=self.target_level,
-            compliance_score=round(score, 1),
-            critical_count=critical_count,
-            serious_count=serious_count,
-            recommendations=recommendations
+            file_path = file_path,
+            issues = list(self.issues),
+            total_elements = len(self.issues),
+            wcag_level = self.target_level,
+            compliance_score = round(score, 1),
+            critical_count = critical_count,
+            serious_count = serious_count,
+            recommendations = recommendations
         )
 
     def get_issues_by_severity(
@@ -1940,24 +1940,24 @@ class CoderAgent(BaseAgent):
                     threshold = CODE_SMELL_PATTERNS["long_method"]["threshold"]
                     if length > threshold:
                         smells.append(CodeSmell(
-                            name="long_method",
-                            description=f"Method '{node.name}' is {length} lines (>{threshold})",
-                            severity="warning",
-                            line_number=node.lineno,
-                            suggestion=f"Consider breaking down '{node.name}' into smaller functions",
-                            category="complexity"
+                            name = "long_method",
+                            description = f"Method '{node.name}' is {length} lines (>{threshold})",
+                            severity = "warning",
+                            line_number = node.lineno,
+                            suggestion = f"Consider breaking down '{node.name}' into smaller functions",
+                            category = "complexity"
                         ))
                 # Too many parameters
                 param_count = len(node.args.args)
                 threshold = CODE_SMELL_PATTERNS["too_many_parameters"]["threshold"]
                 if param_count > threshold:
                     smells.append(CodeSmell(
-                        name="too_many_parameters",
-                        description=f"Function '{node.name}' has {param_count} parameters (>{threshold})",
-                        severity="warning",
-                        line_number=node.lineno,
-                        suggestion="Consider using a data class or dictionary for parameters",
-                        category="complexity"
+                        name = "too_many_parameters",
+                        description = f"Function '{node.name}' has {param_count} parameters (>{threshold})",
+                        severity = "warning",
+                        line_number = node.lineno,
+                        suggestion = "Consider using a data class or dictionary for parameters",
+                        category = "complexity"
                     ))
             # God class detection
             if isinstance(node, ast.ClassDef):
@@ -1965,12 +1965,12 @@ class CoderAgent(BaseAgent):
                 threshold = CODE_SMELL_PATTERNS["god_class"]["threshold"]
                 if method_count > threshold:
                     smells.append(CodeSmell(
-                        name="god_class",
-                        description=f"Class '{node.name}' has {method_count} methods (>{threshold})",
-                        severity="warning",
-                        line_number=node.lineno,
-                        suggestion="Consider splitting into smaller, focused classes",
-                        category="design"
+                        name = "god_class",
+                        description = f"Class '{node.name}' has {method_count} methods (>{threshold})",
+                        severity = "warning",
+                        line_number = node.lineno,
+                        suggestion = "Consider splitting into smaller, focused classes",
+                        category = "design"
                     ))
         # Deep nesting detection
         for i, line in enumerate(lines, 1):
@@ -1980,12 +1980,12 @@ class CoderAgent(BaseAgent):
             threshold = CODE_SMELL_PATTERNS["deep_nesting"]["threshold"]
             if nesting > threshold and line.strip():
                 smells.append(CodeSmell(
-                    name="deep_nesting",
-                    description=f"Code at line {i} has {nesting} levels of nesting (>{threshold})",
-                    severity="info",
-                    line_number=i,
-                    suggestion="Consider early returns or extracting nested logic",
-                    category="complexity"
+                    name = "deep_nesting",
+                    description = f"Code at line {i} has {nesting} levels of nesting (>{threshold})",
+                    severity = "info",
+                    line_number = i,
+                    suggestion = "Consider early returns or extracting nested logic",
+                    category = "complexity"
                 ))
         self._code_smells = smells
         return smells
@@ -2167,7 +2167,7 @@ class CoderAgent(BaseAgent):
         if not shutil.which('flake8'):
             logging.warning("flake8 not found, skipping style validation")
             return True
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as tmp:
+        with tempfile.NamedTemporaryFile(mode = 'w', suffix = '.py', delete = False) as tmp:
             tmp.write(content)
             tmp_path = tmp.name
         try:
@@ -2176,11 +2176,11 @@ class CoderAgent(BaseAgent):
             # E501: Line too long
             # W293: Blank line contains whitespace
             result = subprocess.run(
-                ['flake8', '--ignore=E501,W293', tmp_path],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                check=False
+                ['flake8', '--ignore = E501,W293', tmp_path],
+                capture_output = True,
+                text = True,
+                timeout = 30,
+                check = False
             )
             if result.returncode != 0:
                 logging.warning(f"flake8 validation failed:\n{result.stdout}")

@@ -14,8 +14,8 @@ stats = {
 
 # Get E999 (syntax errors) which indicate broken files - skip those
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True, text=True, cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True, text = True, cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 broken_files = set()
@@ -35,7 +35,7 @@ for filename in os.listdir(agent_dir):
         continue
     
     filepath = os.path.join(agent_dir, filename)
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     new_lines = []
@@ -72,7 +72,7 @@ for filename in os.listdir(agent_dir):
     
     # Only write if changed
     if new_lines != lines:
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
             f.writelines(new_lines)
 
 print("\n" + "=" * 60)

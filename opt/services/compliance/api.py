@@ -32,44 +32,44 @@ mock_resources = [
 ]
 
 
-@compliance_bp.route("/scan", methods=["POST"])  # type: ignore[name-defined]
+@compliance_bp.route("/scan", methods = ["POST"])  # type: ignore[name-defined]
 def run_scan() -> Response:
-    standard = request.args.get("standard")    # e.g., ?standard=GDPR
-    report = engine.run_compliance_scan(mock_resources, standard=standard)
+    standard = request.args.get("standard")    # e.g., ?standard = GDPR
+    report = engine.run_compliance_scan(mock_resources, standard = standard)
     return jsonify(report.__dict__)
 
 
-@compliance_bp.route("/reports/<standard>", methods=["GET"])  # type: ignore[name-defined]
+@compliance_bp.route("/reports/<standard>", methods = ["GET"])  # type: ignore[name-defined]
 def generate_report(standard: str) -> Response:
     """Generate a specific compliance report (GDPR, SOC2, HIPAA)."""
-    report = engine.run_compliance_scan(mock_resources, standard=standard.upper())
+    report = engine.run_compliance_scan(mock_resources, standard = standard.upper())
     return jsonify(report.__dict__)
 
 
-@compliance_bp.route("/policies", methods=["GET"])  # type: ignore[name-defined]
+@compliance_bp.route("/policies", methods = ["GET"])  # type: ignore[name-defined]
 def list_policies() -> Response:
     return jsonify([p.__dict__ for p in engine.policies.values()])  # type: ignore[name-defined]
 
 
-@compliance_bp.route("/audit", methods=["GET"])  # type: ignore[name-defined]
+@compliance_bp.route("/audit", methods = ["GET"])  # type: ignore[name-defined]
 def get_audit() -> Response:
     return jsonify(engine.get_audit_log())  # type: ignore[name-defined]
 
 
-@compliance_bp.route("/gdpr/export/<int:user_id>", methods=["GET"])  # type: ignore[name-defined]
+@compliance_bp.route("/gdpr/export/<int:user_id>", methods = ["GET"])  # type: ignore[name-defined]
 def export_user_data(user_id: int) -> Tuple[Response, int]:
     try:
         data = gdpr_manager.export_user_data(user_id)
         return jsonify(data), 200
     except ValueError as e:
-        current_app.logger.error(f"User data export failed: {e}", exc_info=True)
+        current_app.logger.error(f"User data export failed: {e}", exc_info = True)
         return jsonify({"error": "User not found"}), 404
     except Exception as e:
-        current_app.logger.error(f"Error exporting user data: {e}", exc_info=True)
+        current_app.logger.error(f"Error exporting user data: {e}", exc_info = True)
         return jsonify({"error": "Failed to export user data"}), 500
 
 
-@compliance_bp.route("/gdpr/forget/<int:user_id>", methods=["POST"])  # type: ignore[name-defined]
+@compliance_bp.route("/gdpr/forget/<int:user_id>", methods = ["POST"])  # type: ignore[name-defined]
 def forget_user(user_id: int) -> Tuple[Response, int]:
     # In a real app, we'd check permissions here (admin only or self)
     success = gdpr_manager.anonymize_user(user_id)
@@ -106,7 +106,7 @@ except ImportError:
     health_bp = create_health_blueprint("compliance-service", {"engine": check_compliance_engine_fallback})
     app.register_blueprint(health_bp)
 
-app.register_blueprint(compliance_bp, url_prefix="/api/v1/compliance")
+app.register_blueprint(compliance_bp, url_prefix = "/api/v1/compliance")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5005)
+    app.run(host = "0.0.0.0", port = 5005)

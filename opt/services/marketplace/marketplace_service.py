@@ -46,48 +46,48 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 # Enums and Configuration
 # -----------------------------------------------------------------------------
 class ResourceKind(Enum):
-    HELM_CHART="helm"
-    K8S_MANIFEST="manifest"
-    KUSTOMIZE="kustomize"
-    VM_IMAGE="vm-image"
-    CONTAINER_IMAGE="container"
-    STORAGE_POOL="storage-pool"
-    NETWORK_CONFIG="network"
-    SECRET="secret"    # nosec B105
-    CONFIGMAP="configmap"
+    HELM_CHART = "helm"
+    K8S_MANIFEST = "manifest"
+    KUSTOMIZE = "kustomize"
+    VM_IMAGE = "vm-image"
+    CONTAINER_IMAGE = "container"
+    STORAGE_POOL = "storage-pool"
+    NETWORK_CONFIG = "network"
+    SECRET = "secret"    # nosec B105
+    CONFIGMAP = "configmap"
 
 
 class DeploymentStatus(Enum):
-    PENDING="pending"
-    VALIDATING="validating"
-    SCANNING="scanning"
-    DOWNLOADING="downloading"
-    RUNNING="running"
-    COMPLETED="completed"
-    FAILED="failed"
-    ROLLED_BACK="rolled_back"
-    CANCELLED="cancelled"
+    PENDING = "pending"
+    VALIDATING = "validating"
+    SCANNING = "scanning"
+    DOWNLOADING = "downloading"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    ROLLED_BACK = "rolled_back"
+    CANCELLED = "cancelled"
 
 
 class SeverityLevel(Enum):
-    CRITICAL="critical"
-    HIGH="high"
-    MEDIUM="medium"
-    LOW="low"
-    INFO="info"
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+    INFO = "info"
 
 
 class TrustLevel(Enum):
-    VERIFIED="verified"    # Publisher signature verified
-    TRUSTED="trusted"    # From trusted repository
-    COMMUNITY="community"    # Community-contributed
-    UNKNOWN="unknown"    # No signature
+    VERIFIED = "verified"    # Publisher signature verified
+    TRUSTED = "trusted"    # From trusted repository
+    COMMUNITY = "community"    # Community-contributed
+    UNKNOWN = "unknown"    # No signature
 
 
 @dataclass  # type: ignore[name-defined]
@@ -100,7 +100,7 @@ class CVERecord:
     version: str
     fixed_version: Optional[str]  # type: ignore[name-defined]
     description: str
-    cvss_score: float=0.0
+    cvss_score: float = 0.0
     published_at: Optional[datetime] = None  # type: ignore[name-defined]
 
 
@@ -112,10 +112,10 @@ class SecurityScanResult:
     scanned_at: datetime
     scanner_version: str
     vulnerabilities: List[CVERecord]  # type: ignore[name-defined]
-    critical_count: int=0
-    high_count: int=0
-    medium_count: int=0
-    low_count: int=0
+    critical_count: int = 0
+    high_count: int = 0
+    medium_count: int = 0
+    low_count: int = 0
 
     @property
     def summary(self) -> str:
@@ -130,9 +130,9 @@ class RecipeDependency:
     """Dependency on another recipe or external resource."""
 
     name: str
-    version_constraint: str="*"    # semver constraint
-    type: str="recipe"    # recipe|k8s-api|storage|network
-    optional: bool=False
+    version_constraint: str = "*"    # semver constraint
+    type: str = "recipe"    # recipe|k8s-api|storage|network
+    optional: bool = False
     condition: Optional[str] = None    # conditional expression  # type: ignore[name-defined]
 
 
@@ -143,10 +143,10 @@ class RecipeResource:
     name: str
     kind: ResourceKind
     spec: Dict[str, Any]  # type: ignore[name-defined]
-    depends_on: List[str] = field(default_factory=list)    # Other resource names  # type: ignore[name-defined]
+    depends_on: List[str] = field(default_factory = list)    # Other resource names  # type: ignore[name-defined]
     rollback_hint: Optional[str] = None  # type: ignore[name-defined]
     health_check: Optional[Dict[str, Any]] = None  # type: ignore[name-defined]
-    timeout_seconds: int=300
+    timeout_seconds: int = 300
 
 
 @dataclass  # type: ignore[name-defined]
@@ -155,10 +155,10 @@ class RecipeParameter:
 
     name: str
     description: str
-    type: str="string"    # string|int|bool|choice|secret
-    default: Any=None  # type: ignore[name-defined]
-    required: bool=False
-    choices: List[str] = field(default_factory=list)  # type: ignore[name-defined]
+    type: str = "string"    # string|int|bool|choice|secret
+    default: Any = None  # type: ignore[name-defined]
+    required: bool = False
+    choices: List[str] = field(default_factory = list)  # type: ignore[name-defined]
     validation: Optional[str] = None    # regex pattern  # type: ignore[name-defined]
 
 
@@ -176,22 +176,22 @@ class Recipe:
     source_url: Optional[str] = None  # type: ignore[name-defined]
 
     # Content
-    dependencies: List[RecipeDependency] = field(default_factory=list)  # type: ignore[name-defined]
-    resources: List[RecipeResource] = field(default_factory=list)  # type: ignore[name-defined]
-    parameters: List[RecipeParameter] = field(default_factory=list)  # type: ignore[name-defined]
+    dependencies: List[RecipeDependency] = field(default_factory = list)  # type: ignore[name-defined]
+    resources: List[RecipeResource] = field(default_factory = list)  # type: ignore[name-defined]
+    parameters: List[RecipeParameter] = field(default_factory = list)  # type: ignore[name-defined]
 
     # Metadata
     category: Optional[str] = None  # type: ignore[name-defined]
-    tags: List[str] = field(default_factory=list)  # type: ignore[name-defined]
+    tags: List[str] = field(default_factory = list)  # type: ignore[name-defined]
     license: Optional[str] = None  # type: ignore[name-defined]
     min_platform_version: Optional[str] = None  # type: ignore[name-defined]
 
     # Security
     signatures: Dict[str, str] = field(  # type: ignore[name-defined]
-        _default_factory=dict
+        _default_factory = dict
     )    # key_id -> base64 signature
     checksum: Optional[str] = None  # type: ignore[name-defined]
-    trust_level: TrustLevel=TrustLevel.UNKNOWN
+    trust_level: TrustLevel = TrustLevel.UNKNOWN
 
     # Timestamps
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))  # type: ignore[name-defined]
@@ -242,62 +242,62 @@ class Recipe:
 
     def compute_digest(self) -> str:
         """Compute SHA-256 digest of recipe content."""
-        _payload=json.dumps(self.to_dict(), sort_keys=True).encode()
+        _payload = json.dumps(self.to_dict(), sort_keys = True).encode()
         return hashlib.sha256(payload).hexdigest()
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "Recipe":  # type: ignore[name-defined]
         """Deserialize recipe from dict."""
-        dependencies=[
+        dependencies = [
             RecipeDependency(  # type: ignore[call-arg]
-                _name=d["name"],
-                _version_constraint=d.get("version_constraint", "*"),
-                _type=d.get("type", "recipe"),
-                _optional=d.get("optional", False),
+                _name = d["name"],
+                _version_constraint = d.get("version_constraint", "*"),
+                _type = d.get("type", "recipe"),
+                _optional = d.get("optional", False),
             )
             for d in data.get("dependencies", [])
         ]
 
-        resources=[
+        resources = [
             RecipeResource(  # type: ignore[call-arg]
-                _name=r["name"],
-                _kind=ResourceKind(r["kind"]),
-                _spec=r["spec"],
-                _depends_on=r.get("depends_on", []),
-                _rollback_hint=r.get("rollback_hint"),
-                _timeout_seconds=r.get("timeout_seconds", 300),
+                _name = r["name"],
+                _kind = ResourceKind(r["kind"]),
+                _spec = r["spec"],
+                _depends_on = r.get("depends_on", []),
+                _rollback_hint = r.get("rollback_hint"),
+                _timeout_seconds = r.get("timeout_seconds", 300),
             )
             for r in data.get("resources", [])
         ]
 
-        parameters=[
+        parameters = [
             RecipeParameter(  # type: ignore[call-arg]
-                _name=p["name"],
-                _description=p.get("description", ""),
-                _type=p.get("type", "string"),
-                _default=p.get("default"),
-                _required=p.get("required", False),
-                _choices=p.get("choices", []),
+                _name = p["name"],
+                _description = p.get("description", ""),
+                _type = p.get("type", "string"),
+                _default = p.get("default"),
+                _required = p.get("required", False),
+                _choices = p.get("choices", []),
             )
             for p in data.get("parameters", [])
         ]
 
         return cls(  # type: ignore[call-arg]
-            _name=data["name"],
-            _version=data["version"],
-            _publisher=data["publisher"],
-            _description=data["description"],
-            _long_description=data.get("long_description"),
-            _icon_url=data.get("icon_url"),
-            _homepage=data.get("homepage"),
-            _dependencies=dependencies,
-            _resources=resources,
-            _parameters=parameters,
-            _category=data.get("category"),
-            _tags=data.get("tags", []),
-            _license=data.get("license"),
-            _signatures=data.get("signatures", {}),
-            _checksum=data.get("checksum"),
+            _name = data["name"],
+            _version = data["version"],
+            _publisher = data["publisher"],
+            _description = data["description"],
+            _long_description = data.get("long_description"),
+            _icon_url = data.get("icon_url"),
+            _homepage = data.get("homepage"),
+            _dependencies = dependencies,
+            _resources = resources,
+            _parameters = parameters,
+            _category = data.get("category"),
+            _tags = data.get("tags", []),
+            _license = data.get("license"),
+            _signatures = data.get("signatures", {}),
+            _checksum = data.get("checksum"),
             _created_at=(
                 datetime.fromisoformat(data["created_at"])
                 if "created_at" in data
@@ -313,19 +313,19 @@ class SecurityScanner:
     """CVE vulnerability scanner using Trivy or Grype."""
 
     def __init__(self, scanner: str="trivy") -> None:
-        self.scanner=scanner
+        self.scanner = scanner
         self._cache: Dict[str, SecurityScanResult] = {}  # type: ignore[name-defined]
-        self._cache_ttl=timedelta(hours=24)
+        self._cache_ttl = timedelta(hours = 24)
 
     def scan_container_image(self, image: str) -> SecurityScanResult:
         """Scan container image for vulnerabilities."""
-        cache_key=f"container:{image}"
+        cache_key = f"container:{image}"
         if cache_key in self._cache:
-            cached=self._cache[cache_key]
+            cached = self._cache[cache_key]
             if datetime.now(timezone.utc) - cached.scanned_at < self._cache_ttl:
                 return cached
 
-        _result=self._run_trivy_scan(image, "image")
+        _result = self._run_trivy_scan(image, "image")
         self._cache[cache_key] = result
         return result
 
@@ -335,10 +335,10 @@ class SecurityScanner:
 
     def _run_trivy_scan(self, target: str, scantype: str) -> SecurityScanResult:
         """Execute Trivy scanner."""
-        _vulnerabilities=[]
+        _vulnerabilities = []
 
         try:
-            _cmd=[
+            _cmd = [
                 "trivy",
                 scan_type,
                 "--format",
@@ -348,48 +348,48 @@ class SecurityScanner:
                 target,
             ]
 
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, timeout=300
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, timeout = 300
             )    # nosec B603
 
             if result.returncode == 0 and result.stdout:
-                _data=json.loads(result.stdout)
-                _vulnerabilities=self._parse_trivy_output(data)
+                _data = json.loads(result.stdout)
+                _vulnerabilities = self._parse_trivy_output(data)
             else:
                 logger.warning(f"Trivy scan returned non-zero: {result.stderr}")
         except FileNotFoundError:
             logger.warning("Trivy not installed, using mock scan")
-            _vulnerabilities=self._mock_scan()
+            _vulnerabilities = self._mock_scan()
         except subprocess.TimeoutExpired:
             logger.error("Trivy scan timed out")
         except Exception as e:
             logger.error(f"Security scan error: {e}")
 
         # Count by severity
-        critical=sum(
+        critical = sum(
             1 for v in vulnerabilities if v.severity == SeverityLevel.CRITICAL
         )
-        high=sum(1 for v in vulnerabilities if v.severity== SeverityLevel.HIGH)
-        medium=sum(1 for v in vulnerabilities if v.severity== SeverityLevel.MEDIUM)
-        low=sum(1 for v in vulnerabilities if v.severity== SeverityLevel.LOW)
+        high = sum(1 for v in vulnerabilities if v.severity== SeverityLevel.HIGH)
+        medium = sum(1 for v in vulnerabilities if v.severity== SeverityLevel.MEDIUM)
+        low = sum(1 for v in vulnerabilities if v.severity== SeverityLevel.LOW)
 
         return SecurityScanResult(  # type: ignore[call-arg]
-            passed=critical == 0,    # Fail if any critical
-            _scanned_at=datetime.now(timezone.utc),
-            _scanner_version=self.scanner,
-            _vulnerabilities=vulnerabilities,
-            _critical_count=critical,
-            _high_count=high,
-            _medium_count=medium,
-            _low_count=low,
+            passed = critical == 0,    # Fail if any critical
+            _scanned_at = datetime.now(timezone.utc),
+            _scanner_version = self.scanner,
+            _vulnerabilities = vulnerabilities,
+            _critical_count = critical,
+            _high_count = high,
+            _medium_count = medium,
+            _low_count = low,
         )
 
     def _parse_trivy_output(self, data: Dict[str, Any]) -> List[CVERecord]:  # type: ignore[name-defined]
         """Parse Trivy JSON output."""
-        vulns=[]
+        vulns = []
         for result in data.get("Results", []):
             for vuln in result.get("Vulnerabilities", []):
-                severity_map={
+                severity_map = {
                     "CRITICAL": SeverityLevel.CRITICAL,
                     "HIGH": SeverityLevel.HIGH,
                     "MEDIUM": SeverityLevel.MEDIUM,
@@ -397,17 +397,17 @@ class SecurityScanner:
                 }
                 vulns.append(
                     CVERecord(  # type: ignore[call-arg]
-                        _cve_id=vuln.get("VulnerabilityID", "UNKNOWN"),
-                        _severity=severity_map.get(
+                        _cve_id = vuln.get("VulnerabilityID", "UNKNOWN"),
+                        _severity = severity_map.get(
                             vuln.get("Severity", "").upper(), SeverityLevel.INFO
                         ),
-                        _package=vuln.get("PkgName", ""),
-                        _version=vuln.get("InstalledVersion", ""),
-                        _fixed_version=vuln.get("FixedVersion"),
-                        _description=vuln.get("Title", vuln.get("Description", ""))[
+                        _package = vuln.get("PkgName", ""),
+                        _version = vuln.get("InstalledVersion", ""),
+                        _fixed_version = vuln.get("FixedVersion"),
+                        _description = vuln.get("Title", vuln.get("Description", ""))[
                             :200
                         ],
-                        _cvss_score=vuln.get("CVSS", {})
+                        _cvss_score = vuln.get("CVSS", {})
                         .get("nvd", {})
                         .get("V3Score", 0.0),
                     )
@@ -418,19 +418,19 @@ class SecurityScanner:
         """Mock scan for testing without Trivy."""
         return [
             CVERecord(  # type: ignore[call-arg]
-                _cve_id="CVE-2024-0001",
-                _severity=SeverityLevel.MEDIUM,
-                _package="libssl",
-                _version="1.1.1",
-                _fixed_version="1.1.1t",
-                _description="[MOCK] Example vulnerability for testing",
-                _cvss_score=5.5,
+                _cve_id = "CVE-2024-0001",
+                _severity = SeverityLevel.MEDIUM,
+                _package = "libssl",
+                _version = "1.1.1",
+                _fixed_version = "1.1.1t",
+                _description = "[MOCK] Example vulnerability for testing",
+                _cvss_score = 5.5,
             )
         ]
 
     def calculate_trust_score(self, recipe: Recipe) -> int:
         """Calculate trust score (0-100) based on security and metadata."""
-        score=100
+        score = 100
 
         # Deduct for vulnerabilities
         if recipe.security_scan:
@@ -452,7 +452,7 @@ class SecurityScanner:
 
     def enforce_policy(self, recipe: Recipe, minscore: int=70) -> Tuple[bool, str]:  # type: ignore[name-defined]
         """Check if recipe meets governance policy."""
-        _score=self.calculate_trust_score(recipe)
+        _score = self.calculate_trust_score(recipe)
 
         if recipe.security_scan and not recipe.security_scan.passed:
             return False, "Security scan failed (Critical vulnerabilities found)"
@@ -470,7 +470,7 @@ class SignatureVerifier:
 
     def __init__(self, trustedkeys: Optional[Dict[str, bytes]] = None): -> None:  # type: ignore[name-defined, syntax]
         """Placeholder docstring."""
-        self.trusted_keys=trusted_keys or {}
+        self.trusted_keys = trusted_keys or {}
 
     def add_trusted_key(self, keyid: str, publickey: bytes) -> None:
         """Add trusted publisher key."""
@@ -481,7 +481,7 @@ class SignatureVerifier:
         if not recipe.signatures:
             return False, "No signatures present"
 
-        _digest=recipe.compute_digest().encode()
+        _digest = recipe.compute_digest().encode()
 
         for key_id, signature_b64 in recipe.signatures.items():
             if key_id not in self.trusted_keys:
@@ -490,8 +490,8 @@ class SignatureVerifier:
             try:
                 import base64
 
-                _signature=base64.b64decode(signature_b64)
-                public_key=self.trusted_keys[key_id]
+                _signature = base64.b64decode(signature_b64)
+                public_key = self.trusted_keys[key_id]
 
                 # Try Ed25519 first
                 try:
@@ -502,7 +502,7 @@ class SignatureVerifier:
                         load_pem_public_key,
                     )
 
-                    _key=load_pem_public_key(public_key)
+                    _key = load_pem_public_key(public_key)
                     if isinstance(key, Ed25519PublicKey):
                         key.verify(signature, digest)
                         return True, f"Verified with key {key_id}"
@@ -518,7 +518,7 @@ class SignatureVerifier:
                         load_pem_public_key,
                     )
 
-                    _key=load_pem_public_key(public_key)
+                    _key = load_pem_public_key(public_key)
                     if isinstance(key, RSAPublicKey):
                         key.verify(
                             signature, digest, padding.PKCS1v15(), hashes.SHA256()
@@ -540,19 +540,19 @@ class MarketplaceCatalog:
     """Recipe catalog with search, versioning, and remote sync."""
 
     def __init__(self, storagepath: str="/var/lib/debvisor/marketplace") -> None:
-        self.storage_path=Path(storage_path)
-        self.storage_path.mkdir(parents=True, exist_ok=True)
+        self.storage_path = Path(storage_path)
+        self.storage_path.mkdir(parents = True, exist_ok = True)
         self._recipes: Dict[str, Dict[str, Recipe]] = {}    # name -> {version -> recipe}  # type: ignore[name-defined]
-        self._lock=threading.Lock()
+        self._lock = threading.Lock()
         self._load_catalog()
 
     def _load_catalog(self) -> None:
         """Load recipes from disk."""
-        catalog_file=self.storage_path / "catalog.json"
+        catalog_file = self.storage_path / "catalog.json"
         if catalog_file.exists():
             try:
                 with open(catalog_file) as f:
-                    _data=json.load(f)
+                    _data = json.load(f)
                 for name, versions in data.items():
                     self._recipes[name] = {}
                     for version, recipe_data in versions.items():
@@ -565,13 +565,13 @@ class MarketplaceCatalog:
 
     def _save_catalog(self) -> None:
         """Persist catalog to disk."""
-        data={}
+        data = {}
         for name, versions in self._recipes.items():
             data[name] = {v: r.to_dict() for v, r in versions.items()}
 
-        catalog_file=self.storage_path / "catalog.json"
+        catalog_file = self.storage_path / "catalog.json"
         with open(catalog_file, "w") as f:
-            json.dump(data, f, indent=2)
+            json.dump(data, f, indent = 2)
 
     def add_recipe(self, recipe: Recipe) -> str:
         """Add or update recipe in catalog."""
@@ -586,7 +586,7 @@ class MarketplaceCatalog:
 
     def get(self, name: str, version: Optional[str] = None) -> Optional[Recipe]:  # type: ignore[name-defined]
         """Get recipe by name and optional version (latest if not specified)."""
-        _versions=self._recipes.get(name)
+        _versions = self._recipes.get(name)
         if not versions:
             return None
 
@@ -594,34 +594,34 @@ class MarketplaceCatalog:
             return versions.get(version)
 
         # Return latest version
-        _sorted_versions=sorted(versions.keys(), key=self._version_key, reverse=True)
+        _sorted_versions = sorted(versions.keys(), key = self._version_key, reverse = True)
         return versions[sorted_versions[0]] if sorted_versions else None
 
     def _version_key(self, version: str) -> Tuple[Union[int, str], ...]:  # type: ignore[name-defined]
         """Parse semver for sorting."""
-        _parts=re.split(r"[.\-]", version)
+        _parts = re.split(r"[.\-]", version)
         return tuple(int(p) if p.isdigit() else p for p in parts)
 
     def list_versions(self, name: str) -> List[str]:  # type: ignore[name-defined]
         """List all versions of a recipe."""
-        _versions=self._recipes.get(name, {})
-        return sorted(versions.keys(), key=self._version_key, reverse=True)
+        _versions = self._recipes.get(name, {})
+        return sorted(versions.keys(), key = self._version_key, reverse = True)
 
     def search(
         self,
-        query: str="",
+        query: str = "",
         category: Optional[str] = None,  # type: ignore[name-defined]
         tags: Optional[List[str]] = None,  # type: ignore[name-defined]
     ) -> List[Recipe]:  # type: ignore[name-defined]
         """Search recipes with filters."""
-        _results=[]
-        _query_lower=query.lower()
+        _results = []
+        _query_lower = query.lower()
 
         for versions in self._recipes.values():
         # Get latest version
             if not versions:
                 continue
-            _recipe=list(versions.values())[0]
+            _recipe = list(versions.values())[0]
 
             # Apply filters
             if (
@@ -641,7 +641,7 @@ class MarketplaceCatalog:
 
     def get_categories(self) -> List[str]:  # type: ignore[name-defined]
         """Get all unique categories."""
-        _categories=set()
+        _categories = set()
         for versions in self._recipes.values():
             for recipe in versions.values():
                 if recipe.category:
@@ -689,9 +689,9 @@ class RemoteRepository:
 
     name: str
     url: str
-    enabled: bool=True
-    trust_level: TrustLevel=TrustLevel.COMMUNITY
-    sync_interval_hours: int=24
+    enabled: bool = True
+    trust_level: TrustLevel = TrustLevel.COMMUNITY
+    sync_interval_hours: int = 24
     last_sync: Optional[datetime] = None  # type: ignore[name-defined]
     public_key: Optional[bytes] = None  # type: ignore[name-defined]
 
@@ -700,10 +700,10 @@ class RepositorySyncer:
     """Sync recipes from remote repositories."""
 
     def __init__(self, catalog: MarketplaceCatalog) -> None:
-        self.catalog=catalog
+        self.catalog = catalog
         self.repositories: Dict[str, RemoteRepository] = {}  # type: ignore[name-defined]
         self._sync_thread: Optional[threading.Thread] = None  # type: ignore[name-defined]
-        self._stop_event=threading.Event()
+        self._stop_event = threading.Event()
 
     def add_repository(self, repo: RemoteRepository) -> None:
         """Add remote repository."""
@@ -712,32 +712,32 @@ class RepositorySyncer:
 
     def sync_repository(self, reponame: str) -> Tuple[int, List[str]]:  # type: ignore[name-defined]
         """Sync recipes from a repository."""
-        _repo=self.repositories.get(repo_name)
+        _repo = self.repositories.get(repo_name)
         if not repo:
             return 0, [f"Repository not found: {repo_name}"]
 
         try:
             import urllib.request
 
-            _index_url=f"{repo.url.rstrip('/')}/index.json"
+            _index_url = f"{repo.url.rstrip('/')}/index.json"
             with urllib.request.urlopen(
-                index_url, timeout=30
+                index_url, timeout = 30
             ) as response:    # nosec B310
-                _index_data=json.loads(response.read().decode())
+                _index_data = json.loads(response.read().decode())
 
-            _added=0
-            _errors=[]
+            _added = 0
+            _errors = []
 
             for recipe_ref in index_data.get("recipes", []):
                 try:
-                    _recipe_url=f"{repo.url.rstrip('/')}/{recipe_ref['path']}"
+                    _recipe_url = f"{repo.url.rstrip('/')}/{recipe_ref['path']}"
                     with urllib.request.urlopen(
-                        recipe_url, timeout=30
+                        recipe_url, timeout = 30
                     ) as response:    # nosec B310
-                        _recipe_data=json.loads(response.read().decode())
+                        _recipe_data = json.loads(response.read().decode())
 
-                    _recipe=Recipe.from_dict(recipe_data)
-                    recipe.trust_level=repo.trust_level
+                    _recipe = Recipe.from_dict(recipe_data)
+                    recipe.trust_level = repo.trust_level
                     self.catalog.add_recipe(recipe)
                     added += 1
                 except Exception as e:
@@ -745,7 +745,7 @@ class RepositorySyncer:
                         f"Failed to fetch {recipe_ref.get('name', 'unknown')}: {e}"
                     )
 
-            repo.last_sync=datetime.now(timezone.utc)
+            repo.last_sync = datetime.now(timezone.utc)
             logger.info(f"Synced {added} recipes from {repo_name}")
             return added, errors
 
@@ -755,7 +755,7 @@ class RepositorySyncer:
 
     def sync_all(self) -> Dict[str, Tuple[int, List[str]]]:  # type: ignore[name-defined]
         """Sync all enabled repositories."""
-        results={}
+        results = {}
         for name, repo in self.repositories.items():
             if repo.enabled:
                 results[name] = self.sync_repository(name)
@@ -788,11 +788,11 @@ class DeploymentRecord:
     recipe: Recipe
     parameters: Dict[str, Any]  # type: ignore[name-defined]
     status: DeploymentStatus
-    steps: List[DeploymentStep] = field(default_factory=list)  # type: ignore[name-defined]
+    steps: List[DeploymentStep] = field(default_factory = list)  # type: ignore[name-defined]
     started_at: Optional[datetime] = None  # type: ignore[name-defined]
     completed_at: Optional[datetime] = None  # type: ignore[name-defined]
     error: Optional[str] = None  # type: ignore[name-defined]
-    rollback_available: bool=False
+    rollback_available: bool = False
     namespace: Optional[str] = None    # K8s namespace if applicable  # type: ignore[name-defined]
 
 
@@ -836,36 +836,36 @@ class HelmHandler(ResourceHandler):
         params: Dict[str, Any],  # type: ignore[name-defined]
         namespace: Optional[str] = None,  # type: ignore[name-defined]
     ) -> Tuple[bool, str]:  # type: ignore[name-defined]
-        spec=resource.spec
-        _chart=spec.get("chart", "")
-        _repo=spec.get("repo", "")
-        _release_name=spec.get("release_name", resource.name)
-        _values=spec.get("values", {})
+        spec = resource.spec
+        _chart = spec.get("chart", "")
+        _repo = spec.get("repo", "")
+        _release_name = spec.get("release_name", resource.name)
+        _values = spec.get("values", {})
         values.update(params)
 
-        cmd=["helm", "upgrade", "--install", release_name, chart]
+        cmd = ["helm", "upgrade", "--install", release_name, chart]
         if repo:
             cmd.extend(["--repo", repo])
         if namespace:
             cmd.extend(["--namespace", namespace, "--create-namespace"])
 
         # Write values to temp file
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode = "w", suffix = ".yaml", delete = False) as f:
             import yaml
 
             yaml.dump(values, f)
-            values_file=f.name
+            values_file = f.name
 
         cmd.extend(["-", values_file])
         cmd.append("--wait")
         cmd.extend(["--timeout", f"{resource.timeout_seconds}s"])
 
         try:
-            result=subprocess.run(
+            result = subprocess.run(
                 cmd,
-                _capture_output=True,
-                _text=True,    # nosec B603
-                _timeout=resource.timeout_seconds + 60,
+                _capture_output = True,
+                _text = True,    # nosec B603
+                _timeout = resource.timeout_seconds + 60,
             )
             os.unlink(values_file)
 
@@ -880,14 +880,14 @@ class HelmHandler(ResourceHandler):
     def rollback(
         self, resource: RecipeResource, namespace: Optional[str] = None  # type: ignore[name-defined]
     ) -> bool:
-        _release_name=resource.spec.get("release_name", resource.name)
-        cmd=["helm", "rollback", release_name]
+        _release_name = resource.spec.get("release_name", resource.name)
+        cmd = ["helm", "rollback", release_name]
         if namespace:
             cmd.extend(["--namespace", namespace])
 
         try:
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, timeout=120
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, timeout = 120
             )    # nosec B603
             return result.returncode == 0
         except Exception:
@@ -896,17 +896,17 @@ class HelmHandler(ResourceHandler):
     def check_health(
         self, resource: RecipeResource, namespace: Optional[str] = None  # type: ignore[name-defined]
     ) -> bool:
-        _release_name=resource.spec.get("release_name", resource.name)
-        cmd=["helm", "status", release_name, "-o", "json"]
+        _release_name = resource.spec.get("release_name", resource.name)
+        cmd = ["helm", "status", release_name, "-o", "json"]
         if namespace:
             cmd.extend(["--namespace", namespace])
 
         try:
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, timeout=30
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, timeout = 30
             )    # nosec B603
             if result.returncode == 0:
-                _status=json.loads(result.stdout)
+                _status = json.loads(result.stdout)
                 return bool(status.get("info", {}).get("status") == "deployed")
         except Exception:
             pass    # nosec B110
@@ -922,26 +922,26 @@ class ManifestHandler(ResourceHandler):
         params: Dict[str, Any],  # type: ignore[name-defined]
         namespace: Optional[str] = None,  # type: ignore[name-defined]
     ) -> Tuple[bool, str]:  # type: ignore[name-defined]
-        spec=resource.spec
-        _manifests=spec.get("manifests", [])
+        spec = resource.spec
+        _manifests = spec.get("manifests", [])
 
         for manifest in manifests:
         # Template parameter substitution
-            _manifest_str=json.dumps(manifest)
+            _manifest_str = json.dumps(manifest)
             for key, value in params.items():
-                _manifest_str=manifest_str.replace(f"${{{key}}}", str(value))
+                _manifest_str = manifest_str.replace(f"${{{key}}}", str(value))
 
-            cmd=["kubectl", "apply", "-", "-"]
+            cmd = ["kubectl", "apply", "-", "-"]
             if namespace:
                 cmd.extend(["--namespace", namespace])
 
             try:
-                result=subprocess.run(
+                result = subprocess.run(
                     cmd,    # nosec B603
-                    _input=manifest_str,
-                    _capture_output=True,
-                    _text=True,
-                    _timeout=60,
+                    _input = manifest_str,
+                    _capture_output = True,
+                    _text = True,
+                    _timeout = 60,
                 )
                 if result.returncode != 0:
                     return False, result.stderr
@@ -971,9 +971,9 @@ class VMImageHandler(ResourceHandler):
         params: Dict[str, Any],  # type: ignore[name-defined]
         namespace: Optional[str] = None,  # type: ignore[name-defined]
     ) -> Tuple[bool, str]:  # type: ignore[name-defined]
-        spec=resource.spec
-        _image_url=spec.get("image_url", "")
-        _vm_name=params.get("vm_name", resource.name)
+        spec = resource.spec
+        _image_url = spec.get("image_url", "")
+        _vm_name = params.get("vm_name", resource.name)
 
         # Would integrate with DebVisor VM provisioner
         logger.info(f"[VM] Would deploy VM {vm_name} from {image_url}")
@@ -996,7 +996,7 @@ class VMImageHandler(ResourceHandler):
 class MarketplaceInstaller:
     """Orchestrates recipe deployments."""
 
-    HANDLERS={
+    HANDLERS = {
         ResourceKind.HELM_CHART: HelmHandler(),
         ResourceKind.K8S_MANIFEST: ManifestHandler(),
         ResourceKind.VM_IMAGE: VMImageHandler(),
@@ -1008,11 +1008,11 @@ class MarketplaceInstaller:
         scanner: Optional[SecurityScanner] = None,  # type: ignore[name-defined]
         verifier: Optional[SignatureVerifier] = None,  # type: ignore[name-defined]
     ):
-        self.catalog=catalog
-        self.scanner=scanner or SecurityScanner()
-        self.verifier=verifier or SignatureVerifier()
+        self.catalog = catalog
+        self.scanner = scanner or SecurityScanner()
+        self.verifier = verifier or SignatureVerifier()
         self.deployments: Dict[str, DeploymentRecord] = {}  # type: ignore[name-defined]
-        self._executor=ThreadPoolExecutor(max_workers=4, thread_name_prefix="deploy_")
+        self._executor = ThreadPoolExecutor(max_workers = 4, thread_name_prefix = "deploy_")
         self._callbacks: List[Callable[[DeploymentRecord], None]] = []  # type: ignore[name-defined]
 
     def register_callback(self, callback: Callable[[DeploymentRecord], None]) -> None:  # type: ignore[name-defined]
@@ -1032,23 +1032,23 @@ class MarketplaceInstaller:
         version: Optional[str] = None,  # type: ignore[name-defined]
         parameters: Optional[Dict[str, Any]] = None,  # type: ignore[name-defined]
         namespace: Optional[str] = None,  # type: ignore[name-defined]
-        skip_security_scan: bool=False,
+        skip_security_scan: bool = False,
     ) -> str:
         """Start async deployment, return deployment ID."""
-        _recipe=self.catalog.get(name, version)
+        _recipe = self.catalog.get(name, version)
         if not recipe:
             raise ValueError(f"Recipe not found: {name}:{version or 'latest'}")
 
         from uuid import uuid4
 
-        _dep_id=str(uuid4())
+        _dep_id = str(uuid4())
 
-        record=DeploymentRecord(  # type: ignore[call-arg]
-            _id=dep_id,
-            _recipe=recipe,
-            _parameters=parameters or {},
-            _status=DeploymentStatus.PENDING,
-            _namespace=namespace,
+        record = DeploymentRecord(  # type: ignore[call-arg]
+            _id = dep_id,
+            _recipe = recipe,
+            _parameters = parameters or {},
+            _status = DeploymentStatus.PENDING,
+            _namespace = namespace,
         )
         self.deployments[dep_id] = record
 
@@ -1061,159 +1061,159 @@ class MarketplaceInstaller:
     def _run_deployment(self, record: DeploymentRecord, skipscan: bool) -> None:
         """Execute deployment workflow."""
         try:
-            record.started_at=datetime.now(timezone.utc)
-            record.status=DeploymentStatus.VALIDATING
+            record.started_at = datetime.now(timezone.utc)
+            record.status = DeploymentStatus.VALIDATING
             self._notify(record)
 
-            _recipe=record.recipe
+            _recipe = record.recipe
 
             # Step 1: Verify signature
-            step=DeploymentStep(  # type: ignore[call-arg]
-                _name="verify_signature",
-                _resource_name=None,
-                _status="running",
-                _started_at=datetime.now(timezone.utc),
+            step = DeploymentStep(  # type: ignore[call-arg]
+                _name = "verify_signature",
+                _resource_name = None,
+                _status = "running",
+                _started_at = datetime.now(timezone.utc),
             )
             record.steps.append(step)
 
-            verified, msg=self.verifier.verify_recipe(recipe)
+            verified, msg = self.verifier.verify_recipe(recipe)
             if verified:
-                recipe.trust_level=TrustLevel.VERIFIED
-            step.status="completed"
-            step.output=msg
-            step.completed_at=datetime.now(timezone.utc)
+                recipe.trust_level = TrustLevel.VERIFIED
+            step.status = "completed"
+            step.output = msg
+            step.completed_at = datetime.now(timezone.utc)
 
             # Step 2: Security scan
             if not skip_scan:
-                record.status=DeploymentStatus.SCANNING
+                record.status = DeploymentStatus.SCANNING
                 self._notify(record)
 
-                scan_step=DeploymentStep(  # type: ignore[call-arg]
-                    _name="security_scan",
-                    _resource_name=None,
-                    _status="running",
-                    _started_at=datetime.now(timezone.utc),
+                scan_step = DeploymentStep(  # type: ignore[call-arg]
+                    _name = "security_scan",
+                    _resource_name = None,
+                    _status = "running",
+                    _started_at = datetime.now(timezone.utc),
                 )
                 record.steps.append(scan_step)
 
                 # Scan container images in recipe
                 for resource in recipe.resources:
                     if resource.kind == ResourceKind.CONTAINER_IMAGE:
-                        _image=resource.spec.get("image", "")
-                        _result=self.scanner.scan_container_image(image)
-                        recipe.security_scan=result
+                        _image = resource.spec.get("image", "")
+                        _result = self.scanner.scan_container_image(image)
+                        recipe.security_scan = result
                         if not result.passed:
-                            scan_step.status="failed"
+                            scan_step.status = "failed"
                             scan_step.error=(
                                 f"Critical vulnerabilities found: {result.summary}"
                             )
-                            record.status=DeploymentStatus.FAILED
-                            record.error="Security scan failed"
+                            record.status = DeploymentStatus.FAILED
+                            record.error = "Security scan failed"
                             self._notify(record)
                             return
 
-                scan_step.status="completed"
+                scan_step.status = "completed"
                 scan_step.output=(
                     recipe.security_scan.summary
                     if recipe.security_scan
                     else "No images to scan"
                 )
-                scan_step.completed_at=datetime.now(timezone.utc)
+                scan_step.completed_at = datetime.now(timezone.utc)
 
             # Step 3: Resolve dependencies
-            dep_step=DeploymentStep(  # type: ignore[call-arg]
-                _name="resolve_dependencies",
-                _resource_name=None,
-                _status="running",
-                _started_at=datetime.now(timezone.utc),
+            dep_step = DeploymentStep(  # type: ignore[call-arg]
+                _name = "resolve_dependencies",
+                _resource_name = None,
+                _status = "running",
+                _started_at = datetime.now(timezone.utc),
             )
             record.steps.append(dep_step)
 
             for dep in recipe.dependencies:
                 if dep.type == "recipe" and not dep.optional:
-                    _dep_recipe=self.catalog.get(dep.name)
+                    _dep_recipe = self.catalog.get(dep.name)
                     if not dep_recipe:
-                        dep_step.status="failed"
-                        dep_step.error=f"Missing dependency: {dep.name}"
-                        record.status=DeploymentStatus.FAILED
-                        record.error=f"Dependency not found: {dep.name}"
+                        dep_step.status = "failed"
+                        dep_step.error = f"Missing dependency: {dep.name}"
+                        record.status = DeploymentStatus.FAILED
+                        record.error = f"Dependency not found: {dep.name}"
                         self._notify(record)
                         return
 
-            dep_step.status="completed"
-            dep_step.completed_at=datetime.now(timezone.utc)
+            dep_step.status = "completed"
+            dep_step.completed_at = datetime.now(timezone.utc)
 
             # Step 4: Deploy resources
-            record.status=DeploymentStatus.RUNNING
+            record.status = DeploymentStatus.RUNNING
             self._notify(record)
 
             # Sort resources by dependencies
-            _sorted_resources=self._sort_resources(recipe.resources)
+            _sorted_resources = self._sort_resources(recipe.resources)
 
             for resource in sorted_resources:
-                res_step=DeploymentStep(  # type: ignore[call-arg]
-                    _name=f"deploy_{resource.kind.value}",
-                    _resource_name=resource.name,
-                    _status="running",
-                    _started_at=datetime.now(timezone.utc),
+                res_step = DeploymentStep(  # type: ignore[call-arg]
+                    _name = f"deploy_{resource.kind.value}",
+                    _resource_name = resource.name,
+                    _status = "running",
+                    _started_at = datetime.now(timezone.utc),
                 )
                 record.steps.append(res_step)
                 self._notify(record)
 
-                _handler=self.HANDLERS.get(resource.kind)
+                _handler = self.HANDLERS.get(resource.kind)
                 if not handler:
-                    res_step.status="skipped"
-                    res_step.output=f"No handler for {resource.kind.value}"
-                    res_step.completed_at=datetime.now(timezone.utc)
+                    res_step.status = "skipped"
+                    res_step.output = f"No handler for {resource.kind.value}"
+                    res_step.completed_at = datetime.now(timezone.utc)
                     continue
 
-                success, message=handler.deploy(
+                success, message = handler.deploy(
                     resource, record.parameters, record.namespace
                 )
 
                 if success:
-                    res_step.status="completed"
-                    res_step.output=message
-                    record.rollback_available=True
+                    res_step.status = "completed"
+                    res_step.output = message
+                    record.rollback_available = True
                 else:
-                    res_step.status="failed"
-                    res_step.error=message
-                    record.status=DeploymentStatus.FAILED
-                    record.error=f"Resource {resource.name} failed: {message}"
+                    res_step.status = "failed"
+                    res_step.error = message
+                    record.status = DeploymentStatus.FAILED
+                    record.error = f"Resource {resource.name} failed: {message}"
                     self._notify(record)
                     return
 
-                res_step.completed_at=datetime.now(timezone.utc)
+                res_step.completed_at = datetime.now(timezone.utc)
                 self._notify(record)
 
             # Complete
-            record.status=DeploymentStatus.COMPLETED
-            record.completed_at=datetime.now(timezone.utc)
+            record.status = DeploymentStatus.COMPLETED
+            record.completed_at = datetime.now(timezone.utc)
             self._notify(record)
 
             logger.info(f"Deployment {record.id} completed successfully")
 
         except Exception as e:
-            record.status=DeploymentStatus.FAILED
-            record.error="Deployment failed; check logs for details"
+            record.status = DeploymentStatus.FAILED
+            record.error = "Deployment failed; check logs for details"
             record.steps.append(
                 DeploymentStep(  # type: ignore[call-arg]
-                    _name="error",
-                    _resource_name=None,
-                    _status="failed",
-                    _error="Deployment failed; check logs for details",
-                    _started_at=datetime.now(timezone.utc),
+                    _name = "error",
+                    _resource_name = None,
+                    _status = "failed",
+                    _error = "Deployment failed; check logs for details",
+                    _started_at = datetime.now(timezone.utc),
                 )
             )
             self._notify(record)
-            logger.error(f"Deployment {record.id} failed: {e}", exc_info=True)
+            logger.error(f"Deployment {record.id} failed: {e}", exc_info = True)
 
     def _sort_resources(self, resources: List[RecipeResource]) -> List[RecipeResource]:  # type: ignore[name-defined]
         """Topological sort resources by dependencies."""
         # Simple implementation - full topological sort would be needed for complex deps
-        sorted_list=[]
-        _remaining=list(resources)
-        _deployed=set()
+        sorted_list = []
+        _remaining = list(resources)
+        _deployed = set()
 
         while remaining:
             for res in remaining[:]:
@@ -1237,22 +1237,22 @@ class MarketplaceInstaller:
         self, status_filter: Optional[DeploymentStatus] = None  # type: ignore[name-defined]
     ) -> List[DeploymentRecord]:  # type: ignore[name-defined]
         """List deployments with optional filter."""
-        _deps=list(self.deployments.values())
+        _deps = list(self.deployments.values())
         if status_filter:
-            deps=[d for d in deps if d.status == status_filter]
+            deps = [d for d in deps if d.status == status_filter]
         return sorted(deps, key=lambda d: d.started_at or datetime.min, reverse=True)
 
     def rollback(self, depid: str) -> bool:
         """Rollback deployment."""
-        _record=self.deployments.get(dep_id)
+        _record = self.deployments.get(dep_id)
         if not record or not record.rollback_available:
             return False
 
-        record.status=DeploymentStatus.ROLLED_BACK
+        record.status = DeploymentStatus.ROLLED_BACK
 
         # Rollback in reverse order
         for resource in reversed(record.recipe.resources):
-            _handler=self.HANDLERS.get(resource.kind)
+            _handler = self.HANDLERS.get(resource.kind)
             if handler:
                 handler.rollback(resource, record.namespace)
 
@@ -1267,11 +1267,11 @@ class MarketplaceService:
     """High-level marketplace API."""
 
     def __init__(self, storagepath: str="/var/lib/debvisor/marketplace") -> None:
-        self.catalog=MarketplaceCatalog(storage_path)
-        self.scanner=SecurityScanner()
-        self.verifier=SignatureVerifier()
-        self.installer=MarketplaceInstaller(self.catalog, self.scanner, self.verifier)
-        self.syncer=RepositorySyncer(self.catalog)
+        self.catalog = MarketplaceCatalog(storage_path)
+        self.scanner = SecurityScanner()
+        self.verifier = SignatureVerifier()
+        self.installer = MarketplaceInstaller(self.catalog, self.scanner, self.verifier)
+        self.syncer = RepositorySyncer(self.catalog)
 
     def register_recipe(self, recipe: Recipe) -> str:
         """Register recipe in catalog."""
@@ -1279,7 +1279,7 @@ class MarketplaceService:
 
     def search_recipes(
         self,
-        query: str="",
+        query: str = "",
         category: Optional[str] = None,  # type: ignore[name-defined]
         tags: Optional[List[str]] = None,  # type: ignore[name-defined]
     ) -> List[Recipe]:  # type: ignore[name-defined]
@@ -1305,10 +1305,10 @@ class MarketplaceService:
         return self.installer.get_deployment(dep_id)
 
     def add_repository(
-        self, name: str, url: str, trust_level: TrustLevel=TrustLevel.COMMUNITY
+        self, name: str, url: str, trust_level: TrustLevel = TrustLevel.COMMUNITY
     ) -> None:
         """Add remote repository."""
-        _repo=RemoteRepository(name=name, url=url, trust_level=trust_level)  # type: ignore[call-arg]
+        _repo = RemoteRepository(name = name, url = url, trust_level = trust_level)  # type: ignore[call-arg]
         self.syncer.add_repository(repo)
 
     def sync_repositories(self) -> Dict[str, Tuple[int, List[str]]]:  # type: ignore[name-defined]
@@ -1330,11 +1330,11 @@ class MarketplaceService:
 
 if _name__== "__main__":
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(level = logging.INFO, format = "%(levelname)s: %(message)s")
 
     # Create service
-    _storage=tempfile.mkdtemp(prefix="marketplace_")
-    _svc=MarketplaceService(storage_path=storage)
+    _storage = tempfile.mkdtemp(prefix = "marketplace_")
+    _svc = MarketplaceService(storage_path = storage)
 
     # Register callback
 
@@ -1344,59 +1344,59 @@ if _name__== "__main__":
     svc.installer.register_callback(on_deploy_update)
 
     # Create sample recipes
-    nextcloud=Recipe(  # type: ignore[call-arg]
-        _name="nextcloud",
-        _version="1.0.0",
-        _publisher="debvisor",
-        _description="Nextcloud collaboration suite - file sync, calendar, contacts",
-        _category="Productivity",
-        _tags=["collaboration", "files", "calendar"],
-        _license="AGPL-3.0",
-        _resources=[
+    nextcloud = Recipe(  # type: ignore[call-arg]
+        _name = "nextcloud",
+        _version = "1.0.0",
+        _publisher = "debvisor",
+        _description = "Nextcloud collaboration suite - file sync, calendar, contacts",
+        _category = "Productivity",
+        _tags = ["collaboration", "files", "calendar"],
+        _license = "AGPL-3.0",
+        _resources = [
             RecipeResource(  # type: ignore[call-arg]
-                _name="nextcloud-helm",
-                _kind=ResourceKind.HELM_CHART,
-                _spec={
+                _name = "nextcloud-helm",
+                _kind = ResourceKind.HELM_CHART,
+                _spec = {
                     "chart": "nextcloud",
                     "repo": "https://nextcloud.github.io/helm/",
                     "values": {"persistence.enabled": True},
                 },
             ),
         ],
-        _parameters=[
+        _parameters = [
             RecipeParameter(  # type: ignore[call-arg]
-                _name="admin_password",
-                _description="Admin password",
-                _type="secret",
-                _required=True,
+                _name = "admin_password",
+                _description = "Admin password",
+                _type = "secret",
+                _required = True,
             ),
             RecipeParameter(  # type: ignore[call-arg]
-                _name="storage_size",
-                _description="Storage size",
-                _type="string",
-                _default="10Gi",
+                _name = "storage_size",
+                _description = "Storage size",
+                _type = "string",
+                _default = "10Gi",
             ),
         ],
     )
 
-    wordpress=Recipe(  # type: ignore[call-arg]
-        _name="wordpress",
-        _version="6.0.0",
-        _publisher="debvisor",
-        _description="WordPress CMS with MySQL database",
-        _category="CMS",
-        _tags=["blog", "cms", "website"],
-        _license="GPL-2.0",
-        _dependencies=[
+    wordpress = Recipe(  # type: ignore[call-arg]
+        _name = "wordpress",
+        _version = "6.0.0",
+        _publisher = "debvisor",
+        _description = "WordPress CMS with MySQL database",
+        _category = "CMS",
+        _tags = ["blog", "cms", "website"],
+        _license = "GPL-2.0",
+        _dependencies = [
             RecipeDependency(  # type: ignore[call-arg]
-                _name="mysql", version_constraint=">=8.0", type="recipe", optional=False
+                _name = "mysql", version_constraint = ">=8.0", type = "recipe", optional = False
             ),
         ],
-        _resources=[
+        _resources = [
             RecipeResource(  # type: ignore[call-arg]
-                _name="wordpress-helm",
-                _kind=ResourceKind.HELM_CHART,
-                _spec={
+                _name = "wordpress-helm",
+                _kind = ResourceKind.HELM_CHART,
+                _spec = {
                     "chart": "wordpress",
                     "repo": "https://charts.bitnami.com/bitnami",
                 },
@@ -1419,7 +1419,7 @@ if _name__== "__main__":
 
     # Security scan
     print("\nScanning nginx:latest...")
-    _scan=svc.scan_image("nginx:latest")
+    _scan = svc.scan_image("nginx:latest")
     print(f"  Passed: {scan.passed}")
     print(f"  Summary: {scan.summary}")
 

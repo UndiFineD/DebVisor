@@ -15,7 +15,7 @@ def process_files():
             continue
         
         try:
-            content = py_file.read_text(encoding='utf-8')
+            content = py_file.read_text(encoding = 'utf-8')
         except Exception:
             continue
         
@@ -61,7 +61,7 @@ def process_files():
                 quote_count = line.count('"') + line.count("'")
                 if quote_count <= 2:  # Allow 1 pair of quotes
                     # Replace 'l' variable assignments and usages
-                    new_line = re.sub(r'\bl\s*=', 'lst =', line)
+                    new_line = re.sub(r'\bl\s*=', 'lst = ', line)
                     new_line = re.sub(r'\bfor\s+l\s+in\b', 'for lst in', new_line)
                     
                     if new_line != line:
@@ -75,7 +75,7 @@ def process_files():
         
         if content != original:
             try:
-                py_file.write_text(content, encoding='utf-8')
+                py_file.write_text(content, encoding = 'utf-8')
                 print(f"{py_file.name}: {fixes} fixes")
                 total_fixes += fixes
             except Exception as e:

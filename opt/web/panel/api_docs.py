@@ -107,7 +107,7 @@ Provides automatic API documentation and interactive testing interface.
 from typing import Any, Dict
 from flask import Blueprint, jsonify
 
-_api_doc=Blueprint("api_doc", __name__, url_prefix="/api/docs")
+_api_doc = Blueprint("api_doc", __name__, url_prefix = "/api/docs")
 
 
 API_SPEC: Dict[str, Any] = {
@@ -358,10 +358,10 @@ def swagger_ui() -> str:
     <html>
     <head>
         <title>DebVisor Web Panel API Documentation</title>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link rel="stylesheet"
-              _href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700">
+        <meta charset = "utf-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+          <link rel = "stylesheet"
+              _href = "https://fonts.googleapis.com/css?family = Montserrat:300,400,700|Roboto:300,400,700">
         <style>
             body {
                 margin: 0;
@@ -370,8 +370,8 @@ def swagger_ui() -> str:
         </style>
     </head>
     <body>
-        <redoc spec-url='/api/docs/openapi.json'></redoc>
-        <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
+        <redoc spec-url = '/api/docs/openapi.json'></redoc>
+        <script src = "https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
     </body>
     </html>
     """

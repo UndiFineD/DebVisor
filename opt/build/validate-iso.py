@@ -150,7 +150,7 @@ class ISOValidator:
                             print(f"  ? {dirname}")
 
                 # Unmount
-                subprocess.run(['umount', tmpdir], timeout=10, check=True)    # nosec B603, B607
+                subprocess.run(['umount', tmpdir], timeout = 10, check = True)    # nosec B603, B607
                 print("? Structure valid")
                 return len(self.errors) == 0
 
@@ -220,7 +220,7 @@ class ISOValidator:
                         self.warnings.append("preseed.cfg not found in ISO")
 
                 # Unmount
-                subprocess.run(['umount', tmpdir], timeout=10, check=True)    # nosec B603, B607
+                subprocess.run(['umount', tmpdir], timeout = 10, check = True)    # nosec B603, B607
                 return len(self.errors) == 0
 
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
@@ -264,7 +264,7 @@ class ISOValidator:
                     print("? Required binaries present")
 
                 # Unmount
-                subprocess.run(['umount', tmpdir], timeout=10, check=True)    # nosec B603, B607
+                subprocess.run(['umount', tmpdir], timeout = 10, check = True)    # nosec B603, B607
                 return len(self.errors) == 0
 
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
@@ -337,13 +337,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(  # type: ignore[name-defined]
         _description = "Validate DebVisor ISO images"
     )
-    parser.add_argument('iso', help='Path to ISO image')
-    parser.add_argument('--strict', action='store_true', help='Fail on warnings')
-    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    parser.add_argument('iso', help = 'Path to ISO image')
+    parser.add_argument('--strict', action = 'store_true', help = 'Fail on warnings')
+    parser.add_argument('-v', '--verbose', action = 'store_true', help = 'Verbose output')
 
     args = parser.parse_args()
 
-    validator = ISOValidator(args.iso, verbose=args.verbose, strict=args.strict)
+    validator = ISOValidator(args.iso, verbose = args.verbose, strict = args.strict)
     success = validator.validate()
 
     sys.exit(0 if success else 1)

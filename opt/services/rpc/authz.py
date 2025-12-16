@@ -124,7 +124,7 @@ from typing import Optional, List, Dict, Any, Callable
 
 from opt.services.rpc.auth import Identity
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class PermissionMatcher:
@@ -174,8 +174,8 @@ class PermissionMatcher:
         if pattern == "*":
             return True
 
-        _required_parts=required.split(":")
-        _pattern_parts=pattern.split(":")
+        _required_parts = required.split(":")
+        _pattern_parts = pattern.split(":")
 
         # Pattern can't have more parts than required
         if len(pattern_parts) > len(required_parts):
@@ -218,23 +218,23 @@ def check_permission(
     # Not authenticated
     if not identity:
         logger.warning("Permission check failed: not authenticated")
-        error_msg="Not authenticated"
+        error_msg = "Not authenticated"
         context.abort(grpc.StatusCode.UNAUTHENTICATED, error_msg)
         raise PermissionError(error_msg)
 
     # Check permission
     if PermissionMatcher.matches(required_permission, identity.permissions):
         logger.debug(
-            f"Permission granted: principal={identity.principal_id}, "
-            f"permission={required_permission}"
+            f"Permission granted: principal = {identity.principal_id}, "
+            f"permission = {required_permission}"
         )
         return True
 
     # Permission denied
     logger.warning(
-        f"Permission denied: principal={identity.principal_id}, "
-        f"permission={required_permission}, "
-        f"has_permissions={identity.permissions}"
+        f"Permission denied: principal = {identity.principal_id}, "
+        f"permission = {required_permission}, "
+        f"has_permissions = {identity.permissions}"
     )
 
     error_msg=(
@@ -260,7 +260,7 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
         Args:
             config: Configuration dict
         """
-        self.config=config
+        self.config = config
         logger.info("AuthorizationInterceptor initialized")
 
     def intercept_service(
@@ -284,7 +284,7 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
 
 
 # Role Definitions for Documentation
-ROLE_DEFINITIONS={
+ROLE_DEFINITIONS = {
     "admin": {"description": "Full cluster administration", "permissions": ["*"]},
     "operator": {
         "description": "Cluster operations and management",
@@ -320,7 +320,7 @@ ROLE_DEFINITIONS={
 }
 
 # Resource-specific permissions
-RESOURCE_PERMISSIONS={
+RESOURCE_PERMISSIONS = {
     "node": [
         "register",    # Register node with cluster
         "list",    # List all nodes
@@ -344,10 +344,10 @@ RESOURCE_PERMISSIONS={
 
 if _name__== "__main__":
     # Test permission matching
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG)
 
     # Test cases
-    _test_cases=[
+    _test_cases = [
     # (required, caller_permissions, expected_result)
         ("node:register", ["node:*"], True),
         ("node:register", ["node:register"], True),
@@ -361,8 +361,8 @@ if _name__== "__main__":
 
     print("Testing permission matching:")
     for required, permissions, expected in test_cases:
-        _result=PermissionMatcher.matches(required, permissions)
-        status="?" if result == expected else "?"
+        _result = PermissionMatcher.matches(required, permissions)
+        status = "?" if result == expected else "?"
         print(
             f"{status} matches({required}, {permissions}) = {result} (expected {expected})"
         )

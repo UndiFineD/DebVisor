@@ -28,7 +28,7 @@ for filename in os.listdir(agent_dir):
     
     filepath = os.path.join(agent_dir, filename)
     
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     new_lines = []
@@ -64,7 +64,7 @@ for filename in os.listdir(agent_dir):
     
     # Write back
     if len(new_lines) != len(lines):
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
             f.writelines(new_lines)
 
 print(f"F401 (unused imports) fixed: {f401_fixed}")

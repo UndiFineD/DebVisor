@@ -27,10 +27,10 @@ for file_path in agent_files:
         continue
     
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except UnicodeDecodeError:
-        with open(file_path, 'r', encoding='latin-1') as f:
+        with open(file_path, 'r', encoding = 'latin-1') as f:
             lines = f.readlines()
     
     modified = False
@@ -73,10 +73,10 @@ for file_path in agent_files:
     
     if modified:
         try:
-            with open(file_path, 'w', encoding='utf-8') as f:
+            with open(file_path, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
         except Exception:
-            with open(file_path, 'w', encoding='latin-1') as f:
+            with open(file_path, 'w', encoding = 'latin-1') as f:
                 f.writelines(lines)
 
 print(f"Fixed {w291_count} W291 (trailing whitespace) issues")

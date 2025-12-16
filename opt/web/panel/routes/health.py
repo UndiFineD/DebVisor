@@ -112,12 +112,12 @@ from flask import Blueprint, jsonify
 from sqlalchemy import text
 from opt.web.panel.extensions import limiter
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
-_health_bp=Blueprint("health", __name__, url_prefix="/health")
+_health_bp = Blueprint("health", __name__, url_prefix = "/health")
 
 
-@health_bp.route("/live", methods=["GET"])
+@health_bp.route("/live", methods = ["GET"])
 @limiter.limit("100 per minute")    # type: ignore
 def liveness() -> Any:
     """
@@ -143,7 +143,7 @@ def liveness() -> Any:
         return jsonify({"status": "error", "error": "Service unavailable"}), 503
 
 
-@health_bp.route("/ready", methods=["GET"])
+@health_bp.route("/ready", methods = ["GET"])
 @limiter.limit("100 per minute")    # type: ignore
 def readiness() -> Any:
     """
@@ -152,16 +152,16 @@ def readiness() -> Any:
     Returns 200 if ready, 503 if not ready (dependencies unavailable).
     Used by Kubernetes readiness probes.
     """
-    health_checks={
+    health_checks = {
         "database": _check_database(),
         "disk": _check_disk_space(),
     }
 
     # Check if all dependencies are healthy
-    all_healthy=all(check["status"] == "ok" for check in health_checks.values())
-    status_code=200 if all_healthy else 503
+    all_healthy = all(check["status"] == "ok" for check in health_checks.values())
+    status_code = 200 if all_healthy else 503
 
-    response={
+    response = {
         "status": "ready" if all_healthy else "not_ready",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "checks": health_checks,
@@ -191,7 +191,7 @@ def _check_disk_space() -> Dict[str, Any]:
         import shutil
 
         # Check root filesystem
-        total, used, free=shutil.disk_usage("/")
+        total, used, free = shutil.disk_usage("/")
         _free_percent=(free / total) * 100
 
         # Warn if less than 10% free
@@ -214,7 +214,7 @@ def _check_disk_space() -> Dict[str, Any]:
         return {"status": "unknown", "message": "Could not check disk space"}
 
 
-@health_bp.route("/startup", methods=["GET"])
+@health_bp.route("/startup", methods = ["GET"])
 def startup() -> Any:
     """
     Startup probe - indicates if the application has finished starting.

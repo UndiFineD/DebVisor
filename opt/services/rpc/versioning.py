@@ -118,15 +118,15 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Callable, Dict, List, Optional, Any
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class APIVersion(Enum):
     """Supported API versions."""
 
-    V1_0="1.0"
-    V2_0="2.0"
-    V3_0="3.0"
+    V1_0 = "1.0"
+    V2_0 = "2.0"
+    V3_0 = "3.0"
 
 
 @dataclass
@@ -137,16 +137,16 @@ class VersionInfo:
     released: datetime
     deprecated: Optional[datetime] = None
     removed: Optional[datetime] = None
-    description: str=""
+    description: str = ""
     breaking_changes: Optional[List[str]] = None
     new_features: Optional[List[str]] = None
-    migration_guide: str=""
+    migration_guide: str = ""
 
     def __post_init__(self) -> None:
         if self.breaking_changes is None:
-            self.breaking_changes=[]
+            self.breaking_changes = []
         if self.new_features is None:
-            self.new_features=[]
+            self.new_features = []
 
     def is_deprecated(self) -> bool:
         """Check if version is deprecated."""
@@ -178,48 +178,48 @@ class VersionNegotiator:
         # Register all supported versions
         self.versions: Dict[APIVersion, VersionInfo] = {
             APIVersion.V1_0: VersionInfo(
-                _version=APIVersion.V1_0,
-                _released=datetime(2024, 1, 1),
-                _description="Initial API with basic cluster operations",
-                _new_features=[
+                _version = APIVersion.V1_0,
+                _released = datetime(2024, 1, 1),
+                _description = "Initial API with basic cluster operations",
+                _new_features = [
                     "Basic node management",
                     "Storage operations",
                     "Cluster health checks",
                 ],
             ),
             APIVersion.V2_0: VersionInfo(
-                _version=APIVersion.V2_0,
-                _released=datetime(2024, 6, 1),
-                _deprecated=datetime(2026, 1, 1),
-                _description="Enhanced API with advanced operations",
-                _breaking_changes=[
+                _version = APIVersion.V2_0,
+                _released = datetime(2024, 6, 1),
+                _deprecated = datetime(2026, 1, 1),
+                _description = "Enhanced API with advanced operations",
+                _breaking_changes = [
                     "health_check endpoint returns structured data",
                     "storage_list now requires pool_id parameter",
                 ],
-                _new_features=[
+                _new_features = [
                     "Connection pooling support",
                     "Compression support (GZIP, Brotli)",
                     "Batch operations",
                     "Advanced filtering",
                 ],
-                _migration_guide="See MIGRATION_V1_TO_V2.md",
+                _migration_guide = "See MIGRATION_V1_TO_V2.md",
             ),
             APIVersion.V3_0: VersionInfo(
-                _version=APIVersion.V3_0,
-                _released=datetime(2025, 11, 27),
-                _description="Next-gen API with streaming and advanced features",
-                _breaking_changes=[
+                _version = APIVersion.V3_0,
+                _released = datetime(2025, 11, 27),
+                _description = "Next-gen API with streaming and advanced features",
+                _breaking_changes = [
                     "All request/response messages are protobuf3",
                     "Error responses use standard gRPC codes",
                 ],
-                _new_features=[
+                _new_features = [
                     "Server-side streaming for large result sets",
                     "Client-side streaming for bulk operations",
                     "Bidirectional streaming for real-time monitoring",
                     "Native gRPC metadata for auth/tracing",
                     "Extended retention policies (keep_daily_days)",
                 ],
-                _migration_guide="See MIGRATION_V2_TO_V3.md",
+                _migration_guide = "See MIGRATION_V2_TO_V3.md",
             ),
         }
 
@@ -257,13 +257,13 @@ class VersionNegotiator:
         Raises:
             ValueError: If no compatible version found
         """
-        _supported=self.get_supported_versions()
+        _supported = self.get_supported_versions()
 
         # Try to find highest client version that server supports
         for client_v in client_versions:
             if client_v in supported:
                 self.adoption_metrics[APIVersion(client_v)] += 1
-                logger.info(f"Version negotiated: client={client_v}")
+                logger.info(f"Version negotiated: client = {client_v}")
                 return client_v
 
         # Fallback to server's preferred version
@@ -275,7 +275,7 @@ class VersionNegotiator:
             return server_version
 
         # Use server's latest version
-        latest=APIVersion.V3_0    # or determine dynamically
+        latest = APIVersion.V3_0    # or determine dynamically
         if latest.value in supported:
             self.adoption_metrics[latest] += 1
             logger.warning(f"No compatible version found, using latest: {latest.value}")
@@ -288,8 +288,8 @@ class VersionNegotiator:
     def validate_version(self, versionstr: str) -> bool:
         """Validate that version string is supported."""
         try:
-            _version=APIVersion(version_str)
-            _version_info=self.versions.get(version)
+            _version = APIVersion(version_str)
+            _version_info = self.versions.get(version)
             return version_info is not None and not version_info.is_removed()
         except ValueError:
             return False
@@ -302,11 +302,11 @@ class VersionNegotiator:
 
     def get_deprecation_warnings(self, versionstr: str) -> List[str]:
         """Get deprecation warnings for a version."""
-        warnings=[]
+        warnings = []
 
         try:
-            _version=APIVersion(version_str)
-            _version_info=self.versions.get(version)
+            _version = APIVersion(version_str)
+            _version_info = self.versions.get(version)
 
             if version_info is None:
                 warnings.append(f"Version {version_str} not found")
@@ -317,7 +317,7 @@ class VersionNegotiator:
                     f"Version {version_str} has been removed. Please upgrade."
                 )
             elif version_info.is_deprecated():
-                _next_version=self._get_next_version(version)
+                _next_version = self._get_next_version(version)
                 warnings.append(
                     f"Version {version_str} is deprecated. Please upgrade to {next_version.value}"
                 )
@@ -330,8 +330,8 @@ class VersionNegotiator:
 
     def _get_next_version(self, version: APIVersion) -> APIVersion:
         """Get next version after specified version."""
-        version_order=[APIVersion.V1_0, APIVersion.V2_0, APIVersion.V3_0]
-        _idx=version_order.index(version)
+        version_order = [APIVersion.V1_0, APIVersion.V2_0, APIVersion.V3_0]
+        _idx = version_order.index(version)
         if idx < len(version_order) - 1:
             return version_order[idx + 1]
         return version
@@ -347,7 +347,7 @@ class VersionedRequestRouter:
         Args:
             negotiator: VersionNegotiator instance
         """
-        self.negotiator=negotiator
+        self.negotiator = negotiator
         self.handlers: Dict[APIVersion, Dict[str, Callable[..., Any]]] = {
             v: {} for v in APIVersion
         }
@@ -387,7 +387,7 @@ class VersionedRequestRouter:
             KeyError: If operation not found for version
         """
         try:
-            _version=APIVersion(version_str)
+            _version = APIVersion(version_str)
         except ValueError:
             raise ValueError(f"Unknown API version: {version_str}")
 
@@ -399,14 +399,14 @@ class VersionedRequestRouter:
                 f"Operation '{operation}' not found for version {version_str}"
             )
 
-        handler=self.handlers[version][operation]
+        handler = self.handlers[version][operation]
         logger.debug(f"Routing {version_str}/{operation} to handler")
 
         return handler(*args, **kwargs)
 
     def get_compatibility_matrix(self) -> Dict[str, List[str]]:
         """Get operation compatibility across versions."""
-        matrix={}
+        matrix = {}
         for version, operations in self.handlers.items():
             matrix[version.value] = list(operations.keys())
         return matrix

@@ -126,9 +126,9 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
-F=TypeVar("F", bound=Callable[..., Any])
+F = TypeVar("F", bound = Callable[..., Any])
 
 
 # =============================================================================
@@ -137,24 +137,24 @@ F=TypeVar("F", bound=Callable[..., Any])
 class MetricType(Enum):
     """Types of metrics."""
 
-    COUNTER="counter"
-    GAUGE="gauge"
-    HISTOGRAM="histogram"
-    SUMMARY="summary"
+    COUNTER = "counter"
+    GAUGE = "gauge"
+    HISTOGRAM = "histogram"
+    SUMMARY = "summary"
 
 
 class AggregationType(Enum):
     """Aggregation methods."""
 
-    SUM="sum"
-    AVERAGE="avg"
-    MIN="min"
-    MAX="max"
-    COUNT="count"
-    PERCENTILE_50="p50"
-    PERCENTILE_90="p90"
-    PERCENTILE_95="p95"
-    PERCENTILE_99="p99"
+    SUM = "sum"
+    AVERAGE = "avg"
+    MIN = "min"
+    MAX = "max"
+    COUNT = "count"
+    PERCENTILE_50 = "p50"
+    PERCENTILE_90 = "p90"
+    PERCENTILE_95 = "p95"
+    PERCENTILE_99 = "p99"
 
 
 # Default histogram buckets for latency (in seconds)
@@ -205,9 +205,9 @@ class MetricDefinition:
     name: str
     type: MetricType
     description: str
-    labels: List[str] = field(default_factory=list)
+    labels: List[str] = field(default_factory = list)
     buckets: Optional[tuple[float, ...]] = None
-    unit: str=""
+    unit: str = ""
 
     def __post_init__(self) -> None:
     # Validate metric name
@@ -222,16 +222,16 @@ class MetricSample:
     name: str
     value: float
     timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    labels: Dict[str, str] = field(default_factory=dict)
+    labels: Dict[str, str] = field(default_factory = dict)
 
 
 @dataclass
 class HistogramData:
     """Histogram metric data."""
 
-    sum: float=0.0
-    count: int=0
-    buckets: Dict[float, int] = field(default_factory=dict)
+    sum: float = 0.0
+    count: int = 0
+    buckets: Dict[float, int] = field(default_factory = dict)
 
     def observe(self, value: float, bucketboundaries: tuple[float, ...]) -> None:
         """Record an observation."""
@@ -253,7 +253,7 @@ class MetricStorage:
         self._counters: Dict[str, float] = defaultdict(float)
         self._gauges: Dict[str, float] = {}
         self._histograms: Dict[str, HistogramData] = defaultdict(HistogramData)
-        self._lock=threading.RLock()
+        self._lock = threading.RLock()
 
     def increment_counter(self, key: str, value: float=1.0) -> float:
         """Increment a counter."""
@@ -324,151 +324,151 @@ class BusinessMetrics:
     """
 
     # Metric definitions
-    METRICS={
+    METRICS = {
     # Debt resolution metrics
         "debvisor_debts_created_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_debts_created_total",
-            _type=MetricType.COUNTER,
-            _description="Total number of debts created",
-            _labels=["type", "source"],
+            _name = "debvisor_debts_created_total",
+            _type = MetricType.COUNTER,
+            _description = "Total number of debts created",
+            _labels = ["type", "source"],
         ),
         "debvisor_debts_resolved_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_debts_resolved_total",
-            _type=MetricType.COUNTER,
-            _description="Total number of debts resolved",
-            _labels=["outcome", "type"],
+            _name = "debvisor_debts_resolved_total",
+            _type = MetricType.COUNTER,
+            _description = "Total number of debts resolved",
+            _labels = ["outcome", "type"],
         ),
         "debvisor_debt_amount": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_debt_amount",
-            _type=MetricType.HISTOGRAM,
-            _description="Distribution of debt amounts",
-            _labels=["type"],
-            _buckets=DEFAULT_AMOUNT_BUCKETS,
-            _unit="dollars",
+            _name = "debvisor_debt_amount",
+            _type = MetricType.HISTOGRAM,
+            _description = "Distribution of debt amounts",
+            _labels = ["type"],
+            _buckets = DEFAULT_AMOUNT_BUCKETS,
+            _unit = "dollars",
         ),
         "debvisor_debt_age_days": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_debt_age_days",
-            _type=MetricType.HISTOGRAM,
-            _description="Age of debts in days at resolution",
-            _labels=["outcome"],
+            _name = "debvisor_debt_age_days",
+            _type = MetricType.HISTOGRAM,
+            _description = "Age of debts in days at resolution",
+            _labels = ["outcome"],
             _buckets=(7, 14, 30, 60, 90, 180, 365, 730),
         ),
         # Payment metrics
         "debvisor_payments_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_payments_total",
-            _type=MetricType.COUNTER,
-            _description="Total payment transactions",
-            _labels=["method", "status"],
+            _name = "debvisor_payments_total",
+            _type = MetricType.COUNTER,
+            _description = "Total payment transactions",
+            _labels = ["method", "status"],
         ),
         "debvisor_payment_amount": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_payment_amount",
-            _type=MetricType.HISTOGRAM,
-            _description="Distribution of payment amounts",
-            _labels=["method"],
-            _buckets=DEFAULT_AMOUNT_BUCKETS,
-            _unit="dollars",
+            _name = "debvisor_payment_amount",
+            _type = MetricType.HISTOGRAM,
+            _description = "Distribution of payment amounts",
+            _labels = ["method"],
+            _buckets = DEFAULT_AMOUNT_BUCKETS,
+            _unit = "dollars",
         ),
         "debvisor_payment_processing_seconds": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_payment_processing_seconds",
-            _type=MetricType.HISTOGRAM,
-            _description="Payment processing duration",
-            _labels=["method", "gateway"],
-            _buckets=DEFAULT_LATENCY_BUCKETS,
+            _name = "debvisor_payment_processing_seconds",
+            _type = MetricType.HISTOGRAM,
+            _description = "Payment processing duration",
+            _labels = ["method", "gateway"],
+            _buckets = DEFAULT_LATENCY_BUCKETS,
         ),
         # User metrics
         "debvisor_users_active": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_users_active",
-            _type=MetricType.GAUGE,
-            _description="Current active users",
-            _labels=["role"],
+            _name = "debvisor_users_active",
+            _type = MetricType.GAUGE,
+            _description = "Current active users",
+            _labels = ["role"],
         ),
         "debvisor_users_registered_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_users_registered_total",
-            _type=MetricType.COUNTER,
-            _description="Total registered users",
-            _labels=["source"],
+            _name = "debvisor_users_registered_total",
+            _type = MetricType.COUNTER,
+            _description = "Total registered users",
+            _labels = ["source"],
         ),
         "debvisor_user_sessions_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_user_sessions_total",
-            _type=MetricType.COUNTER,
-            _description="Total user sessions",
-            _labels=["type"],
+            _name = "debvisor_user_sessions_total",
+            _type = MetricType.COUNTER,
+            _description = "Total user sessions",
+            _labels = ["type"],
         ),
         # Dispute metrics
         "debvisor_disputes_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_disputes_total",
-            _type=MetricType.COUNTER,
-            _description="Total disputes filed",
-            _labels=["reason", "status"],
+            _name = "debvisor_disputes_total",
+            _type = MetricType.COUNTER,
+            _description = "Total disputes filed",
+            _labels = ["reason", "status"],
         ),
         "debvisor_dispute_resolution_seconds": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_dispute_resolution_seconds",
-            _type=MetricType.HISTOGRAM,
-            _description="Dispute resolution time",
-            _labels=["reason"],
+            _name = "debvisor_dispute_resolution_seconds",
+            _type = MetricType.HISTOGRAM,
+            _description = "Dispute resolution time",
+            _labels = ["reason"],
             _buckets=(3600, 86400, 172800, 604800, 1209600, 2592000),    # 1h to 30d
         ),
         # Communication metrics
         "debvisor_communications_sent_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_communications_sent_total",
-            _type=MetricType.COUNTER,
-            _description="Total communications sent",
-            _labels=["channel", "template"],
+            _name = "debvisor_communications_sent_total",
+            _type = MetricType.COUNTER,
+            _description = "Total communications sent",
+            _labels = ["channel", "template"],
         ),
         "debvisor_communication_delivery_rate": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_communication_delivery_rate",
-            _type=MetricType.GAUGE,
-            _description="Communication delivery rate",
-            _labels=["channel"],
-            _unit="percent",
+            _name = "debvisor_communication_delivery_rate",
+            _type = MetricType.GAUGE,
+            _description = "Communication delivery rate",
+            _labels = ["channel"],
+            _unit = "percent",
         ),
         # API metrics
         "debvisor_api_requests_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_api_requests_total",
-            _type=MetricType.COUNTER,
-            _description="Total API requests",
-            _labels=["endpoint", "method", "status"],
+            _name = "debvisor_api_requests_total",
+            _type = MetricType.COUNTER,
+            _description = "Total API requests",
+            _labels = ["endpoint", "method", "status"],
         ),
         "debvisor_api_latency_seconds": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_api_latency_seconds",
-            _type=MetricType.HISTOGRAM,
-            _description="API request latency",
-            _labels=["endpoint", "method"],
-            _buckets=DEFAULT_LATENCY_BUCKETS,
+            _name = "debvisor_api_latency_seconds",
+            _type = MetricType.HISTOGRAM,
+            _description = "API request latency",
+            _labels = ["endpoint", "method"],
+            _buckets = DEFAULT_LATENCY_BUCKETS,
         ),
         # Revenue metrics
         "debvisor_revenue_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_revenue_total",
-            _type=MetricType.COUNTER,
-            _description="Total revenue collected",
-            _labels=["type"],
-            _unit="dollars",
+            _name = "debvisor_revenue_total",
+            _type = MetricType.COUNTER,
+            _description = "Total revenue collected",
+            _labels = ["type"],
+            _unit = "dollars",
         ),
         "debvisor_fees_collected_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_fees_collected_total",
-            _type=MetricType.COUNTER,
-            _description="Total fees collected",
-            _labels=["fee_type"],
-            _unit="dollars",
+            _name = "debvisor_fees_collected_total",
+            _type = MetricType.COUNTER,
+            _description = "Total fees collected",
+            _labels = ["fee_type"],
+            _unit = "dollars",
         ),
         # Compliance metrics
         "debvisor_compliance_checks_total": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_compliance_checks_total",
-            _type=MetricType.COUNTER,
-            _description="Total compliance checks performed",
-            _labels=["check_type", "result"],
+            _name = "debvisor_compliance_checks_total",
+            _type = MetricType.COUNTER,
+            _description = "Total compliance checks performed",
+            _labels = ["check_type", "result"],
         ),
         "debvisor_regulatory_reports_generated": MetricDefinition(  # type: ignore[call-arg]
-            _name="debvisor_regulatory_reports_generated",
-            _type=MetricType.COUNTER,
-            _description="Regulatory reports generated",
-            _labels=["report_type"],
+            _name = "debvisor_regulatory_reports_generated",
+            _type = MetricType.COUNTER,
+            _description = "Regulatory reports generated",
+            _labels = ["report_type"],
         ),
     }
 
     def __init__(self, storage: Optional[MetricStorage] = None) -> None:
         """Initialize business metrics."""
-        self._storage=storage or MetricStorage()
+        self._storage = storage or MetricStorage()
         self._label_values_cache: Dict[str, Set[str]] = defaultdict(set)
 
         logger.info("Business metrics initialized")  # type: ignore[name-defined]
@@ -477,13 +477,13 @@ class BusinessMetrics:
         """Create metric key from name and labels."""
         if not labels:
             return name
-        _sorted_labels=sorted(labels.items())
-        _label_str=", ".join(f'{k}="{v}"' for k, v in sorted_labels)  # type: ignore[name-defined]
+        _sorted_labels = sorted(labels.items())
+        _label_str = ", ".join(f'{k}="{v}"' for k, v in sorted_labels)  # type: ignore[name-defined]
         return f"{name}{{{label_str}}}"  # type: ignore[name-defined]
 
     def _validate_labels(self, metricname: str, labels: Dict[str, str]) -> None:
         """Validate labels against metric definition."""
-        _definition=self.METRICS.get(metric_name)  # type: ignore[name-defined]
+        _definition = self.METRICS.get(metric_name)  # type: ignore[name-defined]
         if not definition:  # type: ignore[name-defined]
             return
 
@@ -498,7 +498,7 @@ class BusinessMetrics:
     def increment(
         self,
         metric_name: str,
-        value: float=1.0,
+        value: float = 1.0,
         labels: Optional[Dict[str, str]] = None,
     ) -> None:
         """
@@ -509,9 +509,9 @@ class BusinessMetrics:
             value: Value to increment by
             labels: Metric labels
         """
-        labels=labels or {}
+        labels = labels or {}
         self._validate_labels(metric_name, labels)
-        _key=self._make_key(metric_name, labels)
+        _key = self._make_key(metric_name, labels)
         self._storage.increment_counter(key, value)  # type: ignore[name-defined]
 
         # Cache label values
@@ -533,27 +533,27 @@ class BusinessMetrics:
             value: Value to set
             labels: Metric labels
         """
-        labels=labels or {}
+        labels = labels or {}
         self._validate_labels(metric_name, labels)
-        _key=self._make_key(metric_name, labels)
+        _key = self._make_key(metric_name, labels)
         self._storage.set_gauge(key, value)  # type: ignore[name-defined]
 
     def increment_gauge(
         self,
         metric_name: str,
-        value: float=1.0,
+        value: float = 1.0,
         labels: Optional[Dict[str, str]] = None,
     ) -> None:
         """Increment a gauge value."""
-        labels=labels or {}
-        _key=self._make_key(metric_name, labels)
-        _current=self._storage.get_gauge(key) or 0.0  # type: ignore[name-defined]
+        labels = labels or {}
+        _key = self._make_key(metric_name, labels)
+        _current = self._storage.get_gauge(key) or 0.0  # type: ignore[name-defined]
         self._storage.set_gauge(key, current + value)  # type: ignore[name-defined]
 
     def decrement_gauge(
         self,
         metric_name: str,
-        value: float=1.0,
+        value: float = 1.0,
         labels: Optional[Dict[str, str]] = None,
     ) -> None:
         """Decrement a gauge value."""
@@ -574,12 +574,12 @@ class BusinessMetrics:
             value: Value to observe
             labels: Metric labels
         """
-        labels=labels or {}
+        labels = labels or {}
         self._validate_labels(metric_name, labels)
-        _key=self._make_key(metric_name, labels)
+        _key = self._make_key(metric_name, labels)
 
         # Get buckets from definition
-        _definition=self.METRICS.get(metric_name)
+        _definition = self.METRICS.get(metric_name)
         buckets=(
             definition.buckets  # type: ignore[name-defined]
             if definition and definition.buckets  # type: ignore[name-defined]
@@ -593,7 +593,7 @@ class BusinessMetrics:
     # =========================================================================
 
     def record_debt_created(
-        self, amount: float, debt_type: str="standard", source: str="api"
+        self, amount: float, debt_type: str = "standard", source: str = "api"
     ) -> None:
         """Record a new debt creation."""
         self.increment(
@@ -602,7 +602,7 @@ class BusinessMetrics:
         self.observe("debvisor_debt_amount", amount, {"type": debt_type})
 
     def record_debt_resolved(
-        self, outcome: str, debt_type: str="standard", age_days: int=0
+        self, outcome: str, debt_type: str = "standard", age_days: int = 0
     ) -> None:
         """Record a debt resolution."""
         self.increment(
@@ -615,9 +615,9 @@ class BusinessMetrics:
         self,
         amount: float,
         method: str,
-        status: str="success",
+        status: str = "success",
         processing_time: Optional[float] = None,
-        gateway: str="default",
+        gateway: str = "default",
     ) -> None:
         """Record a payment transaction."""
         self.increment(
@@ -664,7 +664,7 @@ class BusinessMetrics:
         )
 
     def record_communication(
-        self, channel: str, template: str="default", delivered: bool=True
+        self, channel: str, template: str = "default", delivered: bool = True
     ) -> None:
         """Record a communication sent."""
         self.increment(
@@ -683,7 +683,7 @@ class BusinessMetrics:
         self, endpoint: str, method: str, status: int, latency: float
     ) -> None:
         """Record an API request."""
-        _status_str=str(status)
+        _status_str = str(status)
         self.increment(
             "debvisor_api_requests_total",
             1,
@@ -701,7 +701,7 @@ class BusinessMetrics:
 
     def record_compliance_check(self, checktype: str, passed: bool) -> None:
         """Record a compliance check."""
-        result="pass" if passed else "fail"
+        result = "pass" if passed else "fail"
         self.increment(
             "debvisor_compliance_checks_total",
             1,
@@ -720,8 +720,8 @@ class BusinessMetrics:
 
     def to_prometheus(self) -> str:
         """Export metrics in Prometheus format."""
-        lines=[]
-        _metrics_data=self._storage.get_all_metrics()
+        lines = []
+        _metrics_data = self._storage.get_all_metrics()
 
         # Add help and type comments
         for metric_name, definition in self.METRICS.items():
@@ -740,24 +740,24 @@ class BusinessMetrics:
 
         # Export histograms
         for key, data in metrics_data["histograms"].items():  # type: ignore[name-defined]
-            _base_name=key.split("{")[0] if "{" in key else key
-            _labels=key[key.index("{") :] if "{" in key else ""
+            _base_name = key.split("{")[0] if "{" in key else key
+            _labels = key[key.index("{") :] if "{" in key else ""
 
             # Bucket values
             for boundary, count in sorted(data["buckets"].items()):
-                bucket_labels=f'le="{boundary}"'
+                bucket_labels = f'le = "{boundary}"'
                 if labels:  # type: ignore[name-defined]
-                    full_labels=labels[:-1] + ", " + bucket_labels + "}"  # type: ignore[name-defined]
+                    full_labels = labels[:-1] + ", " + bucket_labels + "}"  # type: ignore[name-defined]
                 else:
-                    full_labels="{" + bucket_labels + "}"
+                    full_labels = "{" + bucket_labels + "}"
                 lines.append(f"{base_name}_bucket{full_labels} {count}")  # type: ignore[name-defined]
 
             # +Inf bucket
-            inf_labels='le="+Inf"'
+            inf_labels = 'le = "+Inf"'
             if labels:  # type: ignore[name-defined]
-                full_labels=labels[:-1] + ", " + inf_labels + "}"  # type: ignore[name-defined]
+                full_labels = labels[:-1] + ", " + inf_labels + "}"  # type: ignore[name-defined]
             else:
-                full_labels="{" + inf_labels + "}"
+                full_labels = "{" + inf_labels + "}"
             lines.append(f"{base_name}_bucket{full_labels} {data['count']}")  # type: ignore[name-defined]
 
             # Sum and count
@@ -780,7 +780,7 @@ class BusinessMetrics:
 # Decorators
 # =============================================================================
 def track_latency(
-    metric_name: str="debvisor_api_latency_seconds",
+    metric_name: str = "debvisor_api_latency_seconds",
     labels: Optional[Dict[str, str]] = None,
 ) -> Callable[[F], F]:
     """
@@ -794,20 +794,20 @@ def track_latency(
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
-            _start=time.perf_counter()
+            _start = time.perf_counter()
             try:
                 return func(*args, **kwargs)
             finally:
-                _duration=time.perf_counter() - start  # type: ignore[name-defined]
+                _duration = time.perf_counter() - start  # type: ignore[name-defined]
                 get_metrics().observe(metric_name, duration, labels or {})  # type: ignore[name-defined]
 
         @functools.wraps(func)
         async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
-            _start=time.perf_counter()
+            _start = time.perf_counter()
             try:
                 return await func(*args, **kwargs)
             finally:
-                _duration=time.perf_counter() - start  # type: ignore[name-defined]
+                _duration = time.perf_counter() - start  # type: ignore[name-defined]
                 get_metrics().observe(metric_name, duration, labels or {})  # type: ignore[name-defined]
 
         if asyncio.iscoroutinefunction(func):
@@ -820,7 +820,7 @@ def track_latency(
 def count_calls(
     metric_name: str,
     labels: Optional[Dict[str, str]] = None,
-    count_exceptions: bool=False,
+    count_exceptions: bool = False,
 ) -> Callable[[F], F]:
     """
     Decorator to count function calls.
@@ -834,9 +834,9 @@ def count_calls(
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
-            _call_labels=dict(labels or {})
+            _call_labels = dict(labels or {})
             try:
-                _result=func(*args, **kwargs)
+                _result = func(*args, **kwargs)
                 call_labels["status"] = "success"  # type: ignore[name-defined]
                 return result  # type: ignore[name-defined]
             except Exception:
@@ -850,9 +850,9 @@ def count_calls(
 
         @functools.wraps(func)
         async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
-            _call_labels=dict(labels or {})
+            _call_labels = dict(labels or {})
             try:
-                _result=await func(*args, **kwargs)
+                _result = await func(*args, **kwargs)
                 call_labels["status"] = "success"  # type: ignore[name-defined]
                 return result  # type: ignore[name-defined]
             except Exception:
@@ -887,7 +887,7 @@ def create_metrics_endpoint(metrics: "BusinessMetrics") -> Callable[[], Any]:
     from flask import Response
 
     def metrics_endpoint() -> Response:
-        return Response(metrics.to_prometheus(), mimetype="text/plain; charset=utf-8")
+        return Response(metrics.to_prometheus(), mimetype = "text/plain; charset = utf-8")
 
     return metrics_endpoint
 
@@ -907,16 +907,16 @@ def create_metrics_middleware(
     from flask import request, g
 
     def before_request() -> None:
-        g.request_start_time=time.perf_counter()
+        g.request_start_time = time.perf_counter()
 
     def after_request(response: Any) -> Any:
         if hasattr(g, "request_start_time"):
-            _latency=time.perf_counter() - g.request_start_time
+            _latency = time.perf_counter() - g.request_start_time
             metrics.record_api_request(  # type: ignore[call-arg]
-                _endpoint=request.endpoint or request.path,
-                _method=request.method,
-                _status=response.status_code,
-                _latency=latency,  # type: ignore[name-defined]
+                _endpoint = request.endpoint or request.path,
+                _method = request.method,
+                _status = response.status_code,
+                _latency = latency,  # type: ignore[name-defined]
             )
         return response
 
@@ -934,14 +934,14 @@ def get_metrics() -> BusinessMetrics:
     """Get global metrics instance."""
     global _metrics
     if _metrics is None:
-        _metrics=BusinessMetrics()
+        _metrics = BusinessMetrics()
     return _metrics
 
 
 def configure_metrics(storage: Optional[MetricStorage] = None) -> BusinessMetrics:
     """Configure global metrics instance."""
     global _metrics
-    _metrics=BusinessMetrics(storage)
+    _metrics = BusinessMetrics(storage)
     return _metrics
 
 
@@ -950,10 +950,10 @@ def configure_metrics(storage: Optional[MetricStorage] = None) -> BusinessMetric
 # =============================================================================
 
 if _name__== "__main__":  # type: ignore[name-defined]
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG)
 
     # Initialize metrics
-    _metrics=configure_metrics()
+    _metrics = configure_metrics()
 
     # Simulate business operations
     print("Recording business metrics...")
@@ -992,4 +992,4 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print("=" * 60)
     import json
 
-    print(json.dumps(metrics.to_dict(), indent=2))  # type: ignore[name-defined]
+    print(json.dumps(metrics.to_dict(), indent = 2))  # type: ignore[name-defined]

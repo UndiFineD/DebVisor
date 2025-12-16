@@ -7,9 +7,9 @@ import re
 
 # Get F841 issues
 result = subprocess.run(
-    ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', '--select=F841'],
-    capture_output=True,
-    text=True
+    ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', '--select = F841'],
+    capture_output = True,
+    text = True
 )
 
 issues = {}
@@ -42,7 +42,7 @@ else:
             continue
         
         try:
-            content = Path(filepath).read_text(encoding='utf-8')
+            content = Path(filepath).read_text(encoding = 'utf-8')
             lines = content.split('\n')
         except:
             continue
@@ -76,7 +76,7 @@ else:
         new_content = '\n'.join(lines)
         if new_content != original_content:
             try:
-                Path(filepath).write_text(new_content, encoding='utf-8')
+                Path(filepath).write_text(new_content, encoding = 'utf-8')
                 if fixes > 0:
                     print(f"  {Path(filepath).name}: {fixes} F841 fixes")
                     total_fixes += fixes

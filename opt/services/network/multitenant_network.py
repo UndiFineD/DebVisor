@@ -124,7 +124,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 from uuid import uuid4
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -133,45 +133,45 @@ _logger=logging.getLogger(__name__)
 class NetworkType(Enum):
     """Types of tenant networks."""
 
-    ISOLATED="isolated"    # No external access
-    NAT="nat"    # NAT to external
-    ROUTED="routed"    # Direct routing
-    BRIDGED="bridged"    # L2 bridged
+    ISOLATED = "isolated"    # No external access
+    NAT = "nat"    # NAT to external
+    ROUTED = "routed"    # Direct routing
+    BRIDGED = "bridged"    # L2 bridged
 
 
 class IPVersion(Enum):
     """IP version."""
 
-    IPV4="ipv4"
-    IPV6="ipv6"
-    DUAL_STACK="dual_stack"
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
+    DUAL_STACK = "dual_stack"
 
 
 class IPv6Mode(Enum):
     """IPv6 address allocation mode."""
 
-    ULA="ula"    # Unique Local Address (fc00::/7)
-    GUA="gua"    # Global Unicast Address
-    SLAAC="slaac"    # Stateless Address Autoconfiguration
-    DHCPV6="dhcpv6"    # DHCPv6 stateful
+    ULA = "ula"    # Unique Local Address (fc00::/7)
+    GUA = "gua"    # Global Unicast Address
+    SLAAC = "slaac"    # Stateless Address Autoconfiguration
+    DHCPV6 = "dhcpv6"    # DHCPv6 stateful
 
 
 class PolicyAction(Enum):
     """Network policy actions."""
 
-    ALLOW="allow"
-    DENY="deny"
-    LOG="log"
-    RATE_LIMIT="rate_limit"
+    ALLOW = "allow"
+    DENY = "deny"
+    LOG = "log"
+    RATE_LIMIT = "rate_limit"
 
 
 class QoSClass(Enum):
     """QoS traffic classes."""
 
-    REALTIME="realtime"    # Lowest latency
-    PRIORITY="priority"    # High priority
-    STANDARD="standard"    # Default
-    BULK="bulk"    # Background/bulk
+    REALTIME = "realtime"    # Lowest latency
+    PRIORITY = "priority"    # High priority
+    STANDARD = "standard"    # Default
+    BULK = "bulk"    # Background/bulk
 
 
 @dataclass
@@ -185,13 +185,13 @@ class TenantNetwork:
     ipv4_gateway: str
     ipv6_subnet: Optional[str] = None
     ipv6_gateway: Optional[str] = None
-    ipv6_mode: IPv6Mode=IPv6Mode.SLAAC
+    ipv6_mode: IPv6Mode = IPv6Mode.SLAAC
     dns_zone: Optional[str] = None
-    network_type: NetworkType=NetworkType.NAT
-    mtu: int=1500
-    qos_class: QoSClass=QoSClass.STANDARD
+    network_type: NetworkType = NetworkType.NAT
+    mtu: int = 1500
+    qos_class: QoSClass = QoSClass.STANDARD
     bandwidth_limit_mbps: Optional[int] = None
-    enabled: bool=True
+    enabled: bool = True
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -202,7 +202,7 @@ class DNSRecord:
     name: str
     record_type: str    # A, AAAA, CNAME, PTR, SRV, TXT
     value: str
-    ttl: int=300
+    ttl: int = 300
     priority: Optional[int] = None    # For MX, SRV
     port: Optional[int] = None    # For SRV
 
@@ -215,13 +215,13 @@ class TenantDNSZone:
     zone_name: str
     primary_ns: str
     admin_email: str
-    serial: int=1
-    refresh: int=86400
-    retry: int=7200
-    expire: int=3600000
-    minimum_ttl: int=300
-    records: List[DNSRecord] = field(default_factory=list)
-    reverse_zones: List[str] = field(default_factory=list)
+    serial: int = 1
+    refresh: int = 86400
+    retry: int = 7200
+    expire: int = 3600000
+    minimum_ttl: int = 300
+    records: List[DNSRecord] = field(default_factory = list)
+    reverse_zones: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -233,7 +233,7 @@ class NFTablesRule:
     rule: str
     handle: Optional[int] = None
     comment: Optional[str] = None
-    priority: int=0
+    priority: int = 0
 
 
 @dataclass
@@ -244,8 +244,8 @@ class NFTablesChain:
     name: str
     chain_type: str    # filter, nat, route
     hook: str    # input, output, forward, prerouting, postrouting
-    priority: int=0
-    policy: str="accept"
+    priority: int = 0
+    policy: str = "accept"
 
 
 @dataclass
@@ -256,15 +256,15 @@ class NetworkPolicy:
     name: str
     source_tenant: Optional[str] = None
     dest_tenant: Optional[str] = None
-    source_cidrs: List[str] = field(default_factory=list)
-    dest_cidrs: List[str] = field(default_factory=list)
-    protocols: List[str] = field(default_factory=list)    # tcp, udp, icmp
-    ports: List[int] = field(default_factory=list)
-    action: PolicyAction=PolicyAction.ALLOW
+    source_cidrs: List[str] = field(default_factory = list)
+    dest_cidrs: List[str] = field(default_factory = list)
+    protocols: List[str] = field(default_factory = list)    # tcp, udp, icmp
+    ports: List[int] = field(default_factory = list)
+    action: PolicyAction = PolicyAction.ALLOW
     rate_limit_mbps: Optional[float] = None
-    log_enabled: bool=False
-    priority: int=100
-    enabled: bool=True
+    log_enabled: bool = False
+    priority: int = 100
+    enabled: bool = True
 
 
 @dataclass
@@ -276,8 +276,8 @@ class IPAllocation:
     hostname: str
     mac_address: Optional[str] = None
     lease_start: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    lease_duration: timedelta=timedelta(hours=24)
-    is_static: bool=False
+    lease_duration: timedelta = timedelta(hours = 24)
+    is_static: bool = False
 
 
 @dataclass
@@ -285,12 +285,12 @@ class TrafficStats:
     """Traffic statistics for a tenant."""
 
     tenant_id: str
-    bytes_in: int=0
-    bytes_out: int=0
-    packets_in: int=0
-    packets_out: int=0
-    connections: int=0
-    dropped_packets: int=0
+    bytes_in: int = 0
+    bytes_out: int = 0
+    packets_in: int = 0
+    packets_out: int = 0
+    connections: int = 0
+    dropped_packets: int = 0
     last_updated: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -306,7 +306,7 @@ class NATRule:
     internal_port: Optional[int] = None
     external_address: Optional[str] = None
     external_port: Optional[int] = None
-    enabled: bool=True
+    enabled: bool = True
 
 
 # =============================================================================
@@ -328,14 +328,14 @@ class IPAddressManager:
         self.reserved: Dict[str, Set[str]] = defaultdict(set)    # tenant_id -> addresses
 
     def create_pool(
-        self, tenant_id: str, cidr: str, gateway: str, reserved_count: int=10
+        self, tenant_id: str, cidr: str, gateway: str, reserved_count: int = 10
     ) -> None:
         """Create an IP pool for a tenant."""
-        _network=ipaddress.ip_network(cidr, strict=False)
+        _network = ipaddress.ip_network(cidr, strict = False)
         self.pools[tenant_id] = network
 
         # Reserve first N addresses (network, gateway, etc.)
-        _hosts=list(network.hosts())
+        _hosts = list(network.hosts())
         for i in range(min(reserved_count, len(hosts))):
             self.reserved[tenant_id].add(str(hosts[i]))
 
@@ -352,13 +352,13 @@ class IPAddressManager:
         hostname: str,
         mac_address: Optional[str] = None,
         preferred_ip: Optional[str] = None,
-        is_static: bool=False,
+        is_static: bool = False,
     ) -> Optional[IPAllocation]:
         """Allocate an IP address."""
         if tenant_id not in self.pools:
             raise ValueError(f"No pool for tenant: {tenant_id}")
 
-        _network=self.pools[tenant_id]
+        _network = self.pools[tenant_id]
 
         # Check for existing allocation by hostname or MAC
         for alloc in self.allocations.values():
@@ -369,41 +369,41 @@ class IPAddressManager:
                     return alloc
 
         # Find available address
-        address=None
+        address = None
 
         if preferred_ip and preferred_ip not in self.reserved[tenant_id]:
         # Check if preferred IP is in our network and available
             try:
-                _ip=ipaddress.ip_address(preferred_ip)
+                _ip = ipaddress.ip_address(preferred_ip)
                 if ip in network and str(ip) not in [
                     a.address for a in self.allocations.values()
                 ]:
-                    address=preferred_ip
+                    address = preferred_ip
             except ValueError:
                 pass
 
         if not address:
         # Allocate from pool
-            used={
+            used = {
                 a.address for a in self.allocations.values() if a.tenant_id== tenant_id
             }
             used.update(self.reserved[tenant_id])
 
             for host in network.hosts():
                 if str(host) not in used:
-                    _address=str(host)
+                    _address = str(host)
                     break
 
         if not address:
             logger.error(f"No available addresses in pool for {tenant_id}")
             return None
 
-        allocation=IPAllocation(
-            _address=address,
-            _tenant_id=tenant_id,
-            _hostname=hostname,
-            _mac_address=mac_address,
-            _is_static=is_static,
+        allocation = IPAllocation(
+            _address = address,
+            _tenant_id = tenant_id,
+            _hostname = hostname,
+            _mac_address = mac_address,
+            _is_static = is_static,
         )
 
         self.allocations[address] = allocation
@@ -414,7 +414,7 @@ class IPAddressManager:
     def release(self, address: str) -> bool:
         """Release an IP allocation."""
         if address in self.allocations:
-            alloc=self.allocations[address]
+            alloc = self.allocations[address]
             if not alloc.is_static:
                 del self.allocations[address]
                 logger.info(f"Released {address}")
@@ -431,8 +431,8 @@ class IPAddressManager:
 
     def cleanup_expired_leases(self) -> int:
         """Clean up expired non-static leases."""
-        _now=datetime.now(timezone.utc)
-        expired=[]
+        _now = datetime.now(timezone.utc)
+        expired = []
 
         for addr, alloc in self.allocations.items():
             if not alloc.is_static:
@@ -462,7 +462,7 @@ class DNSZoneManager:
     """
 
     def __init__(self, basedomain: str="debvisor.local") -> None:
-        self.base_domain=base_domain
+        self.base_domain = base_domain
         self.zones: Dict[str, TenantDNSZone] = {}
         self.global_records: List[DNSRecord] = []
 
@@ -470,29 +470,29 @@ class DNSZoneManager:
         self,
         tenant_id: str,
         subdomain: Optional[str] = None,
-        primary_ns: str="ns1",
-        admin_email: str="admin",
+        primary_ns: str = "ns1",
+        admin_email: str = "admin",
     ) -> TenantDNSZone:
         """Create a DNS zone for a tenant."""
-        subdomain=subdomain or tenant_id
-        zone_name=f"{subdomain}.{self.base_domain}"
+        subdomain = subdomain or tenant_id
+        zone_name = f"{subdomain}.{self.base_domain}"
 
-        zone=TenantDNSZone(
-            _tenant_id=tenant_id,
-            _zone_name=zone_name,
-            _primary_ns=f"{primary_ns}.{self.base_domain}",
-            _admin_email=f"{admin_email}.{zone_name}".replace("@", "."),
+        zone = TenantDNSZone(
+            _tenant_id = tenant_id,
+            _zone_name = zone_name,
+            _primary_ns = f"{primary_ns}.{self.base_domain}",
+            _admin_email = f"{admin_email}.{zone_name}".replace("@", "."),
         )
 
         # Add default records
         zone.records.append(
-            DNSRecord(name="@", record_type="NS", value=zone.primary_ns)
+            DNSRecord(name = "@", record_type = "NS", value = zone.primary_ns)
         )
 
         zone.records.append(
             DNSRecord(
-                _name="@",
-                _record_type="SOA",
+                _name = "@",
+                _record_type = "SOA",
                 _value=(
                     f"{zone.primary_ns} {zone.admin_email} {zone.serial} "
                     f"{zone.refresh} {zone.retry} {zone.expire} {zone.minimum_ttl}"
@@ -506,20 +506,20 @@ class DNSZoneManager:
         return zone
 
     def add_record(
-        self, tenant_id: str, name: str, record_type: str, value: str, ttl: int=300
+        self, tenant_id: str, name: str, record_type: str, value: str, ttl: int = 300
     ) -> DNSRecord:
         """Add a DNS record to tenant zone."""
         if tenant_id not in self.zones:
             raise ValueError(f"No zone for tenant: {tenant_id}")
 
-        zone=self.zones[tenant_id]
+        zone = self.zones[tenant_id]
 
-        record=DNSRecord(
-            _name=name, record_type=record_type.upper(), value=value, ttl=ttl
+        record = DNSRecord(
+            _name = name, record_type = record_type.upper(), value = value, ttl = ttl
         )
 
         # Remove existing record with same name and type
-        zone.records=[
+        zone.records = [
             r
             for r in zone.records
             if not (r.name== name and r.record_type== record_type.upper())
@@ -536,10 +536,10 @@ class DNSZoneManager:
         if tenant_id not in self.zones:
             return False
 
-        zone=self.zones[tenant_id]
-        _original_count=len(zone.records)
+        zone = self.zones[tenant_id]
+        _original_count = len(zone.records)
 
-        zone.records=[
+        zone.records = [
             r
             for r in zone.records
             if not (r.name== name and r.record_type== record_type.upper())
@@ -557,24 +557,24 @@ class DNSZoneManager:
         if tenant_id not in self.zones:
             raise ValueError(f"No zone for tenant: {tenant_id}")
 
-        zone=self.zones[tenant_id]
-        _ip=ipaddress.ip_address(ip_address)
+        zone = self.zones[tenant_id]
+        _ip = ipaddress.ip_address(ip_address)
 
         if isinstance(ip, ipaddress.IPv4Address):
         # Create reverse zone name
-            _octets=str(ip).split(".")
-            _ptr_name=".".join(reversed(octets))
-            reverse_zone=f"{octets[2]}.{octets[1]}.{octets[0]}.in-addr.arpa"
+            _octets = str(ip).split(".")
+            _ptr_name = ".".join(reversed(octets))
+            reverse_zone = f"{octets[2]}.{octets[1]}.{octets[0]}.in-addr.arpa"
         else:
         # IPv6 reverse
-            _expanded=ip.exploded.replace(":", "")
-            _ptr_name=".".join(reversed(expanded))
-            reverse_zone="ip6.arpa"
+            _expanded = ip.exploded.replace(":", "")
+            _ptr_name = ".".join(reversed(expanded))
+            reverse_zone = "ip6.arpa"
 
         if reverse_zone not in zone.reverse_zones:
             zone.reverse_zones.append(reverse_zone)
 
-        fqdn=f"{hostname}.{zone.zone_name}."
+        fqdn = f"{hostname}.{zone.zone_name}."
 
         return self.add_record(tenant_id, ptr_name, "PTR", fqdn)
 
@@ -583,8 +583,8 @@ class DNSZoneManager:
         if tenant_id not in self.zones:
             raise ValueError(f"No zone for tenant: {tenant_id}")
 
-        zone=self.zones[tenant_id]
-        _lines=[
+        zone = self.zones[tenant_id]
+        _lines = [
             f"; Zone file for {zone.zone_name}",
             f"; Generated at {datetime.now(timezone.utc).isoformat()}",
             f"$ORIGIN {zone.zone_name}.",
@@ -607,8 +607,8 @@ class DNSZoneManager:
         if tenant_id not in self.zones:
             raise ValueError(f"No zone for tenant: {tenant_id}")
 
-        zone=self.zones[tenant_id]
-        lines=[f"    # DNS config for {zone.zone_name}"]
+        zone = self.zones[tenant_id]
+        lines = [f"    # DNS config for {zone.zone_name}"]
 
         for record in zone.records:
             if record.record_type == "A":
@@ -619,8 +619,8 @@ class DNSZoneManager:
                 )
                 lines.append(f"address=/{fqdn}/{record.value}")
             elif record.record_type == "CNAME":
-                fqdn=f"{record.name}.{zone.zone_name}"
-                lines.append(f"cname={fqdn}, {record.value}")
+                fqdn = f"{record.name}.{zone.zone_name}"
+                lines.append(f"cname = {fqdn}, {record.value}")
 
         return "\n".join(lines)
 
@@ -671,40 +671,40 @@ class NFTablesManager:
                     "inet filter",
                     "input",
                     "ct state established, related accept",
-                    _comment="Allow established",
+                    _comment = "Allow established",
                 ),
                 NFTablesRule(
-                    "inet filter", "input", "iif lo accept", comment="Allow loopback"
+                    "inet filter", "input", "iif lo accept", comment = "Allow loopback"
                 ),
                 NFTablesRule(
                     "inet filter",
                     "input",
                     "icmp type echo-request accept",
-                    _comment="Allow ping",
+                    _comment = "Allow ping",
                 ),
                 NFTablesRule(
                     "inet filter",
                     "forward",
                     "ct state established, related accept",
-                    _comment="Allow established forward",
+                    _comment = "Allow established forward",
                 ),
             ]
         )
 
     def create_tenant_rules(
-        self, tenant: TenantNetwork, allow_internet: bool=True
+        self, tenant: TenantNetwork, allow_internet: bool = True
     ) -> List[NFTablesRule]:
         """Create isolation rules for a tenant."""
-        rules=[]
-        vlan_if=f"vlan{tenant.vlan_id}"
+        rules = []
+        vlan_if = f"vlan{tenant.vlan_id}"
 
         # Allow intra-VLAN traffic
         rules.append(
             NFTablesRule(
-                _table="inet filter",
-                _chain="forward",
-                _rule=f"iifname {vlan_if} oifname {vlan_if} accept",
-                _comment=f"Allow {tenant.tenant_id} intra-VLAN",
+                _table = "inet filter",
+                _chain = "forward",
+                _rule = f"iifname {vlan_if} oifname {vlan_if} accept",
+                _comment = f"Allow {tenant.tenant_id} intra-VLAN",
             )
         )
 
@@ -712,39 +712,39 @@ class NFTablesManager:
         if tenant.network_type == NetworkType.NAT and allow_internet:
             rules.append(
                 NFTablesRule(
-                    _table="inet filter",
-                    _chain="forward",
-                    _rule=f"iifname {vlan_if} oifname eth0 accept",
-                    _comment=f"Allow {tenant.tenant_id} outbound",
+                    _table = "inet filter",
+                    _chain = "forward",
+                    _rule = f"iifname {vlan_if} oifname eth0 accept",
+                    _comment = f"Allow {tenant.tenant_id} outbound",
                 )
             )
             rules.append(
                 NFTablesRule(
-                    _table="inet filter",
-                    _chain="forward",
-                    _rule=f"iifname eth0 oifname {vlan_if} ct state established, related accept",
-                    _comment=f"Allow {tenant.tenant_id} return traffic",
+                    _table = "inet filter",
+                    _chain = "forward",
+                    _rule = f"iifname eth0 oifname {vlan_if} ct state established, related accept",
+                    _comment = f"Allow {tenant.tenant_id} return traffic",
                 )
             )
 
             # Add MASQUERADE for NAT
             rules.append(
                 NFTablesRule(
-                    _table="inet nat",
-                    _chain="postrouting",
-                    _rule=f"iifname {vlan_if} oifname eth0 masquerade",
-                    _comment=f"NAT for {tenant.tenant_id}",
+                    _table = "inet nat",
+                    _chain = "postrouting",
+                    _rule = f"iifname {vlan_if} oifname eth0 masquerade",
+                    _comment = f"NAT for {tenant.tenant_id}",
                 )
             )
 
         # Block inter-VLAN by default
         rules.append(
             NFTablesRule(
-                _table="inet filter",
-                _chain="forward",
-                _rule=f"iifname {vlan_if} drop",
-                _priority=1000,
-                _comment=f"Block {tenant.tenant_id} to other VLANs",
+                _table = "inet filter",
+                _chain = "forward",
+                _rule = f"iifname {vlan_if} drop",
+                _priority = 1000,
+                _comment = f"Block {tenant.tenant_id} to other VLANs",
             )
         )
 
@@ -759,10 +759,10 @@ class NFTablesManager:
         port: Optional[int] = None,
     ) -> NFTablesRule:
         """Allow traffic between tenants."""
-        src_if=f"vlan{source_tenant.vlan_id}"
-        dst_if=f"vlan{dest_tenant.vlan_id}"
+        src_if = f"vlan{source_tenant.vlan_id}"
+        dst_if = f"vlan{dest_tenant.vlan_id}"
 
-        rule_str=f"iifname {src_if} oifname {dst_if}"
+        rule_str = f"iifname {src_if} oifname {dst_if}"
 
         if protocol:
             rule_str += f" {protocol}"
@@ -771,33 +771,33 @@ class NFTablesManager:
 
         rule_str += " accept"
 
-        rule=NFTablesRule(
-            _table="inet filter",
-            _chain="forward",
-            _rule=rule_str,
+        rule = NFTablesRule(
+            _table = "inet filter",
+            _chain = "forward",
+            _rule = rule_str,
             _priority=-10,
-            _comment=f"Allow {source_tenant.tenant_id} -> {dest_tenant.tenant_id}",
+            _comment = f"Allow {source_tenant.tenant_id} -> {dest_tenant.tenant_id}",
         )
 
         self.rules.append(rule)
         return rule
 
     def add_rate_limit(
-        self, tenant: TenantNetwork, rate_mbps: float, burst_mb: float=10.0
+        self, tenant: TenantNetwork, rate_mbps: float, burst_mb: float = 10.0
     ) -> NFTablesRule:
         """Add rate limiting for tenant traffic."""
-        vlan_if=f"vlan{tenant.vlan_id}"
+        vlan_if = f"vlan{tenant.vlan_id}"
 
         # Convert to packets/second (approximate)
-        _rate_pps=int(rate_mbps * 1000 / 12)    # Assume ~1500 byte packets
-        _burst=int(burst_mb * 1000 / 1.5)
+        _rate_pps = int(rate_mbps * 1000 / 12)    # Assume ~1500 byte packets
+        _burst = int(burst_mb * 1000 / 1.5)
 
-        rule=NFTablesRule(
-            _table="inet filter",
-            _chain="forward",
-            _rule=f"iifname {vlan_if} limit rate over {rate_pps}/second burst {burst} packets drop",
+        rule = NFTablesRule(
+            _table = "inet filter",
+            _chain = "forward",
+            _rule = f"iifname {vlan_if} limit rate over {rate_pps}/second burst {burst} packets drop",
             _priority=-5,
-            _comment=f"Rate limit {tenant.tenant_id} at {rate_mbps} Mbps",
+            _comment = f"Rate limit {tenant.tenant_id} at {rate_mbps} Mbps",
         )
 
         self.tenant_rules[tenant.tenant_id].append(rule)
@@ -805,7 +805,7 @@ class NFTablesManager:
 
     def export_ruleset(self) -> str:
         """Export complete nftables ruleset."""
-        _lines=[
+        _lines = [
             "    #!/usr/sbin/nft -",
             "    # DebVisor Multi-Tenant Network Rules",
             f"    # Generated: {datetime.now(timezone.utc).isoformat()}",
@@ -816,7 +816,7 @@ class NFTablesManager:
 
         # Create tables and chains
         for table_name, chains in self.tables.items():
-            family, name=table_name.split(" ", 1)
+            family, name = table_name.split(" ", 1)
             lines.append(f"table {family} {name} {{")
 
             for chain in chains:
@@ -826,7 +826,7 @@ class NFTablesManager:
                 )
 
                 # Add rules for this chain
-                chain_rules=[
+                chain_rules = [
                     r
                     for r in self.rules
                     if r.table == table_name and r.chain == chain.name
@@ -844,7 +844,7 @@ class NFTablesManager:
                 chain_rules.sort(key=lambda r: r.priority)
 
                 for rule in chain_rules:
-                    comment=f' comment "{rule.comment}"' if rule.comment else ""
+                    comment = f' comment "{rule.comment}"' if rule.comment else ""
                     lines.append(f"    {rule.rule}{comment}")
 
                 lines.append("  }")
@@ -856,11 +856,11 @@ class NFTablesManager:
 
     def apply_ruleset(self) -> bool:
         """Apply the ruleset to the system."""
-        _ruleset=self.export_ruleset()
+        _ruleset = self.export_ruleset()
 
         try:
         # Write to temp file and apply
-            _temp_path=Path("/tmp/nft-debvisor.conf")    # nosec B108
+            _temp_path = Path("/tmp/nft-debvisor.conf")    # nosec B108
             temp_path.write_text(ruleset)
 
             # In production: subprocess.run(["nft", "-f", str(temp_path)], check=True)
@@ -888,7 +888,7 @@ class TrafficAccountant:
         self.current_stats: Dict[str, TrafficStats] = {}
         self.history: Dict[str, List[TrafficStats]] = defaultdict(list)
         self.quotas: Dict[str, int] = {}    # tenant_id -> bytes/month
-        self.history_hours=history_hours
+        self.history_hours = history_hours
 
     def record_traffic(
         self,
@@ -897,35 +897,35 @@ class TrafficAccountant:
         bytes_out: int,
         packets_in: int,
         packets_out: int,
-        dropped: int=0,
+        dropped: int = 0,
     ) -> TrafficStats:
         """Record traffic statistics."""
         if tenant_id not in self.current_stats:
-            self.current_stats[tenant_id] = TrafficStats(tenant_id=tenant_id)
+            self.current_stats[tenant_id] = TrafficStats(tenant_id = tenant_id)
 
-        stats=self.current_stats[tenant_id]
+        stats = self.current_stats[tenant_id]
         stats.bytes_in += bytes_in
         stats.bytes_out += bytes_out
         stats.packets_in += packets_in
         stats.packets_out += packets_out
         stats.dropped_packets += dropped
-        stats.last_updated=datetime.now(timezone.utc)
+        stats.last_updated = datetime.now(timezone.utc)
 
         # Store in history
         self.history[tenant_id].append(
             TrafficStats(
-                _tenant_id=tenant_id,
-                _bytes_in=bytes_in,
-                _bytes_out=bytes_out,
-                _packets_in=packets_in,
-                _packets_out=packets_out,
-                _dropped_packets=dropped,
-                _last_updated=stats.last_updated,
+                _tenant_id = tenant_id,
+                _bytes_in = bytes_in,
+                _bytes_out = bytes_out,
+                _packets_in = packets_in,
+                _packets_out = packets_out,
+                _dropped_packets = dropped,
+                _last_updated = stats.last_updated,
             )
         )
 
         # Trim history
-        _cutoff=datetime.now(timezone.utc) - timedelta(hours=self.history_hours)
+        _cutoff = datetime.now(timezone.utc) - timedelta(hours = self.history_hours)
         self.history[tenant_id] = [
             h for h in self.history[tenant_id] if h.last_updated > cutoff
         ]
@@ -937,19 +937,19 @@ class TrafficAccountant:
         return self.current_stats.get(tenant_id)
 
     def get_bandwidth(
-        self, tenant_id: str, window_seconds: int=60
+        self, tenant_id: str, window_seconds: int = 60
     ) -> Tuple[float, float]:
         """Calculate current bandwidth (Mbps in, Mbps out)."""
-        _history=self.history.get(tenant_id, [])
-        _cutoff=datetime.now(timezone.utc) - timedelta(seconds=window_seconds)
+        _history = self.history.get(tenant_id, [])
+        _cutoff = datetime.now(timezone.utc) - timedelta(seconds = window_seconds)
 
-        recent=[h for h in history if h.last_updated > cutoff]
+        recent = [h for h in history if h.last_updated > cutoff]
 
         if not recent:
             return 0.0, 0.0
 
-        _total_in=sum(h.bytes_in for h in recent)
-        _total_out=sum(h.bytes_out for h in recent)
+        _total_in = sum(h.bytes_in for h in recent)
+        _total_out = sum(h.bytes_out for h in recent)
 
         _mbps_in=(total_in * 8 / 1_000_000) / window_seconds
         _mbps_out=(total_out * 8 / 1_000_000) / window_seconds
@@ -968,12 +968,12 @@ class TrafficAccountant:
         if tenant_id not in self.quotas:
             return True, 0.0
 
-        _stats=self.current_stats.get(tenant_id)
+        _stats = self.current_stats.get(tenant_id)
         if not stats:
             return True, 0.0
 
-        quota=self.quotas[tenant_id]
-        used=stats.bytes_in + stats.bytes_out
+        quota = self.quotas[tenant_id]
+        used = stats.bytes_in + stats.bytes_out
         _percent=(used / quota) * 100
 
         return percent < 100, percent
@@ -994,16 +994,16 @@ class MultiTenantNetworkManager:
     """
 
     def __init__(
-        self, base_domain: str="debvisor.local", external_interface: str="eth0"
+        self, base_domain: str = "debvisor.local", external_interface: str = "eth0"
     ):
-        self.base_domain=base_domain
-        self.external_interface=external_interface
+        self.base_domain = base_domain
+        self.external_interface = external_interface
 
         # Initialize components
-        self.ip_manager=IPAddressManager()
-        self.dns_manager=DNSZoneManager(base_domain)
-        self.nft_manager=NFTablesManager()
-        self.traffic_accountant=TrafficAccountant()
+        self.ip_manager = IPAddressManager()
+        self.dns_manager = DNSZoneManager(base_domain)
+        self.nft_manager = NFTablesManager()
+        self.traffic_accountant = TrafficAccountant()
 
         # Tenant storage
         self._tenants: Dict[str, TenantNetwork] = {}
@@ -1020,7 +1020,7 @@ class MultiTenantNetworkManager:
         ipv4_cidr: str,
         ipv6_cidr: Optional[str] = None,
         name: Optional[str] = None,
-        network_type: NetworkType=NetworkType.NAT,
+        network_type: NetworkType = NetworkType.NAT,
         bandwidth_limit_mbps: Optional[int] = None,
     ) -> TenantNetwork:
         """Create isolated network for tenant."""
@@ -1028,27 +1028,27 @@ class MultiTenantNetworkManager:
             raise ValueError(f"VLAN {vlan_id} already in use")
 
         # Parse network
-        _ipv4_net=ipaddress.ip_network(ipv4_cidr, strict=False)
-        _ipv4_gateway=str(list(ipv4_net.hosts())[0])
+        _ipv4_net = ipaddress.ip_network(ipv4_cidr, strict = False)
+        _ipv4_gateway = str(list(ipv4_net.hosts())[0])
 
-        ipv6_gateway=None
+        ipv6_gateway = None
         if ipv6_cidr:
-            _ipv6_net=ipaddress.ip_network(ipv6_cidr, strict=False)
-            _ipv6_gateway=str(list(ipv6_net.hosts())[0])
+            _ipv6_net = ipaddress.ip_network(ipv6_cidr, strict = False)
+            _ipv6_gateway = str(list(ipv6_net.hosts())[0])
 
-        _dns_zone=f"{tenant_id}.{self.base_domain}"
+        _dns_zone = f"{tenant_id}.{self.base_domain}"
 
-        network=TenantNetwork(
-            _tenant_id=tenant_id,
-            _name=name or tenant_id,
-            _vlan_id=vlan_id,
-            _ipv4_subnet=ipv4_cidr,
-            _ipv4_gateway=ipv4_gateway,
-            _ipv6_subnet=ipv6_cidr,
-            _ipv6_gateway=ipv6_gateway,
-            _dns_zone=dns_zone,
-            _network_type=network_type,
-            _bandwidth_limit_mbps=bandwidth_limit_mbps,
+        network = TenantNetwork(
+            _tenant_id = tenant_id,
+            _name = name or tenant_id,
+            _vlan_id = vlan_id,
+            _ipv4_subnet = ipv4_cidr,
+            _ipv4_gateway = ipv4_gateway,
+            _ipv6_subnet = ipv6_cidr,
+            _ipv6_gateway = ipv6_gateway,
+            _dns_zone = dns_zone,
+            _network_type = network_type,
+            _bandwidth_limit_mbps = bandwidth_limit_mbps,
         )
 
         self._tenants[tenant_id] = network
@@ -1084,7 +1084,7 @@ class MultiTenantNetworkManager:
         if tenant_id not in self._tenants:
             return False
 
-        network=self._tenants[tenant_id]
+        network = self._tenants[tenant_id]
 
         # Remove rules
         if tenant_id in self.nft_manager.tenant_rules:
@@ -1101,21 +1101,21 @@ class MultiTenantNetworkManager:
 
     def allocate_ipv6(self, tenantid: str, mode: IPv6Mode=IPv6Mode.ULA) -> str:
         """Allocate IPv6 prefix for tenant."""
-        _network=self._tenants.get(tenant_id)
+        _network = self._tenants.get(tenant_id)
         if not network:
             raise ValueError(f"Unknown tenant: {tenant_id}")
 
         if mode == IPv6Mode.ULA:
         # Generate ULA prefix (fd00::/8)
             # Use tenant hash for consistent allocation
-            _tenant_hash=hashlib.sha256(tenant_id.encode()).hexdigest()[:4]
-            prefix=f"fd{tenant_hash}::{network.vlan_id}/64"
+            _tenant_hash = hashlib.sha256(tenant_id.encode()).hexdigest()[:4]
+            prefix = f"fd{tenant_hash}::{network.vlan_id}/64"
         else:
         # Global unicast (example)
-            prefix=f"2001:db8:{network.vlan_id}::/64"
+            prefix = f"2001:db8:{network.vlan_id}::/64"
 
-        network.ipv6_subnet=prefix
-        network.ipv6_mode=mode
+        network.ipv6_subnet = prefix
+        network.ipv6_mode = mode
 
         # Add to IP manager
         # self.ip_manager.create_pool(f"{tenant_id}_v6", prefix, ...)
@@ -1125,7 +1125,7 @@ class MultiTenantNetworkManager:
 
     def configure_dns_subzone(self, tenantid: str) -> bool:
         """Configure DNS subzone for tenant."""
-        _network=self._tenants.get(tenant_id)
+        _network = self._tenants.get(tenant_id)
         if not network:
             return False
 
@@ -1140,14 +1140,14 @@ class MultiTenantNetworkManager:
         self, tenant_id: str, hostname: str, ip_address: str
     ) -> Optional[DNSRecord]:
         """Add a DNS record for a host."""
-        _network=self._tenants.get(tenant_id)
+        _network = self._tenants.get(tenant_id)
         if not network:
             return None
 
         # Determine record type
         try:
-            _ip=ipaddress.ip_address(ip_address)
-            _record_type="AAAA" if isinstance(ip, ipaddress.IPv6Address) else "A"
+            _ip = ipaddress.ip_address(ip_address)
+            _record_type = "AAAA" if isinstance(ip, ipaddress.IPv6Address) else "A"
         except ValueError:
             return None
 
@@ -1158,11 +1158,11 @@ class MultiTenantNetworkManager:
         tenant_id: str,
         hostname: str,
         mac_address: Optional[str] = None,
-        is_static: bool=False,
+        is_static: bool = False,
     ) -> Optional[str]:
         """Allocate an IP address for a host."""
-        alloc=self.ip_manager.allocate(
-            tenant_id, hostname, mac_address, is_static=is_static
+        alloc = self.ip_manager.allocate(
+            tenant_id, hostname, mac_address, is_static = is_static
         )
 
         if alloc:
@@ -1177,29 +1177,29 @@ class MultiTenantNetworkManager:
         name: str,
         source_tenant: Optional[str] = None,
         dest_tenant: Optional[str] = None,
-        action: PolicyAction=PolicyAction.ALLOW,
+        action: PolicyAction = PolicyAction.ALLOW,
         protocols: Optional[List[str]] = None,
         ports: Optional[List[int]] = None,
     ) -> NetworkPolicy:
         """Create a network policy."""
-        _policy_id=f"pol-{uuid4().hex[:8]}"
+        _policy_id = f"pol-{uuid4().hex[:8]}"
 
-        policy=NetworkPolicy(
-            _id=policy_id,
-            _name=name,
-            _source_tenant=source_tenant,
-            _dest_tenant=dest_tenant,
-            _protocols=protocols or [],
-            _ports=ports or [],
-            _action=action,
+        policy = NetworkPolicy(
+            _id = policy_id,
+            _name = name,
+            _source_tenant = source_tenant,
+            _dest_tenant = dest_tenant,
+            _protocols = protocols or [],
+            _ports = ports or [],
+            _action = action,
         )
 
         self._policies[policy_id] = policy
 
         # Create nftables rules for policy
         if source_tenant and dest_tenant and action == PolicyAction.ALLOW:
-            _src_net=self._tenants.get(source_tenant)
-            _dst_net=self._tenants.get(dest_tenant)
+            _src_net = self._tenants.get(source_tenant)
+            _dst_net = self._tenants.get(dest_tenant)
 
             if src_net and dst_net:
                 for proto in protocols or [None]:  # type: ignore[list-item]
@@ -1217,31 +1217,31 @@ class MultiTenantNetworkManager:
         internal_address: str,
         internal_port: int,
         external_port: int,
-        protocol: str="tcp",
+        protocol: str = "tcp",
     ) -> NATRule:
         """Add a port forwarding NAT rule."""
-        _rule_id=f"nat-{uuid4().hex[:8]}"
+        _rule_id = f"nat-{uuid4().hex[:8]}"
 
-        rule=NATRule(
-            _id=rule_id,
-            _tenant_id=tenant_id,
-            _nat_type="dnat",
-            _protocol=protocol,
-            _internal_address=internal_address,
-            _internal_port=internal_port,
-            _external_port=external_port,
+        rule = NATRule(
+            _id = rule_id,
+            _tenant_id = tenant_id,
+            _nat_type = "dnat",
+            _protocol = protocol,
+            _internal_address = internal_address,
+            _internal_port = internal_port,
+            _external_port = external_port,
         )
 
         self._nat_rules[rule_id] = rule
 
         # Add nftables rule
-        _network=self._tenants.get(tenant_id)
+        _network = self._tenants.get(tenant_id)
         if network:
-            nft_rule=NFTablesRule(
-                _table="inet nat",
-                _chain="prerouting",
-                _rule=f"{protocol} dport {external_port} dnat to {internal_address}:{internal_port}",
-                _comment=f"DNAT for {tenant_id}",
+            nft_rule = NFTablesRule(
+                _table = "inet nat",
+                _chain = "prerouting",
+                _rule = f"{protocol} dport {external_port} dnat to {internal_address}:{internal_port}",
+                _comment = f"DNAT for {tenant_id}",
             )
             self.nft_manager.rules.append(nft_rule)
 
@@ -1256,24 +1256,24 @@ class MultiTenantNetworkManager:
 
     def apply_configuration(self) -> bool:
         """Apply all network configuration."""
-        success=True
+        success = True
 
         # Apply nftables rules
         if not self.nft_manager.apply_ruleset():
-            success=False
+            success = False
 
         logger.info("Applied network configuration")
         return success
 
     def get_tenant_stats(self, tenantid: str) -> Dict[str, Any]:
         """Get comprehensive stats for a tenant."""
-        _network=self._tenants.get(tenant_id)
+        _network = self._tenants.get(tenant_id)
         if not network:
             return {}
 
-        _traffic=self.traffic_accountant.get_stats(tenant_id)
-        _bandwidth=self.traffic_accountant.get_bandwidth(tenant_id)
-        _allocations=self.ip_manager.get_tenant_allocations(tenant_id)
+        _traffic = self.traffic_accountant.get_stats(tenant_id)
+        _bandwidth = self.traffic_accountant.get_bandwidth(tenant_id)
+        _allocations = self.ip_manager.get_tenant_allocations(tenant_id)
 
         return {
             "tenant_id": tenant_id,
@@ -1298,7 +1298,7 @@ class MultiTenantNetworkManager:
 
 if _name__== "__main__":
     logging.basicConfig(
-        _level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        _level = logging.INFO, format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1306,24 +1306,24 @@ if _name__== "__main__":
     print("=" * 60)
 
     # Initialize
-    _mgr=MultiTenantNetworkManager()
+    _mgr = MultiTenantNetworkManager()
 
     # Create tenant networks
     print("\n[Creating Tenant Networks]")
 
-    tenants=[
+    tenants = [
         ("acme", 100, "10.100.0.0/24"),
         ("globex", 200, "10.200.0.0/24"),
         ("initech", 300, "10.300.0.0/24"),
     ]
 
     for tenant_id, vlan, cidr in tenants:
-        network=mgr.create_tenant_network(
-            _tenant_id=tenant_id,
-            _vlan_id=vlan,
-            _ipv4_cidr=cidr,
-            _network_type=NetworkType.NAT,
-            _bandwidth_limit_mbps=1000,
+        network = mgr.create_tenant_network(
+            _tenant_id = tenant_id,
+            _vlan_id = vlan,
+            _ipv4_cidr = cidr,
+            _network_type = NetworkType.NAT,
+            _bandwidth_limit_mbps = 1000,
         )
         print(f"  {tenant_id}: VLAN {vlan}, {cidr}, DNS: {network.dns_zone}")
 
@@ -1331,20 +1331,20 @@ if _name__== "__main__":
     print("\n[Allocating IPv6]")
 
     for tenant_id, _, _ in tenants[:2]:  # type: ignore[assignment]
-        _prefix=mgr.allocate_ipv6(tenant_id, IPv6Mode.ULA)
+        _prefix = mgr.allocate_ipv6(tenant_id, IPv6Mode.ULA)
         print(f"  {tenant_id}: {prefix}")
 
     # Allocate IPs and create DNS records
     print("\n[IP Allocation]")
 
-    hosts=[
+    hosts = [
         ("acme", "web-server-1", None),
         ("acme", "db-server-1", None),
         ("globex", "api-server-1", None),
     ]
 
     for tenant, hostname, mac in hosts:
-        _ip=mgr.allocate_ip(tenant, hostname, mac)
+        _ip = mgr.allocate_ip(tenant, hostname, mac)
         if ip:
             print(f"  {hostname}.{tenant}: {ip}")
 
@@ -1352,25 +1352,25 @@ if _name__== "__main__":
     print("\n[Network Policies]")
 
     # Allow acme to access globex database
-    policy=mgr.create_network_policy(
-        _name="acme-to-globex-db",
-        _source_tenant="acme",
-        _dest_tenant="globex",
-        _action=PolicyAction.ALLOW,
-        _protocols=["tcp"],
-        _ports=[5432, 3306],
+    policy = mgr.create_network_policy(
+        _name = "acme-to-globex-db",
+        _source_tenant = "acme",
+        _dest_tenant = "globex",
+        _action = PolicyAction.ALLOW,
+        _protocols = ["tcp"],
+        _ports = [5432, 3306],
     )
     print(f"  Created: {policy.name}")
 
     # Add NAT rule
     print("\n[NAT Rules]")
 
-    nat=mgr.add_nat_rule(
-        _tenant_id="acme",
-        _internal_address="10.100.0.10",
-        _internal_port=80,
-        _external_port=8080,
-        _protocol="tcp",
+    nat = mgr.add_nat_rule(
+        _tenant_id = "acme",
+        _internal_address = "10.100.0.10",
+        _internal_port = 80,
+        _external_port = 8080,
+        _protocol = "tcp",
     )
     print(
         f"  Port forward: :{nat.external_port} -> {nat.internal_address}:{nat.internal_port}"
@@ -1378,7 +1378,7 @@ if _name__== "__main__":
 
     # Export rules
     print("\n[NFTables Ruleset]")
-    _ruleset=mgr.export_nft_rules()
+    _ruleset = mgr.export_nft_rules()
     print("  (truncated output)")
     for line in ruleset.split("\n")[:20]:
         print(f"  {line}")
@@ -1386,7 +1386,7 @@ if _name__== "__main__":
 
     # Export DNS zone
     print("\n[DNS Zone - acme]")
-    _zone=mgr.dns_manager.export_zone_file("acme")
+    _zone = mgr.dns_manager.export_zone_file("acme")
     for line in zone.split("\n"):
         print(f"  {line}")
 
@@ -1396,7 +1396,7 @@ if _name__== "__main__":
     # Simulate some traffic
     mgr.traffic_accountant.record_traffic("acme", 1000000, 500000, 1000, 800, 5)
 
-    _stats=mgr.get_tenant_stats("acme")
+    _stats = mgr.get_tenant_stats("acme")
     print(f"  Tenant: {stats['tenant_id']}")
     print(f"  VLAN: {stats['vlan_id']}")
     print(f"  IPv4: {stats['ipv4_subnet']}")

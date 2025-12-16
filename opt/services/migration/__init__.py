@@ -121,7 +121,7 @@ from .advanced_migration import (
     AdvancedMigrationManager,
 )
 
-__all__=[
+__all__ = [
     "MigrationStrategy",
     "MigrationState",
     "MigrationPlan",

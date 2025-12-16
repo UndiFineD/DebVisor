@@ -120,54 +120,54 @@ from typing import List, Optional, Dict, Any, Set
 from enum import Enum
 from ipaddress import ip_address, ip_network
 
-_logger=logging.getLogger(__name__)  # type: ignore[name-defined]
+_logger = logging.getLogger(__name__)  # type: ignore[name-defined]
 
 
 class Action(Enum):
     """Supported actions for resources."""
 
-    CREATE="create"
-    READ="read"
-    UPDATE="update"
-    DELETE="delete"
-    EXECUTE="execute"
-    MANAGE="manage"
-    LIST="list"
-    EXPORT="export"
-    IMPORT="import"
-    MIGRATE="migrate"
-    BACKUP="backup"
-    RESTORE="restore"
-    SNAPSHOT="snapshot"
+    CREATE = "create"
+    READ = "read"
+    UPDATE = "update"
+    DELETE = "delete"
+    EXECUTE = "execute"
+    MANAGE = "manage"
+    LIST = "list"
+    EXPORT = "export"
+    IMPORT = "import"
+    MIGRATE = "migrate"
+    BACKUP = "backup"
+    RESTORE = "restore"
+    SNAPSHOT = "snapshot"
 
 
 class ResourceType(Enum):
     """Resource types in the system."""
 
-    VM="vm"
-    HOST="host"
-    STORAGE="storage"
-    NETWORK="network"
-    USER="user"
-    ROLE="role"
-    POLICY="policy"
-    BACKUP="backup"
-    SNAPSHOT="snapshot"
-    CLUSTER="cluster"
-    REGION="region"
-    SECRET="secret"    # nosec B105
-    CERTIFICATE="certificate"
+    VM = "vm"
+    HOST = "host"
+    STORAGE = "storage"
+    NETWORK = "network"
+    USER = "user"
+    ROLE = "role"
+    POLICY = "policy"
+    BACKUP = "backup"
+    SNAPSHOT = "snapshot"
+    CLUSTER = "cluster"
+    REGION = "region"
+    SECRET = "secret"    # nosec B105
+    CERTIFICATE = "certificate"
 
 
 class ConditionType(Enum):
     """Types of conditional permissions."""
 
-    TIME_RANGE="time_range"
-    IP_ADDRESS="ip_address"
-    IP_NETWORK="ip_network"
-    ATTRIBUTE="attribute"
-    TAG="tag"
-    CUSTOM="custom"
+    TIME_RANGE = "time_range"
+    IP_ADDRESS = "ip_address"
+    IP_NETWORK = "ip_network"
+    ATTRIBUTE = "attribute"
+    TAG = "tag"
+    CUSTOM = "custom"
 
 
 @dataclass
@@ -176,7 +176,7 @@ class Condition:
 
     type: ConditionType
     parameters: Dict[str, Any]
-    negate: bool=False    # If True, condition must NOT be satisfied
+    negate: bool = False    # If True, condition must NOT be satisfied
 
     def evaluate(self, context: "AuthorizationContext") -> bool:
         """
@@ -188,28 +188,28 @@ class Condition:
         Returns:
             True if condition is satisfied
         """
-        result=False
+        result = False
 
         if self.type == ConditionType.TIME_RANGE:
-            _result=self._evaluate_time_range(context)
+            _result = self._evaluate_time_range(context)
         elif self.type == ConditionType.IP_ADDRESS:
-            _result=self._evaluate_ip_address(context)
+            _result = self._evaluate_ip_address(context)
         elif self.type == ConditionType.IP_NETWORK:
-            _result=self._evaluate_ip_network(context)
+            _result = self._evaluate_ip_network(context)
         elif self.type == ConditionType.ATTRIBUTE:
-            _result=self._evaluate_attribute(context)
+            _result = self._evaluate_attribute(context)
         elif self.type == ConditionType.TAG:
-            _result=self._evaluate_tag(context)
+            _result = self._evaluate_tag(context)
         elif self.type == ConditionType.CUSTOM:
-            _result=self._evaluate_custom(context)
+            _result = self._evaluate_custom(context)
 
         return not result if self.negate else result
 
     def _evaluate_time_range(self, context: "AuthorizationContext") -> bool:
         """Check if current time is within allowed range."""
-        _start_time=dt_time.fromisoformat(self.parameters["start_time"])
-        _end_time=dt_time.fromisoformat(self.parameters["end_time"])
-        _current_time=datetime.now(timezone.utc).time()
+        _start_time = dt_time.fromisoformat(self.parameters["start_time"])
+        _end_time = dt_time.fromisoformat(self.parameters["end_time"])
+        _current_time = datetime.now(timezone.utc).time()
 
         if start_time <= end_time:
             return start_time <= current_time <= end_time
@@ -219,39 +219,39 @@ class Condition:
 
     def _evaluate_ip_address(self, context: "AuthorizationContext") -> bool:
         """Check if request IP matches allowed IPs."""
-        allowed_ips=self.parameters["allowed_ips"]
-        client_ip=context.client_ip
+        allowed_ips = self.parameters["allowed_ips"]
+        client_ip = context.client_ip
 
         if not client_ip:
             return False
 
         try:
-            _client=ip_address(client_ip)
+            _client = ip_address(client_ip)
             return any(client== ip_address(allowed_ip) for allowed_ip in allowed_ips)
         except ValueError:
             return False
 
     def _evaluate_ip_network(self, context: "AuthorizationContext") -> bool:
         """Check if request IP is in allowed networks."""
-        allowed_networks=self.parameters["allowed_networks"]
-        client_ip=context.client_ip
+        allowed_networks = self.parameters["allowed_networks"]
+        client_ip = context.client_ip
 
         if not client_ip:
             return False
 
         try:
-            _client=ip_address(client_ip)
+            _client = ip_address(client_ip)
             return any(client in ip_network(network) for network in allowed_networks)
         except ValueError:
             return False
 
     def _evaluate_attribute(self, context: "AuthorizationContext") -> bool:
         """Check if resource/principal attributes match requirements."""
-        required_attrs=self.parameters["attributes"]
+        required_attrs = self.parameters["attributes"]
 
         # Check principal attributes
-        principal_attrs=context.principal_attributes
-        resource_attrs=context.resource_attributes
+        principal_attrs = context.principal_attributes
+        resource_attrs = context.resource_attributes
 
         for key, value in required_attrs.items():
         # Check both principal and resource attributes
@@ -262,8 +262,8 @@ class Condition:
 
     def _evaluate_tag(self, context: "AuthorizationContext") -> bool:
         """Check if resource has required tags."""
-        required_tags=self.parameters["tags"]
-        _resource_tags=context.resource_attributes.get("tags", {})
+        required_tags = self.parameters["tags"]
+        _resource_tags = context.resource_attributes.get("tags", {})
 
         for key, value in required_tags.items():
             if resource_tags.get(key) != value:
@@ -273,7 +273,7 @@ class Condition:
 
     def _evaluate_custom(self, context: "AuthorizationContext") -> bool:
         """Evaluate custom condition using callable."""
-        _evaluator=self.parameters.get("evaluator")
+        _evaluator = self.parameters.get("evaluator")
         if callable(evaluator):
             return evaluator(context)
         return False
@@ -288,10 +288,10 @@ class Permission:
     """
 
     resource_type: ResourceType
-    resource_id: Optional[str]    # None=all resources of type
+    resource_id: Optional[str]    # None = all resources of type
     actions: List[Action]
-    conditions: List[Condition] = field(default_factory=list)
-    description: str=""
+    conditions: List[Condition] = field(default_factory = list)
+    description: str = ""
 
     def matches_resource(self, resourcetype: ResourceType, resourceid: str) -> bool:
         """Check if permission applies to given resource."""
@@ -303,7 +303,7 @@ class Permission:
             return True
 
         # Pattern matching for resource IDs (supports wildcards)
-        _pattern=self.resource_id.replace("*", ".*")
+        _pattern = self.resource_id.replace("*", ".*")
         return bool(re.match(f"^{pattern}$", resource_id))
 
     def allows_action(self, action: Action) -> bool:
@@ -317,7 +317,7 @@ class Permission:
     def evaluate_conditions(self, context: "AuthorizationContext") -> bool:
         """Evaluate all conditions for this permission."""
         if not self.conditions:
-            return True    # No conditions=always allowed
+            return True    # No conditions = always allowed
 
         return all(condition.evaluate(context) for condition in self.conditions)
 
@@ -333,8 +333,8 @@ class Role:
     name: str
     description: str
     permissions: List[Permission]
-    parent_roles: List[str] = field(default_factory=list)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    parent_roles: List[str] = field(default_factory = list)
+    metadata: Dict[str, Any] = field(default_factory = dict)
 
     def get_all_permissions(self, rolemanager: "RoleManager") -> List[Permission]:
         """
@@ -346,11 +346,11 @@ class Role:
         Returns:
             List of all permissions (own + inherited)
         """
-        _all_permissions=list(self.permissions)
+        _all_permissions = list(self.permissions)
 
         # Recursively gather permissions from parent roles
         for parent_name in self.parent_roles:
-            _parent=role_manager.get_role(parent_name)
+            _parent = role_manager.get_role(parent_name)
             if parent:
                 all_permissions.extend(parent.get_all_permissions(role_manager))
 
@@ -369,7 +369,7 @@ class AuthorizationContext:
     action: Action
     client_ip: Optional[str] = None
     timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    additional_context: Dict[str, Any] = field(default_factory=dict)
+    additional_context: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -408,14 +408,14 @@ class RoleManager:
         # Super Admin: Full access
         self.create_role(
             Role(
-                _name="superadmin",
-                _description="Full system access",
-                _permissions=[
+                _name = "superadmin",
+                _description = "Full system access",
+                _permissions = [
                     Permission(
-                        _resource_type=rt,
-                        _resource_id=None,
-                        _actions=list(Action),
-                        _description=f"Full access to all {rt.value} resources",
+                        _resource_type = rt,
+                        _resource_id = None,
+                        _actions = list(Action),
+                        _description = f"Full access to all {rt.value} resources",
                     )
                     for rt in ResourceType
                 ],
@@ -423,14 +423,14 @@ class RoleManager:
         )
 
         # Admin: Manage most resources except users/roles
-        admin_permissions=[]
+        admin_permissions = []
         for rt in ResourceType:
             if rt not in [ResourceType.USER, ResourceType.ROLE, ResourceType.POLICY]:
                 admin_permissions.append(
                     Permission(
-                        _resource_type=rt,
-                        _resource_id=None,
-                        _actions=[
+                        _resource_type = rt,
+                        _resource_id = None,
+                        _actions = [
                             Action.CREATE,
                             Action.READ,
                             Action.UPDATE,
@@ -442,18 +442,18 @@ class RoleManager:
 
         self.create_role(
             Role(
-                _name="admin",
-                _description="Administrative access",
-                _permissions=admin_permissions,
+                _name = "admin",
+                _description = "Administrative access",
+                _permissions = admin_permissions,
             )
         )
 
         # Operator: Manage VMs and resources, read-only for configuration
         self.create_role(
             Role(
-                _name="operator",
-                _description="Operations access",
-                _permissions=[
+                _name = "operator",
+                _description = "Operations access",
+                _permissions = [
                     Permission(
                         ResourceType.VM,
                         None,
@@ -486,13 +486,13 @@ class RoleManager:
         # Viewer: Read-only access
         self.create_role(
             Role(
-                _name="viewer",
-                _description="Read-only access",
-                _permissions=[
+                _name = "viewer",
+                _description = "Read-only access",
+                _permissions = [
                     Permission(
-                        _resource_type=rt,
-                        _resource_id=None,
-                        _actions=[Action.READ, Action.LIST],
+                        _resource_type = rt,
+                        _resource_id = None,
+                        _actions = [Action.READ, Action.LIST],
                     )
                     for rt in ResourceType
                 ],
@@ -541,14 +541,14 @@ class RoleManager:
 
     def get_principal_roles(self, principalid: str) -> List[Role]:
         """Get all roles assigned to principal."""
-        _role_names=self.principal_roles.get(principal_id, set())
+        _role_names = self.principal_roles.get(principal_id, set())
         return [self.roles[name] for name in role_names if name in self.roles]
 
     def get_principal_permissions(self, principalid: str) -> List[Permission]:
         """Get all permissions for principal (including inherited)."""
-        _roles=self.get_principal_roles(principal_id)
+        _roles = self.get_principal_roles(principal_id)
 
-        all_permissions=[]
+        all_permissions = []
         for role in roles:
             all_permissions.extend(role.get_all_permissions(self))
 
@@ -566,10 +566,10 @@ class RoleManager:
         Returns:
             AuthorizationDecision with allow/deny and reasoning
         """
-        _permissions=self.get_principal_permissions(context.principal_id)
+        _permissions = self.get_principal_permissions(context.principal_id)
 
-        _matched_permissions=[]
-        _failed_conditions=[]
+        _matched_permissions = []
+        _failed_conditions = []
 
         # Check each permission
         for permission in permissions:
@@ -592,31 +592,31 @@ class RoleManager:
             matched_permissions.append(permission)
 
         # Authorization decision
-        _allowed=len(matched_permissions) > 0
+        _allowed = len(matched_permissions) > 0
 
         if allowed:
-            _reason=f"Allowed by {len(matched_permissions)} permission(s)"
+            _reason = f"Allowed by {len(matched_permissions)} permission(s)"
         elif failed_conditions:
-            _reason=f"Denied: {len(failed_conditions)} condition(s) not satisfied"
+            _reason = f"Denied: {len(failed_conditions)} condition(s) not satisfied"
         else:
-            _reason="Denied: No matching permissions"
+            _reason = "Denied: No matching permissions"
 
-        _decision=AuthorizationDecision(
-            _allowed=allowed,
-            _principal_id=context.principal_id,
-            _resource_type=context.resource_type,
-            _resource_id=context.resource_id,
-            _action=context.action,
-            _matched_permissions=matched_permissions,
-            _failed_conditions=failed_conditions,
-            _reason=reason,
+        _decision = AuthorizationDecision(
+            _allowed = allowed,
+            _principal_id = context.principal_id,
+            _resource_type = context.resource_type,
+            _resource_id = context.resource_id,
+            _action = context.action,
+            _matched_permissions = matched_permissions,
+            _failed_conditions = failed_conditions,
+            _reason = reason,
         )
 
         # Audit log
         logger.info(
-            f"Authorization: principal={context.principal_id}, "
-            f"resource={context.resource_type.value}/{context.resource_id}, "
-            f"action={context.action.value}, allowed={allowed}, reason={reason}"
+            f"Authorization: principal = {context.principal_id}, "
+            f"resource = {context.resource_type.value}/{context.resource_id}, "
+            f"action = {context.action.value}, allowed = {allowed}, reason = {reason}"
         )
 
         return decision
@@ -624,36 +624,36 @@ class RoleManager:
 
 # Example usage
 if _name__== "__main__":
-    logging.basicConfig(level=logging.INFO)  # type: ignore[name-defined]
+    logging.basicConfig(level = logging.INFO)  # type: ignore[name-defined]
 
-    _rm=RoleManager()
+    _rm = RoleManager()
 
     # Create custom role with conditional permissions
-    _business_hours_condition=Condition(
-        _type=ConditionType.TIME_RANGE,
-        _parameters={
+    _business_hours_condition = Condition(
+        _type = ConditionType.TIME_RANGE,
+        _parameters = {
             "start_time": "09:00:00",
             "end_time": "17:00:00",
         },
     )
 
-    _office_network_condition=Condition(
-        _type=ConditionType.IP_NETWORK,
-        _parameters={
+    _office_network_condition = Condition(
+        _type = ConditionType.IP_NETWORK,
+        _parameters = {
             "allowed_networks": ["10.0.0.0/8", "192.168.0.0/16"],
         },
     )
 
-    _business_role=Role(
-        _name="business_user",
-        _description="Business hours access from office network",
-        _permissions=[
+    _business_role = Role(
+        _name = "business_user",
+        _description = "Business hours access from office network",
+        _permissions = [
             Permission(
-                _resource_type=ResourceType.VM,
-                _resource_id="vm-prod-*",    # Only production VMs
-                _actions=[Action.READ, Action.EXECUTE],
-                _conditions=[business_hours_condition, office_network_condition],
-                _description="Read/execute production VMs during business hours from office",
+                _resource_type = ResourceType.VM,
+                _resource_id = "vm-prod-*",    # Only production VMs
+                _actions = [Action.READ, Action.EXECUTE],
+                _conditions = [business_hours_condition, office_network_condition],
+                _description = "Read/execute production VMs during business hours from office",
             ),
         ],
     )
@@ -662,15 +662,15 @@ if _name__== "__main__":
     rm.assign_role("user@example.com", "business_user")
 
     # Test authorization
-    _context=AuthorizationContext(
-        _principal_id="user@example.com",
-        _principal_attributes={"department": "engineering"},
-        _resource_type=ResourceType.VM,
-        _resource_id="vm-prod-001",
-        _resource_attributes={"tags": {"env": "production"}},
-        _action=Action.READ,
-        _client_ip="192.168.1.100",
+    _context = AuthorizationContext(
+        _principal_id = "user@example.com",
+        _principal_attributes = {"department": "engineering"},
+        _resource_type = ResourceType.VM,
+        _resource_id = "vm-prod-001",
+        _resource_attributes = {"tags": {"env": "production"}},
+        _action = Action.READ,
+        _client_ip = "192.168.1.100",
     )
 
-    _decision=rm.authorize(context)
+    _decision = rm.authorize(context)
     print(f"Decision: {decision.allowed}, Reason: {decision.reason}")

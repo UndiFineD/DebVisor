@@ -113,9 +113,9 @@ from flask_limiter.util import get_remote_address
 from opt.web.panel.socketio_server import SocketIOServer
 from typing import Any
 
-db: Any=SQLAlchemy()
-migrate: Any=Migrate()
-login_manager: Any=LoginManager()
-csrf: Any=CSRFProtect()
-limiter: Any=Limiter(key_func=get_remote_address)
-socketio_server: SocketIOServer=SocketIOServer()
+db: Any = SQLAlchemy()
+migrate: Any = Migrate()
+login_manager: Any = LoginManager()
+csrf: Any = CSRFProtect()
+limiter: Any = Limiter(key_func = get_remote_address)
+socketio_server: SocketIOServer = SocketIOServer()

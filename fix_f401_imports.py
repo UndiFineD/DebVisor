@@ -57,10 +57,10 @@ for file_path, imports_to_remove in unused_imports.items():
         continue
         
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except UnicodeDecodeError:
-        with open(file_path, 'r', encoding='latin-1') as f:
+        with open(file_path, 'r', encoding = 'latin-1') as f:
             lines = f.readlines()
     
     for import_name, line_num in imports_to_remove:
@@ -82,10 +82,10 @@ for file_path, imports_to_remove in unused_imports.items():
     
     # Write back
     try:
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with open(file_path, 'w', encoding = 'utf-8') as f:
             f.writelines(lines)
     except Exception:
-        with open(file_path, 'w', encoding='latin-1') as f:
+        with open(file_path, 'w', encoding = 'latin-1') as f:
             f.writelines(lines)
 
 print(f"\nTotal F401 (unused imports) fixed: {total_fixed}")

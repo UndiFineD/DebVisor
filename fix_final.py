@@ -7,7 +7,7 @@ import re
 def final_fixes():
     """Apply final fixes"""
     file_path = Path("scripts/agent/agent.py")
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     # Fix 1: Line 89 - E305 expected 2 blank lines after function def
@@ -65,7 +65,7 @@ def final_fixes():
     # Just leave them for now
     
     # Write back
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
     
     print("Applied final fixes")

@@ -11,10 +11,10 @@ agent_dir = r'c:\Users\kdejo\DEV\DebVisor\scripts\agent'
 
 # Get all F401 issues from flake8
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True,
-    text=True,
-    cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True,
+    text = True,
+    cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 f401_issues = {}
@@ -34,11 +34,11 @@ for filename, issues in f401_issues.items():
     if not os.path.exists(filepath):
         continue
     
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     # Sort by line number descending so we can delete without offset issues
-    for lineno, msg in sorted(issues, reverse=True):
+    for lineno, msg in sorted(issues, reverse = True):
         lineno = lineno - 1  # 0-indexed
         if 0 <= lineno < len(lines):
             line = lines[lineno]
@@ -47,7 +47,7 @@ for filename, issues in f401_issues.items():
                 lines.pop(lineno)
                 fixed += 1
     
-    with open(filepath, 'w', encoding='utf-8') as f:
+    with open(filepath, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
 
 print(f"F401 (unused imports) safely removed: {fixed}")

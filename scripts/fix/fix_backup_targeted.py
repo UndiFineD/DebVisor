@@ -35,9 +35,9 @@ while i < len(lines):
 # Fix 3: Fix E251/E252 - parameter spacing issues in function calls
 # These are typically in default_factory=dict, etc.
 patterns = [
-    (r'default_factory\s*=\s*dict', 'default_factory=dict'),
-    (r'default_factory\s*=\s*list', 'default_factory=list'),
-    (r'default_factory\s*=\s*', 'default_factory='),
+    (r'default_factory\s*=\s*dict', 'default_factory = dict'),
+    (r'default_factory\s*=\s*list', 'default_factory = list'),
+    (r'default_factory\s*=\s*', 'default_factory = '),
 ]
 
 content = ''.join(lines)

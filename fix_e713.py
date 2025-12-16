@@ -12,7 +12,7 @@ for filename in os.listdir(agent_dir):
         continue
     
     filepath = os.path.join(agent_dir, filename)
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         content = f.read()
     
     original = content
@@ -29,7 +29,7 @@ for filename in os.listdir(agent_dir):
         stats['e713'] += 1
     
     if content != original:
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
             f.write(content)
 
 print(f"E713 (comparison) fixed: {stats['e713']}")

@@ -8,10 +8,10 @@ agent_dir = r'c:\Users\kdejo\DEV\DebVisor\scripts\agent'
 
 # Get all F401 issues
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True,
-    text=True,
-    cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True,
+    text = True,
+    cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 f401_map = {}
@@ -33,7 +33,7 @@ for (filename, lineno), module_name in f401_map.items():
     if not os.path.exists(filepath):
         continue
     
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     if lineno < len(lines):
@@ -63,7 +63,7 @@ for (filename, lineno), module_name in f401_map.items():
                 lines[lineno] = ''
                 fixed += 1
     
-    with open(filepath, 'w', encoding='utf-8') as f:
+    with open(filepath, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
 
 print(f"F401 (unused imports) removed: {fixed}")

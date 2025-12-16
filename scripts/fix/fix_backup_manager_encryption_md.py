@@ -4,17 +4,17 @@ import re
 file_path = 'tests/test_backup_manager_encryption.py.md'
 
 # Read the file
-with open(file_path, 'r', encoding='utf-8') as f:
+with open(file_path, 'r', encoding = 'utf-8') as f:
     content = f.read()
 
 # Fix MD040: Add language identifier to code blocks
-content = re.sub(r'^```$', r'```python', content, flags=re.MULTILINE)
+content = re.sub(r'^```$', r'```python', content, flags = re.MULTILINE)
 
 # Fix MD012: Remove multiple consecutive blank lines
 content = re.sub(r'\n\n\n+', '\n\n', content)
 
 # Fix MD036: Convert emphasis as heading to proper heading
-content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags=re.MULTILINE)
+content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags = re.MULTILINE)
 
 # Now fix MD022, MD031, MD032 with line-by-line processing
 lines = content.split('\n')
@@ -67,7 +67,7 @@ while i < len(lines):
 content = '\n'.join(fixed_lines)
 
 # Write back to file
-with open(file_path, 'w', encoding='utf-8') as f:
+with open(file_path, 'w', encoding = 'utf-8') as f:
     f.write(content)
 
 print('✓ Fixed all markdown linting errors')

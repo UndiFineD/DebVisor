@@ -8,9 +8,9 @@ import re
 # Get E302/E305 issues
 result = subprocess.run(
     ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', 
-     '--select=E302,E305'],
-    capture_output=True,
-    text=True
+     '--select = E302,E305'],
+    capture_output = True,
+    text = True
 )
 
 issues_by_file = {}
@@ -38,7 +38,7 @@ else:
             continue
         
         try:
-            lines = Path(filepath).read_text(encoding='utf-8').split('\n')
+            lines = Path(filepath).read_text(encoding = 'utf-8').split('\n')
         except:
             continue
         
@@ -46,7 +46,7 @@ else:
         processed = set()  # Track which lines we've modified
         
         # Sort in reverse to avoid index shifting issues
-        for line_num in sorted(set(line_nums), reverse=True):
+        for line_num in sorted(set(line_nums), reverse = True):
             if line_num in processed or line_num <= 0 or line_num > len(lines):
                 continue
             
@@ -78,7 +78,7 @@ else:
         if fixes > 0:
             new_content = '\n'.join(lines)
             try:
-                Path(filepath).write_text(new_content, encoding='utf-8')
+                Path(filepath).write_text(new_content, encoding = 'utf-8')
                 print(f"  {Path(filepath).name}: {fixes} blank line fixes")
                 total_fixes += fixes
             except Exception as e:

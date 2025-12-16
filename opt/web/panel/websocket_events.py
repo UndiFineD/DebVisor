@@ -124,22 +124,22 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class EventType(Enum):
     """Supported event types."""
 
-    NODE_STATUS="node_status"
-    NODE_METRICS="node_metrics"
-    NODE_HEALTH="node_health"
-    CLUSTER_ALERT="cluster_alert"
-    JOB_PROGRESS="job_progress"
-    JOB_COMPLETE="job_complete"
-    STORAGE_METRIC="storage_metric"
-    ERROR="error"
-    NOTIFICATION="notification"
-    HEARTBEAT="heartbeat"
+    NODE_STATUS = "node_status"
+    NODE_METRICS = "node_metrics"
+    NODE_HEALTH = "node_health"
+    CLUSTER_ALERT = "cluster_alert"
+    JOB_PROGRESS = "job_progress"
+    JOB_COMPLETE = "job_complete"
+    STORAGE_METRIC = "storage_metric"
+    ERROR = "error"
+    NOTIFICATION = "notification"
+    HEARTBEAT = "heartbeat"
 
 
 @dataclass
@@ -149,8 +149,8 @@ class WebSocketEvent:
     event_type: str
     timestamp: str
     data: Dict[str, Any]
-    source: str="system"
-    severity: str="info"    # info, warning, error, critical
+    source: str = "system"
+    severity: str = "info"    # info, warning, error, critical
 
     def to_json(self) -> str:
         """Convert event to JSON."""
@@ -160,11 +160,11 @@ class WebSocketEvent:
     def from_dict(cls, data: Dict[str, Any]) -> "WebSocketEvent":
         """Create event from dictionary."""
         return cls(
-            _event_type=data.get("event_type", "unknown"),
-            _timestamp=data.get("timestamp", datetime.now(timezone.utc).isoformat()),
-            _data=data.get("data", {}),
-            _source=data.get("source", "system"),
-            _severity=data.get("severity", "info"),
+            _event_type = data.get("event_type", "unknown"),
+            _timestamp = data.get("timestamp", datetime.now(timezone.utc).isoformat()),
+            _data = data.get("data", {}),
+            _source = data.get("source", "system"),
+            _severity = data.get("severity", "info"),
         )
 
 
@@ -180,7 +180,7 @@ class ClientSubscription:
 
     def __post_init__(self) -> None:
         if self.subscribed_at is None:
-            self.subscribed_at=datetime.now(timezone.utc)
+            self.subscribed_at = datetime.now(timezone.utc)
 
     def is_allowed(self, event: WebSocketEvent) -> bool:
         """Check if client is allowed to receive event."""
@@ -190,7 +190,7 @@ class ClientSubscription:
 
         # Check permissions (RBAC)
         # For now, simple permission check
-        required_permission=f"view:{event.event_type}"
+        required_permission = f"view:{event.event_type}"
         if (
             required_permission not in self.permissions
             and "view:*" not in self.permissions
@@ -212,9 +212,9 @@ class WebSocketEventBus:
         self.subscriptions: Dict[str, ClientSubscription] = {}
         self.event_handlers: Dict[str, List[Callable[..., Any]]] = {}
         self.message_queues: Dict[str, asyncio.Queue[WebSocketEvent]] = {}
-        self.lock=asyncio.Lock()
+        self.lock = asyncio.Lock()
         self.event_history: List[WebSocketEvent] = []
-        self.max_history_size=1000
+        self.max_history_size = 1000
 
     async def subscribe(
         self,
@@ -236,11 +236,11 @@ class WebSocketEventBus:
             ClientSubscription instance
         """
         async with self.lock:
-            subscription=ClientSubscription(
-                _client_id=client_id,
-                _event_types=set(event_types),
-                _user_id=user_id,
-                _permissions=set(permissions),
+            subscription = ClientSubscription(
+                _client_id = client_id,
+                _event_types = set(event_types),
+                _user_id = user_id,
+                _permissions = set(permissions),
             )
 
             self.subscriptions[client_id] = subscription
@@ -287,7 +287,7 @@ class WebSocketEventBus:
         async with self.lock:
             for client_id, subscription in self.subscriptions.items():
                 if subscription.is_allowed(event):
-                    _queue=self.message_queues.get(client_id)
+                    _queue = self.message_queues.get(client_id)
                     if queue:
                         try:
                             queue.put_nowait(event)
@@ -309,7 +309,7 @@ class WebSocketEventBus:
 
         Args:
             client_id: Client identifier
-            timeout: Timeout in seconds (None=wait indefinitely)
+            timeout: Timeout in seconds (None = wait indefinitely)
 
         Returns:
             WebSocketEvent or None if timeout
@@ -317,15 +317,15 @@ class WebSocketEventBus:
         Raises:
             KeyError: If client not subscribed
         """
-        _queue=self.message_queues.get(client_id)
+        _queue = self.message_queues.get(client_id)
         if queue is None:
             raise KeyError(f"Client {client_id} not subscribed")
 
         try:
             if timeout:
-                _event=await asyncio.wait_for(queue.get(), timeout=timeout)
+                _event = await asyncio.wait_for(queue.get(), timeout = timeout)
             else:
-                _event=await queue.get()
+                _event = await queue.get()
             return event
         except asyncio.TimeoutError:
             return None
@@ -376,51 +376,51 @@ class EventFactory:
     ) -> WebSocketEvent:
         """Create node status event."""
         return WebSocketEvent(
-            _event_type=EventType.NODE_STATUS.value,
-            _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data={
+            _event_type = EventType.NODE_STATUS.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "node_id": node_id,
                 "status": status,
                 "details": details or {},
             },
-            _severity="info",
+            _severity = "info",
         )
 
     @staticmethod
     def node_metrics_event(nodeid: str, metrics: Dict[str, Any]) -> WebSocketEvent:
         """Create node metrics event."""
         return WebSocketEvent(
-            _event_type=EventType.NODE_METRICS.value,
-            _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data={
+            _event_type = EventType.NODE_METRICS.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "node_id": node_id,
                 "metrics": metrics,
             },
-            _severity="info",
+            _severity = "info",
         )
 
     @staticmethod
     def alert_event(
-        alert_type: str, message: str, severity: str="warning"
+        alert_type: str, message: str, severity: str = "warning"
     ) -> WebSocketEvent:
         """Create alert event."""
         return WebSocketEvent(
-            _event_type=EventType.CLUSTER_ALERT.value,
-            _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data={
+            _event_type = EventType.CLUSTER_ALERT.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "alert_type": alert_type,
                 "message": message,
             },
-            _severity=severity,
+            _severity = severity,
         )
 
     @staticmethod
     def job_progress_event(jobid: str, progress: int, status: str) -> WebSocketEvent:
         """Create job progress event."""
         return WebSocketEvent(
-            _event_type=EventType.JOB_PROGRESS.value,
-            _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data={
+            _event_type = EventType.JOB_PROGRESS.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "job_id": job_id,
                 "progress": progress,    # 0-100
                 "status": status,
@@ -433,9 +433,9 @@ class EventFactory:
     ) -> WebSocketEvent:
         """Create storage metric event."""
         return WebSocketEvent(
-            _event_type=EventType.STORAGE_METRIC.value,
-            _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data={
+            _event_type = EventType.STORAGE_METRIC.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "pool_id": pool_id,
                 "used_bytes": used,
                 "total_bytes": total,
@@ -447,22 +447,22 @@ class EventFactory:
     def error_event(message: str, errorcode: Optional[str] = None) -> WebSocketEvent:
         """Create error event."""
         return WebSocketEvent(
-            _event_type=EventType.ERROR.value,
-            _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data={
+            _event_type = EventType.ERROR.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "message": message,
                 "error_code": error_code,
             },
-            _severity="error",
+            _severity = "error",
         )
 
     @staticmethod
     def heartbeat_event() -> WebSocketEvent:
         """Create heartbeat event (keep-alive)."""
         return WebSocketEvent(
-            _event_type=EventType.HEARTBEAT.value,
-            _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data={"status": "ok"},
+            _event_type = EventType.HEARTBEAT.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {"status": "ok"},
         )
 
 
@@ -476,9 +476,9 @@ class WebSocketConnectionManager:
         Args:
             event_bus: WebSocketEventBus instance
         """
-        self.event_bus=event_bus or WebSocketEventBus()
+        self.event_bus = event_bus or WebSocketEventBus()
         self.connections: Dict[str, Any] = {}
-        self.lock=asyncio.Lock()
+        self.lock = asyncio.Lock()
 
     async def connect(
         self,
@@ -531,7 +531,7 @@ class WebSocketConnectionManager:
             True if sent successfully, False if client not connected
         """
         async with self.lock:
-            _websocket=self.connections.get(client_id)
+            _websocket = self.connections.get(client_id)
 
         if websocket is None:
             return False

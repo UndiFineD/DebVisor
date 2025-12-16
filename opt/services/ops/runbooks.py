@@ -110,7 +110,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
 import logging
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -119,7 +119,7 @@ class RunbookStep:
     description: str
     command: Optional[str] = None
     verification: Optional[str] = None
-    estimated_time_minutes: int=5
+    estimated_time_minutes: int = 5
 
 
 @dataclass
@@ -129,8 +129,8 @@ class Runbook:
     description: str
     steps: List[RunbookStep]
     generated_at: str=field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
-    confidence_score: float=1.0
-    tags: List[str] = field(default_factory=list)
+    confidence_score: float = 1.0
+    tags: List[str] = field(default_factory = list)
 
 
 class RunbookGenerator:
@@ -179,7 +179,7 @@ class RunbookGenerator:
                     },
                     {
                         "description": "Remove old logs",
-                        "command": "journalctl --vacuum-time=7d",
+                        "command": "journalctl --vacuum-time = 7d",
                         "verification": "df -h {partition}"
                     }
                 ],
@@ -217,33 +217,33 @@ class RunbookGenerator:
             alert_type: Type of alert (e.g., 'high_cpu', 'disk_space')
             context: Dictionary containing variables for the template (e.g., hostname, service_name)
         """
-        _template=self._templates.get(alert_type)
+        _template = self._templates.get(alert_type)
         if not template:
             logger.warning(f"No runbook template found for alert type: {alert_type}")
             return None
 
         try:
-            _title=template["title"].format(**context)
-            _description=template["description"].format(**context)
+            _title = template["title"].format(**context)
+            _description = template["description"].format(**context)
 
-            steps=[]
+            steps = []
             for i, step_data in enumerate(template["steps"], 1):
-                _cmd=step_data.get("command", "").format(**context) if step_data.get("command") else None
-                _ver=step_data.get("verification", "").format(**context) if step_data.get("verification") else None
+                _cmd = step_data.get("command", "").format(**context) if step_data.get("command") else None
+                _ver = step_data.get("verification", "").format(**context) if step_data.get("verification") else None
 
                 steps.append(RunbookStep(
-                    _order=i,
-                    _description=step_data["description"],
-                    _command=cmd,
-                    _verification=ver
+                    _order = i,
+                    _description = step_data["description"],
+                    _command = cmd,
+                    _verification = ver
                 ))
 
             return Runbook(
-                _id=f"rb-{int(datetime.now().timestamp())}",
-                _title=title,
-                _description=description,
-                _steps=steps,
-                _tags=template.get("tags", [])
+                _id = f"rb-{int(datetime.now().timestamp())}",
+                _title = title,
+                _description = description,
+                _steps = steps,
+                _tags = template.get("tags", [])
             )
         except KeyError as e:
             logger.error(f"Missing context variable for runbook generation: {e}")
@@ -251,9 +251,9 @@ class RunbookGenerator:
 
     def suggest_runbooks(self, keywords: List[str]) -> List[Dict[str, Any]]:
         """Suggest runbooks based on keywords (simulating AI search)."""
-        _suggestions=[]
+        _suggestions = []
         for key, tmpl in self._templates.items():
-            score=0
+            score = 0
             _text=(tmpl["title"] + " " + tmpl["description"] + " " + " ".join(tmpl.get("tags", []))).lower()
 
             for kw in keywords:

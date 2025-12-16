@@ -131,12 +131,12 @@ from typing import Any, Dict, Generic, List, Optional, TypeVar, AsyncIterator
 try:
     import aioredis  # type: ignore
 except ImportError:  # pragma: no cover
-    _aioredis=None
+    _aioredis = None
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Type variable for pooled connections
-T=TypeVar("T")
+T = TypeVar("T")
 
 
 # =============================================================================
@@ -145,20 +145,20 @@ T=TypeVar("T")
 class PoolState(Enum):
     """Connection pool state."""
 
-    INITIALIZING="initializing"
-    ACTIVE="active"
-    DRAINING="draining"
-    CLOSED="closed"
+    INITIALIZING = "initializing"
+    ACTIVE = "active"
+    DRAINING = "draining"
+    CLOSED = "closed"
 
 
 class ConnectionState(Enum):
     """Individual connection state."""
 
-    IDLE="idle"
-    IN_USE="in_use"
-    VALIDATING="validating"
-    RECYCLING="recycling"
-    CLOSED="closed"
+    IDLE = "idle"
+    IN_USE = "in_use"
+    VALIDATING = "validating"
+    RECYCLING = "recycling"
+    CLOSED = "closed"
 
 
 # =============================================================================
@@ -171,28 +171,28 @@ class PoolConfig:
     """Connection pool configuration."""
 
     # Pool sizing
-    min_connections: int=5
-    max_connections: int=20
+    min_connections: int = 5
+    max_connections: int = 20
 
     # Connection lifecycle
-    max_connection_age_seconds: float=3600.0    # 1 hour
-    idle_timeout_seconds: float=300.0    # 5 minutes
-    connection_timeout_seconds: float=10.0
+    max_connection_age_seconds: float = 3600.0    # 1 hour
+    idle_timeout_seconds: float = 300.0    # 5 minutes
+    connection_timeout_seconds: float = 10.0
 
     # Health checking
-    health_check_interval_seconds: float=30.0
-    validation_query_timeout_seconds: float=5.0
-    validation_on_borrow: bool=True
-    validation_on_return: bool=False
+    health_check_interval_seconds: float = 30.0
+    validation_query_timeout_seconds: float = 5.0
+    validation_on_borrow: bool = True
+    validation_on_return: bool = False
 
     # Circuit breaker
-    circuit_breaker_enabled: bool=True
-    failure_threshold: int=5
-    recovery_timeout_seconds: float=30.0
+    circuit_breaker_enabled: bool = True
+    failure_threshold: int = 5
+    recovery_timeout_seconds: float = 30.0
 
     # Warmup
-    warmup_on_init: bool=True
-    warmup_batch_size: int=5
+    warmup_on_init: bool = True
+    warmup_batch_size: int = 5
 
 
 @dataclass
@@ -203,10 +203,10 @@ class ConnectionMetrics:
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     last_used_at: Optional[datetime] = None
     last_validated_at: Optional[datetime] = None
-    times_borrowed: int=0
-    times_validated: int=0
-    validation_failures: int=0
-    total_time_in_use_ms: float=0.0
+    times_borrowed: int = 0
+    times_validated: int = 0
+    validation_failures: int = 0
+    total_time_in_use_ms: float = 0.0
 
     @property
     def age_seconds(self) -> float:
@@ -225,25 +225,25 @@ class ConnectionMetrics:
 class PoolMetrics:
     """Aggregate pool metrics."""
 
-    total_connections: int=0
-    active_connections: int=0
-    idle_connections: int=0
-    waiting_requests: int=0
+    total_connections: int = 0
+    active_connections: int = 0
+    idle_connections: int = 0
+    waiting_requests: int = 0
 
     # Counters
-    connections_created: int=0
-    connections_closed: int=0
-    connections_recycled: int=0
-    borrow_count: int=0
-    return_count: int=0
+    connections_created: int = 0
+    connections_closed: int = 0
+    connections_recycled: int = 0
+    borrow_count: int = 0
+    return_count: int = 0
 
     # Health
-    health_checks_passed: int=0
-    health_checks_failed: int=0
+    health_checks_passed: int = 0
+    health_checks_failed: int = 0
 
     # Timing
-    avg_borrow_time_ms: float=0.0
-    avg_connection_age_seconds: float=0.0
+    avg_borrow_time_ms: float = 0.0
+    avg_connection_age_seconds: float = 0.0
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -270,24 +270,24 @@ class PooledConnection(Generic[T]):
 
     connection: T
     connection_id: str
-    state: ConnectionState=ConnectionState.IDLE
-    metrics: ConnectionMetrics=field(  # type: ignore[call-overload, misc]
+    state: ConnectionState = ConnectionState.IDLE
+    metrics: ConnectionMetrics = field(  # type: ignore[call-overload, misc]
         _default_factory=lambda: ConnectionMetrics(connection_id="")
     )
 
     def __post_init__(self) -> None:
-        self.metrics.connection_id=self.connection_id
+        self.metrics.connection_id = self.connection_id
 
     def mark_borrowed(self) -> None:
         """Mark connection as borrowed."""
-        self.state=ConnectionState.IN_USE
+        self.state = ConnectionState.IN_USE
         self.metrics.times_borrowed += 1
-        self._borrow_time=time.time()
+        self._borrow_time = time.time()
 
     def mark_returned(self) -> None:
         """Mark connection as returned."""
-        self.state=ConnectionState.IDLE
-        self.metrics.last_used_at=datetime.now(timezone.utc)
+        self.state = ConnectionState.IDLE
+        self.metrics.last_used_at = datetime.now(timezone.utc)
         if hasattr(self, "_borrow_time"):
             _duration=(time.time() - self._borrow_time) * 1000
             self.metrics.total_time_in_use_ms += duration  # type: ignore[name-defined]
@@ -322,23 +322,23 @@ class RedisConnectionFactory(ConnectionFactory[Any]):
     """Factory for Redis connections."""
 
     def __init__(
-        self, url: str="redis://localhost:6379/0", decode_responses: bool=True
+        self, url: str = "redis://localhost:6379/0", decode_responses: bool = True
     ):
-        self.url=url
-        self.decode_responses=decode_responses
+        self.url = url
+        self.decode_responses = decode_responses
 
     async def create(self) -> Any:
         """Create Redis connection."""
 
-        client=await aioredis.from_url(
-            self.url, decode_responses=self.decode_responses
+        client = await aioredis.from_url(
+            self.url, decode_responses = self.decode_responses
         )
         return client
 
     async def validate(self, connection: Any) -> bool:
         """Validate Redis connection with PING."""
         try:
-            _result=await asyncio.wait_for(connection.ping(), timeout=5.0)
+            _result = await asyncio.wait_for(connection.ping(), timeout = 5.0)
             return result is True or result == b"PONG"  # type: ignore[name-defined]
         except Exception as e:
             logger.warning(f"Redis validation failed: {e}")  # type: ignore[name-defined]
@@ -372,7 +372,7 @@ class ConnectionPool(Generic[T]):
         self,
         factory: ConnectionFactory[T],
         config: Optional[PoolConfig] = None,
-        name: str="pool",
+        name: str = "pool",
     ):
         """
         Initialize connection pool.
@@ -382,25 +382,25 @@ class ConnectionPool(Generic[T]):
             config: Pool configuration
             name: Pool name for logging
         """
-        self.factory=factory
-        self.config=config or PoolConfig()
-        self.name=name
+        self.factory = factory
+        self.config = config or PoolConfig()
+        self.name = name
 
         # State
-        self.state=PoolState.INITIALIZING
-        self._lock=asyncio.Lock()
+        self.state = PoolState.INITIALIZING
+        self._lock = asyncio.Lock()
         self._connections: List[PooledConnection[T]] = []
         self._waiters: asyncio.Queue[PooledConnection[T]] = asyncio.Queue()
 
         # Metrics
-        self.metrics=PoolMetrics()
+        self.metrics = PoolMetrics()
 
         # Background tasks
         self._health_check_task: Optional[asyncio.Task[None]] = None
         self._cleanup_task: Optional[asyncio.Task[None]] = None
 
         # Circuit breaker state
-        self._consecutive_failures=0
+        self._consecutive_failures = 0
         self._circuit_open_until: Optional[datetime] = None
 
         logger.info(f"Connection pool '{name}' created with config: {config}")  # type: ignore[name-defined]
@@ -422,10 +422,10 @@ class ConnectionPool(Generic[T]):
                 await self._warmup()
 
             # Start background tasks
-            self._health_check_task=asyncio.create_task(self._health_check_loop())
-            self._cleanup_task=asyncio.create_task(self._cleanup_loop())
+            self._health_check_task = asyncio.create_task(self._health_check_loop())
+            self._cleanup_task = asyncio.create_task(self._cleanup_loop())
 
-            self.state=PoolState.ACTIVE
+            self.state = PoolState.ACTIVE
             logger.info(  # type: ignore[name-defined]
                 f"Pool '{self.name}' initialized with {len(self._connections)} connections"
             )
@@ -442,7 +442,7 @@ class ConnectionPool(Generic[T]):
                 return
 
             logger.info(f"Shutting down pool '{self.name}'...")  # type: ignore[name-defined]
-            self.state=PoolState.DRAINING
+            self.state = PoolState.DRAINING
 
         # Cancel background tasks
         if self._health_check_task:
@@ -451,10 +451,10 @@ class ConnectionPool(Generic[T]):
             self._cleanup_task.cancel()
 
         # Wait for active connections to return
-        _start=time.time()
+        _start = time.time()
         while time.time() - start < grace_period_seconds:  # type: ignore[name-defined]
             async with self._lock:
-                active=sum(
+                active = sum(
                     1 for c in self._connections if c.state == ConnectionState.IN_USE
                 )
                 if active == 0:
@@ -466,28 +466,28 @@ class ConnectionPool(Generic[T]):
             for conn in self._connections:
                 try:
                     await self.factory.close(conn.connection)
-                    conn.state=ConnectionState.CLOSED
+                    conn.state = ConnectionState.CLOSED
                 except Exception as e:
                     logger.warning(f"Error closing connection: {e}")  # type: ignore[name-defined]
 
             self._connections.clear()
-            self.state=PoolState.CLOSED
+            self.state = PoolState.CLOSED
 
         logger.info(f"Pool '{self.name}' shutdown complete")  # type: ignore[name-defined]
 
     async def _warmup(self) -> None:
         """Warm up the pool with initial connections."""
-        target=self.config.min_connections
-        batch_size=self.config.warmup_batch_size
+        target = self.config.min_connections
+        batch_size = self.config.warmup_batch_size
 
         logger.debug(f"Warming up {target} connections...")  # type: ignore[name-defined]
 
         for i in range(0, target, batch_size):
-            tasks=[]
+            tasks = []
             for j in range(min(batch_size, target - i)):
                 tasks.append(self._create_connection())
 
-            _results=await asyncio.gather(*tasks, return_exceptions=True)
+            _results = await asyncio.gather(*tasks, return_exceptions = True)
 
             for result in results:  # type: ignore[name-defined]
                 if isinstance(result, Exception):
@@ -505,7 +505,7 @@ class ConnectionPool(Generic[T]):
         Yields:
             Connection instance
         """
-        _connection=await self._borrow()
+        _connection = await self._borrow()
         try:
             yield connection.connection  # type: ignore[name-defined]
         finally:
@@ -513,7 +513,7 @@ class ConnectionPool(Generic[T]):
 
     async def _borrow(self) -> PooledConnection[T]:
         """Borrow a connection from the pool."""
-        _start=time.time()
+        _start = time.time()
 
         # Check circuit breaker
         if self._is_circuit_open():
@@ -536,16 +536,16 @@ class ConnectionPool(Generic[T]):
 
             # Create new connection if room
             if len(self._connections) < self.config.max_connections:
-                _conn=await self._create_connection()
+                _conn = await self._create_connection()
                 conn.mark_borrowed()
                 self.metrics.borrow_count += 1
                 self._update_borrow_timing(start)  # type: ignore[name-defined]
                 return conn
 
         # Wait for a connection
-        timeout=self.config.connection_timeout_seconds
+        timeout = self.config.connection_timeout_seconds
         try:
-            _conn=await asyncio.wait_for(self._wait_for_connection(), timeout=timeout)
+            _conn = await asyncio.wait_for(self._wait_for_connection(), timeout = timeout)
             conn.mark_borrowed()
             self.metrics.borrow_count += 1
             self._update_borrow_timing(start)  # type: ignore[name-defined]
@@ -584,12 +584,12 @@ class ConnectionPool(Generic[T]):
         import uuid
 
         try:
-            raw_connection=await asyncio.wait_for(
-                self.factory.create(), timeout=self.config.connection_timeout_seconds
+            raw_connection = await asyncio.wait_for(
+                self.factory.create(), timeout = self.config.connection_timeout_seconds
             )
 
-            connection=PooledConnection(  # type: ignore[call-arg, var-annotated]
-                _connection=raw_connection, connection_id=str(uuid.uuid4())[:8]
+            connection = PooledConnection(  # type: ignore[call-arg, var-annotated]
+                _connection = raw_connection, connection_id = str(uuid.uuid4())[:8]
             )
 
             async with self._lock:
@@ -607,19 +607,19 @@ class ConnectionPool(Generic[T]):
 
     async def _validate_connection(self, connection: PooledConnection[T]) -> bool:
         """Validate a connection is healthy."""
-        connection.state=ConnectionState.VALIDATING
+        connection.state = ConnectionState.VALIDATING
         connection.metrics.times_validated += 1
 
         try:
-            valid=await asyncio.wait_for(  # type: ignore[call-arg]
+            valid = await asyncio.wait_for(  # type: ignore[call-arg]
                 self.factory.validate(connection.connection),
-                _timeout=self.config.validation_query_timeout_seconds,
+                _timeout = self.config.validation_query_timeout_seconds,
             )
 
             if valid:
-                connection.metrics.last_validated_at=datetime.now(timezone.utc)
+                connection.metrics.last_validated_at = datetime.now(timezone.utc)
                 self.metrics.health_checks_passed += 1
-                connection.state=ConnectionState.IDLE
+                connection.state = ConnectionState.IDLE
                 return True
             else:
                 connection.metrics.validation_failures += 1
@@ -634,7 +634,7 @@ class ConnectionPool(Generic[T]):
 
     async def _recycle_connection(self, connection: PooledConnection[T]) -> None:
         """Recycle a connection by closing and removing it."""
-        connection.state=ConnectionState.RECYCLING
+        connection.state = ConnectionState.RECYCLING
 
         try:
             await self.factory.close(connection.connection)
@@ -723,7 +723,7 @@ class ConnectionPool(Generic[T]):
                 return True
             else:
             # Reset for half-open test
-                self._circuit_open_until=None
+                self._circuit_open_until = None
 
         return False
 
@@ -732,8 +732,8 @@ class ConnectionPool(Generic[T]):
         self._consecutive_failures += 1
 
         if self._consecutive_failures >= self.config.failure_threshold:
-            self._circuit_open_until=datetime.now(timezone.utc) + timedelta(  # type: ignore[call-arg]
-                _seconds=self.config.recovery_timeout_seconds
+            self._circuit_open_until = datetime.now(timezone.utc) + timedelta(  # type: ignore[call-arg]
+                _seconds = self.config.recovery_timeout_seconds
             )
             logger.warning(  # type: ignore[name-defined]
                 f"Pool '{self.name}' circuit breaker opened "
@@ -744,8 +744,8 @@ class ConnectionPool(Generic[T]):
         """Reset circuit breaker on success."""
         if self._consecutive_failures > 0:
             logger.info(f"Pool '{self.name}' circuit breaker reset")  # type: ignore[name-defined]
-        self._consecutive_failures=0
-        self._circuit_open_until=None
+        self._consecutive_failures = 0
+        self._circuit_open_until = None
 
     # =========================================================================
     # Metrics
@@ -754,9 +754,9 @@ class ConnectionPool(Generic[T]):
     def _update_borrow_timing(self, start: float) -> None:
         """Update average borrow timing."""
         _duration=(time.time() - start) * 1000
-        count=self.metrics.borrow_count
+        count = self.metrics.borrow_count
         if count == 1:
-            self.metrics.avg_borrow_time_ms=duration  # type: ignore[name-defined]
+            self.metrics.avg_borrow_time_ms = duration  # type: ignore[name-defined]
         else:
             self.metrics.avg_borrow_time_ms=(
                 self.metrics.avg_borrow_time_ms * (count - 1) + duration  # type: ignore[name-defined]
@@ -764,18 +764,18 @@ class ConnectionPool(Generic[T]):
 
     def get_metrics(self) -> PoolMetrics:
         """Get current pool metrics."""
-        self.metrics.total_connections=len(self._connections)
-        self.metrics.active_connections=sum(
+        self.metrics.total_connections = len(self._connections)
+        self.metrics.active_connections = sum(
             1 for c in self._connections if c.state == ConnectionState.IN_USE
         )
-        self.metrics.idle_connections=sum(
+        self.metrics.idle_connections = sum(
             1 for c in self._connections if c.state == ConnectionState.IDLE
         )
 
         # Calculate average age
         if self._connections:
-            _total_age=sum(c.metrics.age_seconds for c in self._connections)
-            self.metrics.avg_connection_age_seconds=total_age / len(self._connections)  # type: ignore[name-defined]
+            _total_age = sum(c.metrics.age_seconds for c in self._connections)
+            self.metrics.avg_connection_age_seconds = total_age / len(self._connections)  # type: ignore[name-defined]
 
         return self.metrics
 
@@ -800,7 +800,7 @@ class PoolManager:
 
     def __new__(cls) -> "PoolManager":
         if cls._instance is None:
-            cls._instance=super().__new__(cls)
+            cls._instance = super().__new__(cls)
         return cls._instance
 
     @classmethod
@@ -834,8 +834,8 @@ class PoolManager:
 
 
 async def create_redis_pool(
-    url: str="redis://localhost:6379/0",
-    name: str="redis",
+    url: str = "redis://localhost:6379/0",
+    name: str = "redis",
     config: Optional[PoolConfig] = None,
 ) -> ConnectionPool[Any]:
     """
@@ -849,8 +849,8 @@ async def create_redis_pool(
     Returns:
         Initialized ConnectionPool
     """
-    _factory=RedisConnectionFactory(url=url)
-    _pool=ConnectionPool(factory, config or PoolConfig(), name=name)  # type: ignore[name-defined]
+    _factory = RedisConnectionFactory(url = url)
+    _pool = ConnectionPool(factory, config or PoolConfig(), name = name)  # type: ignore[name-defined]
     await pool.initialize()  # type: ignore[name-defined]
     PoolManager.register_pool(name, pool)  # type: ignore[name-defined]
     return pool  # type: ignore[name-defined]
@@ -862,24 +862,24 @@ async def create_redis_pool(
 
 if _name__== "__main__":  # type: ignore[name-defined]
 
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG)
 
     async def main() -> None:
     # Create pool
-        _pool=await create_redis_pool(  # type: ignore[call-arg]
-            _url="redis://localhost:6379/0",
-            _name="test-redis",
-            _config=PoolConfig(  # type: ignore[call-arg]
-                _min_connections=2,
-                _max_connections=10,
-                _health_check_interval_seconds=10.0,
+        _pool = await create_redis_pool(  # type: ignore[call-arg]
+            _url = "redis://localhost:6379/0",
+            _name = "test-redis",
+            _config = PoolConfig(  # type: ignore[call-arg]
+                _min_connections = 2,
+                _max_connections = 10,
+                _health_check_interval_seconds = 10.0,
             ),
         )
 
         # Use pool
         async with pool.acquire() as conn:  # type: ignore[name-defined]
             await conn.set("test_key", "test_value")
-            _value=await conn.get("test_key")
+            _value = await conn.get("test_key")
             print(f"Got value: {value}")  # type: ignore[name-defined]
 
         # Get status

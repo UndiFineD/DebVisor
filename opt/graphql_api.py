@@ -32,7 +32,7 @@ from dataclasses import asdict, dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -66,7 +66,7 @@ class GraphQLError:
 
     message: str
     code: str
-    extensions: Dict[str, Any] = field(default_factory=dict)
+    extensions: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -74,8 +74,8 @@ class GraphQLResponse:
     """GraphQL response structure."""
 
     data: Optional[Dict[str, Any]] = None
-    errors: List[GraphQLError] = field(default_factory=list)
-    extensions: Dict[str, Any] = field(default_factory=dict)
+    errors: List[GraphQLError] = field(default_factory = list)
+    extensions: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -93,8 +93,8 @@ class QueryContext:
 class DataLoaderCache:
     """Cache for batched data loading."""
 
-    cache: Dict[str, Any] = field(default_factory=dict)
-    pending_keys: Set[str] = field(default_factory=set)
+    cache: Dict[str, Any] = field(default_factory = dict)
+    pending_keys: Set[str] = field(default_factory = set)
     batch_size: int = 100
 
 
@@ -543,26 +543,26 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                context = QueryContext(user_id="anonymous", cluster="default")
+                context = QueryContext(user_id = "anonymous", cluster = "default")
 
             # Parse and validate query
             query_obj = self._parse_query(query)
             if not query_obj:
                 return GraphQLResponse(
-                    errors=[
-                        GraphQLError(message="Invalid query syntax", code="PARSE_ERROR")
+                    errors = [
+                        GraphQLError(message = "Invalid query syntax", code = "PARSE_ERROR")
                     ]
                 )
 
             # Execute query
             data = await self._execute_query(query_obj, variables, context)
 
-            return GraphQLResponse(data=data)
+            return GraphQLResponse(data = data)
 
         except Exception as e:
-            logger.error(f"Query resolution error: {e}", exc_info=True)
+            logger.error(f"Query resolution error: {e}", exc_info = True)
             return GraphQLResponse(
-                errors=[GraphQLError(message="Query execution failed", code="EXECUTION_ERROR")]
+                errors = [GraphQLError(message = "Query execution failed", code = "EXECUTION_ERROR")]
             )
 
     def _parse_query(self, query: str) -> Optional[Dict[str, Any]]:
@@ -629,15 +629,15 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                context = QueryContext(user_id="anonymous", cluster="default")
+                context = QueryContext(user_id = "anonymous", cluster = "default")
 
             # Parse and validate mutation
             mutation_obj = self._parse_query(mutation)
             if not mutation_obj:
                 return GraphQLResponse(
-                    errors=[
+                    errors = [
                         GraphQLError(
-                            message="Invalid mutation syntax", code="PARSE_ERROR"
+                            message = "Invalid mutation syntax", code = "PARSE_ERROR"
                         )
                     ]
                 )
@@ -645,12 +645,12 @@ class GraphQLResolver:
             # Execute mutation
             data = await self._execute_mutation(mutation_obj, variables, context)
 
-            return GraphQLResponse(data=data)
+            return GraphQLResponse(data = data)
 
         except Exception as e:
-            logger.error(f"Mutation resolution error: {e}", exc_info=True)
+            logger.error(f"Mutation resolution error: {e}", exc_info = True)
             return GraphQLResponse(
-                errors=[GraphQLError(message="Mutation execution failed", code="EXECUTION_ERROR")]
+                errors = [GraphQLError(message = "Mutation execution failed", code = "EXECUTION_ERROR")]
             )
 
     async def _execute_mutation(
@@ -712,11 +712,11 @@ class GraphQLServer:
         context_data = body.get("context", {})
 
         context = QueryContext(
-            user_id=context_data.get("user_id", "anonymous"),
-            cluster=context_data.get("cluster", "default"),
-            namespace=context_data.get("namespace"),
-            timeout_seconds=context_data.get("timeout_seconds", 30),
-            enable_cache=context_data.get("enable_cache", True),
+            user_id = context_data.get("user_id", "anonymous"),
+            cluster = context_data.get("cluster", "default"),
+            namespace = context_data.get("namespace"),
+            timeout_seconds = context_data.get("timeout_seconds", 30),
+            enable_cache = context_data.get("enable_cache", True),
         )
 
         if query:
@@ -727,9 +727,9 @@ class GraphQLServer:
             )
         else:
             response = GraphQLResponse(
-                errors=[
+                errors = [
                     GraphQLError(
-                        message="No query or mutation provided", code="INVALID_REQUEST"
+                        message = "No query or mutation provided", code = "INVALID_REQUEST"
                     )
                 ]
             )
@@ -772,7 +772,7 @@ class GraphQLServer:
             Subscription ID
         """
         if not context:
-            context = QueryContext(user_id="anonymous", cluster="default")
+            context = QueryContext(user_id = "anonymous", cluster = "default")
 
         return await self.subscriptions.subscribe(
             subscription_name, variables or {}, context
@@ -855,11 +855,11 @@ class SubscriptionManager:
 
         async with self._lock:
             subscription = Subscription(
-                id=subscription_id,
-                name=subscription_name,
-                variables=variables,
-                context=context,
-                created_at=datetime.now(timezone.utc),
+                id = subscription_id,
+                name = subscription_name,
+                variables = variables,
+                context = context,
+                created_at = datetime.now(timezone.utc),
             )
 
             self._subscriptions[subscription_id] = subscription
@@ -870,7 +870,7 @@ class SubscriptionManager:
             self._topic_subscribers[subscription_name].add(subscription_id)
 
             # Create event queue
-            self._event_queues[subscription_id] = asyncio.Queue(maxsize=100)
+            self._event_queues[subscription_id] = asyncio.Queue(maxsize = 100)
 
             logger.info(
                 f"Created subscription: {subscription_id} for {subscription_name}"
@@ -957,7 +957,7 @@ class SubscriptionManager:
             return None
 
         try:
-            return await asyncio.wait_for(queue.get(), timeout=timeout)
+            return await asyncio.wait_for(queue.get(), timeout = timeout)
         except asyncio.TimeoutError:
             return None
 
@@ -977,7 +977,7 @@ class SubscriptionManager:
 
         while subscription_id in self._subscriptions:
             try:
-                event = await asyncio.wait_for(queue.get(), timeout=60.0)
+                event = await asyncio.wait_for(queue.get(), timeout = 60.0)
                 yield event
             except asyncio.TimeoutError:
                 # Send keepalive
@@ -1027,7 +1027,7 @@ if __name__ == "__main__":
 
         response = await server.handle_request(query_request)
         print("Query Response:")
-        print(json.dumps(response, indent=2))
+        print(json.dumps(response, indent = 2))
 
         # Example mutation
         mutation_request = {
@@ -1041,7 +1041,7 @@ if __name__ == "__main__":
 
         response = await server.handle_request(mutation_request)
         print("\nMutation Response:")
-        print(json.dumps(response, indent=2))
+        print(json.dumps(response, indent = 2))
 
         # Schema introspection
         introspection = server.get_schema_introspection()

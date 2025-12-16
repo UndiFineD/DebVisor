@@ -8,8 +8,8 @@ agent_dir = r'c:\Users\kdejo\DEV\DebVisor\scripts\agent'
 
 # Get all F821 issues
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True, text=True, cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True, text = True, cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 # Map of common undefined names to their imports
@@ -54,7 +54,7 @@ for filename, undefined_names in undefined_by_file.items():
     if not os.path.exists(filepath):
         continue
     
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     # Find existing typing import
@@ -102,7 +102,7 @@ for filename, undefined_names in undefined_by_file.items():
         lines.insert(insert_pos, import_statement)
         fixed += len(to_add)
     
-    with open(filepath, 'w', encoding='utf-8') as f:
+    with open(filepath, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
 
 print(f"F821 undefined names fixed (typing imports): {fixed}")

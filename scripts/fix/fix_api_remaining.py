@@ -22,8 +22,8 @@ for line in lines:
         # But this is tricky with regex...
         
         # For now, fix specific patterns we know about
-        line = line.replace('key_obj=', 'key_obj = ')
-        line = line.replace('log_entry=', 'log_entry = ')
+        line = line.replace('key_obj = ', 'key_obj = ')
+        line = line.replace('log_entry = ', 'log_entry = ')
         
         # Fix keyword argument spacing in function calls (remove spaces)
         # Pattern: (\w+) = (.*?)(,|\)) should become \1=\2\3
@@ -33,17 +33,17 @@ for line in lines:
             line = re.sub(r'(\w+) = ([\w\'"_.-]+)(,|\))', r'\1=\2\3', line)
         
         # Fix underscore prefixes on keyword arguments
-        line = line.replace('_created_at=', 'created_at=')
-        line = line.replace('_expires_at=', 'expires_at=')
-        line = line.replace('_last_used_at=', 'last_used_at=')
-        line = line.replace('_use_count=', 'use_count=')
-        line = line.replace('_status=', 'status=')
-        line = line.replace('_description=', 'description=')
-        line = line.replace('_principal_id=', 'principal_id=')
-        line = line.replace('_key_id=', 'key_id=')
-        line = line.replace('_key_hash=', 'key_hash=')
-        line = line.replace('_event=', 'event=')
-        line = line.replace('_details=', 'details=')
+        line = line.replace('_created_at = ', 'created_at = ')
+        line = line.replace('_expires_at = ', 'expires_at = ')
+        line = line.replace('_last_used_at = ', 'last_used_at = ')
+        line = line.replace('_use_count = ', 'use_count = ')
+        line = line.replace('_status = ', 'status = ')
+        line = line.replace('_description = ', 'description = ')
+        line = line.replace('_principal_id = ', 'principal_id = ')
+        line = line.replace('_key_id = ', 'key_id = ')
+        line = line.replace('_key_hash = ', 'key_hash = ')
+        line = line.replace('_event = ', 'event = ')
+        line = line.replace('_details = ', 'details = ')
     
     result_lines.append(line)
 

@@ -107,7 +107,7 @@ import logging
 from typing import Dict, Callable, Any
 from opt.services.security.ssh_hardening import SSHHardeningManager
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class RemediationManager:
@@ -117,7 +117,7 @@ class RemediationManager:
             "disable_ssh_root_login": self._remediate_ssh_root_login,
             # Add more remediators here
         }
-        self.ssh_manager=SSHHardeningManager()
+        self.ssh_manager = SSHHardeningManager()
 
     def remediate(self, functionname: str, resourceid: str) -> bool:
         """Execute a remediation function."""
@@ -127,7 +127,7 @@ class RemediationManager:
 
         try:
             logger.info(f"Starting remediation: {function_name} for {resource_id}")  # type: ignore[name-defined]
-            _result=self._remediators[function_name](resource_id)  # type: ignore[name-defined]
+            _result = self._remediators[function_name](resource_id)  # type: ignore[name-defined]
             if result:  # type: ignore[name-defined]
                 logger.info(f"Remediation successful: {function_name}")  # type: ignore[name-defined]
             else:

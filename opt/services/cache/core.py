@@ -116,7 +116,7 @@ import pickle    # nosec B403
 from abc import ABC, abstractmethod
 from typing import Any
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class CacheBackend(ABC):
@@ -147,8 +147,8 @@ class InMemoryCache(CacheBackend):
     """Simple in-memory cache for development/fallback."""
 
     def __init__(self) -> None:
-        self._store={}  # type: ignore[var-annotated]
-        self._expiry={}  # type: ignore[var-annotated]
+        self._store = {}  # type: ignore[var-annotated]
+        self._expiry = {}  # type: ignore[var-annotated]
 
     async def get(self, key: str) -> Any:
         if key in self._expiry:
@@ -182,26 +182,26 @@ class RedisCache(CacheBackend):
 
     def __init__(
         self,
-        host: str="localhost",
-        port: int=6379,
-        db: int=0,
-        password: str | None=None,
+        host: str = "localhost",
+        port: int = 6379,
+        db: int = 0,
+        password: str | None = None,
     ) -> None:
         try:
 
-            self.redis=redis.asyncio.Redis(  # type: ignore[call-overload]
-                _host=host, port=port, db=db, password=password, decode_responses=False
+            self.redis = redis.asyncio.Redis(  # type: ignore[call-overload]
+                _host = host, port = port, db = db, password = password, decode_responses = False
             )
-            self.enabled=True
+            self.enabled = True
         except ImportError:
             logger.warning("redis-py not installed, falling back to in-memory cache")  # type: ignore[name-defined]
-            self.enabled=False
+            self.enabled = False
 
     async def get(self, key: str) -> Any:
         if not self.enabled:
             return None
         try:
-            _data=await self.redis.get(key)
+            _data = await self.redis.get(key)
             if data:  # type: ignore[name-defined]
                 return pickle.loads(data)    # nosec B301  # type: ignore[name-defined]
             return None
@@ -213,7 +213,7 @@ class RedisCache(CacheBackend):
         if not self.enabled:
             return False
         try:
-            _data=pickle.dumps(value)
+            _data = pickle.dumps(value)
             return await self.redis.setex(key, ttl, data)  # type: ignore[name-defined]
         except Exception as e:
             logger.error(f"Redis set error: {e}")  # type: ignore[name-defined]
@@ -243,11 +243,11 @@ class CacheManager:
 
     def __init__(self, backend: str="memory", **kwargs: Any) -> None:
         if backend == "redis":
-            self.backend: CacheBackend=RedisCache(**kwargs)
+            self.backend: CacheBackend = RedisCache(**kwargs)
             if not getattr(self.backend, "enabled", False):
-                self.backend=InMemoryCache()
+                self.backend = InMemoryCache()
         else:
-            self.backend=InMemoryCache()
+            self.backend = InMemoryCache()
 
     async def get(self, key: str) -> Any:
         return await self.backend.get(key)
@@ -263,4 +263,4 @@ class CacheManager:
 
 
 # Global instance
-_cache=CacheManager()
+_cache = CacheManager()

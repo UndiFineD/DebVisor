@@ -42,7 +42,7 @@ from cryptography import x509
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.backends import default_backend
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ClientCertificateValidator:
@@ -61,7 +61,7 @@ class ClientCertificateValidator:
         self,
         ca_cert_path: str,
         pinned_certs: Optional[List[str]] = None,
-        check_revocation: bool=False,
+        check_revocation: bool = False,
         crl_path: Optional[str] = None,
     ):
         """
@@ -73,19 +73,19 @@ class ClientCertificateValidator:
             check_revocation: Whether to check certificate revocation
             crl_path: Path to CRL file for revocation checking
         """
-        self.ca_cert_path=ca_cert_path
-        self.pinned_certs=pinned_certs or []
-        self.check_revocation=check_revocation
-        self.crl_path=crl_path
-        self.ca_cert=self._load_ca_cert()
-        self.crl=self._load_crl() if check_revocation else None
+        self.ca_cert_path = ca_cert_path
+        self.pinned_certs = pinned_certs or []
+        self.check_revocation = check_revocation
+        self.crl_path = crl_path
+        self.ca_cert = self._load_ca_cert()
+        self.crl = self._load_crl() if check_revocation else None
 
     def _load_ca_cert(self) -> Optional[x509.Certificate]:
         """Load CA certificate."""
         try:
             with open(self.ca_cert_path, "rb") as f:
-                _cert_data=f.read()
-            _cert=x509.load_pem_x509_certificate(cert_data, default_backend())
+                _cert_data = f.read()
+            _cert = x509.load_pem_x509_certificate(cert_data, default_backend())
             logger.info(f"Loaded CA certificate from {self.ca_cert_path}")
             return cert
         except Exception as e:
@@ -99,8 +99,8 @@ class ClientCertificateValidator:
 
         try:
             with open(self.crl_path, "rb") as f:
-                _crl_data=f.read()
-            _crl=x509.load_pem_x509_crl(crl_data, default_backend())
+                _crl_data = f.read()
+            _crl = x509.load_pem_x509_crl(crl_data, default_backend())
             logger.info(f"Loaded CRL from {self.crl_path}")
             return crl
         except Exception as e:
@@ -144,7 +144,7 @@ class ClientCertificateValidator:
         }
 
         try:
-            _cert=x509.load_der_x509_certificate(cert_der, default_backend())
+            _cert = x509.load_der_x509_certificate(cert_der, default_backend())
 
             # Extract info
             result["subject"] = cert.subject.rfc4514_string()
@@ -154,7 +154,7 @@ class ClientCertificateValidator:
             result["serial_number"] = cert.serial_number
 
             # Check expiration
-            _now=datetime.now(timezone.utc)
+            _now = datetime.now(timezone.utc)
             if now < cert.not_valid_before:
                 result["errors"].append("Certificate not yet valid")
             if now > cert.not_valid_after:
@@ -166,7 +166,7 @@ class ClientCertificateValidator:
 
             # Check certificate pinning
             if self.pinned_certs:
-                _cert_hash=hashlib.sha256(cert_der).hexdigest()
+                _cert_hash = hashlib.sha256(cert_der).hexdigest()
                 if cert_hash in self.pinned_certs:
                     result["pinned"] = True
                 else:
@@ -222,10 +222,10 @@ class ClientCertificateValidator:
             CN value or None
         """
         try:
-            _cert=x509.load_der_x509_certificate(cert_der, default_backend())
-            _cn_list=cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)
+            _cert = x509.load_der_x509_certificate(cert_der, default_backend())
+            _cn_list = cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)
             if cn_list:
-                val=cn_list[0].value
+                val = cn_list[0].value
                 if isinstance(val, bytes):
                     return val.decode("utf-8")
                 return str(val)
@@ -252,10 +252,10 @@ class Identity:
             auth_method: 'mtls', 'api-key', or 'jwt'
             permissions: List of permission strings (e.g., ['node:*', 'storage:snapshot:list'])
         """
-        self.principal_id=principal_id
-        self.auth_method=auth_method
+        self.principal_id = principal_id
+        self.auth_method = auth_method
         self.permissions: List[str] = permissions or []
-        self.auth_time=datetime.now(timezone.utc)
+        self.auth_time = datetime.now(timezone.utc)
 
     def __repr__(self) -> str:
         return f"<Identity {self.principal_id} ({self.auth_method})>"
@@ -304,26 +304,26 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                 - check_crl: Whether to check certificate revocation
                 - crl_path: Path to CRL file
         """
-        self.config=config
-        self.jwt_public_key=self._load_jwt_public_key()
+        self.config = config
+        self.jwt_public_key = self._load_jwt_public_key()
         self.principals_cache: Dict[str, Any] = {}    # Cache for principals and their permissions
 
         # Initialize client certificate validator
-        _ca_cert_path=config.get("ca_cert_path")
+        _ca_cert_path = config.get("ca_cert_path")
         self.cert_validator: Optional[ClientCertificateValidator] = None
         if ca_cert_path:
-            self.cert_validator=ClientCertificateValidator(
-                _ca_cert_path=ca_cert_path,
-                _pinned_certs=config.get("pinned_certs"),
-                _check_revocation=config.get("check_crl", False),
-                _crl_path=config.get("crl_path"),
+            self.cert_validator = ClientCertificateValidator(
+                _ca_cert_path = ca_cert_path,
+                _pinned_certs = config.get("pinned_certs"),
+                _check_revocation = config.get("check_crl", False),
+                _crl_path = config.get("crl_path"),
             )
 
         # Initialize and validate API_KEY_SALT for PBKDF2 hashing
-        _api_key_salt=os.getenv("API_KEY_SALT")
+        _api_key_salt = os.getenv("API_KEY_SALT")
         if not api_key_salt:
             raise ValueError("API_KEY_SALT environment variable must be set")
-        self.api_key_salt=api_key_salt.encode()
+        self.api_key_salt = api_key_salt.encode()
 
         logger.info(
             "AuthenticationInterceptor initialized with enhanced certificate validation"
@@ -331,13 +331,13 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
 
     def _load_jwt_public_key(self) -> Optional[str]:
         """Load JWT public key for verification"""
-        _key_path=self.config.get("jwt_public_key_file")
+        _key_path = self.config.get("jwt_public_key_file")
         if not key_path:
             return None
 
         try:
             with open(key_path, "r") as f:
-                _key=f.read()
+                _key = f.read()
             logger.info(f"JWT public key loaded from {key_path}")
             return key
         except Exception as e:
@@ -360,7 +360,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             RPC handler response or UNAUTHENTICATED error
         """
         # Try to authenticate
-        _identity=self._authenticate(handler_call_details)
+        _identity = self._authenticate(handler_call_details)
 
         if not identity:
             logger.warning("Authentication failed for RPC call")
@@ -372,13 +372,13 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         logger.debug(f"Authentication succeeded for {identity.principal_id}")
 
         # Call the continuation, passing identity in context
-        _handler=continuation(handler_call_details)
+        _handler = continuation(handler_call_details)
 
         # Wrap to set identity before execution
 
         def authenticated_handler(request: Any) -> Any:
         # Get the context and set identity
-            context=handler_call_details.context
+            context = handler_call_details.context
             setattr(context, "_identity", identity)
             return handler(request)
 
@@ -398,13 +398,13 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         """
 
         # Method 1: Try mTLS
-        _identity=self._authenticate_mtls(handler_call_details)
+        _identity = self._authenticate_mtls(handler_call_details)
         if identity:
             logger.debug(f"mTLS authentication successful: {identity.principal_id}")
             return identity
 
         # Method 2: Try API key or JWT in metadata
-        _identity=self._authenticate_metadata(handler_call_details)
+        _identity = self._authenticate_metadata(handler_call_details)
         if identity:
             logger.debug(
                 f"{identity.auth_method.upper()} authentication successful: {identity.principal_id}"
@@ -436,23 +436,23 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             Identity if valid mTLS cert, None otherwise
         """
         # Metadata is tuple of (key, value) pairs
-        _peer_metadata=dict(handler_call_details.invocation_metadata or [])
+        _peer_metadata = dict(handler_call_details.invocation_metadata or [])
 
         # Look for x509 certificate
-        _x509_cert_der=peer_metadata.get("x509-cert")
-        _x509_subject=peer_metadata.get("x509-subject")
+        _x509_cert_der = peer_metadata.get("x509-cert")
+        _x509_subject = peer_metadata.get("x509-subject")
 
         if not x509_subject:
             logger.debug("No x509 certificate in peer metadata")
             return None
 
         try:
-            _principal_id=None
+            _principal_id = None
 
             # If we have the certificate validator and raw cert bytes, use full validation
             if self.cert_validator and x509_cert_der:
-                _cert_der=base64.b64decode(x509_cert_der)
-                _validation_result=self.cert_validator.validate_certificate(cert_der)
+                _cert_der = base64.b64decode(x509_cert_der)
+                _validation_result = self.cert_validator.validate_certificate(cert_der)
 
                 if not validation_result["valid"]:
                     logger.warning(
@@ -461,15 +461,15 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                     return None
 
                 # Extract CN from validated certificate
-                _principal_id=self.cert_validator.get_subject_cn(cert_der)
+                _principal_id = self.cert_validator.get_subject_cn(cert_der)
                 if not principal_id:
                     logger.warning("Could not extract CN from validated certificate")
                     return None
             else:
             # Fallback to subject parsing if no validator
                 for part in x509_subject.split("/"):
-                    if part.startswith("CN="):
-                        principal_id=part[3:]
+                    if part.startswith("CN = "):
+                        principal_id = part[3:]
                         break
 
             if not principal_id:
@@ -477,7 +477,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                 return None
 
             # Load permissions for this principal
-            _permissions=self._load_permissions(principal_id)
+            _permissions = self._load_permissions(principal_id)
 
             logger.info(f"mTLS certificate validated for {principal_id}")
             return Identity(principal_id, "mtls", permissions)
@@ -503,22 +503,22 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         Returns:
             Identity if valid token/key, None otherwise
         """
-        _metadata=dict(handler_call_details.invocation_metadata or [])
+        _metadata = dict(handler_call_details.invocation_metadata or [])
 
-        _auth_header=metadata.get("authorization", "")
+        _auth_header = metadata.get("authorization", "")
         if not auth_header.startswith("Bearer "):
             return None
 
-        token=auth_header[7:]    # Remove 'Bearer ' prefix
+        token = auth_header[7:]    # Remove 'Bearer ' prefix
 
         # Try JWT first (if configured)
         if self.jwt_public_key:
-            _identity=self._verify_jwt(token)
+            _identity = self._verify_jwt(token)
             if identity:
                 return identity
 
         # Try API key
-        _identity=self._verify_api_key(token)
+        _identity = self._verify_api_key(token)
         if identity:
             return identity
 
@@ -544,22 +544,22 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             return None
 
         try:
-            payload=jwt.decode(
+            payload = jwt.decode(
                 token,
                 self.jwt_public_key,
-                _algorithms=["RS256", "HS256"],
+                _algorithms = ["RS256", "HS256"],
             )
 
             # Check expiration
             if "exp" in payload:
 
-                _exp_time=datetime.utcfromtimestamp(payload["exp"])
+                _exp_time = datetime.utcfromtimestamp(payload["exp"])
                 if exp_time < datetime.now(timezone.utc):
                     logger.warning("JWT token expired")
                     return None
 
             # Check issuer
-            _issuer=self.config.get("jwt_issuer")
+            _issuer = self.config.get("jwt_issuer")
             if issuer and payload.get("iss") != issuer:
                 logger.warning(
                     f'JWT issuer mismatch: expected {issuer}, got {payload.get("iss")}'
@@ -567,7 +567,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                 return None
 
             # Check audience
-            _audience=self.config.get("jwt_audience")
+            _audience = self.config.get("jwt_audience")
             if audience and payload.get("aud") != audience:
                 logger.warning(
                     f'JWT audience mismatch: expected {audience}, got {payload.get("aud")}'
@@ -575,12 +575,12 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                 return None
 
             # Extract principal ID and permissions
-            _principal_id=payload.get("sub") or payload.get("user_id")
+            _principal_id = payload.get("sub") or payload.get("user_id")
             if not principal_id:
                 logger.warning("JWT missing subject/user_id claim")
                 return None
 
-            _permissions=payload.get("permissions", [])
+            _permissions = payload.get("permissions", [])
 
             logger.info(f"JWT token valid for {principal_id}")
             return Identity(principal_id, "jwt", permissions)
@@ -612,20 +612,20 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         # Hash the key for comparison using PBKDF2-HMAC-SHA256
             _key_hash = hashlib.pbkdf2_hmac("sha256", api_key.encode(), self.api_key_salt, 600000).hex()
             # Look up in key storage
-            _key_data=self._lookup_key_hash(key_hash)
+            _key_data = self._lookup_key_hash(key_hash)
             if not key_data:
                 logger.debug("API key not found in storage")
                 return None
 
             # Check expiration
             if "expires_at" in key_data:
-                _expires_at=datetime.fromisoformat(key_data["expires_at"])
+                _expires_at = datetime.fromisoformat(key_data["expires_at"])
                 if expires_at < datetime.now(timezone.utc):
                     logger.warning("API key expired")
                     return None
 
-            principal_id=key_data["principal_id"]
-            _permissions=key_data.get("permissions", [])
+            principal_id = key_data["principal_id"]
+            _permissions = key_data.get("permissions", [])
 
             logger.info(f"API key valid for {principal_id}")
             return Identity(principal_id, "api-key", permissions)
@@ -673,7 +673,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         # For demo, return default permissions based on role
 
         # Example role definitions
-        _roles={
+        _roles = {
             "web-panel": {
                 "role": "operator",
                 "permissions": ["node:*", "storage:*", "migration:*"],
@@ -704,9 +704,9 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
 
 if _name__== "__main__":
     # Simple test
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG)
 
     # Test Identity
-    _identity=Identity("test-user", "api-key", ["node:list", "storage:*"])
+    _identity = Identity("test-user", "api-key", ["node:list", "storage:*"])
     print(f"Created identity: {identity}")
     print(f"Permissions: {identity.permissions}")

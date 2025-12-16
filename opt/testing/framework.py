@@ -123,28 +123,28 @@ try:
     from flask import Flask
     from flask.testing import FlaskClient
 except ImportError:
-    Flask=None  # type: ignore[assignment, misc]
-    FlaskClient=None  # type: ignore[assignment, misc]
+    Flask = None  # type: ignore[assignment, misc]
+    FlaskClient = None  # type: ignore[assignment, misc]
 
 # SQLAlchemy testing imports
 try:
     from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker, Session
 except ImportError:
-    _create_engine=None  # type: ignore[assignment, misc]
-    _sessionmaker=None  # type: ignore[assignment, misc]
-    Session=None  # type: ignore[assignment, misc]
+    _create_engine = None  # type: ignore[assignment, misc]
+    _sessionmaker = None  # type: ignore[assignment, misc]
+    Session = None  # type: ignore[assignment, misc]
 
 
 class TestConfig:
     """Test configuration."""
 
-    TESTING=True
-    DEBUG=True
-    SQLALCHEMY_DATABASE_URI="sqlite:///:memory:"
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
-    SECRET_KEY="test-secret-key"
-    PRESERVE_CONTEXT_ON_EXCEPTION=False
+    TESTING = True
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = "test-secret-key"
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
 
 
 @dataclass
@@ -159,17 +159,17 @@ class TestResponse:
     @classmethod
     def from_flask_response(cls, response) -> None:
         """Create from Flask response."""
-        json_data=None
+        json_data = None
         try:
-            _json_data=response.get_json()
+            _json_data = response.get_json()
         except Exception:
             pass
 
         return cls(
-            _status_code=response.status_code,
-            _data=response.data,
-            _json_data=json_data,
-            _headers=dict(response.headers),
+            _status_code = response.status_code,
+            _data = response.data,
+            _json_data = json_data,
+            _headers = dict(response.headers),
         )
 
     def assert_status(self, expected: int) -> None:
@@ -219,14 +219,14 @@ class FlaskTestClient:
         Args:
             app: Flask application instance
         """
-        self.app=app
-        self.client=app.test_client()
-        self.app_context=app.app_context()
+        self.app = app
+        self.client = app.test_client()
+        self.app_context = app.app_context()
         self.app_context.push()
 
     def get(self, path: str, **kwargs) -> TestResponse:
         """GET request."""
-        _response=self.client.get(path, **kwargs)
+        _response = self.client.get(path, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def post(
@@ -238,9 +238,9 @@ class FlaskTestClient:
     ) -> TestResponse:
         """POST request."""
         if json:
-            _response=self.client.post(path, json=json, **kwargs)
+            _response = self.client.post(path, json = json, **kwargs)
         else:
-            _response=self.client.post(path, data=data, **kwargs)
+            _response = self.client.post(path, data = data, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def put(
@@ -252,14 +252,14 @@ class FlaskTestClient:
     ) -> TestResponse:
         """PUT request."""
         if json:
-            _response=self.client.put(path, json=json, **kwargs)
+            _response = self.client.put(path, json = json, **kwargs)
         else:
-            _response=self.client.put(path, data=data, **kwargs)
+            _response = self.client.put(path, data = data, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def delete(self, path: str, **kwargs) -> TestResponse:
         """DELETE request."""
-        _response=self.client.delete(path, **kwargs)
+        _response = self.client.delete(path, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def cleanup(self) -> None:
@@ -324,11 +324,11 @@ class MockDatabase:
         if table_name not in self.data:
             return []
 
-        results=self.data[table_name]
+        results = self.data[table_name]
 
         # Apply filters
         for key, value in filters.items():
-            results=[r for r in results if r.get(key) == value]
+            results = [r for r in results if r.get(key) == value]
 
         return results
 
@@ -395,7 +395,7 @@ def flask_app() -> "Flask":
     if Flask is None:
         pytest.skip("Flask not installed")
 
-    _app=Flask(__name__)
+    _app = Flask(__name__)
     app.config.from_object(TestConfig)
     return app
 
@@ -423,8 +423,8 @@ class TestDataBuilder:
 
     @staticmethod
     def build_user(
-        user_id: str="test_user",
-        email: str="test@example.com",
+        user_id: str = "test_user",
+        email: str = "test@example.com",
         roles: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """Build user test data."""
@@ -437,10 +437,10 @@ class TestDataBuilder:
 
     @staticmethod
     def build_node(
-        node_id: str="node1",
-        status: str="online",
-        cpu_usage: float=50.0,
-        memory_usage: float=60.0,
+        node_id: str = "node1",
+        status: str = "online",
+        cpu_usage: float = 50.0,
+        memory_usage: float = 60.0,
     ) -> Dict[str, Any]:
         """Build node test data."""
         return {
@@ -453,9 +453,9 @@ class TestDataBuilder:
 
     @staticmethod
     def build_job(
-        job_id: str="job1",
-        status: str="running",
-        progress: int=50,
+        job_id: str = "job1",
+        status: str = "running",
+        progress: int = 50,
     ) -> Dict[str, Any]:
         """Build job test data."""
         return {
@@ -467,10 +467,10 @@ class TestDataBuilder:
 
     @staticmethod
     def build_alert(
-        alert_id: str="alert1",
-        alert_type: str="WARNING",
-        severity: str="warning",
-        message: str="Test alert",
+        alert_id: str = "alert1",
+        alert_type: str = "WARNING",
+        severity: str = "warning",
+        message: str = "Test alert",
     ) -> Dict[str, Any]:
         """Build alert test data."""
         return {
@@ -507,7 +507,7 @@ class PerformanceTester:
     def measure_execution_time(
         func,
         *args,
-        iterations: int=100,
+        iterations: int = 100,
         **kwargs,
     ) -> PerformanceMetrics:
         """
@@ -524,7 +524,7 @@ class PerformanceTester:
         """
         import time
 
-        _start=time.time()
+        _start = time.time()
 
         for _ in range(iterations):
             func(*args, **kwargs)
@@ -532,23 +532,23 @@ class PerformanceTester:
         _duration=(time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
-            _duration_ms=duration,
-            _memory_usage_mb=0,
-            _cpu_usage_percent=0,
-            _calls_made=iterations,
+            _duration_ms = duration,
+            _memory_usage_mb = 0,
+            _cpu_usage_percent = 0,
+            _calls_made = iterations,
         )
 
     @staticmethod
     async def measure_async_execution_time(
         func,
         *args,
-        iterations: int=100,
+        iterations: int = 100,
         **kwargs,
     ) -> PerformanceMetrics:
         """Measure async function execution time."""
         import time
 
-        _start=time.time()
+        _start = time.time()
 
         for _ in range(iterations):
             await func(*args, **kwargs)
@@ -556,10 +556,10 @@ class PerformanceTester:
         _duration=(time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
-            _duration_ms=duration,
-            _memory_usage_mb=0,
-            _cpu_usage_percent=0,
-            _calls_made=iterations,
+            _duration_ms = duration,
+            _memory_usage_mb = 0,
+            _cpu_usage_percent = 0,
+            _calls_made = iterations,
         )
 
 
@@ -573,7 +573,7 @@ class IntegrationTestHelper:
         Args:
             test_client: FlaskTestClient instance
         """
-        self.test_client=test_client
+        self.test_client = test_client
         self.created_resources: List[Tuple[str, str]] = []
 
     def track_resource(self, resourcetype: str, resourceid: str) -> None:
@@ -638,5 +638,5 @@ def mock_external_service(
     """Context manager for mocking external service."""
     with patch(f"opt.services.{service_name}") as mock_service:
         for method, response in mock_responses.items():
-            setattr(mock_service, method, Mock(return_value=response))
+            setattr(mock_service, method, Mock(return_value = response))
         yield mock_service

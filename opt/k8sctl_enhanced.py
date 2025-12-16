@@ -34,27 +34,27 @@ from enum import Enum
 from typing import List, Optional, Tuple, cast
 
 logging.basicConfig(  # type: ignore[call-arg]
-    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format = "%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class NodeStatus(Enum):
     """Kubernetes node status."""
 
-    READY="Ready"
-    NOTREADY="NotReady"
-    CORDONED="Cordoned"
+    READY = "Ready"
+    NOTREADY = "NotReady"
+    CORDONED = "Cordoned"
 
 
 class PodStatus(Enum):
     """Kubernetes pod status."""
 
-    RUNNING="Running"
-    PENDING="Pending"
-    FAILED="Failed"
-    SUCCEEDED="Succeeded"
-    TERMINATING="Terminating"
+    RUNNING = "Running"
+    PENDING = "Pending"
+    FAILED = "Failed"
+    SUCCEEDED = "Succeeded"
+    TERMINATING = "Terminating"
 
 
 @dataclass
@@ -145,9 +145,9 @@ class KubernetesCLI:
             dry_run: If True, don't execute commands
             verbose: If True, print verbose output
         """
-        self.cluster=cluster
-        self.dry_run=dry_run  # type: ignore[name-defined]
-        self.verbose=verbose
+        self.cluster = cluster
+        self.dry_run = dry_run  # type: ignore[name-defined]
+        self.verbose = verbose
 
     def execute_command(self, cmd: List[str]) -> Tuple[int, str, str]:
         """
@@ -167,8 +167,8 @@ class KubernetesCLI:
             return 0, "", ""
 
         try:
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, timeout=60
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, timeout = 60
             )    # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
@@ -187,57 +187,57 @@ class KubernetesCLI:
         """
         nodes: List[NodeInfo] = []
         try:
-            cmd=["kubectl", "get", "nodes", "-o", "json"]
+            cmd = ["kubectl", "get", "nodes", "-o", "json"]
             if self.cluster:
                 cmd.extend(["--context", self.cluster])
 
-            rc, stdout, stderr=self.execute_command(cmd)
+            rc, stdout, stderr = self.execute_command(cmd)
 
             if rc != 0:
                 logger.error(f"Failed to get nodes: {stderr}")  # type: ignore[name-defined]
                 return nodes
 
-            _data=json.loads(stdout)
+            _data = json.loads(stdout)
 
             for node in data.get("items", []):  # type: ignore[name-defined]
-                _metadata=node.get("metadata", {})
-                _status=node.get("status", {})
-                _spec=node.get("spec", {})
+                _metadata = node.get("metadata", {})
+                _status = node.get("status", {})
+                _spec = node.get("spec", {})
 
                 # Get pod count
-                _pod_cmd=[
+                _pod_cmd = [
                     "kubectl",
                     "get",
                     "pods",
                     "--all-namespaces",
-                    f"--field-selector=spec.nodeName={metadata.get('name')}",  # type: ignore[name-defined]
+                    f"--field-selector = spec.nodeName = {metadata.get('name')}",  # type: ignore[name-defined]
                     "-o",
                     "json",
                 ]
                 if self.cluster:
                     pod_cmd.extend(["--context", self.cluster])  # type: ignore[name-defined]
 
-                _, pods_json, _=self.execute_command(pod_cmd)  # type: ignore[name-defined]
-                pod_count=0
+                _, pods_json, _ = self.execute_command(pod_cmd)  # type: ignore[name-defined]
+                pod_count = 0
                 if pods_json:
-                    _pods_data=json.loads(pods_json)
-                    _pod_count=len(pods_data.get("items", []))  # type: ignore[name-defined]
+                    _pods_data = json.loads(pods_json)
+                    _pod_count = len(pods_data.get("items", []))  # type: ignore[name-defined]
 
                 nodes.append(
                     NodeInfo(  # type: ignore[call-arg]
-                        _name=metadata.get("name", "unknown"),  # type: ignore[name-defined]
-                        _status=spec.get("unschedulable", False)  # type: ignore[name-defined]
+                        _name = metadata.get("name", "unknown"),  # type: ignore[name-defined]
+                        _status = spec.get("unschedulable", False)  # type: ignore[name-defined]
                         and "Cordoned"
                         or "Ready",
-                        _cordoned=spec.get("unschedulable", False),  # type: ignore[name-defined]
-                        _cpu_capacity=status.get("capacity", {}).get("cpu", "N/A"),  # type: ignore[name-defined]
-                        _memory_capacity=status.get("capacity", {}).get("memory", "N/A"),  # type: ignore[name-defined]
-                        _allocatable_cpu=status.get("allocatable", {}).get("cpu", "N/A"),  # type: ignore[name-defined]
-                        _allocatable_memory=status.get("allocatable", {}).get(  # type: ignore[name-defined]
+                        _cordoned = spec.get("unschedulable", False),  # type: ignore[name-defined]
+                        _cpu_capacity = status.get("capacity", {}).get("cpu", "N/A"),  # type: ignore[name-defined]
+                        _memory_capacity = status.get("capacity", {}).get("memory", "N/A"),  # type: ignore[name-defined]
+                        _allocatable_cpu = status.get("allocatable", {}).get("cpu", "N/A"),  # type: ignore[name-defined]
+                        _allocatable_memory = status.get("allocatable", {}).get(  # type: ignore[name-defined]
                             "memory", "N/A"
                         ),
-                        _pod_count=pod_count,
-                        _timestamp=datetime.now(timezone.utc).isoformat(),
+                        _pod_count = pod_count,
+                        _timestamp = datetime.now(timezone.utc).isoformat(),
                     )
                 )
 
@@ -258,33 +258,33 @@ class KubernetesCLI:
         """
         try:
         # Get pods on node
-            _cmd=[
+            _cmd = [
                 "kubectl",
                 "get",
                 "pods",
                 "--all-namespaces",
-                f"--field-selector=spec.nodeName={node_name}",  # type: ignore[name-defined]
+                f"--field-selector = spec.nodeName = {node_name}",  # type: ignore[name-defined]
                 "-o",
                 "json",
             ]
             if self.cluster:
                 cmd.extend(["--context", self.cluster])  # type: ignore[name-defined]
 
-            rc, stdout, stderr=self.execute_command(cmd)  # type: ignore[name-defined]
+            rc, stdout, stderr = self.execute_command(cmd)  # type: ignore[name-defined]
 
             if rc != 0:
                 logger.error(f"Failed to get pods: {stderr}")  # type: ignore[name-defined]
                 return None
 
-            _data=json.loads(stdout)
-            _total_pods=len(data.get("items", []))  # type: ignore[name-defined]
+            _data = json.loads(stdout)
+            _total_pods = len(data.get("items", []))  # type: ignore[name-defined]
 
-            _critical_pods=[]  # type: ignore[var-annotated]
-            _evictable_pods=0
+            _critical_pods = []  # type: ignore[var-annotated]
+            _evictable_pods = 0
 
             for pod in data.get("items", []):  # type: ignore[name-defined]
-                _pod_name=pod.get("metadata", {}).get("name", "")
-                _namespace=pod.get("metadata", {}).get("namespace", "")
+                _pod_name = pod.get("metadata", {}).get("name", "")
+                _namespace = pod.get("metadata", {}).get("namespace", "")
 
                 # Check if pod has local storage or is critical
                 if pod.get("spec", {}).get("volumes"):
@@ -295,15 +295,15 @@ class KubernetesCLI:
                 else:
                     evictable_pods += 1  # type: ignore[name-defined]
 
-            _drain_steps=[
+            _drain_steps = [
                 f"Cordon node: kubectl cordon {node_name}",  # type: ignore[name-defined]
                 (
                     "Get pods to drain: kubectl get pods "
-                    f"--field-selector=spec.nodeName={node_name} -A"  # type: ignore[name-defined]
+                    f"--field-selector = spec.nodeName = {node_name} -A"  # type: ignore[name-defined]
                 ),
                 (
                     f"Drain pods (with 5min grace): kubectl drain {node_name} "  # type: ignore[name-defined]
-                    "--grace-period=300 --ignore-daemonsets"
+                    "--grace-period = 300 --ignore-daemonsets"
                 ),
                 "Verify all pods evicted",
                 "Perform node maintenance",
@@ -312,14 +312,14 @@ class KubernetesCLI:
             ]
 
             return NodeDrainPlan(  # type: ignore[call-arg]
-                _node_name=node_name,  # type: ignore[name-defined]
-                _cluster=self.cluster or "default",
-                _total_pods=total_pods,  # type: ignore[name-defined]
-                _evictable_pods=evictable_pods,  # type: ignore[name-defined]
-                _critical_pods=critical_pods,  # type: ignore[name-defined]
-                _drain_steps=drain_steps,  # type: ignore[name-defined]
-                _estimated_duration_minutes=max(5, len(critical_pods) * 2),  # type: ignore[name-defined]
-                _risk_assessment="Low for stateless workloads, verify storage before draining",
+                _node_name = node_name,  # type: ignore[name-defined]
+                _cluster = self.cluster or "default",
+                _total_pods = total_pods,  # type: ignore[name-defined]
+                _evictable_pods = evictable_pods,  # type: ignore[name-defined]
+                _critical_pods = critical_pods,  # type: ignore[name-defined]
+                _drain_steps = drain_steps,  # type: ignore[name-defined]
+                _estimated_duration_minutes = max(5, len(critical_pods) * 2),  # type: ignore[name-defined]
+                _risk_assessment = "Low for stateless workloads, verify storage before draining",
             )
 
         except Exception as e:
@@ -343,7 +343,7 @@ class KubernetesCLI:
         try:
         # Get workload type and definition
             for resource_type in ["deployment", "statefulset", "daemonset", "job"]:
-                _cmd=[
+                _cmd = [
                     "kubectl",
                     "get",
                     resource_type,
@@ -356,10 +356,10 @@ class KubernetesCLI:
                 if self.cluster:
                     cmd.extend(["--context", self.cluster])  # type: ignore[name-defined]
 
-                rc, stdout, stderr=self.execute_command(cmd)  # type: ignore[name-defined]
+                rc, stdout, stderr = self.execute_command(cmd)  # type: ignore[name-defined]
 
                 if rc == 0:
-                    _pre_steps=[
+                    _pre_steps = [
                         (
                             f"Verify workload exists: kubectl get {resource_type} "
                             f"{workload_name} -n {namespace}"
@@ -379,7 +379,7 @@ class KubernetesCLI:
                         "Check storage class compatibility",
                     ]
 
-                    _migration_steps=[
+                    _migration_steps = [
                         (
                             f"Export workload: kubectl get {resource_type} "
                             f"{workload_name} -n {namespace} -o yaml > workload.yaml"
@@ -397,7 +397,7 @@ class KubernetesCLI:
                         "Update DNS/service discovery",
                     ]
 
-                    _post_steps=[
+                    _post_steps = [
                         (
                             f"Verify all pods running: kubectl get pods -n {namespace} "
                             f"--context {target_cluster}"
@@ -412,16 +412,16 @@ class KubernetesCLI:
                     ]    # nosec B608
 
                     return WorkloadMigrationPlan(  # type: ignore[call-arg]
-                        _workload_name=workload_name,
-                        _workload_type=resource_type,
-                        _source_cluster=self.cluster or "default",
-                        _target_cluster=target_cluster,
-                        _pre_migration_steps=pre_steps,  # type: ignore[name-defined]
-                        _migration_steps=migration_steps,  # type: ignore[name-defined]
-                        _post_migration_steps=post_steps,  # type: ignore[name-defined]
-                        _estimated_duration_seconds=180,
-                        _risk_level="medium",
-                        _rollback_procedure="Re-apply workload from backup.yaml on source cluster",
+                        _workload_name = workload_name,
+                        _workload_type = resource_type,
+                        _source_cluster = self.cluster or "default",
+                        _target_cluster = target_cluster,
+                        _pre_migration_steps = pre_steps,  # type: ignore[name-defined]
+                        _migration_steps = migration_steps,  # type: ignore[name-defined]
+                        _post_migration_steps = post_steps,  # type: ignore[name-defined]
+                        _estimated_duration_seconds = 180,
+                        _risk_level = "medium",
+                        _rollback_procedure = "Re-apply workload from backup.yaml on source cluster",
                     )
 
             logger.error(f"Workload {workload_name} not found in any resource type")  # type: ignore[name-defined]
@@ -439,25 +439,25 @@ class KubernetesCLI:
             PerformanceMetrics with current state
         """
         try:
-            _nodes=self.get_nodes()
+            _nodes = self.get_nodes()
 
             # Simulate metrics (in real implementation would parse Prometheus)
-            alerts=[]
+            alerts = []
             if len(nodes) > 0:  # type: ignore[name-defined]
                 if any(n.status== "NotReady" for n in nodes):  # type: ignore[name-defined]
                     alerts.append("One or more nodes not ready")
 
             return PerformanceMetrics(  # type: ignore[call-arg]
-                _cluster_name=self.cluster or "default",
-                _node_count=len(nodes),  # type: ignore[name-defined]
-                _pod_count=sum(n.pod_count for n in nodes),  # type: ignore[name-defined]
-                _cpu_utilization_percent=65.5,
-                _memory_utilization_percent=72.3,
-                _network_io_mbps=450.0,
-                _storage_io_mbps=150.5,
-                _api_latency_ms=25.3,
-                _etcd_commit_duration_ms=8.5,
-                _alerts=alerts,
+                _cluster_name = self.cluster or "default",
+                _node_count = len(nodes),  # type: ignore[name-defined]
+                _pod_count = sum(n.pod_count for n in nodes),  # type: ignore[name-defined]
+                _cpu_utilization_percent = 65.5,
+                _memory_utilization_percent = 72.3,
+                _network_io_mbps = 450.0,
+                _storage_io_mbps = 150.5,
+                _api_latency_ms = 25.3,
+                _etcd_commit_duration_ms = 8.5,
+                _alerts = alerts,
             )
 
         except Exception as e:
@@ -476,7 +476,7 @@ class KubernetesCLI:
         """
         try:
         # Simulate compliance scan results
-            _checks={
+            _checks = {
                 "CIS": {
                     "passed": 42,
                     "failed": 8,
@@ -491,9 +491,9 @@ class KubernetesCLI:
                 }
             }
 
-            _check_data=checks.get(framework, checks["CIS"])  # type: ignore[name-defined]
+            _check_data = checks.get(framework, checks["CIS"])  # type: ignore[name-defined]
 
-            _recommendations=[
+            _recommendations = [
                 "Enable Pod Security Policy",
                 "Implement network policies for all namespaces",
                 "Configure RBAC properly for each service account",
@@ -501,9 +501,9 @@ class KubernetesCLI:
                 "Use TLS for all API communication",
             ]
 
-            _passed=int(cast(int, check_data["passed"]))  # type: ignore[name-defined]
-            _failed=int(cast(int, check_data["failed"]))  # type: ignore[name-defined]
-            total_checks=passed + failed  # type: ignore[name-defined]
+            _passed = int(cast(int, check_data["passed"]))  # type: ignore[name-defined]
+            _failed = int(cast(int, check_data["failed"]))  # type: ignore[name-defined]
+            total_checks = passed + failed  # type: ignore[name-defined]
             _score=(
                 int(100 * passed / total_checks)  # type: ignore[name-defined]
                 if total_checks > 0
@@ -511,15 +511,15 @@ class KubernetesCLI:
             )
 
             return ComplianceReport(  # type: ignore[call-arg]
-                _cluster_name=self.cluster or "default",
-                _scan_timestamp=datetime.now(timezone.utc).isoformat(),
-                _framework=framework,
-                _passed_checks=passed,  # type: ignore[name-defined]
-                _failed_checks=failed,  # type: ignore[name-defined]
-                _score_percent=score,  # type: ignore[name-defined]
-                _critical_issues=cast(List[str], check_data["critical"]),  # type: ignore[name-defined]
-                _medium_issues=cast(List[str], check_data["medium"]),  # type: ignore[name-defined]
-                _recommendations=recommendations,  # type: ignore[name-defined]
+                _cluster_name = self.cluster or "default",
+                _scan_timestamp = datetime.now(timezone.utc).isoformat(),
+                _framework = framework,
+                _passed_checks = passed,  # type: ignore[name-defined]
+                _failed_checks = failed,  # type: ignore[name-defined]
+                _score_percent = score,  # type: ignore[name-defined]
+                _critical_issues = cast(List[str], check_data["critical"]),  # type: ignore[name-defined]
+                _medium_issues = cast(List[str], check_data["medium"]),  # type: ignore[name-defined]
+                _recommendations = recommendations,  # type: ignore[name-defined]
             )
 
         except Exception as e:
@@ -529,55 +529,55 @@ class KubernetesCLI:
 
 def main() -> int:
     """Main CLI entry point."""
-    parser=argparse.ArgumentParser(  # type: ignore[call-arg]
-        _description="Enhanced Kubernetes cluster management CLI"
+    parser = argparse.ArgumentParser(  # type: ignore[call-arg]
+        _description = "Enhanced Kubernetes cluster management CLI"
     )
-    parser.add_argument("--cluster", default="", help="Cluster context")
-    parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")
-    parser.add_argument("--verbose", action="store_true", help="Verbose output")
+    parser.add_argument("--cluster", default = "", help = "Cluster context")
+    parser.add_argument("--dry-run", action = "store_true", help = "Don't execute commands")
+    parser.add_argument("--verbose", action = "store_true", help = "Verbose output")
     parser.add_argument(
-        "--format", choices=["json", "text"], default="text", help="Output format"
+        "--format", choices = ["json", "text"], default = "text", help = "Output format"
     )
 
-    _subparsers=parser.add_subparsers(dest="command", help="Commands")
+    _subparsers = parser.add_subparsers(dest = "command", help = "Commands")
 
     # Node drain command
-    drain_parser=subparsers.add_parser(  # type: ignore[name-defined]
-        "node-cordon-and-drain", help="Drain node for maintenance"
+    drain_parser = subparsers.add_parser(  # type: ignore[name-defined]
+        "node-cordon-and-drain", help = "Drain node for maintenance"
     )
-    drain_parser.add_argument("node_name", help="Node to drain")
+    drain_parser.add_argument("node_name", help = "Node to drain")
     drain_parser.set_defaults(func=lambda args: handle_node_drain(args))
 
     # Workload migrate command
-    migrate_parser=subparsers.add_parser(  # type: ignore[name-defined]
-        "workload-migrate", help="Migrate workload to another cluster"
+    migrate_parser = subparsers.add_parser(  # type: ignore[name-defined]
+        "workload-migrate", help = "Migrate workload to another cluster"
     )
-    migrate_parser.add_argument("workload_name", help="Workload name")
+    migrate_parser.add_argument("workload_name", help = "Workload name")
     migrate_parser.add_argument(
-        "--namespace", default="default", help="Kubernetes namespace"
+        "--namespace", default = "default", help = "Kubernetes namespace"
     )
     migrate_parser.add_argument(
-        "--target-cluster", required=True, help="Target cluster context"
+        "--target-cluster", required = True, help = "Target cluster context"
     )
     migrate_parser.set_defaults(func=lambda args: handle_workload_migrate(args))
 
     # Performance monitor command
-    _perf_parser=subparsers.add_parser("perf-top", help="Monitor cluster performance")  # type: ignore[name-defined]
+    _perf_parser = subparsers.add_parser("perf-top", help = "Monitor cluster performance")  # type: ignore[name-defined]
     perf_parser.set_defaults(func=lambda args: handle_perf_top(args))  # type: ignore[name-defined]
 
     # Compliance check command
-    compliance_parser=subparsers.add_parser(  # type: ignore[name-defined]
-        "compliance-check", help="Scan cluster compliance"
+    compliance_parser = subparsers.add_parser(  # type: ignore[name-defined]
+        "compliance-check", help = "Scan cluster compliance"
     )
     compliance_parser.add_argument(
         "--framework",
-        _default="CIS",
-        _choices=["CIS", "PCI-DSS", "HIPAA", "SOC2"],
-        _help="Compliance framework",
+        _default = "CIS",
+        _choices = ["CIS", "PCI-DSS", "HIPAA", "SOC2"],
+        _help = "Compliance framework",
     )
     compliance_parser.set_defaults(func=lambda args: handle_compliance_check(args))
 
-    _args=parser.parse_args()
+    _args = parser.parse_args()
 
     if not args.command:  # type: ignore[name-defined]
         parser.print_help()
@@ -588,17 +588,17 @@ def main() -> int:
 
 def handle_node_drain(args: argparse.Namespace) -> int:
     """Handle node-cordon-and-drain command."""
-    cli=KubernetesCLI(  # type: ignore[call-arg]
-        _cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    cli = KubernetesCLI(  # type: ignore[call-arg]
+        _cluster = args.cluster, dry_run = args.dry_run, verbose = args.verbose
     )
-    _result=cli.plan_node_drain(args.node_name)
+    _result = cli.plan_node_drain(args.node_name)
 
     if not result:  # type: ignore[name-defined]
         logger.error("Failed to plan node drain")  # type: ignore[name-defined]
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))  # type: ignore[name-defined]
+        print(json.dumps(asdict(result), indent = 2))  # type: ignore[name-defined]
     else:
         print("Node Drain Plan: {result.node_name}")
         print(f"  Total Pods: {result.total_pods}")  # type: ignore[name-defined]
@@ -618,10 +618,10 @@ def handle_node_drain(args: argparse.Namespace) -> int:
 
 def handle_workload_migrate(args: argparse.Namespace) -> int:
     """Handle workload-migrate command."""
-    cli=KubernetesCLI(  # type: ignore[call-arg]
-        _cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    cli = KubernetesCLI(  # type: ignore[call-arg]
+        _cluster = args.cluster, dry_run = args.dry_run, verbose = args.verbose
     )
-    result=cli.plan_workload_migration(
+    result = cli.plan_workload_migration(
         args.workload_name, args.namespace, args.target_cluster
     )
 
@@ -630,7 +630,7 @@ def handle_workload_migrate(args: argparse.Namespace) -> int:
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))
+        print(json.dumps(asdict(result), indent = 2))
     else:
         print("Workload Migration Plan")
         print(f"  Workload: {result.workload_name} ({result.workload_type})")
@@ -653,17 +653,17 @@ def handle_workload_migrate(args: argparse.Namespace) -> int:
 
 def handle_perf_top(args: argparse.Namespace) -> int:
     """Handle perf-top command."""
-    cli=KubernetesCLI(  # type: ignore[call-arg]
-        _cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    cli = KubernetesCLI(  # type: ignore[call-arg]
+        _cluster = args.cluster, dry_run = args.dry_run, verbose = args.verbose
     )
-    _result=cli.monitor_performance()
+    _result = cli.monitor_performance()
 
     if not result:  # type: ignore[name-defined]
         logger.error("Failed to monitor performance")  # type: ignore[name-defined]
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))  # type: ignore[name-defined]
+        print(json.dumps(asdict(result), indent = 2))  # type: ignore[name-defined]
     else:
         print(f"Cluster Performance: {result.cluster_name}")  # type: ignore[name-defined]
         print(f"  Nodes: {result.node_count}")  # type: ignore[name-defined]
@@ -684,17 +684,17 @@ def handle_perf_top(args: argparse.Namespace) -> int:
 
 def handle_compliance_check(args: argparse.Namespace) -> int:
     """Handle compliance-check command."""
-    cli=KubernetesCLI(  # type: ignore[call-arg]
-        _cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    cli = KubernetesCLI(  # type: ignore[call-arg]
+        _cluster = args.cluster, dry_run = args.dry_run, verbose = args.verbose
     )
-    _result=cli.scan_compliance(args.framework)
+    _result = cli.scan_compliance(args.framework)
 
     if not result:  # type: ignore[name-defined]
         logger.error("Failed to scan compliance")  # type: ignore[name-defined]
         return 1
 
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))  # type: ignore[name-defined]
+        print(json.dumps(asdict(result), indent = 2))  # type: ignore[name-defined]
     else:
         print(f"Compliance Scan: {result.framework}")  # type: ignore[name-defined]
         print(f"  Cluster: {result.cluster_name}")  # type: ignore[name-defined]

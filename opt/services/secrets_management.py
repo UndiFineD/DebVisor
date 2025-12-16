@@ -39,28 +39,28 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple, cast
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class SecretType(Enum):
     """Types of secrets managed by Vault."""
 
-    DATABASE_CREDENTIAL="database"
-    API_KEY="api_key"
-    TLS_CERTIFICATE="tls_cert"
-    SSH_KEY="ssh_key"
-    ENCRYPTION_KEY="encryption_key"
-    APPLICATION_CONFIG="app_config"
+    DATABASE_CREDENTIAL = "database"
+    API_KEY = "api_key"
+    TLS_CERTIFICATE = "tls_cert"
+    SSH_KEY = "ssh_key"
+    ENCRYPTION_KEY = "encryption_key"
+    APPLICATION_CONFIG = "app_config"
 
 
 class VaultPolicy(Enum):
     """Predefined Vault RBAC policies."""
 
-    ADMIN="admin"
-    DEVELOPER="developer"
-    OPERATOR="operator"
-    AUDITOR="auditor"
-    APPLICATION="application"
+    ADMIN = "admin"
+    DEVELOPER = "developer"
+    OPERATOR = "operator"
+    AUDITOR = "auditor"
+    APPLICATION = "application"
 
 
 @dataclass
@@ -69,23 +69,23 @@ class VaultConfig:
 
     url: str
     token: Optional[str] = None
-    namespace: str="debvisor"
-    auth_method: str="token"    # token, kubernetes, approle
+    namespace: str = "debvisor"
+    auth_method: str = "token"    # token, kubernetes, approle
     cert_path: Optional[str] = None
     key_path: Optional[str] = None
     ca_cert_path: Optional[str] = None
-    max_retries: int=3
-    timeout: int=30
+    max_retries: int = 3
+    timeout: int = 30
 
 
 @dataclass
 class RotationPolicy:
     """Secret rotation policy."""
 
-    enabled: bool=True
-    interval_days: int=90
-    warning_days: int=7
-    require_explicit_approval: bool=False
+    enabled: bool = True
+    interval_days: int = 90
+    warning_days: int = 7
+    require_explicit_approval: bool = False
     rotation_window: Tuple[int, int] = (2, 4)    # UTC hours
 
 
@@ -98,14 +98,14 @@ class SecretMetadata:
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     rotated_at: Optional[datetime] = None
     expires_at: Optional[datetime] = None
-    owner: str=""
-    description: str=""
-    tags: Dict[str, str] = field(default_factory=dict)
-    rotation_policy: RotationPolicy=field(default_factory=RotationPolicy)
+    owner: str = ""
+    description: str = ""
+    tags: Dict[str, str] = field(default_factory = dict)
+    rotation_policy: RotationPolicy = field(default_factory = RotationPolicy)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary with ISO format dates."""
-        _d=asdict(self)
+        _d = asdict(self)
         if self.created_at:
             d["created_at"] = self.created_at.isoformat()
         if self.rotated_at:
@@ -128,8 +128,8 @@ class VaultSecretsManager:
         Raises:
             ConnectionError: If cannot connect to Vault
         """
-        self.config=config
-        self.client=self._initialize_client()
+        self.config = config
+        self.client = self._initialize_client()
         self.audit_log: List[Dict[str, Any]] = []
         self.secrets_cache: Dict[str, Tuple[Any, datetime]] = {}
 
@@ -137,37 +137,37 @@ class VaultSecretsManager:
         """Initialize Vault client with configured authentication."""
         try:
         # Create client with TLS support
-            client=hvac.Client(
-                _url=self.config.url,
-                _timeout=self.config.timeout,
-                _max_retries=self.config.max_retries,
-                _verify=self.config.ca_cert_path if self.config.ca_cert_path else True,
+            client = hvac.Client(
+                _url = self.config.url,
+                _timeout = self.config.timeout,
+                _max_retries = self.config.max_retries,
+                _verify = self.config.ca_cert_path if self.config.ca_cert_path else True,
             )
 
             # Authenticate based on method
             if self.config.auth_method == "token" and self.config.token:
-                client.token=self.config.token
+                client.token = self.config.token
                 logger.info("Authenticated with token method")
 
             elif self.config.auth_method == "kubernetes":
             # Kubernetes auth with in-cluster service account
                 with open("/var/run/secrets/kubernetes.io/serviceaccount/token") as f:
-                    _jwt=f.read()
+                    _jwt = f.read()
 
                 client.auth.kubernetes.login(
-                    _role="debvisor-app",
-                    _jwt=jwt,
+                    _role = "debvisor-app",
+                    _jwt = jwt,
                 )
                 logger.info("Authenticated with Kubernetes auth method")
 
             elif self.config.auth_method == "approle":
             # AppRole authentication for service-to-service
-                _role_id=self._read_secret_file("/etc/vault/role-id")
-                _secret_id=self._read_secret_file("/etc/vault/secret-id")
+                _role_id = self._read_secret_file("/etc/vault/role-id")
+                _secret_id = self._read_secret_file("/etc/vault/secret-id")
 
                 client.auth.approle.login(
-                    _role_id=role_id,
-                    _secret_id=secret_id,
+                    _role_id = role_id,
+                    _secret_id = secret_id,
                 )
                 logger.info("Authenticated with AppRole auth method")
 
@@ -199,7 +199,7 @@ class VaultSecretsManager:
         name: str,
         secret: Dict[str, Any],
         metadata: Optional[SecretMetadata] = None,
-        overwrite: bool=False,
+        overwrite: bool = False,
     ) -> bool:
         """
         Store secret in Vault.
@@ -214,32 +214,32 @@ class VaultSecretsManager:
             True if successful
 
         Raises:
-            ValueError: If secret already exists and overwrite=False
+            ValueError: If secret already exists and overwrite = False
             hvac.exceptions.InvalidRequest: If Vault request fails
         """
-        path=f"secret/data/{self.config.namespace}/{name}"
+        path = f"secret/data/{self.config.namespace}/{name}"
 
         try:
         # Check if secret already exists
             if not overwrite:
                 try:
-                    self.client.secrets.kv.v2.read_secret_version(path=path)
+                    self.client.secrets.kv.v2.read_secret_version(path = path)
                     raise ValueError(f"Secret already exists: {name}")
                 except hvac.exceptions.InvalidPath:
                     pass    # Secret doesn't exist, continue
 
             # Store secret
             self.client.secrets.kv.v2.create_or_update_secret(
-                _path=path,
-                _secret_data=secret,
+                _path = path,
+                _secret_data = secret,
             )
 
             # Log operation
             self._log_audit_event(
-                _action="store_secret",
-                _resource=name,
-                _result="success",
-                _metadata=metadata.to_dict() if metadata else {},
+                _action = "store_secret",
+                _resource = name,
+                _result = "success",
+                _metadata = metadata.to_dict() if metadata else {},
             )
 
             logger.info(f"Stored secret: {name}")
@@ -247,16 +247,16 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                _action="store_secret",
-                _resource=name,
-                _result="failed",
-                _error="Store secret failed",
+                _action = "store_secret",
+                _resource = name,
+                _result = "failed",
+                _error = "Store secret failed",
             )
-            logger.error(f"Failed to store secret {name}: {e}", exc_info=True)
+            logger.error(f"Failed to store secret {name}: {e}", exc_info = True)
             raise
 
     def retrieve_secret(
-        self, name: str, use_cache: bool=True, cache_ttl_seconds: int=300
+        self, name: str, use_cache: bool = True, cache_ttl_seconds: int = 300
     ) -> Dict[str, Any]:
         """
         Retrieve secret from Vault.
@@ -272,11 +272,11 @@ class VaultSecretsManager:
         Raises:
             hvac.exceptions.InvalidPath: If secret not found
         """
-        _path=f"secret/data/{self.config.namespace}/{name}"
+        _path = f"secret/data/{self.config.namespace}/{name}"
 
         # Check cache
         if use_cache and name in self.secrets_cache:
-            secret_data, cached_at=self.secrets_cache[name]
+            secret_data, cached_at = self.secrets_cache[name]
             if (
                 datetime.now(timezone.utc) - cached_at
             ).total_seconds() < cache_ttl_seconds:
@@ -285,8 +285,8 @@ class VaultSecretsManager:
 
         try:
         # Retrieve from Vault
-            _response=self.client.secrets.kv.v2.read_secret_version(path=path)
-            _secret_data=cast(Dict[str, Any], response["data"]["data"])
+            _response = self.client.secrets.kv.v2.read_secret_version(path = path)
+            _secret_data = cast(Dict[str, Any], response["data"]["data"])
 
             # Cache result
             if use_cache:
@@ -294,9 +294,9 @@ class VaultSecretsManager:
 
             # Log operation
             self._log_audit_event(
-                _action="retrieve_secret",
-                _resource=name,
-                _result="success",
+                _action = "retrieve_secret",
+                _resource = name,
+                _result = "success",
             )
 
             logger.debug(f"Retrieved secret: {name}")
@@ -304,25 +304,25 @@ class VaultSecretsManager:
 
         except hvac.exceptions.InvalidPath:
             self._log_audit_event(
-                _action="retrieve_secret",
-                _resource=name,
-                _result="not_found",
+                _action = "retrieve_secret",
+                _resource = name,
+                _result = "not_found",
             )
             logger.error(f"Secret not found: {name}")
             raise
 
         except Exception as e:
             self._log_audit_event(
-                _action="retrieve_secret",
-                _resource=name,
-                _result="failed",
-                _error="Retrieve secret failed",
+                _action = "retrieve_secret",
+                _resource = name,
+                _result = "failed",
+                _error = "Retrieve secret failed",
             )
-            logger.error(f"Failed to retrieve secret {name}: {e}", exc_info=True)
+            logger.error(f"Failed to retrieve secret {name}: {e}", exc_info = True)
             raise
 
     def rotate_secret(
-        self, name: str, new_secret: Dict[str, Any], require_approval: bool=False
+        self, name: str, new_secret: Dict[str, Any], require_approval: bool = False
     ) -> bool:
         """
         Rotate secret with automatic versioning.
@@ -338,19 +338,19 @@ class VaultSecretsManager:
         Raises:
             ValueError: If rotation policy not met
         """
-        path=f"secret/data/{self.config.namespace}/{name}"
+        path = f"secret/data/{self.config.namespace}/{name}"
 
         try:
         # Get current version metadata
-            _current=self.client.secrets.kv.v2.read_secret_version(path=path)
-            _metadata=current.get("metadata", {})
+            _current = self.client.secrets.kv.v2.read_secret_version(path = path)
+            _metadata = current.get("metadata", {})
 
             # Log rotation
             self._log_audit_event(
-                _action="rotate_secret",
-                _resource=name,
-                _result="initiated",
-                _metadata={
+                _action = "rotate_secret",
+                _resource = name,
+                _result = "initiated",
+                _metadata = {
                     "previous_version": metadata.get("version"),
                     "approval_required": require_approval,
                 },
@@ -358,8 +358,8 @@ class VaultSecretsManager:
 
             # Store rotated secret
             self.client.secrets.kv.v2.create_or_update_secret(
-                _path=path,
-                _secret_data=new_secret,
+                _path = path,
+                _secret_data = new_secret,
             )
 
             # Clear cache for this secret
@@ -368,10 +368,10 @@ class VaultSecretsManager:
 
             # Log completion
             self._log_audit_event(
-                _action="rotate_secret",
-                _resource=name,
-                _result="completed",
-                _metadata={
+                _action = "rotate_secret",
+                _resource = name,
+                _result = "completed",
+                _metadata = {
                     "new_version": metadata.get("version", 0) + 1,
                     "rotated_at": datetime.now(timezone.utc).isoformat(),
                 },
@@ -382,10 +382,10 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                _action="rotate_secret",
-                _resource=name,
-                _result="failed",
-                _error=str(e),
+                _action = "rotate_secret",
+                _resource = name,
+                _result = "failed",
+                _error = str(e),
             )
             logger.error(f"Failed to rotate secret {name}: {str(e)}")
             raise
@@ -404,18 +404,18 @@ class VaultSecretsManager:
         Raises:
             hvac.exceptions.InvalidRequest: If deletion fails
         """
-        path=f"secret/data/{self.config.namespace}/{name}"
+        path = f"secret/data/{self.config.namespace}/{name}"
 
         try:
             if purge:
             # Permanently delete all versions
                 self.client.secrets.kv.v2.destroy_secret_version(
-                    _path=path, version=None
+                    _path = path, version = None
                 )
                 logger.info(f"Permanently purged secret: {name}")
             else:
             # Soft delete (mark for deletion)
-                self.client.secrets.kv.v2.delete_secret_version(path=path)
+                self.client.secrets.kv.v2.delete_secret_version(path = path)
                 logger.info(f"Deleted secret: {name}")
 
             # Clear cache
@@ -424,26 +424,26 @@ class VaultSecretsManager:
 
             # Log operation
             self._log_audit_event(
-                _action="delete_secret",
-                _resource=name,
-                _result="success",
-                _metadata={"purged": purge},
+                _action = "delete_secret",
+                _resource = name,
+                _result = "success",
+                _metadata = {"purged": purge},
             )
 
             return True
 
         except Exception as e:
             self._log_audit_event(
-                _action="delete_secret",
-                _resource=name,
-                _result="failed",
-                _error=str(e),
+                _action = "delete_secret",
+                _resource = name,
+                _result = "failed",
+                _error = str(e),
             )
             logger.error(f"Failed to delete secret {name}: {str(e)}")
             raise
 
     def generate_dynamic_credentials(
-        self, database_role: str, ttl_hours: int=1
+        self, database_role: str, ttl_hours: int = 1
     ) -> Dict[str, str]:
         """
         Generate dynamic database credentials.
@@ -461,12 +461,12 @@ class VaultSecretsManager:
         # path = f"database/creds/{database_role}"
 
         try:
-            response=self.client.secrets.database.generate_credentials(
-                _name=database_role,
-                _static=False,
+            response = self.client.secrets.database.generate_credentials(
+                _name = database_role,
+                _static = False,
             )
 
-            credentials={
+            credentials = {
                 "username": response["data"]["username"],
                 "password": response["data"]["password"],
                 "ttl": response["data"]["ttl"],
@@ -475,10 +475,10 @@ class VaultSecretsManager:
 
             # Log operation (without password)
             self._log_audit_event(
-                _action="generate_credentials",
-                _resource=database_role,
-                _result="success",
-                _metadata={
+                _action = "generate_credentials",
+                _resource = database_role,
+                _result = "success",
+                _metadata = {
                     "username": credentials["username"],
                     "ttl_hours": ttl_hours,
                 },
@@ -489,10 +489,10 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                _action="generate_credentials",
-                _resource=database_role,
-                _result="failed",
-                _error=str(e),
+                _action = "generate_credentials",
+                _resource = database_role,
+                _result = "failed",
+                _error = str(e),
             )
             logger.error(f"Failed to generate credentials: {str(e)}")
             raise
@@ -516,14 +516,14 @@ class VaultSecretsManager:
         # path = "pki/issue/debvisor-cert"
 
         try:
-            alt_names=alt_names or []
-            response=self.client.secrets.pki.generate_certificate(
-                _name="debvisor-cert",
-                _common_name=common_name,
-                _alt_names=", ".join(alt_names) if alt_names else None,
+            alt_names = alt_names or []
+            response = self.client.secrets.pki.generate_certificate(
+                _name = "debvisor-cert",
+                _common_name = common_name,
+                _alt_names = ", ".join(alt_names) if alt_names else None,
             )
 
-            certificate={
+            certificate = {
                 "certificate": response["data"]["certificate"],
                 "private_key": response["data"]["private_key"],
                 "ca_chain": response["data"]["ca_chain"],
@@ -533,10 +533,10 @@ class VaultSecretsManager:
 
             # Log operation
             self._log_audit_event(
-                _action="issue_certificate",
-                _resource=common_name,
-                _result="success",
-                _metadata={
+                _action = "issue_certificate",
+                _resource = common_name,
+                _result = "success",
+                _metadata = {
                     "common_name": common_name,
                     "alt_names": alt_names,
                     "serial": certificate["serial_number"],
@@ -548,10 +548,10 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                _action="issue_certificate",
-                _resource=common_name,
-                _result="failed",
-                _error=str(e),
+                _action = "issue_certificate",
+                _resource = common_name,
+                _result = "failed",
+                _error = str(e),
             )
             logger.error(f"Failed to issue certificate: {str(e)}")
             raise
@@ -566,31 +566,31 @@ class VaultSecretsManager:
         Returns:
             List of secret paths
         """
-        path=f"secret/metadata/{self.config.namespace}"
+        path = f"secret/metadata/{self.config.namespace}"
 
         try:
-            _response=self.client.secrets.kv.v2.list_secrets(path=path)
-            _keys=cast(List[str], response["data"]["keys"])
+            _response = self.client.secrets.kv.v2.list_secrets(path = path)
+            _keys = cast(List[str], response["data"]["keys"])
 
             # Filter by pattern if provided
             if pattern:
-                keys=[k for k in keys if pattern in k]
+                keys = [k for k in keys if pattern in k]
 
             self._log_audit_event(
-                _action="list_secrets",
-                _resource="*",
-                _result="success",
-                _metadata={"count": len(keys), "pattern": pattern},
+                _action = "list_secrets",
+                _resource = "*",
+                _result = "success",
+                _metadata = {"count": len(keys), "pattern": pattern},
             )
 
             return keys
 
         except Exception as e:
             self._log_audit_event(
-                _action="list_secrets",
-                _resource="*",
-                _result="failed",
-                _error=str(e),
+                _action = "list_secrets",
+                _resource = "*",
+                _result = "failed",
+                _error = str(e),
             )
             logger.error(f"Failed to list secrets: {str(e)}")
             return []
@@ -601,13 +601,13 @@ class VaultSecretsManager:
             if enable:
             # Enable file audit backend
                 self.client.sys.enable_audit_backend(
-                    _backend_type="file",
-                    _description="DebVisor audit log",
-                    _options={"file_path": "/var/log/vault-audit.log"},
+                    _backend_type = "file",
+                    _description = "DebVisor audit log",
+                    _options = {"file_path": "/var/log/vault-audit.log"},
                 )
                 logger.info("Enabled Vault audit logging")
             else:
-                self.client.sys.disable_audit_backend(path="file/")
+                self.client.sys.disable_audit_backend(path = "file/")
                 logger.info("Disabled Vault audit logging")
 
             return True
@@ -625,7 +625,7 @@ class VaultSecretsManager:
         error: Optional[str] = None,
     ) -> None:
         """Log audit event."""
-        event={
+        event = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "action": action,
             "resource": resource,
@@ -635,7 +635,7 @@ class VaultSecretsManager:
         }
         self.audit_log.append(event)
         # Use default=str to handle any remaining non-serializable objects
-        logger.debug(f"Audit event: {json.dumps(event, default=str)}")
+        logger.debug(f"Audit event: {json.dumps(event, default = str)}")
 
     def get_audit_log(self, limit: int=100) -> List[Dict[str, Any]]:
         """Get recent audit events."""
@@ -665,7 +665,7 @@ if _name__== "__main__":
     try:
         from opt.core.logging import configure_logging
 
-        configure_logging(service_name="secrets-management")
+        configure_logging(service_name = "secrets-management")
     except ImportError:
-        logging.basicConfig(level=logging.INFO)
+        logging.basicConfig(level = logging.INFO)
     example_usage()

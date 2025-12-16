@@ -100,4 +100,4 @@
 
 from .core import CacheManager, cache  # type: ignore[attr-defined]
 
-__all__=["CacheManager", "cache"]
+__all__ = ["CacheManager", "cache"]

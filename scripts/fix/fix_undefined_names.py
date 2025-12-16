@@ -18,8 +18,8 @@ replacements = [
      'def __init__(self, storage_dir: str, max_concurrent_tests: int'),
 
     # Fix assignments to use correct parameter names
-    ('self.max_samples=max_samples', 'self.max_samples = max_samples'),
-    ('self.prediction_horizon_hours=prediction_horizon_hours',
+    ('self.max_samples = max_samples', 'self.max_samples = max_samples'),
+    ('self.prediction_horizon_hours = prediction_horizon_hours',
      'self.prediction_horizon_hours = prediction_horizon_hours'),
 ]
 

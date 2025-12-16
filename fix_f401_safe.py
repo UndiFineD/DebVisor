@@ -7,9 +7,9 @@ import re
 
 # Get F401 issues
 result = subprocess.run(
-    ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', '--select=F401'],
-    capture_output=True,
-    text=True
+    ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', '--select = F401'],
+    capture_output = True,
+    text = True
 )
 
 issues = {}
@@ -34,7 +34,7 @@ else:
             continue
         
         try:
-            content = Path(filepath).read_text(encoding='utf-8')
+            content = Path(filepath).read_text(encoding = 'utf-8')
         except:
             continue
         
@@ -51,7 +51,7 @@ else:
                 # Try to remove the line with just this import
                 pattern = rf'^from\s+[\w.]+\s+import\s+{re.escape(name)}\s*\n'
                 if re.search(pattern, content, re.MULTILINE):
-                    content = re.sub(pattern, '', content, flags=re.MULTILINE)
+                    content = re.sub(pattern, '', content, flags = re.MULTILINE)
                     fixes += 1
                 else:
                     # Try removing from multi-import line
@@ -62,7 +62,7 @@ else:
         
         if content != original:
             try:
-                Path(filepath).write_text(content, encoding='utf-8')
+                Path(filepath).write_text(content, encoding = 'utf-8')
                 if fixes > 0:
                     print(f"  {Path(filepath).name}: {fixes} unused imports removed")
                     total_fixes += fixes

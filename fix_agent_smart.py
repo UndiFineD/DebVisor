@@ -7,7 +7,7 @@ import re
 def fix_agent_py():
     """Apply safe flake8 fixes"""
     file_path = Path("scripts/agent/agent.py")
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     # Keep track of changes
@@ -113,7 +113,7 @@ def fix_agent_py():
     lines = result
     
     # Write back
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
     
     print(f"Fixed {file_path}")

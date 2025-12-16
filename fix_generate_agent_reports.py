@@ -7,7 +7,7 @@ import re
 filepath = r"c:\Users\kdejo\DEV\DebVisor\scripts\agent\generate_agent_reports.py"
 
 # Read file
-with open(filepath, 'r', encoding='utf-8') as f:
+with open(filepath, 'r', encoding = 'utf-8') as f:
     lines = f.readlines()
 
 e261_fixed = 0
@@ -47,7 +47,7 @@ for i, line in enumerate(lines):
                 e261_fixed += 1
 
 # Write file
-with open(filepath, 'w', encoding='utf-8') as f:
+with open(filepath, 'w', encoding = 'utf-8') as f:
     f.writelines(lines)
 
 print(f"Fixed {e261_fixed} E261 (comment spacing) issues")

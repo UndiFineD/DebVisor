@@ -38,15 +38,15 @@ class MultiRegionAPI:
         Args:
             manager: MultiRegionManager instance
         """
-        self.manager=manager or get_multi_region_manager()
-        self.logger=logging.getLogger("DebVisor.MultiRegionAPI")
+        self.manager = manager or get_multi_region_manager()
+        self.logger = logging.getLogger("DebVisor.MultiRegionAPI")
 
     def _json_response(
         self,
-        status: str="success",
+        status: str = "success",
         data: Optional[Any] = None,
-        message: str="",
-        status_code: int=200,
+        message: str = "",
+        status_code: int = 200,
     ) -> Tuple[Dict[str, Any], int]:
         """Create JSON response.
 
@@ -59,7 +59,7 @@ class MultiRegionAPI:
         Returns:
             (response_dict, status_code)
         """
-        response={
+        response = {
             "status": status,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "message": message,
@@ -71,7 +71,7 @@ class MultiRegionAPI:
         return response, status_code
 
     def _error_response(
-        self, message: str, error: str="error", status_code: int=400
+        self, message: str, error: str = "error", status_code: int = 400
     ) -> Tuple[Dict[str, Any], int]:
         """Create error response.
 
@@ -84,10 +84,10 @@ class MultiRegionAPI:
             (response_dict, status_code)
         """
         return self._json_response(
-            _status="error",
-            _message=message,
-            _data={"error": error},
-            _status_code=status_code,
+            _status = "error",
+            _message = message,
+            _data = {"error": error},
+            _status_code = status_code,
         )
 
     # ========================================================================
@@ -106,29 +106,29 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            required_fields=["name", "location", "api_endpoint"]
+            required_fields = ["name", "location", "api_endpoint"]
             if not all(field in request_data for field in required_fields):
                 return self._error_response(
                     "Missing required fields", "validation_error", 400
                 )
 
-            region=self.manager.register_region(
-                _name=request_data["name"],
-                _location=request_data["location"],
-                _api_endpoint=request_data["api_endpoint"],
-                _is_primary=request_data.get("is_primary", False),
-                _capacity_vms=request_data.get("capacity_vms", 1000),
+            region = self.manager.register_region(
+                _name = request_data["name"],
+                _location = request_data["location"],
+                _api_endpoint = request_data["api_endpoint"],
+                _is_primary = request_data.get("is_primary", False),
+                _capacity_vms = request_data.get("capacity_vms", 1000),
             )
 
             self.logger.info(f"Region registered: {region.region_id}")
             return self._json_response(
-                _data=region.to_dict(),
-                _message=f"Region {region.region_id} registered",
-                _status_code=201,
+                _data = region.to_dict(),
+                _message = f"Region {region.region_id} registered",
+                _status_code = 201,
             )
 
         except Exception as e:
-            self.logger.error(f"Error registering region: {e}", exc_info=True)
+            self.logger.error(f"Error registering region: {e}", exc_info = True)
             return self._error_response("Failed to register region", "registration_error", 500)
 
     def list_regions(self, status: Optional[str] = None) -> Tuple[Dict[str, Any], int]:
@@ -141,23 +141,23 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            status_filter=None
+            status_filter = None
             if status:
                 try:
-                    _status_filter=RegionStatus(status)
+                    _status_filter = RegionStatus(status)
                 except ValueError:
                     return self._error_response(
                         f"Invalid status: {status}", "validation_error", 400
                     )
 
-            _regions=self.manager.list_regions(status=status_filter)
+            _regions = self.manager.list_regions(status = status_filter)
             return self._json_response(
-                _data=[r.to_dict() for r in regions],
-                _message=f"Retrieved {len(regions)} regions",
+                _data = [r.to_dict() for r in regions],
+                _message = f"Retrieved {len(regions)} regions",
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing regions: {e}", exc_info=True)
+            self.logger.error(f"Error listing regions: {e}", exc_info = True)
             return self._error_response("Failed to list regions", "list_error", 500)
 
     def get_region(self, regionid: str) -> Tuple[Dict[str, Any], int]:
@@ -170,16 +170,16 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            _region=self.manager.get_region(region_id)
+            _region = self.manager.get_region(region_id)
             if not region:
                 return self._error_response(
                     f"Region not found: {region_id}", "not_found", 404
                 )
 
-            return self._json_response(data=region.to_dict())
+            return self._json_response(data = region.to_dict())
 
         except Exception as e:
-            self.logger.error(f"Error getting region: {e}", exc_info=True)
+            self.logger.error(f"Error getting region: {e}", exc_info = True)
             return self._error_response("Failed to get region details", "get_error", 500)
 
     def check_region_health(self, regionid: str) -> Tuple[Dict[str, Any], int]:
@@ -195,22 +195,22 @@ class MultiRegionAPI:
             import asyncio
 
             # Run async health check
-            _loop=asyncio.new_event_loop()
+            _loop = asyncio.new_event_loop()
             try:
-                _status=loop.run_until_complete(
+                _status = loop.run_until_complete(
                     self.manager.check_region_health(region_id)
                 )
             finally:
                 loop.close()
 
-            _region=self.manager.get_region(region_id)
+            _region = self.manager.get_region(region_id)
             if not region:
                 return self._error_response(
                     f"Region not found: {region_id}", "not_found", 404
                 )
 
             return self._json_response(
-                _data={
+                _data = {
                     "region_id": region_id,
                     "status": status.value,
                     "latency_ms": region.latency_ms,
@@ -219,7 +219,7 @@ class MultiRegionAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error checking health: {e}", exc_info=True)
+            self.logger.error(f"Error checking health: {e}", exc_info = True)
             return self._error_response("Failed to check region health", "health_check_error", 500)
 
     def get_region_stats(self, regionid: str) -> Tuple[Dict[str, Any], int]:
@@ -232,16 +232,16 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            _stats=self.manager.get_region_statistics(region_id)
+            _stats = self.manager.get_region_statistics(region_id)
             if not stats:
                 return self._error_response(
                     f"Region not found: {region_id}", "not_found", 404
                 )
 
-            return self._json_response(data=stats)
+            return self._json_response(data = stats)
 
         except Exception as e:
-            self.logger.error(f"Error getting stats: {e}", exc_info=True)
+            self.logger.error(f"Error getting stats: {e}", exc_info = True)
             return self._error_response("Failed to get region statistics", "stats_error", 500)
 
     # ========================================================================
@@ -260,13 +260,13 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            required_fields=["source_region_id", "target_region_id", "resource_types"]
+            required_fields = ["source_region_id", "target_region_id", "resource_types"]
             if not all(field in request_data for field in required_fields):
                 return self._error_response(
                     "Missing required fields", "validation_error", 400
                 )
 
-            resource_types=[]
+            resource_types = []
             for rt in request_data["resource_types"]:
                 try:
                     resource_types.append(ResourceType(rt))
@@ -275,23 +275,23 @@ class MultiRegionAPI:
                         f"Invalid resource type: {rt}", "validation_error", 400
                     )
 
-            config=self.manager.setup_replication(
-                _source_region_id=request_data["source_region_id"],
-                _target_region_id=request_data["target_region_id"],
-                _resource_types=resource_types,
-                _sync_interval_seconds=request_data.get("sync_interval_seconds", 300),
-                _bidirectional=request_data.get("bidirectional", False),
+            config = self.manager.setup_replication(
+                _source_region_id = request_data["source_region_id"],
+                _target_region_id = request_data["target_region_id"],
+                _resource_types = resource_types,
+                _sync_interval_seconds = request_data.get("sync_interval_seconds", 300),
+                _bidirectional = request_data.get("bidirectional", False),
             )
 
             self.logger.info(
                 f"Replication setup: {config.source_region_id} -> {config.target_region_id}"
             )
             return self._json_response(
-                _data=config.to_dict(), message="Replication configured", status_code=201
+                _data = config.to_dict(), message = "Replication configured", status_code = 201
             )
 
         except Exception as e:
-            self.logger.error(f"Error setting up replication: {e}", exc_info=True)
+            self.logger.error(f"Error setting up replication: {e}", exc_info = True)
             return self._error_response("Failed to setup replication", "setup_error", 500)
 
     def sync_resource(self, requestdata: Dict[str, Any]) -> Tuple[Dict[str, Any], int]:
@@ -304,7 +304,7 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            required_fields=["resource_id", "source_region_id", "target_region_id"]
+            required_fields = ["resource_id", "source_region_id", "target_region_id"]
             if not all(field in request_data for field in required_fields):
                 return self._error_response(
                     "Missing required fields", "validation_error", 400
@@ -312,13 +312,13 @@ class MultiRegionAPI:
 
             import asyncio
 
-            _loop=asyncio.new_event_loop()
+            _loop = asyncio.new_event_loop()
             try:
-                _success=loop.run_until_complete(
+                _success = loop.run_until_complete(
                     self.manager.sync_resource(
-                        _resource_id=request_data["resource_id"],
-                        _source_region_id=request_data["source_region_id"],
-                        _target_region_id=request_data["target_region_id"],
+                        _resource_id = request_data["resource_id"],
+                        _source_region_id = request_data["source_region_id"],
+                        _target_region_id = request_data["target_region_id"],
                     )
                 )
             finally:
@@ -327,14 +327,14 @@ class MultiRegionAPI:
             if success:
                 self.logger.info(f"Resource synced: {request_data['resource_id']}")
                 return self._json_response(
-                    _data={"resource_id": request_data["resource_id"], "success": True},
-                    _message="Resource synced",
+                    _data = {"resource_id": request_data["resource_id"], "success": True},
+                    _message = "Resource synced",
                 )
             else:
                 return self._error_response("Sync failed", "sync_error", 500)
 
         except Exception as e:
-            self.logger.error(f"Error syncing resource: {e}", exc_info=True)
+            self.logger.error(f"Error syncing resource: {e}", exc_info = True)
             return self._error_response("Failed to sync resource", "sync_error", 500)
 
     def get_replication_status(self, resourceid: str) -> Tuple[Dict[str, Any], int]:
@@ -347,16 +347,16 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            _status=self.manager.get_replication_status(resource_id)
+            _status = self.manager.get_replication_status(resource_id)
             if not status:
                 return self._error_response(
                     f"Resource not found: {resource_id}", "not_found", 404
                 )
 
-            return self._json_response(data=status)
+            return self._json_response(data = status)
 
         except Exception as e:
-            self.logger.error(f"Error getting replication status: {e}", exc_info=True)
+            self.logger.error(f"Error getting replication status: {e}", exc_info = True)
             return self._error_response("Failed to get replication status", "status_error", 500)
 
     # ========================================================================
@@ -375,7 +375,7 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            required_fields=["from_region_id", "to_region_id"]
+            required_fields = ["from_region_id", "to_region_id"]
             if not all(field in request_data for field in required_fields):
                 return self._error_response(
                     "Missing required fields", "validation_error", 400
@@ -383,16 +383,16 @@ class MultiRegionAPI:
 
             import asyncio
 
-            _loop=asyncio.new_event_loop()
+            _loop = asyncio.new_event_loop()
             try:
-                success, event=loop.run_until_complete(
+                success, event = loop.run_until_complete(
                     self.manager.perform_failover(
-                        _from_region_id=request_data["from_region_id"],
-                        _to_region_id=request_data["to_region_id"],
-                        _strategy=FailoverStrategy(
+                        _from_region_id = request_data["from_region_id"],
+                        _to_region_id = request_data["to_region_id"],
+                        _strategy = FailoverStrategy(
                             request_data.get("strategy", "automatic")
                         ),
-                        _reason=request_data.get("reason", "API-initiated failover"),
+                        _reason = request_data.get("reason", "API-initiated failover"),
                     )
                 )
             finally:
@@ -401,7 +401,7 @@ class MultiRegionAPI:
             if success:
                 self.logger.info(f"Failover executed: {event.event_id}")
                 return self._json_response(
-                    _data=event.to_dict(), message="Failover completed", status_code=201
+                    _data = event.to_dict(), message = "Failover completed", status_code = 201
                 )
             else:
                 self.logger.error(f"Failover failed: {event.notes}")
@@ -410,11 +410,11 @@ class MultiRegionAPI:
                 )
 
         except Exception as e:
-            self.logger.error(f"Error executing failover: {e}", exc_info=True)
+            self.logger.error(f"Error executing failover: {e}", exc_info = True)
             return self._error_response("Failed to execute failover", "failover_error", 500)
 
     def get_failover_history(
-        self, region_id: Optional[str] = None, limit: int=50
+        self, region_id: Optional[str] = None, limit: int = 50
     ) -> Tuple[Dict[str, Any], int]:
         """GET /api/v1/failover/history - Get failover history.
 
@@ -426,15 +426,15 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            _events=self.manager.get_failover_history(region_id=region_id, limit=limit)
+            _events = self.manager.get_failover_history(region_id = region_id, limit = limit)
 
             return self._json_response(
-                _data=[e.to_dict() for e in events],
-                _message=f"Retrieved {len(events)} failover events",
+                _data = [e.to_dict() for e in events],
+                _message = f"Retrieved {len(events)} failover events",
             )
 
         except Exception as e:
-            self.logger.error(f"Error getting failover history: {e}", exc_info=True)
+            self.logger.error(f"Error getting failover history: {e}", exc_info = True)
             return self._error_response("Failed to get failover history", "history_error", 500)
 
     # ========================================================================
@@ -451,27 +451,27 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            required_fields=["vm_id", "primary_region_id", "replica_regions"]
+            required_fields = ["vm_id", "primary_region_id", "replica_regions"]
             if not all(field in request_data for field in required_fields):
                 return self._error_response(
                     "Missing required fields", "validation_error", 400
                 )
 
-            resource=self.manager.replicate_vm(
-                _vm_id=request_data["vm_id"],
-                _primary_region_id=request_data["primary_region_id"],
-                _replica_regions=request_data["replica_regions"],
+            resource = self.manager.replicate_vm(
+                _vm_id = request_data["vm_id"],
+                _primary_region_id = request_data["primary_region_id"],
+                _replica_regions = request_data["replica_regions"],
             )
 
             self.logger.info(f"VM registered for replication: {request_data['vm_id']}")
             return self._json_response(
-                _data=resource.to_dict(),
-                _message="VM registered for replication",
-                _status_code=201,
+                _data = resource.to_dict(),
+                _message = "VM registered for replication",
+                _status_code = 201,
             )
 
         except Exception as e:
-            self.logger.error(f"Error registering VM: {e}", exc_info=True)
+            self.logger.error(f"Error registering VM: {e}", exc_info = True)
             return self._error_response("Failed to register VM", "registration_error", 500)
 
     # ========================================================================
@@ -485,11 +485,11 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            _stats=self.manager.get_global_statistics()
-            return self._json_response(data=stats)
+            _stats = self.manager.get_global_statistics()
+            return self._json_response(data = stats)
 
         except Exception as e:
-            self.logger.error(f"Error getting global stats: {e}", exc_info=True)
+            self.logger.error(f"Error getting global stats: {e}", exc_info = True)
             return self._error_response("Failed to get global statistics", "stats_error", 500)
 
     def get_health(self) -> Tuple[Dict[str, Any], int]:
@@ -499,8 +499,8 @@ class MultiRegionAPI:
             (response, status_code)
         """
         return self._json_response(
-            _data={"service": "multi-region", "status": "operational"},
-            _message="Service is operational",
+            _data = {"service": "multi-region", "status": "operational"},
+            _message = "Service is operational",
         )
 
 
@@ -519,15 +519,15 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None) -> Any:
     except ImportError:
         raise ImportError("Flask is required for API. Install with: pip install flask")
 
-    _app=Flask(__name__)
+    _app = Flask(__name__)
 
     # Load and validate configuration (INFRA-003)
     from opt.core.config import Settings
-    _settings=Settings.load_validated_config()
+    _settings = Settings.load_validated_config()
     app.config["SETTINGS"] = settings
 
     # Initialize graceful shutdown
-    _shutdown_manager=init_graceful_shutdown(app)
+    _shutdown_manager = init_graceful_shutdown(app)
 
     # Register standard health checks
 
@@ -536,83 +536,83 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None) -> Any:
 
     shutdown_manager.register_health_check("manager", check_multiregion)
 
-    _api=MultiRegionAPI(manager)
+    _api = MultiRegionAPI(manager)
 
     # Region endpoints
-    @app.route("/api/v1/regions", methods=["POST"])
+    @app.route("/api/v1/regions", methods = ["POST"])
     def regions_register() -> Any:
-        response, status=api.register_region(request.get_json() or {})
+        response, status = api.register_region(request.get_json() or {})
         return jsonify(response), status
 
-    @app.route("/api/v1/regions", methods=["GET"])
+    @app.route("/api/v1/regions", methods = ["GET"])
     def regions_list() -> Any:
-        response, status=api.list_regions(request.args.get("status"))
+        response, status = api.list_regions(request.args.get("status"))
         return jsonify(response), status
 
-    @app.route("/api/v1/regions/<region_id>", methods=["GET"])
+    @app.route("/api/v1/regions/<region_id>", methods = ["GET"])
     def regions_get(regionid: str) -> Any:
-        response, status=api.get_region(region_id)
+        response, status = api.get_region(region_id)
         return jsonify(response), status
 
-    @app.route("/api/v1/regions/<region_id>/health", methods=["POST"])
+    @app.route("/api/v1/regions/<region_id>/health", methods = ["POST"])
     def regions_health(regionid: str) -> Any:
-        response, status=api.check_region_health(region_id)
+        response, status = api.check_region_health(region_id)
         return jsonify(response), status
 
-    @app.route("/api/v1/regions/<region_id>/stats", methods=["GET"])
+    @app.route("/api/v1/regions/<region_id>/stats", methods = ["GET"])
     def regions_stats(regionid: str) -> Any:
-        response, status=api.get_region_stats(region_id)
+        response, status = api.get_region_stats(region_id)
         return jsonify(response), status
 
     # Replication endpoints
-    @app.route("/api/v1/replication/setup", methods=["POST"])
+    @app.route("/api/v1/replication/setup", methods = ["POST"])
     def replication_setup() -> Any:
-        response, status=api.setup_replication(request.get_json() or {})
+        response, status = api.setup_replication(request.get_json() or {})
         return jsonify(response), status
 
-    @app.route("/api/v1/replication/sync", methods=["POST"])
+    @app.route("/api/v1/replication/sync", methods = ["POST"])
     def replication_sync() -> Any:
-        response, status=api.sync_resource(request.get_json() or {})
+        response, status = api.sync_resource(request.get_json() or {})
         return jsonify(response), status
 
-    @app.route("/api/v1/replication/<resource_id>/status", methods=["GET"])
+    @app.route("/api/v1/replication/<resource_id>/status", methods = ["GET"])
     def replication_status(resourceid: str) -> Any:
-        response, status=api.get_replication_status(resource_id)
+        response, status = api.get_replication_status(resource_id)
         return jsonify(response), status
 
     # Failover endpoints
-    @app.route("/api/v1/failover/execute", methods=["POST"])
+    @app.route("/api/v1/failover/execute", methods = ["POST"])
     def failover_execute() -> Any:
-        response, status=api.execute_failover(request.get_json() or {})
+        response, status = api.execute_failover(request.get_json() or {})
         return jsonify(response), status
 
-    @app.route("/api/v1/failover/history", methods=["GET"])
+    @app.route("/api/v1/failover/history", methods = ["GET"])
     def failover_history() -> Any:
-        _region_id=request.args.get("region_id")
-        _limit=request.args.get("limit", 50, type=int)
-        response, status=api.get_failover_history(region_id, limit)
+        _region_id = request.args.get("region_id")
+        _limit = request.args.get("limit", 50, type = int)
+        response, status = api.get_failover_history(region_id, limit)
         return jsonify(response), status
 
     # VM endpoints
-    @app.route("/api/v1/vms/replicate", methods=["POST"])
+    @app.route("/api/v1/vms/replicate", methods = ["POST"])
     def vms_replicate() -> Any:
-        response, status=api.replicate_vm(request.get_json() or {})
+        response, status = api.replicate_vm(request.get_json() or {})
         return jsonify(response), status
 
     # Global endpoints
-    @app.route("/api/v1/stats", methods=["GET"])
+    @app.route("/api/v1/stats", methods = ["GET"])
     def global_stats() -> Any:
-        response, status=api.get_global_stats()
+        response, status = api.get_global_stats()
         return jsonify(response), status
 
-    @app.route("/api/v1/health", methods=["GET"])
+    @app.route("/api/v1/health", methods = ["GET"])
     def health() -> Any:
-        response, status=api.get_health()
+        response, status = api.get_health()
         return jsonify(response), status
 
     return app
 
 
 if _name__== "__main__":
-    _app=create_flask_app()
-    app.run(debug=False, host="0.0.0.0", port=5000)    # nosec B201, B104
+    _app = create_flask_app()
+    app.run(debug = False, host = "0.0.0.0", port = 5000)    # nosec B201, B104

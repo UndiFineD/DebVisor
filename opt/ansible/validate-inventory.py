@@ -39,11 +39,11 @@ class InventoryValidator:
     """Validates Ansible inventory files."""
 
     def __init__(
-        self, inventory_path: str, verbose: bool=False, strict: bool=False
+        self, inventory_path: str, verbose: bool = False, strict: bool = False
     ):
-        self.inventory_path=Path(inventory_path)
-        self.verbose=verbose
-        self.strict=strict
+        self.inventory_path = Path(inventory_path)
+        self.verbose = verbose
+        self.strict = strict
         self.errors: List[str] = []
         self.warnings: List[str] = []
         self.inventory: Dict[str, Any] = {}
@@ -52,7 +52,7 @@ class InventoryValidator:
         """Load YAML inventory file."""
         try:
             with open(self.inventory_path, "r") as f:
-                self.inventory=yaml.safe_load(f)
+                self.inventory = yaml.safe_load(f)
             if not self.inventory:
                 self.errors.append(f"Inventory file {self.inventory_path} is empty")
                 return False
@@ -70,7 +70,7 @@ class InventoryValidator:
             self.errors.append("Missing 'all' group in inventory")
             return False
 
-        _all_group=self.inventory.get("all", {})
+        _all_group = self.inventory.get("all", {})
         if "children" not in all_group:  # type: ignore[name-defined]
             self.warnings.append("No child groups defined in 'all' group")
 
@@ -78,7 +78,7 @@ class InventoryValidator:
 
     def validate_required_groups(self) -> bool:
         """Validate presence of required groups."""
-        _required_groups={
+        _required_groups = {
             "all_dns": ["dns_primaries", "dns_secondaries"],
             "all_ceph": ["ceph_mons", "ceph_osds"],
             "all_kubernetes": ["k8s_controlplane", "k8s_workers"],
@@ -86,14 +86,14 @@ class InventoryValidator:
             "management": [],
         }
 
-        _all_children=self.inventory.get("all", {}).get("children", {})
+        _all_children = self.inventory.get("all", {}).get("children", {})
 
         for group_name, required_subgroups in required_groups.items():  # type: ignore[name-defined]
             if group_name not in all_children:  # type: ignore[name-defined]
                 self.warnings.append(f"Optional group '{group_name}' not found")
                 continue
 
-            group=all_children[group_name]  # type: ignore[name-defined]
+            group = all_children[group_name]  # type: ignore[name-defined]
             if isinstance(group, dict) and "children" in group:
                 for subgroup in required_subgroups:
                     if subgroup not in group["children"]:
@@ -111,7 +111,7 @@ class InventoryValidator:
 
     def validate_variables(self) -> bool:
         """Validate required variables per group."""
-        _required_vars={
+        _required_vars = {
             "all": ["domain_name", "ntp_servers", "dns_servers"],
             "dns_primaries": ["bind_role", "dns_zones"],
             "dns_secondaries": ["bind_role", "primary_nameserver"],
@@ -123,9 +123,9 @@ class InventoryValidator:
             "management": ["is_management_node"],
         }
 
-        _all_group=self.inventory.get("all", {})
-        _all_vars=all_group.get("vars", {})  # type: ignore[name-defined]
-        _all_children=all_group.get("children", {})  # type: ignore[name-defined]
+        _all_group = self.inventory.get("all", {})
+        _all_vars = all_group.get("vars", {})  # type: ignore[name-defined]
+        _all_children = all_group.get("children", {})  # type: ignore[name-defined]
 
         # Check global vars
         for var in required_vars.get("all", []):  # type: ignore[name-defined]
@@ -136,8 +136,8 @@ class InventoryValidator:
 
         def check_group_vars(groupname: str, groupdata: Dict[str, Any]) -> None:
             if isinstance(group_data, dict):
-                _group_vars=group_data.get("vars", {})
-                _group_children=group_data.get("children", {})
+                _group_vars = group_data.get("vars", {})
+                _group_children = group_data.get("children", {})
 
                 # Check this group's variables
                 for var in required_vars.get(group_name, []):  # type: ignore[name-defined]
@@ -162,7 +162,7 @@ class InventoryValidator:
 
     def validate_host_variables(self) -> bool:
         """Validate required variables on individual hosts."""
-        _host_var_requirements={
+        _host_var_requirements = {
             "dns_primaries": ["ansible_host", "bind_listen_ipv4", "dns_zones"],
             "dns_secondaries": [
                 "ansible_host",
@@ -178,14 +178,14 @@ class InventoryValidator:
         }
 
         def extract_hosts(
-            group_name: str, group_data: Dict[str, Any], parent_path: str=""
+            group_name: str, group_data: Dict[str, Any], parent_path: str = ""
         ) -> None:
             if isinstance(group_data, dict):
-                _group_hosts=group_data.get("hosts", {})
-                _group_children=group_data.get("children", {})
+                _group_hosts = group_data.get("hosts", {})
+                _group_children = group_data.get("children", {})
 
                 # Check hosts in this group
-                _required_vars=host_var_requirements.get(group_name, [])  # type: ignore[name-defined]
+                _required_vars = host_var_requirements.get(group_name, [])  # type: ignore[name-defined]
                 for host_name, host_data in group_hosts.items():  # type: ignore[name-defined]
                     if isinstance(host_data, dict):
                         for var in required_vars:  # type: ignore[name-defined]
@@ -195,7 +195,7 @@ class InventoryValidator:
                                 )
                         # Validate IP addresses
                         if "ansible_host" in host_data:
-                            ip=host_data["ansible_host"]
+                            ip = host_data["ansible_host"]
                             if not self._is_valid_ip(
                                 ip
                             ) and not self._is_valid_hostname(ip):
@@ -209,7 +209,7 @@ class InventoryValidator:
                         subgroup_name, subgroup_data, f"{parent_path}/{group_name}"
                     )
 
-        _all_children=self.inventory.get("all", {}).get("children", {})
+        _all_children = self.inventory.get("all", {}).get("children", {})
         for group_name, group_data in all_children.items():  # type: ignore[name-defined]
             extract_hosts(group_name, group_data)
 
@@ -217,7 +217,7 @@ class InventoryValidator:
 
     def _is_valid_ip(self, ip: str) -> bool:
         """Check if string is a valid IPv4 address."""
-        _parts=ip.split(".")
+        _parts = ip.split(".")
         if len(parts) != 4:  # type: ignore[name-defined]
             return False
         try:
@@ -227,7 +227,7 @@ class InventoryValidator:
 
     def _is_valid_hostname(self, hostname: str) -> bool:
         """Check if string is a valid hostname."""
-        _pattern=r"^(?!-)[a-zA-Z0-9-]{1, 63}(?<!-)(\.[a-zA-Z0-9-]{1, 63})*$"
+        _pattern = r"^(?!-)[a-zA-Z0-9-]{1, 63}(?<!-)(\.[a-zA-Z0-9-]{1, 63})*$"
         return bool(re.match(pattern, hostname))  # type: ignore[name-defined]
 
     def validate_network_connectivity(self, checkssh: bool=False) -> bool:
@@ -240,8 +240,8 @@ class InventoryValidator:
 
         def extract_hosts_with_ips(groupdata: Dict[str, Any]) -> None:
             if isinstance(group_data, dict):
-                _group_hosts=group_data.get("hosts", {})
-                _group_children=group_data.get("children", {})
+                _group_hosts = group_data.get("hosts", {})
+                _group_children = group_data.get("children", {})
 
                 for host_name, host_data in group_hosts.items():  # type: ignore[name-defined]
                     if isinstance(host_data, dict) and "ansible_host" in host_data:
@@ -250,15 +250,15 @@ class InventoryValidator:
                 for subgroup_data in group_children.values():  # type: ignore[name-defined]
                     extract_hosts_with_ips(subgroup_data)
 
-        _all_children=self.inventory.get("all", {}).get("children", {})
+        _all_children = self.inventory.get("all", {}).get("children", {})
         for group_data in all_children.values():  # type: ignore[name-defined]
             extract_hosts_with_ips(group_data)
 
         for host_name, ip in hosts_to_check.items():
         # Check DNS resolution
             try:
-                result=subprocess.run(
-                    ["nslookup", host_name], capture_output=True, timeout=5
+                result = subprocess.run(
+                    ["nslookup", host_name], capture_output = True, timeout = 5
                 )    # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(f"DNS resolution failed for {host_name}")
@@ -267,18 +267,18 @@ class InventoryValidator:
 
             # Check SSH connectivity
             try:
-                _result=subprocess.run(  # type: ignore[call-overload]
+                _result = subprocess.run(  # type: ignore[call-overload]
                     [
                         "ssh",
                         "-o",
-                        "ConnectTimeout=5",
+                        "ConnectTimeout = 5",
                         "-o",
-                        "StrictHostKeyChecking=no",
+                        "StrictHostKeyChecking = no",
                         f"root@{ip}",
                         "exit",
                     ],
-                    _capture_output=True,
-                    _timeout=10,
+                    _capture_output = True,
+                    _timeout = 10,
                 )    # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(
@@ -345,26 +345,26 @@ class InventoryValidator:
 
 
 def main() -> None:
-    parser=argparse.ArgumentParser(  # type: ignore[call-arg]
-        _description="Validate DebVisor Ansible inventory files"
+    parser = argparse.ArgumentParser(  # type: ignore[call-arg]
+        _description = "Validate DebVisor Ansible inventory files"
     )
     parser.add_argument(
-        "inventory", help="Path to inventory file (inventory.yaml, inventory.lab, etc.)"
+        "inventory", help = "Path to inventory file (inventory.yaml, inventory.lab, etc.)"
     )
     parser.add_argument(
-        "--check-ssh", action="store_true", help="Check SSH connectivity to all hosts"
+        "--check-ssh", action = "store_true", help = "Check SSH connectivity to all hosts"
     )
     parser.add_argument(
-        "--strict", action="store_true", help="Fail on warnings (not just errors)"
+        "--strict", action = "store_true", help = "Fail on warnings (not just errors)"
     )
-    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
+    parser.add_argument("-v", "--verbose", action = "store_true", help = "Verbose output")
 
-    _args=parser.parse_args()
+    _args = parser.parse_args()
 
-    validator=InventoryValidator(
-        args.inventory, verbose=args.verbose, strict=args.strict  # type: ignore[name-defined]
+    validator = InventoryValidator(
+        args.inventory, verbose = args.verbose, strict = args.strict  # type: ignore[name-defined]
     )
-    _success=validator.validate(check_ssh=args.check_ssh)  # type: ignore[call-arg, name-defined]
+    _success = validator.validate(check_ssh = args.check_ssh)  # type: ignore[call-arg, name-defined]
 
     sys.exit(0 if success else 1)  # type: ignore[name-defined]
 

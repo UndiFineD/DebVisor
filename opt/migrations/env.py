@@ -21,13 +21,13 @@ from alembic import context
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-config=context.config
+config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name:
     fileConfig(config.config_file_name)
-_logger=logging.getLogger("alembic.env")
+_logger = logging.getLogger("alembic.env")
 
 
 def get_engine() -> Any:
@@ -41,7 +41,7 @@ def get_engine() -> Any:
 
 def get_engine_url() -> str:
     try:
-        return get_engine().url.render_as_string(hide_password=False).replace("%", "%%")
+        return get_engine().url.render_as_string(hide_password = False).replace("%", "%%")
     except AttributeError:
         return str(get_engine().url).replace("%", "%%")
 
@@ -51,7 +51,7 @@ def get_engine_url() -> str:
 
 # target_metadata = mymodel.Base.metadata
 config.set_main_option("sqlalchemy.url", get_engine_url())
-target_db=current_app.extensions["migrate"].db
+target_db = current_app.extensions["migrate"].db
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -75,8 +75,8 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    _url=config.get_main_option("sqlalchemy.url")
-    context.configure(url=url, target_metadata=get_metadata(), literal_binds=True)  # type: ignore[name-defined]
+    _url = config.get_main_option("sqlalchemy.url")
+    context.configure(url = url, target_metadata = get_metadata(), literal_binds = True)  # type: ignore[name-defined]
 
     with context.begin_transaction():
         context.run_migrations()
@@ -96,20 +96,20 @@ def run_migrations_online() -> None:
 
     def process_revision_directives(context: Any, revision: Any, directives: Any) -> None:
         if getattr(config.cmd_opts, "autogenerate", False):
-            script=directives[0]
+            script = directives[0]
             if script.upgrade_ops.is_empty():
                 directives[:] = []
                 logger.info("No changes in schema detected.")  # type: ignore[name-defined]
 
-    conf_args=current_app.extensions["migrate"].configure_args
+    conf_args = current_app.extensions["migrate"].configure_args
     if conf_args.get("process_revision_directives") is None:
         conf_args["process_revision_directives"] = process_revision_directives
 
-    _connectable=get_engine()
+    _connectable = get_engine()
 
     with connectable.connect() as connection:  # type: ignore[name-defined]
         context.configure(
-            _connection=connection, target_metadata=get_metadata(), **conf_args
+            _connection = connection, target_metadata = get_metadata(), **conf_args
         )
 
         with context.begin_transaction():

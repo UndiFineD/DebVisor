@@ -93,7 +93,7 @@ PALETTE: List[Tuple[str, str, str]] = [
 # ============================================================================
 def get_ip_addresses() -> str:
     """Get list of IP addresses."""
-    ips=[]
+    ips = []
     for interface, snics in psutil.net_if_addrs().items():
         for snic in snics:
             if snic.family == socket.AF_INET:
@@ -105,12 +105,12 @@ def get_ip_addresses() -> str:
 def get_system_status() -> str:
     """Get basic system status."""
     if hasattr(os, "getloadavg"):
-        _load=os.getloadavg()
+        _load = os.getloadavg()
     else:
         _load=(0.0, 0.0, 0.0)
 
-    _mem=psutil.virtual_memory()
-    _uptime=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    _mem = psutil.virtual_memory()
+    _uptime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return f"Load: {load[0]:.2f}, {load[1]:.2f}, {load[2]:.2f} | Mem: {mem.percent}% | {uptime}"
 
 
@@ -139,16 +139,16 @@ class MenuApp:
         self.main_loop: Optional[urwid.MainLoop] = None
 
     def create_menu(self) -> urwid.Widget:
-        _header_text=urwid.Text(" DebVisor Enterprise Console ", align="center")
-        _header=urwid.AttrMap(header_text, "header")
+        _header_text = urwid.Text(" DebVisor Enterprise Console ", align = "center")
+        _header = urwid.AttrMap(header_text, "header")
 
-        self.status_text=urwid.Text(get_system_status(), align="center")
-        self.ip_text=urwid.Text(
+        self.status_text = urwid.Text(get_system_status(), align = "center")
+        self.ip_text = urwid.Text(
             f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}",
-            _align="center",
+            _align = "center",
         )
 
-        _body_content=[
+        _body_content = [
             urwid.Divider(),
             self.status_text,
             urwid.Divider(),
@@ -163,14 +163,14 @@ class MenuApp:
             self.create_button("Exit Menu", self.on_exit),
         ]
 
-        _listbox=urwid.ListBox(urwid.SimpleListWalker(body_content))
-        _view=urwid.Frame(urwid.AttrMap(listbox, "body"), header=header)
+        _listbox = urwid.ListBox(urwid.SimpleListWalker(body_content))
+        _view = urwid.Frame(urwid.AttrMap(listbox, "body"), header = header)
         return view
 
     def create_button(self, label: str, callback: Any) -> urwid.Widget:
-        _button=urwid.Button(label)
+        _button = urwid.Button(label)
         urwid.connect_signal(button, "click", callback)
-        return urwid.AttrMap(button, "button", focus_map="button_focus")
+        return urwid.AttrMap(button, "button", focus_map = "button_focus")
 
     def on_network_config(self, button: Any) -> None:
         self.run_external("python3 -m opt.netcfg_tui.main")
@@ -196,15 +196,15 @@ class MenuApp:
         if self.main_loop:
             self.main_loop.stop()
         subprocess.run(
-            ["/usr/bin/clear"], check=False
+            ["/usr/bin/clear"], check = False
         )    # nosec B603 - Clear command is safe
         try:
         # Use shlex to split command safely and avoid shell=True
             import shlex
 
-            _args=shlex.split(command)
+            _args = shlex.split(command)
             subprocess.call(
-                args, shell=False
+                args, shell = False
             )    # nosec B603 - Input is controlled menu selection
         except Exception as e:
             print(f"Error executing command: {e}")
@@ -220,7 +220,7 @@ class MenuApp:
         loop.set_alarm_in(2, self.update_status)
 
     def run(self) -> None:
-        self.main_loop=urwid.MainLoop(self.create_menu(), PALETTE)
+        self.main_loop = urwid.MainLoop(self.create_menu(), PALETTE)
         self.main_loop.set_alarm_in(2, self.update_status)
         self.main_loop.run()
 
@@ -231,7 +231,7 @@ if _name__== "__main__":
         print("Warning: Not running as root. Some functions may fail.")
 
     try:
-        _app=MenuApp()
+        _app = MenuApp()
         app.run()
     except KeyboardInterrupt:
         pass

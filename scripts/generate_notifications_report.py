@@ -57,7 +57,7 @@ def _fetch_notifications() -> List[Dict[str, str]]:
         jq_filter,
     ]
 
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output = True, text = True)
     if result.returncode != 0:
         print("Error fetching notifications:")
         print(result.stderr)
@@ -113,7 +113,7 @@ def _escape_md(text: str) -> str:
 
 
 def _write_report(notifications: List[Dict[str, str]]) -> None:
-    OUTPUT.write_text("", encoding="utf-8")
+    OUTPUT.write_text("", encoding = "utf-8")
 
     lines: List[str] = []
     lines.append("# Notification Report")
@@ -145,7 +145,7 @@ def _write_report(notifications: List[Dict[str, str]]) -> None:
                 f"| {n.get('id', '')} | {subject_type} | {reason} | {updated} | {title} | {link_md} |"
             )
 
-    OUTPUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    OUTPUT.write_text("\n".join(lines) + "\n", encoding = "utf-8")
     print(f"Report generated: {OUTPUT}")
 
 

@@ -119,11 +119,11 @@ from dataclasses import dataclass
 try:
     from kubernetes import client, config
 
-    HAS_K8S=True
+    HAS_K8S = True
 except ImportError:
-    HAS_K8S=False
+    HAS_K8S = False
 
-_logger=logging.getLogger("DebVisor.MultiRegion.K8s")
+_logger = logging.getLogger("DebVisor.MultiRegion.K8s")
 
 
 @dataclass
@@ -148,7 +148,7 @@ class K8sClusterManager:
         Args:
             kubeconfig_path: Path to kubeconfig file. If None, uses default.
         """
-        self.kubeconfig_path=kubeconfig_path
+        self.kubeconfig_path = kubeconfig_path
         self.clusters: Dict[str, Any] = {}    # context_name -> client
         self._load_config()
 
@@ -160,7 +160,7 @@ class K8sClusterManager:
 
         try:
             if self.kubeconfig_path:
-                config.load_kube_config(config_file=self.kubeconfig_path)
+                config.load_kube_config(config_file = self.kubeconfig_path)
             else:
                 config.load_kube_config()
 
@@ -179,38 +179,38 @@ class K8sClusterManager:
         Returns:
             K8sClusterStatus
         """
-        _start_time=datetime.now(timezone.utc)
+        _start_time = datetime.now(timezone.utc)
 
         if not HAS_K8S:
         # Mock response
             await asyncio.sleep(0.1)
             return K8sClusterStatus(
-                _cluster_name=context_name,
-                _is_reachable=True,
-                _node_count=5,
-                _ready_nodes=5,
-                _unhealthy_deployments=0,
-                _latency_ms=15.0,
-                _last_check=datetime.now(timezone.utc),
+                _cluster_name = context_name,
+                _is_reachable = True,
+                _node_count = 5,
+                _ready_nodes = 5,
+                _unhealthy_deployments = 0,
+                _latency_ms = 15.0,
+                _last_check = datetime.now(timezone.utc),
             )
 
         try:
         # Create client for specific context
             # Note: This is simplified. Real implementation needs context switching logic.
-            _api_client=config.new_client_from_config(context=context_name)
-            _v1=client.CoreV1Api(api_client)
-            _apps_v1=client.AppsV1Api(api_client)
+            _api_client = config.new_client_from_config(context = context_name)
+            _v1 = client.CoreV1Api(api_client)
+            _apps_v1 = client.AppsV1Api(api_client)
 
             # Check nodes
-            _nodes=await asyncio.to_thread(v1.list_node)
-            _node_count=len(nodes.items)
-            _ready_nodes=sum(1 for n in nodes.items if self._is_node_ready(n))
+            _nodes = await asyncio.to_thread(v1.list_node)
+            _node_count = len(nodes.items)
+            _ready_nodes = sum(1 for n in nodes.items if self._is_node_ready(n))
 
             # Check deployments
-            deployments=await asyncio.to_thread(
+            deployments = await asyncio.to_thread(
                 apps_v1.list_deployment_for_all_namespaces
             )
-            _unhealthy=sum(
+            _unhealthy = sum(
                 1
                 for d in deployments.items
                 if d.status.unavailable_replicas and d.status.unavailable_replicas > 0
@@ -219,25 +219,25 @@ class K8sClusterManager:
             _latency=(datetime.now(timezone.utc) - start_time).total_seconds() * 1000
 
             return K8sClusterStatus(
-                _cluster_name=context_name,
-                _is_reachable=True,
-                _node_count=node_count,
-                _ready_nodes=ready_nodes,
-                _unhealthy_deployments=unhealthy,
-                _latency_ms=latency,
-                _last_check=datetime.now(timezone.utc),
+                _cluster_name = context_name,
+                _is_reachable = True,
+                _node_count = node_count,
+                _ready_nodes = ready_nodes,
+                _unhealthy_deployments = unhealthy,
+                _latency_ms = latency,
+                _last_check = datetime.now(timezone.utc),
             )
 
         except Exception as e:
             logger.error(f"Health check failed for cluster {context_name}: {e}")
             return K8sClusterStatus(
-                _cluster_name=context_name,
-                _is_reachable=False,
-                _node_count=0,
-                _ready_nodes=0,
-                _unhealthy_deployments=0,
-                _latency_ms=0.0,
-                _last_check=datetime.now(timezone.utc),
+                _cluster_name = context_name,
+                _is_reachable = False,
+                _node_count = 0,
+                _ready_nodes = 0,
+                _unhealthy_deployments = 0,
+                _latency_ms = 0.0,
+                _last_check = datetime.now(timezone.utc),
             )
 
     def _is_node_ready(self, node: Any) -> bool:
@@ -270,31 +270,31 @@ class K8sClusterManager:
         try:
         # 1. Scale down in source (if reachable)
             try:
-                _source_client=config.new_client_from_config(context=source_context)
-                _source_apps=client.AppsV1Api(source_client)
+                _source_client = config.new_client_from_config(context = source_context)
+                _source_apps = client.AppsV1Api(source_client)
                 for workload in workloads:
                 # Simplified: assuming default namespace
                     await asyncio.to_thread(
                         source_apps.patch_namespaced_deployment_scale,
-                        _name=workload,
-                        _namespace="default",
-                        _body={"spec": {"replicas": 0}},
+                        _name = workload,
+                        _namespace = "default",
+                        _body = {"spec": {"replicas": 0}},
                     )
             except Exception as e:
                 logger.warning(f"Could not scale down source {source_context}: {e}")
 
             # 2. Scale up in target
-            _target_client=config.new_client_from_config(context=target_context)
-            _target_apps=client.AppsV1Api(target_client)
+            _target_client = config.new_client_from_config(context = target_context)
+            _target_apps = client.AppsV1Api(target_client)
 
             for workload in workloads:
             # In real world, we'd need to ensure deployment exists in target first (CI/CD or GitOps)
                 # Here we assume it exists but is scaled to 0
                 await asyncio.to_thread(
                     target_apps.patch_namespaced_deployment_scale,
-                    _name=workload,
-                    _namespace="default",
-                    _body={"spec": {"replicas": 3}},    # Default replica count
+                    _name = workload,
+                    _namespace = "default",
+                    _body = {"spec": {"replicas": 3}},    # Default replica count
                 )
 
             return True

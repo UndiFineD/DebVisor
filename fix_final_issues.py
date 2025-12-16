@@ -7,7 +7,7 @@ import re
 def fix_issues():
     """Fix the remaining issues"""
     file_path = Path("scripts/agent/agent.py")
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding = 'utf-8') as f:
         content = f.read()
     
     lines = content.split('\n')
@@ -146,7 +146,7 @@ def fix_issues():
                 j -= 1
     
     # Write back
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, 'w', encoding = 'utf-8') as f:
         f.write('\n'.join(lines))
     
     print(f"Fixed {file_path}")

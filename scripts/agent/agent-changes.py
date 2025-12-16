@@ -70,9 +70,9 @@ class ChangelogEntry:
     date: str = ""
     priority: int = 0  # Higher = more important
     severity: str = "normal"  # low, normal, high, critical
-    tags: List[str] = field(default_factory=list)
-    linked_issues: List[str] = field(default_factory=list)
-    linked_commits: List[str] = field(default_factory=list)
+    tags: List[str] = field(default_factory = list)
+    linked_issues: List[str] = field(default_factory = list)
+    linked_commits: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -151,7 +151,7 @@ class LocalizedEntry:
     """
     original_text: str
     language: LocalizationLanguage = LocalizationLanguage.ENGLISH
-    translations: Dict[str, str] = field(default_factory=dict)
+    translations: Dict[str, str] = field(default_factory = dict)
     auto_translated: bool = False
 
 
@@ -166,9 +166,9 @@ class DiffResult:
         unchanged: Lines unchanged.
         similarity_score: Percentage of similarity (0-100).
     """
-    additions: List[str] = field(default_factory=list)
-    deletions: List[str] = field(default_factory=list)
-    modifications: List[Tuple[str, str]] = field(default_factory=list)
+    additions: List[str] = field(default_factory = list)
+    deletions: List[str] = field(default_factory = list)
+    modifications: List[Tuple[str, str]] = field(default_factory = list)
     unchanged: int = 0
     similarity_score: float = 0.0
 
@@ -192,7 +192,7 @@ class ImportedEntry:
     description: str
     author: str = ""
     created_at: str = ""
-    labels: List[str] = field(default_factory=list)
+    labels: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -239,7 +239,7 @@ class MonorepoEntry:
     """
     package_name: str
     version: str
-    entries: List[ChangelogEntry] = field(default_factory=list)
+    entries: List[ChangelogEntry] = field(default_factory = list)
     path: str = ""
 
 
@@ -258,8 +258,8 @@ class ReleaseNote:
     version: str
     title: str
     summary: str
-    highlights: List[str] = field(default_factory=list)
-    breaking_changes: List[str] = field(default_factory=list)
+    highlights: List[str] = field(default_factory = list)
+    breaking_changes: List[str] = field(default_factory = list)
     full_changelog: str = ""
 
 
@@ -275,8 +275,8 @@ class ComplianceResult:
     """
     category: ComplianceCategory
     passed: bool
-    issues: List[str] = field(default_factory=list)
-    recommendations: List[str] = field(default_factory=list)
+    issues: List[str] = field(default_factory = list)
+    recommendations: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -291,7 +291,7 @@ class EntryTemplate:
     """
     name: str
     template_text: str
-    placeholders: List[str] = field(default_factory=list)
+    placeholders: List[str] = field(default_factory = list)
     description: str = ""
 
 
@@ -333,8 +333,8 @@ class ChangelogLocalizer:
             A new LocalizedEntry instance.
         """
         entry = LocalizedEntry(
-            original_text=text,
-            language=self.default_language
+            original_text = text,
+            language = self.default_language
         )
         self.entries.append(entry)
         return entry
@@ -405,10 +405,10 @@ class DiffVisualizer:
         similarity = (unchanged / total * 100) if total > 0 else 100.0
 
         return DiffResult(
-            additions=additions,
-            deletions=deletions,
-            unchanged=unchanged,
-            similarity_score=similarity
+            additions = additions,
+            deletions = deletions,
+            unchanged = unchanged,
+            similarity_score = similarity
         )
 
     def render_html(self, result: DiffResult, mode: DiffViewMode) -> str:
@@ -430,21 +430,21 @@ class DiffVisualizer:
     def _render_unified(self, result: DiffResult) -> str:
         """Render unified diff view."""
         lines = []
-        lines.append("<div class='diff-unified'>")
+        lines.append("<div class = 'diff-unified'>")
         for line in result.deletions:
-            lines.append(f"<span class='deletion'>- {line}</span>")
+            lines.append(f"<span class = 'deletion'>- {line}</span>")
         for line in result.additions:
-            lines.append(f"<span class='addition'>+ {line}</span>")
+            lines.append(f"<span class = 'addition'>+ {line}</span>")
         lines.append("</div>")
         return '\n'.join(lines)
 
     def _render_side_by_side(self, result: DiffResult) -> str:
         """Render side-by-side diff view."""
-        return f"<div class='diff-side-by-side'>Deletions: {len(result.deletions)}, Additions: {len(result.additions)}</div>"
+        return f"<div class = 'diff-side-by-side'>Deletions: {len(result.deletions)}, Additions: {len(result.additions)}</div>"
 
     def _render_inline(self, result: DiffResult) -> str:
         """Render inline diff view."""
-        return f"<div class='diff-inline'>Changes: {len(result.deletions) + len(result.additions)}</div>"
+        return f"<div class = 'diff-inline'>Changes: {len(result.deletions) + len(result.additions)}</div>"
 
 
 class ExternalImporter:
@@ -476,10 +476,10 @@ class ExternalImporter:
         """
         # Placeholder for actual GitHub API integration
         entry = ImportedEntry(
-            source=ImportSource.GITHUB_RELEASES,
-            external_id=f"{owner}/{repo}",
-            title="GitHub Release",
-            description=f"Releases from {owner}/{repo}"
+            source = ImportSource.GITHUB_RELEASES,
+            external_id = f"{owner}/{repo}",
+            title = "GitHub Release",
+            description = f"Releases from {owner}/{repo}"
         )
         self.imported_entries.append(entry)
         return [entry]
@@ -495,10 +495,10 @@ class ExternalImporter:
         """
         # Placeholder for actual JIRA API integration
         entry = ImportedEntry(
-            source=ImportSource.JIRA,
-            external_id=project_key,
-            title="JIRA Import",
-            description=f"Issues from {project_key}"
+            source = ImportSource.JIRA,
+            external_id = project_key,
+            title = "JIRA Import",
+            description = f"Issues from {project_key}"
         )
         self.imported_entries.append(entry)
         return [entry]
@@ -512,9 +512,9 @@ class ExternalImporter:
         result = []
         for imported in self.imported_entries:
             result.append(ChangelogEntry(
-                category="Added",
-                description=imported.description,
-                tags=imported.labels
+                category = "Added",
+                description = imported.description,
+                tags = imported.labels
             ))
         return result
 
@@ -553,10 +553,10 @@ class ChangelogSearcher:
             # Search for query
             if query.lower() in line.lower():
                 results.append(SearchResult(
-                    version=current_version,
-                    line_number=i,
-                    context=line.strip(),
-                    match_score=self._calculate_score(query, line)
+                    version = current_version,
+                    line_number = i,
+                    context = line.strip(),
+                    match_score = self._calculate_score(query, line)
                 ))
 
         return sorted(results, key=lambda r: r.match_score, reverse=True)
@@ -623,10 +623,10 @@ class ReferenceLinkManager:
             The created LinkedReference.
         """
         ref = LinkedReference(
-            ref_type="commit",
-            ref_id=commit_sha[:7],
-            url=url,
-            title=title
+            ref_type = "commit",
+            ref_id = commit_sha[:7],
+            url = url,
+            title = title
         )
         if entry_id not in self.references:
             self.references[entry_id] = []
@@ -652,10 +652,10 @@ class ReferenceLinkManager:
             The created LinkedReference.
         """
         ref = LinkedReference(
-            ref_type="issue",
-            ref_id=f"#{issue_number}",
-            url=url,
-            title=title
+            ref_type = "issue",
+            ref_id = f"#{issue_number}",
+            url = url,
+            title = title
         )
         if entry_id not in self.references:
             self.references[entry_id] = []
@@ -715,10 +715,10 @@ class MonorepoAggregator:
             The created MonorepoEntry.
         """
         entry = MonorepoEntry(
-            package_name=package_name,
-            version=version,
-            entries=entries,
-            path=path
+            package_name = package_name,
+            version = version,
+            entries = entries,
+            path = path
         )
         self.packages[package_name] = entry
         return entry
@@ -798,12 +798,12 @@ class ReleaseNotesGenerator:
             changelog_lines.append("")
 
         return ReleaseNote(
-            version=version,
-            title=title or f"Release {version}",
-            summary=summary,
-            highlights=highlights[:5],  # Top 5 highlights
-            breaking_changes=breaking,
-            full_changelog='\n'.join(changelog_lines)
+            version = version,
+            title = title or f"Release {version}",
+            summary = summary,
+            highlights = highlights[:5],  # Top 5 highlights
+            breaking_changes = breaking,
+            full_changelog = '\n'.join(changelog_lines)
         )
 
 
@@ -847,8 +847,8 @@ class FeedGenerator:
     def _generate_atom(self, entries: List[ChangelogEntry], project_name: str) -> str:
         """Generate Atom 1.0 feed."""
         lines = [
-            '<?xml version="1.0" encoding="utf-8"?>',
-            '<feed xmlns="http://www.w3.org/2005/Atom">',
+            '<?xml version = "1.0" encoding = "utf-8"?>',
+            '<feed xmlns = "http://www.w3.org/2005/Atom">',
             f'  <title>{project_name} Changelog</title>',
         ]
         for entry in entries[:20]:  # Limit to 20 entries
@@ -864,8 +864,8 @@ class FeedGenerator:
     def _generate_rss(self, entries: List[ChangelogEntry], project_name: str) -> str:
         """Generate RSS 2.0 feed."""
         lines = [
-            '<?xml version="1.0" encoding="utf-8"?>',
-            '<rss version="2.0">',
+            '<?xml version = "1.0" encoding = "utf-8"?>',
+            '<rss version = "2.0">',
             '  <channel>',
             f'    <title>{project_name} Changelog</title>',
         ]
@@ -890,7 +890,7 @@ class FeedGenerator:
             "title": f"{project_name} Changelog",
             "items": items
         }
-        return json.dumps(feed, indent=2)
+        return json.dumps(feed, indent = 2)
 
 
 class ComplianceChecker:
@@ -927,10 +927,10 @@ class ComplianceChecker:
                     recommendations.append("Move security-related entries to the Security section")
 
         return ComplianceResult(
-            category=ComplianceCategory.SECURITY,
-            passed=len(issues) == 0,
-            issues=issues,
-            recommendations=recommendations
+            category = ComplianceCategory.SECURITY,
+            passed = len(issues) == 0,
+            issues = issues,
+            recommendations = recommendations
         )
 
     def check_legal_compliance(self, entries: List[ChangelogEntry]) -> ComplianceResult:
@@ -952,10 +952,10 @@ class ComplianceChecker:
                 recommendations.append("Have legal team review license/copyright changes")
 
         return ComplianceResult(
-            category=ComplianceCategory.LEGAL,
-            passed=len(issues) == 0,
-            issues=issues,
-            recommendations=recommendations
+            category = ComplianceCategory.LEGAL,
+            passed = len(issues) == 0,
+            issues = issues,
+            recommendations = recommendations
         )
 
     def check_all(self, entries: List[ChangelogEntry]) -> List[ComplianceResult]:
@@ -1062,10 +1062,10 @@ class TemplateManager:
         placeholders = re.findall(r'\{(\w+)\}', template_text)
 
         template = EntryTemplate(
-            name=name,
-            template_text=template_text,
-            placeholders=placeholders,
-            description=description
+            name = name,
+            template_text = template_text,
+            placeholders = placeholders,
+            description = description
         )
         self.templates[name] = template
         return template
@@ -1117,42 +1117,42 @@ class ChangesAgent(BaseAgent):
     # Default templates for different project types
     DEFAULT_TEMPLATES: Dict[str, ChangelogTemplate] = {
         "python": ChangelogTemplate(
-            name="Python Project",
-            project_type="python",
-            sections=["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"],
-            include_contributors=True
+            name = "Python Project",
+            project_type = "python",
+            sections = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"],
+            include_contributors = True
         ),
         "javascript": ChangelogTemplate(
-            name="JavaScript/Node.js Project",
-            project_type="javascript",
-            sections=["Features", "Bug Fixes", "Breaking Changes", "Documentation"],
+            name = "JavaScript/Node.js Project",
+            project_type = "javascript",
+            sections = ["Features", "Bug Fixes", "Breaking Changes", "Documentation"],
         ),
         "generic": ChangelogTemplate(
-            name="Generic Project",
-            project_type="generic",
-            sections=["Added", "Changed", "Fixed", "Removed"],
+            name = "Generic Project",
+            project_type = "generic",
+            sections = ["Added", "Changed", "Fixed", "Removed"],
         ),
     }
 
     # Default validation rules
     DEFAULT_VALIDATION_RULES: List[ValidationRule] = [
         ValidationRule(
-            name="version_format",
-            pattern=r"^\d+\.\d+\.\d+$",
-            message="Version should follow semantic versioning (X.Y.Z)",
-            severity="warning"
+            name = "version_format",
+            pattern = r"^\d+\.\d+\.\d+$",
+            message = "Version should follow semantic versioning (X.Y.Z)",
+            severity = "warning"
         ),
         ValidationRule(
-            name="date_format",
-            pattern=r"^\d{4}-\d{2}-\d{2}$",
-            message="Date should be in ISO format (YYYY-MM-DD)",
-            severity="warning"
+            name = "date_format",
+            pattern = r"^\d{4}-\d{2}-\d{2}$",
+            message = "Date should be in ISO format (YYYY-MM-DD)",
+            severity = "warning"
         ),
         ValidationRule(
-            name="entry_not_empty",
-            pattern=r".{3,}",
-            message="Entry description should not be empty or too short",
-            severity="error"
+            name = "entry_not_empty",
+            pattern = r".{3,}",
+            message = "Entry description should not be empty or too short",
+            severity = "error"
         ),
     ]
 
@@ -1211,12 +1211,12 @@ class ChangesAgent(BaseAgent):
     ) -> ChangelogTemplate:
         """Create a custom changelog template."""
         template = ChangelogTemplate(
-            name=name,
-            project_type=project_type,
-            sections=sections,
-            header_format=header_format,
-            include_links=include_links,
-            include_contributors=include_contributors
+            name = name,
+            project_type = project_type,
+            sections = sections,
+            header_format = header_format,
+            include_links = include_links,
+            include_contributors = include_contributors
         )
         self._template = template
         return template
@@ -1515,14 +1515,14 @@ class ChangesAgent(BaseAgent):
     ) -> ChangelogEntry:
         """Add a new changelog entry."""
         entry = ChangelogEntry(
-            category=category,
-            description=description,
-            version=self.generate_next_version(),
-            date=datetime.now().strftime("%Y-%m-%d"),
-            priority=priority,
-            severity=severity,
-            tags=tags or [],
-            linked_issues=linked_issues or []
+            category = category,
+            description = description,
+            version = self.generate_next_version(),
+            date = datetime.now().strftime("%Y-%m-%d"),
+            priority = priority,
+            severity = severity,
+            tags = tags or [],
+            linked_issues = linked_issues or []
         )
 
         # Validate before adding

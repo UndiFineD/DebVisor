@@ -7,8 +7,8 @@ import subprocess
 agent_dir = r'c:\Users\kdejo\DEV\DebVisor\scripts\agent'
 
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True, text=True, cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True, text = True, cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 stats = {'e266': 0, 'e301': 0, 'e305': 0}
@@ -45,7 +45,7 @@ for filename in os.listdir(agent_dir):
         continue
     
     filepath = os.path.join(agent_dir, filename)
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     modified = False
@@ -65,7 +65,7 @@ for filename in os.listdir(agent_dir):
                         modified = True
     
     if modified:
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
             f.writelines(lines)
 
 print(f"E266 (comment format) fixed: {stats['e266']}")

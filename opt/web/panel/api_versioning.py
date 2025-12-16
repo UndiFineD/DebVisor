@@ -123,21 +123,21 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
-F=TypeVar("F", bound=Callable[..., Any])
+F = TypeVar("F", bound = Callable[..., Any])
 
 
 class VersionStatus(Enum):
     """API version lifecycle status."""
 
-    PREVIEW="preview"    # Not stable, may change
-    EXPERIMENTAL="preview"    # Alias for PREVIEW
-    CURRENT="current"    # Recommended version
-    STABLE="current"    # Alias for CURRENT
-    SUPPORTED="supported"    # Still supported but not recommended
-    DEPRECATED="deprecated"    # Will be removed
-    SUNSET="sunset"    # No longer available
+    PREVIEW = "preview"    # Not stable, may change
+    EXPERIMENTAL = "preview"    # Alias for PREVIEW
+    CURRENT = "current"    # Recommended version
+    STABLE = "current"    # Alias for CURRENT
+    SUPPORTED = "supported"    # Still supported but not recommended
+    DEPRECATED = "deprecated"    # Will be removed
+    SUNSET = "sunset"    # No longer available
 
 
 @dataclass
@@ -157,13 +157,13 @@ class APIVersion:
     """
 
     major: int
-    minor: int=0
-    patch: int=0
-    status: VersionStatus=VersionStatus.CURRENT
+    minor: int = 0
+    patch: int = 0
+    status: VersionStatus = VersionStatus.CURRENT
     introduced: Optional[datetime] = None
     deprecated: Optional[datetime] = None
     sunset: Optional[datetime] = None
-    changelog: str=""
+    changelog: str = ""
 
     @property
     def string(self) -> str:
@@ -189,15 +189,15 @@ class APIVersion:
         Parse version from string.
 
         Supports:
-        - "2.1.3" -> major=2, minor=1, patch=3
-        - "2.1" -> major=2, minor=1, patch=0
-        - "3" -> major=3, minor=0, patch=0
+        - "2.1.3" -> major = 2, minor = 1, patch = 3
+        - "2.1" -> major = 2, minor = 1, patch = 0
+        - "3" -> major = 3, minor = 0, patch = 0
         """
-        _parts=version_str.strip().lstrip("v").split(".")
-        _major=int(parts[0]) if len(parts) > 0 else 0
-        _minor=int(parts[1]) if len(parts) > 1 else 0
-        _patch=int(parts[2]) if len(parts) > 2 else 0
-        return cls(major=major, minor=minor, patch=patch)
+        _parts = version_str.strip().lstrip("v").split(".")
+        _major = int(parts[0]) if len(parts) > 0 else 0
+        _minor = int(parts[1]) if len(parts) > 1 else 0
+        _patch = int(parts[2]) if len(parts) > 2 else 0
+        return cls(major = major, minor = minor, patch = patch)
 
     @property
     def is_active(self) -> bool:
@@ -239,10 +239,10 @@ class VersionedEndpoint:
 
     path: str
     versions: Dict[str, Dict[str, Any]] = field(
-        _default_factory=dict
+        _default_factory = dict
     )    # version -> {handler, ...}
     methods: List[str] = field(default_factory=lambda: ["GET"])
-    deprecated_versions: Set[str] = field(default_factory=set)
+    deprecated_versions: Set[str] = field(default_factory = set)
 
     # Backward compatibility alias
     @property
@@ -254,7 +254,7 @@ class VersionedEndpoint:
 
     def get_handler(self, version: str) -> Optional[Callable[..., Any]]:
         """Get handler for specific version."""
-        _version_info=self.versions.get(version)
+        _version_info = self.versions.get(version)
         if version_info and "handler" in version_info:
             return version_info["handler"]    # type: ignore
         return None
@@ -265,18 +265,18 @@ class APIVersionManager:
     Manages API versions for the application.
 
     Example:
-        _version_mgr=APIVersionManager()
+        _version_mgr = APIVersionManager()
 
         # Define versions
         version_mgr.register_version(APIVersion(
-            _major=1,
-            _status=VersionStatus.SUPPORTED,
-            _introduced=datetime(2024, 1, 1, tzinfo=timezone.utc)
+            _major = 1,
+            _status = VersionStatus.SUPPORTED,
+            _introduced = datetime(2024, 1, 1, tzinfo = timezone.utc)
         ))
         version_mgr.register_version(APIVersion(
-            _major=2,
-            _status=VersionStatus.CURRENT,
-            _introduced=datetime(2025, 6, 1, tzinfo=timezone.utc)
+            _major = 2,
+            _status = VersionStatus.CURRENT,
+            _introduced = datetime(2025, 6, 1, tzinfo = timezone.utc)
         ))
 
         # Use with Flask
@@ -295,9 +295,9 @@ class APIVersionManager:
             app: Flask app instance (optional)
         """
         self._versions: Dict[str, APIVersion] = {}
-        self._default_version=default_version
+        self._default_version = default_version
         self._endpoints: Dict[str, VersionedEndpoint] = {}
-        self.app=app
+        self.app = app
         self.config: Dict[str, Any] = {
             "version_source": "header",    # header, url, query, accept
         }
@@ -330,7 +330,7 @@ class APIVersionManager:
             changes: Optional list of changes for this version
         """
         if sunset_date:
-            version.sunset=sunset_date
+            version.sunset = sunset_date
 
         self._versions[version.string] = version
 
@@ -340,7 +340,7 @@ class APIVersionManager:
 
         # Update default if this is the current version
         if version.status == VersionStatus.CURRENT:
-            self._default_version=version.string
+            self._default_version = version.string
 
         logger.info(
             f"Registered API version: {version.string} ({version.status.value})"
@@ -353,7 +353,7 @@ class APIVersionManager:
     @property
     def current_version(self) -> Optional[APIVersion]:
         """Get the current (recommended) version."""
-        current_versions=[
+        current_versions = [
             v for v in self._versions.values() if v.status== VersionStatus.CURRENT
         ]
         if current_versions:
@@ -378,36 +378,36 @@ class APIVersionManager:
         Checks based on config['version_source']:
         - 'header': API-Version header
         - 'url': /v1/ in path
-        - 'query': ?version=1.0
+        - 'query': ?version = 1.0
         - 'accept': Accept header
         """
         try:
             from flask import request
 
-            _source=self.config.get("version_source", "header")
+            _source = self.config.get("version_source", "header")
 
             if source == "header":
-                _version_str=request.headers.get("API-Version")
+                _version_str = request.headers.get("API-Version")
                 if version_str:
                     return self.parse_version(version_str)
 
             elif source == "url":
             # Extract from path like /v2/users
 
-                _match=re.search(r"/v(\d+(?:\.\d+)?)", request.path)
+                _match = re.search(r"/v(\d+(?:\.\d+)?)", request.path)
                 if match:
                     return self.parse_version(f"v{match.group(1)}")
 
             elif source == "query":
-                _version_str=request.args.get("version")
+                _version_str = request.args.get("version")
                 if version_str:
                     return self.parse_version(version_str)
 
             elif source == "accept":
-                _accept=request.headers.get("Accept", "")
+                _accept = request.headers.get("Accept", "")
                 # Parse custom media types like application/vnd.debvisor.v2+json
 
-                _match=re.search(r"\.v(\d+(?:\.\d+)?)", accept)
+                _match = re.search(r"\.v(\d+(?:\.\d+)?)", accept)
                 if match:
                     return self.parse_version(f"v{match.group(1)}")
 
@@ -426,11 +426,11 @@ class APIVersionManager:
 
         Returns list of versions to migrate through.
         """
-        _all_versions=sorted(self._versions.values())
+        _all_versions = sorted(self._versions.values())
 
         try:
-            _from_idx=all_versions.index(from_version)
-            _to_idx=all_versions.index(to_version)
+            _from_idx = all_versions.index(from_version)
+            _to_idx = all_versions.index(to_version)
 
             if from_idx < to_idx:
                 return all_versions[from_idx : to_idx + 1]
@@ -448,7 +448,7 @@ class APIVersionManager:
         if not hasattr(self, "_version_changes"):
             return []
 
-        _changes=self._version_changes.get(to_version.string, [])
+        _changes = self._version_changes.get(to_version.string, [])
         return [c for c in changes if c.get("type") == "breaking"]
 
     def get_response_headers(self) -> Dict[str, str]:
@@ -458,7 +458,7 @@ class APIVersionManager:
         try:
             from flask import g
 
-            headers={}
+            headers = {}
 
             if hasattr(g, "api_version"):
                 headers["X-API-Version"] = g.api_version.string
@@ -482,12 +482,12 @@ class APIVersionManager:
 
     def is_supported(self, versionstring: str) -> bool:
         """Check if a version is supported."""
-        _version=self._versions.get(version_string)
+        _version = self._versions.get(version_string)
         return version is not None and version.is_active
 
     def get_deprecation_info(self, versionstring: str) -> Optional[Dict[str, Any]]:
         """Get deprecation information for a version."""
-        _version=self._versions.get(version_string)
+        _version = self._versions.get(version_string)
         if not version or not version.is_deprecated:
             return None
 
@@ -511,11 +511,11 @@ class APIVersionManager:
         - With prefix: "version-1" -> "v1"
         """
         # Clean up version string
-        _cleaned=version_string.lower().strip()
-        _cleaned=cleaned.replace("version-", "").replace("version", "")
+        _cleaned = version_string.lower().strip()
+        _cleaned = cleaned.replace("version-", "").replace("version", "")
 
         if not cleaned.startswith("v"):
-            cleaned=f"v{cleaned}"
+            cleaned = f"v{cleaned}"
 
         return self._versions.get(cleaned)
 
@@ -536,7 +536,7 @@ class APIVersionManager:
 
         # Try explicit version first
         if requested:
-            _version=self.parse_version(requested)
+            _version = self.parse_version(requested)
             if version:
                 if version.is_deprecated:
                     warnings_list.append(
@@ -554,7 +554,7 @@ class APIVersionManager:
 
         # Try Accept-Version header
         if accept_header:
-            _version=self.parse_version(accept_header)
+            _version = self.parse_version(accept_header)
             if version and version.is_active:
                 if version.is_deprecated:
                     warnings_list.append(f"API version {version.string} is deprecated.")
@@ -585,13 +585,13 @@ class APIVersionManager:
             from flask import request, g, make_response
 
             # Get version from route or header
-            _version_string=kwargs.get("version") or request.headers.get(
+            _version_string = kwargs.get("version") or request.headers.get(
                 "Accept-Version"
             )
 
-            version, warnings_list=self.negotiate_version(
-                _requested=version_string,
-                _accept_header=request.headers.get("Accept-Version"),
+            version, warnings_list = self.negotiate_version(
+                _requested = version_string,
+                _accept_header = request.headers.get("Accept-Version"),
             )
 
             if not version or not version.is_active:
@@ -612,14 +612,14 @@ class APIVersionManager:
                 )
 
             # Store version in request context
-            g.api_version=version
+            g.api_version = version
 
             # Call the handler
-            _result=func(*args, **kwargs)
+            _result = func(*args, **kwargs)
 
             # Ensure we have a response object
             if not hasattr(result, "headers"):
-                _result=make_response(result)
+                _result = make_response(result)
 
             # Add version headers
             result.headers["X-API-Version"] = version.string
@@ -656,9 +656,9 @@ class APIVersionManager:
         Example:
             @app.route("/api/v1/old-endpoint")
             @version_mgr.deprecated(
-                _since_version="v2",
-                _use_instead="/api/v2/new-endpoint",
-                _removal_version="v3"
+                _since_version = "v2",
+                _use_instead = "/api/v2/new-endpoint",
+                _removal_version = "v3"
             )
 
             def old_endpoint() -> None:
@@ -676,17 +676,17 @@ class APIVersionManager:
                     f"(deprecated since {since_version})"
                 )
 
-                _result=func(*args, **kwargs)
+                _result = func(*args, **kwargs)
 
                 if not hasattr(result, "headers"):
-                    _result=make_response(result)
+                    _result = make_response(result)
 
                 # Add deprecation headers
                 result.headers["Deprecation"] = "true"
                 result.headers["X-Deprecated-Since"] = since_version
 
                 if use_instead:
-                    result.headers["Link"] = f'<{use_instead}>; rel="successor-version"'
+                    result.headers["Link"] = f'<{use_instead}>; rel = "successor-version"'
 
                 if removal_version:
                     result.headers["X-Removal-Version"] = removal_version
@@ -710,7 +710,7 @@ class APIVersionManager:
                     "is_active": v.is_active,
                     "changelog": v.changelog,
                 }
-                for v in sorted(self._versions.values(), reverse=True)
+                for v in sorted(self._versions.values(), reverse = True)
             ],
             "current": self.current_version.string if self.current_version else None,
             "default": self._default_version,
@@ -725,12 +725,12 @@ def create_version_blueprint(manager: APIVersionManager) -> Any:
     Create Flask blueprint for version discovery endpoints.
 
     Example:
-        _version_bp=create_version_blueprint(version_mgr)
-        app.register_blueprint(version_bp, url_prefix="/api")
+        _version_bp = create_version_blueprint(version_mgr)
+        app.register_blueprint(version_bp, url_prefix = "/api")
     """
     from flask import Blueprint, jsonify
 
-    _bp=Blueprint("api_versions", __name__)
+    _bp = Blueprint("api_versions", __name__)
 
     @bp.route("/versions")
     def list_versions() -> Any:
@@ -740,7 +740,7 @@ def create_version_blueprint(manager: APIVersionManager) -> Any:
     @bp.route("/versions/current")
     def current_version() -> Any:
         """Get current API version."""
-        current=manager.current_version
+        current = manager.current_version
         if not current:
             return jsonify({"error": "No current version defined"}), 500
         return jsonify(
@@ -753,7 +753,7 @@ def create_version_blueprint(manager: APIVersionManager) -> Any:
     @bp.route("/versions/<version_string>")
     def get_version_details(versionstring: str) -> Any:
         """Get details for a specific version."""
-        _version=manager.get_version(version_string)
+        _version = manager.get_version(version_string)
         if not version:
             return (
                 jsonify(
@@ -791,27 +791,27 @@ def get_default_version_manager() -> APIVersionManager:
     """
     Get default API version manager with DebVisor versions.
     """
-    _manager=APIVersionManager()
+    _manager = APIVersionManager()
 
     # Register DebVisor API versions
     manager.register_version(
         APIVersion(
-            _major=1,
-            _minor=0,
-            _status=VersionStatus.SUPPORTED,
-            _introduced=datetime(2024, 6, 1, tzinfo=timezone.utc),
-            _deprecated=datetime(2025, 6, 1, tzinfo=timezone.utc),
-            _sunset=datetime(2026, 1, 1, tzinfo=timezone.utc),
-            _changelog="Initial API release",
+            _major = 1,
+            _minor = 0,
+            _status = VersionStatus.SUPPORTED,
+            _introduced = datetime(2024, 6, 1, tzinfo = timezone.utc),
+            _deprecated = datetime(2025, 6, 1, tzinfo = timezone.utc),
+            _sunset = datetime(2026, 1, 1, tzinfo = timezone.utc),
+            _changelog = "Initial API release",
         )
     )
 
     manager.register_version(
         APIVersion(
-            _major=2,
-            _minor=0,
-            _status=VersionStatus.CURRENT,
-            _introduced=datetime(2025, 6, 1, tzinfo=timezone.utc),
+            _major = 2,
+            _minor = 0,
+            _status = VersionStatus.CURRENT,
+            _introduced = datetime(2025, 6, 1, tzinfo = timezone.utc),
             _changelog=(
                 "- Enhanced authentication with OIDC support\n"
                 "- GraphQL endpoint\n"
@@ -823,10 +823,10 @@ def get_default_version_manager() -> APIVersionManager:
 
     manager.register_version(
         APIVersion(
-            _major=3,
-            _minor=0,
-            _status=VersionStatus.PREVIEW,
-            _introduced=datetime(2025, 11, 1, tzinfo=timezone.utc),
+            _major = 3,
+            _minor = 0,
+            _status = VersionStatus.PREVIEW,
+            _introduced = datetime(2025, 11, 1, tzinfo = timezone.utc),
             _changelog=(
                 "- Breaking changes to node management API\n"
                 "- New federation endpoints\n"
@@ -850,7 +850,7 @@ def get_module_manager() -> APIVersionManager:
     """Get or create module-level version manager."""
     global _module_manager
     if _module_manager is None:
-        _module_manager=get_default_version_manager()
+        _module_manager = get_default_version_manager()
     return _module_manager
 
 
@@ -877,14 +877,14 @@ def deprecated(
     Uses default version manager.
 
     Example:
-        @deprecated(since_version="v2", removal_version="v3")
+        @deprecated(since_version = "v2", removal_version = "v3")
         def old_endpoint() -> None:
             return {"data": "value"}
     """
     return get_module_manager().deprecated(
-        _since_version=since_version,
-        _use_instead=use_instead,
-        _removal_version=removal_version,
+        _since_version = since_version,
+        _use_instead = use_instead,
+        _removal_version = removal_version,
     )
 
 

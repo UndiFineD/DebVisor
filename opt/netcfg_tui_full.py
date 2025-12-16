@@ -120,48 +120,48 @@ from abc import ABC, abstractmethod
 import logging
 
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class InterfaceType(Enum):
     """Network interface types."""
 
-    ETHERNET="ethernet"
-    LOOPBACK="loopback"
-    BRIDGE="bridge"
-    BOND="bond"
-    VLAN="vlan"
-    TUN="tun"
-    TAP="tap"
+    ETHERNET = "ethernet"
+    LOOPBACK = "loopback"
+    BRIDGE = "bridge"
+    BOND = "bond"
+    VLAN = "vlan"
+    TUN = "tun"
+    TAP = "tap"
 
 
 class ConnectionState(Enum):
     """Connection states."""
 
-    UP="up"
-    DOWN="down"
-    UNKNOWN="unknown"
-    DORMANT="dormant"
+    UP = "up"
+    DOWN = "down"
+    UNKNOWN = "unknown"
+    DORMANT = "dormant"
 
 
 class AddressFamily(Enum):
     """Address families."""
 
-    IPV4="ipv4"
-    IPV6="ipv6"
-    BOTH="both"
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
+    BOTH = "both"
 
 
 class BondMode(Enum):
     """Bond modes."""
 
-    BALANCE_RR="balance-rr"
-    ACTIVE_BACKUP="active-backup"
-    BALANCE_XOR="balance-xor"
-    BROADCAST="broadcast"
-    LACP="lacp"
-    BALANCE_TLB="balance-tlb"
-    BALANCE_ALB="balance-alb"
+    BALANCE_RR = "balance-rr"
+    ACTIVE_BACKUP = "active-backup"
+    BALANCE_XOR = "balance-xor"
+    BROADCAST = "broadcast"
+    LACP = "lacp"
+    BALANCE_TLB = "balance-tlb"
+    BALANCE_ALB = "balance-alb"
 
 
 @dataclass
@@ -172,8 +172,8 @@ class IPAddress:
     netmask: int    # CIDR notation
     family: AddressFamily
     gateway: Optional[str] = None
-    dns_servers: List[str] = field(default_factory=list)
-    is_primary: bool=False
+    dns_servers: List[str] = field(default_factory = list)
+    is_primary: bool = False
 
     def is_valid(self) -> bool:
         """Validate IP configuration."""
@@ -203,11 +203,11 @@ class InterfaceConfig:
 
     name: str
     interface_type: InterfaceType
-    mtu: int=1500
-    enabled: bool=True
-    addresses: List[IPAddress] = field(default_factory=list)
+    mtu: int = 1500
+    enabled: bool = True
+    addresses: List[IPAddress] = field(default_factory = list)
     physical_address: Optional[str] = None    # MAC address
-    description: str=""
+    description: str = ""
     bond_config: Optional[Dict[str, Any]] = None
     vlan_config: Optional[Dict[str, Any]] = None
     bridge_config: Optional[Dict[str, Any]] = None
@@ -222,7 +222,7 @@ class InterfaceConfig:
 
     def remove_address(self, ipstr: str) -> bool:
         """Remove IP address."""
-        self.addresses=[addr for addr in self.addresses if addr.address != ip_str]  # type: ignore[name-defined]
+        self.addresses = [addr for addr in self.addresses if addr.address != ip_str]  # type: ignore[name-defined]
         return True
 
     def get_primary_address(self) -> Optional[IPAddress]:
@@ -256,10 +256,10 @@ class BondConfiguration:
     name: str
     mode: BondMode
     slave_interfaces: List[str]
-    miimon: int=100    # milliseconds
-    updelay: int=0
-    downdelay: int=0
-    fail_over_mac: str="none"
+    miimon: int = 100    # milliseconds
+    updelay: int = 0
+    downdelay: int = 0
+    fail_over_mac: str = "none"
 
     def is_valid(self) -> bool:
         """Validate bond configuration."""
@@ -285,8 +285,8 @@ class VLANConfiguration:
     name: str
     parent_interface: str
     vlan_id: int
-    vlan_protocol: str="802.1q"
-    mtu: int=1500
+    vlan_protocol: str = "802.1q"
+    mtu: int = 1500
 
     def is_valid(self) -> bool:
         """Validate VLAN configuration."""
@@ -309,10 +309,10 @@ class BridgeConfiguration:
 
     name: str
     member_interfaces: List[str]
-    stp_enabled: bool=True
-    forward_delay: int=15
-    hello_time: int=2
-    max_age: int=20
+    stp_enabled: bool = True
+    forward_delay: int = 15
+    hello_time: int = 2
+    max_age: int = 20
 
     def is_valid(self) -> bool:
         """Validate bridge configuration."""
@@ -339,15 +339,15 @@ class InterfaceStatus:
     addresses: List[IPAddress]
     mtu: int
     physical_address: str
-    rx_bytes: int=0
-    tx_bytes: int=0
-    rx_packets: int=0
-    tx_packets: int=0
-    rx_errors: int=0
-    tx_errors: int=0
-    rx_dropped: int=0
-    tx_dropped: int=0
-    updated_at: datetime=field(default_factory=datetime.now)
+    rx_bytes: int = 0
+    tx_bytes: int = 0
+    rx_packets: int = 0
+    tx_packets: int = 0
+    rx_errors: int = 0
+    tx_errors: int = 0
+    rx_dropped: int = 0
+    tx_dropped: int = 0
+    updated_at: datetime = field(default_factory = datetime.now)
 
     def is_up(self) -> bool:
         """Check if interface is up."""
@@ -438,30 +438,30 @@ class Iproute2Backend(NetworkBackend):
 
     def get_interface_status(self, interfacename: str) -> Optional[InterfaceStatus]:
         """Get interface status."""
-        _config=self.interfaces.get(interface_name)  # type: ignore[name-defined]
+        _config = self.interfaces.get(interface_name)  # type: ignore[name-defined]
         if not config:  # type: ignore[name-defined]
             return None
 
         # Placeholder: would parse ip command output
         return InterfaceStatus(  # type: ignore[call-arg]
-            _name=interface_name,  # type: ignore[name-defined]
-            _state=ConnectionState.UP if config.enabled else ConnectionState.DOWN,  # type: ignore[name-defined]
-            _addresses=config.addresses,  # type: ignore[name-defined]
-            _mtu=config.mtu,  # type: ignore[name-defined]
-            _physical_address=config.physical_address or "",  # type: ignore[name-defined]
+            _name = interface_name,  # type: ignore[name-defined]
+            _state = ConnectionState.UP if config.enabled else ConnectionState.DOWN,  # type: ignore[name-defined]
+            _addresses = config.addresses,  # type: ignore[name-defined]
+            _mtu = config.mtu,  # type: ignore[name-defined]
+            _physical_address = config.physical_address or "",  # type: ignore[name-defined]
         )
 
     def set_interface_up(self, interfacename: str) -> bool:
         """Bring interface up."""
         if interface_name in self.interfaces:  # type: ignore[name-defined]
-            self.interfaces[interface_name].enabled=True  # type: ignore[name-defined]
+            self.interfaces[interface_name].enabled = True  # type: ignore[name-defined]
             return True
         return False
 
     def set_interface_down(self, interfacename: str) -> bool:
         """Bring interface down."""
         if interface_name in self.interfaces:  # type: ignore[name-defined]
-            self.interfaces[interface_name].enabled=False  # type: ignore[name-defined]
+            self.interfaces[interface_name].enabled = False  # type: ignore[name-defined]
             return True
         return False
 
@@ -501,29 +501,29 @@ class NmcliBackend(NetworkBackend):
 
     def get_interface_status(self, interfacename: str) -> Optional[InterfaceStatus]:
         """Get interface status."""
-        _config=self.connections.get(interface_name)  # type: ignore[name-defined]
+        _config = self.connections.get(interface_name)  # type: ignore[name-defined]
         if not config:  # type: ignore[name-defined]
             return None
 
         return InterfaceStatus(  # type: ignore[call-arg]
-            _name=interface_name,  # type: ignore[name-defined]
-            _state=ConnectionState.UP if config.enabled else ConnectionState.DOWN,  # type: ignore[name-defined]
-            _addresses=config.addresses,  # type: ignore[name-defined]
-            _mtu=config.mtu,  # type: ignore[name-defined]
-            _physical_address=config.physical_address or "",  # type: ignore[name-defined]
+            _name = interface_name,  # type: ignore[name-defined]
+            _state = ConnectionState.UP if config.enabled else ConnectionState.DOWN,  # type: ignore[name-defined]
+            _addresses = config.addresses,  # type: ignore[name-defined]
+            _mtu = config.mtu,  # type: ignore[name-defined]
+            _physical_address = config.physical_address or "",  # type: ignore[name-defined]
         )
 
     def set_interface_up(self, interfacename: str) -> bool:
         """Bring interface up."""
         if interface_name in self.connections:  # type: ignore[name-defined]
-            self.connections[interface_name].enabled=True  # type: ignore[name-defined]
+            self.connections[interface_name].enabled = True  # type: ignore[name-defined]
             return True
         return False
 
     def set_interface_down(self, interfacename: str) -> bool:
         """Bring interface down."""
         if interface_name in self.connections:  # type: ignore[name-defined]
-            self.connections[interface_name].enabled=False  # type: ignore[name-defined]
+            self.connections[interface_name].enabled = False  # type: ignore[name-defined]
             return True
         return False
 
@@ -552,7 +552,7 @@ class ConfigurationBackup:
     backup_id: str
     timestamp: datetime
     interface_configs: Dict[str, InterfaceConfig]
-    description: str=""
+    description: str = ""
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -577,7 +577,7 @@ class NetworkConfigurationManager:
         Args:
             backend: Network backend (iproute2 or nmcli)
         """
-        self.backend=backend
+        self.backend = backend
         self.backups: List[ConfigurationBackup] = []
         self.validation_rules: Dict[str, Callable[[InterfaceConfig], bool]] = {}
         self.change_log: List[Dict[str, Any]] = []
@@ -593,7 +593,7 @@ class NetworkConfigurationManager:
         Returns:
             Tuple of (valid, errors)
         """
-        errors=[]
+        errors = []
 
         for rule_name, rule_fn in self.validation_rules.items():
             try:
@@ -606,19 +606,19 @@ class NetworkConfigurationManager:
 
     def create_backup(self, description: str="") -> ConfigurationBackup:
         """Create configuration backup."""
-        _backup_id=f"backup_{datetime.now().timestamp()}"
+        _backup_id = f"backup_{datetime.now().timestamp()}"
 
-        configs={}
+        configs = {}
         for interface_name in self.backend.get_interfaces():
-            _config=self.backend.get_interface_config(interface_name)
+            _config = self.backend.get_interface_config(interface_name)
             if config:  # type: ignore[name-defined]
                 configs[interface_name] = config  # type: ignore[name-defined]
 
-        backup=ConfigurationBackup(  # type: ignore[call-arg]
-            _backup_id=backup_id,  # type: ignore[name-defined]
-            _timestamp=datetime.now(),
-            _interface_configs=configs,
-            _description=description,
+        backup = ConfigurationBackup(  # type: ignore[call-arg]
+            _backup_id = backup_id,  # type: ignore[name-defined]
+            _timestamp = datetime.now(),
+            _interface_configs = configs,
+            _description = description,
         )
 
         self.backups.append(backup)
@@ -636,7 +636,7 @@ class NetworkConfigurationManager:
 
     def restore_backup(self, backupid: str) -> bool:
         """Restore from backup."""
-        backup=next((b for b in self.backups if b.backup_id== backup_id), None)  # type: ignore[name-defined]
+        backup = next((b for b in self.backups if b.backup_id== backup_id), None)  # type: ignore[name-defined]
         if not backup:
             return False
 
@@ -665,13 +665,13 @@ class NetworkConfigurationManager:
         if not bond_config.is_valid():  # type: ignore[name-defined]
             return False
 
-        interface_config=InterfaceConfig(  # type: ignore[call-arg]
-            _name=bond_config.name,  # type: ignore[name-defined]
-            _interface_type=InterfaceType.BOND,
-            _bond_config=bond_config.to_dict(),  # type: ignore[name-defined]
+        interface_config = InterfaceConfig(  # type: ignore[call-arg]
+            _name = bond_config.name,  # type: ignore[name-defined]
+            _interface_type = InterfaceType.BOND,
+            _bond_config = bond_config.to_dict(),  # type: ignore[name-defined]
         )
 
-        valid, errors=self.validate_configuration(interface_config)
+        valid, errors = self.validate_configuration(interface_config)
         if not valid:
             logger.error(f"Bond validation failed: {errors}")  # type: ignore[name-defined]
             return False
@@ -695,13 +695,13 @@ class NetworkConfigurationManager:
         if not vlan_config.is_valid():  # type: ignore[name-defined]
             return False
 
-        interface_config=InterfaceConfig(  # type: ignore[call-arg]
-            _name=vlan_config.name,  # type: ignore[name-defined]
-            _interface_type=InterfaceType.VLAN,
-            _vlan_config=vlan_config.to_dict(),  # type: ignore[name-defined]
+        interface_config = InterfaceConfig(  # type: ignore[call-arg]
+            _name = vlan_config.name,  # type: ignore[name-defined]
+            _interface_type = InterfaceType.VLAN,
+            _vlan_config = vlan_config.to_dict(),  # type: ignore[name-defined]
         )
 
-        valid, errors=self.validate_configuration(interface_config)
+        valid, errors = self.validate_configuration(interface_config)
         if not valid:
             logger.error(f"VLAN validation failed: {errors}")  # type: ignore[name-defined]
             return False
@@ -725,13 +725,13 @@ class NetworkConfigurationManager:
         if not bridge_config.is_valid():  # type: ignore[name-defined]
             return False
 
-        interface_config=InterfaceConfig(  # type: ignore[call-arg]
-            _name=bridge_config.name,  # type: ignore[name-defined]
-            _interface_type=InterfaceType.BRIDGE,
-            _bridge_config=bridge_config.to_dict(),  # type: ignore[name-defined]
+        interface_config = InterfaceConfig(  # type: ignore[call-arg]
+            _name = bridge_config.name,  # type: ignore[name-defined]
+            _interface_type = InterfaceType.BRIDGE,
+            _bridge_config = bridge_config.to_dict(),  # type: ignore[name-defined]
         )
 
-        valid, errors=self.validate_configuration(interface_config)
+        valid, errors = self.validate_configuration(interface_config)
         if not valid:
             logger.error(f"Bridge validation failed: {errors}")  # type: ignore[name-defined]
             return False
@@ -752,7 +752,7 @@ class NetworkConfigurationManager:
 
     def configure_interface(self, config: InterfaceConfig) -> bool:
         """Configure interface."""
-        valid, errors=self.validate_configuration(config)
+        valid, errors = self.validate_configuration(config)
         if not valid:
             logger.error(f"Configuration validation failed: {errors}")  # type: ignore[name-defined]
             return False
@@ -777,16 +777,16 @@ class NetworkConfigurationManager:
 
     def get_all_interfaces_status(self) -> List[InterfaceStatus]:
         """Get status of all interfaces."""
-        statuses=[]
+        statuses = []
         for interface_name in self.backend.get_interfaces():
-            _status=self.backend.get_interface_status(interface_name)
+            _status = self.backend.get_interface_status(interface_name)
             if status:  # type: ignore[name-defined]
                 statuses.append(status)  # type: ignore[name-defined]
         return statuses
 
     def get_change_log(self, hours: int=24) -> List[Dict[str, Any]]:
         """Get change log."""
-        _cutoff=datetime.now() - timedelta(hours=hours)
+        _cutoff = datetime.now() - timedelta(hours = hours)
         return [
             entry
             for entry in self.change_log
@@ -795,9 +795,9 @@ class NetworkConfigurationManager:
 
     def export_configuration(self) -> Dict[str, Any]:
         """Export all configurations."""
-        configs={}
+        configs = {}
         for interface_name in self.backend.get_interfaces():
-            _config=self.backend.get_interface_config(interface_name)
+            _config = self.backend.get_interface_config(interface_name)
             if config:  # type: ignore[name-defined]
                 configs[interface_name] = config.to_dict()  # type: ignore[name-defined]
 

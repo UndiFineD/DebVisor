@@ -10,9 +10,9 @@ import re
 def get_flake8_issues():
     """Get E303 issues from flake8."""
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     issues = {}
@@ -32,7 +32,7 @@ def get_flake8_issues():
 def fix_e303_safe(filepath):
     """Fix E303 by replacing 3+ blank lines with 2 blank lines."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             content = f.read()
     except Exception as e:
         print(f"Error reading {filepath}: {e}")
@@ -49,7 +49,7 @@ def fix_e303_safe(filepath):
     
     if content != original:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.write(content)
             return 1
         except Exception as e:

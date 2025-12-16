@@ -7,7 +7,7 @@ import re
 def fix_remaining():
     """Fix the remaining flake8 issues"""
     file_path = Path("scripts/agent/agent.py")
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     changes = []
@@ -140,7 +140,7 @@ def fix_remaining():
     # Lines 3759, 3793 - These need careful refactoring
     
     # Write back
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
     
     print(f"Fixed {file_path}")

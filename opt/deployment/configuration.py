@@ -36,19 +36,19 @@ import yaml
 class Environment(Enum):
     """Deployment environments"""
 
-    DEV="dev"
-    TEST="test"
-    STAGING="staging"
-    PRODUCTION="prod"
+    DEV = "dev"
+    TEST = "test"
+    STAGING = "staging"
+    PRODUCTION = "prod"
 
 
 class ResourceLevel(Enum):
     """Resource allocation levels"""
 
-    MINIMAL="minimal"    # Development
-    SMALL="small"    # Testing
-    MEDIUM="medium"    # Staging
-    LARGE="large"    # Production
+    MINIMAL = "minimal"    # Development
+    SMALL = "small"    # Testing
+    MEDIUM = "medium"    # Staging
+    LARGE = "large"    # Production
 
 
 @dataclass
@@ -71,14 +71,14 @@ class ResourceLimits:
 class HealthCheck:
     """Health check configuration"""
 
-    enabled: bool=True
-    path: str="/health"
-    port: int=8080
-    initial_delay_seconds: int=10
-    timeout_seconds: int=5
-    period_seconds: int=10
-    success_threshold: int=1
-    failure_threshold: int=3
+    enabled: bool = True
+    path: str = "/health"
+    port: int = 8080
+    initial_delay_seconds: int = 10
+    timeout_seconds: int = 5
+    period_seconds: int = 10
+    success_threshold: int = 1
+    failure_threshold: int = 3
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
@@ -92,7 +92,7 @@ class ServiceConfig:
     name: str
     port: int
     target_port: int
-    protocol: str="TCP"
+    protocol: str = "TCP"
     node_port: Optional[int] = None    # For NodePort services
 
 
@@ -102,32 +102,32 @@ class DeploymentConfig:
 
     name: str
     image: str
-    replicas: int=1
-    port: int=8080
-    environment: Environment=Environment.DEV
-    resource_level: ResourceLevel=ResourceLevel.MINIMAL
+    replicas: int = 1
+    port: int = 8080
+    environment: Environment = Environment.DEV
+    resource_level: ResourceLevel = ResourceLevel.MINIMAL
     health_check: Optional[HealthCheck] = None
     service: Optional[ServiceConfig] = None
-    env_vars: Dict[str, str] = field(default_factory=dict)
+    env_vars: Dict[str, str] = field(default_factory = dict)
 
     def __post_init__(self) -> None:
         if self.health_check is None:
-            self.health_check=HealthCheck()
+            self.health_check = HealthCheck()
 
     def get_resources(self) -> tuple[Any, ...]:
         """Get resource requests and limits based on level"""
         if self.resource_level == ResourceLevel.MINIMAL:
-            _requests=ResourceRequests(cpu_cores="50m", memory_mb="64Mi")
-            _limits=ResourceLimits(cpu_cores="200m", memory_mb="256Mi")
+            _requests = ResourceRequests(cpu_cores = "50m", memory_mb = "64Mi")
+            _limits = ResourceLimits(cpu_cores = "200m", memory_mb = "256Mi")
         elif self.resource_level == ResourceLevel.SMALL:
-            _requests=ResourceRequests(cpu_cores="100m", memory_mb="128Mi")
-            _limits=ResourceLimits(cpu_cores="500m", memory_mb="512Mi")
+            _requests = ResourceRequests(cpu_cores = "100m", memory_mb = "128Mi")
+            _limits = ResourceLimits(cpu_cores = "500m", memory_mb = "512Mi")
         elif self.resource_level == ResourceLevel.MEDIUM:
-            _requests=ResourceRequests(cpu_cores="250m", memory_mb="256Mi")
-            _limits=ResourceLimits(cpu_cores="1000m", memory_mb="1Gi")
+            _requests = ResourceRequests(cpu_cores = "250m", memory_mb = "256Mi")
+            _limits = ResourceLimits(cpu_cores = "1000m", memory_mb = "1Gi")
         else:    # LARGE
-            _requests=ResourceRequests(cpu_cores="500m", memory_mb="512Mi")
-            _limits=ResourceLimits(cpu_cores="2000m", memory_mb="2Gi")
+            _requests = ResourceRequests(cpu_cores = "500m", memory_mb = "512Mi")
+            _limits = ResourceLimits(cpu_cores = "2000m", memory_mb = "2Gi")
 
         return requests, limits  # type: ignore[name-defined]
 
@@ -141,10 +141,10 @@ class DockerfileGenerator:
 
     @staticmethod
     def generate_python_dockerfile(
-        base_image: str="python:3.9-slim",
-        app_path: str="/app",
-        requirements_file: str="requirements.txt",
-        port: int=8080,
+        base_image: str = "python:3.9-slim",
+        app_path: str = "/app",
+        requirements_file: str = "requirements.txt",
+        port: int = 8080,
     ) -> str:
         """Generate Dockerfile for Python service"""
         return """FROM {base_image}
@@ -163,7 +163,7 @@ RUN useradd -m -u 1000 debvisor && chown -R debvisor:debvisor {app_path}
 USER debvisor
 
 # Health check
-HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \\
+HEALTHCHECK --interval = 10s --timeout = 5s --start-period = 10s --retries = 3 \\
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:{port}/health')"
 
 EXPOSE {port}
@@ -178,9 +178,9 @@ class KubernetesManifestGenerator:
     @staticmethod
     def generate_deployment(config: DeploymentConfig) -> str:
         """Generate Kubernetes Deployment manifest"""
-        requests, limits=config.get_resources()
+        requests, limits = config.get_resources()
 
-        _deployment={
+        _deployment = {
             "apiVersion": "apps/v1",
             "kind": "Deployment",
             "metadata": {
@@ -228,7 +228,7 @@ class KubernetesManifestGenerator:
 
         # Add health check if enabled
         if config.health_check and config.health_check.enabled:
-            hc=config.health_check
+            hc = config.health_check
             deployment["spec"]["template"]["spec"]["containers"][0]["livenessProbe"] = {  # type: ignore[index, name-defined]
                 "httpGet": {"path": hc.path, "port": hc.port},
                 "initialDelaySeconds": hc.initial_delay_seconds,
@@ -247,7 +247,7 @@ class KubernetesManifestGenerator:
                 "periodSeconds": hc.period_seconds,
             }
 
-        return yaml.dump(deployment, default_flow_style=False)  # type: ignore[name-defined]
+        return yaml.dump(deployment, default_flow_style = False)  # type: ignore[name-defined]
 
     @staticmethod
     def generate_service(config: DeploymentConfig) -> str:
@@ -255,7 +255,7 @@ class KubernetesManifestGenerator:
         if not config.service:
             return ""
 
-        service={
+        service = {
             "apiVersion": "v1",
             "kind": "Service",
             "metadata": {"name": config.service.name, "labels": {"app": config.name}},
@@ -277,24 +277,24 @@ class KubernetesManifestGenerator:
         if config.service.node_port:
             service["spec"]["ports"][0]["nodePort"] = config.service.node_port  # type: ignore[index]
 
-        return yaml.dump(service, default_flow_style=False)
+        return yaml.dump(service, default_flow_style = False)
 
     @staticmethod
     def generate_configmap(name: str, data: Dict[str, str]) -> str:
         """Generate ConfigMap manifest"""
-        configmap={
+        configmap = {
             "apiVersion": "v1",
             "kind": "ConfigMap",
             "metadata": {"name": name},
             "data": data,
         }
 
-        return yaml.dump(configmap, default_flow_style=False)
+        return yaml.dump(configmap, default_flow_style = False)
 
     @staticmethod
     def generate_secret(name: str, data: Dict[str, str]) -> str:
         """Generate Secret manifest"""
-        secret={
+        secret = {
             "apiVersion": "v1",
             "kind": "Secret",
             "metadata": {"name": name},
@@ -302,18 +302,18 @@ class KubernetesManifestGenerator:
             "stringData": data,
         }
 
-        return yaml.dump(secret, default_flow_style=False)
+        return yaml.dump(secret, default_flow_style = False)
 
     @staticmethod
     def generate_hpa(
         name: str,
         deployment_name: str,
-        min_replicas: int=2,
-        max_replicas: int=10,
-        cpu_threshold: int=80,
+        min_replicas: int = 2,
+        max_replicas: int = 10,
+        cpu_threshold: int = 80,
     ) -> str:
         """Generate HorizontalPodAutoscaler manifest"""
-        _hpa={
+        _hpa = {
             "apiVersion": "autoscaling/v2",
             "kind": "HorizontalPodAutoscaler",
             "metadata": {"name": name},
@@ -340,13 +340,13 @@ class KubernetesManifestGenerator:
             },
         }
 
-        return yaml.dump(hpa, default_flow_style=False)  # type: ignore[name-defined]
+        return yaml.dump(hpa, default_flow_style = False)  # type: ignore[name-defined]
 
 
 class EnvironmentConfig:
     """Environment-specific configuration"""
 
-    CONFIGURATIONS={
+    CONFIGURATIONS = {
         Environment.DEV: {
             "replicas": 1,
             "resource_level": ResourceLevel.MINIMAL,
@@ -387,8 +387,8 @@ class DeploymentValidator:
     @staticmethod
     def validate_deployment(config: DeploymentConfig) -> tuple[Any, ...]:
         """Validate deployment configuration"""
-        errors=[]
-        _warnings=[]  # type: ignore[var-annotated]
+        errors = []
+        _warnings = []  # type: ignore[var-annotated]
 
         # Check required fields
         if not config.name:
@@ -405,7 +405,7 @@ class DeploymentValidator:
             )
 
         # Check resource limits
-        requests, limits=config.get_resources()
+        requests, limits = config.get_resources()
         if requests.cpu_cores > limits.cpu_cores:
             errors.append("CPU requests cannot exceed limits")
 
@@ -420,13 +420,13 @@ class DeploymentPlan:
     """Complete deployment plan"""
 
     def __init__(self, environment: Environment) -> None:
-        self.environment=environment
-        self.components={}  # type: ignore[var-annotated]
+        self.environment = environment
+        self.components = {}  # type: ignore[var-annotated]
 
     def add_deployment(self, config: DeploymentConfig) -> None:
         """Add deployment to plan"""
         # Validate
-        valid, errors, warnings=DeploymentValidator.validate_deployment(config)
+        valid, errors, warnings = DeploymentValidator.validate_deployment(config)
         if not valid:
             raise ValueError(f"Invalid deployment config: {errors}")
 
@@ -434,25 +434,25 @@ class DeploymentPlan:
 
     def generate_manifests(self) -> Dict[str, str]:
         """Generate all manifests"""
-        manifests={}
+        manifests = {}
 
         for name, config in self.components.items():
         # Generate deployment
-            manifest_name=f"{name}-deployment.yaml"
+            manifest_name = f"{name}-deployment.yaml"
             manifests[manifest_name] = KubernetesManifestGenerator.generate_deployment(
                 config
             )
 
             # Generate service if configured
             if config.service:
-                service_name=f"{name}-service.yaml"
+                service_name = f"{name}-service.yaml"
                 manifests[service_name] = KubernetesManifestGenerator.generate_service(
                     config
                 )
 
             # Generate HPA for production
             if self.environment == Environment.PRODUCTION:
-                hpa_name=f"{name}-hpa.yaml"
+                hpa_name = f"{name}-hpa.yaml"
                 manifests[hpa_name] = KubernetesManifestGenerator.generate_hpa(
                     f"{name}-hpa", config.name
                 )
@@ -479,35 +479,35 @@ class DeploymentPlan:
 # Pre-configured deployment plans
 def create_development_plan() -> DeploymentPlan:
     """Create development deployment plan"""
-    _plan=DeploymentPlan(Environment.DEV)
+    _plan = DeploymentPlan(Environment.DEV)
 
     # RPC Service
     plan.add_deployment(  # type: ignore[name-defined]
         DeploymentConfig(  # type: ignore[call-arg]
-            _name="debvisor-rpc",
-            _image="debvisor/rpc:latest",
-            _replicas=1,
-            _port=50051,
-            _environment=Environment.DEV,
-            _resource_level=ResourceLevel.MINIMAL,
-            _service=ServiceConfig(  # type: ignore[call-arg]
-                _name="debvisor-rpc", port=50051, target_port=50051, protocol="TCP"
+            _name = "debvisor-rpc",
+            _image = "debvisor/rpc:latest",
+            _replicas = 1,
+            _port = 50051,
+            _environment = Environment.DEV,
+            _resource_level = ResourceLevel.MINIMAL,
+            _service = ServiceConfig(  # type: ignore[call-arg]
+                _name = "debvisor-rpc", port = 50051, target_port = 50051, protocol = "TCP"
             ),
-            _env_vars={"LOG_LEVEL": "DEBUG", "REDIS_URL": "redis://redis:6379"},
+            _env_vars = {"LOG_LEVEL": "DEBUG", "REDIS_URL": "redis://redis:6379"},
         )
     )
 
     # Web Panel
     plan.add_deployment(  # type: ignore[name-defined]
         DeploymentConfig(  # type: ignore[call-arg]
-            _name="debvisor-panel",
-            _image="debvisor/panel:latest",
-            _replicas=1,
-            _port=8080,
-            _environment=Environment.DEV,
-            _resource_level=ResourceLevel.MINIMAL,
-            _service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
-            _env_vars={
+            _name = "debvisor-panel",
+            _image = "debvisor/panel:latest",
+            _replicas = 1,
+            _port = 8080,
+            _environment = Environment.DEV,
+            _resource_level = ResourceLevel.MINIMAL,
+            _service = ServiceConfig(name = "debvisor-panel", port = 8080, target_port = 8080),
+            _env_vars = {
                 "LOG_LEVEL": "DEBUG",
                 "FLASK_ENV": "development",
                 "REDIS_URL": "redis://redis:6379",
@@ -520,22 +520,22 @@ def create_development_plan() -> DeploymentPlan:
 
 def create_production_plan() -> DeploymentPlan:
     """Create production deployment plan"""
-    _plan=DeploymentPlan(Environment.PRODUCTION)
+    _plan = DeploymentPlan(Environment.PRODUCTION)
 
     # RPC Service (HA)
     plan.add_deployment(  # type: ignore[name-defined]
         DeploymentConfig(  # type: ignore[call-arg]
-            _name="debvisor-rpc",
-            _image="debvisor/rpc:v1.0",
-            _replicas=3,
-            _port=50051,
-            _environment=Environment.PRODUCTION,
-            _resource_level=ResourceLevel.LARGE,
-            _health_check=HealthCheck(  # type: ignore[call-arg]
-                _enabled=True, path="/healthz", port=50051, failure_threshold=2
+            _name = "debvisor-rpc",
+            _image = "debvisor/rpc:v1.0",
+            _replicas = 3,
+            _port = 50051,
+            _environment = Environment.PRODUCTION,
+            _resource_level = ResourceLevel.LARGE,
+            _health_check = HealthCheck(  # type: ignore[call-arg]
+                _enabled = True, path = "/healthz", port = 50051, failure_threshold = 2
             ),
-            _service=ServiceConfig(name="debvisor-rpc", port=50051, target_port=50051),
-            _env_vars={
+            _service = ServiceConfig(name = "debvisor-rpc", port = 50051, target_port = 50051),
+            _env_vars = {
                 "LOG_LEVEL": "WARNING",
                 "REDIS_URL": "redis-cluster:6379",
                 "POOL_SIZE": "50",
@@ -546,17 +546,17 @@ def create_production_plan() -> DeploymentPlan:
     # Web Panel (HA)
     plan.add_deployment(  # type: ignore[name-defined]
         DeploymentConfig(  # type: ignore[call-arg]
-            _name="debvisor-panel",
-            _image="debvisor/panel:v1.0",
-            _replicas=3,
-            _port=8080,
-            _environment=Environment.PRODUCTION,
-            _resource_level=ResourceLevel.LARGE,
-            _health_check=HealthCheck(  # type: ignore[call-arg]
-                _enabled=True, path="/health", port=8080, failure_threshold=2
+            _name = "debvisor-panel",
+            _image = "debvisor/panel:v1.0",
+            _replicas = 3,
+            _port = 8080,
+            _environment = Environment.PRODUCTION,
+            _resource_level = ResourceLevel.LARGE,
+            _health_check = HealthCheck(  # type: ignore[call-arg]
+                _enabled = True, path = "/health", port = 8080, failure_threshold = 2
             ),
-            _service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
-            _env_vars={
+            _service = ServiceConfig(name = "debvisor-panel", port = 8080, target_port = 8080),
+            _env_vars = {
                 "LOG_LEVEL": "WARNING",
                 "FLASK_ENV": "production",
                 "REDIS_URL": "redis-cluster:6379",

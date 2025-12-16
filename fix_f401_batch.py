@@ -9,9 +9,9 @@ import re
 def get_f401_issues():
     """Get all F401 issues."""
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     issues = {}
@@ -76,14 +76,14 @@ def remove_imports_from_line(line, names_to_remove):
 def fix_file(filepath, file_issues):
     """Fix all F401 issues in a file."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except:
         return 0
     
     fixed = 0
     # Process in reverse to avoid index shifting
-    for lineno in sorted(file_issues.keys(), reverse=True):
+    for lineno in sorted(file_issues.keys(), reverse = True):
         names = file_issues[lineno]
         idx = lineno - 1
         
@@ -103,7 +103,7 @@ def fix_file(filepath, file_issues):
     
     if fixed > 0:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
         except:
             return 0

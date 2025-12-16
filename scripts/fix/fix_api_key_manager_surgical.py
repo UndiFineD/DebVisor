@@ -27,7 +27,7 @@ replacements = [
     (110, '        self.storage_path = Path(storage_path)\n'),
     
     # Line 112: Fix mkdir call
-    (111, '        self.storage_path.mkdir(parents=True, exist_ok=True)\n'),
+    (111, '        self.storage_path.mkdir(parents = True, exist_ok = True)\n'),
     
     # Line 113: Fix keys_file attribute
     (112, '        self.keys_file = self.storage_path / "api_keys.json"\n'),

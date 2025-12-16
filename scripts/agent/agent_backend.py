@@ -156,8 +156,8 @@ class RequestContext:
     request_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     correlation_id: Optional[str] = None
     priority: RequestPriority = RequestPriority.NORMAL
-    created_at: float = field(default_factory=time.time)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    created_at: float = field(default_factory = time.time)
+    metadata: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -196,7 +196,7 @@ class BackendHealthStatus:
 
     backend: str
     state: BackendState
-    last_check: float = field(default_factory=time.time)
+    last_check: float = field(default_factory = time.time)
     success_rate: float = 1.0
     avg_latency_ms: float = 0.0
     error_count: int = 0
@@ -240,7 +240,7 @@ class BatchRequest:
 
     requests: List[str]
     batch_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    created_at: float = field(default_factory=time.time)
+    created_at: float = field(default_factory = time.time)
     processed_count: int = 0
 
 
@@ -261,8 +261,8 @@ class UsageQuota:
     hourly_limit: int = 100
     current_daily: int = 0
     current_hourly: int = 0
-    reset_daily_at: float = field(default_factory=time.time)
-    reset_hourly_at: float = field(default_factory=time.time)
+    reset_daily_at: float = field(default_factory = time.time)
+    reset_hourly_at: float = field(default_factory = time.time)
 
 
 # ============================================================================
@@ -395,7 +395,7 @@ class RequestQueue:
         Args:
             max_size: Maximum queue size.
         """
-        self._queue: PriorityQueue[QueuedRequest] = PriorityQueue(maxsize=max_size)
+        self._queue: PriorityQueue[QueuedRequest] = PriorityQueue(maxsize = max_size)
         self._lock = threading.Lock()
         self._pending: Dict[str, QueuedRequest] = {}
 
@@ -417,11 +417,11 @@ class RequestQueue:
         """
         request_id = str(uuid.uuid4())
         request = QueuedRequest(
-            priority=priority.value,
-            timestamp=time.time(),
-            request_id=request_id,
-            prompt=prompt,
-            callback=callback,
+            priority = priority.value,
+            timestamp = time.time(),
+            request_id = request_id,
+            prompt = prompt,
+            callback = callback,
         )
 
         with self._lock:
@@ -441,7 +441,7 @@ class RequestQueue:
             Optional[QueuedRequest]: Next request or None if empty/timeout.
         """
         try:
-            request = self._queue.get(timeout=timeout)
+            request = self._queue.get(timeout = timeout)
             with self._lock:
                 self._pending.pop(request.request_id, None)
             return request
@@ -474,7 +474,7 @@ class RequestBatcher:
     size or timeout is reached.
 
     Example:
-        batcher = RequestBatcher(batch_size=10, timeout_s=5.0)
+        batcher = RequestBatcher(batch_size = 10, timeout_s = 5.0)
         batcher.add("prompt1")
         batcher.add("prompt2")
         batch = batcher.get_batch()  # Returns when ready
@@ -530,7 +530,7 @@ class RequestBatcher:
         with self._lock:
             if not self._buffer:
                 return None
-            batch = BatchRequest(requests=self._buffer.copy())
+            batch = BatchRequest(requests = self._buffer.copy())
             self._buffer.clear()
             self._batch_start = None
             return batch
@@ -610,8 +610,8 @@ class BackendHealthMonitor:
         history = self._history.get(backend, [])
         if not history:
             self._status[backend] = BackendHealthStatus(
-                backend=backend,
-                state=BackendState.UNKNOWN,
+                backend = backend,
+                state = BackendState.UNKNOWN,
             )
             return
 
@@ -632,11 +632,11 @@ class BackendHealthMonitor:
             state = BackendState.UNHEALTHY
 
         self._status[backend] = BackendHealthStatus(
-            backend=backend,
-            state=state,
-            success_rate=success_rate,
-            avg_latency_ms=avg_latency,
-            error_count=error_count,
+            backend = backend,
+            state = state,
+            success_rate = success_rate,
+            avg_latency_ms = avg_latency,
+            error_count = error_count,
         )
 
     def is_healthy(self, backend: str) -> bool:
@@ -697,8 +697,8 @@ class LoadBalancer:
 
     Example:
         lb = LoadBalancer(LoadBalanceStrategy.ROUND_ROBIN)
-        lb.add_backend("backend1", weight=2)
-        lb.add_backend("backend2", weight=1)
+        lb.add_backend("backend1", weight = 2)
+        lb.add_backend("backend2", weight = 1)
         backend = lb.next()
     """
 
@@ -730,9 +730,9 @@ class LoadBalancer:
             **kwargs: Additional backend config.
         """
         config = BackendConfig(
-            name=name,
-            backend_type=backend_type,
-            weight=weight,
+            name = name,
+            backend_type = backend_type,
+            weight = weight,
             **kwargs,
         )
         with self._lock:
@@ -817,7 +817,7 @@ class UsageQuotaManager:
     Tracks request counts and enforces daily/hourly limits.
 
     Example:
-        quota = UsageQuotaManager(daily_limit=1000, hourly_limit=100)
+        quota = UsageQuotaManager(daily_limit = 1000, hourly_limit = 100)
         if quota.can_request():
             quota.record_request()
             # Make request
@@ -835,8 +835,8 @@ class UsageQuotaManager:
             hourly_limit: Max requests per hour.
         """
         self._quota = UsageQuota(
-            daily_limit=daily_limit,
-            hourly_limit=hourly_limit,
+            daily_limit = daily_limit,
+            hourly_limit = hourly_limit,
         )
         self._lock = threading.Lock()
 
@@ -907,7 +907,7 @@ class RequestTracer:
         tracer = RequestTracer()
         context = tracer.start_trace("my-request")
         # Do work
-        tracer.end_trace(context.request_id, success=True)
+        tracer.end_trace(context.request_id, success = True)
     """
 
     def __init__(self) -> None:
@@ -932,9 +932,9 @@ class RequestTracer:
             RequestContext: Context for this trace.
         """
         context = RequestContext(
-            correlation_id=correlation_id or str(uuid.uuid4()),
-            priority=priority,
-            metadata={"description": description},
+            correlation_id = correlation_id or str(uuid.uuid4()),
+            priority = priority,
+            metadata = {"description": description},
         )
 
         with self._lock:
@@ -967,8 +967,8 @@ class RequestTracer:
 
         duration = time.time() - context.created_at
         logging.debug(
-            f"Ended trace {request_id}: success={success}, "
-            f"duration={duration:.3f}s, size={response_size}"
+            f"Ended trace {request_id}: success = {success}, "
+            f"duration = {duration:.3f}s, size = {response_size}"
         )
         return duration
 
@@ -1039,7 +1039,7 @@ class AuditLogger:
         with self._lock:
             if self.log_file:
                 try:
-                    with open(self.log_file, "a", encoding="utf-8") as f:
+                    with open(self.log_file, "a", encoding = "utf-8") as f:
                         f.write(json.dumps(entry) + "\n")
                 except IOError as e:
                     logging.warning(f"Failed to write audit log: {e}")
@@ -1061,7 +1061,7 @@ class AuditLogger:
         entries: List[Dict[str, Any]] = []
         with self._lock:
             try:
-                with open(self.log_file, "r", encoding="utf-8") as f:
+                with open(self.log_file, "r", encoding = "utf-8") as f:
                     for line in f:
                         try:
                             entries.append(json.loads(line.strip()))
@@ -1126,12 +1126,12 @@ def _command_available(command: str) -> bool:
         logging.debug(f"Checking if command is available: {command}")
         subprocess.run(
             [command, '--version'],
-            capture_output=True,
-            text=True,
-            encoding='utf-8',
-            errors='replace',
-            timeout=5,
-            check=True,
+            capture_output = True,
+            text = True,
+            encoding = 'utf-8',
+            errors = 'replace',
+            timeout = 5,
+            check = True,
         )
         logging.debug(f"Command available: {command}")
         return True
@@ -1301,11 +1301,11 @@ def llm_chat_via_github_models(
 
     Example:
         response = llm_chat_via_github_models(
-            prompt="What is Python?",
-            model="gpt-4",
-            base_url="https://api.github.com/models",
-            token="ghp_...",
-            max_retries=3
+            prompt = "What is Python?",
+            model = "gpt-4",
+            base_url = "https://api.github.com/models",
+            token = "ghp_...",
+            max_retries = 3
         )
 
     Note:
@@ -1329,12 +1329,12 @@ def llm_chat_via_github_models(
 
     resolved_token = token or os.environ.get("GITHUB_TOKEN")
     if not resolved_token:
-        raise RuntimeError("Missing token: set GITHUB_TOKEN env var or pass token=")
+        raise RuntimeError("Missing token: set GITHUB_TOKEN env var or pass token = ")
 
     resolved_base_url = (base_url or os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
     if not resolved_base_url:
         raise RuntimeError(
-            "Missing base URL: set GITHUB_MODELS_BASE_URL env var or pass base_url="
+            "Missing base URL: set GITHUB_MODELS_BASE_URL env var or pass base_url = "
         )
 
     url = resolved_base_url.rstrip("/") + "/v1/chat/completions"
@@ -1364,9 +1364,9 @@ def llm_chat_via_github_models(
             logging.debug(f"Making GitHub Models API request (attempt {attempt + 1}/{max_retries + 1})")
             response = requests.post(
                 url,
-                headers=headers,
-                data=json.dumps(payload),
-                timeout=timeout_s,
+                headers = headers,
+                data = json.dumps(payload),
+                timeout = timeout_s,
             )
             response.raise_for_status()
             data = response.json()
@@ -1414,7 +1414,7 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
 
     Attempts to run a task using available AI backends with automatic selection
     and fallback mechanisms. Tries backends in order of preference:
-    1. GitHub Copilot CLI (if DV_AGENT_BACKEND=copilot)
+    1. GitHub Copilot CLI (if DV_AGENT_BACKEND = copilot)
     2. GitHub Models API (if configured)
     3. gh copilot (if available)
     4. Falls back gracefully if no backend available
@@ -1433,9 +1433,9 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
 
     Example:
         result = run_subagent(
-            description="Add docstrings to function",
-            prompt="Add Google-style docstrings",
-            original_content=source_code
+            description = "Add docstrings to function",
+            prompt = "Add Google-style docstrings",
+            original_content = source_code
         )
         if result:
             print(result)
@@ -1493,13 +1493,13 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
                     '--stream',
                     'off',
                 ],
-                capture_output=True,
-                text=True,
-                encoding='utf-8',
-                errors='replace',
-                timeout=180,
-                cwd=str(repo_root),
-                check=False
+                capture_output = True,
+                text = True,
+                encoding = 'utf-8',
+                errors = 'replace',
+                timeout = 180,
+                cwd = str(repo_root),
+                check = False
             )
             stdout = (result.stdout or "").strip()
             if result.returncode == 0 and stdout:
@@ -1557,13 +1557,13 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
             logging.debug("Attempting to use gh copilot backend")
             result = subprocess.run(
                 ['gh', 'copilot', 'explain', prompt_to_use],
-                capture_output=True,
-                text=True,
-                encoding='utf-8',
-                errors='replace',
-                timeout=30,
-                cwd=str(_resolve_repo_root()),
-                check=False
+                capture_output = True,
+                text = True,
+                encoding = 'utf-8',
+                errors = 'replace',
+                timeout = 30,
+                cwd = str(_resolve_repo_root()),
+                check = False
             )
             if result.returncode == 0 and result.stdout.strip():
                 logging.info("gh copilot backend succeeded")
@@ -1603,11 +1603,11 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
         try:
             logging.debug("Attempting to use GitHub Models backend")
             return llm_chat_via_github_models(
-                prompt=full_prompt,
-                model=model,
-                system_prompt=system_prompt,
-                base_url=base_url,
-                token=token,
+                prompt = full_prompt,
+                model = model,
+                system_prompt = system_prompt,
+                base_url = base_url,
+                token = token,
             )
         except Exception as e:
             logging.warning(f"GitHub Models backend error: {e}")
@@ -1619,18 +1619,18 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
     if backend in {"copilot", "local", "copilot-cli"}:
         result = _try_copilot_cli()
         if result is None:
-            raise RuntimeError("Requested DV_AGENT_BACKEND=copilot but local 'copilot' CLI is unavailable")
+            raise RuntimeError("Requested DV_AGENT_BACKEND = copilot but local 'copilot' CLI is unavailable")
         return result
     if backend in {"gh", "gh-copilot"}:
-        result = _try_gh_copilot(allow_non_command_prompt=True)
+        result = _try_gh_copilot(allow_non_command_prompt = True)
         if result is None:
-            raise RuntimeError("Requested DV_AGENT_BACKEND=gh but 'gh copilot' is unavailable")
+            raise RuntimeError("Requested DV_AGENT_BACKEND = gh but 'gh copilot' is unavailable")
         return result
     if backend in {"github-models", "github_models", "models"}:
         result = _try_github_models()
         if result is None:
             raise RuntimeError(
-                "Requested DV_AGENT_BACKEND=github-models but it is not configured; "
+                "Requested DV_AGENT_BACKEND = github-models but it is not configured; "
                 "set GITHUB_MODELS_BASE_URL, GITHUB_TOKEN, and DV_AGENT_MODEL (or GITHUB_MODELS_MODEL)"
             )
         return result
@@ -1646,7 +1646,7 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
             return result
     except Exception:
         pass
-    result = _try_gh_copilot(allow_non_command_prompt=False)
+    result = _try_gh_copilot(allow_non_command_prompt = False)
     if result is not None:
         return result
 
@@ -1670,7 +1670,7 @@ class CircuitBreaker:
     - HALF_OPEN: Recovery attempt, one request allowed
 
     Example:
-        breaker = CircuitBreaker(failure_threshold=3, recovery_timeout=60)
+        breaker = CircuitBreaker(failure_threshold = 3, recovery_timeout = 60)
         if breaker.is_open():
             print("Backend is currently unavailable")
         else:
@@ -1854,7 +1854,7 @@ class RequestSigner:
     that requests haven't been tampered with.
 
     Example:
-        signer = RequestSigner(secret_key="my-secret")
+        signer = RequestSigner(secret_key = "my-secret")
         signature = signer.sign("prompt data")
         assert signer.verify("prompt data", signature)
     """
@@ -1994,7 +1994,7 @@ class RequestDeduplicator:
             event = self._events.get(key)
 
         if event:
-            event.wait(timeout=timeout)
+            event.wait(timeout = timeout)
 
         with self._lock:
             return self._results.get(key)
@@ -2027,9 +2027,9 @@ class BackendVersion:
 
     backend: str
     version: str
-    capabilities: List[str] = field(default_factory=list)
+    capabilities: List[str] = field(default_factory = list)
     api_version: str = "v1"
-    deprecated_features: List[str] = field(default_factory=list)
+    deprecated_features: List[str] = field(default_factory = list)
 
 
 class VersionNegotiator:
@@ -2041,7 +2041,7 @@ class VersionNegotiator:
     Example:
         negotiator = VersionNegotiator()
         negotiator.register_backend("api", "2.0", ["streaming", "batching"])
-        version = negotiator.negotiate("api", required=["streaming"])
+        version = negotiator.negotiate("api", required = ["streaming"])
     """
 
     def __init__(self) -> None:
@@ -2068,10 +2068,10 @@ class VersionNegotiator:
             BackendVersion: Registered version info.
         """
         backend_version = BackendVersion(
-            backend=backend,
-            version=version,
-            capabilities=capabilities or [],
-            api_version=api_version,
+            backend = backend,
+            version = version,
+            capabilities = capabilities or [],
+            api_version = api_version,
         )
         self._versions[backend] = backend_version
         return backend_version
@@ -2119,7 +2119,7 @@ class BackendCapability:
     name: str
     description: str
     enabled: bool = True
-    parameters: Dict[str, Any] = field(default_factory=dict)
+    parameters: Dict[str, Any] = field(default_factory = dict)
 
 
 class CapabilityDiscovery:
@@ -2162,10 +2162,10 @@ class CapabilityDiscovery:
             self._capabilities[backend] = {}
 
         capability = BackendCapability(
-            name=name,
-            description=description,
-            enabled=enabled,
-            parameters=parameters or {},
+            name = name,
+            description = description,
+            enabled = enabled,
+            parameters = parameters or {},
         )
         self._capabilities[backend][name] = capability
         return capability
@@ -2223,7 +2223,7 @@ class RecordedRequest:
     response: Optional[str] = None
     latency_ms: int = 0
     success: bool = True
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
 
 
 class RequestRecorder:
@@ -2234,7 +2234,7 @@ class RequestRecorder:
 
     Example:
         recorder = RequestRecorder()
-        recorder.record("prompt", "github-models", "response", latency_ms=150)
+        recorder.record("prompt", "github-models", "response", latency_ms = 150)
 
         # Later, replay:
         for req in recorder.get_recordings():
@@ -2274,14 +2274,14 @@ class RequestRecorder:
             RecordedRequest: The recorded request.
         """
         recording = RecordedRequest(
-            request_id=str(uuid.uuid4()),
-            timestamp=time.time(),
-            prompt=prompt,
-            backend=backend,
-            response=response,
-            latency_ms=latency_ms,
-            success=success,
-            metadata=metadata or {},
+            request_id = str(uuid.uuid4()),
+            timestamp = time.time(),
+            prompt = prompt,
+            backend = backend,
+            response = response,
+            latency_ms = latency_ms,
+            success = success,
+            metadata = metadata or {},
         )
 
         with self._lock:
@@ -2351,7 +2351,7 @@ class RequestRecorder:
                 }
                 for r in self._recordings
             ]
-        return json.dumps(data, indent=2)
+        return json.dumps(data, indent = 2)
 
     def clear(self) -> int:
         """Clear all recordings.
@@ -2585,7 +2585,7 @@ class BackendAnalytics:
 
     Example:
         analytics = BackendAnalytics()
-        analytics.record_usage("github-models", tokens=500, latency_ms=150)
+        analytics.record_usage("github-models", tokens = 500, latency_ms = 150)
 
         report = analytics.generate_report()
         print(report["total_tokens"])
@@ -2622,12 +2622,12 @@ class BackendAnalytics:
             UsageRecord: The recorded usage.
         """
         record = UsageRecord(
-            timestamp=time.time(),
-            backend=backend,
-            tokens_used=tokens,
-            latency_ms=latency_ms,
-            success=success,
-            cost_estimate=cost_estimate,
+            timestamp = time.time(),
+            backend = backend,
+            tokens_used = tokens,
+            latency_ms = latency_ms,
+            success = success,
+            cost_estimate = cost_estimate,
         )
 
         with self._lock:
@@ -2710,7 +2710,7 @@ class ConnectionPool:
     Reduces connection overhead by reusing connections across requests.
 
     Example:
-        pool = ConnectionPool(max_connections=10)
+        pool = ConnectionPool(max_connections = 10)
         conn = pool.acquire("github-models")
         try:
             # Use connection
@@ -2831,7 +2831,7 @@ class RequestThrottler:
     Implements token bucket algorithm for rate limiting.
 
     Example:
-        throttler = RequestThrottler(requests_per_second=10)
+        throttler = RequestThrottler(requests_per_second = 10)
         if throttler.allow_request("github-models"):
             make_request()
         else:
@@ -2945,7 +2945,7 @@ class TTLCache:
     Caches responses with configurable TTL, automatically expiring stale entries.
 
     Example:
-        cache = TTLCache(default_ttl_seconds=300)
+        cache = TTLCache(default_ttl_seconds = 300)
         cache.set("key", "value")
 
         result = cache.get("key")  # Returns "value" if not expired
@@ -2989,9 +2989,9 @@ class TTLCache:
                 self._cleanup_expired()
 
             self._cache[key] = CachedResponse(
-                content=value,
-                created_at=now,
-                expires_at=now + ttl,
+                content = value,
+                created_at = now,
+                expires_at = now + ttl,
             )
 
     def get(self, key: str) -> Optional[str]:
@@ -3081,7 +3081,7 @@ class ABTestVariant:
     name: str
     backend: str
     weight: float = 0.5
-    metrics: Dict[str, float] = field(default_factory=dict)
+    metrics: Dict[str, float] = field(default_factory = dict)
     sample_count: int = 0
 
 
@@ -3095,11 +3095,11 @@ class ABTester:
         tester.create_test("latency_test", "backend_a", "backend_b")
 
         # For each request:
-        variant = tester.assign_variant("latency_test", user_id="user123")
+        variant = tester.assign_variant("latency_test", user_id = "user123")
         # Use variant.backend for request
 
         # Record result:
-        tester.record_result("latency_test", variant.name, latency_ms=150)
+        tester.record_result("latency_test", variant.name, latency_ms = 150)
     """
 
     def __init__(self) -> None:
@@ -3127,14 +3127,14 @@ class ABTester:
             Tuple[ABTestVariant, ABTestVariant]: The two variants.
         """
         variant_a = ABTestVariant(
-            name="A",
-            backend=backend_a,
-            weight=weight_a,
+            name = "A",
+            backend = backend_a,
+            weight = weight_a,
         )
         variant_b = ABTestVariant(
-            name="B",
-            backend=backend_b,
-            weight=1.0 - weight_a,
+            name = "B",
+            backend = backend_b,
+            weight = 1.0 - weight_a,
         )
 
         with self._lock:

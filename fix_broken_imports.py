@@ -6,7 +6,7 @@ import re
 
 def fix_broken_imports(file_path: Path):
     """Fix broken import lines"""
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding = 'utf-8') as f:
         content = f.read()
     
     original = content
@@ -18,7 +18,7 @@ def fix_broken_imports(file_path: Path):
     content = re.sub(r'from\s+([^\s]+)\s+import\s+,', 'from \\1 import', content)
     
     if content != original:
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with open(file_path, 'w', encoding = 'utf-8') as f:
             f.write(content)
         return True
     return False

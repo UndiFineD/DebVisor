@@ -31,9 +31,9 @@ from structlog.typing import EventDict
 try:
     from opentelemetry import trace
 
-    _OTEL_AVAILABLE=True
+    _OTEL_AVAILABLE = True
 except ImportError:
-    _OTEL_AVAILABLE=False
+    _OTEL_AVAILABLE = False
 
 
 def add_opentelemetry_ids(
@@ -41,8 +41,8 @@ def add_opentelemetry_ids(
 ) -> EventDict:
     """Add OpenTelemetry trace_id and span_id to the event dict."""
     if _OTEL_AVAILABLE:
-        _span=trace.get_current_span()
-        _ctx=span.get_span_context()  # type: ignore[name-defined]
+        _span = trace.get_current_span()
+        _ctx = span.get_span_context()  # type: ignore[name-defined]
         if ctx.is_valid:  # type: ignore[name-defined]
             event_dict["trace_id"] = f"{ctx.trace_id:032x}"  # type: ignore[name-defined]
             event_dict["span_id"] = f"{ctx.span_id:016x}"  # type: ignore[name-defined]
@@ -53,9 +53,9 @@ def add_opentelemetry_ids(
 
 
 def configure_logging(
-    service_name: str="debvisor",
+    service_name: str = "debvisor",
     log_level: Optional[str] = None,
-    json_format: bool=True,
+    json_format: bool = True,
 ) -> None:
     """
     Configure the root logger and structlog.
@@ -65,15 +65,15 @@ def configure_logging(
         log_level: Logging level (DEBUG, INFO, WARNING, ERROR).
                 Defaults to DEBVISOR_LOG_LEVEL env var or INFO.
         json_format: Whether to output JSON (default True).
-                    Can be disabled via DEBVISOR_LOG_JSON=0.
+                    Can be disabled via DEBVISOR_LOG_JSON = 0.
     """
 
     # Determine settings from args or env
     if not log_level:
-        _log_level=os.getenv("DEBVISOR_LOG_LEVEL", "INFO").upper()
+        _log_level = os.getenv("DEBVISOR_LOG_LEVEL", "INFO").upper()
 
     if os.getenv("DEBVISOR_LOG_JSON", "1") == "0":
-        _json_format=False
+        _json_format = False
 
     # Shared processors for both structlog and stdlib logging
     # These run BEFORE the renderer
@@ -81,34 +81,34 @@ def configure_logging(
         structlog.contextvars.merge_contextvars,
         structlog.stdlib.add_log_level,
         structlog.stdlib.add_logger_name,
-        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.processors.TimeStamper(fmt = "iso"),
         add_opentelemetry_ids,
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
     ]
 
     # Processors for structlog (ends with wrap_for_formatter)
-    structlog_processors=shared_processors + [
+    structlog_processors = shared_processors + [
         structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
     ]
 
     # Configure structlog
     structlog.configure(  # type: ignore[call-arg]
-        _processors=structlog_processors,
-        _logger_factory=structlog.stdlib.LoggerFactory(),
-        _wrapper_class=structlog.stdlib.BoundLogger,
-        _cache_logger_on_first_use=True,
+        _processors = structlog_processors,
+        _logger_factory = structlog.stdlib.LoggerFactory(),
+        _wrapper_class = structlog.stdlib.BoundLogger,
+        _cache_logger_on_first_use = True,
     )
 
     # Renderer for the final output
     renderer: Any
     if json_format:
-        _renderer=structlog.processors.JSONRenderer()
+        _renderer = structlog.processors.JSONRenderer()
     else:
-        _renderer=structlog.dev.ConsoleRenderer()  # type: ignore[assignment]
+        _renderer = structlog.dev.ConsoleRenderer()  # type: ignore[assignment]
 
     # Configure root logger
-    _root_logger=logging.getLogger()
+    _root_logger = logging.getLogger()
     root_logger.setLevel(log_level)  # type: ignore[name-defined]
 
     # Remove existing handlers
@@ -116,12 +116,12 @@ def configure_logging(
         root_logger.removeHandler(handler)  # type: ignore[name-defined]
 
     # Create handler that uses structlog's ProcessorFormatter
-    _handler=logging.StreamHandler(sys.stdout)
+    _handler = logging.StreamHandler(sys.stdout)
 
     # Use ProcessorFormatter to wrap stdlib logs
-    formatter=structlog.stdlib.ProcessorFormatter(
-        _processor=renderer,
-        _foreign_pre_chain=shared_processors,
+    formatter = structlog.stdlib.ProcessorFormatter(
+        _processor = renderer,
+        _foreign_pre_chain = shared_processors,
     )
 
     handler.setFormatter(formatter)
@@ -132,8 +132,8 @@ def configure_logging(
     logging.getLogger("kubernetes").setLevel(logging.WARNING)
 
     # Bind service name to all logs
-    structlog.contextvars.bind_contextvars(service_name=service_name)
+    structlog.contextvars.bind_contextvars(service_name = service_name)
 
     # Log startup
-    _logger=structlog.get_logger()
-    logger.info("Logging configured", service_name=service_name, library="structlog")  # type: ignore[name-defined]
+    _logger = structlog.get_logger()
+    logger.info("Logging configured", service_name = service_name, library = "structlog")  # type: ignore[name-defined]

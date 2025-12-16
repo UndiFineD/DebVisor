@@ -34,7 +34,7 @@ from urllib.parse import urlencode
 
 import jwt
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -123,9 +123,9 @@ class UserInfo:
     given_name: Optional[str] = None
     family_name: Optional[str] = None
     picture: Optional[str] = None
-    roles: List[str] = field(default_factory=list)
-    permissions: List[str] = field(default_factory=list)
-    clusters: List[str] = field(default_factory=list)
+    roles: List[str] = field(default_factory = list)
+    permissions: List[str] = field(default_factory = list)
+    clusters: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -135,7 +135,7 @@ class Role:
     name: str
     description: str
     permissions: List[str]
-    resources: List[str] = field(default_factory=list)
+    resources: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -149,7 +149,7 @@ class Session:
     access_token: str
     refresh_token: Optional[str] = None
     user_info: Optional[UserInfo] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
 
 
 class JWTManager:
@@ -187,11 +187,11 @@ class JWTManager:
         claims = {
             **payload,
             "iat": now,
-            "exp": now + timedelta(seconds=expires_in_seconds),
+            "exp": now + timedelta(seconds = expires_in_seconds),
             "type": final_type,
         }
 
-        token = jwt.encode(claims, self.secret_key, algorithm="HS256")
+        token = jwt.encode(claims, self.secret_key, algorithm = "HS256")
         return token
 
     def verify_token(self, token: str) -> Optional[Dict[str, Any]]:
@@ -205,7 +205,7 @@ class JWTManager:
             Token payload or None if invalid
         """
         try:
-            payload = jwt.decode(token, self.secret_key, algorithms=["HS256"])
+            payload = jwt.decode(token, self.secret_key, algorithms = ["HS256"])
             return payload
         except jwt.ExpiredSignatureError:
             logger.warning("Token expired")
@@ -237,7 +237,7 @@ class JWTManager:
         payload.pop("type", None)    # Remove old type so create_token uses the parameter
 
         return self.create_token(
-            payload, expires_in_seconds, token_type=TokenType.ACCESS
+            payload, expires_in_seconds, token_type = TokenType.ACCESS
         )
 
 
@@ -296,19 +296,19 @@ class OIDCProvider:
 
         # Simulate token generation
         access_token = self.jwt_manager.create_token(
-            {"sub": "user123", "aud": self.config.client_id}, expires_in_seconds=3600
+            {"sub": "user123", "aud": self.config.client_id}, expires_in_seconds = 3600
         )
 
         refresh_token = self.jwt_manager.create_token(
             {"sub": "user123", "type": TokenType.REFRESH.value},
-            expires_in_seconds=86400 * 7,    # 7 days
+            expires_in_seconds = 86400 * 7,    # 7 days
         )
 
         return TokenResponse(
-            access_token=access_token,
-            refresh_token=refresh_token,
-            expires_in=3600,
-            scope=" ".join(self.config.scopes),
+            access_token = access_token,
+            refresh_token = refresh_token,
+            expires_in = 3600,
+            scope = " ".join(self.config.scopes),
         )
 
     def get_user_info(self, access_token: str) -> Optional[UserInfo]:
@@ -328,12 +328,12 @@ class OIDCProvider:
             return None
 
         return UserInfo(
-            sub=payload.get("sub", ""),
-            email=payload.get("email", ""),
-            email_verified=payload.get("email_verified", False),
-            name=payload.get("name", ""),
-            roles=payload.get("roles", []),
-            clusters=payload.get("clusters", []),
+            sub = payload.get("sub", ""),
+            email = payload.get("email", ""),
+            email_verified = payload.get("email_verified", False),
+            name = payload.get("name", ""),
+            roles = payload.get("roles", []),
+            clusters = payload.get("clusters", []),
         )
 
 
@@ -350,28 +350,28 @@ class RBACManager:
         """Set up default roles."""
         self.create_role(
             Role(
-                name="admin",
-                description="Administrator with full access",
-                permissions=["*"],
-                resources=["*"],
+                name = "admin",
+                description = "Administrator with full access",
+                permissions = ["*"],
+                resources = ["*"],
             )
         )
 
         self.create_role(
             Role(
-                name="operator",
-                description="Operator with read/write access",
-                permissions=["read", "write", "execute"],
-                resources=["clusters", "nodes", "pods", "volumes"],
+                name = "operator",
+                description = "Operator with read/write access",
+                permissions = ["read", "write", "execute"],
+                resources = ["clusters", "nodes", "pods", "volumes"],
             )
         )
 
         self.create_role(
             Role(
-                name="viewer",
-                description="Read-only access",
-                permissions=["read"],
-                resources=["clusters", "nodes", "pods"],
+                name = "viewer",
+                description = "Read-only access",
+                permissions = ["read"],
+                resources = ["clusters", "nodes", "pods"],
             )
         )
 
@@ -499,13 +499,13 @@ class SessionManager:
         now = datetime.now(timezone.utc)
 
         session = Session(
-            session_id=session_id,
-            user_id=user_id,
-            created_at=now,
-            expires_at=now + timedelta(seconds=self.session_timeout_seconds),
-            access_token=access_token,
-            refresh_token=refresh_token,
-            user_info=user_info,
+            session_id = session_id,
+            user_id = user_id,
+            created_at = now,
+            expires_at = now + timedelta(seconds = self.session_timeout_seconds),
+            access_token = access_token,
+            refresh_token = refresh_token,
+            user_info = user_info,
         )
 
         self.sessions[session_id] = session
@@ -550,7 +550,7 @@ class SessionManager:
             return False
 
         session.expires_at = datetime.now(timezone.utc) + timedelta(
-            seconds=self.session_timeout_seconds
+            seconds = self.session_timeout_seconds
         )
         return True
 
@@ -639,10 +639,10 @@ class AuthenticationManager:
             return None
 
         session = self.sessions.create_session(
-            user_id=user_info.sub,
-            access_token=token_response.access_token,
-            user_info=user_info,
-            refresh_token=token_response.refresh_token,
+            user_id = user_info.sub,
+            access_token = token_response.access_token,
+            user_info = user_info,
+            refresh_token = token_response.refresh_token,
         )
 
         return session
@@ -662,19 +662,19 @@ class AuthenticationManager:
         logger.info(f"Authenticating user: {username}")
 
         user_info = UserInfo(
-            sub=username,
-            email=f"{username}@example.com",
-            email_verified=True,
-            name=username,
-            roles=["viewer"],
+            sub = username,
+            email = f"{username}@example.com",
+            email_verified = True,
+            name = username,
+            roles = ["viewer"],
         )
 
         access_token = self.jwt_manager.create_token(
-            {"sub": username, "email": user_info.email}, expires_in_seconds=3600
+            {"sub": username, "email": user_info.email}, expires_in_seconds = 3600
         )
 
         session = self.sessions.create_session(
-            user_id=username, access_token=access_token, user_info=user_info
+            user_id = username, access_token = access_token, user_info = user_info
         )
 
         return session

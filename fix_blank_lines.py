@@ -19,7 +19,7 @@ for filename in os.listdir(agent_dir):
     
     filepath = os.path.join(agent_dir, filename)
     
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     # Process file line by line
@@ -65,7 +65,7 @@ for filename in os.listdir(agent_dir):
     
     # Write back only if changed
     if len(new_lines) != len(lines):
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
             f.writelines(new_lines)
 
 print(f"E303 (too many blank lines) fixed: {e303_fixed}")

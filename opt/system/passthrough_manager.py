@@ -116,7 +116,7 @@ import logging
 import os
 import glob
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -126,14 +126,14 @@ class PCIDevice:
     product_id: str
     iommu_group: int
     driver_in_use: Optional[str] = None
-    device_class: str=""
-    device_name: str=""
+    device_class: str = ""
+    device_name: str = ""
 
 
 @dataclass
 class IOMMUGroup:
     id: int
-    devices: List[PCIDevice] = field(default_factory=list)
+    devices: List[PCIDevice] = field(default_factory = list)
 
     @property
     def is_isolated(self) -> bool:
@@ -149,7 +149,7 @@ class PassthroughProfile:
 
 
 class PassthroughManager:
-    PROFILES={
+    PROFILES = {
         "gaming": PassthroughProfile(
             "Gaming GPU", "GPU + HDMI Audio for gaming VMs", ["0300", "0403"]
         ),
@@ -168,8 +168,8 @@ class PassthroughManager:
 
     def scan_devices(self) -> List[PCIDevice]:
         """Scan /sys/bus/pci/devices for all PCI devices."""
-        devices=[]
-        pci_base="/sys/bus/pci/devices"
+        devices = []
+        pci_base = "/sys/bus/pci/devices"
 
         if not os.path.exists(pci_base):
             logger.warning("PCI sysfs not available (not running on Linux?)")
@@ -177,62 +177,62 @@ class PassthroughManager:
 
         for dev_path in glob.glob(f"{pci_base}/*"):
             try:
-                _device=self._parse_pci_device(dev_path)
+                _device = self._parse_pci_device(dev_path)
                 if device:
                     devices.append(device)
             except Exception as e:
                 logger.debug(f"Error parsing {dev_path}: {e}")
 
-        self._device_cache=devices
+        self._device_cache = devices
         self._build_iommu_groups()
         return devices
 
     def _parse_pci_device(self, devpath: str) -> Optional[PCIDevice]:
         """Parse PCI device information from sysfs."""
-        _address=os.path.basename(dev_path)
+        _address = os.path.basename(dev_path)
 
         # Read vendor/device IDs
-        _vendor_path=os.path.join(dev_path, "vendor")
-        _device_path=os.path.join(dev_path, "device")
-        _class_path=os.path.join(dev_path, "class")
-        _iommu_path=os.path.join(dev_path, "iommu_group")
-        _driver_path=os.path.join(dev_path, "driver")
+        _vendor_path = os.path.join(dev_path, "vendor")
+        _device_path = os.path.join(dev_path, "device")
+        _class_path = os.path.join(dev_path, "class")
+        _iommu_path = os.path.join(dev_path, "iommu_group")
+        _driver_path = os.path.join(dev_path, "driver")
 
         if not os.path.exists(vendor_path):
             return None
 
         with open(vendor_path, "r") as f:
-            _vendor_id=f.read().strip().replace("0x", "")
+            _vendor_id = f.read().strip().replace("0x", "")
         with open(device_path, "r") as f:
-            _product_id=f.read().strip().replace("0x", "")
+            _product_id = f.read().strip().replace("0x", "")
         with open(class_path, "r") as f:
-            _device_class=f.read().strip().replace("0x", "")[:4]
+            _device_class = f.read().strip().replace("0x", "")[:4]
 
         # IOMMU group
         iommu_group=-1
         if os.path.exists(iommu_path):
-            _iommu_link=os.readlink(iommu_path)
-            _iommu_group=int(os.path.basename(iommu_link))
+            _iommu_link = os.readlink(iommu_path)
+            _iommu_group = int(os.path.basename(iommu_link))
 
         # Current driver
-        driver=None
+        driver = None
         if os.path.exists(driver_path):
-            _driver=os.path.basename(os.readlink(driver_path))
+            _driver = os.path.basename(os.readlink(driver_path))
 
         return PCIDevice(
-            _address=address,
-            _vendor_id=vendor_id,
-            _product_id=product_id,
-            _iommu_group=iommu_group,
-            _driver_in_use=driver,
-            _device_class=device_class,
-            _device_name=self._get_device_name(vendor_id, product_id),
+            _address = address,
+            _vendor_id = vendor_id,
+            _product_id = product_id,
+            _iommu_group = iommu_group,
+            _driver_in_use = driver,
+            _device_class = device_class,
+            _device_name = self._get_device_name(vendor_id, product_id),
         )
 
     def _get_device_name(self, vendorid: str, productid: str) -> str:
         """Get human-readable device name from IDs."""
         # Common vendors
-        vendors={
+        vendors = {
             "10de": "NVIDIA",
             "1002": "AMD",
             "8086": "Intel",
@@ -240,7 +240,7 @@ class PassthroughManager:
             "10ec": "Realtek",
             "14e4": "Broadcom",
         }
-        _vendor_name=vendors.get(vendor_id, vendor_id)
+        _vendor_name = vendors.get(vendor_id, vendor_id)
         return f"{vendor_name} [{vendor_id}:{product_id}]"
 
     def _build_iommu_groups(self) -> None:
@@ -287,7 +287,7 @@ class PassthroughManager:
 
     def bind_to_vfio(self, pciaddress: str) -> bool:
         """Bind device to vfio-pci driver for passthrough."""
-        device=next((d for d in self._device_cache if d.address== pci_address), None)
+        device = next((d for d in self._device_cache if d.address== pci_address), None)
         if not device:
             logger.error(f"Device {pci_address} not found")
             return False
@@ -295,7 +295,7 @@ class PassthroughManager:
         logger.info(f"Binding {pci_address} ({device.device_name}) to vfio-pci")
 
         # Check IOMMU group isolation
-        _group=self._iommu_groups.get(device.iommu_group)
+        _group = self._iommu_groups.get(device.iommu_group)
         if group and not group.is_isolated:
             logger.warning(
                 f"IOMMU group {device.iommu_group} contains multiple devices - "
@@ -308,7 +308,7 @@ class PassthroughManager:
         # 3. echo {address} > /sys/bus/pci/drivers/vfio-pci/bind
 
         try:
-            override_path=f"/sys/bus/pci/devices/{pci_address}/driver_override"
+            override_path = f"/sys/bus/pci/devices/{pci_address}/driver_override"
             if os.path.exists(override_path):
                 with open(override_path, "w") as f:
                     f.write("vfio-pci")
@@ -326,7 +326,7 @@ class PassthroughManager:
         logger.info(f"Releasing {pci_address} from vfio-pci")
 
         try:
-            override_path=f"/sys/bus/pci/devices/{pci_address}/driver_override"
+            override_path = f"/sys/bus/pci/devices/{pci_address}/driver_override"
             if os.path.exists(override_path):
                 with open(override_path, "w") as f:
                     f.write("")    # Clear override
@@ -342,8 +342,8 @@ class PassthroughManager:
     def check_iommu_enabled(self) -> bool:
         """Check if IOMMU is enabled in the system."""
         # Check for Intel VT-d or AMD-Vi
-        dmar_path="/sys/firmware/acpi/tables/DMAR"
-        ivrs_path="/sys/firmware/acpi/tables/IVRS"
+        dmar_path = "/sys/firmware/acpi/tables/DMAR"
+        ivrs_path = "/sys/firmware/acpi/tables/IVRS"
 
         return os.path.exists(dmar_path) or os.path.exists(ivrs_path)
 
@@ -361,9 +361,9 @@ class PassthroughManager:
 
 
 if _name__== "__main__":
-    logging.basicConfig(level=logging.INFO)
-    _mgr=PassthroughManager()
-    _devices=mgr.scan_devices()
+    logging.basicConfig(level = logging.INFO)
+    _mgr = PassthroughManager()
+    _devices = mgr.scan_devices()
 
     print("=== Passthrough Manager===")
     print(f"IOMMU Enabled: {mgr.check_iommu_enabled()}")

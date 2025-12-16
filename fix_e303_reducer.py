@@ -8,9 +8,9 @@ import re
 
 def get_e303_issues():
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     issues = {}
@@ -32,7 +32,7 @@ def get_e303_issues():
 def fix_e303(filepath, line_numbers):
     """Fix E303 by reducing excessive blank lines to 2."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except:
         return 0
@@ -41,7 +41,7 @@ def fix_e303(filepath, line_numbers):
     processed = set()
     
     # Sort and process in reverse to avoid index issues
-    for lineno in sorted(line_numbers, reverse=True):
+    for lineno in sorted(line_numbers, reverse = True):
         if lineno in processed:
             continue
         
@@ -76,7 +76,7 @@ def fix_e303(filepath, line_numbers):
     
     if fixed > 0:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
         except:
             return 0

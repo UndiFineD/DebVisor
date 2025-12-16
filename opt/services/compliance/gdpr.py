@@ -114,7 +114,7 @@ from opt.web.panel.models.user import User
 from opt.web.panel.models.audit_log import AuditLog
 from opt.web.panel.extensions import db
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class GDPRManager:
@@ -122,12 +122,12 @@ class GDPRManager:
 
     def export_user_data(self, userid: int) -> Dict[str, Any]:
         """Export all data associated with a user."""
-        _user=User.query.get(user_id)  # type: ignore[name-defined]
+        _user = User.query.get(user_id)  # type: ignore[name-defined]
         if not user:  # type: ignore[name-defined]
             raise ValueError(f"User {user_id} not found")  # type: ignore[name-defined]
 
         # 1. Profile Data
-        _profile_data={
+        _profile_data = {
             "username": user.username,  # type: ignore[name-defined]
             "email": user.email,  # type: ignore[name-defined]
             "full_name": user.full_name,  # type: ignore[name-defined]
@@ -137,8 +137,8 @@ class GDPRManager:
         }
 
         # 2. Activity Logs (Audit Trail)
-        _audit_logs=AuditLog.query.filter_by(user_id=user.id).all()  # type: ignore[name-defined]
-        _activity_data=[
+        _audit_logs = AuditLog.query.filter_by(user_id = user.id).all()  # type: ignore[name-defined]
+        _activity_data = [
             {
                 "timestamp": log.created_at.isoformat(),
                 "action": log.action,
@@ -160,18 +160,18 @@ class GDPRManager:
 
     def anonymize_user(self, userid: int) -> bool:
         """Anonymize user data (Right to be Forgotten)."""
-        _user=User.query.get(user_id)  # type: ignore[name-defined]
+        _user = User.query.get(user_id)  # type: ignore[name-defined]
         if not user:  # type: ignore[name-defined]
             return False
 
         # Anonymize personal fields
-        _timestamp=int(datetime.now(timezone.utc).timestamp())
-        user.username=f"deleted_user_{user.id}_{timestamp}"  # type: ignore[name-defined]
-        user.email=f"deleted_{user.id}_{timestamp}@example.com"  # type: ignore[name-defined]
-        user.full_name="Deleted User"  # type: ignore[name-defined]
-        user.password_hash="deleted"  # type: ignore[name-defined]
-        user.is_active=False  # type: ignore[name-defined]
-        user.api_key_hash=None  # type: ignore[name-defined]
+        _timestamp = int(datetime.now(timezone.utc).timestamp())
+        user.username = f"deleted_user_{user.id}_{timestamp}"  # type: ignore[name-defined]
+        user.email = f"deleted_{user.id}_{timestamp}@example.com"  # type: ignore[name-defined]
+        user.full_name = "Deleted User"  # type: ignore[name-defined]
+        user.password_hash = "deleted"  # type: ignore[name-defined]
+        user.is_active = False  # type: ignore[name-defined]
+        user.api_key_hash = None  # type: ignore[name-defined]
 
         # Note: We keep the user record to maintain foreign key integrity for audit logs,
         # but the personal data is removed.

@@ -7,7 +7,7 @@ from pathlib import Path
 def fix_agent_py():
     """Fix all flake8 issues in agent.py"""
     filepath = Path("scripts/agent/agent.py")
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     # Track changes
@@ -36,7 +36,7 @@ def fix_agent_py():
         r'from typing import List, Set, Optional, Dict, Any, Callable, Union',
         r'from typing import List, Set, Optional, Dict, Any, Callable',
         content,
-        count=1
+        count = 1
     )
     
     # Remove multiprocessing import at line 48 if unused
@@ -44,7 +44,7 @@ def fix_agent_py():
         r'import multiprocessing\n',
         '',
         content,
-        count=1
+        count = 1
     )
     
     # Remove ProcessPoolExecutor import at line 50
@@ -52,7 +52,7 @@ def fix_agent_py():
         r'from concurrent\.futures import ThreadPoolExecutor, ProcessPoolExecutor\n',
         r'from concurrent.futures import ThreadPoolExecutor\n',
         content,
-        count=1
+        count = 1
     )
     
     # Fix E301: expected 1 blank line
@@ -130,7 +130,7 @@ def fix_agent_py():
     content = re.sub(r'f(["\'])(.*?)\1(?![a-zA-Z0-9_}])', r'\1\2\1', content)
     
     # Write back
-    with open(filepath, 'w', encoding='utf-8') as f:
+    with open(filepath, 'w', encoding = 'utf-8') as f:
         f.write(content)
     
     print(f"Fixed {filepath}")

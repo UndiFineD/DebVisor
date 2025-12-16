@@ -122,48 +122,48 @@ from typing import List, Dict, Any, Optional, Tuple
 from enum import Enum
 from pathlib import Path
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class EncapsulationType(Enum):
     """Overlay encapsulation types."""
 
-    VXLAN="vxlan"
-    GENEVE="geneve"
-    GRE="gre"
-    VLAN="vlan"
+    VXLAN = "vxlan"
+    GENEVE = "geneve"
+    GRE = "gre"
+    VLAN = "vlan"
 
 
 class SecurityZone(Enum):
     """Network security zones."""
 
-    UNTRUSTED="untrusted"
-    DMZ="dmz"
-    INTERNAL="internal"
-    MANAGEMENT="management"
-    STORAGE="storage"
-    TRUSTED="trusted"
+    UNTRUSTED = "untrusted"
+    DMZ = "dmz"
+    INTERNAL = "internal"
+    MANAGEMENT = "management"
+    STORAGE = "storage"
+    TRUSTED = "trusted"
 
 
 class PolicyAction(Enum):
     """Firewall policy actions."""
 
-    ALLOW="allow"
-    DENY="deny"
-    DROP="drop"
-    LOG="log"
-    REJECT="reject"
+    ALLOW = "allow"
+    DENY = "deny"
+    DROP = "drop"
+    LOG = "log"
+    REJECT = "reject"
 
 
 class SegmentRole(Enum):
     """Network segment roles."""
 
-    FRONTEND="frontend"
-    BACKEND="backend"
-    DATABASE="database"
-    STORAGE="storage"
-    MANAGEMENT="management"
-    EXTERNAL="external"
+    FRONTEND = "frontend"
+    BACKEND = "backend"
+    DATABASE = "database"
+    STORAGE = "storage"
+    MANAGEMENT = "management"
+    EXTERNAL = "external"
 
 
 @dataclass
@@ -176,28 +176,28 @@ class NetworkSegment:
     vlan_id: Optional[int] = None
     vni: Optional[int] = None    # VXLAN Network Identifier
     gateway: Optional[str] = None
-    dns_servers: List[str] = field(default_factory=list)
-    dhcp_enabled: bool=True
+    dns_servers: List[str] = field(default_factory = list)
+    dhcp_enabled: bool = True
     dhcp_range_start: Optional[str] = None
     dhcp_range_end: Optional[str] = None
-    security_zone: SecurityZone=SecurityZone.INTERNAL
-    tags: Dict[str, str] = field(default_factory=dict)
+    security_zone: SecurityZone = SecurityZone.INTERNAL
+    tags: Dict[str, str] = field(default_factory = dict)
 
     def __post_init__(self) -> None:
     # Validate CIDR
         try:
-            _network=ipaddress.ip_network(self.cidr, strict=False)
+            _network = ipaddress.ip_network(self.cidr, strict = False)
             if not self.gateway:
             # Use first usable IP as gateway
-                _hosts=list(network.hosts())
+                _hosts = list(network.hosts())
                 if hosts:
-                    self.gateway=str(hosts[0])
+                    self.gateway = str(hosts[0])
         except ValueError as e:
             raise ValueError(f"Invalid CIDR for segment {self.name}: {e}")
 
     @property
     def network(self) -> ipaddress.IPv4Network | ipaddress.IPv6Network:
-        return ipaddress.ip_network(self.cidr, strict=False)
+        return ipaddress.ip_network(self.cidr, strict = False)
 
 @dataclass
 class OverlayLink:
@@ -206,16 +206,16 @@ class OverlayLink:
     id: str
     src_segment: str
     dst_segment: str
-    encapsulation: EncapsulationType=EncapsulationType.VXLAN
-    vni: int=0
-    mtu: int=1450
-    allowed_labels: List[str] = field(default_factory=list)
+    encapsulation: EncapsulationType = EncapsulationType.VXLAN
+    vni: int = 0
+    mtu: int = 1450
+    allowed_labels: List[str] = field(default_factory = list)
     multicast_group: Optional[str] = None
-    remote_endpoints: List[str] = field(default_factory=list)
+    remote_endpoints: List[str] = field(default_factory = list)
 
     def __post_init__(self) -> None:
         if not self.id:
-            self.id=f"ovl-{self.src_segment}-{self.dst_segment}"
+            self.id = f"ovl-{self.src_segment}-{self.dst_segment}"
 
 
 @dataclass
@@ -228,18 +228,18 @@ class PolicyRule:
     action: PolicyAction
     src_segment: Optional[str] = None
     dst_segment: Optional[str] = None
-    src_labels: List[str] = field(default_factory=list)
-    dst_labels: List[str] = field(default_factory=list)
+    src_labels: List[str] = field(default_factory = list)
+    dst_labels: List[str] = field(default_factory = list)
     protocol: Optional[str] = None    # tcp, udp, icmp, any
     src_port: Optional[int] = None
     dst_port: Optional[int] = None
     port_range: Optional[Tuple[int, int]] = None
-    log_enabled: bool=False
-    description: str=""
+    log_enabled: bool = False
+    description: str = ""
 
     def to_nftables_rule(self) -> str:
         """Convert to nftables rule format."""
-        parts=[]
+        parts = []
 
         if self.src_segment:
             parts.append(f'iifname "{self.src_segment}*"')
@@ -259,7 +259,7 @@ class PolicyRule:
         if self.log_enabled:
             parts.append(f'log prefix "[SDN:{self.name}] "')
 
-        action_map={
+        action_map = {
             PolicyAction.ALLOW: "accept",
             PolicyAction.DENY: "drop",
             PolicyAction.DROP: "drop",
@@ -279,7 +279,7 @@ class TopologyIntent:
     segments: List[NetworkSegment]
     overlays: List[OverlayLink]
     policies: List[PolicyRule]
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     def get_segment(self, name: str) -> Optional[NetworkSegment]:
@@ -289,8 +289,8 @@ class TopologyIntent:
 
     def validate(self) -> List[str]:
         """Validate intent and return list of errors."""
-        errors=[]
-        segment_names={s.name for s in self.segments}
+        errors = []
+        segment_names = {s.name for s in self.segments}
 
         # Check overlays reference valid segments
         for overlay in self.overlays:
@@ -317,8 +317,8 @@ class TopologyIntent:
         # Check for CIDR overlaps
         for i, seg1 in enumerate(self.segments):
             for seg2 in self.segments[i + 1 :]:
-                _net1=ipaddress.ip_network(seg1.cidr, strict=False)
-                _net2=ipaddress.ip_network(seg2.cidr, strict=False)
+                _net1 = ipaddress.ip_network(seg1.cidr, strict = False)
+                _net2 = ipaddress.ip_network(seg2.cidr, strict = False)
                 if net1.overlaps(net2):
                     errors.append(
                         f"CIDR overlap between segments '{seg1.name}' "
@@ -382,32 +382,32 @@ class SDNCompiler:
     """Compiles intent into network configuration artifacts."""
 
     def __init__(self, dryrun: bool=False) -> None:
-        self.dry_run=dry_run
+        self.dry_run = dry_run
 
     def compile(self, intent: TopologyIntent) -> CompiledTopology:
         """Compile intent into network configuration."""
         # Calculate intent hash for change detection
-        _intent_json=json.dumps(intent.to_dict(), sort_keys=True)
-        _intent_hash=hashlib.sha256(intent_json.encode()).hexdigest()[:12]
+        _intent_json = json.dumps(intent.to_dict(), sort_keys = True)
+        _intent_hash = hashlib.sha256(intent_json.encode()).hexdigest()[:12]
 
-        _bridges=self._compile_bridges(intent)
-        _vxlan_devices=self._compile_overlays(intent)
-        _nftables_rules=self._compile_policies(intent)
-        _ip_commands=self._generate_ip_commands(intent, bridges, vxlan_devices)
+        _bridges = self._compile_bridges(intent)
+        _vxlan_devices = self._compile_overlays(intent)
+        _nftables_rules = self._compile_policies(intent)
+        _ip_commands = self._generate_ip_commands(intent, bridges, vxlan_devices)
 
         return CompiledTopology(
-            _intent_hash=intent_hash,
-            _bridges=bridges,
-            _vxlan_devices=vxlan_devices,
-            _nftables_rules=nftables_rules,
-            _ip_commands=ip_commands,
+            _intent_hash = intent_hash,
+            _bridges = bridges,
+            _vxlan_devices = vxlan_devices,
+            _nftables_rules = nftables_rules,
+            _ip_commands = ip_commands,
         )
 
     def _compile_bridges(self, intent: TopologyIntent) -> List[Dict[str, Any]]:
         """Compile network segments to Linux bridges."""
-        _bridges=[]
+        _bridges = []
         for segment in intent.segments:
-            _bridge={
+            _bridge = {
                 "name": f"br-{segment.name}",
                 "segment": segment.name,
                 "cidr": segment.cidr,
@@ -425,11 +425,11 @@ class SDNCompiler:
 
     def _compile_overlays(self, intent: TopologyIntent) -> List[Dict[str, Any]]:
         """Compile overlay links to VXLAN/Geneve devices."""
-        _devices=[]
+        _devices = []
         for overlay in intent.overlays:
-            device_name=f"vx-{overlay.src_segment[:4]}-{overlay.dst_segment[:4]}"
+            device_name = f"vx-{overlay.src_segment[:4]}-{overlay.dst_segment[:4]}"
 
-            device={
+            device = {
                 "name": device_name,
                 "type": overlay.encapsulation.value,
                 "vni": overlay.vni
@@ -448,12 +448,12 @@ class SDNCompiler:
 
     def _generate_vni(self, src: str, dst: str) -> int:
         """Generate deterministic VNI from segment names."""
-        combined=f"{src}-{dst}"
+        combined = f"{src}-{dst}"
         return (hash(combined) % 16000000) + 1000    # VNI range 1000-16001000
 
     def _compile_policies(self, intent: TopologyIntent) -> List[str]:
         """Compile policies to nftables rules."""
-        rules=[]
+        rules = []
 
         # Add chain headers
         rules.append("table inet sdn_filter {")
@@ -464,7 +464,7 @@ class SDNCompiler:
         _sorted_policies=sorted(intent.policies, key=lambda p: p.priority)
 
         for policy in sorted_policies:
-            _rule_str=f'    {policy.to_nftables_rule()} comment "{policy.name}"'
+            _rule_str = f'    {policy.to_nftables_rule()} comment "{policy.name}"'
             rules.append(rule_str)
 
         rules.append("  }")
@@ -479,22 +479,22 @@ class SDNCompiler:
         vxlan_devices: List[Dict[str, Any]],
     ) -> List[str]:
         """Generate ip commands to realize topology."""
-        commands=[]
+        commands = []
 
         # Create bridges
         for bridge in bridges:
             commands.append(f"ip link add name {bridge['name']} type bridge")
             commands.append(f"ip link set {bridge['name']} up")
             if bridge.get("gateway"):
-                cidr=bridge["cidr"]
-                _prefix_len=cidr.split("/")[1]
+                cidr = bridge["cidr"]
+                _prefix_len = cidr.split("/")[1]
                 commands.append(
                     f"ip addr add {bridge['gateway']}/{prefix_len} dev {bridge['name']}"
                 )
 
         # Create VXLAN devices
         for device in vxlan_devices:
-            cmd=f"ip link add {device['name']} type vxlan id {device['vni']} dstport 4789"
+            cmd = f"ip link add {device['name']} type vxlan id {device['vni']} dstport 4789"
             if device.get("group"):
                 cmd += f" group {device['group']}"
             commands.append(cmd)
@@ -511,11 +511,11 @@ class StateReconciler:
 
     def __init__(self) -> None:
         self._last_reconciled: Optional[datetime] = None
-        self._drift_count=0
+        self._drift_count = 0
 
     def get_current_state(self) -> Dict[str, Any]:
         """Get current network state from system."""
-        state={
+        state = {
             "bridges": self._get_bridges(),
             "vxlan_devices": self._get_vxlan_devices(),
             "routes": self._get_routes(),
@@ -525,14 +525,14 @@ class StateReconciler:
     def _get_bridges(self) -> List[str]:
         """Get list of Linux bridges."""
         try:
-            result=subprocess.run(
+            result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "bridge"],    # nosec B603
-                _capture_output=True,
-                _text=True,
-                _timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode== 0 and result.stdout.strip():
-                _data=json.loads(result.stdout)
+                _data = json.loads(result.stdout)
                 return [d.get("ifname", "") for d in data]
         except Exception as e:
             logger.warning(f"Failed to get bridges: {e}")
@@ -541,14 +541,14 @@ class StateReconciler:
     def _get_vxlan_devices(self) -> List[str]:
         """Get list of VXLAN devices."""
         try:
-            result=subprocess.run(
+            result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "vxlan"],    # nosec B603
-                _capture_output=True,
-                _text=True,
-                _timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode== 0 and result.stdout.strip():
-                _data=json.loads(result.stdout)
+                _data = json.loads(result.stdout)
                 return [d.get("ifname", "") for d in data]
         except Exception as e:
             logger.warning(f"Failed to get VXLAN devices: {e}")
@@ -557,11 +557,11 @@ class StateReconciler:
     def _get_routes(self) -> List[Dict[str, Any]]:
         """Get routing table."""
         try:
-            result=subprocess.run(
+            result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "route", "show"],    # nosec B603
-                _capture_output=True,
-                _text=True,
-                _timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode== 0 and result.stdout.strip():
                 return json.loads(result.stdout)
@@ -573,7 +573,7 @@ class StateReconciler:
         self, compiled: CompiledTopology, current_state: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Detect drift between compiled and current state."""
-        drift={
+        drift = {
             "has_drift": False,
             "missing_bridges": [],
             "extra_bridges": [],
@@ -582,12 +582,12 @@ class StateReconciler:
         }
 
         # Expected bridges
-        expected_bridges={b["name"] for b in compiled.bridges}
-        _current_bridges=set(current_state.get("bridges", []))
-        _sdn_bridges={b for b in current_bridges if b.startswith("br-")}
+        expected_bridges = {b["name"] for b in compiled.bridges}
+        _current_bridges = set(current_state.get("bridges", []))
+        _sdn_bridges = {b for b in current_bridges if b.startswith("br-")}
 
-        missing=expected_bridges - sdn_bridges
-        extra=sdn_bridges - expected_bridges
+        missing = expected_bridges - sdn_bridges
+        extra = sdn_bridges - expected_bridges
 
         if missing:
             drift["has_drift"] = True
@@ -597,12 +597,12 @@ class StateReconciler:
             drift["extra_bridges"] = list(extra)
 
         # Expected VXLAN devices
-        expected_vxlan={d["name"] for d in compiled.vxlan_devices}
-        _current_vxlan=set(current_state.get("vxlan_devices", []))
-        _sdn_vxlan={v for v in current_vxlan if v.startswith("vx-")}
+        expected_vxlan = {d["name"] for d in compiled.vxlan_devices}
+        _current_vxlan = set(current_state.get("vxlan_devices", []))
+        _sdn_vxlan = {v for v in current_vxlan if v.startswith("vx-")}
 
-        missing_vxlan=expected_vxlan - sdn_vxlan
-        extra_vxlan=sdn_vxlan - expected_vxlan
+        missing_vxlan = expected_vxlan - sdn_vxlan
+        extra_vxlan = sdn_vxlan - expected_vxlan
 
         if missing_vxlan:
             drift["has_drift"] = True
@@ -623,14 +623,14 @@ class SDNController:
     def __init__(self, statepath: Optional[Path] = None) -> None:
         self._current_intent: Optional[TopologyIntent] = None
         self._compiled: Optional[CompiledTopology] = None
-        self._lock=threading.RLock()
+        self._lock = threading.RLock()
 
-        self.compiler=SDNCompiler()
-        self.reconciler=StateReconciler()
+        self.compiler = SDNCompiler()
+        self.reconciler = StateReconciler()
 
         self._last_applied: Optional[datetime] = None
-        self._apply_count=0
-        self._state_path=state_path or Path("/var/lib/debvisor/sdn-state.json")
+        self._apply_count = 0
+        self._state_path = state_path or Path("/var/lib/debvisor/sdn-state.json")
 
         # Load persisted state
         self._load_state()
@@ -639,7 +639,7 @@ class SDNController:
         """Load persisted SDN state."""
         if self._state_path.exists():
             try:
-                _data=json.loads(self._state_path.read_text())
+                _data = json.loads(self._state_path.read_text())
                 logger.info(f"Loaded SDN state: {data.get('intent_name', 'unknown')}")
             except Exception as e:
                 logger.warning(f"Failed to load SDN state: {e}")
@@ -650,8 +650,8 @@ class SDNController:
             return
 
         try:
-            self._state_path.parent.mkdir(parents=True, exist_ok=True)
-            data={
+            self._state_path.parent.mkdir(parents = True, exist_ok = True)
+            data = {
                 "intent_name": self._current_intent.name,
                 "intent_version": self._current_intent.version,
                 "applied_at": (
@@ -659,13 +659,13 @@ class SDNController:
                 ),
                 "intent_hash": self._compiled.intent_hash if self._compiled else None,
             }
-            self._state_path.write_text(json.dumps(data, indent=2))
+            self._state_path.write_text(json.dumps(data, indent = 2))
         except Exception as e:
             logger.warning(f"Failed to save SDN state: {e}")
 
     def validate_intent(self, intent: TopologyIntent) -> Dict[str, Any]:
         """Validate intent without applying."""
-        _errors=intent.validate()
+        _errors = intent.validate()
 
         return {
             "valid": len(errors) == 0,
@@ -677,14 +677,14 @@ class SDNController:
 
     def dry_run(self, intent: TopologyIntent) -> Dict[str, Any]:
         """Compile intent and show what would be applied."""
-        _validation=self.validate_intent(intent)
+        _validation = self.validate_intent(intent)
         if not validation["valid"]:
             return {
                 "success": False,
                 "validation": validation,
             }
 
-        _compiled=self.compiler.compile(intent)
+        _compiled = self.compiler.compile(intent)
 
         return {
             "success": True,
@@ -695,12 +695,12 @@ class SDNController:
         }
 
     def apply_intent(
-        self, intent: TopologyIntent, force: bool=False
+        self, intent: TopologyIntent, force: bool = False
     ) -> Dict[str, Any]:
         """Apply network topology intent."""
         with self._lock:
         # Validate
-            _validation=self.validate_intent(intent)
+            _validation = self.validate_intent(intent)
             if not validation["valid"]:
                 return {
                     "success": False,
@@ -709,7 +709,7 @@ class SDNController:
                 }
 
             # Check for changes
-            _compiled=self.compiler.compile(intent)
+            _compiled = self.compiler.compile(intent)
             if (
                 self._compiled
                 and self._compiled.intent_hash == compiled.intent_hash
@@ -730,9 +730,9 @@ class SDNController:
                 logger.info(f"Would execute: {cmd}")
 
             # Store state
-            self._current_intent=intent
-            self._compiled=compiled
-            self._last_applied=datetime.now(timezone.utc)
+            self._current_intent = intent
+            self._compiled = compiled
+            self._last_applied = datetime.now(timezone.utc)
             self._apply_count += 1
 
             # Persist
@@ -796,8 +796,8 @@ class SDNController:
                 "message": "No topology configured",
             }
 
-        _current_state=self.reconciler.get_current_state()
-        _drift=self.reconciler.detect_drift(self._compiled, current_state)
+        _current_state = self.reconciler.get_current_state()
+        _drift = self.reconciler.detect_drift(self._compiled, current_state)
 
         return {
             "healthy": not drift["has_drift"],
@@ -830,112 +830,112 @@ class SDNController:
 if _name__== "__main__":
     import argparse
 
-    _parser=argparse.ArgumentParser(description="DebVisor SDN Controller")
+    _parser = argparse.ArgumentParser(description = "DebVisor SDN Controller")
     parser.add_argument(
-        "action", choices=["status", "demo", "health"], help="Action to perform"
+        "action", choices = ["status", "demo", "health"], help = "Action to perform"
     )
-    parser.add_argument("--json", action="store_true", help="Output as JSON")
-    _args=parser.parse_args()
+    parser.add_argument("--json", action = "store_true", help = "Output as JSON")
+    _args = parser.parse_args()
 
     logging.basicConfig(
-        _level=logging.INFO,
-        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _level = logging.INFO,
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    _controller=SDNController()
+    _controller = SDNController()
 
     if args.action == "status":
-        _status=controller.status()
-        print(json.dumps(status, indent=2) if args.json else f"Status: {status}")
+        _status = controller.status()
+        print(json.dumps(status, indent = 2) if args.json else f"Status: {status}")
 
     elif args.action == "health":
-        _health=controller.check_health()
-        print(json.dumps(health, indent=2))
+        _health = controller.check_health()
+        print(json.dumps(health, indent = 2))
 
     elif args.action == "demo":
     # Create demo topology
-        _intent=TopologyIntent(
-            _version=1,
-            _name="demo-topology",
-            _segments=[
+        _intent = TopologyIntent(
+            _version = 1,
+            _name = "demo-topology",
+            _segments = [
                 NetworkSegment(
-                    _name="frontend",
-                    _cidr="10.10.0.0/24",
-                    _role=SegmentRole.FRONTEND,
-                    _security_zone=SecurityZone.DMZ,
+                    _name = "frontend",
+                    _cidr = "10.10.0.0/24",
+                    _role = SegmentRole.FRONTEND,
+                    _security_zone = SecurityZone.DMZ,
                 ),
                 NetworkSegment(
-                    _name="backend",
-                    _cidr="10.20.0.0/24",
-                    _role=SegmentRole.BACKEND,
-                    _security_zone=SecurityZone.INTERNAL,
+                    _name = "backend",
+                    _cidr = "10.20.0.0/24",
+                    _role = SegmentRole.BACKEND,
+                    _security_zone = SecurityZone.INTERNAL,
                 ),
                 NetworkSegment(
-                    _name="database",
-                    _cidr="10.30.0.0/24",
-                    _role=SegmentRole.DATABASE,
-                    _security_zone=SecurityZone.TRUSTED,
+                    _name = "database",
+                    _cidr = "10.30.0.0/24",
+                    _role = SegmentRole.DATABASE,
+                    _security_zone = SecurityZone.TRUSTED,
                 ),
             ],
-            _overlays=[
+            _overlays = [
                 OverlayLink(
-                    _id="fe-be",
-                    _src_segment="frontend",
-                    _dst_segment="backend",
-                    _allowed_labels=["api", "metrics"],
+                    _id = "fe-be",
+                    _src_segment = "frontend",
+                    _dst_segment = "backend",
+                    _allowed_labels = ["api", "metrics"],
                 ),
                 OverlayLink(
-                    _id="be-db",
-                    _src_segment="backend",
-                    _dst_segment="database",
-                    _allowed_labels=["mysql", "postgres"],
+                    _id = "be-db",
+                    _src_segment = "backend",
+                    _dst_segment = "database",
+                    _allowed_labels = ["mysql", "postgres"],
                 ),
             ],
-            _policies=[
+            _policies = [
                 PolicyRule(
-                    _id="allow-http",
-                    _name="allow-frontend-http",
-                    _priority=100,
-                    _action=PolicyAction.ALLOW,
-                    _src_segment="frontend",
-                    _protocol="tcp",
-                    _dst_port=80,
+                    _id = "allow-http",
+                    _name = "allow-frontend-http",
+                    _priority = 100,
+                    _action = PolicyAction.ALLOW,
+                    _src_segment = "frontend",
+                    _protocol = "tcp",
+                    _dst_port = 80,
                 ),
                 PolicyRule(
-                    _id="allow-api",
-                    _name="allow-backend-api",
-                    _priority=200,
-                    _action=PolicyAction.ALLOW,
-                    _src_segment="frontend",
-                    _dst_segment="backend",
-                    _protocol="tcp",
-                    _dst_port=8080,
+                    _id = "allow-api",
+                    _name = "allow-backend-api",
+                    _priority = 200,
+                    _action = PolicyAction.ALLOW,
+                    _src_segment = "frontend",
+                    _dst_segment = "backend",
+                    _protocol = "tcp",
+                    _dst_port = 8080,
                 ),
                 PolicyRule(
-                    _id="allow-db",
-                    _name="allow-backend-db",
-                    _priority=300,
-                    _action=PolicyAction.ALLOW,
-                    _src_segment="backend",
-                    _dst_segment="database",
-                    _protocol="tcp",
-                    _dst_port=5432,
+                    _id = "allow-db",
+                    _name = "allow-backend-db",
+                    _priority = 300,
+                    _action = PolicyAction.ALLOW,
+                    _src_segment = "backend",
+                    _dst_segment = "database",
+                    _protocol = "tcp",
+                    _dst_port = 5432,
                 ),
             ],
         )
 
         # Validate and dry-run
         print("Validating intent...")
-        _validation=controller.validate_intent(intent)
+        _validation = controller.validate_intent(intent)
         print(f"Validation: {'? Valid' if validation['valid'] else '? Invalid'}")
 
         print("\nDry-run...")
-        _dry_run=controller.dry_run(intent)
+        _dry_run = controller.dry_run(intent)
         print(f"IP Commands: {len(dry_run['ip_commands'])}")
 
         print("\nApplying intent...")
-        _result=controller.apply_intent(intent)
+        _result = controller.apply_intent(intent)
         print(f"Applied: {result['success']}")
 
         print("\nTopology:")
-        print(json.dumps(controller.get_topology(), indent=2))
+        print(json.dumps(controller.get_topology(), indent = 2))

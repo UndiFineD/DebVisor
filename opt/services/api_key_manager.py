@@ -37,16 +37,16 @@ from typing import Any, Dict, List, Optional, Tuple
 from enum import Enum
 from pathlib import Path
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class KeyStatus(Enum):
     """API key status states."""
 
-    ACTIVE="active"
-    EXPIRING="expiring"    # Within overlap period
-    EXPIRED="expired"
-    REVOKED="revoked"
+    ACTIVE = "active"
+    EXPIRING = "expiring"    # Within overlap period
+    EXPIRED = "expired"
+    REVOKED = "revoked"
 
 
 @dataclass
@@ -66,7 +66,7 @@ class APIKey:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for storage."""
-        _data=asdict(self)
+        _data = asdict(self)
         data["created_at"] = self.created_at.isoformat()  # type: ignore[name-defined]
         data["expires_at"] = self.expires_at.isoformat()  # type: ignore[name-defined]
         data["last_used_at"] = (  # type: ignore[name-defined]
@@ -93,11 +93,11 @@ class APIKey:
 class KeyRotationConfig:
     """Configuration for key rotation."""
 
-    expiration_days: int=90
-    overlap_days: int=7
-    warning_days: int=14
-    auto_rotate: bool=True
-    max_active_keys_per_principal: int=3
+    expiration_days: int = 90
+    overlap_days: int = 7
+    warning_days: int = 14
+    auto_rotate: bool = True
+    max_active_keys_per_principal: int = 3
 
 
 class APIKeyManager:
@@ -108,27 +108,27 @@ class APIKeyManager:
     """
 
     def __init__(self, config: KeyRotationConfig, storagepath: str) -> None:
-        self.config=config
-        self.storage_path=Path(storage_path)  # type: ignore[name-defined]
-        self.storage_path.mkdir(parents=True, exist_ok=True)
-        self.keys_file=self.storage_path / "api_keys.json"
-        self.audit_log=self.storage_path / "api_key_audit.log"
+        self.config = config
+        self.storage_path = Path(storage_path)  # type: ignore[name-defined]
+        self.storage_path.mkdir(parents = True, exist_ok = True)
+        self.keys_file = self.storage_path / "api_keys.json"
+        self.audit_log = self.storage_path / "api_key_audit.log"
 
         # In-memory key store (load from disk)
         self.keys: Dict[str, APIKey] = {}
         self._load_keys()
 
         logger.info(  # type: ignore[name-defined]
-            f"APIKeyManager initialized: expiration={config.expiration_days}d, "
-            f"overlap={config.overlap_days}d"
+            f"APIKeyManager initialized: expiration = {config.expiration_days}d, "
+            f"overlap = {config.overlap_days}d"
         )
 
     def _load_keys(self) -> None:
         """Load keys from persistent storage."""
         if self.keys_file.exists():
             with open(self.keys_file, "r") as f:
-                _data=json.load(f)
-                self.keys={
+                _data = json.load(f)
+                self.keys = {
                     key_id: APIKey.from_dict(key_data)
                     for key_id, key_data in data.items()  # type: ignore[name-defined]
                 }
@@ -136,15 +136,15 @@ class APIKeyManager:
 
     def _save_keys(self) -> None:
         """Save keys to persistent storage."""
-        _data={key_id: key.to_dict() for key_id, key in self.keys.items()}
+        _data = {key_id: key.to_dict() for key_id, key in self.keys.items()}
         with open(self.keys_file, "w") as f:
-            json.dump(data, f, indent=2)  # type: ignore[name-defined]
+            json.dump(data, f, indent = 2)  # type: ignore[name-defined]
 
     def _audit_log_event(
         self, event: str, key_id: str, principal_id: str, details: Dict[str, Any]
     ) -> None:
         """Write audit log entry."""
-        log_entry={
+        log_entry = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "event": event,
             "key_id": key_id,
@@ -156,8 +156,8 @@ class APIKeyManager:
             f.write(json.dumps(log_entry) + "\n")
 
         logger.info(  # type: ignore[name-defined]
-            f"API key audit: event={event}, key_id={key_id}, "
-            f"principal={principal_id}"
+            f"API key audit: event = {event}, key_id = {key_id}, "
+            f"principal = {principal_id}"
         )
 
     def _generate_key(self) -> str:
@@ -174,9 +174,9 @@ class APIKeyManager:
     def create_key(
         self,
         principal_id: str,
-        description: str="",
+        description: str = "",
         custom_expiration_days: Optional[int] = None,
-        skip_audit: bool=False,
+        skip_audit: bool = False,
     ) -> Tuple[str, APIKey]:
         """
         Create new API key for a principal.
@@ -185,26 +185,26 @@ class APIKeyManager:
             (api_key, APIKey): The actual key and metadata
         """
         # Generate key
-        _api_key=self._generate_key()
-        _key_hash=self._hash_key(api_key)
-        _key_id=f"key_{secrets.token_hex(8)}"
+        _api_key = self._generate_key()
+        _key_hash = self._hash_key(api_key)
+        _key_id = f"key_{secrets.token_hex(8)}"
 
         # Calculate expiration
-        _now=datetime.now(timezone.utc)
-        expiration_days=custom_expiration_days or self.config.expiration_days
-        _expires_at=now + timedelta(days=expiration_days)  # type: ignore[name-defined]
+        _now = datetime.now(timezone.utc)
+        expiration_days = custom_expiration_days or self.config.expiration_days
+        _expires_at = now + timedelta(days = expiration_days)  # type: ignore[name-defined]
 
         # Create key object
-        _key_obj=APIKey(  # type: ignore[call-arg]
-            _key_id=key_id,  # type: ignore[name-defined]
-            _principal_id=principal_id,
-            _key_hash=key_hash,  # type: ignore[name-defined]
-            _created_at=now,  # type: ignore[name-defined]
-            _expires_at=expires_at,  # type: ignore[name-defined]
-            _last_used_at=None,
-            _use_count=0,
-            _status=KeyStatus.ACTIVE,
-            _description=description,
+        _key_obj = APIKey(  # type: ignore[call-arg]
+            _key_id = key_id,  # type: ignore[name-defined]
+            _principal_id = principal_id,
+            _key_hash = key_hash,  # type: ignore[name-defined]
+            _created_at = now,  # type: ignore[name-defined]
+            _expires_at = expires_at,  # type: ignore[name-defined]
+            _last_used_at = None,
+            _use_count = 0,
+            _status = KeyStatus.ACTIVE,
+            _description = description,
         )
 
         # Store key
@@ -214,18 +214,18 @@ class APIKeyManager:
         # Audit log (skip if part of rotation)
         if not skip_audit:
             self._audit_log_event(  # type: ignore[call-arg]
-                _event="key_created",
-                _key_id=key_id,  # type: ignore[name-defined]
-                _principal_id=principal_id,
-                _details={
+                _event = "key_created",
+                _key_id = key_id,  # type: ignore[name-defined]
+                _principal_id = principal_id,
+                _details = {
                     "expires_at": expires_at.isoformat(),  # type: ignore[name-defined]
                     "description": description,
                 },
             )
 
         logger.info(  # type: ignore[name-defined]
-            f"Created API key: key_id={key_id}, principal={principal_id}, "  # type: ignore[name-defined]
-            f"expires={expires_at.date()}"  # type: ignore[name-defined]
+            f"Created API key: key_id = {key_id}, principal = {principal_id}, "  # type: ignore[name-defined]
+            f"expires = {expires_at.date()}"  # type: ignore[name-defined]
         )
 
         return api_key, key_obj
@@ -236,7 +236,7 @@ class APIKeyManager:
 
         Returns None if key is invalid, expired, or revoked.
         """
-        _key_hash=self._hash_key(api_key)
+        _key_hash = self._hash_key(api_key)
 
         # Find key by hash
         for key_obj in self.keys.values():
@@ -245,23 +245,23 @@ class APIKeyManager:
                 if key_obj.status in [KeyStatus.EXPIRED, KeyStatus.REVOKED]:
                     logger.warning(  # type: ignore[name-defined]
                         f"Rejected {key_obj.status.value} key: "
-                        f"key_id={key_obj.key_id}, principal={key_obj.principal_id}"
+                        f"key_id = {key_obj.key_id}, principal = {key_obj.principal_id}"
                     )
                     return None
 
                 # Check expiration
-                _now=datetime.now(timezone.utc)
+                _now = datetime.now(timezone.utc)
                 if now > key_obj.expires_at:  # type: ignore[name-defined]
                     logger.warning(  # type: ignore[name-defined]
-                        f"Rejected expired key: key_id={key_obj.key_id}, "
-                        f"principal={key_obj.principal_id}"
+                        f"Rejected expired key: key_id = {key_obj.key_id}, "
+                        f"principal = {key_obj.principal_id}"
                     )
-                    key_obj.status=KeyStatus.EXPIRED
+                    key_obj.status = KeyStatus.EXPIRED
                     self._save_keys()
                     return None
 
                 # Update usage stats
-                key_obj.last_used_at=now  # type: ignore[name-defined]
+                key_obj.last_used_at = now  # type: ignore[name-defined]
                 key_obj.use_count += 1
                 self._save_keys()
 
@@ -271,7 +271,7 @@ class APIKeyManager:
         return None
 
     def rotate_key(
-        self, old_key_id: str, description: str="Rotated key"
+        self, old_key_id: str, description: str = "Rotated key"
     ) -> Tuple[str, APIKey]:
         """
         Rotate an existing API key.
@@ -282,35 +282,35 @@ class APIKeyManager:
         Returns:
             (new_api_key, APIKey): The new key and metadata
         """
-        _old_key=self.keys.get(old_key_id)
+        _old_key = self.keys.get(old_key_id)
         if not old_key:  # type: ignore[name-defined]
             raise ValueError(f"Key not found: {old_key_id}")
 
         # Generate rotation ID to link keys
-        _rotation_id=f"rotation_{secrets.token_hex(8)}"
+        _rotation_id = f"rotation_{secrets.token_hex(8)}"
 
         # Create new key
-        new_api_key, new_key_obj=self.create_key(  # type: ignore[call-arg]
-            _principal_id=old_key.principal_id,  # type: ignore[name-defined]
-            _description=description,
-            _skip_audit=True,    # Don't log key_created for rotations
+        new_api_key, new_key_obj = self.create_key(  # type: ignore[call-arg]
+            _principal_id = old_key.principal_id,  # type: ignore[name-defined]
+            _description = description,
+            _skip_audit = True,    # Don't log key_created for rotations
         )
-        new_key_obj.rotation_id=rotation_id  # type: ignore[name-defined]
+        new_key_obj.rotation_id = rotation_id  # type: ignore[name-defined]
 
         # Update old key status
-        _now=datetime.now(timezone.utc)
-        old_key.status=KeyStatus.EXPIRING  # type: ignore[name-defined]
-        old_key.rotation_id=rotation_id  # type: ignore[name-defined]
-        old_key.expires_at=now + timedelta(days=self.config.overlap_days)  # type: ignore[name-defined]
+        _now = datetime.now(timezone.utc)
+        old_key.status = KeyStatus.EXPIRING  # type: ignore[name-defined]
+        old_key.rotation_id = rotation_id  # type: ignore[name-defined]
+        old_key.expires_at = now + timedelta(days = self.config.overlap_days)  # type: ignore[name-defined]
 
         self._save_keys()
 
         # Audit log
         self._audit_log_event(  # type: ignore[call-arg]
-            _event="key_rotated",
-            _key_id=old_key_id,
-            _principal_id=old_key.principal_id,  # type: ignore[name-defined]
-            _details={
+            _event = "key_rotated",
+            _key_id = old_key_id,
+            _principal_id = old_key.principal_id,  # type: ignore[name-defined]
+            _details = {
                 "new_key_id": new_key_obj.key_id,
                 "rotation_id": rotation_id,  # type: ignore[name-defined]
                 "overlap_days": self.config.overlap_days,
@@ -318,32 +318,32 @@ class APIKeyManager:
         )
 
         logger.info(  # type: ignore[name-defined]
-            f"Rotated API key: old_key={old_key_id}, new_key={new_key_obj.key_id}, "
-            f"rotation_id={rotation_id}"  # type: ignore[name-defined]
+            f"Rotated API key: old_key = {old_key_id}, new_key = {new_key_obj.key_id}, "
+            f"rotation_id = {rotation_id}"  # type: ignore[name-defined]
         )
 
         return new_api_key, new_key_obj
 
     def revoke_key(self, keyid: str, reason: str="") -> None:
         """Revoke an API key immediately."""
-        _key_obj=self.keys.get(key_id)  # type: ignore[name-defined]
+        _key_obj = self.keys.get(key_id)  # type: ignore[name-defined]
         if not key_obj:
             raise ValueError(f"Key not found: {key_id}")  # type: ignore[name-defined]
 
-        key_obj.status=KeyStatus.REVOKED
+        key_obj.status = KeyStatus.REVOKED
         self._save_keys()
 
         # Audit log
         self._audit_log_event(  # type: ignore[call-arg]
-            _event="key_revoked",
-            _key_id=key_id,  # type: ignore[name-defined]
-            _principal_id=key_obj.principal_id,
-            _details={"reason": reason},
+            _event = "key_revoked",
+            _key_id = key_id,  # type: ignore[name-defined]
+            _principal_id = key_obj.principal_id,
+            _details = {"reason": reason},
         )
 
         logger.warning(  # type: ignore[name-defined]
-            f"Revoked API key: key_id={key_id}, principal={key_obj.principal_id}, "  # type: ignore[name-defined]
-            f"reason={reason}"
+            f"Revoked API key: key_id = {key_id}, principal = {key_obj.principal_id}, "  # type: ignore[name-defined]
+            f"reason = {reason}"
         )
 
     def list_keys_for_principal(self, principalid: str) -> List[APIKey]:
@@ -356,10 +356,10 @@ class APIKeyManager:
 
         Returns list of keys needing rotation.
         """
-        _now=datetime.now(timezone.utc)
-        _warning_threshold=now + timedelta(days=self.config.warning_days)  # type: ignore[name-defined]
+        _now = datetime.now(timezone.utc)
+        _warning_threshold = now + timedelta(days = self.config.warning_days)  # type: ignore[name-defined]
 
-        expiring_keys=[
+        expiring_keys = [
             key
             for key in self.keys.values()
             if key.status == KeyStatus.ACTIVE and key.expires_at <= warning_threshold  # type: ignore[name-defined]
@@ -377,14 +377,14 @@ class APIKeyManager:
             logger.info("Auto-rotation disabled")  # type: ignore[name-defined]
             return {}
 
-        _expiring_keys=self.check_expiring_keys()
-        rotations={}
+        _expiring_keys = self.check_expiring_keys()
+        rotations = {}
 
         for old_key in expiring_keys:  # type: ignore[name-defined]
             try:
-                new_api_key, new_key_obj=self.rotate_key(  # type: ignore[call-arg]
+                new_api_key, new_key_obj = self.rotate_key(  # type: ignore[call-arg]
                     old_key.key_id,
-                    _description=f"Auto-rotated from {old_key.key_id}",
+                    _description = f"Auto-rotated from {old_key.key_id}",
                 )
                 rotations[old_key.key_id] = new_key_obj.key_id
                 logger.info(  # type: ignore[name-defined]
@@ -401,10 +401,10 @@ class APIKeyManager:
 
         Keeps audit log intact, only removes from active key store.
         """
-        _now=datetime.now(timezone.utc)
-        _retention_threshold=now - timedelta(days=retention_days)  # type: ignore[name-defined]
+        _now = datetime.now(timezone.utc)
+        _retention_threshold = now - timedelta(days = retention_days)  # type: ignore[name-defined]
 
-        keys_to_remove=[
+        keys_to_remove = [
             key_id
             for key_id, key in self.keys.items()
             if key.status in [KeyStatus.EXPIRED, KeyStatus.REVOKED]
@@ -412,10 +412,10 @@ class APIKeyManager:
         ]
 
         for key_id in keys_to_remove:
-            _key=self.keys.pop(key_id)
+            _key = self.keys.pop(key_id)
             logger.info(  # type: ignore[name-defined]
-                f"Cleaned up old key: key_id={key_id}, "
-                f"principal={key.principal_id}, status={key.status.value}"  # type: ignore[name-defined]
+                f"Cleaned up old key: key_id = {key_id}, "
+                f"principal = {key.principal_id}, status = {key.status.value}"  # type: ignore[name-defined]
             )
 
         if keys_to_remove:
@@ -425,15 +425,15 @@ class APIKeyManager:
 
     def get_key_stats(self) -> Dict[str, int]:
         """Get statistics about API keys."""
-        _total_keys=len(self.keys)
-        active_keys=sum(1 for k in self.keys.values() if k.status== KeyStatus.ACTIVE)
-        _expiring_keys=sum(
+        _total_keys = len(self.keys)
+        active_keys = sum(1 for k in self.keys.values() if k.status== KeyStatus.ACTIVE)
+        _expiring_keys = sum(
             1 for k in self.keys.values() if k.status== KeyStatus.EXPIRING
         )
-        _expired_keys=sum(
+        _expired_keys = sum(
             1 for k in self.keys.values() if k.status== KeyStatus.EXPIRED
         )
-        revoked_keys=sum(
+        revoked_keys = sum(
             1 for k in self.keys.values() if k.status== KeyStatus.REVOKED
         )
 
@@ -448,32 +448,32 @@ class APIKeyManager:
 
 # Example usage
 if _name__== "__main__":  # type: ignore[name-defined]
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level = logging.INFO)
 
-    config=KeyRotationConfig(  # type: ignore[call-arg]
-        _expiration_days=90,
-        _overlap_days=7,
-        _warning_days=14,
-        _auto_rotate=True,
+    config = KeyRotationConfig(  # type: ignore[call-arg]
+        _expiration_days = 90,
+        _overlap_days = 7,
+        _warning_days = 14,
+        _auto_rotate = True,
     )
 
     import tempfile
 
-    _manager=APIKeyManager(config, f"{tempfile.gettempdir()}/debvisor_keys")
+    _manager = APIKeyManager(config, f"{tempfile.gettempdir()}/debvisor_keys")
 
     # Create key
-    api_key, key_obj=manager.create_key(  # type: ignore[name-defined]
-        _principal_id="admin@debvisor.local",
-        _description="Admin API key",
+    api_key, key_obj = manager.create_key(  # type: ignore[name-defined]
+        _principal_id = "admin@debvisor.local",
+        _description = "Admin API key",
     )
     print(f"Created key: {api_key}")
     print(f"Key ID: {key_obj.key_id}")
     print(f"Expires: {key_obj.expires_at}")
 
     # Validate key
-    _validated=manager.validate_key(api_key)  # type: ignore[name-defined]
+    _validated = manager.validate_key(api_key)  # type: ignore[name-defined]
     print(f"Validation: {validated.principal_id if validated else 'FAILED'}")  # type: ignore[name-defined]
 
     # Check stats
-    _stats=manager.get_key_stats()  # type: ignore[name-defined]
+    _stats = manager.get_key_stats()  # type: ignore[name-defined]
     print(f"Stats: {stats}")  # type: ignore[name-defined]

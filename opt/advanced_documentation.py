@@ -66,31 +66,31 @@ from typing import Dict, List, Optional, Any
 class DecisionStatus(Enum):
     """ADR decision status."""
 
-    PROPOSED="proposed"
-    ACCEPTED="accepted"
-    DEPRECATED="deprecated"
-    SUPERSEDED="superseded"
+    PROPOSED = "proposed"
+    ACCEPTED = "accepted"
+    DEPRECATED = "deprecated"
+    SUPERSEDED = "superseded"
 
 
 class Severity(Enum):
     """Severity levels."""
 
-    CRITICAL="critical"
-    HIGH="high"
-    MEDIUM="medium"
-    LOW="low"
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
 
 
 class PlaybookType(Enum):
     """Types of playbooks."""
 
-    INCIDENT_RESPONSE="incident_response"
-    DEPLOYMENT="deployment"
-    SCALING="scaling"
-    MAINTENANCE="maintenance"
-    DISASTER_RECOVERY="disaster_recovery"
-    SECURITY_INCIDENT="security_incident"
-    TROUBLESHOOTING="troubleshooting"
+    INCIDENT_RESPONSE = "incident_response"
+    DEPLOYMENT = "deployment"
+    SCALING = "scaling"
+    MAINTENANCE = "maintenance"
+    DISASTER_RECOVERY = "disaster_recovery"
+    SECURITY_INCIDENT = "security_incident"
+    TROUBLESHOOTING = "troubleshooting"
 
 
 @dataclass
@@ -104,11 +104,11 @@ class ArchitectureDecisionRecord:
     decision: str
     consequences: List[str]
     alternatives: Dict[str, str]    # alternative -> rationale
-    created_date: datetime=field(default_factory=datetime.now)
-    updated_date: datetime=field(default_factory=datetime.now)
-    author: str="Architecture Team"
-    related_adrs: List[str] = field(default_factory=list)
-    implementation_notes: str=""
+    created_date: datetime = field(default_factory = datetime.now)
+    updated_date: datetime = field(default_factory = datetime.now)
+    author: str = "Architecture Team"
+    related_adrs: List[str] = field(default_factory = list)
+    implementation_notes: str = ""
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -135,12 +135,12 @@ class PlaybookStep:
     step_number: int
     title: str
     description: str
-    commands: List[str] = field(default_factory=list)
-    expected_output: str=""
-    verification: str=""
-    rollback_steps: List[str] = field(default_factory=list)
-    estimated_duration_seconds: int=60
-    critical: bool=False
+    commands: List[str] = field(default_factory = list)
+    expected_output: str = ""
+    verification: str = ""
+    rollback_steps: List[str] = field(default_factory = list)
+    estimated_duration_seconds: int = 60
+    critical: bool = False
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -166,15 +166,15 @@ class OperationalPlaybook:
     playbook_type: PlaybookType
     description: str
     severity: Severity
-    steps: List[PlaybookStep] = field(default_factory=list)
-    prerequisites: List[str] = field(default_factory=list)
-    success_criteria: List[str] = field(default_factory=list)
-    created_date: datetime=field(default_factory=datetime.now)
-    updated_date: datetime=field(default_factory=datetime.now)
-    author: str="Operations Team"
-    estimated_duration_minutes: int=30
-    requires_approval: bool=False
-    related_playbooks: List[str] = field(default_factory=list)
+    steps: List[PlaybookStep] = field(default_factory = list)
+    prerequisites: List[str] = field(default_factory = list)
+    success_criteria: List[str] = field(default_factory = list)
+    created_date: datetime = field(default_factory = datetime.now)
+    updated_date: datetime = field(default_factory = datetime.now)
+    author: str = "Operations Team"
+    estimated_duration_minutes: int = 30
+    requires_approval: bool = False
+    related_playbooks: List[str] = field(default_factory = list)
 
     def add_step(self, step: PlaybookStep) -> None:
         """Add step to playbook."""
@@ -182,7 +182,7 @@ class OperationalPlaybook:
 
     def total_duration_minutes(self) -> float:
         """Calculate total duration."""
-        _total_seconds=sum(step.estimated_duration_seconds for step in self.steps)
+        _total_seconds = sum(step.estimated_duration_seconds for step in self.steps)
         return total_seconds / 60  # type: ignore[name-defined]
 
     def get_critical_steps(self) -> List[PlaybookStep]:
@@ -220,12 +220,12 @@ class SecurityProcedure:
     affected_systems: List[str]
     steps: List[str]
     compliance_frameworks: List[str]
-    created_date: datetime=field(default_factory=datetime.now)
-    updated_date: datetime=field(default_factory=datetime.now)
-    author: str="Security Team"
-    review_frequency_days: int=90
-    requires_audit_log: bool=True
-    notification_channels: List[str] = field(default_factory=list)
+    created_date: datetime = field(default_factory = datetime.now)
+    updated_date: datetime = field(default_factory = datetime.now)
+    author: str = "Security Team"
+    review_frequency_days: int = 90
+    requires_audit_log: bool = True
+    notification_channels: List[str] = field(default_factory = list)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -255,13 +255,13 @@ class TroubleshootingGuide:
     symptom_description: str
     root_cause: str
     resolution_steps: List[str]
-    diagnostic_commands: List[str] = field(default_factory=list)
-    log_files_to_check: List[str] = field(default_factory=list)
-    related_issues: List[str] = field(default_factory=list)
-    severity: Severity=Severity.MEDIUM
-    created_date: datetime=field(default_factory=datetime.now)
-    updated_date: datetime=field(default_factory=datetime.now)
-    author: str="Support Team"
+    diagnostic_commands: List[str] = field(default_factory = list)
+    log_files_to_check: List[str] = field(default_factory = list)
+    related_issues: List[str] = field(default_factory = list)
+    severity: Severity = Severity.MEDIUM
+    created_date: datetime = field(default_factory = datetime.now)
+    updated_date: datetime = field(default_factory = datetime.now)
+    author: str = "Support Team"
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -295,8 +295,8 @@ class PerformanceTuningGuide:
     prerequisites: List[str]
     rollback_steps: List[str]
     monitoring_metrics: List[str]
-    created_date: datetime=field(default_factory=datetime.now)
-    author: str="Performance Team"
+    created_date: datetime = field(default_factory = datetime.now)
+    author: str = "Performance Team"
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -331,11 +331,11 @@ class DisasterRecoveryProcedure:
     validation_steps: List[str]
     communication_plan: str
     backup_location: str
-    created_date: datetime=field(default_factory=datetime.now)
-    updated_date: datetime=field(default_factory=datetime.now)
-    author: str="Disaster Recovery Team"
+    created_date: datetime = field(default_factory = datetime.now)
+    updated_date: datetime = field(default_factory = datetime.now)
+    author: str = "Disaster Recovery Team"
     last_tested: Optional[datetime] = None
-    test_frequency_days: int=90
+    test_frequency_days: int = 90
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""

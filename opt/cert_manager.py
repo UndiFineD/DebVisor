@@ -74,9 +74,9 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 
 logging.basicConfig(  # type: ignore[call-arg]
-    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format = "%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -84,23 +84,23 @@ class CertConfig:
     """Certificate configuration."""
 
     common_name: str
-    country: str="US"
-    state: str="State"
-    locality: str="City"
-    organization: str="DebVisor"
-    validity_days: int=365
-    key_size: int=2048
-    sans: List[str] = field(default_factory=list)
+    country: str = "US"
+    state: str = "State"
+    locality: str = "City"
+    organization: str = "DebVisor"
+    validity_days: int = 365
+    key_size: int = 2048
+    sans: List[str] = field(default_factory = list)
 
 
 class CertificateAuthority:
     """Manages the Internal CA."""
 
     def __init__(self, basedir: str) -> None:
-        self.base_dir=Path(base_dir)  # type: ignore[name-defined]
-        self.ca_key_path=self.base_dir / "ca.key"
-        self.ca_cert_path=self.base_dir / "ca.crt"
-        self.base_dir.mkdir(parents=True, exist_ok=True)
+        self.base_dir = Path(base_dir)  # type: ignore[name-defined]
+        self.ca_key_path = self.base_dir / "ca.key"
+        self.ca_cert_path = self.base_dir / "ca.crt"
+        self.base_dir.mkdir(parents = True, exist_ok = True)
 
     def exists(self) -> bool:
         """Check if CA exists."""
@@ -111,13 +111,13 @@ class CertificateAuthority:
         logger.info(f"Creating Internal CA: {config.common_name}")  # type: ignore[name-defined]
 
         # Generate Private Key
-        _private_key=rsa.generate_private_key(  # type: ignore[call-arg]
-            _public_exponent=65537,
-            _key_size=4096,
+        _private_key = rsa.generate_private_key(  # type: ignore[call-arg]
+            _public_exponent = 65537,
+            _key_size = 4096,
         )
 
         # Generate Self-Signed Root Certificate
-        _subject=issuer=x509.Name(
+        _subject = issuer = x509.Name(
             [
                 x509.NameAttribute(NameOID.COUNTRY_NAME, config.country),
                 x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, config.state),
@@ -135,11 +135,11 @@ class CertificateAuthority:
             .serial_number(x509.random_serial_number())
             .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
             .not_valid_after(
-                datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=3650)  # 10 years for CA
+                datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days = 3650)  # 10 years for CA
             )
             .add_extension(
-                x509.BasicConstraints(ca=True, path_length=None),
-                _critical=True,
+                x509.BasicConstraints(ca = True, path_length = None),
+                _critical = True,
             )
             .sign(private_key, hashes.SHA256())  # type: ignore[name-defined]
         )
@@ -148,9 +148,9 @@ class CertificateAuthority:
         with open(self.ca_key_path, "wb") as f:
             f.write(
                 private_key.private_bytes(  # type: ignore[name-defined]
-                    _encoding=serialization.Encoding.PEM,
-                    _format=serialization.PrivateFormat.TraditionalOpenSSL,
-                    _encryption_algorithm=serialization.NoEncryption(),
+                    _encoding = serialization.Encoding.PEM,
+                    _format = serialization.PrivateFormat.TraditionalOpenSSL,
+                    _encryption_algorithm = serialization.NoEncryption(),
                 )
             )
 
@@ -162,7 +162,7 @@ class CertificateAuthority:
 
     def load_key(self) -> rsa.RSAPrivateKey:
         with open(self.ca_key_path, "rb") as f:
-            return serialization.load_pem_private_key(f.read(), password=None)  # type: ignore[return-value]
+            return serialization.load_pem_private_key(f.read(), password = None)  # type: ignore[return-value]
 
     def load_cert(self) -> x509.Certificate:
         with open(self.ca_cert_path, "rb") as f:
@@ -173,21 +173,21 @@ class CertificateManager:
     """Manages service certificates."""
 
     def __init__(self, ca: CertificateAuthority, certdir: str) -> None:
-        self.ca=ca
-        self.cert_dir=Path(cert_dir)  # type: ignore[name-defined]
-        self.cert_dir.mkdir(parents=True, exist_ok=True)
+        self.ca = ca
+        self.cert_dir = Path(cert_dir)  # type: ignore[name-defined]
+        self.cert_dir.mkdir(parents = True, exist_ok = True)
 
     def issue_cert(self, name: str, config: CertConfig) -> Tuple[Path, Path]:
         """Issue a certificate signed by the Internal CA."""
         logger.info(f"Issuing certificate for {name} ({config.common_name})")  # type: ignore[name-defined]
 
-        _key_path=self.cert_dir / f"{name}.key"
-        _cert_path=self.cert_dir / f"{name}.crt"
+        _key_path = self.cert_dir / f"{name}.key"
+        _cert_path = self.cert_dir / f"{name}.crt"
 
         # Generate Private Key
-        _private_key=rsa.generate_private_key(  # type: ignore[call-arg]
-            _public_exponent=65537,
-            _key_size=config.key_size,
+        _private_key = rsa.generate_private_key(  # type: ignore[call-arg]
+            _public_exponent = 65537,
+            _key_size = config.key_size,
         )
 
         # Generate CSR
@@ -212,8 +212,8 @@ class CertificateManager:
         )
 
         # Sign with CA
-        _ca_key=self.ca.load_key()
-        _ca_cert=self.ca.load_cert()
+        _ca_key = self.ca.load_key()
+        _ca_cert = self.ca.load_cert()
 
         _builder=(
             x509.CertificateBuilder()
@@ -223,29 +223,29 @@ class CertificateManager:
             .serial_number(x509.random_serial_number())
             .not_valid_before(
                 datetime.datetime.now(datetime.timezone.utc)
-                - datetime.timedelta(minutes=5)
+                - datetime.timedelta(minutes = 5)
             )
             .not_valid_after(
                 datetime.datetime.now(datetime.timezone.utc)
-                + datetime.timedelta(days=config.validity_days)
+                + datetime.timedelta(days = config.validity_days)
             )
         )
 
         if config.sans:
-            _san_list=[x509.DNSName(san) for san in config.sans]
-            builder=builder.add_extension(  # type: ignore[misc]
-                x509.SubjectAlternativeName(san_list), critical=False  # type: ignore[name-defined]
+            _san_list = [x509.DNSName(san) for san in config.sans]
+            builder = builder.add_extension(  # type: ignore[misc]
+                x509.SubjectAlternativeName(san_list), critical = False  # type: ignore[name-defined]
             )
 
-        _cert=builder.sign(ca_key, hashes.SHA256())  # type: ignore[name-defined]
+        _cert = builder.sign(ca_key, hashes.SHA256())  # type: ignore[name-defined]
 
         # Save Key
         with open(key_path, "wb") as f:  # type: ignore[name-defined]
             f.write(
                 private_key.private_bytes(  # type: ignore[name-defined]
-                    _encoding=serialization.Encoding.PEM,
-                    _format=serialization.PrivateFormat.TraditionalOpenSSL,
-                    _encryption_algorithm=serialization.NoEncryption(),
+                    _encoding = serialization.Encoding.PEM,
+                    _format = serialization.PrivateFormat.TraditionalOpenSSL,
+                    _encryption_algorithm = serialization.NoEncryption(),
                 )
             )
 
@@ -261,14 +261,14 @@ class CertificateManager:
         Check days until expiration.
         Returns None if cert doesn't exist.
         """
-        cert_path=self.cert_dir / f"{name}.crt"
+        cert_path = self.cert_dir / f"{name}.crt"
         if not cert_path.exists():
             return None
 
         with open(cert_path, "rb") as f:
-            _cert=x509.load_pem_x509_certificate(f.read())
+            _cert = x509.load_pem_x509_certificate(f.read())
 
-            remaining=cert.not_valid_after_utc - datetime.datetime.now(  # type: ignore[name-defined]
+            remaining = cert.not_valid_after_utc - datetime.datetime.now(  # type: ignore[name-defined]
                 datetime.timezone.utc
             )
         return remaining.days
@@ -277,14 +277,14 @@ class CertificateManager:
         self,
         name: str,
         config: CertConfig,
-        threshold_days: int=30,
+        threshold_days: int = 30,
         restart_cmd: Optional[str] = None,
     ) -> bool:
         """
         Rotate certificate if expiring soon.
         Returns True if rotated.
         """
-        _days_left=self.check_expiration(name)
+        _days_left = self.check_expiration(name)
 
         if days_left is None:  # type: ignore[name-defined]
             logger.info(f"Certificate {name} missing. Issuing new one.")  # type: ignore[attr-defined, name-defined]
@@ -298,7 +298,7 @@ class CertificateManager:
             if restart_cmd:
                 logger.info(f"Running restart command: {restart_cmd}")  # type: ignore[name-defined]
                 try:
-                    subprocess.run(restart_cmd, shell=True, check=True)    # nosec B602
+                    subprocess.run(restart_cmd, shell = True, check = True)    # nosec B602
                 except subprocess.CalledProcessError as e:
                     logger.error(f"Failed to restart service: {e}")  # type: ignore[name-defined]
             return True
@@ -308,54 +308,54 @@ class CertificateManager:
 
 
 def main() -> None:
-    _parser=argparse.ArgumentParser(description="DebVisor Certificate Manager")
-    parser.add_argument("--ca-dir", default="/etc/debvisor/pki/ca", help="CA directory")  # type: ignore[name-defined]
+    _parser = argparse.ArgumentParser(description = "DebVisor Certificate Manager")
+    parser.add_argument("--ca-dir", default = "/etc/debvisor/pki/ca", help = "CA directory")  # type: ignore[name-defined]
     parser.add_argument(  # type: ignore[name-defined]
-        "--cert-dir", default="/etc/debvisor/pki/certs", help="Cert directory"
+        "--cert-dir", default = "/etc/debvisor/pki/certs", help = "Cert directory"
     )
 
-    _subparsers=parser.add_subparsers(dest="command", help="Commands")  # type: ignore[name-defined]
+    _subparsers = parser.add_subparsers(dest = "command", help = "Commands")  # type: ignore[name-defined]
 
     # Init CA
-    _init_parser=subparsers.add_parser("init-ca", help="Initialize Internal CA")  # type: ignore[name-defined]
-    init_parser.add_argument("--cn", default="DebVisor Internal CA", help="Common Name")  # type: ignore[name-defined]
+    _init_parser = subparsers.add_parser("init-ca", help = "Initialize Internal CA")  # type: ignore[name-defined]
+    init_parser.add_argument("--cn", default = "DebVisor Internal CA", help = "Common Name")  # type: ignore[name-defined]
 
     # Issue Cert
-    _issue_parser=subparsers.add_parser("issue", help="Issue a certificate")  # type: ignore[name-defined]
-    issue_parser.add_argument("name", help="Certificate name (filename base)")  # type: ignore[name-defined]
-    issue_parser.add_argument("--cn", required=True, help="Common Name")  # type: ignore[name-defined]
-    issue_parser.add_argument("--sans", help="Comma-separated SANs")  # type: ignore[name-defined]
+    _issue_parser = subparsers.add_parser("issue", help = "Issue a certificate")  # type: ignore[name-defined]
+    issue_parser.add_argument("name", help = "Certificate name (filename base)")  # type: ignore[name-defined]
+    issue_parser.add_argument("--cn", required = True, help = "Common Name")  # type: ignore[name-defined]
+    issue_parser.add_argument("--sans", help = "Comma-separated SANs")  # type: ignore[name-defined]
 
     # Rotate
-    _rotate_parser=subparsers.add_parser("rotate", help="Rotate certificate if needed")  # type: ignore[name-defined]
-    rotate_parser.add_argument("name", help="Certificate name")  # type: ignore[name-defined]
-    rotate_parser.add_argument("--cn", required=True, help="Common Name")  # type: ignore[name-defined]
+    _rotate_parser = subparsers.add_parser("rotate", help = "Rotate certificate if needed")  # type: ignore[name-defined]
+    rotate_parser.add_argument("name", help = "Certificate name")  # type: ignore[name-defined]
+    rotate_parser.add_argument("--cn", required = True, help = "Common Name")  # type: ignore[name-defined]
     rotate_parser.add_argument(  # type: ignore[name-defined]
-        "--threshold", type=int, default=30, help="Days threshold"
+        "--threshold", type = int, default = 30, help = "Days threshold"
     )
-    rotate_parser.add_argument("--restart", help="Command to restart service")  # type: ignore[name-defined]
+    rotate_parser.add_argument("--restart", help = "Command to restart service")  # type: ignore[name-defined]
 
-    _args=parser.parse_args()  # type: ignore[name-defined]
+    _args = parser.parse_args()  # type: ignore[name-defined]
 
     if not args.command:  # type: ignore[name-defined]
         parser.print_help()  # type: ignore[name-defined]
         return 1  # type: ignore[return-value]
 
-    _ca=CertificateAuthority(args.ca_dir)  # type: ignore[name-defined]
-    _mgr=CertificateManager(ca, args.cert_dir)  # type: ignore[name-defined]
+    _ca = CertificateAuthority(args.ca_dir)  # type: ignore[name-defined]
+    _mgr = CertificateManager(ca, args.cert_dir)  # type: ignore[name-defined]
 
     if args.command == "init-ca":  # type: ignore[name-defined]
         if ca.exists():  # type: ignore[name-defined]
             logger.info("CA already exists.")  # type: ignore[name-defined]
             return 0  # type: ignore[return-value]
-        ca.create(CertConfig(common_name=args.cn))  # type: ignore[name-defined]
+        ca.create(CertConfig(common_name = args.cn))  # type: ignore[name-defined]
 
     elif args.command == "issue":  # type: ignore[name-defined]
         if not ca.exists():  # type: ignore[name-defined]
             logger.error("CA does not exist. Run init-ca first.")  # type: ignore[name-defined]
             return 1  # type: ignore[return-value]
-        _sans=args.sans.split(", ") if args.sans else []  # type: ignore[name-defined]
-        mgr.issue_cert(args.name, CertConfig(common_name=args.cn, sans=sans))  # type: ignore[name-defined]
+        _sans = args.sans.split(", ") if args.sans else []  # type: ignore[name-defined]
+        mgr.issue_cert(args.name, CertConfig(common_name = args.cn, sans = sans))  # type: ignore[name-defined]
 
     elif args.command == "rotate":  # type: ignore[name-defined]
         if not ca.exists():  # type: ignore[name-defined]
@@ -363,9 +363,9 @@ def main() -> None:
             return 1  # type: ignore[return-value]
         mgr.rotate_if_needed(  # type: ignore[name-defined]
             args.name,  # type: ignore[name-defined]
-            CertConfig(common_name=args.cn),  # type: ignore[name-defined]
-            _threshold_days=args.threshold,  # type: ignore[name-defined]
-            _restart_cmd=args.restart,  # type: ignore[name-defined]
+            CertConfig(common_name = args.cn),  # type: ignore[name-defined]
+            _threshold_days = args.threshold,  # type: ignore[name-defined]
+            _restart_cmd = args.restart,  # type: ignore[name-defined]
         )
 
     return 0  # type: ignore[return-value]

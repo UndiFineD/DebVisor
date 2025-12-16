@@ -104,7 +104,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 
 # Configure logging
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -139,7 +139,7 @@ class OptimizationRecommendation:
 class CostOptimizer:
 
     def __init__(self, pricingconfig: Optional[Dict[str, Any]] = None) -> None:
-        self.pricing=pricing_config or {
+        self.pricing = pricing_config or {
             "cpu_hourly": 0.05,
             "memory_hourly": 0.02,
             "storage_hourly": 0.001,
@@ -166,7 +166,7 @@ class CostOptimizer:
             "metrics": {"cpu_avg": 10, "mem_avg": 40, "uptime_hours": 720}
         }
         """
-        _recommendations=[]
+        _recommendations = []
 
         for res in resources:
             if res["type"] == "vm":
@@ -175,36 +175,36 @@ class CostOptimizer:
                     res["metrics"].get("cpu_avg", 0) < 5
                     and res["metrics"].get("network_io", 0) < 100
                 ):
-                    _savings=self._calculate_monthly_cost(res["specs"])
-                    rec=OptimizationRecommendation(
-                        _resource_id=res["id"],
-                        _resource_type="vm",
-                        _recommendation_type="idle",
+                    _savings = self._calculate_monthly_cost(res["specs"])
+                    rec = OptimizationRecommendation(
+                        _resource_id = res["id"],
+                        _resource_type = "vm",
+                        _recommendation_type = "idle",
                         _description=(
                             f"VM {res['id']} appears idle (CPU < 5%). "
                             "Consider terminating or stopping."
                         ),
-                        _estimated_savings_monthly=savings,
-                        _confidence_score=0.9,
-                        _action="stop",
+                        _estimated_savings_monthly = savings,
+                        _confidence_score = 0.9,
+                        _action = "stop",
                     )
                     recommendations.append(rec)
 
                 # Check for over-provisioning
                 elif res["metrics"].get("cpu_avg", 0) < 20:
-                    _current_cost=self._calculate_monthly_cost(res["specs"])
+                    _current_cost = self._calculate_monthly_cost(res["specs"])
                     # Suggest halving resources
-                    new_specs={
+                    new_specs = {
                         "cpu": max(1, res["specs"]["cpu"] // 2),
                         "memory_gb": max(1, res["specs"]["memory_gb"] // 2),
                     }
-                    _new_cost=self._calculate_monthly_cost(new_specs)
-                    _savings=current_cost - new_cost
+                    _new_cost = self._calculate_monthly_cost(new_specs)
+                    _savings = current_cost - new_cost
 
-                    rec=OptimizationRecommendation(
-                        _resource_id=res["id"],
-                        _resource_type="vm",
-                        _recommendation_type="rightsizing",
+                    rec = OptimizationRecommendation(
+                        _resource_id = res["id"],
+                        _resource_type = "vm",
+                        _recommendation_type = "rightsizing",
                         _description=(
                             f"VM {res['id']} is underutilized (CPU < 20%). "
                             f"Resize from {res['specs']['cpu']}vCPU/"
@@ -212,57 +212,57 @@ class CostOptimizer:
                             f"{new_specs['cpu']}vCPU/"
                             f"{new_specs['memory_gb']}GB."
                         ),
-                        _estimated_savings_monthly=savings,
-                        _confidence_score=0.85,
-                        _action="resize",
+                        _estimated_savings_monthly = savings,
+                        _confidence_score = 0.85,
+                        _action = "resize",
                     )
                     recommendations.append(rec)
 
-        self.recommendations=recommendations
+        self.recommendations = recommendations
         return recommendations
 
     def _calculate_monthly_cost(self, specs: Dict[str, float]) -> float:
         """Calculate estimated monthly cost for a resource spec."""
-        hours=730    # Average hours in a month
-        _cpu_cost=specs.get("cpu", 0) * self.pricing["cpu_hourly"] * hours
-        _mem_cost=specs.get("memory_gb", 0) * self.pricing["memory_hourly"] * hours
+        hours = 730    # Average hours in a month
+        _cpu_cost = specs.get("cpu", 0) * self.pricing["cpu_hourly"] * hours
+        _mem_cost = specs.get("memory_gb", 0) * self.pricing["memory_hourly"] * hours
         storage_cost=(
             specs.get("storage_gb", 0) * self.pricing["storage_hourly"] * hours
         )
         return cpu_cost + mem_cost + storage_cost
 
     def generate_cost_report(
-        self, resources: List[Dict[str, Any]], days: int=30
+        self, resources: List[Dict[str, Any]], days: int = 30
     ) -> CostReport:
         """Generate a cost report for the specified period."""
-        _total_cost=0.0
-        resource_breakdown: Any={}
-        project_breakdown: Any={}
+        _total_cost = 0.0
+        resource_breakdown: Any = {}
+        project_breakdown: Any = {}
 
         for res in resources:
-            _monthly_cost=self._calculate_monthly_cost(res["specs"])
+            _monthly_cost = self._calculate_monthly_cost(res["specs"])
             # Adjust for actual uptime if available, otherwise assume 100% for projection
-            _uptime_ratio=res.get("metrics", {}).get("uptime_hours", 730) / 730
-            actual_cost=monthly_cost * uptime_ratio
+            _uptime_ratio = res.get("metrics", {}).get("uptime_hours", 730) / 730
+            actual_cost = monthly_cost * uptime_ratio
 
             total_cost += actual_cost
 
-            _r_type=res.get("type", "unknown")
+            _r_type = res.get("type", "unknown")
             resource_breakdown[r_type] = resource_breakdown.get(r_type, 0) + actual_cost
 
-            _project=res.get("project", "default")
+            _project = res.get("project", "default")
             project_breakdown[project] = project_breakdown.get(project, 0) + actual_cost
 
         # Simple linear forecast
-        forecast=total_cost    # Assuming steady state for next month
+        forecast = total_cost    # Assuming steady state for next month
 
         return CostReport(
-            _period_start=(datetime.now() - timedelta(days=days)).isoformat(),
-            _period_end=datetime.now().isoformat(),
-            _total_cost=round(total_cost, 2),
-            _resource_breakdown={k: round(v, 2) for k, v in resource_breakdown.items()},
-            _project_breakdown={k: round(v, 2) for k, v in project_breakdown.items()},
-            _forecast_next_month=round(forecast, 2),
+            _period_start=(datetime.now() - timedelta(days = days)).isoformat(),
+            _period_end = datetime.now().isoformat(),
+            _total_cost = round(total_cost, 2),
+            _resource_breakdown = {k: round(v, 2) for k, v in resource_breakdown.items()},
+            _project_breakdown = {k: round(v, 2) for k, v in project_breakdown.items()},
+            _forecast_next_month = round(forecast, 2),
         )
 
     def get_recommendations(self) -> List[Dict[str, Any]]:

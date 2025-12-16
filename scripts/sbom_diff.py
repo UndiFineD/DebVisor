@@ -59,25 +59,25 @@ class SBOMDiffer:
     """Compare two SBOM files and report changes."""
 
     def __init__(self, oldsbom: Path, newsbom: Path) -> None:
-        self.old_sbom=old_sbom
-        self.new_sbom=new_sbom
+        self.old_sbom = old_sbom
+        self.new_sbom = new_sbom
         self.old_deps: Dict[str, str] = {}
         self.new_deps: Dict[str, str] = {}
 
     def parse_cyclonedx_xml(self, sbompath: Path) -> Dict[str, str]:
         """Parse CycloneDX XML SBOM and extract dependencies."""
-        _deps={}
+        _deps = {}
         try:
-            _tree=ET.parse(sbom_path)
-            _root=tree.getroot()
+            _tree = ET.parse(sbom_path)
+            _root = tree.getroot()
 
             # Handle namespace
-            ns={"bom": "http://cyclonedx.org/schema/bom/1.4"}
+            ns = {"bom": "http://cyclonedx.org/schema/bom/1.4"}
 
             # Extract components
             for component in root.findall(".//bom:component", ns):
-                _name_elem=component.find("bom:name", ns)
-                _version_elem=component.find("bom:version", ns)
+                _name_elem = component.find("bom:name", ns)
+                _version_elem = component.find("bom:version", ns)
 
                 if name_elem is not None and version_elem is not None:
                     deps[name_elem.text] = version_elem.text
@@ -85,34 +85,34 @@ class SBOMDiffer:
             # Fallback to no namespace if not found
             if not deps:
                 for component in root.findall(".//component"):
-                    _name=component.find("name")
-                    _version=component.find("version")
+                    _name = component.find("name")
+                    _version = component.find("version")
                     if name is not None and version is not None:
                         deps[name.text] = version.text
 
         except Exception as e:
-            print(f"[warn] Error parsing {sbom_path}: {e}", file=sys.stderr)
+            print(f"[warn] Error parsing {sbom_path}: {e}", file = sys.stderr)
 
         return deps
 
     def load_sboms(self) -> bool:
         """Load both SBOM files."""
         if not self.old_sbom.exists():
-            print(f"? Old SBOM not found: {self.old_sbom}", file=sys.stderr)
+            print(f"? Old SBOM not found: {self.old_sbom}", file = sys.stderr)
             return False
 
         if not self.new_sbom.exists():
-            print(f"? New SBOM not found: {self.new_sbom}", file=sys.stderr)
+            print(f"? New SBOM not found: {self.new_sbom}", file = sys.stderr)
             return False
 
-        self.old_deps=self.parse_cyclonedx_xml(self.old_sbom)
-        self.new_deps=self.parse_cyclonedx_xml(self.new_sbom)
+        self.old_deps = self.parse_cyclonedx_xml(self.old_sbom)
+        self.new_deps = self.parse_cyclonedx_xml(self.new_sbom)
 
         if not self.old_deps:
-            print("[warn] No dependencies found in old SBOM", file=sys.stderr)
+            print("[warn] No dependencies found in old SBOM", file = sys.stderr)
 
         if not self.new_deps:
-            print("[warn] No dependencies found in new SBOM", file=sys.stderr)
+            print("[warn] No dependencies found in new SBOM", file = sys.stderr)
 
         return True
 
@@ -120,20 +120,20 @@ class SBOMDiffer:
         self,
     ) -> Tuple[List[str], List[Tuple[str, str, str]], List[str]]:
         """Compute dependency differences."""
-        _old_names=set(self.old_deps.keys())
-        _new_names=set(self.new_deps.keys())
+        _old_names = set(self.old_deps.keys())
+        _new_names = set(self.new_deps.keys())
 
         # Added dependencies
-        _added=sorted(new_names - old_names)
+        _added = sorted(new_names - old_names)
 
         # Removed dependencies
-        _removed=sorted(old_names - new_names)
+        _removed = sorted(old_names - new_names)
 
         # Updated dependencies (version changes)
-        updated=[]
+        updated = []
         for name in sorted(old_names & new_names):
-            old_ver=self.old_deps[name]
-            new_ver=self.new_deps[name]
+            old_ver = self.old_deps[name]
+            new_ver = self.new_deps[name]
             if old_ver != new_ver:
                 updated.append((name, old_ver, new_ver))
 
@@ -141,7 +141,7 @@ class SBOMDiffer:
 
     def print_report(self) -> int:
         """Print diff report and return exit code."""
-        added, updated, removed=self.compute_diff()
+        added, updated, removed = self.compute_diff()
 
         print("\n" + "=" * 80)
         print("SBOM Dependency Diff Report")
@@ -158,7 +158,7 @@ class SBOMDiffer:
             print(f"? Added Dependencies ({len(added)}):")
             print("-" * 80)
             for dep in added:
-                ver=self.new_deps[dep]
+                ver = self.new_deps[dep]
                 print(f"  + {dep} ({ver})")
             print()
 
@@ -167,7 +167,7 @@ class SBOMDiffer:
             print("-" * 80)
             for name, old_ver, new_ver in updated:
             # Simple version comparison to indicate upgrade/downgrade
-                _symbol="?" if self._is_version_increase(old_ver, new_ver) else "?"
+                _symbol = "?" if self._is_version_increase(old_ver, new_ver) else "?"
                 print(f"  {symbol} {name}: {old_ver} -> {new_ver}")
             print()
 
@@ -175,7 +175,7 @@ class SBOMDiffer:
             print(f"? Removed Dependencies ({len(removed)}):")
             print("-" * 80)
             for dep in removed:
-                ver=self.old_deps[dep]
+                ver = self.old_deps[dep]
                 print(f"  - {dep} ({ver})")
             print()
 
@@ -185,7 +185,7 @@ class SBOMDiffer:
         print("=" * 80 + "\n")
 
         # Return non-zero if there are breaking changes (major version bumps or removals)
-        has_breaking=any(
+        has_breaking = any(
             self._is_breaking_change(old, new) for _, old, new in updated
         )
         return 1 if (has_breaking or removed) else 0
@@ -193,8 +193,8 @@ class SBOMDiffer:
     def _is_version_increase(self, old: str, new: str) -> bool:
         """Simple version comparison (handles semver-like strings)."""
         try:
-            _old_parts=[int(x) for x in old.split(".")[:3]]
-            _new_parts=[int(x) for x in new.split(".")[:3]]
+            _old_parts = [int(x) for x in old.split(".")[:3]]
+            _new_parts = [int(x) for x in new.split(".")[:3]]
             return new_parts > old_parts
         except (ValueError, AttributeError):
             return new > old    # Fallback to string comparison
@@ -202,8 +202,8 @@ class SBOMDiffer:
     def _is_breaking_change(self, oldver: str, newver: str) -> bool:
         """Detect major version bump (potential breaking change)."""
         try:
-            _old_major=int(old_ver.split(".")[0])
-            _new_major=int(new_ver.split(".")[0])
+            _old_major = int(old_ver.split(".")[0])
+            _new_major = int(new_ver.split(".")[0])
             return new_major > old_major
         except (ValueError, IndexError, AttributeError):
             return False
@@ -220,15 +220,15 @@ def main() -> None:
         )
         sys.exit(1)
 
-    _old_sbom=Path(sys.argv[1])
-    _new_sbom=Path(sys.argv[2])
+    _old_sbom = Path(sys.argv[1])
+    _new_sbom = Path(sys.argv[2])
 
-    _differ=SBOMDiffer(old_sbom, new_sbom)
+    _differ = SBOMDiffer(old_sbom, new_sbom)
 
     if not differ.load_sboms():
         sys.exit(1)
 
-    _exit_code=differ.print_report()
+    _exit_code = differ.print_report()
     sys.exit(exit_code)
 
 

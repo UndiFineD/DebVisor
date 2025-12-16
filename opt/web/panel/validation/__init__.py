@@ -131,7 +131,7 @@ from .schemas import (
     validate_query_params,
 )
 
-__all__=[
+__all__ = [
     "LoginSchema",
     "RegisterSchema",
     "ChangePasswordSchema",

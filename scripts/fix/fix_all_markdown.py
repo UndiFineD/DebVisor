@@ -58,7 +58,7 @@ def load_wrap_config(root: Path):
     cfg_path = root / 'md_wrap_config.json'
     if cfg_path.exists():
         try:
-            return json.loads(cfg_path.read_text(encoding='utf-8'))
+            return json.loads(cfg_path.read_text(encoding = 'utf-8'))
         except Exception:
             return {
                 'default_limit': 80,
@@ -99,7 +99,7 @@ def get_wrap_settings(root: Path, file_path: Path, cfg: dict):
 def fix_markdown_file(file_path, max_line_length: int | None = None):
     """Fix markdown linting errors in a single file."""
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, 'r', encoding = 'utf-8') as f:
             content = f.read()
     except Exception as e:
         print(f"  [ERROR] reading {file_path}: {e}")
@@ -140,15 +140,15 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
                 content = content[after + 1 if after != -1 else marker_matches[-1].end():]
 
         # Drop noisy numbered headings like "## (1)".
-        content = re.sub(r'^##\s*\(\d+\)\s*$', '', content, flags=re.MULTILINE)
+        content = re.sub(r'^##\s*\(\d+\)\s*$', '', content, flags = re.MULTILINE)
 
         # Ensure the main section is a single H1.
         content = re.sub(
             rf'^##\s+{re.escape(section_title)}\s*$',
             f'# {section_title}',
             content,
-            count=1,
-            flags=re.MULTILINE,
+            count = 1,
+            flags = re.MULTILINE,
         )
 
         # Trim leading blank lines for clean top-of-file.
@@ -160,7 +160,7 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     content = '\n'.join(lines)
 
     # Fix empty headings (lines with just #s) which cause MD022/MD024 issues
-    content = re.sub(r'^#+\s*$', '', content, flags=re.MULTILINE)
+    content = re.sub(r'^#+\s*$', '', content, flags = re.MULTILINE)
 
     # Fix MD010: Replace hard tabs with spaces
     content = content.replace('\t', '    ')
@@ -169,29 +169,29 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     content = re.sub(r'\(([^\)]+)\)\[([^\]]+)\]', r'[\2](\1)', content)
 
     # Fix MD040: Add language identifier to code blocks
-    content = re.sub(r'^```$', r'```python', content, flags=re.MULTILINE)
+    content = re.sub(r'^```$', r'```python', content, flags = re.MULTILINE)
 
     # Fix MD012: Remove multiple consecutive blank lines
     content = re.sub(r'\n\n\n+', '\n\n', content)
 
     # Fix MD014: Remove leading $ from code blocks unless showing output
-    content = re.sub(r'^(\s*)\$\s+', r'\1', content, flags=re.MULTILINE)
+    content = re.sub(r'^(\s*)\$\s+', r'\1', content, flags = re.MULTILINE)
 
     # Fix MD018: Add space after hash on atx style heading
-    content = re.sub(r'^(#+)([^ #])', r'\1 \2', content, flags=re.MULTILINE)
+    content = re.sub(r'^(#+)([^ #])', r'\1 \2', content, flags = re.MULTILINE)
 
     # Fix MD019: Remove multiple spaces after hash on atx style heading
-    content = re.sub(r'^(#+) {2,}', r'\1 ', content, flags=re.MULTILINE)
+    content = re.sub(r'^(#+) {2,}', r'\1 ', content, flags = re.MULTILINE)
 
     # Fix MD020: No space inside hashes on closed atx style heading
-    content = re.sub(r'^(#+) +(.+?) +(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
+    content = re.sub(r'^(#+) +(.+?) +(#+)$', r'\1 \2 \3', content, flags = re.MULTILINE)
 
     # Fix MD021: Multiple spaces inside hashes on closed atx style heading
-    content = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
+    content = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', content, flags = re.MULTILINE)
 
     # Fix MD020/MD021: Add space inside closed ATX style headings if missing
     # Matches #Heading# -> # Heading #
-    content = re.sub(r'^(#+)([^#\s].*?)(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
+    content = re.sub(r'^(#+)([^#\s].*?)(#+)$', r'\1 \2 \3', content, flags = re.MULTILINE)
 
     # Additional MD001 guard: demote extra H1 headings to H2
     lines = content.split('\n')
@@ -205,34 +205,34 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     content = '\n'.join(lines)
 
     # Fix MD033: Remove or replace inline HTML (hard strip for remaining tags)
-    content = re.sub(r'<br\s*/?>', '\n', content, flags=re.IGNORECASE)
-    content = re.sub(r'<hr\s*/?>', '\n---\n', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?p[^>]*>', '', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?div[^>]*>', '', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?span[^>]*>', '', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?(strong|b)>', '**', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?(em|i)>', '*', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?code>', '`', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?(table|thead|tbody|tr|th|td)[^>]*>', '', content, flags=re.IGNORECASE)
+    content = re.sub(r'<br\s*/?>', '\n', content, flags = re.IGNORECASE)
+    content = re.sub(r'<hr\s*/?>', '\n---\n', content, flags = re.IGNORECASE)
+    content = re.sub(r'</?p[^>]*>', '', content, flags = re.IGNORECASE)
+    content = re.sub(r'</?div[^>]*>', '', content, flags = re.IGNORECASE)
+    content = re.sub(r'</?span[^>]*>', '', content, flags = re.IGNORECASE)
+    content = re.sub(r'</?(strong|b)>', '**', content, flags = re.IGNORECASE)
+    content = re.sub(r'</?(em|i)>', '*', content, flags = re.IGNORECASE)
+    content = re.sub(r'</?code>', '`', content, flags = re.IGNORECASE)
+    content = re.sub(r'</?(table|thead|tbody|tr|th|td)[^>]*>', '', content, flags = re.IGNORECASE)
     content = re.sub(r'<[^>]+>', '', content)
 
     # Fix MD036: Convert emphasis as heading to proper heading
-    content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags=re.MULTILINE)
+    content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags = re.MULTILINE)
 
     # Fix MD026: Remove trailing punctuation from headings
-    content = re.sub(r'^(#+\s+.*?)[:.!?,]\s*$', r'\1', content, flags=re.MULTILINE)
+    content = re.sub(r'^(#+\s+.*?)[:.!?,]\s*$', r'\1', content, flags = re.MULTILINE)
 
     # Fix MD027: Remove multiple spaces after blockquote symbol
-    content = re.sub(r'^(>\s) {2,}', r'\1', content, flags=re.MULTILINE)
+    content = re.sub(r'^(>\s) {2,}', r'\1', content, flags = re.MULTILINE)
 
     # Fix MD028: Remove multiple blank lines in blockquotes
     content = re.sub(r'(>\s*\n)\n+(>\s)', r'\1\2', content)
 
     # Fix MD030: Spaces after list markers (should be exactly 1)
-    content = re.sub(r'^(\s*)[-*+] {2,}', r'\1- ', content, flags=re.MULTILINE)
-    content = re.sub(r'^(\s*)([0-9]+\.) {2,}', r'\1\2 ', content, flags=re.MULTILINE)
+    content = re.sub(r'^(\s*)[-*+] {2,}', r'\1- ', content, flags = re.MULTILINE)
+    content = re.sub(r'^(\s*)([0-9]+\.) {2,}', r'\1\2 ', content, flags = re.MULTILINE)
     # Fix MD050: Normalize ordered list prefixes (convert `1)` to `1.`)
-    content = re.sub(r'^(\s*)[0-9]+\)\s+', r'\g<1>1. ', content, flags=re.MULTILINE)
+    content = re.sub(r'^(\s*)[0-9]+\)\s+', r'\g<1>1. ', content, flags = re.MULTILINE)
 
     # Fix MD005, MD006, MD007, MD008, MD015: Normalize lists safely
     lines = content.split('\n')
@@ -368,8 +368,8 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     content = re.sub(r'_([^_]+)_(?![a-zA-Z0-9])', r'*\1*', content)
 
     # Fix MD048: Normalize code fence style (prefer backticks over tildes)
-    content = re.sub(r'^~~~+', '```', content, flags=re.MULTILINE)
-    content = re.sub(r'~~~+$', '```', content, flags=re.MULTILINE)
+    content = re.sub(r'^~~~+', '```', content, flags = re.MULTILINE)
+    content = re.sub(r'~~~+$', '```', content, flags = re.MULTILINE)
 
     # Fix MD038: Remove spaces inside code span delimiters
     content = re.sub(r'` +(.+?) +`', r'`\1`', content)
@@ -551,7 +551,7 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     # Only write if content changed
     if content != original_content:
         try:
-            with open(file_path, 'w', encoding='utf-8') as f:
+            with open(file_path, 'w', encoding = 'utf-8') as f:
                 f.write(content)
             return 1  # Fixed
         except Exception as e:
@@ -562,9 +562,9 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
 
 def main():
     """Find and fix all markdown files in the repository."""
-    parser = argparse.ArgumentParser(description="Normalize Markdown files across the repo")
-    parser.add_argument("-q", "--quiet", action="store_true", help="suppress per-file [FIXED] lines")
-    parser.add_argument("--max-line-length", type=int, default=None, help="override wrapping limit for MD013")
+    parser = argparse.ArgumentParser(description = "Normalize Markdown files across the repo")
+    parser.add_argument("-q", "--quiet", action = "store_true", help = "suppress per-file [FIXED] lines")
+    parser.add_argument("--max-line-length", type = int, default = None, help = "override wrapping limit for MD013")
     args, _ = parser.parse_known_args()
 
     workspace_root = Path(__file__).parent.parent.parent
@@ -593,7 +593,7 @@ def main():
 
     for md_file in sorted(markdown_files):
         relative_path = md_file.relative_to(workspace_root)
-        result = fix_markdown_file(md_file, max_line_length=args.max_line_length)
+        result = fix_markdown_file(md_file, max_line_length = args.max_line_length)
 
         if result == 1:
             if not args.quiet:

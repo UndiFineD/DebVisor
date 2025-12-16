@@ -112,21 +112,21 @@ from opt.services.compliance.core import (  # type: ignore[attr-defined]
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.user import User
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ComplianceReporter:
 
     def __init__(self, engine: ComplianceEngine) -> None:
-        self.engine=engine
+        self.engine = engine
 
     def fetch_resources(self) -> List[Dict[str, Any]]:
         """Fetch resources from database for scanning."""
-        resources=[]
+        resources = []
 
         # Fetch Nodes
         try:
-            _nodes=Node.query.all()
+            _nodes = Node.query.all()
             for node in nodes:  # type: ignore[name-defined]
                 resources.append({
                     "id": str(node.id),
@@ -140,7 +140,7 @@ class ComplianceReporter:
 
         # Fetch Users
         try:
-            _users=User.query.all()
+            _users = User.query.all()
             for user in users:  # type: ignore[name-defined]
                 resources.append({
                     "id": str(user.id),
@@ -157,21 +157,21 @@ class ComplianceReporter:
 
     def generate_report(self, reportid: str, format: str="pd") -> GeneratedReport:
         """Generate a compliance report."""
-        _resources=self.fetch_resources()
-        _report_data=self.engine.run_compliance_scan(resources)  # type: ignore[name-defined]
+        _resources = self.fetch_resources()
+        _report_data = self.engine.run_compliance_scan(resources)  # type: ignore[name-defined]
 
-        content=""
-        _file_path=None
-        _timestamp=datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        content = ""
+        _file_path = None
+        _timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
         if format.lower() == "pdf":
         # PDF generation requires reportlab or similar.
             # Fallback to HTML if not available, but try to simulate PDF path
             logger.warning("PDF generation not supported (missing libraries). Falling back to HTML.")  # type: ignore[name-defined]
-            _content=self._generate_html(report_data)  # type: ignore[name-defined]
+            _content = self._generate_html(report_data)  # type: ignore[name-defined]
             # In a real scenario, we would write to a PDF file here.
             # For now, we'll save as .html but pretend it's what was asked
-            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")  # type: ignore[name-defined]
+            _file_path = os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")  # type: ignore[name-defined]
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
@@ -179,8 +179,8 @@ class ComplianceReporter:
                 logger.error(f"Failed to write report file: {e}")  # type: ignore[name-defined]
 
         elif format.lower() == "html":
-            _content=self._generate_html(report_data)  # type: ignore[name-defined]
-            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")  # type: ignore[name-defined]
+            _content = self._generate_html(report_data)  # type: ignore[name-defined]
+            _file_path = os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")  # type: ignore[name-defined]
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
@@ -188,8 +188,8 @@ class ComplianceReporter:
                 pass
 
         elif format.lower() == "markdown":
-            _content=self._generate_markdown(report_data)  # type: ignore[name-defined]
-            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.md")  # type: ignore[name-defined]
+            _content = self._generate_markdown(report_data)  # type: ignore[name-defined]
+            _file_path = os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.md")  # type: ignore[name-defined]
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
@@ -199,17 +199,17 @@ class ComplianceReporter:
             raise ValueError(f"Unsupported format: {format}")
 
         return GeneratedReport(  # type: ignore[call-arg]
-            _report_instance_id="inst-{report_id}-{timestamp}",
-            _scheduled_report_id=report_id,  # type: ignore[name-defined]
-            _template_id="compliance-standard",
-            _status=ReportStatus.COMPLETED,
-            _content=content,
-            _file_path=file_path,  # type: ignore[name-defined]
-            _generated_at=datetime.now(timezone.utc)
+            _report_instance_id = "inst-{report_id}-{timestamp}",
+            _scheduled_report_id = report_id,  # type: ignore[name-defined]
+            _template_id = "compliance-standard",
+            _status = ReportStatus.COMPLETED,
+            _content = content,
+            _file_path = file_path,  # type: ignore[name-defined]
+            _generated_at = datetime.now(timezone.utc)
         )
 
     def _generate_markdown(self, report: ComplianceReport) -> str:
-        _lines=[
+        _lines = [
             "    # Compliance Report",
             f"**Generated At:** {report.generated_at}",
             f"**Score:** {report.compliance_score:.1f}%",
@@ -231,16 +231,16 @@ class ComplianceReporter:
         return "\n".join(lines)  # type: ignore[name-defined]
 
     def _generate_html(self, report: ComplianceReport) -> str:
-        violations_html=""
+        violations_html = ""
         if not report.violations:
-            violations_html="<p>No violations found.</p>"
+            violations_html = "<p>No violations found.</p>"
         else:
-            violations_html="<ul>"
+            violations_html = "<ul>"
             for v in report.violations:
                 violations_html += (
                     f"<li><strong>{v.policy_id}</strong> "
                     f"({v.resource_type}:{v.resource_id}): {v.details} "
-                    f"<span class='badge {v.severity}'>{v.severity}</span></li>"
+                    f"<span class = 'badge {v.severity}'>{v.severity}</span></li>"
                 )
             violations_html += "</ul>"
 

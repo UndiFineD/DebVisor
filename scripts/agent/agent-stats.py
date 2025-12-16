@@ -117,7 +117,7 @@ class Metric:
     metric_type: MetricType
     timestamp: str = ""
     namespace: str = "default"
-    tags: Dict[str, str] = field(default_factory=dict)
+    tags: Dict[str, str] = field(default_factory = dict)
 
 
 @dataclass
@@ -126,7 +126,7 @@ class MetricSnapshot:
     id: str
     timestamp: str
     metrics: Dict[str, float]
-    tags: Dict[str, str] = field(default_factory=dict)
+    tags: Dict[str, str] = field(default_factory = dict)
 
 
 @dataclass
@@ -181,7 +181,7 @@ class MetricNamespace:
     name: str
     description: str = ""
     parent: Optional[str] = None
-    tags: Dict[str, str] = field(default_factory=dict)
+    tags: Dict[str, str] = field(default_factory = dict)
     retention_days: int = 30
 
 
@@ -201,7 +201,7 @@ class MetricSubscription:
     id: str
     metric_pattern: str  # glob pattern like "cpu.*"
     callback_url: str = ""
-    notify_on: List[str] = field(default_factory=lambda: ["threshold", "anomaly"])
+    notify_on: List[str] = field(default_factory = lambda: ["threshold", "anomaly"])
     min_interval_seconds: int = 60
 
 
@@ -211,8 +211,8 @@ class ABComparison:
     id: str
     version_a: str
     version_b: str
-    metrics_a: Dict[str, float] = field(default_factory=dict)
-    metrics_b: Dict[str, float] = field(default_factory=dict)
+    metrics_a: Dict[str, float] = field(default_factory = dict)
+    metrics_b: Dict[str, float] = field(default_factory = dict)
     winner: str = ""
     confidence: float = 0.0
 
@@ -328,12 +328,12 @@ class StatsAgent:
     ) -> Metric:
         """Add a metric value."""
         metric = Metric(
-            name=name,
-            value=value,
-            metric_type=metric_type,
-            timestamp=datetime.now().isoformat(),
-            namespace=namespace,
-            tags=tags or {}
+            name = name,
+            value = value,
+            metric_type = metric_type,
+            timestamp = datetime.now().isoformat(),
+            namespace = namespace,
+            tags = tags or {}
         )
 
         if name not in self._metrics:
@@ -398,11 +398,11 @@ class StatsAgent:
     ) -> Threshold:
         """Add a threshold for alerting."""
         threshold = Threshold(
-            metric_name=metric_name,
-            operator=operator,
-            value=value,
-            severity=severity,
-            message=message or f"{metric_name} {operator} {value}"
+            metric_name = metric_name,
+            operator = operator,
+            value = value,
+            severity = severity,
+            message = message or f"{metric_name} {operator} {value}"
         )
         self._thresholds.append(threshold)
         return threshold
@@ -437,18 +437,18 @@ class StatsAgent:
     def _create_alert(self, metric: Metric, threshold: Threshold) -> Alert:
         """Create an alert."""
         alert = Alert(
-            id=hashlib.md5(
+            id = hashlib.md5(
                 f"{metric.name}:{metric.timestamp}".encode()
             ).hexdigest()[:8],
-            metric_name=metric.name,
-            current_value=metric.value,
-            threshold_value=threshold.value,
-            severity=threshold.severity,
-            message=threshold.message,
-            timestamp=datetime.now().isoformat()
+            metric_name = metric.name,
+            current_value = metric.value,
+            threshold_value = threshold.value,
+            severity = threshold.severity,
+            message = threshold.message,
+            timestamp = datetime.now().isoformat()
         )
         self._alerts.append(alert)
-        logging.warning(f"Alert: {alert.message} (value={metric.value})")
+        logging.warning(f"Alert: {alert.message} (value = {metric.value})")
         return alert
 
     def get_alerts(
@@ -479,10 +479,10 @@ class StatsAgent:
         metrics = {**current_stats, **custom}
 
         snapshot = MetricSnapshot(
-            id=hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:8],
-            timestamp=datetime.now().isoformat(),
-            metrics=metrics,
-            tags=tags or {}
+            id = hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:8],
+            timestamp = datetime.now().isoformat(),
+            metrics = metrics,
+            tags = tags or {}
         )
         self._snapshots.append(snapshot)
         return snapshot
@@ -529,10 +529,10 @@ class StatsAgent:
     ) -> RetentionPolicy:
         """Add a retention policy."""
         policy = RetentionPolicy(
-            namespace=namespace,
-            max_age_days=max_age_days,
-            max_points=max_points,
-            compression_after_days=compression_after_days
+            namespace = namespace,
+            max_age_days = max_age_days,
+            max_points = max_points,
+            compression_after_days = compression_after_days
         )
         self._retention_policies[namespace] = policy
         return policy
@@ -551,7 +551,7 @@ class StatsAgent:
                 continue
 
             # Remove old metrics
-            cutoff = now - timedelta(days=policy.max_age_days)
+            cutoff = now - timedelta(days = policy.max_age_days)
             original_count = len(metrics)
             self._metrics[metric_name] = [
                 m for m in metrics
@@ -626,12 +626,12 @@ class StatsAgent:
         data = json.loads(zlib.decompress(compressed).decode())
         return [
             Metric(
-                name=metric_name,
-                value=item["value"],
-                metric_type=metric_type,
-                timestamp=item["timestamp"],
-                namespace=namespace,
-                tags=item.get("tags", {})
+                name = metric_name,
+                value = item["value"],
+                metric_type = metric_type,
+                timestamp = item["timestamp"],
+                namespace = namespace,
+                tags = item.get("tags", {})
             )
             for item in data
         ]
@@ -712,11 +712,11 @@ class StatsAgent:
 
         labels = list(self.stats.keys())
         values = list(self.stats.values())
-        plt.bar(labels, values, color='skyblue')
+        plt.bar(labels, values, color = 'skyblue')
         plt.xlabel('Metrics')
         plt.ylabel('Values')
         plt.title('Stats Visualization')
-        plt.xticks(rotation=45, ha='right')
+        plt.xticks(rotation = 45, ha = 'right')
         plt.tight_layout()
         plt.show()
 
@@ -731,9 +731,9 @@ class StatsAgent:
         for fmt in formats:
             if fmt == 'json':
                 with open(f"{output_path}.json", 'w') as json_file:
-                    json.dump(self.stats, json_file, indent=2)
+                    json.dump(self.stats, json_file, indent = 2)
             elif fmt == 'csv':
-                with open(f"{output_path}.csv", 'w', newline='') as csv_file:
+                with open(f"{output_path}.csv", 'w', newline = '') as csv_file:
                     writer = csv.writer(csv_file)
                     writer.writerow(self.stats.keys())
                     writer.writerow(self.stats.values())
@@ -762,7 +762,7 @@ class StatsAgent:
                 'baseline': baseline_value,
                 'difference': current_value - baseline_value
             }
-        print(json.dumps(comparison, indent=2))
+        print(json.dumps(comparison, indent = 2))
 
     def report_stats(self, output_format: str = 'text') -> None:
         """Print the statistics report."""
@@ -770,7 +770,7 @@ class StatsAgent:
         total = stats['total_files']
 
         if output_format == 'json':
-            print(json.dumps(stats, indent=2))
+            print(json.dumps(stats, indent = 2))
         elif output_format == 'csv':
             writer = csv.writer(sys.stdout)
             writer.writerow(stats.keys())
@@ -1072,10 +1072,10 @@ class MetricNamespaceManager:
             raise ValueError(f"Parent namespace '{parent}' does not exist")
 
         namespace = MetricNamespace(
-            name=name,
-            description=description,
-            parent=parent,
-            tags=tags or {}
+            name = name,
+            description = description,
+            parent = parent,
+            tags = tags or {}
         )
         self.namespaces[name] = namespace
         self.metrics_by_namespace[name] = []
@@ -1181,11 +1181,11 @@ class AnnotationManager:
             The created annotation.
         """
         annotation = MetricAnnotation(
-            metric_name=metric_name,
-            timestamp=datetime.now().isoformat(),
-            text=text,
-            author=author,
-            annotation_type=annotation_type
+            metric_name = metric_name,
+            timestamp = datetime.now().isoformat(),
+            text = text,
+            author = author,
+            annotation_type = annotation_type
         )
 
         if metric_name not in self.annotations:
@@ -1254,7 +1254,7 @@ class AnnotationManager:
             "text": a.text,
             "author": a.author,
             "type": a.annotation_type
-        } for a in data], indent=2)
+        } for a in data], indent = 2)
 
 
 class SubscriptionManager:
@@ -1297,11 +1297,11 @@ class SubscriptionManager:
         ).hexdigest()[:8]
 
         subscription = MetricSubscription(
-            id=sub_id,
-            metric_pattern=metric_pattern,
-            callback_url=callback_url,
-            notify_on=notify_on or ["threshold", "anomaly"],
-            min_interval_seconds=min_interval_seconds
+            id = sub_id,
+            metric_pattern = metric_pattern,
+            callback_url = callback_url,
+            notify_on = notify_on or ["threshold", "anomaly"],
+            min_interval_seconds = min_interval_seconds
         )
         self.subscriptions[sub_id] = subscription
         self._notification_count[sub_id] = 0
@@ -1543,9 +1543,9 @@ class ABComparisonEngine:
         ).hexdigest()[:8]
 
         comparison = ABComparison(
-            id=comp_id,
-            version_a=version_a,
-            version_b=version_b
+            id = comp_id,
+            version_a = version_a,
+            version_b = version_b
         )
         self.comparisons[comp_id] = comparison
         return comparison
@@ -1709,10 +1709,10 @@ class CorrelationAnalyzer:
         correlation = numerator / (denom_a * denom_b)
 
         result = MetricCorrelation(
-            metric_a=metric_a,
-            metric_b=metric_b,
-            correlation_coefficient=correlation,
-            sample_size=n
+            metric_a = metric_a,
+            metric_b = metric_b,
+            correlation_coefficient = correlation,
+            sample_size = n
         )
         self.correlations.append(result)
         return result
@@ -1787,10 +1787,10 @@ class DerivedMetricCalculator:
             The registered derived metric.
         """
         derived = DerivedMetric(
-            name=name,
-            dependencies=dependencies,
-            formula=formula,
-            description=description
+            name = name,
+            dependencies = dependencies,
+            formula = formula,
+            description = description
         )
         self.derived_metrics[name] = derived
         return derived
@@ -1893,11 +1893,11 @@ class StatsRollup:
             The rollup configuration.
         """
         config = RollupConfig(
-            name=name,
-            source_metrics=source_metrics,
-            aggregation=aggregation,
-            interval_minutes=interval_minutes,
-            keep_raw=keep_raw
+            name = name,
+            source_metrics = source_metrics,
+            aggregation = aggregation,
+            interval_minutes = interval_minutes,
+            keep_raw = keep_raw
         )
         self.configs[name] = config
         self.rollups[name] = []
@@ -2050,11 +2050,11 @@ class StatsAPIServer:
             The registered endpoint.
         """
         endpoint = APIEndpoint(
-            path=path,
-            method=method,
-            auth_required=auth_required,
-            rate_limit=rate_limit,
-            cache_ttl=cache_ttl
+            path = path,
+            method = method,
+            auth_required = auth_required,
+            rate_limit = rate_limit,
+            cache_ttl = cache_ttl
         )
         self.endpoints[path] = endpoint
         self._request_count[path] = 0
@@ -2115,20 +2115,20 @@ class StatsAPIServer:
                 }
             }
 
-        return json.dumps(docs, indent=2)
+        return json.dumps(docs, indent = 2)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description='Stats Agent: Reports file update statistics',
-        epilog='Example: python scripts/agent/agent-stats.py --files scripts/agent/*.py'
+        description = 'Stats Agent: Reports file update statistics',
+        epilog = 'Example: python scripts/agent/agent-stats.py --files scripts/agent/*.py'
     )
-    parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
-    parser.add_argument('--format', choices=['text', 'json', 'csv'], default='text', help='Output format')
-    parser.add_argument('--coverage', help='Path to code coverage report')
-    parser.add_argument('--export', nargs='+', help='Export formats (json, csv, html, sqlite)')
-    parser.add_argument('--baseline', help='Path to baseline stats for comparison')
-    parser.add_argument('--verbose', default='normal', help='Verbosity level')
+    parser.add_argument('--files', nargs = '+', required = True, help = 'List of files to analyze')
+    parser.add_argument('--format', choices = ['text', 'json', 'csv'], default = 'text', help = 'Output format')
+    parser.add_argument('--coverage', help = 'Path to code coverage report')
+    parser.add_argument('--export', nargs = '+', help = 'Export formats (json, csv, html, sqlite)')
+    parser.add_argument('--baseline', help = 'Path to baseline stats for comparison')
+    parser.add_argument('--verbose', default = 'normal', help = 'Verbosity level')
     args = parser.parse_args()
 
     # Setup logging
@@ -2139,7 +2139,7 @@ def main() -> None:
         'elaborate': logging.DEBUG,
     }
     level = levels.get(args.verbose.lower(), logging.INFO)
-    logging.basicConfig(level=level, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.basicConfig(level = level, format = '%(asctime)s - %(levelname)s - %(message)s')
 
     try:
         agent = StatsAgent(args.files)
@@ -2151,7 +2151,7 @@ def main() -> None:
             with open(args.baseline, 'r') as baseline_file:
                 baseline_stats = json.load(baseline_file)
             agent.generate_comparison_report(baseline_stats)
-        agent.report_stats(output_format=args.format)
+        agent.report_stats(output_format = args.format)
         if HAS_MATPLOTLIB:
             agent.visualize_stats()
     except ValueError as e:

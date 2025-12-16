@@ -124,16 +124,16 @@ from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 from enum import Enum
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class TokenExpiry(Enum):
     """Token expiration levels."""
 
-    SHORT=300    # 5 minutes
-    MEDIUM=3600    # 1 hour
-    LONG=86400    # 24 hours
-    SESSION=None    # Session duration
+    SHORT = 300    # 5 minutes
+    MEDIUM = 3600    # 1 hour
+    LONG = 86400    # 24 hours
+    SESSION = None    # Session duration
 
 
 @dataclass
@@ -144,7 +144,7 @@ class CSRFToken:
     token_hash: str    # HMAC of token
     created_at: datetime
     expires_at: Optional[datetime]
-    request_count: int=0
+    request_count: int = 0
     last_used: Optional[datetime] = None
     ip_address: Optional[str] = None
     user_agent: Optional[str] = None
@@ -169,10 +169,10 @@ class CSRFTokenManager:
     """
 
     # Token configuration
-    TOKEN_LENGTH=32    # bytes, generates 64 hex chars
-    ROTATION_ENABLED=True
-    ROTATION_FREQUENCY=1000    # Rotate every N requests
-    TOKEN_EXPIRY=TokenExpiry.SESSION
+    TOKEN_LENGTH = 32    # bytes, generates 64 hex chars
+    ROTATION_ENABLED = True
+    ROTATION_FREQUENCY = 1000    # Rotate every N requests
+    TOKEN_EXPIRY = TokenExpiry.SESSION
 
     def __init__(self, secret: Optional[str] = None) -> None:
         """
@@ -184,10 +184,10 @@ class CSRFTokenManager:
         if secret is None:
             import secrets
 
-            _secret=secrets.token_hex(32)
-        self.secret=secret.encode()
+            _secret = secrets.token_hex(32)
+        self.secret = secret.encode()
         self.active_tokens: Dict[str, CSRFToken] = {}
-        self.rotation_counter=0
+        self.rotation_counter = 0
 
     def generate_token(
         self,
@@ -207,30 +207,30 @@ class CSRFTokenManager:
             - token_id: Identifier for server session
         """
         # Generate random token
-        _token_bytes=secrets.token_bytes(self.TOKEN_LENGTH)
-        _token_string=token_bytes.hex()
+        _token_bytes = secrets.token_bytes(self.TOKEN_LENGTH)
+        _token_string = token_bytes.hex()
 
         # Generate token ID
-        _token_id=secrets.token_hex(16)
+        _token_id = secrets.token_hex(16)
 
         # Calculate HMAC
-        _token_hash=hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
+        _token_hash = hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
 
         # Calculate expiry
-        expires_at=None
+        expires_at = None
         if self.TOKEN_EXPIRY != TokenExpiry.SESSION:
-            _expires_at=datetime.now(timezone.utc) + timedelta(
-                _seconds=self.TOKEN_EXPIRY.value
+            _expires_at = datetime.now(timezone.utc) + timedelta(
+                _seconds = self.TOKEN_EXPIRY.value
             )
 
         # Create token record
-        csrf_token=CSRFToken(
-            _token_id=token_id,
-            _token_hash=token_hash,
-            _created_at=datetime.now(timezone.utc),
-            _expires_at=expires_at,
-            _ip_address=ip_address,
-            _user_agent=user_agent,
+        csrf_token = CSRFToken(
+            _token_id = token_id,
+            _token_hash = token_hash,
+            _created_at = datetime.now(timezone.utc),
+            _expires_at = expires_at,
+            _ip_address = ip_address,
+            _user_agent = user_agent,
         )
 
         self.active_tokens[token_id] = csrf_token
@@ -266,7 +266,7 @@ class CSRFTokenManager:
             logger.warning(f"CSRF token {token_id} not found in active tokens")
             return False, "Token not found"
 
-        token=self.active_tokens[token_id]
+        token = self.active_tokens[token_id]
 
         # Check expiration
         if token.expires_at and datetime.now(timezone.utc) > token.expires_at:
@@ -289,8 +289,8 @@ class CSRFTokenManager:
 
         # Validate token HMAC
         try:
-            _token_bytes=bytes.fromhex(token_string)
-            expected_hash=hmac.new(
+            _token_bytes = bytes.fromhex(token_string)
+            expected_hash = hmac.new(
                 self.secret, token_bytes, hashlib.sha256
             ).hexdigest()
 
@@ -303,7 +303,7 @@ class CSRFTokenManager:
 
         # Update token usage
         token.request_count += 1
-        token.last_used=datetime.now(timezone.utc)
+        token.last_used = datetime.now(timezone.utc)
 
         logger.debug(f"CSRF token {token_id} validated successfully")
 
@@ -354,8 +354,8 @@ class CSRFTokenManager:
         Returns:
             Number of tokens cleaned up
         """
-        _now=datetime.now(timezone.utc)
-        expired=[
+        _now = datetime.now(timezone.utc)
+        expired = [
             token_id
             for token_id, token in self.active_tokens.items()
             if token.expires_at and token.expires_at < now
@@ -371,13 +371,13 @@ class CSRFTokenManager:
 
     def get_token_stats(self) -> Dict[str, Any]:
         """Get statistics about active CSRF tokens."""
-        _tokens=self.active_tokens.values()
+        _tokens = self.active_tokens.values()
         return {
             "total_active": len(tokens),
             "avg_usage": (
                 sum(t.request_count for t in tokens) / len(tokens) if tokens else 0
             ),
-            "max_usage": max((t.request_count for t in tokens), default=0),
+            "max_usage": max((t.request_count for t in tokens), default = 0),
             "rotation_counter": self.rotation_counter,
             "rotation_enabled": self.ROTATION_ENABLED,
         }
@@ -389,10 +389,10 @@ class CSRFProtectionMiddleware:
 
     Usage:
     ```python
-    _app=Flask(__name__)
-    _csrf=CSRFProtectionMiddleware(app, secret="your-secret")
+    _app = Flask(__name__)
+    _csrf = CSRFProtectionMiddleware(app, secret = "your-secret")
 
-    @app.route('/form', methods=['POST'])
+    @app.route('/form', methods = ['POST'])
     def handle_form() -> None:
     # Middleware automatically validates CSRF token
         return "Form submitted"
@@ -400,15 +400,15 @@ class CSRFProtectionMiddleware:
     """
 
     # Methods that require CSRF protection
-    PROTECTED_METHODS={"POST", "PUT", "DELETE", "PATCH"}
+    PROTECTED_METHODS = {"POST", "PUT", "DELETE", "PATCH"}
 
     # Header names
-    CSRF_TOKEN_HEADER="X-CSRF-Token"    # nosec B105 - Header name, not a password
-    CSRF_TOKEN_ID_HEADER="X-CSRF-Token-ID"    # nosec B105 - Header name, not a password
+    CSRF_TOKEN_HEADER = "X-CSRF-Token"    # nosec B105 - Header name, not a password
+    CSRF_TOKEN_ID_HEADER = "X-CSRF-Token-ID"    # nosec B105 - Header name, not a password
 
     def __init__(
         self,
-        app: Any=None,
+        app: Any = None,
         secret: Optional[str] = None,
         token_manager: Optional[CSRFTokenManager] = None,
     ) -> None:
@@ -420,7 +420,7 @@ class CSRFProtectionMiddleware:
             secret: Secret key for token generation
             token_manager: Custom token manager instance
         """
-        self.token_manager=token_manager or CSRFTokenManager(
+        self.token_manager = token_manager or CSRFTokenManager(
             secret or "default-secret-change-in-production"
         )
 
@@ -443,8 +443,8 @@ class CSRFProtectionMiddleware:
 
                 # Generate token if not in session
                 if "csrf_token_id" not in session:
-                    token_string, token_id=self.token_manager.generate_token(
-                        _ip_address=request.remote_addr,
+                    token_string, token_id = self.token_manager.generate_token(
+                        _ip_address = request.remote_addr,
                         _user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),
@@ -464,10 +464,10 @@ class CSRFProtectionMiddleware:
                 if request.method not in self.PROTECTED_METHODS:
                     return
 
-                token_string=request.headers.get(
+                token_string = request.headers.get(
                     self.CSRF_TOKEN_HEADER
                 ) or request.form.get("csrf_token")
-                token_id=request.headers.get(
+                token_id = request.headers.get(
                     self.CSRF_TOKEN_ID_HEADER
                 ) or session.get("csrf_token_id")
 
@@ -477,10 +477,10 @@ class CSRFProtectionMiddleware:
                     )
                     abort(403)
 
-                is_valid, error_msg=self.token_manager.validate_token(
+                is_valid, error_msg = self.token_manager.validate_token(
                     token_string,
                     token_id,
-                    _ip_address=request.remote_addr,
+                    _ip_address = request.remote_addr,
                     _user_agent=(
                         request.user_agent.string if request.user_agent else None
                     ),
@@ -493,9 +493,9 @@ class CSRFProtectionMiddleware:
                 # Rotate token for next request (optional)
                 # This provides additional security against token reuse
                 if self.token_manager.ROTATION_ENABLED:
-                    new_token_string, new_token_id=self.token_manager.rotate_token(
+                    new_token_string, new_token_id = self.token_manager.rotate_token(
                         token_id,
-                        _ip_address=request.remote_addr,
+                        _ip_address = request.remote_addr,
                         _user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),
@@ -516,8 +516,8 @@ class CSRFProtectionMiddleware:
         try:
             from flask import session
 
-            _token_string=session.get("csrf_token", "")
-            _token_id=session.get("csrf_token_id", "")
+            _token_string = session.get("csrf_token", "")
+            _token_id = session.get("csrf_token_id", "")
             return token_string, token_id
         except ImportError:
             return "", ""

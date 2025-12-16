@@ -111,23 +111,23 @@ def setup_parser(subparsers: "argparse.SubParsersAction[Any]") -> None:  # type:
     Args:
         subparsers: The subparsers object from the main parser.
     """
-    _parser=subparsers.add_parser("compliance", help="Compliance Automation")
-    comp_subparsers=parser.add_subparsers(  # type: ignore[name-defined]
-        _dest="comp_command", help="Compliance commands"
+    _parser = subparsers.add_parser("compliance", help = "Compliance Automation")
+    comp_subparsers = parser.add_subparsers(  # type: ignore[name-defined]
+        _dest = "comp_command", help = "Compliance commands"
     )
 
     # Scan command
-    _scan_parser=comp_subparsers.add_parser("scan", help="Run compliance scan")
-    scan_parser.add_argument("--target", help="Target resource ID (optional)")  # type: ignore[name-defined]
+    _scan_parser = comp_subparsers.add_parser("scan", help = "Run compliance scan")
+    scan_parser.add_argument("--target", help = "Target resource ID (optional)")  # type: ignore[name-defined]
     scan_parser.add_argument(  # type: ignore[name-defined]
-        "--format", choices=["text", "json"], default="text", help="Output format"
+        "--format", choices = ["text", "json"], default = "text", help = "Output format"
     )
 
     # Policies command
-    comp_subparsers.add_parser("policies", help="List policies")
+    comp_subparsers.add_parser("policies", help = "List policies")
 
     # Audit command
-    comp_subparsers.add_parser("audit", help="View audit log")
+    comp_subparsers.add_parser("audit", help = "View audit log")
 
 
 def handle_command(args: argparse.Namespace) -> None:
@@ -137,17 +137,17 @@ def handle_command(args: argparse.Namespace) -> None:
     Args:
         args: Parsed command-line arguments.
     """
-    _engine=ComplianceEngine()
+    _engine = ComplianceEngine()
 
     # Mock resources
-    mock_resources=[
+    mock_resources = [
         {"id": "vm-compliant-1", "type": "vm"},
         {"id": "vm-noncompliant-1", "type": "vm"},    # Will fail checks
         {"id": "host-prod-1", "type": "host"},
     ]
 
     if args.comp_command == "scan":
-        _report=engine.run_compliance_scan(mock_resources)  # type: ignore[name-defined]
+        _report = engine.run_compliance_scan(mock_resources)  # type: ignore[name-defined]
 
         if args.format == "json":
             print(json.dumps(report.__dict__, default=lambda o: o.__dict__, indent=2))  # type: ignore[name-defined]

@@ -126,22 +126,22 @@ from opt.services.rpc.versioning import (
     APIVersion,
 )
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
 class RPCServiceConfig:
     """Configuration for RPC service."""
 
-    target: str="localhost:50051"
+    target: str = "localhost:50051"
     pool_config: Optional[PoolConfig] = None
     compression_config: Optional[CompressionConfig] = None
 
     def __post_init__(self) -> None:
         if self.pool_config is None:
-            self.pool_config=PoolConfig()
+            self.pool_config = PoolConfig()
         if self.compression_config is None:
-            self.compression_config=CompressionConfig()
+            self.compression_config = CompressionConfig()
 
 
 class RPCService:
@@ -149,7 +149,7 @@ class RPCService:
     Main RPC service class integrating pooling, compression, and versioning.
 
     Usage:
-        _service=RPCService(RPCServiceConfig(target="localhost:50051"))
+        _service = RPCService(RPCServiceConfig(target = "localhost:50051"))
         await service.initialize()
 
         # Make RPC call with automatic pooling and compression
@@ -167,13 +167,13 @@ class RPCService:
         Args:
             config: RPCServiceConfig instance
         """
-        self.config=config
-        self.connection_pool=ConnectionPool(config.target, config.pool_config)
-        self.compression_manager=CompressionManager(config.compression_config)
-        self.version_negotiator=VersionNegotiator()
-        self.request_router=VersionedRequestRouter(self.version_negotiator)
-        self._initialized=False
-        self.call_metrics={
+        self.config = config
+        self.connection_pool = ConnectionPool(config.target, config.pool_config)
+        self.compression_manager = CompressionManager(config.compression_config)
+        self.version_negotiator = VersionNegotiator()
+        self.request_router = VersionedRequestRouter(self.version_negotiator)
+        self._initialized = False
+        self.call_metrics = {
             "total_calls": 0,
             "successful_calls": 0,
             "failed_calls": 0,
@@ -191,7 +191,7 @@ class RPCService:
             # Register default handlers (empty for now, will be populated by subclasses)
             self._register_default_handlers()
 
-            self._initialized=True
+            self._initialized = True
             logger.info("RPC service initialized successfully")
 
         except Exception as e:
@@ -232,7 +232,7 @@ class RPCService:
 
         import time
 
-        _start_time=time.time()
+        _start_time = time.time()
 
         try:
         # Validate version
@@ -240,15 +240,15 @@ class RPCService:
                 raise ValueError(f"Unsupported API version: {version}")
 
             # Log deprecation warnings if any
-            _warnings=self.version_negotiator.get_deprecation_warnings(version)
+            _warnings = self.version_negotiator.get_deprecation_warnings(version)
             if warnings:
                 logger.warning(f"Version warnings: {warnings}")
 
             # Acquire connection from pool
             async with self.connection_pool.acquire() as pooled_conn:
             # Compress request if appropriate
-                compressed_request=request_data
-                request_algo=None
+                compressed_request = request_data
+                request_algo = None
 
                 if request_data:
                     compressed_request, request_algo=(
@@ -259,7 +259,7 @@ class RPCService:
 
                 # Make actual RPC call
                 # (This is a placeholder; actual implementation depends on service definition)
-                response=await self._execute_rpc_call(
+                response = await self._execute_rpc_call(
                     pooled_conn.channel,
                     operation,
                     compressed_request,
@@ -268,19 +268,19 @@ class RPCService:
 
                 # Decompress response if compressed
                 if response and request_algo:
-                    response=self.compression_manager.decompress(
+                    response = self.compression_manager.decompress(
                         response, request_algo
                     )
 
                 # Record metrics
                 _latency_ms=(time.time() - start_time) * 1000
-                self._record_call_metric(success=True, latency_ms=latency_ms)
+                self._record_call_metric(success = True, latency_ms = latency_ms)
 
                 return response
 
         except Exception as e:
             _latency_ms=(time.time() - start_time) * 1000
-            self._record_call_metric(success=False, latency_ms=latency_ms)
+            self._record_call_metric(success = False, latency_ms = latency_ms)
             logger.error(f"RPC call failed: {operation} (version {version}): {e}")
             raise
 
@@ -321,7 +321,7 @@ class RPCService:
             handler: Callable handler function
         """
         try:
-            _api_version=APIVersion(version)
+            _api_version = APIVersion(version)
             self.request_router.register_handler(api_version, operation, handler)
         except ValueError:
             raise ValueError(f"Invalid API version: {version}")
@@ -371,7 +371,7 @@ class RPCService:
             # Close connection pool
             await self.connection_pool.close()
 
-            self._initialized=False
+            self._initialized = False
             logger.info("RPC service shutdown complete")
 
         except Exception as e:
@@ -403,7 +403,7 @@ class HealthCheckService:
         Args:
             rpc_service: RPCService instance to monitor
         """
-        self.rpc_service=rpc_service
+        self.rpc_service = rpc_service
 
     async def check(self) -> Dict[str, Any]:
         """
@@ -418,7 +418,7 @@ class HealthCheckService:
                 return {"status": "NOT_READY", "reason": "Service not initialized"}
 
             # Check pool status
-            _pool_metrics=self.rpc_service.connection_pool.get_metrics()
+            _pool_metrics = self.rpc_service.connection_pool.get_metrics()
             if pool_metrics["available"] == 0 and pool_metrics["in_use"] == 0:
                 return {
                     "status": "UNHEALTHY",
@@ -426,7 +426,7 @@ class HealthCheckService:
                 }
 
             # Check success rate
-            call_metrics=self.rpc_service.call_metrics
+            call_metrics = self.rpc_service.call_metrics
             if call_metrics["total_calls"] > 0:
                 success_rate=(
                     call_metrics["successful_calls"] / call_metrics["total_calls"]

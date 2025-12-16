@@ -9,10 +9,10 @@ def fix_all_w293():
     
     for py_file in sorted(agent_dir.glob("*.py")):
         try:
-            with open(py_file, 'r', encoding='utf-8') as f:
+            with open(py_file, 'r', encoding = 'utf-8') as f:
                 lines = f.readlines()
         except UnicodeDecodeError:
-            with open(py_file, 'r', encoding='latin-1') as f:
+            with open(py_file, 'r', encoding = 'latin-1') as f:
                 lines = f.readlines()
         
         w293_count = 0
@@ -22,7 +22,7 @@ def fix_all_w293():
                 w293_count += 1
         
         if w293_count > 0:
-            with open(py_file, 'w', encoding='utf-8') as f:
+            with open(py_file, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
             print(f"{py_file.name}: {w293_count} W293 fixes")
             total_fixes += w293_count

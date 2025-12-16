@@ -36,31 +36,31 @@ from typing import Any, Dict, List, Optional
 import logging
 from abc import ABC, abstractmethod
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class MigrationType(Enum):
     """Types of database migrations"""
 
-    CREATE_TABLE="create_table"
-    ADD_COLUMN="add_column"
-    DROP_COLUMN="drop_column"
-    MODIFY_COLUMN="modify_column"
-    CREATE_INDEX="create_index"
-    DROP_INDEX="drop_index"
-    ADD_CONSTRAINT="add_constraint"
-    DROP_CONSTRAINT="drop_constraint"
-    CUSTOM="custom"
+    CREATE_TABLE = "create_table"
+    ADD_COLUMN = "add_column"
+    DROP_COLUMN = "drop_column"
+    MODIFY_COLUMN = "modify_column"
+    CREATE_INDEX = "create_index"
+    DROP_INDEX = "drop_index"
+    ADD_CONSTRAINT = "add_constraint"
+    DROP_CONSTRAINT = "drop_constraint"
+    CUSTOM = "custom"
 
 
 class MigrationStatus(Enum):
     """Migration execution status"""
 
-    PENDING="pending"
-    RUNNING="running"
-    SUCCESS="success"
-    FAILED="failed"
-    ROLLED_BACK="rolled_back"
+    PENDING = "pending"
+    RUNNING = "running"
+    SUCCESS = "success"
+    FAILED = "failed"
+    ROLLED_BACK = "rolled_back"
 
 
 @dataclass
@@ -84,9 +84,9 @@ class Migration:
 
     version: str    # e.g., "001_initial_schema"
     timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    description: str=""
-    steps: List[MigrationStep] = field(default_factory=list)
-    status: MigrationStatus=MigrationStatus.PENDING
+    description: str = ""
+    steps: List[MigrationStep] = field(default_factory = list)
+    status: MigrationStatus = MigrationStatus.PENDING
     applied_at: Optional[datetime] = None
     rolled_back_at: Optional[datetime] = None
     error_message: Optional[str] = None
@@ -99,20 +99,20 @@ class Migration:
         down_sql: str,
     ) -> MigrationStep:
         """Add migration step"""
-        _step_id=len(self.steps) + 1
-        step=MigrationStep(  # type: ignore[call-arg]
-            _step_id=step_id,  # type: ignore[name-defined]
-            _description=description,
-            _migration_type=migration_type,
-            _up_sql=up_sql,
-            _down_sql=down_sql,
+        _step_id = len(self.steps) + 1
+        step = MigrationStep(  # type: ignore[call-arg]
+            _step_id = step_id,  # type: ignore[name-defined]
+            _description = description,
+            _migration_type = migration_type,
+            _up_sql = up_sql,
+            _down_sql = down_sql,
         )
         self.steps.append(step)
         return step
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
-        _d=asdict(self)
+        _d = asdict(self)
         d["timestamp"] = self.timestamp.isoformat()  # type: ignore[name-defined]
         d["applied_at"] = self.applied_at.isoformat() if self.applied_at else None  # type: ignore[name-defined]
         d["rolled_back_at"] = (  # type: ignore[name-defined]
@@ -128,14 +128,14 @@ class MigrationExecutor(ABC):
 
     @abstractmethod
     async def execute_migration(
-        self, migration: Migration, dry_run: bool=False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple[Any, ...]:
         """Execute migration and return (success, message)"""
         pass
 
     @abstractmethod
     async def rollback_migration(
-        self, migration: Migration, dry_run: bool=False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple[Any, ...]:
         """Rollback migration and return (success, message)"""
         pass
@@ -150,16 +150,16 @@ class SQLiteMigrationExecutor(MigrationExecutor):
     """SQLite migration executor"""
 
     def __init__(self, dbpath: str) -> None:
-        self.db_path=db_path  # type: ignore[name-defined]
-        self.connection=None
+        self.db_path = db_path  # type: ignore[name-defined]
+        self.connection = None
 
     async def connect(self) -> None:
         """Connect to database"""
         try:
             import sqlite3
 
-            self.connection=sqlite3.connect(self.db_path)  # type: ignore[assignment]
-            self.connection.row_factory=sqlite3.Row  # type: ignore[attr-defined]
+            self.connection = sqlite3.connect(self.db_path)  # type: ignore[assignment]
+            self.connection.row_factory = sqlite3.Row  # type: ignore[attr-defined]
             logger.info(f"Connected to SQLite: {self.db_path}")  # type: ignore[name-defined]
         except Exception as e:
             logger.error(f"SQLite connection failed: {e}")  # type: ignore[name-defined]
@@ -169,17 +169,17 @@ class SQLiteMigrationExecutor(MigrationExecutor):
         """Disconnect from database"""
         if self.connection:
             self.connection.close()
-            self.connection=None
+            self.connection = None
 
     async def execute_migration(
-        self, migration: Migration, dry_run: bool=False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple[Any, ...]:
         """Execute migration"""
         try:
             if not self.connection:
                 await self.connect()
 
-            _cursor=self.connection.cursor()  # type: ignore[attr-defined]
+            _cursor = self.connection.cursor()  # type: ignore[attr-defined]
 
             for step in migration.steps:
                 logger.info(f"Executing: {step.description}")  # type: ignore[name-defined]
@@ -203,28 +203,28 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                     ),
                 )
                 self.connection.commit()  # type: ignore[attr-defined]
-                migration.status=MigrationStatus.SUCCESS
-                migration.applied_at=datetime.now(timezone.utc)
+                migration.status = MigrationStatus.SUCCESS
+                migration.applied_at = datetime.now(timezone.utc)
 
             return True, f"Migration {migration.version} executed successfully"
 
         except Exception as e:
             if self.connection:
                 self.connection.rollback()
-            migration.status=MigrationStatus.FAILED
-            migration.error_message=str(e)
+            migration.status = MigrationStatus.FAILED
+            migration.error_message = str(e)
             logger.error(f"Migration failed: {e}")  # type: ignore[name-defined]
             return False, f"Migration failed: {str(e)}"
 
     async def rollback_migration(
-        self, migration: Migration, dry_run: bool=False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple[Any, ...]:
         """Rollback migration"""
         try:
             if not self.connection:
                 await self.connect()
 
-            _cursor=self.connection.cursor()  # type: ignore[attr-defined]
+            _cursor = self.connection.cursor()  # type: ignore[attr-defined]
 
             # Execute rollback steps in reverse order
             for step in reversed(migration.steps):
@@ -248,8 +248,8 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                     ),
                 )
                 self.connection.commit()  # type: ignore[attr-defined]
-                migration.status=MigrationStatus.ROLLED_BACK
-                migration.rolled_back_at=datetime.now(timezone.utc)
+                migration.status = MigrationStatus.ROLLED_BACK
+                migration.rolled_back_at = datetime.now(timezone.utc)
 
             return True, f"Migration {migration.version} rolled back successfully"
 
@@ -265,7 +265,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if not self.connection:
                 await self.connect()
 
-            _cursor=self.connection.cursor()  # type: ignore[attr-defined]
+            _cursor = self.connection.cursor()  # type: ignore[attr-defined]
             cursor.execute(  # type: ignore[name-defined]
                 """
                 SELECT version FROM debvisor_migrations
@@ -276,7 +276,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                 (MigrationStatus.SUCCESS.value,),
             )
 
-            _result=cursor.fetchone()  # type: ignore[name-defined]
+            _result = cursor.fetchone()  # type: ignore[name-defined]
             return result[0] if result else None  # type: ignore[name-defined]
         except Exception as e:
             logger.error(f"Error getting current version: {e}")  # type: ignore[name-defined]
@@ -287,7 +287,7 @@ class MigrationManager:
     """Manage database migrations"""
 
     def __init__(self, executor: MigrationExecutor) -> None:
-        self.executor=executor
+        self.executor = executor
         self.migrations: Dict[str, Migration] = {}
 
     def register_migration(self, migration: Migration) -> None:
@@ -296,17 +296,17 @@ class MigrationManager:
 
     async def apply_migrations(self, dryrun: bool=False) -> List[tuple[Any, ...]]:
         """Apply all pending migrations"""
-        _results=[]  # type: ignore[var-annotated]
-        _current=await self.executor.get_current_version()
+        _results = []  # type: ignore[var-annotated]
+        _current = await self.executor.get_current_version()
 
         for version in sorted(self.migrations.keys()):
             if current and version <= current:  # type: ignore[name-defined]
                 continue    # Already applied
 
-            migration=self.migrations[version]
+            migration = self.migrations[version]
             logger.info(f"Applying migration: {version}")  # type: ignore[name-defined]
-            success, message=await self.executor.execute_migration(
-                migration, dry_run=dry_run  # type: ignore[name-defined]
+            success, message = await self.executor.execute_migration(
+                migration, dry_run = dry_run  # type: ignore[name-defined]
             )
             results.append((version, success, message))  # type: ignore[name-defined]
 
@@ -317,23 +317,23 @@ class MigrationManager:
         if version not in self.migrations:
             return False, f"Migration {version} not found"
 
-        migration=self.migrations[version]
-        return await self.executor.rollback_migration(migration, dry_run=dry_run)  # type: ignore[name-defined]
+        migration = self.migrations[version]
+        return await self.executor.rollback_migration(migration, dry_run = dry_run)  # type: ignore[name-defined]
 
     async def get_migration_history(self) -> List[Dict[str, Any]]:
         """Get migration history"""
-        history=[]
+        history = []
         for version in sorted(self.migrations.keys()):
-            migration=self.migrations[version]
+            migration = self.migrations[version]
             history.append(migration.to_dict())
         return history
 
     async def get_status(self) -> Dict[str, Any]:
         """Get migration status"""
-        _current=await self.executor.get_current_version()
+        _current = await self.executor.get_current_version()
 
-        pending=[]
-        applied=[]
+        pending = []
+        applied = []
 
         for version in sorted(self.migrations.keys()):
             if current and version <= current:  # type: ignore[name-defined]
@@ -354,21 +354,21 @@ def create_phase4_migrations() -> MigrationManager:
     """Create Phase 4 database migrations"""
 
     # SQLite executor
-    executor=SQLiteMigrationExecutor(
+    executor = SQLiteMigrationExecutor(
         ":memory:"
     )    # Use :memory: for test or configure path
-    _manager=MigrationManager(executor)
+    _manager = MigrationManager(executor)
 
     # Migration 001: Initial Schema
-    m001=Migration(  # type: ignore[call-arg]
-        _version="001_initial_schema",
-        _description="Create initial database schema for Phase 4",
+    m001 = Migration(  # type: ignore[call-arg]
+        _version = "001_initial_schema",
+        _description = "Create initial database schema for Phase 4",
     )
 
     m001.add_step(  # type: ignore[call-arg]
-        _description="Create User2FA table",
-        _migration_type=MigrationType.CREATE_TABLE,
-        _up_sql="""
+        _description = "Create User2FA table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS user_2fa (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id TEXT UNIQUE NOT NULL,
@@ -382,13 +382,13 @@ def create_phase4_migrations() -> MigrationManager:
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        _down_sql="DROP TABLE IF EXISTS user_2fa",
+        _down_sql = "DROP TABLE IF EXISTS user_2fa",
     )
 
     m001.add_step(  # type: ignore[call-arg]
-        _description="Create BackupCode table",
-        _migration_type=MigrationType.CREATE_TABLE,
-        _up_sql="""
+        _description = "Create BackupCode table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS backup_code (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_2fa_id INTEGER NOT NULL,
@@ -400,13 +400,13 @@ def create_phase4_migrations() -> MigrationManager:
                 FOREIGN KEY (user_2fa_id) REFERENCES user_2fa(id) ON DELETE CASCADE
             )
         """,
-        _down_sql="DROP TABLE IF EXISTS backup_code",
+        _down_sql = "DROP TABLE IF EXISTS backup_code",
     )
 
     m001.add_step(  # type: ignore[call-arg]
-        _description="Create ThemePreference table",
-        _migration_type=MigrationType.CREATE_TABLE,
-        _up_sql="""
+        _description = "Create ThemePreference table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS theme_preference (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id TEXT UNIQUE NOT NULL,
@@ -417,13 +417,13 @@ def create_phase4_migrations() -> MigrationManager:
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        _down_sql="DROP TABLE IF EXISTS theme_preference",
+        _down_sql = "DROP TABLE IF EXISTS theme_preference",
     )
 
     m001.add_step(  # type: ignore[call-arg]
-        _description="Create BatchOperation table",
-        _migration_type=MigrationType.CREATE_TABLE,
-        _up_sql="""
+        _description = "Create BatchOperation table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS batch_operation (
                 id TEXT PRIMARY KEY,
                 user_id TEXT NOT NULL,
@@ -439,13 +439,13 @@ def create_phase4_migrations() -> MigrationManager:
                 results TEXT
             )
         """,
-        _down_sql="DROP TABLE IF EXISTS batch_operation",
+        _down_sql = "DROP TABLE IF EXISTS batch_operation",
     )
 
     m001.add_step(  # type: ignore[call-arg]
-        _description="Create AuditLog table",
-        _migration_type=MigrationType.CREATE_TABLE,
-        _up_sql="""
+        _description = "Create AuditLog table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS audit_log (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 actor_id TEXT NOT NULL,
@@ -459,13 +459,13 @@ def create_phase4_migrations() -> MigrationManager:
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        _down_sql="DROP TABLE IF EXISTS audit_log",
+        _down_sql = "DROP TABLE IF EXISTS audit_log",
     )
 
     m001.add_step(  # type: ignore[call-arg]
-        _description="Create migration tracking table",
-        _migration_type=MigrationType.CREATE_TABLE,
-        _up_sql="""
+        _description = "Create migration tracking table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS debvisor_migrations (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 version TEXT UNIQUE NOT NULL,
@@ -476,32 +476,32 @@ def create_phase4_migrations() -> MigrationManager:
                 error_message TEXT
             )
         """,
-        _down_sql="DROP TABLE IF EXISTS debvisor_migrations",
+        _down_sql = "DROP TABLE IF EXISTS debvisor_migrations",
     )
 
     manager.register_migration(m001)  # type: ignore[name-defined]
 
     # Migration 002: Add indexes
-    _m002=Migration(version="002_add_indexes", description="Add performance indexes")
+    _m002 = Migration(version = "002_add_indexes", description = "Add performance indexes")
 
     m002.add_step(  # type: ignore[name-defined]
-        _description="Create indexes for audit logs",
-        _migration_type=MigrationType.CREATE_INDEX,
-        _up_sql="""
+        _description = "Create indexes for audit logs",
+        _migration_type = MigrationType.CREATE_INDEX,
+        _up_sql = """
             CREATE INDEX IF NOT EXISTS idx_audit_log_actor
             ON audit_log(actor_id)
         """,
-        _down_sql="DROP INDEX IF EXISTS idx_audit_log_actor",
+        _down_sql = "DROP INDEX IF EXISTS idx_audit_log_actor",
     )
 
     m002.add_step(  # type: ignore[name-defined]
-        _description="Create indexes for batch operations",
-        _migration_type=MigrationType.CREATE_INDEX,
-        _up_sql="""
+        _description = "Create indexes for batch operations",
+        _migration_type = MigrationType.CREATE_INDEX,
+        _up_sql = """
             CREATE INDEX IF NOT EXISTS idx_batch_operation_user
             ON batch_operation(user_id)
         """,
-        _down_sql="DROP INDEX IF EXISTS idx_batch_operation_user",
+        _down_sql = "DROP INDEX IF EXISTS idx_batch_operation_user",
     )
 
     manager.register_migration(m002)  # type: ignore[name-defined]
@@ -515,8 +515,8 @@ class MigrationValidator:
     @staticmethod
     def validate_migration(migration: Migration) -> tuple[Any, ...]:
         """Validate migration"""
-        errors=[]
-        warnings=[]
+        errors = []
+        warnings = []
 
         # Check version format
         if not migration.version:

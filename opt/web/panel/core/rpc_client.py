@@ -118,7 +118,7 @@ import os
 
 # Import generated protobuf modules (will be created during build)
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class RPCClientError(Exception):
@@ -131,26 +131,26 @@ class RPCClientError(Exception):
 class ChannelPoolConfig:
     """Configuration for gRPC channel pool."""
 
-    min_size: int=2
-    max_size: int=10
-    max_idle_time: int=300    # seconds
-    health_check_interval: int=60    # seconds
-    connection_timeout: int=10    # seconds
+    min_size: int = 2
+    max_size: int = 10
+    max_idle_time: int = 300    # seconds
+    health_check_interval: int = 60    # seconds
+    connection_timeout: int = 10    # seconds
 
 
 class PooledChannel:
     """Wrapper for a pooled gRPC channel with health tracking."""
 
     def __init__(self, channel: grpc.Channel, createdat: float) -> None:
-        self.channel=channel
-        self.created_at=created_at
-        self.last_used=created_at
-        self.use_count=0
-        self.is_healthy=True
+        self.channel = channel
+        self.created_at = created_at
+        self.last_used = created_at
+        self.use_count = 0
+        self.is_healthy = True
 
     def mark_used(self) -> None:
         """Mark channel as recently used."""
-        self.last_used=time.time()
+        self.last_used = time.time()
         self.use_count += 1
 
     def idle_time(self) -> float:
@@ -181,37 +181,37 @@ class ChannelPool:
         credentials: grpc.ChannelCredentials,
         config: ChannelPoolConfig,
     ) -> None:
-        self.target=target
-        self.credentials=credentials
-        self.config=config
+        self.target = target
+        self.credentials = credentials
+        self.config = config
 
         # Pool state
         self.available: deque[PooledChannel] = deque()
         self.in_use: set[PooledChannel] = set()
-        self.lock=threading.Lock()
+        self.lock = threading.Lock()
 
         # Initialize minimum number of connections
         for _ in range(config.min_size):
-            _channel=self._create_channel()
+            _channel = self._create_channel()
             self.available.append(channel)
 
         # Start background health checker
-        self.health_check_thread=threading.Thread(
-            _target=self._health_check_loop, daemon=True
+        self.health_check_thread = threading.Thread(
+            _target = self._health_check_loop, daemon = True
         )
         self.health_check_thread.start()
 
         logger.info(
-            f"Channel pool initialized: target={target}, "
-            f"min={config.min_size}, max={config.max_size}"
+            f"Channel pool initialized: target = {target}, "
+            f"min = {config.min_size}, max = {config.max_size}"
         )
 
     def _create_channel(self) -> PooledChannel:
         """Create a new gRPC channel."""
-        _channel=grpc.secure_channel(
+        _channel = grpc.secure_channel(
             self.target,
             self.credentials,
-            _options=[
+            _options = [
                 ("grpc.max_send_message_length", 50 * 1024 * 1024),
                 ("grpc.max_receive_message_length", 50 * 1024 * 1024),
                 ("grpc.keepalive_time_ms", 30000),
@@ -220,9 +220,9 @@ class ChannelPool:
             ],
         )
 
-        _pooled=PooledChannel(channel, time.time())
+        _pooled = PooledChannel(channel, time.time())
         logger.debug(
-            f"Created new channel: total_channels={self._total_channels() + 1}"
+            f"Created new channel: total_channels = {self._total_channels() + 1}"
         )
         return pooled
 
@@ -240,13 +240,13 @@ class ChannelPool:
         Raises:
             RPCClientError: If no channel available within timeout
         """
-        _start_time=time.time()
+        _start_time = time.time()
 
         while time.time() - start_time < timeout:
             with self.lock:
             # Try to get an available channel
                 if self.available:
-                    _pooled=self.available.popleft()
+                    _pooled = self.available.popleft()
 
                     # Check if channel is healthy
                     if (
@@ -255,20 +255,20 @@ class ChannelPool:
                     ):
                     # Close unhealthy/stale channel and create new one
                         pooled.channel.close()
-                        _pooled=self._create_channel()
+                        _pooled = self._create_channel()
 
                     pooled.mark_used()
                     self.in_use.add(pooled)
 
                     logger.debug(
-                        f"Acquired channel from pool: available={len(self.available)}, "
-                        f"in_use={len(self.in_use)}"
+                        f"Acquired channel from pool: available = {len(self.available)}, "
+                        f"in_use = {len(self.in_use)}"
                     )
                     return pooled.channel
 
                 # No available channels, create new one if under max
                 if self._total_channels() < self.config.max_size:
-                    _pooled=self._create_channel()
+                    _pooled = self._create_channel()
                     pooled.mark_used()
                     self.in_use.add(pooled)
                     return pooled.channel
@@ -285,10 +285,10 @@ class ChannelPool:
         """Release a channel back to the pool."""
         with self.lock:
         # Find the pooled channel wrapper
-            pooled=None
+            pooled = None
             for p in self.in_use:
                 if p.channel == channel:
-                    pooled=p
+                    pooled = p
                     break
 
             if pooled:
@@ -303,8 +303,8 @@ class ChannelPool:
                     logger.debug("Closed unhealthy channel during release")
 
                 logger.debug(
-                    f"Released channel to pool: available={len(self.available)}, "
-                    f"in_use={len(self.in_use)}"
+                    f"Released channel to pool: available = {len(self.available)}, "
+                    f"in_use = {len(self.in_use)}"
                 )
 
     def _health_check_loop(self) -> None:
@@ -315,7 +315,7 @@ class ChannelPool:
             try:
                 with self.lock:
                 # Check available channels
-                    channels_to_remove=[]
+                    channels_to_remove = []
                     for pooled in self.available:
                         if pooled.idle_time() > self.config.max_idle_time:
                             channels_to_remove.append(pooled)
@@ -332,13 +332,13 @@ class ChannelPool:
                         len(self.available) < self.config.min_size
                         and self._total_channels() < self.config.max_size
                     ):
-                        _pooled=self._create_channel()
+                        _pooled = self._create_channel()
                         self.available.append(pooled)
 
                     if channels_to_remove:
                         logger.info(
                             f"Health check: removed {len(channels_to_remove)} idle channels, "
-                            f"available={len(self.available)}, in_use={len(self.in_use)}"
+                            f"available = {len(self.available)}, in_use = {len(self.in_use)}"
                         )
 
             except Exception as e:
@@ -374,12 +374,12 @@ class RPCClient:
 
     def __init__(
         self,
-        host: str="localhost",
-        port: int=7443,
+        host: str = "localhost",
+        port: int = 7443,
         cert_file: Optional[str] = None,
         key_file: Optional[str] = None,
         ca_cert_file: Optional[str] = None,
-        timeout: int=30,
+        timeout: int = 30,
         pool_config: Optional[ChannelPoolConfig] = None,
     ) -> None:
         """Initialize RPC client with mTLS configuration and connection pooling.
@@ -393,24 +393,24 @@ class RPCClient:
             timeout: RPC call timeout in seconds
             pool_config: Connection pool configuration
         """
-        self.host=host
-        self.port=port
-        self.timeout=timeout
+        self.host = host
+        self.port = port
+        self.timeout = timeout
         self.stubs: Dict[Any, Any] = {}
 
         # Load credentials
-        self.cert_file=cert_file or os.getenv(
+        self.cert_file = cert_file or os.getenv(
             "RPC_CERT_FILE", "/etc/debvisor/client.crt"
         )
-        self.key_file=key_file or os.getenv(
+        self.key_file = key_file or os.getenv(
             "RPC_KEY_FILE", "/etc/debvisor/client.key"
         )
-        self.ca_cert_file=ca_cert_file or os.getenv(
+        self.ca_cert_file = ca_cert_file or os.getenv(
             "RPC_CA_CERT_FILE", "/etc/debvisor/ca.crt"
         )
 
         # Initialize connection pool
-        self.pool_config=pool_config or ChannelPoolConfig()
+        self.pool_config = pool_config or ChannelPoolConfig()
         self._init_pool()
 
     def _init_pool(self) -> None:
@@ -421,22 +421,22 @@ class RPCClient:
                 raise RPCClientError("Missing certificate configuration")
 
             with open(self.cert_file, "rb") as f:
-                _client_cert=f.read()
+                _client_cert = f.read()
             with open(self.key_file, "rb") as f:
-                _client_key=f.read()
+                _client_key = f.read()
             with open(self.ca_cert_file, "rb") as f:
-                _ca_cert=f.read()
+                _ca_cert = f.read()
 
             # Create credentials
-            credentials=grpc.ssl_channel_credentials(
-                _root_certificates=ca_cert,
-                _private_key=client_key,
-                _certificate_chain=client_cert,
+            credentials = grpc.ssl_channel_credentials(
+                _root_certificates = ca_cert,
+                _private_key = client_key,
+                _certificate_chain = client_cert,
             )
 
             # Create channel pool
-            target=f"{self.host}:{self.port}"
-            self.channel_pool=ChannelPool(target, credentials, self.pool_config)
+            target = f"{self.host}:{self.port}"
+            self.channel_pool = ChannelPool(target, credentials, self.pool_config)
 
             logger.info(f"Initialized RPC client with channel pool for {target}")
 
@@ -465,33 +465,33 @@ class RPCClient:
         Raises:
             RPCClientError: On RPC communication error
         """
-        channel=None
+        channel = None
         try:
         # Acquire channel from pool
-            _channel=self.channel_pool.acquire(timeout=self.timeout)
+            _channel = self.channel_pool.acquire(timeout = self.timeout)
 
             # Get stub for service
-            _stub=self._get_stub(service_name, channel)
+            _stub = self._get_stub(service_name, channel)
 
             if not stub:
             # Placeholder behavior
                 return None
 
             # Get method from stub
-            _method=getattr(stub, method_name)
+            _method = getattr(stub, method_name)
 
             # Call method with timeout
-            _response=method(request, timeout=self.timeout)
+            _response = method(request, timeout = self.timeout)
 
             logger.debug(f"RPC call {service_name}.{method_name} succeeded")
             return response
 
         except grpc.RpcError as e:
-            _error_msg=f"RPC call failed: {service_name}.{method_name} - {e.details()}"
+            _error_msg = f"RPC call failed: {service_name}.{method_name} - {e.details()}"
             logger.error(error_msg)
             raise RPCClientError(error_msg)
         except Exception as e:
-            _error_msg=f"Unexpected error in RPC call: {str(e)}"
+            _error_msg = f"Unexpected error in RPC call: {str(e)}"
             logger.error(error_msg)
             raise RPCClientError(error_msg)
         finally:
@@ -529,8 +529,8 @@ class RPCClient:
         cpu_cores: int,
         memory_gb: int,
         storage_gb: int,
-        region: str="",
-        rack: str="",
+        region: str = "",
+        rack: str = "",
     ) -> Dict[str, Any]:
         """Register a new cluster node.
 
@@ -616,7 +616,7 @@ class RPCClient:
     # Storage Service Methods
 
     def create_snapshot(
-        self, node_id: str, source_volume: str, name: str, retention_days: int=30
+        self, node_id: str, source_volume: str, name: str, retention_days: int = 30
     ) -> Dict[str, Any]:
         """Create storage snapshot.
 
@@ -732,14 +732,14 @@ class RPCClient:
 
 
 # Global client instance
-_client=None
+_client = None
 
 
 def get_rpc_client() -> RPCClient:
     """Get or create global RPC client instance."""
     global _client
     if _client is None:
-        _client=RPCClient()
+        _client = RPCClient()
     return _client
 
 
@@ -748,4 +748,4 @@ def close_rpc_client() -> None:
     global _client
     if _client:
         _client.close()
-        _client=None
+        _client = None

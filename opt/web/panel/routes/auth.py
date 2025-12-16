@@ -56,22 +56,22 @@ def is_safe_url(target: str) -> bool:
     if '\x00' in target or '\r' in target or '\n' in target:
         return False
     
-    ref_url=urlparse(request.host_url)
-    test_url=urlparse(urljoin(request.host_url, target))
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
     
     # Only allow http/https and same-origin redirects
     return test_url.scheme in ('http', 'https') and \
         ref_url.netloc == test_url.netloc
 
 # Create blueprint
-auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
+auth_bp = Blueprint("auth", __name__, url_prefix = "/auth")
 
-@auth_bp.route("/login", methods=["GET", "POST"])
+@auth_bp.route("/login", methods = ["GET", "POST"])
 @limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{request.form.get('username', 'anonymous')}",
-    _limit=20,
-    _window_seconds=60,
+    _limit = 20,
+    _window_seconds = 60,
 )
 
 
@@ -85,9 +85,9 @@ def login() -> Any:
         return redirect(url_for("main.dashboard"))
 
     if request.method == "POST":
-        _username=request.form.get("username", "").strip()
-        _password=request.form.get("password", "")
-        _remember_me=request.form.get("remember_me") is not None
+        _username = request.form.get("username", "").strip()
+        _password = request.form.get("password", "")
+        _remember_me = request.form.get("remember_me") is not None
 
         # Validate input
         if not username or not password:
@@ -95,7 +95,7 @@ def login() -> Any:
             return redirect(url_for("auth.login"))
 
         # Find user by username or email
-        user=User.query.filter(
+        user = User.query.filter(
             (User.username== username) | (User.email== username)
         ).first()
 
@@ -105,21 +105,21 @@ def login() -> Any:
 
             # Log failed login attempt
             AuditLog.log_operation(
-                _user_id=None,
-                _operation="read",
-                _resource_type="user",
-                _action=f"Failed login attempt for {username}",
-                _status="failure",
-                _status_code=401,
-                _ip_address=request.remote_addr,
-                _user_agent=request.headers.get("User-Agent"),
+                _user_id = None,
+                _operation = "read",
+                _resource_type = "user",
+                _action = f"Failed login attempt for {username}",
+                _status = "failure",
+                _status_code = 401,
+                _ip_address = request.remote_addr,
+                _user_agent = request.headers.get("User-Agent"),
             )
             # Exponential backoff: impose a delay based on recent failures for this IP
             # Sliding window approximation via limiter; add small sleep to deter brute force
             try:
-                _failure_count=int(session.get("login_failures", 0)) + 1
+                _failure_count = int(session.get("login_failures", 0)) + 1
                 session["login_failures"] = failure_count
-                _delay_seconds=min(8, 2 ** min(3, failure_count - 1))
+                _delay_seconds = min(8, 2 ** min(3, failure_count - 1))
                 time.sleep(delay_seconds / 10.0)  # type: ignore[name-defined]
             except Exception as e:
                 current_app.logger.debug(f"Delay calculation error: {e}")
@@ -131,34 +131,34 @@ def login() -> Any:
             return redirect(url_for("auth.login"))
 
         # Login successful
-        login_user(user, remember=remember_me)
+        login_user(user, remember = remember_me)
         user.update_last_login()
 
         # Log successful login
         AuditLog.log_operation(
-            _user_id=user.id,
-            _operation="read",
-            _resource_type="user",
-            _action=f"User {user.username} logged in",
-            _status="success",
-            _status_code=200,
-            _ip_address=request.remote_addr,
-            _user_agent=request.headers.get("User-Agent"),
+            _user_id = user.id,
+            _operation = "read",
+            _resource_type = "user",
+            _action = f"User {user.username} logged in",
+            _status = "success",
+            _status_code = 200,
+            _ip_address = request.remote_addr,
+            _user_agent = request.headers.get("User-Agent"),
         )
 
         flash(f"Welcome back, {user.full_name or user.username}!", "success")
-        _next_page=request.args.get("next")
+        _next_page = request.args.get("next")
 
         # Validate next_page to prevent open redirects
         if not next_page or not is_safe_url(next_page):
-            _next_page=url_for("main.dashboard")
+            _next_page = url_for("main.dashboard")
 
         return redirect(next_page)
 
     return render_template("auth/login.html")
 
 
-@auth_bp.route("/logout", methods=["POST"])
+@auth_bp.route("/logout", methods = ["POST"])
 @login_required    # type: ignore
 @limiter.limit(    # type: ignore
     "60 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
@@ -170,29 +170,29 @@ def logout() -> Any:
 
     Clears session and invalidates login token.
     """
-    user=current_user
+    user = current_user
     logout_user()
 
     # Log logout
     AuditLog.log_operation(
-        _user_id=user.id,
-        _operation="read",
-        _resource_type="user",
-        _action=f"User {user.username} logged out",
-        _status="success",
-        _ip_address=request.remote_addr,
+        _user_id = user.id,
+        _operation = "read",
+        _resource_type = "user",
+        _action = f"User {user.username} logged out",
+        _status = "success",
+        _ip_address = request.remote_addr,
     )
 
     flash("You have been logged out", "info")
     return redirect(url_for("auth.login"))
 
 
-@auth_bp.route("/register", methods=["GET", "POST"])
+@auth_bp.route("/register", methods = ["GET", "POST"])
 @limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
-    _limit=10,
-    _window_seconds=3600,
+    _limit = 10,
+    _window_seconds = 3600,
 )
 
 
@@ -206,14 +206,14 @@ def register() -> Any:
         return redirect(url_for("main.dashboard"))
 
     if request.method == "POST":
-        _username=request.form.get("username", "").strip().lower()
-        _email=request.form.get("email", "").strip().lower()
-        _password=request.form.get("password", "")
-        _password_confirm=request.form.get("password_confirm", "")
-        _full_name=request.form.get("full_name", "").strip()
+        _username = request.form.get("username", "").strip().lower()
+        _email = request.form.get("email", "").strip().lower()
+        _password = request.form.get("password", "")
+        _password_confirm = request.form.get("password_confirm", "")
+        _full_name = request.form.get("full_name", "").strip()
 
         # Validate input
-        errors=[]
+        errors = []
 
         if not username or len(username) < 3:
             errors.append("Username must be at least 3 characters")
@@ -228,10 +228,10 @@ def register() -> Any:
             errors.append("Passwords do not match")
 
         # Check for existing user
-        if User.query.filter_by(username=username).first():
+        if User.query.filter_by(username = username).first():
             errors.append("Username already taken")
 
-        if User.query.filter_by(email=email).first():
+        if User.query.filter_by(email = email).first():
             errors.append("Email already registered")
 
         if errors:
@@ -240,7 +240,7 @@ def register() -> Any:
             return redirect(url_for("auth.register"))
 
         # Create new user
-        _user=User(username=username, email=email, full_name=full_name)
+        _user = User(username = username, email = email, full_name = full_name)
         user.set_password(password)
 
         db.session.add(user)
@@ -248,12 +248,12 @@ def register() -> Any:
 
         # Log registration
         AuditLog.log_operation(
-            _user_id=user.id,
-            _operation="create",
-            _resource_type="user",
-            _action=f"New user account created: {username}",
-            _status="success",
-            _ip_address=request.remote_addr,
+            _user_id = user.id,
+            _operation = "create",
+            _resource_type = "user",
+            _action = f"New user account created: {username}",
+            _status = "success",
+            _ip_address = request.remote_addr,
         )
 
         flash("Account created successfully. Please log in.", "success")
@@ -262,7 +262,7 @@ def register() -> Any:
     return render_template("auth/register.html")
 
 
-@auth_bp.route("/profile", methods=["GET", "POST"])
+@auth_bp.route("/profile", methods = ["GET", "POST"])
 @login_required    # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{getattr(current_user, 'id', 'anon')}", limit=30, window_seconds=600
@@ -276,22 +276,22 @@ def profile() -> Any:
     POST: Update user information
     """
     if request.method == "POST":
-        _full_name=request.form.get("full_name", "").strip()
-        _email=request.form.get("email", "").strip().lower()
-        _current_password=request.form.get("current_password", "")
-        _new_password=request.form.get("new_password", "")
-        _new_password_confirm=request.form.get("new_password_confirm", "")
+        _full_name = request.form.get("full_name", "").strip()
+        _email = request.form.get("email", "").strip().lower()
+        _current_password = request.form.get("current_password", "")
+        _new_password = request.form.get("new_password", "")
+        _new_password_confirm = request.form.get("new_password_confirm", "")
 
         # Update profile fields
         if full_name:
-            current_user.full_name=full_name
+            current_user.full_name = full_name
 
         if email and email != current_user.email:
         # Check if email already in use
-            if User.query.filter_by(email=email).first():
+            if User.query.filter_by(email = email).first():
                 flash("Email already in use", "error")
             else:
-                current_user.email=email
+                current_user.email = email
 
         # Update password if provided
         if new_password:
@@ -313,21 +313,21 @@ def profile() -> Any:
 
         # Log profile update
         AuditLog.log_operation(
-            _user_id=current_user.id,
-            _operation="update",
-            _resource_type="user",
-            _action="User updated their profile",
-            _status="success",
-            _ip_address=request.remote_addr,
+            _user_id = current_user.id,
+            _operation = "update",
+            _resource_type = "user",
+            _action = "User updated their profile",
+            _status = "success",
+            _ip_address = request.remote_addr,
         )
 
         flash("Profile updated successfully", "success")
         return redirect(url_for("auth.profile"))
 
-    return render_template("auth/profile.html", user=current_user)
+    return render_template("auth/profile.html", user = current_user)
 
 
-@auth_bp.route("/users", methods=["GET"])
+@auth_bp.route("/users", methods = ["GET"])
 @login_required    # type: ignore
 @require_permission(Resource.USER, Action.READ)
 def list_users() -> Any:
@@ -335,23 +335,23 @@ def list_users() -> Any:
 
     GET: Display paginated user list
     """
-    _page=request.args.get("page", 1, type=int)
-    per_page=20
+    _page = request.args.get("page", 1, type = int)
+    per_page = 20
 
-    _pagination=User.query.paginate(page=page, per_page=per_page)
-    users=pagination.items
+    _pagination = User.query.paginate(page = page, per_page = per_page)
+    users = pagination.items
 
-    return render_template("auth/users.html", users=users, pagination=pagination)
+    return render_template("auth/users.html", users = users, pagination = pagination)
 
 
-@auth_bp.route("/reset", methods=["GET", "POST"])
+@auth_bp.route("/reset", methods = ["GET", "POST"])
 @limiter.limit(    # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
-    _limit=5,
-    _window_seconds=1800,
+    _limit = 5,
+    _window_seconds = 1800,
 )
 
 
@@ -362,38 +362,38 @@ def password_reset() -> Any:
     POST: Accept email and enqueue reset instructions (placeholder implementation)
     """
     if request.method == "POST":
-        _email=request.form.get("email", "").strip().lower()
+        _email = request.form.get("email", "").strip().lower()
         if not email or "@" not in email:
             flash("Valid email address required", "error")
             return redirect(url_for("auth.password_reset"))
 
-        _user=User.query.filter_by(email=email).first()
+        _user = User.query.filter_by(email = email).first()
         if not user:
         # Avoid user enumeration: respond success regardless
             AuditLog.log_operation(
-                _user_id=None,
-                _operation="read",
-                _resource_type="user",
-                _action=f"Password reset requested for {email} (no account)",
-                _status="success",
-                _ip_address=request.remote_addr,
+                _user_id = None,
+                _operation = "read",
+                _resource_type = "user",
+                _action = f"Password reset requested for {email} (no account)",
+                _status = "success",
+                _ip_address = request.remote_addr,
             )
             flash("If an account exists, reset instructions have been sent.", "info")
             return redirect(url_for("auth.login"))
 
         # Generate time-limited reset token and enqueue email (placeholder)
-        _s=URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
-        _token=s.dumps({"uid": user.id, "email": user.email}, salt="reset")
+        _s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+        _token = s.dumps({"uid": user.id, "email": user.email}, salt = "reset")
 
-        send_password_reset(email=user.email, token=token)
+        send_password_reset(email = user.email, token = token)
 
         AuditLog.log_operation(
-            _user_id=user.id,
-            _operation="update",
-            _resource_type="user",
-            _action="Password reset requested",
-            _status="success",
-            _ip_address=request.remote_addr,
+            _user_id = user.id,
+            _operation = "update",
+            _resource_type = "user",
+            _action = "Password reset requested",
+            _status = "success",
+            _ip_address = request.remote_addr,
         )
         flash("If an account exists, reset instructions have been sent.", "info")
         return redirect(url_for("auth.login"))
@@ -401,7 +401,7 @@ def password_reset() -> Any:
     return render_template("auth/reset.html")
 
 
-@auth_bp.route("/reset/verify", methods=["GET", "POST"])
+@auth_bp.route("/reset/verify", methods = ["GET", "POST"])
 @limiter.limit(    # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
@@ -409,7 +409,7 @@ def password_reset() -> Any:
 
 def reset_verify() -> Any:
     """Verify reset token and set new password."""
-    _s=URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    _s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     token=(
         request.args.get("token")
         if request.method == "GET"
@@ -418,21 +418,21 @@ def reset_verify() -> Any:
 
     if request.method == "GET":
     # Render form to set new password
-        return render_template("auth/reset_verify.html", token=token)
+        return render_template("auth/reset_verify.html", token = token)
 
     # POST: apply new password
-    _new_password=request.form.get("password", "")
-    _confirm=request.form.get("password_confirm", "")
+    _new_password = request.form.get("password", "")
+    _confirm = request.form.get("password_confirm", "")
     if not new_password or new_password != confirm or len(new_password) < 8:
         flash("Invalid password or mismatch", "error")
-        return redirect(url_for("auth.reset_verify", token=token))
+        return redirect(url_for("auth.reset_verify", token = token))
 
     if not token:
         flash("Missing reset token", "error")
         return redirect(url_for("auth.password_reset"))
 
     try:
-        _data=s.loads(token, salt="reset", max_age=3600)
+        _data = s.loads(token, salt = "reset", max_age = 3600)
     except SignatureExpired:
         flash("Reset link expired", "error")
         return redirect(url_for("auth.password_reset"))
@@ -440,7 +440,7 @@ def reset_verify() -> Any:
         flash("Invalid reset link", "error")
         return redirect(url_for("auth.password_reset"))
 
-    _user=User.query.get(int(data.get("uid")))
+    _user = User.query.get(int(data.get("uid")))
     if not user or user.email != data.get("email"):
         flash("Invalid reset link", "error")
         return redirect(url_for("auth.password_reset"))
@@ -449,19 +449,19 @@ def reset_verify() -> Any:
     db.session.commit()
 
     AuditLog.log_operation(
-        _user_id=user.id,
-        _operation="update",
-        _resource_type="user",
-        _action="User password reset via token",
-        _status="success",
-        _ip_address=request.remote_addr,
+        _user_id = user.id,
+        _operation = "update",
+        _resource_type = "user",
+        _action = "User password reset via token",
+        _status = "success",
+        _ip_address = request.remote_addr,
     )
 
     flash("Password updated. Please log in.", "success")
     return redirect(url_for("auth.login"))
 
 
-@auth_bp.route("/users/<int:user_id>/disable", methods=["POST"])
+@auth_bp.route("/users/<int:user_id>/disable", methods = ["POST"])
 @login_required    # type: ignore
 @require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(
@@ -478,30 +478,30 @@ def disable_user(userid: int) -> Any:
         flash("Cannot disable your own account", "error")
         return redirect(url_for("auth.list_users"))
 
-    _user=User.query.get(user_id)
+    _user = User.query.get(user_id)
     if not user:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
 
-    user.is_active=False
+    user.is_active = False
     db.session.commit()
 
     # Log user disable
     AuditLog.log_operation(
-        _user_id=current_user.id,
-        _operation="update",
-        _resource_type="user",
-        _action=f"Disabled user account: {user.username}",
-        _status="success",
-        _resource_id=str(user_id),
-        _ip_address=request.remote_addr,
+        _user_id = current_user.id,
+        _operation = "update",
+        _resource_type = "user",
+        _action = f"Disabled user account: {user.username}",
+        _status = "success",
+        _resource_id = str(user_id),
+        _ip_address = request.remote_addr,
     )
 
     flash(f"User {user.username} has been disabled", "success")
     return redirect(url_for("auth.list_users"))
 
 
-@auth_bp.route("/users/<int:user_id>/enable", methods=["POST"])
+@auth_bp.route("/users/<int:user_id>/enable", methods = ["POST"])
 @login_required    # type: ignore
 @require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(
@@ -514,30 +514,30 @@ def enable_user(userid: int) -> Any:
 
     POST: Set is_active to True
     """
-    _user=User.query.get(user_id)
+    _user = User.query.get(user_id)
     if not user:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
 
-    user.is_active=True
+    user.is_active = True
     db.session.commit()
 
     # Log user enable
     AuditLog.log_operation(
-        _user_id=current_user.id,
-        _operation="update",
-        _resource_type="user",
-        _action=f"Enabled user account: {user.username}",
-        _status="success",
-        _resource_id=str(user_id),
-        _ip_address=request.remote_addr,
+        _user_id = current_user.id,
+        _operation = "update",
+        _resource_type = "user",
+        _action = f"Enabled user account: {user.username}",
+        _status = "success",
+        _resource_id = str(user_id),
+        _ip_address = request.remote_addr,
     )
 
     flash(f"User {user.username} has been enabled", "success")
     return redirect(url_for("auth.list_users"))
 
 
-@auth_bp.route("/users/<int:user_id>/delete", methods=["POST"])
+@auth_bp.route("/users/<int:user_id>/delete", methods = ["POST"])
 @login_required    # type: ignore
 @require_permission(Resource.USER, Action.DELETE)
 @sliding_window_limiter(
@@ -554,24 +554,24 @@ def delete_user(userid: int) -> Any:
         flash("Cannot delete your own account", "error")
         return redirect(url_for("auth.list_users"))
 
-    _user=User.query.get(user_id)
+    _user = User.query.get(user_id)
     if not user:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
 
-    username=user.username
+    username = user.username
     db.session.delete(user)
     db.session.commit()
 
     # Log user deletion
     AuditLog.log_operation(
-        _user_id=current_user.id,
-        _operation="delete",
-        _resource_type="user",
-        _action=f"Deleted user account: {username}",
-        _status="success",
-        _resource_id=str(user_id),
-        _ip_address=request.remote_addr,
+        _user_id = current_user.id,
+        _operation = "delete",
+        _resource_type = "user",
+        _action = f"Deleted user account: {username}",
+        _status = "success",
+        _resource_id = str(user_id),
+        _ip_address = request.remote_addr,
     )
 
     flash(f"User {username} has been deleted", "success")

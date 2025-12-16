@@ -114,47 +114,47 @@ from opt.web.panel.extensions import db, login_manager
 class User(UserMixin, db.Model):
     """User account model with authentication and role management."""
 
-    __tablename__="user"
+    __tablename__ = "user"
 
     # Primary key
-    _id=db.Column(db.Integer, primary_key=True)
+    _id = db.Column(db.Integer, primary_key = True)
 
     # User identification
-    _username=db.Column(db.String(80), unique=True, nullable=False, index=True)
-    _email=db.Column(db.String(120), unique=True, nullable=False, index=True)
+    _username = db.Column(db.String(80), unique = True, nullable = False, index = True)
+    _email = db.Column(db.String(120), unique = True, nullable = False, index = True)
 
     # Password (hashed with Argon2)
-    _password_hash=db.Column(db.String(255), nullable=False)
+    _password_hash = db.Column(db.String(255), nullable = False)
 
     # User metadata
-    _full_name=db.Column(db.String(150))
-    _is_active=db.Column(db.Boolean, default=True, index=True)
-    _is_admin=db.Column(db.Boolean, default=False, index=True)
+    _full_name = db.Column(db.String(150))
+    _is_active = db.Column(db.Boolean, default = True, index = True)
+    _is_admin = db.Column(db.Boolean, default = False, index = True)
 
     # Authentication tracking
-    _created_at=db.Column(
+    _created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    _updated_at=db.Column(
+    _updated_at = db.Column(
         db.DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
     )
-    _last_login=db.Column(db.DateTime)
+    _last_login = db.Column(db.DateTime)
     _last_activity=db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     # Session tracking
-    _api_key_hash=db.Column(db.String(255), unique=True, nullable=True)
-    _api_key_created=db.Column(db.DateTime)
-    _api_key_last_used=db.Column(db.DateTime)
+    _api_key_hash = db.Column(db.String(255), unique = True, nullable = True)
+    _api_key_created = db.Column(db.DateTime)
+    _api_key_last_used = db.Column(db.DateTime)
 
     # MFA (optional)
-    _mfa_enabled=db.Column(db.Boolean, default=False)
-    _mfa_secret=db.Column(db.String(255))
+    _mfa_enabled = db.Column(db.Boolean, default = False)
+    _mfa_secret = db.Column(db.String(255))
 
     # Relationships
-    _audit_logs=db.relationship(
-        "AuditLog", backref="user", lazy=True, cascade="all, delete-orphan"
+    _audit_logs = db.relationship(
+        "AuditLog", backref = "user", lazy = True, cascade = "all, delete-orphan"
     )
 
     def __repr__(self) -> str:
@@ -169,7 +169,7 @@ class User(UserMixin, db.Model):
         """
         if not password or len(password) < 8:
             raise ValueError("Password must be at least 8 characters")
-        self.password_hash=generate_password_hash(password, method="argon2")
+        self.password_hash = generate_password_hash(password, method = "argon2")
 
     def check_password(self, password: str) -> bool:
         """Verify password against stored hash.
@@ -184,12 +184,12 @@ class User(UserMixin, db.Model):
 
     def update_last_login(self) -> None:
         """Update last login timestamp."""
-        self.last_login=datetime.now(timezone.utc)
+        self.last_login = datetime.now(timezone.utc)
         db.session.commit()
 
     def update_last_activity(self) -> None:
         """Update last activity timestamp."""
-        self.last_activity=datetime.now(timezone.utc)
+        self.last_activity = datetime.now(timezone.utc)
         db.session.commit()
 
     def get_id(self) -> str:

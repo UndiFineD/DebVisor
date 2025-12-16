@@ -7,9 +7,9 @@ from collections import defaultdict
 
 # Run flake8 and capture output
 result = subprocess.run(
-    ['.venv\\Scripts\\python.exe', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/', '--format=json'],
-    capture_output=True,
-    text=True
+    ['.venv\\Scripts\\python.exe', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/', '--format = json'],
+    capture_output = True,
+    text = True
 )
 
 try:
@@ -17,9 +17,9 @@ try:
 except json.JSONDecodeError:
     # Fall back to parsing text output
     result = subprocess.run(
-        ['.venv\\Scripts\\python.exe', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-        capture_output=True,
-        text=True
+        ['.venv\\Scripts\\python.exe', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+        capture_output = True,
+        text = True
     )
     issues = []
     for line in result.stdout.split('\n'):

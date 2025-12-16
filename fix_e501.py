@@ -8,9 +8,9 @@ import re
 # Get E501 issues
 result = subprocess.run(
     ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', 
-     '--select=E501', '--max-line-length=120'],
-    capture_output=True,
-    text=True
+     '--select = E501', '--max-line-length = 120'],
+    capture_output = True,
+    text = True
 )
 
 issues_by_file = {}
@@ -38,7 +38,7 @@ else:
             continue
         
         try:
-            lines = Path(filepath).read_text(encoding='utf-8').split('\n')
+            lines = Path(filepath).read_text(encoding = 'utf-8').split('\n')
         except:
             continue
         
@@ -84,7 +84,7 @@ else:
         if fixes > 0:
             new_content = '\n'.join(lines)
             try:
-                Path(filepath).write_text(new_content, encoding='utf-8')
+                Path(filepath).write_text(new_content, encoding = 'utf-8')
                 print(f"  {Path(filepath).name}: {fixes} line length fixes")
                 total_fixes += fixes
             except Exception as e:

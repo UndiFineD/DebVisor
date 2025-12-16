@@ -115,9 +115,9 @@ import logging
 try:
     from opt.core.audit import AuditSigner, AuditEntry
 
-    HAS_CORE_AUDIT=True
+    HAS_CORE_AUDIT = True
 except ImportError:
-    HAS_CORE_AUDIT=False
+    HAS_CORE_AUDIT = False
     logging.getLogger(__name__).warning(
         "opt.core.audit not available, audit signing disabled"
     )
@@ -126,60 +126,60 @@ except ImportError:
 class AuditLog(db.Model):
     """Audit log entry for tracking user operations and RPC calls."""
 
-    __tablename__="audit_log"
+    __tablename__ = "audit_log"
 
     # Primary key
-    _id=db.Column(db.Integer, primary_key=True)
+    _id = db.Column(db.Integer, primary_key = True)
 
     # User reference (nullable for system operations)
-    _user_id=db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True, index=True)
+    _user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = True, index = True)
 
     # Operation details
     # create, read, update, delete, execute
-    _operation=db.Column(db.String(50), nullable=False, index=True)
+    _operation = db.Column(db.String(50), nullable = False, index = True)
     # node, snapshot, user, etc.
-    _resource_type=db.Column(db.String(50), nullable=False, index=True)
-    _resource_id=db.Column(
-        db.String(100), nullable=True, index=True
+    _resource_type = db.Column(db.String(50), nullable = False, index = True)
+    _resource_id = db.Column(
+        db.String(100), nullable = True, index = True
     )    # specific resource ID
 
     # Action description
-    _action=db.Column(db.String(255), nullable=False)    # "Created snapshot on node1"
+    _action = db.Column(db.String(255), nullable = False)    # "Created snapshot on node1"
 
     # Status tracking
-    status=db.Column(
-        db.String(20), nullable=False, index=True
+    status = db.Column(
+        db.String(20), nullable = False, index = True
     )    # success, failure, pending
-    _status_code=db.Column(db.Integer, nullable=True)    # HTTP status or RPC code
-    _error_message=db.Column(db.Text, nullable=True)    # Error details if failure
+    _status_code = db.Column(db.Integer, nullable = True)    # HTTP status or RPC code
+    _error_message = db.Column(db.Text, nullable = True)    # Error details if failure
 
     # Request/Response details (JSON)
-    _request_data=db.Column(db.Text, nullable=True)    # Request parameters (redacted)
-    _response_data=db.Column(db.Text, nullable=True)    # Response summary (redacted)
+    _request_data = db.Column(db.Text, nullable = True)    # Request parameters (redacted)
+    _response_data = db.Column(db.Text, nullable = True)    # Response summary (redacted)
 
     # Context information
-    _ip_address=db.Column(db.String(45), nullable=True, index=True)    # IPv4 or IPv6
-    _user_agent=db.Column(db.String(255), nullable=True)
+    _ip_address = db.Column(db.String(45), nullable = True, index = True)    # IPv4 or IPv6
+    _user_agent = db.Column(db.String(255), nullable = True)
 
     # Security & Compliance (AUDIT-001)
-    _signature=db.Column(db.String(64), nullable=True)    # HMAC-SHA256
-    _previous_hash=db.Column(db.String(64), nullable=True)    # Hash chaining
-    _compliance_tags=db.Column(
-        db.Text, nullable=True
+    _signature = db.Column(db.String(64), nullable = True)    # HMAC-SHA256
+    _previous_hash = db.Column(db.String(64), nullable = True)    # Hash chaining
+    _compliance_tags = db.Column(
+        db.Text, nullable = True
     )    # JSON list of tags (GDPR, HIPAA)
 
     # Timing
-    _created_at=db.Column(
+    _created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    _duration_ms=db.Column(db.Integer, nullable=True)    # Operation duration
+    _duration_ms = db.Column(db.Integer, nullable = True)    # Operation duration
 
     # RPC integration
-    _rpc_service=db.Column(
-        db.String(50), nullable=True, index=True
+    _rpc_service = db.Column(
+        db.String(50), nullable = True, index = True
     )    # NodeService, StorageService, etc.
-    _rpc_method=db.Column(
-        db.String(50), nullable=True, index=True
+    _rpc_method = db.Column(
+        db.String(50), nullable = True, index = True
     )    # RegisterNode, CreateSnapshot, etc.
 
     def __repr__(self) -> str:
@@ -192,7 +192,7 @@ class AuditLog(db.Model):
         operation: str,
         resource_type: str,
         action: str,
-        status: str="success",
+        status: str = "success",
         resource_id: Optional[str] = None,
         status_code: Optional[int] = None,
         error_message: Optional[str] = None,
@@ -228,66 +228,66 @@ class AuditLog(db.Model):
         Returns:
             Created AuditLog instance
         """
-        _entry=AuditLog(
-            _user_id=user_id,
-            _operation=operation,
-            _resource_type=resource_type,
-            _action=action,
-            _status=status,
-            _resource_id=resource_id,
-            _status_code=status_code,
-            _error_message=error_message,
-            _request_data=json.dumps(request_data) if request_data else None,
-            _response_data=json.dumps(response_data) if response_data else None,
-            _ip_address=ip_address,
-            _user_agent=user_agent,
-            _duration_ms=duration_ms,
-            _rpc_service=rpc_service,
-            _rpc_method=rpc_method,
-            _compliance_tags=json.dumps(compliance_tags) if compliance_tags else None,
-            _created_at=datetime.now(timezone.utc)
+        _entry = AuditLog(
+            _user_id = user_id,
+            _operation = operation,
+            _resource_type = resource_type,
+            _action = action,
+            _status = status,
+            _resource_id = resource_id,
+            _status_code = status_code,
+            _error_message = error_message,
+            _request_data = json.dumps(request_data) if request_data else None,
+            _response_data = json.dumps(response_data) if response_data else None,
+            _ip_address = ip_address,
+            _user_agent = user_agent,
+            _duration_ms = duration_ms,
+            _rpc_service = rpc_service,
+            _rpc_method = rpc_method,
+            _compliance_tags = json.dumps(compliance_tags) if compliance_tags else None,
+            _created_at = datetime.now(timezone.utc)
         )
 
         # Compute signature and hash chaining if core audit is available
         if HAS_CORE_AUDIT:
             try:
             # Get previous hash
-                _last_entry=AuditLog.query.order_by(AuditLog.id.desc()).first()
-                previous_hash=last_entry.signature if last_entry else "0" * 64
-                entry.previous_hash=previous_hash
+                _last_entry = AuditLog.query.order_by(AuditLog.id.desc()).first()
+                previous_hash = last_entry.signature if last_entry else "0" * 64
+                entry.previous_hash = previous_hash
 
                 # Create core AuditEntry for signing
                 # Ensure timestamp matches exactly what is stored
-                _timestamp_str=entry.created_at.isoformat()
+                _timestamp_str = entry.created_at.isoformat()
 
-                _core_entry=AuditEntry(
-                    _operation=operation,
-                    _resource_type=resource_type,
-                    _resource_id=str(resource_id) if resource_id else "",
-                    _actor_id=str(user_id) if user_id else "system",
-                    _action=action,
-                    _status=status,
-                    _timestamp=timestamp_str,
-                    _details={
+                _core_entry = AuditEntry(
+                    _operation = operation,
+                    _resource_type = resource_type,
+                    _resource_id = str(resource_id) if resource_id else "",
+                    _actor_id = str(user_id) if user_id else "system",
+                    _action = action,
+                    _status = status,
+                    _timestamp = timestamp_str,
+                    _details = {
                         "request": request_data,
                         "response": response_data,
                         "ip": ip_address,
                         "ua": user_agent,
                     },
-                    _compliance_tags=compliance_tags or [],
-                    _previous_hash=previous_hash,
+                    _compliance_tags = compliance_tags or [],
+                    _previous_hash = previous_hash,
                 )
 
                 # Sign
                 # In production, SECRET_KEY must be set in environment
-                _secret_key=os.getenv("SECRET_KEY")
+                _secret_key = os.getenv("SECRET_KEY")
                 if not secret_key:
                     if os.getenv("FLASK_ENV") == "production":
                         raise ValueError("SECRET_KEY not set in production environment")
-                    secret_key="dev-key"
+                    secret_key = "dev-key"
 
-                _signer=AuditSigner(secret_key=secret_key)
-                entry.signature=signer.sign(core_entry)
+                _signer = AuditSigner(secret_key = secret_key)
+                entry.signature = signer.sign(core_entry)
             except Exception as e:
                 logging.getLogger(__name__).error(f"Failed to sign audit entry: {e}")
 
@@ -326,7 +326,7 @@ class AuditLog(db.Model):
             List of AuditLog entries
         """
         return cast(List["AuditLog"], (
-            AuditLog.query.filter_by(user_id=user_id)
+            AuditLog.query.filter_by(user_id = user_id)
             .order_by(AuditLog.created_at.desc())
             .limit(limit)
             .offset(offset)
@@ -337,7 +337,7 @@ class AuditLog(db.Model):
     def get_resource_operations(
         resource_type: str,
         resource_id: Optional[str] = None,
-        limit: int=100
+        limit: int = 100
     ) -> List['AuditLog']:
         """Get audit log entries for specific resource.
 
@@ -349,9 +349,9 @@ class AuditLog(db.Model):
         Returns:
             List of AuditLog entries
         """
-        _query=AuditLog.query.filter_by(resource_type=resource_type)
+        _query = AuditLog.query.filter_by(resource_type = resource_type)
         if resource_id:
-            _query=query.filter_by(resource_id=resource_id)
+            _query = query.filter_by(resource_id = resource_id)
         return query.order_by(AuditLog.created_at.desc()).limit(limit).all()    # type: ignore
 
     @staticmethod
@@ -365,7 +365,7 @@ class AuditLog(db.Model):
             List of AuditLog entries
         """
         return (
-            AuditLog.query.filter_by(status="failure")
+            AuditLog.query.filter_by(status = "failure")
             .order_by(AuditLog.created_at.desc())
             .limit(limit)
             .all()    # type: ignore
@@ -384,52 +384,52 @@ class AuditLog(db.Model):
         if not HAS_CORE_AUDIT:
             return {"valid": False, "error": "Core audit module not available"}
 
-        _logs=AuditLog.query.order_by(AuditLog.id.asc()).all()
+        _logs = AuditLog.query.order_by(AuditLog.id.asc()).all()
         if not logs:
             return {"valid": True, "total_checked": 0}
 
-        _secret_key=os.getenv("SECRET_KEY")
+        _secret_key = os.getenv("SECRET_KEY")
         if not secret_key:
         # Fallback for dev/test if not set, matching log_operation logic
             if os.getenv("FLASK_ENV") != "production":
-                secret_key="dev-key"
+                secret_key = "dev-key"
             else:
                 return {"valid": False, "error": "SECRET_KEY not set"}
 
-        _signer=AuditSigner(secret_key=secret_key)
+        _signer = AuditSigner(secret_key = secret_key)
 
-        _previous_hash="0" * 64
+        _previous_hash = "0" * 64
 
         for log in logs:
         # Reconstruct core entry
-            _compliance_tags=json.loads(log.compliance_tags) if log.compliance_tags else []
-            _request_data=json.loads(log.request_data) if log.request_data else None
-            _response_data=json.loads(log.response_data) if log.response_data else None
+            _compliance_tags = json.loads(log.compliance_tags) if log.compliance_tags else []
+            _request_data = json.loads(log.request_data) if log.request_data else None
+            _response_data = json.loads(log.response_data) if log.response_data else None
 
             # Handle timestamp reconstruction carefully
             # Assuming created_at is stored as naive UTC or timezone-aware
             if log.created_at.tzinfo is None:
-                _timestamp_str=log.created_at.replace(tzinfo=timezone.utc).isoformat()
+                _timestamp_str = log.created_at.replace(tzinfo = timezone.utc).isoformat()
             else:
-                _timestamp_str=log.created_at.isoformat()
+                _timestamp_str = log.created_at.isoformat()
 
-            _core_entry=AuditEntry(
-                _operation=log.operation,
-                _resource_type=log.resource_type,
-                _resource_id=str(log.resource_id) if log.resource_id else "",
-                _actor_id=str(log.user_id) if log.user_id else "system",
-                _action=log.action,
-                _status=log.status,
-                _timestamp=timestamp_str,
-                _details={
+            _core_entry = AuditEntry(
+                _operation = log.operation,
+                _resource_type = log.resource_type,
+                _resource_id = str(log.resource_id) if log.resource_id else "",
+                _actor_id = str(log.user_id) if log.user_id else "system",
+                _action = log.action,
+                _status = log.status,
+                _timestamp = timestamp_str,
+                _details = {
                     "request": request_data,
                     "response": response_data,
                     "ip": log.ip_address,
                     "ua": log.user_agent,
                 },
-                _compliance_tags=compliance_tags,
-                _previous_hash=previous_hash,
-                _signature=log.signature
+                _compliance_tags = compliance_tags,
+                _previous_hash = previous_hash,
+                _signature = log.signature
             )
 
             # Verify signature
@@ -450,6 +450,6 @@ class AuditLog(db.Model):
                     "total_checked": len(logs)
                 }
 
-            _previous_hash=log.signature
+            _previous_hash = log.signature
 
         return {"valid": True, "total_checked": len(logs)}

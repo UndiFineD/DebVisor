@@ -8,9 +8,9 @@ import subprocess
 # First, get files with E999 errors
 result = subprocess.run(
     ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', 
-     '--select=E999'],
-    capture_output=True,
-    text=True
+     '--select = E999'],
+    capture_output = True,
+    text = True
 )
 
 e999_files = {}
@@ -38,7 +38,7 @@ else:
             continue
         
         try:
-            content = Path(filepath).read_text(encoding='utf-8')
+            content = Path(filepath).read_text(encoding = 'utf-8')
         except:
             continue
         
@@ -67,7 +67,7 @@ else:
         if fixes > 0:
             new_content = '\n'.join(lines)
             try:
-                Path(filepath).write_text(new_content, encoding='utf-8')
+                Path(filepath).write_text(new_content, encoding = 'utf-8')
                 print(f"  {Path(filepath).name}: {fixes} fixes")
                 total_fixes += fixes
             except Exception as e:

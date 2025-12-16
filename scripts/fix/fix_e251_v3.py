@@ -32,7 +32,7 @@ def fix_e251_aggressive(content):
 
 # Find all Python test files
 fixed_count = 0
-for filepath in glob.glob("tests/**/*.py", recursive=True):
+for filepath in glob.glob("tests/**/*.py", recursive = True):
     with open(filepath, 'r') as f:
         content = f.read()
     

@@ -43,8 +43,8 @@ def setup_logging(verbose: bool) -> None:
     """Configure logging."""
     level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(
-        level=level,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level = level,
+        format = '%(asctime)s - %(levelname)s - %(message)s'
     )
 
 def inspect_workflows(workflows_dir: Path) -> None:
@@ -60,18 +60,18 @@ def inspect_workflows(workflows_dir: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Inspect GitHub Actions workflows"
+        description = "Inspect GitHub Actions workflows"
     )
     parser.add_argument(
         "--workflows",
-        type=str,
-        default=str(Path(__file__).parent.parent / ".github" / "workflows"),
-        help="Path to workflows directory (defaults to repo .github/workflows)"
+        type = str,
+        default = str(Path(__file__).parent.parent / ".github" / "workflows"),
+        help = "Path to workflows directory (defaults to repo .github/workflows)"
     )
     parser.add_argument(
         "--verbose",
-        action="store_true",
-        help="Enable verbose logging"
+        action = "store_true",
+        help = "Enable verbose logging"
     )
     
     args = parser.parse_args()

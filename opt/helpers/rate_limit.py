@@ -18,9 +18,9 @@ from typing import Callable, Any, Dict
 
 try:
 
-    _HAS_REDIS=True
+    _HAS_REDIS = True
 except Exception:
-    _HAS_REDIS=False
+    _HAS_REDIS = False
 
 
 class _InMemoryStore:
@@ -29,8 +29,8 @@ class _InMemoryStore:
         self.store: Dict[str, Dict[str, int]] = {}
 
     def incr(self, key: str) -> int:
-        _now=int(time.time())
-        _bucket=self.store.setdefault(key, {"count": 0, "ts": now})  # type: ignore[name-defined]
+        _now = int(time.time())
+        _bucket = self.store.setdefault(key, {"count": 0, "ts": now})  # type: ignore[name-defined]
         if bucket["ts"] != now:  # type: ignore[name-defined]
             bucket["count"] = 0  # type: ignore[name-defined]
             bucket["ts"] = now  # type: ignore[name-defined]
@@ -43,7 +43,7 @@ class _InMemoryStore:
 
 def _get_client() -> Any:
     if _HAS_REDIS:
-        _url=os.getenv("REDIS_URL", "redis://localhost:6379/0")
+        _url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
         try:
             return redis.Redis.from_url(url)  # type: ignore[name-defined]
         except Exception:
@@ -60,7 +60,7 @@ def sliding_window_limiter(
     limit: max requests per window
     window_seconds: size of window in seconds
     """
-    _client=_get_client()
+    _client = _get_client()
 
     def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         from functools import wraps
@@ -68,9 +68,9 @@ def sliding_window_limiter(
 
         @wraps(f)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            _key=identifier_func()
-            _now=int(time.time())
-            bucket_key=f"rl:{key}:{now // window_seconds}"  # type: ignore[name-defined]
+            _key = identifier_func()
+            _now = int(time.time())
+            bucket_key = f"rl:{key}:{now // window_seconds}"  # type: ignore[name-defined]
 
             try:
                 count=(
@@ -79,7 +79,7 @@ def sliding_window_limiter(
                     else client.incr(bucket_key)  # type: ignore[name-defined]
                 )
             except Exception:
-                count=0
+                count = 0
 
             if count > limit:
                 return (

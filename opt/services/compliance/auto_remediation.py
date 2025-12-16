@@ -38,7 +38,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from pathlib import Path
 import hashlib
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -46,28 +46,28 @@ _logger=logging.getLogger(__name__)
 # =============================================================================
 class RemediationAction(Enum):
     """Types of remediation actions."""
-    REVERT_CONFIG="revert_config"
-    APPLY_TEMPLATE="apply_template"
-    RESTART_SERVICE="restart_service"
-    UPDATE_SETTING="update_setting"
-    DISABLE_FEATURE="disable_feature"
-    ENABLE_FEATURE="enable_feature"
-    APPLY_PATCH="apply_patch"
+    REVERT_CONFIG = "revert_config"
+    APPLY_TEMPLATE = "apply_template"
+    RESTART_SERVICE = "restart_service"
+    UPDATE_SETTING = "update_setting"
+    DISABLE_FEATURE = "disable_feature"
+    ENABLE_FEATURE = "enable_feature"
+    APPLY_PATCH = "apply_patch"
 
 
 class RemediationMode(Enum):
     """Modes for auto-remediation."""
-    MANUAL="manual"  # Require approval
-    SEMI_AUTO="semi_auto"  # Auto for low-risk, manual for high-risk
-    FULLY_AUTO="fully_auto"  # Auto for all approved policies
+    MANUAL = "manual"  # Require approval
+    SEMI_AUTO = "semi_auto"  # Auto for low-risk, manual for high-risk
+    FULLY_AUTO = "fully_auto"  # Auto for all approved policies
 
 
 class DriftSeverity(Enum):
     """Severity of configuration drift."""
-    CRITICAL="critical"
-    HIGH="high"
-    MEDIUM="medium"
-    LOW="low"
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
 
 
 # =============================================================================
@@ -85,7 +85,7 @@ class ConfigurationBaseline:
     checksum: str
     created_at: datetime
     approved_by: Optional[str] = None
-    tags: List[str] = field(default_factory=list)
+    tags: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -98,9 +98,9 @@ class ConfigurationDrift:
     detected_at: datetime
     severity: DriftSeverity
     changes: Dict[str, Any]  # {field: {expected: x, actual: y}}
-    compliance_policies_violated: List[str] = field(default_factory=list)
+    compliance_policies_violated: List[str] = field(default_factory = list)
     remediation_action: Optional[RemediationAction] = None
-    auto_remediate: bool=False
+    auto_remediate: bool = False
 
 
 @dataclass
@@ -114,8 +114,8 @@ class RemediationRule:
     action: RemediationAction
     mode: RemediationMode
     risk_level: str  # "low", "medium", "high"
-    enabled: bool=True
-    max_auto_remediations_per_hour: int=10
+    enabled: bool = True
+    max_auto_remediations_per_hour: int = 10
     require_approval_threshold: Optional[DriftSeverity] = None
 
 
@@ -144,8 +144,8 @@ class ConfigurationMonitor:
 
     def __init__(self) -> None:
         self.baselines: Dict[str, ConfigurationBaseline] = {}
-        self.scan_interval: int=300  # 5 minutes
-        self._running: bool=False
+        self.scan_interval: int = 300  # 5 minutes
+        self._running: bool = False
 
     def register_baseline(self, baseline: ConfigurationBaseline) -> None:
         """Register a configuration baseline for monitoring."""
@@ -160,7 +160,7 @@ class ConfigurationMonitor:
         drifts: List[ConfigurationDrift] = []
 
         for baseline in self.baselines.values():
-            _drift=await self._check_single_resource(baseline)
+            _drift = await self._check_single_resource(baseline)
             if drift:  # type: ignore[name-defined]
                 drifts.append(drift)  # type: ignore[name-defined]
 
@@ -173,35 +173,35 @@ class ConfigurationMonitor:
         """Check a single resource for drift."""
         try:
         # Get current configuration
-            current_config=await self._get_current_config(
+            current_config = await self._get_current_config(
                 baseline.resource_type,
                 baseline.resource_id
             )
 
             # Calculate checksum
-            _current_checksum=self._calculate_checksum(current_config)
+            _current_checksum = self._calculate_checksum(current_config)
 
             # Compare with baseline
             if current_checksum == baseline.checksum:  # type: ignore[name-defined]
                 return None
 
             # Detect specific changes
-            _changes=self._detect_changes(baseline.configuration, current_config)
+            _changes = self._detect_changes(baseline.configuration, current_config)
 
             if not changes:  # type: ignore[name-defined]
                 return None
 
             # Determine severity
-            _severity=self._assess_drift_severity(changes, baseline)  # type: ignore[name-defined]
+            _severity = self._assess_drift_severity(changes, baseline)  # type: ignore[name-defined]
 
-            drift=ConfigurationDrift(  # type: ignore[call-arg]
-                _drift_id=f"drift-{baseline.baseline_id}-{datetime.now().timestamp()}",
-                _baseline_id=baseline.baseline_id,
-                _resource_type=baseline.resource_type,
-                _resource_id=baseline.resource_id,
-                _detected_at=datetime.now(timezone.utc),
-                _severity=severity,  # type: ignore[name-defined]
-                _changes=changes,  # type: ignore[name-defined]
+            drift = ConfigurationDrift(  # type: ignore[call-arg]
+                _drift_id = f"drift-{baseline.baseline_id}-{datetime.now().timestamp()}",
+                _baseline_id = baseline.baseline_id,
+                _resource_type = baseline.resource_type,
+                _resource_id = baseline.resource_id,
+                _detected_at = datetime.now(timezone.utc),
+                _severity = severity,  # type: ignore[name-defined]
+                _changes = changes,  # type: ignore[name-defined]
             )
 
             logger.warning(  # type: ignore[name-defined]
@@ -245,7 +245,7 @@ class ConfigurationMonitor:
 
     def _calculate_checksum(self, config: Dict[str, Any]) -> str:
         """Calculate checksum of configuration."""
-        _config_json=json.dumps(config, sort_keys=True)
+        _config_json = json.dumps(config, sort_keys = True)
         return hashlib.sha256(config_json.encode()).hexdigest()  # type: ignore[name-defined]
 
     def _detect_changes(
@@ -254,13 +254,13 @@ class ConfigurationMonitor:
         current_config: Dict[str, Any]
     ) -> Dict[str, Dict[str, Any]]:
         """Detect specific configuration changes."""
-        changes={}
+        changes = {}
 
-        _all_keys=set(baseline_config.keys()) | set(current_config.keys())
+        _all_keys = set(baseline_config.keys()) | set(current_config.keys())
 
         for key in all_keys:  # type: ignore[name-defined]
-            _baseline_value=baseline_config.get(key)
-            _current_value=current_config.get(key)
+            _baseline_value = baseline_config.get(key)
+            _current_value = current_config.get(key)
 
             if baseline_value != current_value:  # type: ignore[name-defined]
                 changes[key] = {
@@ -277,7 +277,7 @@ class ConfigurationMonitor:
     ) -> DriftSeverity:
         """Assess severity of configuration drift."""
         # Critical security settings
-        critical_settings={
+        critical_settings = {
             "PermitRootLogin",
             "PasswordAuthentication",
             "default_firewall_policy",
@@ -296,12 +296,12 @@ class ConfigurationMonitor:
 
     async def start_monitoring(self) -> None:
         """Start continuous monitoring loop."""
-        self._running=True
+        self._running = True
         logger.info("Starting configuration monitoring...")  # type: ignore[name-defined]
 
         while self._running:
             try:
-                _drifts=await self.scan_for_drift()
+                _drifts = await self.scan_for_drift()
 
                 if drifts:  # type: ignore[name-defined]
                     logger.warning(f"Detected {len(drifts)} configuration drifts")  # type: ignore[name-defined]
@@ -314,7 +314,7 @@ class ConfigurationMonitor:
 
     def stop_monitoring(self) -> None:
         """Stop continuous monitoring."""
-        self._running=False
+        self._running = False
         logger.info("Stopping configuration monitoring...")  # type: ignore[name-defined]
 
 
@@ -327,7 +327,7 @@ class AutoRemediationEngine:
     """
 
     def __init__(self, monitor: ConfigurationMonitor) -> None:
-        self.monitor=monitor
+        self.monitor = monitor
         self.rules: Dict[str, RemediationRule] = {}
         self.remediation_history: List[RemediationRecord] = []
         self.remediation_counts: Dict[str, List[datetime]] = {}
@@ -335,28 +335,28 @@ class AutoRemediationEngine:
 
     def _initialize_default_rules(self) -> None:
         """Initialize default remediation rules."""
-        self.rules={
+        self.rules = {
             "ssh-root-login": RemediationRule(  # type: ignore[call-arg]
-                _rule_id="ssh-root-login",
-                _name="SSH Root Login Disabled",
-                _description="Automatically disable SSH root login if enabled",
-                _resource_type="ssh_config",
-                _compliance_policy_ids=["SEC-001"],
-                _action=RemediationAction.UPDATE_SETTING,
-                _mode=RemediationMode.FULLY_AUTO,
-                _risk_level="low",
-                _max_auto_remediations_per_hour=5,
+                _rule_id = "ssh-root-login",
+                _name = "SSH Root Login Disabled",
+                _description = "Automatically disable SSH root login if enabled",
+                _resource_type = "ssh_config",
+                _compliance_policy_ids = ["SEC-001"],
+                _action = RemediationAction.UPDATE_SETTING,
+                _mode = RemediationMode.FULLY_AUTO,
+                _risk_level = "low",
+                _max_auto_remediations_per_hour = 5,
             ),
             "firewall-default-deny": RemediationRule(  # type: ignore[call-arg]
-                _rule_id="firewall-default-deny",
-                _name="Firewall Default Deny",
-                _description="Ensure firewall default policy is deny",
-                _resource_type="firewall_rules",
-                _compliance_policy_ids=["NET-001"],
-                _action=RemediationAction.UPDATE_SETTING,
-                _mode=RemediationMode.SEMI_AUTO,
-                _risk_level="medium",
-                _require_approval_threshold=DriftSeverity.HIGH,
+                _rule_id = "firewall-default-deny",
+                _name = "Firewall Default Deny",
+                _description = "Ensure firewall default policy is deny",
+                _resource_type = "firewall_rules",
+                _compliance_policy_ids = ["NET-001"],
+                _action = RemediationAction.UPDATE_SETTING,
+                _mode = RemediationMode.SEMI_AUTO,
+                _risk_level = "medium",
+                _require_approval_threshold = DriftSeverity.HIGH,
             ),
         }
 
@@ -371,7 +371,7 @@ class AutoRemediationEngine:
     ) -> Optional[RemediationRecord]:
         """Process a detected drift and remediate if appropriate."""
         # Find matching rule
-        _rule=self._find_matching_rule(drift)
+        _rule = self._find_matching_rule(drift)
 
         if not rule:  # type: ignore[name-defined]
             logger.info(f"No remediation rule for drift {drift.drift_id}")  # type: ignore[name-defined]
@@ -422,8 +422,8 @@ class AutoRemediationEngine:
 
     def _check_rate_limit(self, rule: RemediationRule) -> bool:
         """Check if rate limit allows remediation."""
-        _now=datetime.now(timezone.utc)
-        _one_hour_ago=now - timedelta(hours=1)  # type: ignore[name-defined]
+        _now = datetime.now(timezone.utc)
+        _one_hour_ago = now - timedelta(hours = 1)  # type: ignore[name-defined]
 
         if rule.rule_id not in self.remediation_counts:
             self.remediation_counts[rule.rule_id] = []
@@ -435,7 +435,7 @@ class AutoRemediationEngine:
         ]
 
         # Check limit
-        _count=len(self.remediation_counts[rule.rule_id])
+        _count = len(self.remediation_counts[rule.rule_id])
         if count >= rule.max_auto_remediations_per_hour:  # type: ignore[name-defined]
             return False
 
@@ -456,15 +456,15 @@ class AutoRemediationEngine:
         # Semi-auto mode
         if rule.require_approval_threshold:
         # Require approval for high severity
-            severity_values={
+            severity_values = {
                 DriftSeverity.LOW: 1,
                 DriftSeverity.MEDIUM: 2,
                 DriftSeverity.HIGH: 3,
                 DriftSeverity.CRITICAL: 4,
             }
 
-            _drift_level=severity_values.get(drift.severity, 0)
-            _threshold_level=severity_values.get(rule.require_approval_threshold, 0)
+            _drift_level = severity_values.get(drift.severity, 0)
+            _threshold_level = severity_values.get(rule.require_approval_threshold, 0)
 
             if drift_level >= threshold_level:  # type: ignore[name-defined]
                 return False
@@ -477,7 +477,7 @@ class AutoRemediationEngine:
         rule: RemediationRule
     ) -> RemediationRecord:
         """Execute a remediation action."""
-        record_id=f"rem-{drift.drift_id}"
+        record_id = f"rem-{drift.drift_id}"
 
         logger.info(  # type: ignore[name-defined]
             f"Executing remediation {record_id} for drift {drift.drift_id} "
@@ -485,12 +485,12 @@ class AutoRemediationEngine:
         )
 
         # Get baseline configuration
-        _baseline=self.monitor.baselines.get(drift.baseline_id)
+        _baseline = self.monitor.baselines.get(drift.baseline_id)
         if not baseline:  # type: ignore[name-defined]
             raise ValueError(f"Baseline {drift.baseline_id} not found")
 
         # Store rollback data
-        _current_config=await self.monitor._get_current_config(
+        _current_config = await self.monitor._get_current_config(
             drift.resource_type,
             drift.resource_id
         )
@@ -498,27 +498,27 @@ class AutoRemediationEngine:
         try:
         # Execute remediation based on action type
             if rule.action == RemediationAction.REVERT_CONFIG:
-                success=await self._revert_configuration(
+                success = await self._revert_configuration(
                     drift,
                     baseline.configuration  # type: ignore[name-defined]
                 )
             elif rule.action == RemediationAction.UPDATE_SETTING:
-                _success=await self._update_settings(drift, baseline.configuration)  # type: ignore[name-defined]
+                _success = await self._update_settings(drift, baseline.configuration)  # type: ignore[name-defined]
             else:
                 logger.warning(f"Unsupported action: {rule.action}")  # type: ignore[name-defined]
-                _success=False
+                _success = False
 
             # Record remediation
-            record=RemediationRecord(  # type: ignore[call-arg]
-                _record_id=record_id,
-                _drift_id=drift.drift_id,
-                _rule_id=rule.rule_id,
-                _action=rule.action,
-                _executed_at=datetime.now(timezone.utc),
-                _executed_by="system",
-                _success=success,
-                _changes_made=drift.changes if success else {},
-                _rollback_data=current_config,  # type: ignore[name-defined]
+            record = RemediationRecord(  # type: ignore[call-arg]
+                _record_id = record_id,
+                _drift_id = drift.drift_id,
+                _rule_id = rule.rule_id,
+                _action = rule.action,
+                _executed_at = datetime.now(timezone.utc),
+                _executed_by = "system",
+                _success = success,
+                _changes_made = drift.changes if success else {},
+                _rollback_data = current_config,  # type: ignore[name-defined]
             )
 
             self.remediation_history.append(record)
@@ -538,17 +538,17 @@ class AutoRemediationEngine:
             return record
 
         except Exception as e:
-            _logger.error(f"Error executing remediation {record_id}: {e}", exc_info=True)  # type: ignore[name-defined]            record=RemediationRecord(  # type: ignore[call-arg]
-                _record_id=record_id,  # type: ignore[syntax]
-                _drift_id=drift.drift_id,
-                _rule_id=rule.rule_id,
-                _action=rule.action,
-                _executed_at=datetime.now(timezone.utc),
-                _executed_by="system",
-                _success=False,
-                _changes_made={},
-                _rollback_data=current_config,  # type: ignore[name-defined]
-                _error_message="Remediation failed; check logs for details",
+            _logger.error(f"Error executing remediation {record_id}: {e}", exc_info = True)  # type: ignore[name-defined]            record = RemediationRecord(  # type: ignore[call-arg]
+                _record_id = record_id,  # type: ignore[syntax]
+                _drift_id = drift.drift_id,
+                _rule_id = rule.rule_id,
+                _action = rule.action,
+                _executed_at = datetime.now(timezone.utc),
+                _executed_by = "system",
+                _success = False,
+                _changes_made = {},
+                _rollback_data = current_config,  # type: ignore[name-defined]
+                _error_message = "Remediation failed; check logs for details",
             )
 
             self.remediation_history.append(record)
@@ -582,7 +582,7 @@ class AutoRemediationEngine:
 
         # Update only the changed settings
         for setting, change_info in drift.changes.items():
-            expected_value=change_info["expected"]
+            expected_value = change_info["expected"]
             logger.info(f"Setting {setting} = {expected_value}")  # type: ignore[name-defined]
 
         # In production, this would apply changes via SSH/API
@@ -602,7 +602,7 @@ class AutoRemediationEngine:
         logger.info(f"Rolling back remediation {record.record_id}")  # type: ignore[name-defined]
 
         # Find the drift
-        drift=next(
+        drift = next(
             (d for d in self.monitor.baselines.values()
              if f"drift-{d.baseline_id}" in record.drift_id),
             None
@@ -629,9 +629,9 @@ class ContinuousComplianceService:
     """
 
     def __init__(self) -> None:
-        self.monitor=ConfigurationMonitor()
-        self.engine=AutoRemediationEngine(self.monitor)
-        self._running=False
+        self.monitor = ConfigurationMonitor()
+        self.engine = AutoRemediationEngine(self.monitor)
+        self._running = False
 
     def register_baseline(
         self,
@@ -641,14 +641,14 @@ class ContinuousComplianceService:
         tags: Optional[List[str]] = None
     ) -> ConfigurationBaseline:
         """Register a configuration baseline."""
-        baseline=ConfigurationBaseline(  # type: ignore[call-arg]
-            _baseline_id=f"baseline-{resource_type}-{resource_id}",
-            _resource_type=resource_type,
-            _resource_id=resource_id,
-            _configuration=configuration,
-            _checksum=self.monitor._calculate_checksum(configuration),
-            _created_at=datetime.now(timezone.utc),
-            _tags=tags or [],
+        baseline = ConfigurationBaseline(  # type: ignore[call-arg]
+            _baseline_id = f"baseline-{resource_type}-{resource_id}",
+            _resource_type = resource_type,
+            _resource_id = resource_id,
+            _configuration = configuration,
+            _checksum = self.monitor._calculate_checksum(configuration),
+            _created_at = datetime.now(timezone.utc),
+            _tags = tags or [],
         )
 
         self.monitor.register_baseline(baseline)
@@ -656,13 +656,13 @@ class ContinuousComplianceService:
 
     async def start(self) -> None:
         """Start continuous compliance service."""
-        self._running=True
+        self._running = True
         logger.info("Starting Continuous Compliance Service...")  # type: ignore[name-defined]
 
         while self._running:
             try:
             # Scan for drift
-                _drifts=await self.monitor.scan_for_drift()
+                _drifts = await self.monitor.scan_for_drift()
 
                 # Process each drift
                 for drift in drifts:  # type: ignore[name-defined]
@@ -677,7 +677,7 @@ class ContinuousComplianceService:
 
     def stop(self) -> None:
         """Stop continuous compliance service."""
-        self._running=False
+        self._running = False
         self.monitor.stop_monitoring()
         logger.info("Stopped Continuous Compliance Service")  # type: ignore[name-defined]
 
@@ -689,10 +689,10 @@ class ContinuousComplianceService:
 
 async def main():
     """Example usage of continuous compliance auto-remediation."""
-    _service=ContinuousComplianceService()
+    _service = ContinuousComplianceService()
 
     # Register SSH configuration baseline
-    _ssh_baseline_config={
+    _ssh_baseline_config = {
         "PermitRootLogin": "no",
         "PasswordAuthentication": "no",
         "PermitEmptyPasswords": "no",
@@ -700,15 +700,15 @@ async def main():
     }
 
     service.register_baseline(
-        _resource_type="ssh_config",
-        _resource_id="/etc/ssh/sshd_config",
-        _configuration=ssh_baseline_config,
-        _tags=["security", "cis-benchmark"],
+        _resource_type = "ssh_config",
+        _resource_id = "/etc/ssh/sshd_config",
+        _configuration = ssh_baseline_config,
+        _tags = ["security", "cis-benchmark"],
     )
 
     # Scan for drift once
     print("\nScanning for configuration drift...")
-    _drifts=await service.monitor.scan_for_drift()
+    _drifts = await service.monitor.scan_for_drift()
 
     if drifts:
         print(f"\nFound {len(drifts)} configuration drift(s):")
@@ -722,7 +722,7 @@ async def main():
 
             # Process drift
             print("\n  Processing remediation...")
-            _record=await service.engine.process_drift(drift)
+            _record = await service.engine.process_drift(drift)
 
             if record:
                 print(f"  Remediation {'succeeded' if record.success else 'failed'}")

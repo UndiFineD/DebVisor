@@ -70,21 +70,21 @@ def fix_markdown_content(text: str) -> str:
     fixed_text = re.sub(r'\(([^\)]+)\)\[([^\]]+)\]', r'[\2](\1)', fixed_text)
 
     # Fix MD040: Add language identifier to code blocks (basic)
-    fixed_text = re.sub(r'^```$', r'```python', fixed_text, flags=re.MULTILINE)
+    fixed_text = re.sub(r'^```$', r'```python', fixed_text, flags = re.MULTILINE)
 
     # Fix MD012: Remove multiple consecutive blank lines
     fixed_text = re.sub(r'\n\n\n+', '\n\n', fixed_text)
 
     # Fix MD014: Remove leading $ from code blocks unless showing output
-    fixed_text = re.sub(r'^(\s*)\$\s+', r'\1', fixed_text, flags=re.MULTILINE)
+    fixed_text = re.sub(r'^(\s*)\$\s+', r'\1', fixed_text, flags = re.MULTILINE)
 
     # Fix MD018: Add space after hash on atx style heading (already handled above)
     # Fix MD019: Remove multiple spaces after hash on atx style heading (already handled above)
     # Fix MD020: No space inside hashes on closed atx style heading
-    fixed_text = re.sub(r'^(#+) +(.+?) +(#+)$', r'\1 \2 \3', fixed_text, flags=re.MULTILINE)
+    fixed_text = re.sub(r'^(#+) +(.+?) +(#+)$', r'\1 \2 \3', fixed_text, flags = re.MULTILINE)
 
     # Fix MD021: Multiple spaces inside hashes on closed atx style heading
-    fixed_text = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', fixed_text, flags=re.MULTILINE)
+    fixed_text = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', fixed_text, flags = re.MULTILINE)
 
     # Additional MD001 guard: demote extra H1 headings to H2
     lines = fixed_text.split('\n')
@@ -117,10 +117,10 @@ def main() -> int:
             exit_code = 1
             continue
         try:
-            original = path.read_text(encoding="utf-8")
+            original = path.read_text(encoding = "utf-8")
             fixed = fix_markdown_content(original)
             if fixed != original:
-                path.write_text(fixed, encoding="utf-8")
+                path.write_text(fixed, encoding = "utf-8")
                 print(f"Fixed: {path}")
             else:
                 print(f"No changes: {path}")

@@ -123,7 +123,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Set, Union
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -132,28 +132,28 @@ _logger=logging.getLogger(__name__)
 class EncryptionAlgorithm(Enum):
     """Supported encryption algorithms."""
 
-    AES_256_GCM="AES-256-GCM"
-    AES_256_CBC="AES-256-CBC"
-    CHACHA20_POLY1305="ChaCha20-Poly1305"
+    AES_256_GCM = "AES-256-GCM"
+    AES_256_CBC = "AES-256-CBC"
+    CHACHA20_POLY1305 = "ChaCha20-Poly1305"
 
 
 class KeyStatus(Enum):
     """Encryption key status."""
 
-    ACTIVE="active"
-    ROTATED="rotated"
-    DISABLED="disabled"
-    DESTROYED="destroyed"
+    ACTIVE = "active"
+    ROTATED = "rotated"
+    DISABLED = "disabled"
+    DESTROYED = "destroyed"
 
 
 class SensitivityLevel(Enum):
     """Data sensitivity levels."""
 
-    PUBLIC="public"
-    INTERNAL="internal"
-    CONFIDENTIAL="confidential"
-    RESTRICTED="restricted"
-    PII="pii"
+    PUBLIC = "public"
+    INTERNAL = "internal"
+    CONFIDENTIAL = "confidential"
+    RESTRICTED = "restricted"
+    PII = "pii"
 
 
 # =============================================================================
@@ -171,10 +171,10 @@ class EncryptionKey:
     created_at: datetime
     rotated_at: Optional[datetime] = None
     expires_at: Optional[datetime] = None
-    version: int=1
+    version: int = 1
 
     # Key material (should be stored securely in production)
-    key_material: bytes=field(  # type: ignore[call-overload, misc]
+    key_material: bytes = field(  # type: ignore[call-overload, misc]
         _default_factory=lambda: secrets.token_bytes(32), repr=False
     )
 
@@ -197,7 +197,7 @@ class EncryptedField:
     tag: bytes
     key_id: str
     algorithm: str
-    version: int=1
+    version: int = 1
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for storage."""
@@ -214,12 +214,12 @@ class EncryptedField:
     def from_dict(cls, data: Dict[str, Any]) -> "EncryptedField":
         """Create from dictionary."""
         return cls(  # type: ignore[call-arg]
-            _ciphertext=base64.b64decode(data["ct"]),
-            _nonce=base64.b64decode(data["nonce"]),
-            _tag=base64.b64decode(data["tag"]),
-            _key_id=data["kid"],
-            _algorithm=data["alg"],
-            _version=data.get("v", 1),
+            _ciphertext = base64.b64decode(data["ct"]),
+            _nonce = base64.b64decode(data["nonce"]),
+            _tag = base64.b64decode(data["tag"]),
+            _key_id = data["kid"],
+            _algorithm = data["alg"],
+            _version = data.get("v", 1),
         )
 
 
@@ -240,11 +240,11 @@ class AuditLogEntry:
     user_agent: Optional[str] = None
 
     # Metadata
-    sensitivity: SensitivityLevel=SensitivityLevel.INTERNAL
-    encrypted_fields: Set[str] = field(default_factory=set)
+    sensitivity: SensitivityLevel = SensitivityLevel.INTERNAL
+    encrypted_fields: Set[str] = field(default_factory = set)
 
     # Searchable hashes for encrypted fields
-    search_hashes: Dict[str, str] = field(default_factory=dict)
+    search_hashes: Dict[str, str] = field(default_factory = dict)
 
 
 # =============================================================================
@@ -259,7 +259,7 @@ class FieldEncryptor:
     """
 
     # Fields that should always be encrypted
-    SENSITIVE_FIELDS={
+    SENSITIVE_FIELDS = {
         "ip_address",
         "user_agent",
         "email",
@@ -277,7 +277,7 @@ class FieldEncryptor:
     def __init__(
         self,
         master_key: Optional[bytes] = None,
-        algorithm: EncryptionAlgorithm=EncryptionAlgorithm.AES_256_GCM,
+        algorithm: EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
     ):
         """
         Initialize encryptor.
@@ -286,7 +286,7 @@ class FieldEncryptor:
             master_key: Master encryption key (32 bytes for AES-256)
             algorithm: Encryption algorithm to use
         """
-        self.algorithm=algorithm
+        self.algorithm = algorithm
         self._keys: Dict[str, EncryptionKey] = {}
         self._active_key_id: Optional[str] = None
 
@@ -300,16 +300,16 @@ class FieldEncryptor:
 
     def _initialize_key(self, keymaterial: bytes) -> str:
         """Initialize a new encryption key."""
-        _key_id=secrets.token_hex(8)
-        key=EncryptionKey(  # type: ignore[call-arg]
-            _key_id=key_id,  # type: ignore[name-defined]
-            _algorithm=self.algorithm,
-            _status=KeyStatus.ACTIVE,
-            _created_at=datetime.now(timezone.utc),
-            _key_material=key_material,  # type: ignore[name-defined]
+        _key_id = secrets.token_hex(8)
+        key = EncryptionKey(  # type: ignore[call-arg]
+            _key_id = key_id,  # type: ignore[name-defined]
+            _algorithm = self.algorithm,
+            _status = KeyStatus.ACTIVE,
+            _created_at = datetime.now(timezone.utc),
+            _key_material = key_material,  # type: ignore[name-defined]
         )
         self._keys[key_id] = key  # type: ignore[name-defined]
-        self._active_key_id=key_id  # type: ignore[name-defined]
+        self._active_key_id = key_id  # type: ignore[name-defined]
         return key_id  # type: ignore[name-defined]
 
     def rotate_key(self) -> str:
@@ -321,13 +321,13 @@ class FieldEncryptor:
         """
         # Mark current key as rotated
         if self._active_key_id:
-            old_key=self._keys[self._active_key_id]
-            old_key.status=KeyStatus.ROTATED
-            old_key.rotated_at=datetime.now(timezone.utc)
+            old_key = self._keys[self._active_key_id]
+            old_key.status = KeyStatus.ROTATED
+            old_key.rotated_at = datetime.now(timezone.utc)
 
         # Create new key
-        _new_key_material=secrets.token_bytes(32)
-        _new_key_id=self._initialize_key(new_key_material)  # type: ignore[name-defined]
+        _new_key_material = secrets.token_bytes(32)
+        _new_key_id = self._initialize_key(new_key_material)  # type: ignore[name-defined]
 
         logger.info(f"Key rotated: {self._active_key_id} -> {new_key_id}")  # type: ignore[name-defined]
         return new_key_id  # type: ignore[name-defined]
@@ -345,14 +345,14 @@ class FieldEncryptor:
         Returns:
             EncryptedField container
         """
-        key_id=key_id or self._active_key_id
+        key_id = key_id or self._active_key_id
         if not key_id or key_id not in self._keys:
             raise ValueError("No active encryption key")
 
-        key=self._keys[key_id]
+        key = self._keys[key_id]
 
         if isinstance(plaintext, str):
-            _plaintext=plaintext.encode("utf-8")
+            _plaintext = plaintext.encode("utf-8")
 
         if self.algorithm == EncryptionAlgorithm.AES_256_GCM:
             return self._encrypt_aes_gcm(plaintext, key)  # type: ignore[arg-type]
@@ -369,7 +369,7 @@ class FieldEncryptor:
         Returns:
             Decrypted bytes
         """
-        _key=self._keys.get(encrypted.key_id)
+        _key = self._keys.get(encrypted.key_id)
         if not key:  # type: ignore[name-defined]
             raise ValueError(f"Key {encrypted.key_id} not found")
 
@@ -387,32 +387,32 @@ class FieldEncryptor:
         """Encrypt using AES-256-GCM."""
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-        _nonce=secrets.token_bytes(12)    # 96-bit nonce for GCM
-        _aesgcm=AESGCM(key.key_material)
+        _nonce = secrets.token_bytes(12)    # 96-bit nonce for GCM
+        _aesgcm = AESGCM(key.key_material)
 
-        _ciphertext=aesgcm.encrypt(nonce, plaintext, None)  # type: ignore[name-defined]
+        _ciphertext = aesgcm.encrypt(nonce, plaintext, None)  # type: ignore[name-defined]
 
         # GCM appends tag to ciphertext
-        actual_ciphertext=ciphertext[:-16]  # type: ignore[name-defined]
-        tag=ciphertext[-16:]  # type: ignore[name-defined]
+        actual_ciphertext = ciphertext[:-16]  # type: ignore[name-defined]
+        tag = ciphertext[-16:]  # type: ignore[name-defined]
 
         return EncryptedField(  # type: ignore[call-arg]
-            _ciphertext=actual_ciphertext,
-            _nonce=nonce,  # type: ignore[name-defined]
-            _tag=tag,
-            _key_id=key.key_id,
-            _algorithm=EncryptionAlgorithm.AES_256_GCM.value,
-            _version=key.version,
+            _ciphertext = actual_ciphertext,
+            _nonce = nonce,  # type: ignore[name-defined]
+            _tag = tag,
+            _key_id = key.key_id,
+            _algorithm = EncryptionAlgorithm.AES_256_GCM.value,
+            _version = key.version,
         )
 
     def _decrypt_aes_gcm(self, encrypted: EncryptedField, key: EncryptionKey) -> bytes:
         """Decrypt using AES-256-GCM."""
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-        _aesgcm=AESGCM(key.key_material)
+        _aesgcm = AESGCM(key.key_material)
 
         # Reconstruct ciphertext with tag
-        ciphertext_with_tag=encrypted.ciphertext + encrypted.tag
+        ciphertext_with_tag = encrypted.ciphertext + encrypted.tag
 
         return aesgcm.decrypt(encrypted.nonce, ciphertext_with_tag, None)  # type: ignore[name-defined]
 
@@ -434,14 +434,14 @@ class FieldEncryptor:
 
         if salt is None:
         # Use key material as salt for deterministic hashing
-            _key=self._keys.get(self._active_key_id) if self._active_key_id else None
-            salt=key.key_material if key else b""  # type: ignore[name-defined]
+            _key = self._keys.get(self._active_key_id) if self._active_key_id else None
+            salt = key.key_material if key else b""  # type: ignore[name-defined]
 
         # Normalize value
-        _normalized=value.lower().strip()
+        _normalized = value.lower().strip()
 
         # Create HMAC
-        _h=hmac.new(salt, normalized.encode("utf-8"), hashlib.sha256)  # type: ignore[name-defined]
+        _h = hmac.new(salt, normalized.encode("utf-8"), hashlib.sha256)  # type: ignore[name-defined]
         return base64.b64encode(h.digest()).decode()  # type: ignore[name-defined]
 
     def is_sensitive_field(self, fieldname: str) -> bool:
@@ -475,8 +475,8 @@ class EncryptedAuditLogger:
             encryptor: Field encryptor instance
             storage_backend: Optional storage backend
         """
-        self.encryptor=encryptor or FieldEncryptor()
-        self.storage=storage_backend
+        self.encryptor = encryptor or FieldEncryptor()
+        self.storage = storage_backend
         self._log_buffer: List[AuditLogEntry] = []
 
         logger.info("Encrypted audit logger initialized")  # type: ignore[name-defined]
@@ -490,7 +490,7 @@ class EncryptedAuditLogger:
         details: Optional[Dict[str, Any]] = None,
         ip_address: Optional[str] = None,
         user_agent: Optional[str] = None,
-        sensitivity: SensitivityLevel=SensitivityLevel.INTERNAL,
+        sensitivity: SensitivityLevel = SensitivityLevel.INTERNAL,
         encrypt_fields: Optional[List[str]] = None,
     ) -> AuditLogEntry:
         """
@@ -510,23 +510,23 @@ class EncryptedAuditLogger:
         Returns:
             AuditLogEntry with encrypted fields
         """
-        _entry_id=secrets.token_hex(16)
-        _timestamp=datetime.now(timezone.utc)
+        _entry_id = secrets.token_hex(16)
+        _timestamp = datetime.now(timezone.utc)
 
         # Determine fields to encrypt
-        _fields_to_encrypt=set(encrypt_fields or [])
+        _fields_to_encrypt = set(encrypt_fields or [])
 
         # Auto-detect sensitive fields in details
-        _encrypted_details={}  # type: ignore[var-annotated]
-        _search_hashes={}  # type: ignore[var-annotated]
+        _encrypted_details = {}  # type: ignore[var-annotated]
+        _search_hashes = {}  # type: ignore[var-annotated]
         encrypted_field_names: Set[str] = set()
 
         if details:
             for key, value in details.items():
                 if self.encryptor.is_sensitive_field(key) or key in fields_to_encrypt:  # type: ignore[name-defined]
                     if value is not None:
-                        _str_value=str(value) if not isinstance(value, str) else value
-                        _encrypted=self.encryptor.encrypt(str_value)  # type: ignore[name-defined]
+                        _str_value = str(value) if not isinstance(value, str) else value
+                        _encrypted = self.encryptor.encrypt(str_value)  # type: ignore[name-defined]
                         encrypted_details[key] = encrypted.to_dict()  # type: ignore[name-defined]
                         encrypted_field_names.add(key)
 
@@ -538,45 +538,45 @@ class EncryptedAuditLogger:
                     encrypted_details[key] = value  # type: ignore[name-defined]
 
         # Encrypt IP address if present
-        encrypted_ip=None
+        encrypted_ip = None
         if ip_address:
             if sensitivity in (
                 SensitivityLevel.CONFIDENTIAL,
                 SensitivityLevel.RESTRICTED,
                 SensitivityLevel.PII,
             ):
-                _encrypted=self.encryptor.encrypt(ip_address)
-                _encrypted_ip=json.dumps(encrypted.to_dict())  # type: ignore[name-defined]
+                _encrypted = self.encryptor.encrypt(ip_address)
+                _encrypted_ip = json.dumps(encrypted.to_dict())  # type: ignore[name-defined]
                 encrypted_field_names.add("ip_address")
                 search_hashes["ip_address"] = self.encryptor.create_search_hash(  # type: ignore[name-defined]
                     ip_address
                 )
             else:
-                _encrypted_ip=ip_address
+                _encrypted_ip = ip_address
 
         # Encrypt user agent if present
-        encrypted_ua=None
+        encrypted_ua = None
         if user_agent:
             if sensitivity in (SensitivityLevel.RESTRICTED, SensitivityLevel.PII):
-                _encrypted=self.encryptor.encrypt(user_agent)
-                _encrypted_ua=json.dumps(encrypted.to_dict())  # type: ignore[name-defined]
+                _encrypted = self.encryptor.encrypt(user_agent)
+                _encrypted_ua = json.dumps(encrypted.to_dict())  # type: ignore[name-defined]
                 encrypted_field_names.add("user_agent")
             else:
-                _encrypted_ua=user_agent
+                _encrypted_ua = user_agent
 
-        entry=AuditLogEntry(  # type: ignore[call-arg]
-            _id=entry_id,  # type: ignore[name-defined]
-            _timestamp=timestamp,  # type: ignore[name-defined]
-            _action=action,
-            _actor_id=actor_id,
-            _resource_type=resource_type,
-            _resource_id=resource_id,
-            _details=encrypted_details if encrypted_details else None,  # type: ignore[name-defined]
-            _ip_address=encrypted_ip,
-            _user_agent=encrypted_ua,
-            _sensitivity=sensitivity,
-            _encrypted_fields=encrypted_field_names,
-            _search_hashes=search_hashes,  # type: ignore[name-defined]
+        entry = AuditLogEntry(  # type: ignore[call-arg]
+            _id = entry_id,  # type: ignore[name-defined]
+            _timestamp = timestamp,  # type: ignore[name-defined]
+            _action = action,
+            _actor_id = actor_id,
+            _resource_type = resource_type,
+            _resource_id = resource_id,
+            _details = encrypted_details if encrypted_details else None,  # type: ignore[name-defined]
+            _ip_address = encrypted_ip,
+            _user_agent = encrypted_ua,
+            _sensitivity = sensitivity,
+            _encrypted_fields = encrypted_field_names,
+            _search_hashes = search_hashes,  # type: ignore[name-defined]
         )
 
         # Store entry
@@ -616,7 +616,7 @@ class EncryptedAuditLogger:
         }
 
     def search_by_hash(
-        self, field_name: str, value: str, limit: int=100
+        self, field_name: str, value: str, limit: int = 100
     ) -> List[AuditLogEntry]:
         """
         Search audit logs by encrypted field value.
@@ -629,9 +629,9 @@ class EncryptedAuditLogger:
         Returns:
             Matching audit log entries
         """
-        _search_hash=self.encryptor.create_search_hash(value)
+        _search_hash = self.encryptor.create_search_hash(value)
 
-        results=[]
+        results = []
         for entry in self._log_buffer:
             if entry.search_hashes.get(field_name) == search_hash:  # type: ignore[name-defined]
                 results.append(entry)
@@ -650,18 +650,18 @@ class EncryptedAuditLogger:
         Returns:
             Decrypted entry as dictionary
         """
-        _result=self._entry_to_dict(entry)
+        _result = self._entry_to_dict(entry)
 
         # Decrypt details
         if entry.details:
-            decrypted_details={}
+            decrypted_details = {}
             for key, value in entry.details.items():
                 if (
                     key in entry.encrypted_fields
                     and isinstance(value, dict)
                     and "ct" in value
                 ):
-                    _encrypted=EncryptedField.from_dict(value)
+                    _encrypted = EncryptedField.from_dict(value)
                     decrypted_details[key] = self.encryptor.decrypt(encrypted).decode(  # type: ignore[name-defined]
                         "utf-8"
                     )
@@ -672,8 +672,8 @@ class EncryptedAuditLogger:
         # Decrypt IP address
         if entry.ip_address and "ip_address" in entry.encrypted_fields:
             try:
-                _encrypted_data=json.loads(entry.ip_address)
-                _encrypted=EncryptedField.from_dict(encrypted_data)  # type: ignore[name-defined]
+                _encrypted_data = json.loads(entry.ip_address)
+                _encrypted = EncryptedField.from_dict(encrypted_data)  # type: ignore[name-defined]
                 result["ip_address"] = self.encryptor.decrypt(encrypted).decode("utf-8")  # type: ignore[name-defined]
             except (json.JSONDecodeError, KeyError):
                 pass
@@ -681,8 +681,8 @@ class EncryptedAuditLogger:
         # Decrypt user agent
         if entry.user_agent and "user_agent" in entry.encrypted_fields:
             try:
-                _encrypted_data=json.loads(entry.user_agent)
-                _encrypted=EncryptedField.from_dict(encrypted_data)  # type: ignore[name-defined]
+                _encrypted_data = json.loads(entry.user_agent)
+                _encrypted = EncryptedField.from_dict(encrypted_data)  # type: ignore[name-defined]
                 result["user_agent"] = self.encryptor.decrypt(encrypted).decode("utf-8")  # type: ignore[name-defined]
             except (json.JSONDecodeError, KeyError):
                 pass
@@ -699,13 +699,13 @@ class EncryptedAuditLogger:
         Returns:
             New key ID
         """
-        _new_key_id=self.encryptor.rotate_key()
+        _new_key_id = self.encryptor.rotate_key()
         logger.info(f"Audit log encryption keys rotated to: {new_key_id}")  # type: ignore[name-defined]
         return new_key_id  # type: ignore[name-defined]
 
     def get_recent_logs(
         self,
-        limit: int=100,
+        limit: int = 100,
         action: Optional[str] = None,
         actor_id: Optional[str] = None,
         resource_type: Optional[str] = None,
@@ -722,7 +722,7 @@ class EncryptedAuditLogger:
         Returns:
             List of audit log entries
         """
-        _results=[]  # type: ignore[var-annotated]
+        _results = []  # type: ignore[var-annotated]
 
         for entry in reversed(self._log_buffer):
             if action and entry.action != action:
@@ -739,7 +739,7 @@ class EncryptedAuditLogger:
         return results  # type: ignore[name-defined]
 
     def export_for_compliance(
-        self, start_date: datetime, end_date: datetime, decrypt: bool=False
+        self, start_date: datetime, end_date: datetime, decrypt: bool = False
     ) -> List[Dict[str, Any]]:
         """
         Export audit logs for compliance reporting.
@@ -752,7 +752,7 @@ class EncryptedAuditLogger:
         Returns:
             List of audit log entries
         """
-        results=[]
+        results = []
 
         for entry in self._log_buffer:
             if start_date <= entry.timestamp <= end_date:
@@ -775,7 +775,7 @@ def get_audit_logger() -> EncryptedAuditLogger:
     """Get global audit logger instance."""
     global _audit_logger
     if _audit_logger is None:
-        _audit_logger=EncryptedAuditLogger()
+        _audit_logger = EncryptedAuditLogger()
     return _audit_logger
 
 
@@ -794,9 +794,9 @@ def configure_audit_logger(
     """
     global _audit_logger
 
-    _encryptor=FieldEncryptor(master_key=master_key)
-    _audit_logger=EncryptedAuditLogger(  # type: ignore[call-arg]
-        _encryptor=encryptor, storage_backend=storage_backend  # type: ignore[name-defined]
+    _encryptor = FieldEncryptor(master_key = master_key)
+    _audit_logger = EncryptedAuditLogger(  # type: ignore[call-arg]
+        _encryptor = encryptor, storage_backend = storage_backend  # type: ignore[name-defined]
     )
 
     return _audit_logger
@@ -807,56 +807,56 @@ def configure_audit_logger(
 # =============================================================================
 
 if _name__== "__main__":  # type: ignore[name-defined]
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG)
 
     # Initialize logger
-    _audit=configure_audit_logger()
+    _audit = configure_audit_logger()
 
     # Log some test events
     print("Creating audit log entries...")
 
     # Standard log
-    _entry1=audit.log(  # type: ignore[name-defined]
-        _action="login",
-        _actor_id="user-123",
-        _resource_type="session",
-        _resource_id="sess-456",
-        _details={"method": "password", "success": True},
-        _ip_address="192.168.1.100",
-        _user_agent="Mozilla/5.0...",
-        _sensitivity=SensitivityLevel.INTERNAL,
+    _entry1 = audit.log(  # type: ignore[name-defined]
+        _action = "login",
+        _actor_id = "user-123",
+        _resource_type = "session",
+        _resource_id = "sess-456",
+        _details = {"method": "password", "success": True},
+        _ip_address = "192.168.1.100",
+        _user_agent = "Mozilla/5.0...",
+        _sensitivity = SensitivityLevel.INTERNAL,
     )
 
     # PII log (auto-encrypts sensitive fields)
-    _entry2=audit.log(  # type: ignore[name-defined]
-        _action="update",
-        _actor_id="admin-001",
-        _resource_type="customer",
-        _resource_id="cust-789",
-        _details={
+    _entry2 = audit.log(  # type: ignore[name-defined]
+        _action = "update",
+        _actor_id = "admin-001",
+        _resource_type = "customer",
+        _resource_id = "cust-789",
+        _details = {
             "email": "john.doe@example.com",
             "phone": "+1-555-0123",
             "name": "John Doe",
             "account_number": "1234567890",
             "update_reason": "Customer request",
         },
-        _ip_address="10.0.0.50",
-        _sensitivity=SensitivityLevel.PII,
+        _ip_address = "10.0.0.50",
+        _sensitivity = SensitivityLevel.PII,
     )
 
     # Payment log
-    _entry3=audit.log(  # type: ignore[name-defined]
-        _action="payment",
-        _actor_id="user-456",
-        _resource_type="transaction",
-        _resource_id="txn-001",
-        _details={
+    _entry3 = audit.log(  # type: ignore[name-defined]
+        _action = "payment",
+        _actor_id = "user-456",
+        _resource_type = "transaction",
+        _resource_id = "txn-001",
+        _details = {
             "amount": 1500.00,
             "credit_card": "4111111111111111",
             "method": "card",
         },
-        _ip_address="172.16.0.25",
-        _sensitivity=SensitivityLevel.RESTRICTED,
+        _ip_address = "172.16.0.25",
+        _sensitivity = SensitivityLevel.RESTRICTED,
     )
 
     print(f"\nCreated {len(audit._log_buffer)} audit entries")  # type: ignore[name-defined]
@@ -869,7 +869,7 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print("SEARCH BY ENCRYPTED FIELD:")
     print("=" * 60)
 
-    _results=audit.search_by_hash("email", "john.doe@example.com")  # type: ignore[name-defined]
+    _results = audit.search_by_hash("email", "john.doe@example.com")  # type: ignore[name-defined]
     print(f"Found {len(results)} entries with matching email")  # type: ignore[name-defined]
 
     # Test decryption
@@ -877,30 +877,30 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print("DECRYPTED ENTRY:")
     print("=" * 60)
 
-    _decrypted=audit.decrypt_entry(entry2)  # type: ignore[name-defined]
-    print(json.dumps(decrypted, indent=2, default=str))  # type: ignore[name-defined]
+    _decrypted = audit.decrypt_entry(entry2)  # type: ignore[name-defined]
+    print(json.dumps(decrypted, indent = 2, default = str))  # type: ignore[name-defined]
 
     # Test key rotation
     print("\n" + "=" * 60)
     print("KEY ROTATION:")
     print("=" * 60)
 
-    _new_key=audit.rotate_keys()  # type: ignore[name-defined]
+    _new_key = audit.rotate_keys()  # type: ignore[name-defined]
     print(f"New key ID: {new_key}")  # type: ignore[name-defined]
 
     # Log new entry with rotated key
-    _entry4=audit.log(  # type: ignore[name-defined]
-        _action="view",
-        _actor_id="user-789",
-        _resource_type="report",
-        _resource_id="rpt-001",
-        _details={"report_type": "financial"},
-        _sensitivity=SensitivityLevel.CONFIDENTIAL,
+    _entry4 = audit.log(  # type: ignore[name-defined]
+        _action = "view",
+        _actor_id = "user-789",
+        _resource_type = "report",
+        _resource_id = "rpt-001",
+        _details = {"report_type": "financial"},
+        _sensitivity = SensitivityLevel.CONFIDENTIAL,
     )
 
     # Both old and new entries should be decryptable
     print("\nDecrypting entry with old key:")
-    print(json.dumps(audit.decrypt_entry(entry2), indent=2, default=str)[:200] + "...")  # type: ignore[name-defined]
+    print(json.dumps(audit.decrypt_entry(entry2), indent = 2, default = str)[:200] + "...")  # type: ignore[name-defined]
 
     print("\nDecrypting entry with new key:")
-    print(json.dumps(audit.decrypt_entry(entry4), indent=2, default=str))  # type: ignore[name-defined]
+    print(json.dumps(audit.decrypt_entry(entry4), indent = 2, default = str))  # type: ignore[name-defined]

@@ -112,50 +112,50 @@ from opt.web.panel.extensions import db
 class Snapshot(db.Model):
     """Storage snapshot information model."""
 
-    __tablename__="snapshot"
+    __tablename__ = "snapshot"
 
     # Primary key
-    _id=db.Column(db.Integer, primary_key=True)
+    _id = db.Column(db.Integer, primary_key = True)
 
     # Snapshot identification
-    _snapshot_id=db.Column(
-        db.String(36), unique=True, nullable=False, index=True
+    _snapshot_id = db.Column(
+        db.String(36), unique = True, nullable = False, index = True
     )    # UUID from RPC
-    _name=db.Column(db.String(255), nullable=False, index=True)
+    _name = db.Column(db.String(255), nullable = False, index = True)
 
     # Relationships
-    _node_id=db.Column(
-        db.Integer, db.ForeignKey("node.id"), nullable=False, index=True
+    _node_id = db.Column(
+        db.Integer, db.ForeignKey("node.id"), nullable = False, index = True
     )
 
     # Source information
-    _source_vm=db.Column(db.String(255), nullable=True, index=True)    # Source VM identifier
-    _source_volume=db.Column(db.String(255), nullable=True)    # Source volume/disk
+    _source_vm = db.Column(db.String(255), nullable = True, index = True)    # Source VM identifier
+    _source_volume = db.Column(db.String(255), nullable = True)    # Source volume/disk
 
     # Snapshot details
-    _description=db.Column(db.Text, nullable=True)
-    _size_gb=db.Column(db.Float)
+    _description = db.Column(db.Text, nullable = True)
+    _size_gb = db.Column(db.Float)
 
     # Status tracking
     # pending, success, failed, deleting
-    _status=db.Column(db.String(20), default="pending", index=True)
-    _progress_percent=db.Column(db.Integer, default=0)
+    _status = db.Column(db.String(20), default = "pending", index = True)
+    _progress_percent = db.Column(db.Integer, default = 0)
 
     # Metadata
-    _retention_days=db.Column(db.Integer)    # Days to retain
-    _is_encrypted=db.Column(db.Boolean, default=True)
-    _checksum=db.Column(db.String(64), nullable=True)    # SHA256 of snapshot
+    _retention_days = db.Column(db.Integer)    # Days to retain
+    _is_encrypted = db.Column(db.Boolean, default = True)
+    _checksum = db.Column(db.String(64), nullable = True)    # SHA256 of snapshot
 
     # Timing
-    _created_at=db.Column(
+    _created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    _updated_at=db.Column(
+    _updated_at = db.Column(
         db.DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
     )
-    _expires_at=db.Column(db.DateTime, nullable=True, index=True)
+    _expires_at = db.Column(db.DateTime, nullable = True, index = True)
 
     def __repr__(self) -> str:
         """String representation of Snapshot."""
@@ -186,10 +186,10 @@ class Snapshot(db.Model):
             percent: Progress percentage (0-100)
             status: Optional status update
         """
-        self.progress_percent=min(100, max(0, percent))
+        self.progress_percent = min(100, max(0, percent))
         if status:
-            self.status=status
-        self.updated_at=datetime.now(timezone.utc)
+            self.status = status
+        self.updated_at = datetime.now(timezone.utc)
         db.session.commit()
 
     def mark_complete(self, checksum: Optional[str] = None) -> None:
@@ -198,10 +198,10 @@ class Snapshot(db.Model):
         Args:
             checksum: Optional SHA256 checksum
         """
-        self.status="success"
-        self.progress_percent=100
-        self.checksum=checksum
-        self.updated_at=datetime.now(timezone.utc)
+        self.status = "success"
+        self.progress_percent = 100
+        self.checksum = checksum
+        self.updated_at = datetime.now(timezone.utc)
         db.session.commit()
 
     def mark_failed(self, errormessage: Optional[str] = None) -> None:
@@ -210,10 +210,10 @@ class Snapshot(db.Model):
         Args:
             error_message: Optional error details (stored in description)
         """
-        self.status="failed"
+        self.status = "failed"
         if error_message:
-            self.description=f"Error: {error_message}"
-        self.updated_at=datetime.now(timezone.utc)
+            self.description = f"Error: {error_message}"
+        self.updated_at = datetime.now(timezone.utc)
         db.session.commit()
 
     def to_dict(self, includenode: bool=False) -> Dict[str, Any]:
@@ -225,7 +225,7 @@ class Snapshot(db.Model):
         Returns:
             Dictionary representation of snapshot
         """
-        _data={
+        _data = {
             "id": self.id,
             "snapshot_id": self.snapshot_id,
             "name": self.name,
@@ -256,7 +256,7 @@ class Snapshot(db.Model):
         Returns:
             Snapshot instance or None
         """
-        return Snapshot.query.filter_by(snapshot_id=snapshot_id).first()    # type: ignore
+        return Snapshot.query.filter_by(snapshot_id = snapshot_id).first()    # type: ignore
 
     @staticmethod
     def get_node_snapshots(nodeid: int, status: Optional[str] = None) -> List['Snapshot']:
@@ -269,9 +269,9 @@ class Snapshot(db.Model):
         Returns:
             List of Snapshot instances
         """
-        _query=Snapshot.query.filter_by(node_id=node_id)
+        _query = Snapshot.query.filter_by(node_id = node_id)
         if status:
-            _query=query.filter_by(status=status)
+            _query = query.filter_by(status = status)
         return query.order_by(Snapshot.created_at.desc()).all()    # type: ignore
 
     @staticmethod
@@ -281,7 +281,7 @@ class Snapshot(db.Model):
         Returns:
             List of expired Snapshot instances
         """
-        _now=datetime.now(timezone.utc)
+        _now = datetime.now(timezone.utc)
         return Snapshot.query.filter(Snapshot.expires_at < now).all()    # type: ignore
 
     @staticmethod
@@ -291,4 +291,4 @@ class Snapshot(db.Model):
         Returns:
             List of pending Snapshot instances
         """
-        return Snapshot.query.filter_by(status="pending").all()    # type: ignore
+        return Snapshot.query.filter_by(status = "pending").all()    # type: ignore

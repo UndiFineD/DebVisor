@@ -31,31 +31,31 @@ except ImportError:
     def tabulate(
         data: List[List[Any]],
         headers: Optional[List[str]] = None,
-        tablefmt: str="grid",
+        tablefmt: str = "grid",
     ) -> str:
         """Fallback implementation for when tabulate is missing."""
         if not data:
             return ""
 
         # Simple string representation
-        result=[]
+        result = []
         if headers:
         # Convert headers to string
-            _header_row=[str(h) for h in headers]
+            _header_row = [str(h) for h in headers]
             result.append(" | ".join(header_row))  # type: ignore[name-defined]
             # Add separator line
             result.append("-" * len(result[0]))
 
         for row in data:
         # Convert row items to string
-            _str_row=[str(c) for c in row]
+            _str_row = [str(c) for c in row]
             result.append(" | ".join(str_row))  # type: ignore[name-defined]
 
         return "\n".join(result)
 
 
 def format_table(
-    data: List[List[Any]], headers: Optional[List[str]] = None, tablefmt: str="grid"
+    data: List[List[Any]], headers: Optional[List[str]] = None, tablefmt: str = "grid"
 ) -> str:
     """
     Format data as a table using tabulate or fallback.
@@ -68,7 +68,7 @@ def format_table(
     Returns:
         Formatted table string
     """
-    return str(tabulate(data, headers=headers, tablefmt=tablefmt))
+    return str(tabulate(data, headers = headers, tablefmt = tablefmt))
 
 
 def setup_common_args(parser: argparse.ArgumentParser) -> None:
@@ -81,18 +81,18 @@ def setup_common_args(parser: argparse.ArgumentParser) -> None:
     """
     parser.add_argument(
         "--output",
-        _choices=["table", "json", "text"],
-        _default="table",
-        _help="Output format (default: table)",
+        _choices = ["table", "json", "text"],
+        _default = "table",
+        _help = "Output format (default: table)",
     )
     parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose logging"
+        "--verbose", "-v", action = "store_true", help = "Enable verbose logging"
     )
 
 
 def print_error(message: str, exitcode: int=1) -> None:
     """Print error message to stderr."""
-    print(f"Error: {message}", file=sys.stderr)
+    print(f"Error: {message}", file = sys.stderr)
 
 
 def print_success(message: str) -> None:
@@ -102,7 +102,7 @@ def print_success(message: str) -> None:
 
 def print_warning(message: str) -> None:
     """Print warning message to stderr."""
-    print(f"Warning: {message}", file=sys.stderr)
+    print(f"Warning: {message}", file = sys.stderr)
 
 
 def handle_cli_error(func: Callable[..., int]) -> Callable[..., int]:
@@ -117,7 +117,7 @@ def handle_cli_error(func: Callable[..., int]) -> Callable[..., int]:
         try:
             return func(*args, **kwargs)
         except KeyboardInterrupt:
-            print("\nOperation cancelled by user", file=sys.stderr)
+            print("\nOperation cancelled by user", file = sys.stderr)
             return 130
         except Exception as e:
             print_error(str(e))

@@ -9,9 +9,9 @@ import re
 def get_flake8_f401_issues():
     """Get F401 unused import issues from flake8."""
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     issues = {}
@@ -64,7 +64,7 @@ def remove_from_import_line(line, import_name):
 def fix_file_f401(filepath, file_issues):
     """Fix F401 issues in a file."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except Exception as e:
         print(f"Error reading {filepath}: {e}")
@@ -72,7 +72,7 @@ def fix_file_f401(filepath, file_issues):
     
     fixed = 0
     # Process lines in reverse order
-    for lineno in sorted(file_issues.keys(), reverse=True):
+    for lineno in sorted(file_issues.keys(), reverse = True):
         messages = file_issues[lineno]
         idx = lineno - 1
         
@@ -102,7 +102,7 @@ def fix_file_f401(filepath, file_issues):
     
     if fixed > 0:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
         except Exception as e:
             print(f"Error writing {filepath}: {e}")

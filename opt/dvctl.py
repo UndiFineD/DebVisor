@@ -20,13 +20,13 @@ This tool unifies the management of the OS, Kubernetes, Storage (Ceph/ZFS),
 and Virtualization (KVM) into a single interface, rivaling 'talosctl'.
 
 Usage:
-    dvctl status [--component=COMP]
+    dvctl status [--component = COMP]
     dvctl drift [--generate]
     dvctl upgrade VERSION
     dvctl tui
     dvctl harden
-    dvctl discover [--timeout=SEC]
-    dvctl advertise [--role=ROLE]
+    dvctl discover [--timeout = SEC]
+    dvctl advertise [--role = ROLE]
     dvctl k8s ACTION
     dvctl storage ACTION
 
@@ -42,10 +42,10 @@ Commands:
     storage     Storage operations (proxy to cephctl)
 
 Examples:
-    dvctl status --component=k8s
+    dvctl status --component = k8s
     dvctl drift --generate
     dvctl upgrade v1.2.0
-    dvctl discover --timeout=10
+    dvctl discover --timeout = 10
 
 This tool unifies the management of the OS, Kubernetes, Storage (Ceph/ZFS),
 and Virtualization (KVM) into a single interface, rivaling 'talosctl'.
@@ -85,12 +85,12 @@ except Exception:
     def configure_logging(service_name: str = "dvctl") -> None:  # type: ignore[misc]
         """Configure logging for standalone mode."""
         logging.basicConfig(
-            level=logging.INFO,
-            format="%(asctime)s - DVCTL - %(levelname)s - %(message)s",
+            level = logging.INFO,
+            format = "%(asctime)s - DVCTL - %(levelname)s - %(message)s",
         )
 
 
-configure_logging(service_name="dvctl")
+configure_logging(service_name = "dvctl")
 logger = logging.getLogger(__name__)
 
 
@@ -132,9 +132,9 @@ class DriftDetector:
             if os.path.exists(filepath):
                 manifest[filepath] = self._calculate_hash(filepath)
 
-        os.makedirs(os.path.dirname(self.manifest_path), exist_ok=True)
+        os.makedirs(os.path.dirname(self.manifest_path), exist_ok = True)
         with open(self.manifest_path, "w") as f:
-            json.dump(manifest, f, indent=2)
+            json.dump(manifest, f, indent = 2)
         logger.info(f"Generated drift manifest at {self.manifest_path}")
 
     def check(self) -> bool:
@@ -192,7 +192,7 @@ class DebVisorController:
                 "libvirtd"
             )
 
-        print(json.dumps(status_report, indent=2))
+        print(json.dumps(status_report, indent = 2))
 
     def _check_service(self, service_name: str) -> str:
         """Check systemd service status."""
@@ -225,8 +225,8 @@ class DebVisorController:
             mgr = UpgradeManager()
             status = mgr.get_status()
             logger.info(
-                f"Current Status: Active={status['active_slot']}, "
-                f"Target={status['inactive_slot']}"
+                f"Current Status: Active = {status['active_slot']}, "
+                f"Target = {status['inactive_slot']}"
             )
 
             mgr.install_image(image_path)
@@ -284,51 +284,51 @@ class DebVisorController:
 
 def main() -> None:
     """Main entry point for dvctl."""
-    parser = argparse.ArgumentParser(description="DebVisor Unified Control Plane")
-    parser.add_argument("--version", action="version", version="0.1.0")
+    parser = argparse.ArgumentParser(description = "DebVisor Unified Control Plane")
+    parser.add_argument("--version", action = "version", version = "0.1.0")
 
-    subparsers = parser.add_subparsers(dest="command", help="Sub-command help")
+    subparsers = parser.add_subparsers(dest = "command", help = "Sub-command help")
 
     # Status Command
-    status_parser = subparsers.add_parser("status", help="Show system status")
+    status_parser = subparsers.add_parser("status", help = "Show system status")
     status_parser.add_argument(
-        "--component", choices=["all", "k8s", "storage", "vm"], default="all"
+        "--component", choices = ["all", "k8s", "storage", "vm"], default = "all"
     )
 
     # Drift Command
-    drift_parser = subparsers.add_parser("drift", help="Check for configuration drift")
+    drift_parser = subparsers.add_parser("drift", help = "Check for configuration drift")
     drift_parser.add_argument(
         "--generate",
-        action="store_true",
-        help="Generate golden manifest from current state",
+        action = "store_true",
+        help = "Generate golden manifest from current state",
     )
 
     # Upgrade Command
-    upgrade_parser = subparsers.add_parser("upgrade", help="Upgrade DebVisor OS")
-    upgrade_parser.add_argument("version", help="Target version")
+    upgrade_parser = subparsers.add_parser("upgrade", help = "Upgrade DebVisor OS")
+    upgrade_parser.add_argument("version", help = "Target version")
 
     # TUI Command
-    subparsers.add_parser("tui", help="Launch Interactive TUI")
+    subparsers.add_parser("tui", help = "Launch Interactive TUI")
 
     # Hardening Command
-    subparsers.add_parser("harden", help="Apply security hardening (SSH)")
+    subparsers.add_parser("harden", help = "Apply security hardening (SSH)")
 
     # Discovery Commands
-    discover_parser = subparsers.add_parser("discover", help="Scan for other nodes")
+    discover_parser = subparsers.add_parser("discover", help = "Scan for other nodes")
     discover_parser.add_argument(
-        "--timeout", type=int, default=5, help="Scan duration"
+        "--timeout", type = int, default = 5, help = "Scan duration"
     )
 
-    advertise_parser = subparsers.add_parser("advertise", help="Advertise this node")
-    advertise_parser.add_argument("--role", default="worker", help="Node role")
+    advertise_parser = subparsers.add_parser("advertise", help = "Advertise this node")
+    advertise_parser.add_argument("--role", default = "worker", help = "Node role")
 
     # K8s Passthrough
-    k8s_parser = subparsers.add_parser("k8s", help="Kubernetes operations")
-    k8s_parser.add_argument("action", help="Action to perform")
+    k8s_parser = subparsers.add_parser("k8s", help = "Kubernetes operations")
+    k8s_parser.add_argument("action", help = "Action to perform")
 
     # Storage Passthrough
-    storage_parser = subparsers.add_parser("storage", help="Storage operations")
-    storage_parser.add_argument("action", help="Action to perform")
+    storage_parser = subparsers.add_parser("storage", help = "Storage operations")
+    storage_parser.add_argument("action", help = "Action to perform")
 
     args = parser.parse_args()
 

@@ -12,7 +12,7 @@ def fix_remaining_issues():
     total_fixes = 0
     
     for py_file in py_files:
-        with open(py_file, 'r', encoding='utf-8') as f:
+        with open(py_file, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
         
         changes = 0
@@ -41,7 +41,7 @@ def fix_remaining_issues():
         
         # Write back if changes
         if changes > 0:
-            with open(py_file, 'w', encoding='utf-8') as f:
+            with open(py_file, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
             total_fixes += changes
             print(f"{py_file.name}: {changes} fixes")

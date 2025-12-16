@@ -10,9 +10,9 @@ from pathlib import Path
 
 def get_issues():
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     issues = {}
@@ -38,14 +38,14 @@ def get_issues():
 def fix_file(filepath, file_issues):
     """Apply fixes to file."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except:
         return 0
     
     fixed = 0
     
-    for lineno in sorted(file_issues.keys(), reverse=True):
+    for lineno in sorted(file_issues.keys(), reverse = True):
         codes_and_msgs = file_issues[lineno]
         idx = lineno - 1
         
@@ -88,7 +88,7 @@ def fix_file(filepath, file_issues):
             # E741: ambiguous variable name (l, O, I) - rename to standard names
             elif code == 'E741':
                 # Match: for l in ..., l =, etc
-                new_line = re.sub(r'\bl\b(?!\s*=\s*\d)', 'item', line)  # l to item (but not l=number)
+                new_line = re.sub(r'\bl\b(?!\s*=\s*\d)', 'item', line)  # l to item (but not l = number)
                 new_line = re.sub(r'\bO\b', 'obj', new_line)
                 new_line = re.sub(r'\bI\b', 'idx', new_line)
                 if new_line != line:
@@ -134,7 +134,7 @@ def fix_file(filepath, file_issues):
     
     if fixed > 0:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
         except:
             return 0

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import subprocess
 
-result = subprocess.run(['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'], capture_output=True, text=True)
+result = subprocess.run(['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'], capture_output = True, text = True)
 issues = {}
 for line in result.stdout.split('\n'):
     if 'F401' not in line:

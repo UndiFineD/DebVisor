@@ -5,10 +5,10 @@ import re
 from collections import defaultdict
 
 result = subprocess.run(
-    ['python', '-m', 'flake8', '--max-line-length=120', 'scripts/agent/'],
-    capture_output=True,
-    text=True,
-    cwd=r'c:\Users\kdejo\DEV\DebVisor'
+    ['python', '-m', 'flake8', '--max-line-length = 120', 'scripts/agent/'],
+    capture_output = True,
+    text = True,
+    cwd = r'c:\Users\kdejo\DEV\DebVisor'
 )
 
 issues = defaultdict(int)

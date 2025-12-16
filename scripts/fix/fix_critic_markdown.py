@@ -4,7 +4,7 @@ import re
 file_path = 'scripts/critic_workflow.py.plan.md'
 
 # Read the file
-with open(file_path, 'r', encoding='utf-8') as f:
+with open(file_path, 'r', encoding = 'utf-8') as f:
     content = f.read()
 
 # Fix MD022: Add blank lines around headings
@@ -29,16 +29,16 @@ while i < len(lines):
 content = '\n'.join(fixed_lines)
 
 # Fix MD026: Remove trailing punctuation from headings
-content = re.sub(r'^(#+\s+[^:\n]+):\s*$', r'\1', content, flags=re.MULTILINE)
+content = re.sub(r'^(#+\s+[^:\n]+):\s*$', r'\1', content, flags = re.MULTILINE)
 
 # Fix MD034: Wrap bare URLs in markdown links
 content = re.sub(r'(?<!\[)https?://([^\s\)]+)(?!\))', r'[\g<0>](\g<0>)', content)
 
 # Fix MD029: Standardize ordered list numbering to use 1.
-content = re.sub(r'^(\s*)([2-9]\.)(\s+)', r'\g<1>1.\g<3>', content, flags=re.MULTILINE)
+content = re.sub(r'^(\s*)([2-9]\.)(\s+)', r'\g<1>1.\g<3>', content, flags = re.MULTILINE)
 
 # Fix MD040: Add language identifier to code blocks
-content = re.sub(r'^```$', r'```python', content, flags=re.MULTILINE)
+content = re.sub(r'^```$', r'```python', content, flags = re.MULTILINE)
 
 # Fix MD032: Add blank lines around lists
 lines = content.split('\n')
@@ -59,7 +59,7 @@ while i < len(lines):
 content = '\n'.join(fixed_lines)
 
 # Write back to file
-with open(file_path, 'w', encoding='utf-8') as f:
+with open(file_path, 'w', encoding = 'utf-8') as f:
     f.write(content)
 
 print('✓ Fixed all markdown linting errors')

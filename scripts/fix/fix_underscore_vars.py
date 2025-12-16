@@ -35,7 +35,7 @@ content = re.sub(r'(\w+)=(\w+[^,=]|True|False|None)', r'\1 = \2', content)
 
 # Fix default_factory spacing
 patterns = [
-    (r'default_factory\s*=\s*', 'default_factory='),
+    (r'default_factory\s*=\s*', 'default_factory = '),
     (r'max_samples\s*=\s*', 'max_samples = '),  # In function def
 ]
 

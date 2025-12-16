@@ -38,40 +38,40 @@ from enum import Enum
 # Configuration
 # ==============================================================================
 
-LOG_DIR=Path("/var/log/debvisor")
-LOG_FILE=LOG_DIR / "install-profile.log"
-PROFILE_DIR=Path("/etc/debvisor/profiles")
-STATE_FILE=Path("/var/lib/debvisor/install-state.json")
+LOG_DIR = Path("/var/log/debvisor")
+LOG_FILE = LOG_DIR / "install-profile.log"
+PROFILE_DIR = Path("/etc/debvisor/profiles")
+STATE_FILE = Path("/var/lib/debvisor/install-state.json")
 
 
 class InstallPhase(Enum):
     """Installation phases for tracking progress."""
 
-    INIT="initialization"
-    HARDWARE_DETECTION="hardware_detection"
-    STORAGE_SETUP="storage_setup"
-    NETWORK_CONFIG="network_configuration"
-    SECURITY_HARDENING="security_hardening"
-    HYPERVISOR_INSTALL="hypervisor_installation"
-    CONTAINER_SETUP="container_setup"
-    CLUSTER_CONFIG="cluster_configuration"
-    SERVICE_DEPLOY="service_deployment"
-    VALIDATION="validation"
-    COMPLETE="complete"
-    FAILED="failed"
+    INIT = "initialization"
+    HARDWARE_DETECTION = "hardware_detection"
+    STORAGE_SETUP = "storage_setup"
+    NETWORK_CONFIG = "network_configuration"
+    SECURITY_HARDENING = "security_hardening"
+    HYPERVISOR_INSTALL = "hypervisor_installation"
+    CONTAINER_SETUP = "container_setup"
+    CLUSTER_CONFIG = "cluster_configuration"
+    SERVICE_DEPLOY = "service_deployment"
+    VALIDATION = "validation"
+    COMPLETE = "complete"
+    FAILED = "failed"
 
 
 class ComponentType(Enum):
     """Types of installable components."""
 
-    HYPERVISOR="hypervisor"
-    STORAGE="storage"
-    NETWORK="network"
-    SECURITY="security"
-    MONITORING="monitoring"
-    BACKUP="backup"
-    CONTAINER="container"
-    ADDON="addon"
+    HYPERVISOR = "hypervisor"
+    STORAGE = "storage"
+    NETWORK = "network"
+    SECURITY = "security"
+    MONITORING = "monitoring"
+    BACKUP = "backup"
+    CONTAINER = "container"
+    ADDON = "addon"
 
 
 # ==============================================================================
@@ -83,17 +83,17 @@ class ComponentType(Enum):
 class HardwareProfile:
     """Detected hardware information."""
 
-    cpu_model: str=""
-    cpu_cores: int=0
-    cpu_threads: int=0
-    memory_gb: float=0.0
-    storage_devices: list[Any] = field(default_factory=list[Any])
-    network_interfaces: list[Any] = field(default_factory=list[Any])
-    gpu_devices: list[Any] = field(default_factory=list[Any])
-    virtualization_support: dict[str, Any] = field(default_factory=dict[str, Any])
-    iommu_groups: int=0
-    numa_nodes: int=0
-    tpm_version: str=""
+    cpu_model: str = ""
+    cpu_cores: int = 0
+    cpu_threads: int = 0
+    memory_gb: float = 0.0
+    storage_devices: list[Any] = field(default_factory = list[Any])
+    network_interfaces: list[Any] = field(default_factory = list[Any])
+    gpu_devices: list[Any] = field(default_factory = list[Any])
+    virtualization_support: dict[str, Any] = field(default_factory = dict[str, Any])
+    iommu_groups: int = 0
+    numa_nodes: int = 0
+    tpm_version: str = ""
 
 
 @dataclass
@@ -103,97 +103,97 @@ class ComponentSelection:
     name: str
     version: str
     component_type: str
-    enabled: bool=True
-    config: dict[str, Any] = field(default_factory=dict[str, Any])
-    dependencies: list[Any] = field(default_factory=list[Any])
+    enabled: bool = True
+    config: dict[str, Any] = field(default_factory = dict[str, Any])
+    dependencies: list[Any] = field(default_factory = list[Any])
 
 
 @dataclass
 class NetworkConfig:
     """Network configuration profile."""
 
-    hostname: str=""
-    domain: str=""
-    management_interface: str=""
-    management_ip: str=""
-    management_gateway: str=""
-    dns_servers: list[Any] = field(default_factory=list[Any])
-    ntp_servers: list[Any] = field(default_factory=list[Any])
-    vlans: list[Any] = field(default_factory=list[Any])
-    bonds: list[Any] = field(default_factory=list[Any])
-    bridges: list[Any] = field(default_factory=list[Any])
+    hostname: str = ""
+    domain: str = ""
+    management_interface: str = ""
+    management_ip: str = ""
+    management_gateway: str = ""
+    dns_servers: list[Any] = field(default_factory = list[Any])
+    ntp_servers: list[Any] = field(default_factory = list[Any])
+    vlans: list[Any] = field(default_factory = list[Any])
+    bonds: list[Any] = field(default_factory = list[Any])
+    bridges: list[Any] = field(default_factory = list[Any])
 
 
 @dataclass
 class StorageConfig:
     """Storage configuration profile."""
 
-    root_device: str=""
-    root_filesystem: str="ext4"
-    boot_mode: str="uefi"
-    zfs_pools: list[Any] = field(default_factory=list[Any])
-    ceph_osds: list[Any] = field(default_factory=list[Any])
-    lvm_volumes: list[Any] = field(default_factory=list[Any])
-    encryption_enabled: bool=False
+    root_device: str = ""
+    root_filesystem: str = "ext4"
+    boot_mode: str = "uefi"
+    zfs_pools: list[Any] = field(default_factory = list[Any])
+    ceph_osds: list[Any] = field(default_factory = list[Any])
+    lvm_volumes: list[Any] = field(default_factory = list[Any])
+    encryption_enabled: bool = False
 
 
 @dataclass
 class ClusterConfig:
     """Cluster configuration for multi-node deployments."""
 
-    cluster_name: str=""
-    cluster_type: str=""    # standalone, cluster, federation
-    node_role: str=""    # master, worker, hybrid
-    master_nodes: list[Any] = field(default_factory=list[Any])
-    worker_nodes: list[Any] = field(default_factory=list[Any])
-    quorum_type: str=""
-    ha_enabled: bool=False
+    cluster_name: str = ""
+    cluster_type: str = ""    # standalone, cluster, federation
+    node_role: str = ""    # master, worker, hybrid
+    master_nodes: list[Any] = field(default_factory = list[Any])
+    worker_nodes: list[Any] = field(default_factory = list[Any])
+    quorum_type: str = ""
+    ha_enabled: bool = False
 
 
 @dataclass
 class InstallProfile:
     """Complete installation profile."""
 
-    profile_id: str=""
-    profile_name: str=""
-    created_at: str=""
-    updated_at: str=""
-    install_phase: str=InstallPhase.INIT.value
+    profile_id: str = ""
+    profile_name: str = ""
+    created_at: str = ""
+    updated_at: str = ""
+    install_phase: str = InstallPhase.INIT.value
 
     # System info
-    debvisor_version: str=""
-    installer_version: str=""
-    install_method: str=""    # iso, pxe, cloud-init, upgrade
+    debvisor_version: str = ""
+    installer_version: str = ""
+    install_method: str = ""    # iso, pxe, cloud-init, upgrade
 
     # Hardware
-    hardware: HardwareProfile=field(default_factory=HardwareProfile)
+    hardware: HardwareProfile = field(default_factory = HardwareProfile)
 
     # Configuration
-    network: NetworkConfig=field(default_factory=NetworkConfig)
-    storage: StorageConfig=field(default_factory=StorageConfig)
-    cluster: ClusterConfig=field(default_factory=ClusterConfig)
+    network: NetworkConfig = field(default_factory = NetworkConfig)
+    storage: StorageConfig = field(default_factory = StorageConfig)
+    cluster: ClusterConfig = field(default_factory = ClusterConfig)
 
     # Components
-    components: list[Any] = field(default_factory=list[Any])
+    components: list[Any] = field(default_factory = list[Any])
 
     # Security
-    security_profile: str="baseline"    # minimal, baseline, hardened, paranoid
-    certificates_generated: bool=False
+    security_profile: str = "baseline"    # minimal, baseline, hardened, paranoid
+    certificates_generated: bool = False
 
     # Validation
-    validation_passed: bool=False
-    validation_warnings: list[Any] = field(default_factory=list[Any])
-    validation_errors: list[Any] = field(default_factory=list[Any])
+    validation_passed: bool = False
+    validation_warnings: list[Any] = field(default_factory = list[Any])
+    validation_errors: list[Any] = field(default_factory = list[Any])
 
     # Timing
-    start_time: str=""
-    end_time: str=""
-    duration_seconds: float=0.0
+    start_time: str = ""
+    end_time: str = ""
+    duration_seconds: float = 0.0
 
     # Metadata
-    operator: str=""
-    notes: str=""
-    tags: list[Any] = field(default_factory=list[Any])
+    operator: str = ""
+    notes: str = ""
+    tags: list[Any] = field(default_factory = list[Any])
 
 
 # ==============================================================================
@@ -209,28 +209,28 @@ class InstallProfileLogger:
 
     def __init__(self, profileid: Optional[str] = None) -> None:
         """Initialize the profile logger."""
-        self.profile_id=profile_id or self._generate_profile_id()  # type: ignore[name-defined]
-        self.profile=InstallProfile(  # type: ignore[call-arg]
-            _profile_id=self.profile_id,
-            _created_at=datetime.now(timezone.utc).isoformat() + "Z",
-            _start_time=datetime.now(timezone.utc).isoformat() + "Z",
+        self.profile_id = profile_id or self._generate_profile_id()  # type: ignore[name-defined]
+        self.profile = InstallProfile(  # type: ignore[call-arg]
+            _profile_id = self.profile_id,
+            _created_at = datetime.now(timezone.utc).isoformat() + "Z",
+            _start_time = datetime.now(timezone.utc).isoformat() + "Z",
         )
         self._setup_logging()
         self._ensure_directories()
 
     def _generate_profile_id(self) -> str:
         """Generate unique profile ID."""
-        _timestamp=datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-        _hostname=socket.gethostname()[:8]
+        _timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+        _hostname = socket.gethostname()[:8]
         return f"debvisor-{hostname}-{timestamp}"  # type: ignore[name-defined]
 
     def _setup_logging(self) -> None:
         """Configure logging handlers."""
-        self.logger=logging.getLogger(f"debvisor.install.{self.profile_id}")
+        self.logger = logging.getLogger(f"debvisor.install.{self.profile_id}")
         self.logger.setLevel(logging.DEBUG)
 
         # Console handler
-        _console=logging.StreamHandler()
+        _console = logging.StreamHandler()
         console.setLevel(logging.INFO)  # type: ignore[name-defined]
         console.setFormatter(logging.Formatter("[%(levelname)s] %(message)s"))  # type: ignore[name-defined]
         self.logger.addHandler(console)  # type: ignore[name-defined]
@@ -238,7 +238,7 @@ class InstallProfileLogger:
         # File handler (if writable)
         try:
             self._ensure_directories()
-            _file_handler=logging.FileHandler(LOG_FILE)
+            _file_handler = logging.FileHandler(LOG_FILE)
             file_handler.setLevel(logging.DEBUG)  # type: ignore[name-defined]
             file_handler.setFormatter(  # type: ignore[name-defined]
                 logging.Formatter("%(asctime)s [%(levelname)s] [%(name)s] %(message)s")
@@ -251,7 +251,7 @@ class InstallProfileLogger:
         """Create required directories."""
         for directory in [LOG_DIR, PROFILE_DIR, STATE_FILE.parent]:
             try:
-                directory.mkdir(parents=True, exist_ok=True)
+                directory.mkdir(parents = True, exist_ok = True)
             except PermissionError:
                 pass
 
@@ -261,9 +261,9 @@ class InstallProfileLogger:
 
     def set_phase(self, phase: InstallPhase, message: str="") -> None:
         """Update installation phase."""
-        old_phase=self.profile.install_phase
-        self.profile.install_phase=phase.value
-        self.profile.updated_at=datetime.now(timezone.utc).isoformat() + "Z"
+        old_phase = self.profile.install_phase
+        self.profile.install_phase = phase.value
+        self.profile.updated_at = datetime.now(timezone.utc).isoformat() + "Z"
 
         self.logger.info(f"Phase: {old_phase} -> {phase.value}")
         if message:
@@ -277,11 +277,11 @@ class InstallProfileLogger:
 
     def complete_installation(self, success: bool=True) -> None:
         """Mark installation as complete."""
-        self.profile.end_time=datetime.now(timezone.utc).isoformat() + "Z"
+        self.profile.end_time = datetime.now(timezone.utc).isoformat() + "Z"
 
         if self.profile.start_time:
-            _start=datetime.fromisoformat(self.profile.start_time.rstrip("Z"))
-            _end=datetime.fromisoformat(self.profile.end_time.rstrip("Z"))
+            _start = datetime.fromisoformat(self.profile.start_time.rstrip("Z"))
+            _end = datetime.fromisoformat(self.profile.end_time.rstrip("Z"))
             self.profile.duration_seconds=(end - start).total_seconds()  # type: ignore[name-defined]
 
         if success:
@@ -300,65 +300,65 @@ class InstallProfileLogger:
         """Detect and log hardware configuration."""
         self.set_phase(InstallPhase.HARDWARE_DETECTION, "Detecting hardware...")
 
-        _hw=HardwareProfile()
+        _hw = HardwareProfile()
 
         # CPU info
         try:
-            hw.cpu_model=self._get_cpu_model()  # type: ignore[name-defined]
-            hw.cpu_cores=os.cpu_count() or 0  # type: ignore[name-defined]
-            hw.cpu_threads=self._get_cpu_threads()  # type: ignore[name-defined]
+            hw.cpu_model = self._get_cpu_model()  # type: ignore[name-defined]
+            hw.cpu_cores = os.cpu_count() or 0  # type: ignore[name-defined]
+            hw.cpu_threads = self._get_cpu_threads()  # type: ignore[name-defined]
         except Exception as e:
             self.logger.warning(f"CPU detection error: {e}")
 
         # Memory
         try:
-            hw.memory_gb=self._get_memory_gb()  # type: ignore[name-defined]
+            hw.memory_gb = self._get_memory_gb()  # type: ignore[name-defined]
         except Exception as e:
             self.logger.warning(f"Memory detection error: {e}")
 
         # Storage devices
         try:
-            hw.storage_devices=self._detect_storage_devices()  # type: ignore[name-defined]
+            hw.storage_devices = self._detect_storage_devices()  # type: ignore[name-defined]
         except Exception as e:
             self.logger.warning(f"Storage detection error: {e}")
 
         # Network interfaces
         try:
-            hw.network_interfaces=self._detect_network_interfaces()  # type: ignore[name-defined]
+            hw.network_interfaces = self._detect_network_interfaces()  # type: ignore[name-defined]
         except Exception as e:
             self.logger.warning(f"Network detection error: {e}")
 
         # GPU devices
         try:
-            hw.gpu_devices=self._detect_gpu_devices()  # type: ignore[name-defined]
+            hw.gpu_devices = self._detect_gpu_devices()  # type: ignore[name-defined]
         except Exception as e:
             self.logger.warning(f"GPU detection error: {e}")
 
         # Virtualization support
-        hw.virtualization_support=self._check_virtualization()  # type: ignore[name-defined]
+        hw.virtualization_support = self._check_virtualization()  # type: ignore[name-defined]
 
         # IOMMU groups
         try:
-            _iommu_path=Path("/sys/kernel/iommu_groups")
+            _iommu_path = Path("/sys/kernel/iommu_groups")
             if iommu_path.exists():  # type: ignore[name-defined]
-                hw.iommu_groups=len(list(iommu_path.iterdir()))  # type: ignore[name-defined]
+                hw.iommu_groups = len(list(iommu_path.iterdir()))  # type: ignore[name-defined]
         except Exception as e:
             self.logger.debug(f"IOMMU detection error: {e}")
 
         # NUMA nodes
         try:
-            _numa_path=Path("/sys/devices/system/node")
+            _numa_path = Path("/sys/devices/system/node")
             if numa_path.exists():  # type: ignore[name-defined]
-                hw.numa_nodes=len(  # type: ignore[name-defined]
+                hw.numa_nodes = len(  # type: ignore[name-defined]
                     [d for d in numa_path.iterdir() if d.name.startswith("node")]  # type: ignore[name-defined]
                 )
         except Exception as e:
             self.logger.debug(f"NUMA detection error: {e}")
 
         # TPM
-        hw.tpm_version=self._detect_tpm()  # type: ignore[name-defined]
+        hw.tpm_version = self._detect_tpm()  # type: ignore[name-defined]
 
-        self.profile.hardware=hw  # type: ignore[name-defined]
+        self.profile.hardware = hw  # type: ignore[name-defined]
         self._log_profile_event("hardware_detected", asdict(hw))  # type: ignore[name-defined]
 
         self.logger.info(
@@ -384,8 +384,8 @@ class InstallProfileLogger:
         """Get total CPU threads."""
         try:
             if platform.system() == "Linux":
-                result=subprocess.run(
-                    ["nproc", "--all"], capture_output=True, text=True
+                result = subprocess.run(
+                    ["nproc", "--all"], capture_output = True, text = True
                 )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     return int(result.stdout.strip())
@@ -400,7 +400,7 @@ class InstallProfileLogger:
                 with open("/proc/meminfo") as f:
                     for line in f:
                         if line.startswith("MemTotal"):
-                            _kb=int(line.split()[1])
+                            _kb = int(line.split()[1])
                             return kb / (1024 * 1024)  # type: ignore[name-defined]
             except Exception as e:
                 self.logger.debug(f"Memory detection error: {e}")
@@ -408,16 +408,16 @@ class InstallProfileLogger:
 
     def _detect_storage_devices(self) -> list[Any]:
         """Detect storage devices."""
-        _devices=[]  # type: ignore[var-annotated]
+        _devices = []  # type: ignore[var-annotated]
         if platform.system() == "Linux":
             try:
-                result=subprocess.run(  # type: ignore[call-overload]
+                result = subprocess.run(  # type: ignore[call-overload]
                     ["lsblk", "-J", "-d", "-o", "NAME, SIZE, TYPE, MODEL"],
-                    _capture_output=True,
-                    _text=True,
+                    _capture_output = True,
+                    _text = True,
                 )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
-                    _data=json.loads(result.stdout)
+                    _data = json.loads(result.stdout)
                     for dev in data.get("blockdevices", []):  # type: ignore[name-defined]
                         if dev.get("type") == "disk":
                             devices.append(  # type: ignore[name-defined]
@@ -437,22 +437,22 @@ class InstallProfileLogger:
 
     def _detect_network_interfaces(self) -> list[Any]:
         """Detect network interfaces."""
-        _interfaces=[]  # type: ignore[var-annotated]
+        _interfaces = []  # type: ignore[var-annotated]
         if platform.system() == "Linux":
             try:
-                _net_path=Path("/sys/class/net")
+                _net_path = Path("/sys/class/net")
                 for iface in net_path.iterdir():  # type: ignore[name-defined]
                     if iface.name == "lo":
                         continue
-                    info={"name": iface.name}
+                    info = {"name": iface.name}
 
                     # Get MAC address
-                    addr_file=iface / "address"
+                    addr_file = iface / "address"
                     if addr_file.exists():
                         info["mac"] = addr_file.read_text().strip()
 
                     # Get speed
-                    speed_file=iface / "speed"
+                    speed_file = iface / "speed"
                     if speed_file.exists():
                         try:
                             info["speed_mbps"] = int(speed_file.read_text().strip())  # type: ignore[assignment]
@@ -469,16 +469,16 @@ class InstallProfileLogger:
 
     def _detect_gpu_devices(self) -> list[Any]:
         """Detect GPU devices."""
-        _gpus=[]  # type: ignore[var-annotated]
+        _gpus = []  # type: ignore[var-annotated]
         if platform.system() == "Linux":
             try:
-                result=subprocess.run(
-                    ["lspci", "-mm"], capture_output=True, text=True
+                result = subprocess.run(
+                    ["lspci", "-mm"], capture_output = True, text = True
                 )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     for line in result.stdout.splitlines():
                         if "VGA" in line or "3D" in line or "Display" in line:
-                            _parts=line.split('"')
+                            _parts = line.split('"')
                             if len(parts) >= 6:  # type: ignore[name-defined]
                                 gpus.append({"vendor": parts[3], "model": parts[5]})  # type: ignore[name-defined]
             except Exception as e:
@@ -487,7 +487,7 @@ class InstallProfileLogger:
 
     def _check_virtualization(self) -> dict[str, Any]:
         """Check virtualization support."""
-        _virt={
+        _virt = {
             "vmx": False,
             "svm": False,
             "kvm_available": False,
@@ -497,15 +497,15 @@ class InstallProfileLogger:
         if platform.system() == "Linux":
             try:
                 with open("/proc/cpuinfo") as f:
-                    _cpuinfo=f.read()
+                    _cpuinfo = f.read()
                     virt["vmx"] = "vmx" in cpuinfo  # type: ignore[name-defined]
                     virt["svm"] = "svm" in cpuinfo  # type: ignore[name-defined]
 
                 virt["kvm_available"] = Path("/dev/kvm").exists()  # type: ignore[name-defined]
 
-                _nested_path=Path("/sys/module/kvm_intel/parameters/nested")
+                _nested_path = Path("/sys/module/kvm_intel/parameters/nested")
                 if not nested_path.exists():  # type: ignore[name-defined]
-                    _nested_path=Path("/sys/module/kvm_amd/parameters/nested")
+                    _nested_path = Path("/sys/module/kvm_amd/parameters/nested")
                 if nested_path.exists():  # type: ignore[name-defined]
                     virt["nested_supported"] = nested_path.read_text().strip() in (  # type: ignore[name-defined]
                         "1",
@@ -519,7 +519,7 @@ class InstallProfileLogger:
     def _detect_tpm(self) -> str:
         """Detect TPM version."""
         if platform.system() == "Linux":
-            _tpm2_path=Path("/sys/class/tpm/tpm0")
+            _tpm2_path = Path("/sys/class/tpm/tpm0")
             if tpm2_path.exists():  # type: ignore[name-defined]
                 try:
                     _caps=(tpm2_path / "caps").read_text()  # type: ignore[name-defined]
@@ -536,7 +536,7 @@ class InstallProfileLogger:
 
     def set_network_config(self, config: NetworkConfig) -> None:
         """Set network configuration."""
-        self.profile.network=config
+        self.profile.network = config
         self._log_profile_event("network_configured", asdict(config))
         self.logger.info(
             f"Network: {config.hostname}.{config.domain} on {config.management_interface}"
@@ -544,7 +544,7 @@ class InstallProfileLogger:
 
     def set_storage_config(self, config: StorageConfig) -> None:
         """Set storage configuration."""
-        self.profile.storage=config
+        self.profile.storage = config
         self._log_profile_event("storage_configured", asdict(config))
         self.logger.info(
             f"Storage: {config.root_device} ({config.root_filesystem}), "
@@ -553,7 +553,7 @@ class InstallProfileLogger:
 
     def set_cluster_config(self, config: ClusterConfig) -> None:
         """Set cluster configuration."""
-        self.profile.cluster=config
+        self.profile.cluster = config
         self._log_profile_event("cluster_configured", asdict(config))
         self.logger.info(
             f"Cluster: {config.cluster_name} ({config.cluster_type}), "
@@ -570,35 +570,35 @@ class InstallProfileLogger:
 
     def set_security_profile(self, profile: str) -> None:
         """Set security hardening profile."""
-        valid=["minimal", "baseline", "hardened", "paranoid"]
+        valid = ["minimal", "baseline", "hardened", "paranoid"]
         if profile not in valid:
             self.logger.warning(
                 f"Invalid security profile: {profile}, using 'baseline'"
             )
-            profile="baseline"
+            profile = "baseline"
 
-        self.profile.security_profile=profile
+        self.profile.security_profile = profile
         self._log_profile_event("security_profile_set", {"profile": profile})
         self.logger.info(f"Security profile: {profile}")
 
     def set_debvisor_version(self, version: str) -> None:
         """Set DebVisor version."""
-        self.profile.debvisor_version=version
+        self.profile.debvisor_version = version
 
     def set_install_method(self, method: str) -> None:
         """Set installation method (iso, pxe, cloud-init, upgrade)."""
-        self.profile.install_method=method
+        self.profile.install_method = method
 
     def set_operator(self, operator: str) -> None:
         """Set operator/installer name."""
-        self.profile.operator=operator
+        self.profile.operator = operator
 
     def add_note(self, note: str) -> None:
         """Add note to profile."""
         if self.profile.notes:
             self.profile.notes += f"\n{note}"
         else:
-            self.profile.notes=note
+            self.profile.notes = note
 
     def add_tag(self, tag: str) -> None:
         """Add tag to profile."""
@@ -621,7 +621,7 @@ class InstallProfileLogger:
 
     def set_validation_result(self, passed: bool) -> None:
         """Set overall validation result."""
-        self.profile.validation_passed=passed
+        self.profile.validation_passed = passed
         if passed:
             self.logger.info("Validation: PASSED")
         else:
@@ -636,29 +636,29 @@ class InstallProfileLogger:
     def _save_state(self) -> None:
         """Save current state to state file."""
         try:
-            state={
+            state = {
                 "profile_id": self.profile.profile_id,
                 "phase": self.profile.install_phase,
                 "updated_at": datetime.now(timezone.utc).isoformat() + "Z",
             }
-            STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-            STATE_FILE.write_text(json.dumps(state, indent=2))
+            STATE_FILE.parent.mkdir(parents = True, exist_ok = True)
+            STATE_FILE.write_text(json.dumps(state, indent = 2))
         except PermissionError:
             pass
 
     def _save_profile(self) -> None:
         """Save complete profile to file."""
         try:
-            profile_file=PROFILE_DIR / f"{self.profile_id}.json"
-            PROFILE_DIR.mkdir(parents=True, exist_ok=True)
-            profile_file.write_text(json.dumps(asdict(self.profile), indent=2))
+            profile_file = PROFILE_DIR / f"{self.profile_id}.json"
+            PROFILE_DIR.mkdir(parents = True, exist_ok = True)
+            profile_file.write_text(json.dumps(asdict(self.profile), indent = 2))
             self.logger.info(f"Profile saved: {profile_file}")
         except PermissionError:
             self.logger.warning("Cannot save profile - permission denied")
 
     def _log_profile_event(self, eventtype: str, data: dict[str, Any]) -> None:
         """Log profile event in structured format."""
-        event={
+        event = {
             "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
             "profile_id": self.profile_id,
             "event": event_type,  # type: ignore[name-defined]
@@ -668,7 +668,7 @@ class InstallProfileLogger:
 
     def _log_summary(self) -> None:
         """Log installation summary."""
-        _summary="""
+        _summary = """
 ================================================================================
                         DEBVISOR INSTALLATION SUMMARY
 ================================================================================
@@ -747,14 +747,14 @@ STATUS:           {self.profile.install_phase.upper()}
 
         # Also write summary to dedicated file
         try:
-            summary_file=LOG_DIR / f"install-summary-{self.profile_id}.txt"
+            summary_file = LOG_DIR / f"install-summary-{self.profile_id}.txt"
             summary_file.write_text(summary)  # type: ignore[name-defined]
         except PermissionError:
             pass
 
     def export_profile(self, path: Optional[Path] = None) -> str:
         """Export profile as JSON."""
-        _data=json.dumps(asdict(self.profile), indent=2)
+        _data = json.dumps(asdict(self.profile), indent = 2)
         if path:
             path.write_text(data)  # type: ignore[name-defined]
             self.logger.info(f"Profile exported to: {path}")
@@ -768,53 +768,53 @@ def main() -> None:
     """Main CLI entry point."""
     import argparse
 
-    parser=argparse.ArgumentParser(  # type: ignore[call-arg]
-        _description="DebVisor Install Profile Logger",
-        _formatter_class=argparse.RawDescriptionHelpFormatter,
+    parser = argparse.ArgumentParser(  # type: ignore[call-arg]
+        _description = "DebVisor Install Profile Logger",
+        _formatter_class = argparse.RawDescriptionHelpFormatter,
     )
 
-    _subparsers=parser.add_subparsers(dest="command", help="Commands")
+    _subparsers = parser.add_subparsers(dest = "command", help = "Commands")
 
     # new command
-    _new_parser=subparsers.add_parser("new", help="Start new installation profile")  # type: ignore[name-defined]
-    new_parser.add_argument("--name", help="Profile name")  # type: ignore[name-defined]
+    _new_parser = subparsers.add_parser("new", help = "Start new installation profile")  # type: ignore[name-defined]
+    new_parser.add_argument("--name", help = "Profile name")  # type: ignore[name-defined]
     new_parser.add_argument(  # type: ignore[name-defined]
         "--method",
-        _choices=["iso", "pxe", "cloud-init", "upgrade"],
-        _default="iso",
-        _help="Installation method",
+        _choices = ["iso", "pxe", "cloud-init", "upgrade"],
+        _default = "iso",
+        _help = "Installation method",
     )
-    new_parser.add_argument("--operator", help="Operator name")  # type: ignore[name-defined]
+    new_parser.add_argument("--operator", help = "Operator name")  # type: ignore[name-defined]
 
     # detect command
-    subparsers.add_parser("detect", help="Detect and log hardware")  # type: ignore[name-defined]
+    subparsers.add_parser("detect", help = "Detect and log hardware")  # type: ignore[name-defined]
 
     # status command
-    subparsers.add_parser("status", help="Show current installation status")  # type: ignore[name-defined]
+    subparsers.add_parser("status", help = "Show current installation status")  # type: ignore[name-defined]
 
     # export command
-    _export_parser=subparsers.add_parser("export", help="Export profile")  # type: ignore[name-defined]
-    export_parser.add_argument("--output", "-o", help="Output file path")  # type: ignore[name-defined]
+    _export_parser = subparsers.add_parser("export", help = "Export profile")  # type: ignore[name-defined]
+    export_parser.add_argument("--output", "-o", help = "Output file path")  # type: ignore[name-defined]
 
-    _args=parser.parse_args()
+    _args = parser.parse_args()
 
     if args.command == "new":  # type: ignore[name-defined]
-        _logger=InstallProfileLogger()
+        _logger = InstallProfileLogger()
         if args.name:  # type: ignore[name-defined]
-            logger.profile.profile_name=args.name  # type: ignore[name-defined]
+            logger.profile.profile_name = args.name  # type: ignore[name-defined]
         logger.set_install_method(args.method)  # type: ignore[name-defined]
         if args.operator:  # type: ignore[name-defined]
             logger.set_operator(args.operator)  # type: ignore[name-defined]
         print(f"Created new profile: {logger.profile_id}")  # type: ignore[name-defined]
 
     elif args.command == "detect":  # type: ignore[name-defined]
-        _logger=InstallProfileLogger()
-        _hw=logger.detect_hardware()  # type: ignore[name-defined]
-        print(json.dumps(asdict(hw), indent=2))  # type: ignore[name-defined]
+        _logger = InstallProfileLogger()
+        _hw = logger.detect_hardware()  # type: ignore[name-defined]
+        print(json.dumps(asdict(hw), indent = 2))  # type: ignore[name-defined]
 
     elif args.command == "status":  # type: ignore[name-defined]
         if STATE_FILE.exists():
-            _state=json.loads(STATE_FILE.read_text())
+            _state = json.loads(STATE_FILE.read_text())
             print(f"Profile:  {state.get('profile_id', 'Unknown')}")  # type: ignore[name-defined]
             print(f"Phase:    {state.get('phase', 'Unknown')}")  # type: ignore[name-defined]
             print(f"Updated:  {state.get('updated_at', 'Unknown')}")  # type: ignore[name-defined]
@@ -823,10 +823,10 @@ def main() -> None:
 
     elif args.command == "export":  # type: ignore[name-defined]
         if STATE_FILE.exists():
-            _state=json.loads(STATE_FILE.read_text())
-            profile_file=PROFILE_DIR / f"{state['profile_id']}.json"  # type: ignore[name-defined]
+            _state = json.loads(STATE_FILE.read_text())
+            profile_file = PROFILE_DIR / f"{state['profile_id']}.json"  # type: ignore[name-defined]
             if profile_file.exists():
-                _data=profile_file.read_text()
+                _data = profile_file.read_text()
                 if args.output:  # type: ignore[name-defined]
                     Path(args.output).write_text(data)  # type: ignore[name-defined]
                     print(f"Exported to: {args.output}")  # type: ignore[name-defined]

@@ -18,16 +18,16 @@ from urllib.parse import urlencode
 
 
 def _smtp_client() -> smtplib.SMTP:
-    _host=os.getenv("SMTP_HOST")
-    _port=int(os.getenv("SMTP_PORT", "587"))
-    _user=os.getenv("SMTP_USER")
-    _password=os.getenv("SMTP_PASSWORD")
-    _starttls=os.getenv("SMTP_STARTTLS", "true").lower() in ("1", "true", "yes")
+    _host = os.getenv("SMTP_HOST")
+    _port = int(os.getenv("SMTP_PORT", "587"))
+    _user = os.getenv("SMTP_USER")
+    _password = os.getenv("SMTP_PASSWORD")
+    _starttls = os.getenv("SMTP_STARTTLS", "true").lower() in ("1", "true", "yes")
 
     if not host:  # type: ignore[name-defined]
         raise RuntimeError("SMTP_HOST not configured")
 
-    _client=smtplib.SMTP(host, port, timeout=10)  # type: ignore[name-defined]
+    _client = smtplib.SMTP(host, port, timeout = 10)  # type: ignore[name-defined]
     if starttls:  # type: ignore[name-defined]
         client.starttls()  # type: ignore[name-defined]
     if user and password:  # type: ignore[name-defined]
@@ -51,9 +51,9 @@ def send_password_reset(email: str, token: str) -> None:
     - SMTP_FROM (optional; defaults to SMTP_USER)
     - APP_BASE_URL (e.g., https://debvisor.example.com)
     """
-    _reset_link=f"{_app_base_url()}/auth/reset/verify?" + urlencode({"token": token})
+    _reset_link = f"{_app_base_url()}/auth/reset/verify?" + urlencode({"token": token})
 
-    _msg=EmailMessage()
+    _msg = EmailMessage()
     msg["Subject"] = "DebVisor Password Reset Instructions"  # type: ignore[name-defined]
     msg["From"] = _from_address()  # type: ignore[name-defined]
     msg["To"] = email  # type: ignore[name-defined]
@@ -73,7 +73,7 @@ DebVisor Security Team
 """.strip()
     )
 
-    _client=_smtp_client()
+    _client = _smtp_client()
     try:
         client.send_message(msg)  # type: ignore[name-defined]
     finally:

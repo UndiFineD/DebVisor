@@ -125,8 +125,8 @@ class TestCase:
     last_run: str = ""
     run_count: int = 0
     failure_count: int = 0
-    tags: List[str] = field(default_factory=list)
-    dependencies: List[str] = field(default_factory=list)
+    tags: List[str] = field(default_factory = list)
+    dependencies: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -140,7 +140,7 @@ class TestRun:
     skipped: int = 0
     errors: int = 0
     duration_ms: float = 0.0
-    test_results: Dict[str, TestStatus] = field(default_factory=dict)
+    test_results: Dict[str, TestStatus] = field(default_factory = dict)
 
 
 @dataclass
@@ -158,7 +158,7 @@ class TestFactory:
     """A test data factory for generating test data."""
     name: str
     return_type: str
-    parameters: Dict[str, str] = field(default_factory=dict)
+    parameters: Dict[str, str] = field(default_factory = dict)
     generator: str = ""  # Code snippet or function name
 
 
@@ -170,9 +170,9 @@ class VisualRegressionConfig:
     """Configuration for visual regression testing."""
     baseline_dir: str
     diff_threshold: float = 0.01
-    browsers: List[BrowserType] = field(default_factory=lambda: [BrowserType.CHROME])
-    viewport_sizes: List[Tuple[int, int]] = field(default_factory=lambda: [(1920, 1080)])
-    ignore_regions: List[Tuple[int, int, int, int]] = field(default_factory=list)
+    browsers: List[BrowserType] = field(default_factory = lambda: [BrowserType.CHROME])
+    viewport_sizes: List[Tuple[int, int]] = field(default_factory = lambda: [(1920, 1080)])
+    ignore_regions: List[Tuple[int, int, int, int]] = field(default_factory = list)
 
 
 @dataclass
@@ -181,8 +181,8 @@ class ContractTest:
     consumer: str
     provider: str
     endpoint: str
-    request_schema: Dict[str, Any] = field(default_factory=dict)
-    response_schema: Dict[str, Any] = field(default_factory=dict)
+    request_schema: Dict[str, Any] = field(default_factory = dict)
+    response_schema: Dict[str, Any] = field(default_factory = dict)
     status_code: int = 200
 
 
@@ -191,10 +191,10 @@ class TestEnvironment:
     """Test environment configuration."""
     name: str
     base_url: str = ""
-    variables: Dict[str, str] = field(default_factory=dict)
-    fixtures: List[str] = field(default_factory=list)
-    setup_commands: List[str] = field(default_factory=list)
-    teardown_commands: List[str] = field(default_factory=list)
+    variables: Dict[str, str] = field(default_factory = dict)
+    fixtures: List[str] = field(default_factory = list)
+    setup_commands: List[str] = field(default_factory = list)
+    teardown_commands: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -202,8 +202,8 @@ class ExecutionTrace:
     """Test execution trace for replay."""
     test_id: str
     timestamp: str
-    steps: List[Dict[str, Any]] = field(default_factory=list)
-    variables: Dict[str, Any] = field(default_factory=dict)
+    steps: List[Dict[str, Any]] = field(default_factory = list)
+    variables: Dict[str, Any] = field(default_factory = dict)
     stdout: str = ""
     stderr: str = ""
 
@@ -235,7 +235,7 @@ class AggregatedResult:
     status: TestStatus
     duration_ms: float
     timestamp: str
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -276,7 +276,7 @@ class ScheduleSlot:
     """A scheduled time slot for test execution."""
     start_time: str
     end_time: str
-    tests: List[str] = field(default_factory=list)
+    tests: List[str] = field(default_factory = list)
     workers: int = 1
     priority: TestPriority = TestPriority.MEDIUM
 
@@ -445,12 +445,12 @@ class ContractTestRunner:
         """
         contract_id = f"{consumer}:{provider}:{endpoint}"
         contract = ContractTest(
-            consumer=consumer,
-            provider=provider,
-            endpoint=endpoint,
-            request_schema=request_schema or {},
-            response_schema=response_schema or {},
-            status_code=status_code
+            consumer = consumer,
+            provider = provider,
+            endpoint = endpoint,
+            request_schema = request_schema or {},
+            response_schema = response_schema or {},
+            status_code = status_code
         )
         self.contracts[contract_id] = contract
         return contract
@@ -551,7 +551,7 @@ class ContractTestRunner:
                 "response": {"status": c.status_code}
             } for c in contracts]
         }
-        return json.dumps(pact, indent=2)
+        return json.dumps(pact, indent = 2)
 
 
 class TestSuiteOptimizer:
@@ -703,12 +703,12 @@ class EnvironmentProvisioner:
             The registered environment.
         """
         env = TestEnvironment(
-            name=name,
-            base_url=base_url,
-            variables=variables or {},
-            fixtures=fixtures or [],
-            setup_commands=setup_commands or [],
-            teardown_commands=teardown_commands or []
+            name = name,
+            base_url = base_url,
+            variables = variables or {},
+            fixtures = fixtures or [],
+            setup_commands = setup_commands or [],
+            teardown_commands = teardown_commands or []
         )
         self.environments[name] = env
         self.active[name] = False
@@ -808,8 +808,8 @@ class ExecutionReplayer:
             The execution trace being recorded.
         """
         trace = ExecutionTrace(
-            test_id=test_id,
-            timestamp=datetime.now().isoformat()
+            test_id = test_id,
+            timestamp = datetime.now().isoformat()
         )
         self.traces[test_id] = trace
         self._current_recording = test_id
@@ -922,7 +922,7 @@ class ExecutionReplayer:
             "timestamp": trace.timestamp,
             "steps": trace.steps,
             "variables": trace.variables
-        }, indent=2)
+        }, indent = 2)
 
 
 class DependencyInjector:
@@ -963,10 +963,10 @@ class DependencyInjector:
             The registered dependency.
         """
         dep = TestDependency(
-            name=name,
-            dependency_type=dependency_type,
-            implementation=implementation,
-            mock_behavior=mock_behavior
+            name = name,
+            dependency_type = dependency_type,
+            implementation = implementation,
+            mock_behavior = mock_behavior
         )
         self.dependencies[name] = dep
         self._scopes[name] = scope
@@ -1030,7 +1030,7 @@ class DependencyInjector:
 
         scope = self._scopes.get(name, "function")
         return (
-            f"@pytest.fixture(scope='{scope}')\n"
+            f"@pytest.fixture(scope = '{scope}')\n"
             f"def {name}() -> {dep.dependency_type}:\n"
             f"    \"\"\"{name} fixture.\"\"\"\n"
             f"    {dep.implementation or 'pass'}\n"
@@ -1188,12 +1188,12 @@ class ResultAggregator:
             The aggregated result.
         """
         result = AggregatedResult(
-            source=source,
-            test_name=test_name,
-            status=status,
-            duration_ms=duration_ms,
-            timestamp=datetime.now().isoformat(),
-            metadata=metadata or {}
+            source = source,
+            test_name = test_name,
+            status = status,
+            duration_ms = duration_ms,
+            timestamp = datetime.now().isoformat(),
+            metadata = metadata or {}
         )
         self.results.append(result)
 
@@ -1222,10 +1222,10 @@ class ResultAggregator:
                     "skipped": TestStatus.SKIPPED
                 }
                 self.add_result(
-                    source=TestSourceType.PYTEST,
-                    test_name=test.get("nodeid", ""),
-                    status=status_map.get(test.get("outcome", ""), TestStatus.ERROR),
-                    duration_ms=test.get("duration", 0) * 1000
+                    source = TestSourceType.PYTEST,
+                    test_name = test.get("nodeid", ""),
+                    status = status_map.get(test.get("outcome", ""), TestStatus.ERROR),
+                    duration_ms = test.get("duration", 0) * 1000
                 )
                 count += 1
             return count
@@ -1266,7 +1266,7 @@ class ResultAggregator:
                 "status": r.status.value,
                 "duration_ms": r.duration_ms
             } for r in self.results]
-        }, indent=2)
+        }, indent = 2)
 
 
 class MutationTester:
@@ -1307,36 +1307,36 @@ class MutationTester:
             if "+" in line:
                 mut_id = hashlib.md5(f"{file_path}:{i}:+->-".encode()).hexdigest()[:8]
                 mutations.append(Mutation(
-                    id=mut_id,
-                    file_path=file_path,
-                    line_number=i,
-                    operator=MutationOperator.ARITHMETIC,
-                    original_code=line,
-                    mutated_code=line.replace("+", "-", 1)
+                    id = mut_id,
+                    file_path = file_path,
+                    line_number = i,
+                    operator = MutationOperator.ARITHMETIC,
+                    original_code = line,
+                    mutated_code = line.replace("+", "-", 1)
                 ))
 
             # Relational mutations
             if "==" in line:
                 mut_id = hashlib.md5(f"{file_path}:{i}:==->!=".encode()).hexdigest()[:8]
                 mutations.append(Mutation(
-                    id=mut_id,
-                    file_path=file_path,
-                    line_number=i,
-                    operator=MutationOperator.RELATIONAL,
-                    original_code=line,
-                    mutated_code=line.replace("==", "!=", 1)
+                    id = mut_id,
+                    file_path = file_path,
+                    line_number = i,
+                    operator = MutationOperator.RELATIONAL,
+                    original_code = line,
+                    mutated_code = line.replace("==", "!=", 1)
                 ))
 
             # Logical mutations
             if " and " in line:
                 mut_id = hashlib.md5(f"{file_path}:{i}:and->or".encode()).hexdigest()[:8]
                 mutations.append(Mutation(
-                    id=mut_id,
-                    file_path=file_path,
-                    line_number=i,
-                    operator=MutationOperator.LOGICAL,
-                    original_code=line,
-                    mutated_code=line.replace(" and ", " or ", 1)
+                    id = mut_id,
+                    file_path = file_path,
+                    line_number = i,
+                    operator = MutationOperator.LOGICAL,
+                    original_code = line,
+                    mutated_code = line.replace(" and ", " or ", 1)
                 ))
 
         self.mutations.extend(mutations)
@@ -1452,10 +1452,10 @@ class TestGenerator:
         )
 
         generated = GeneratedTest(
-            name=test_name,
-            specification=specification,
-            generated_code=code,
-            confidence=0.6
+            name = test_name,
+            specification = specification,
+            generated_code = code,
+            confidence = 0.6
         )
         self.generated.append(generated)
         return generated
@@ -1487,10 +1487,10 @@ class TestGenerator:
         )
 
         generated = GeneratedTest(
-            name=test_name,
-            specification=f"Parametrized test for {function_name}",
-            generated_code=code,
-            confidence=0.8
+            name = test_name,
+            specification = f"Parametrized test for {function_name}",
+            generated_code = code,
+            confidence = 0.8
         )
         self.generated.append(generated)
         return generated
@@ -1672,12 +1672,12 @@ class TestProfiler:
         cpu_time = (time.time() - start) * 1000  # ms
 
         profile = TestProfile(
-            test_id=test_id,
-            cpu_time_ms=cpu_time,
-            memory_peak_mb=memory_peak_mb,
-            io_operations=io_operations,
-            function_calls=function_calls,
-            timestamp=datetime.now().isoformat()
+            test_id = test_id,
+            cpu_time_ms = cpu_time,
+            memory_peak_mb = memory_peak_mb,
+            io_operations = io_operations,
+            function_calls = function_calls,
+            timestamp = datetime.now().isoformat()
         )
         self.profiles[test_id] = profile
         return profile
@@ -1694,7 +1694,7 @@ class TestProfiler:
         sorted_profiles = sorted(
             self.profiles.values(),
             key=lambda p: p.cpu_time_ms,
-            reverse=True
+            reverse = True
         )
         return sorted_profiles[:limit]
 
@@ -1710,7 +1710,7 @@ class TestProfiler:
         sorted_profiles = sorted(
             self.profiles.values(),
             key=lambda p: p.memory_peak_mb,
-            reverse=True
+            reverse = True
         )
         return sorted_profiles[:limit]
 
@@ -1804,7 +1804,7 @@ class TestScheduler:
         sorted_tests = sorted(
             tests,
             key=lambda t: self._test_durations.get(t, 1000),
-            reverse=True
+            reverse = True
         )
 
         # Distribute across workers
@@ -1822,10 +1822,10 @@ class TestScheduler:
         for i, tests_for_worker in enumerate(worker_loads):
             if tests_for_worker:
                 slot = ScheduleSlot(
-                    start_time=start_time,
-                    end_time="",  # Would calculate based on duration
-                    tests=tests_for_worker,
-                    workers=1
+                    start_time = start_time,
+                    end_time = "",  # Would calculate based on duration
+                    tests = tests_for_worker,
+                    workers = 1
                 )
                 self.schedule.append(slot)
 
@@ -1846,10 +1846,10 @@ class TestScheduler:
             Scheduled slots.
         """
         slot = ScheduleSlot(
-            start_time=start_time,
-            end_time="",
-            tests=tests,
-            workers=1
+            start_time = start_time,
+            end_time = "",
+            tests = tests,
+            workers = 1
         )
         self.schedule = [slot]
         return self.schedule
@@ -1920,13 +1920,13 @@ class TestsAgent(BaseAgent):
         """Add a new test case."""
         test_id = hashlib.md5(f"{name}:{file_path}".encode()).hexdigest()[:8]
         test = TestCase(
-            id=test_id,
-            name=name,
-            file_path=file_path,
-            line_number=line_number,
-            priority=priority,
-            tags=tags or [],
-            dependencies=dependencies or []
+            id = test_id,
+            name = name,
+            file_path = file_path,
+            line_number = line_number,
+            priority = priority,
+            tags = tags or [],
+            dependencies = dependencies or []
         )
         self._tests.append(test)
         return test
@@ -1958,7 +1958,7 @@ class TestsAgent(BaseAgent):
         return sorted(
             self._tests,
             key=lambda t: (t.priority.value, t.failure_count),
-            reverse=True
+            reverse = True
         )
 
     def calculate_priority_score(self, test: TestCase) -> float:
@@ -2029,11 +2029,11 @@ class TestsAgent(BaseAgent):
     ) -> CoverageGap:
         """Add a coverage gap."""
         gap = CoverageGap(
-            file_path=file_path,
-            line_start=line_start,
-            line_end=line_end,
-            coverage_type=coverage_type,
-            suggestion=suggestion
+            file_path = file_path,
+            line_start = line_start,
+            line_end = line_end,
+            coverage_type = coverage_type,
+            suggestion = suggestion
         )
         self._coverage_gaps.append(gap)
         return gap
@@ -2066,10 +2066,10 @@ class TestsAgent(BaseAgent):
     ) -> TestFactory:
         """Add a test data factory."""
         factory = TestFactory(
-            name=name,
-            return_type=return_type,
-            parameters=parameters or {},
-            generator=generator
+            name = name,
+            return_type = return_type,
+            parameters = parameters or {},
+            generator = generator
         )
         self._factories[name] = factory
         return factory
@@ -2109,15 +2109,15 @@ class TestsAgent(BaseAgent):
         errors = sum(1 for s in test_results.values() if s == TestStatus.ERROR)
 
         run = TestRun(
-            id=run_id,
-            timestamp=datetime.now().isoformat(),
-            total_tests=len(test_results),
-            passed=passed,
-            failed=failed,
-            skipped=skipped,
-            errors=errors,
-            duration_ms=duration_ms,
-            test_results=test_results
+            id = run_id,
+            timestamp = datetime.now().isoformat(),
+            total_tests = len(test_results),
+            passed = passed,
+            failed = failed,
+            skipped = skipped,
+            errors = errors,
+            duration_ms = duration_ms,
+            test_results = test_results
         )
         self._test_runs.append(run)
 
@@ -2224,7 +2224,7 @@ class TestsAgent(BaseAgent):
                 "flakiness": t.flakiness_score,
                 "tags": t.tags
             } for t in self._tests]
-            return json.dumps(data, indent=2)
+            return json.dumps(data, indent = 2)
         return ""
 
     # ========== Statistics ==========
@@ -2357,7 +2357,7 @@ class TestsAgent(BaseAgent):
         if source_path and source_path.exists():
             logging.debug(f"Using source file context: {source_path}")
             try:
-                source_content = source_path.read_text(encoding='utf-8')
+                source_content = source_path.read_text(encoding = 'utf-8')
                 # Truncate source content if it's too large to avoid context window issues
                 # Assuming ~4 chars per token, 8000 tokens ~ 32000 chars.
                 # Leave room for prompt and response.
@@ -2391,7 +2391,7 @@ class TestsAgent(BaseAgent):
 
     def update_file(self) -> None:
         """Write the improved content back to the file (no markdown fixing for test files)."""
-        self.file_path.write_text(self.current_content, encoding='utf-8')
+        self.file_path.write_text(self.current_content, encoding = 'utf-8')
 
 
 # Create main function using the helper

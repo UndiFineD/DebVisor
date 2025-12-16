@@ -4,7 +4,7 @@ import re
 
 filepath = r"c:\Users\kdejo\DEV\DebVisor\scripts\agent\generate_agent_reports.py"
 
-with open(filepath, 'r', encoding='utf-8') as f:
+with open(filepath, 'r', encoding = 'utf-8') as f:
     lines = f.readlines()
 
 e261_count = 0
@@ -34,7 +34,7 @@ for line in lines:
                     e261_count += 1
         new_lines.append(line)
 
-with open(filepath, 'w', encoding='utf-8') as f:
+with open(filepath, 'w', encoding = 'utf-8') as f:
     f.writelines(new_lines)
 
 print(f"E261 fixed: {e261_count}")

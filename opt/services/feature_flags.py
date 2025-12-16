@@ -114,7 +114,7 @@ import os
 from typing import Any, Dict, Optional, List
 from opt.core.config import settings
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class FeatureFlagManager:
@@ -130,12 +130,12 @@ class FeatureFlagManager:
             redis_url: The URL of the Redis instance to use.
         """
         try:
-            self.redis=redis.from_url(redis_url, decode_responses=True)
-            self.prefix="feature_flag:"
-            self.enabled=True
+            self.redis = redis.from_url(redis_url, decode_responses = True)
+            self.prefix = "feature_flag:"
+            self.enabled = True
         except Exception as e:
             logger.error(f"Failed to connect to Redis for feature flags: {e}")
-            self.enabled=False
+            self.enabled = False
 
     def is_enabled(self, flagname: str, context: Optional[Dict[str, Any]] = None) -> bool:
         """
@@ -150,7 +150,7 @@ class FeatureFlagManager:
             bool: True if the feature is enabled, False otherwise.
         """
         # 1. Check Environment Variable Override
-        _env_key=f"DEBVISOR_FEATURE_{flag_name.upper()}"
+        _env_key = f"DEBVISOR_FEATURE_{flag_name.upper()}"
         if env_key in os.environ:
             return os.environ[env_key].lower() in ("true", "1", "yes", "on")
 
@@ -159,39 +159,39 @@ class FeatureFlagManager:
             return False
 
         try:
-            _flag_data_json=self.redis.get(f"{self.prefix}{flag_name}")
+            _flag_data_json = self.redis.get(f"{self.prefix}{flag_name}")
             if not flag_data_json:
                 return False    # Default to disabled if not found
 
-            _flag_data=json.loads(flag_data_json)
+            _flag_data = json.loads(flag_data_json)
 
             if not flag_data.get("enabled", False):
                 return False
 
             # Targeted users/tenants
             if context:
-                _user_id=str(context.get("user_id", ""))
-                _tenant_id=str(context.get("tenant_id", ""))
+                _user_id = str(context.get("user_id", ""))
+                _tenant_id = str(context.get("tenant_id", ""))
 
-                _allowed_users=flag_data.get("users", [])
+                _allowed_users = flag_data.get("users", [])
                 if user_id and user_id in allowed_users:
                     return True
 
-                _allowed_tenants=flag_data.get("tenants", [])
+                _allowed_tenants = flag_data.get("tenants", [])
                 if tenant_id and tenant_id in allowed_tenants:
                     return True
 
             # Percentage-based rollout
-            _rollout_percentage=flag_data.get("rollout_percentage", 100)
+            _rollout_percentage = flag_data.get("rollout_percentage", 100)
             if rollout_percentage < 100:
                 if not context:
                 # If no context provided but rollout < 100%, default to disabled
                     return False
 
-                _identifier=str(context.get("user_id") or context.get("tenant_id") or "anonymous")
+                _identifier = str(context.get("user_id") or context.get("tenant_id") or "anonymous")
                 # Deterministic hashing
-                _hash_input=f"{flag_name}:{identifier}".encode("utf-8")
-                _hash_val=int(hashlib.sha256(hash_input).hexdigest(), 16)
+                _hash_input = f"{flag_name}:{identifier}".encode("utf-8")
+                _hash_val = int(hashlib.sha256(hash_input).hexdigest(), 16)
                 if (hash_val % 100) >= rollout_percentage:
                     return False
 
@@ -208,7 +208,7 @@ class FeatureFlagManager:
         self,
         flag_name: str,
         enabled: bool,
-        rollout_percentage: int=100,
+        rollout_percentage: int = 100,
         users: Optional[List[str]] = None,
         tenants: Optional[List[str]] = None,
     ) -> bool:
@@ -228,7 +228,7 @@ class FeatureFlagManager:
         if not self.enabled:
             return False
 
-        data={
+        data = {
             "enabled": enabled,
             "rollout_percentage": rollout_percentage,
             "users": users or [],
@@ -237,8 +237,8 @@ class FeatureFlagManager:
         try:
             self.redis.set(f"{self.prefix}{flag_name}", json.dumps(data))
             logger.info(
-                f"Feature flag '{flag_name}' set to enabled={enabled}, "
-                f"rollout={rollout_percentage}%, users={len(users or [])}, tenants={len(tenants or [])}"
+                f"Feature flag '{flag_name}' set to enabled = {enabled}, "
+                f"rollout = {rollout_percentage}%, users = {len(users or [])}, tenants = {len(tenants or [])}"
             )
             return True
         except redis.RedisError as e:
@@ -277,11 +277,11 @@ class FeatureFlagManager:
             return {}
 
         try:
-            _keys=self.redis.keys(f"{self.prefix}*")
-            flags={}
+            _keys = self.redis.keys(f"{self.prefix}*")
+            flags = {}
             for key in keys:
-                _flag_name=key.replace(self.prefix, "")
-                _val=self.redis.get(key)
+                _flag_name = key.replace(self.prefix, "")
+                _val = self.redis.get(key)
                 if val:
                     flags[flag_name] = json.loads(val)
             return flags
@@ -291,4 +291,4 @@ class FeatureFlagManager:
 
 
 # Singleton instance
-_feature_flags=FeatureFlagManager()
+_feature_flags = FeatureFlagManager()

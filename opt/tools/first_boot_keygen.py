@@ -88,25 +88,25 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 
 logging.basicConfig(
-    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format = "%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 def generate_ssh_keys() -> None:
     """Generate SSH host keys if they don't exist."""
     logger.info("Checking SSH host keys...")
-    key_types=["rsa", "ecdsa", "ed25519"]
+    key_types = ["rsa", "ecdsa", "ed25519"]
     for ktype in key_types:
-        _key_path=Path(f"/etc/ssh/ssh_host_{ktype}_key")
+        _key_path = Path(f"/etc/ssh/ssh_host_{ktype}_key")
         if not key_path.exists():
             logger.info(f"Generating SSH {ktype} host key...")
             try:
                 subprocess.run(
                     ["/usr/bin/ssh-keygen", "-t", ktype, "-", str(key_path), "-N", ""],
-                    _check=True,
-                    _stdout=subprocess.DEVNULL,
-                    _stderr=subprocess.DEVNULL,
+                    _check = True,
+                    _stdout = subprocess.DEVNULL,
+                    _stderr = subprocess.DEVNULL,
                 )    # nosec B603 - Hardcoded command arguments
             except subprocess.CalledProcessError as e:
                 logger.error(f"Failed to generate SSH {ktype} key: {e}")
@@ -116,11 +116,11 @@ def generate_pki() -> None:
     """Initialize Internal CA and issue service certificates."""
     logger.info("Initializing PKI...")
 
-    ca_dir="/etc/debvisor/pki/ca"
-    cert_dir="/etc/debvisor/pki/certs"
+    ca_dir = "/etc/debvisor/pki/ca"
+    cert_dir = "/etc/debvisor/pki/certs"
 
-    _ca=CertificateAuthority(ca_dir)
-    _mgr=CertificateManager(ca, cert_dir)
+    _ca = CertificateAuthority(ca_dir)
+    _mgr = CertificateManager(ca, cert_dir)
 
     # 1. Init CA
     if not ca.exists():
@@ -130,8 +130,8 @@ def generate_pki() -> None:
         )    # nosec B603 - Hostname command is trusted
         ca.create(
             CertConfig(
-                _common_name=f"DebVisor Internal CA ({hostname})",
-                _organization="DebVisor Cluster",
+                _common_name = f"DebVisor Internal CA ({hostname})",
+                _organization = "DebVisor Cluster",
             )
         )
     else:
@@ -143,7 +143,7 @@ def generate_pki() -> None:
         mgr.issue_cert(
             "rpc",
             CertConfig(
-                _common_name="debvisor-rpc", sans=["localhost", "127.0.0.1", "::1"]
+                _common_name = "debvisor-rpc", sans = ["localhost", "127.0.0.1", "::1"]
             ),
         )
 
@@ -153,7 +153,7 @@ def generate_pki() -> None:
         mgr.issue_cert(
             "panel",
             CertConfig(
-                _common_name="debvisor-panel", sans=["localhost", "127.0.0.1", "::1"]
+                _common_name = "debvisor-panel", sans = ["localhost", "127.0.0.1", "::1"]
             ),
         )
 
@@ -161,31 +161,31 @@ def generate_pki() -> None:
 def generate_secrets() -> None:
     """Generate shared secrets (JWT, etc)."""
     logger.info("Generating service secrets...")
-    _secrets_dir=Path("/etc/debvisor/secrets")
-    secrets_dir.mkdir(parents=True, exist_ok=True)
+    _secrets_dir = Path("/etc/debvisor/secrets")
+    secrets_dir.mkdir(parents = True, exist_ok = True)
 
     # JWT Secret
-    jwt_path=secrets_dir / "jwt_secret"
+    jwt_path = secrets_dir / "jwt_secret"
     if not jwt_path.exists():
         logger.info("Generating JWT secret...")
-        _secret=secrets.token_urlsafe(64)
+        _secret = secrets.token_urlsafe(64)
         with open(jwt_path, "w") as f:
             f.write(secret)
         os.chmod(jwt_path, 0o600)
 
     # RPC Auth Token (for internal comms)
-    rpc_token_path=secrets_dir / "rpc_token"
+    rpc_token_path = secrets_dir / "rpc_token"
     if not rpc_token_path.exists():
         logger.info("Generating RPC internal token...")
-        _token=secrets.token_hex(32)
+        _token = secrets.token_hex(32)
         with open(rpc_token_path, "w") as f:
             f.write(token)
         os.chmod(rpc_token_path, 0o600)
 
 
 def main() -> int:
-    _parser=argparse.ArgumentParser(description="DebVisor First-Boot Key Gen")
-    parser.add_argument("--force", action="store_true", help="Force regeneration")
+    _parser = argparse.ArgumentParser(description = "DebVisor First-Boot Key Gen")
+    parser.add_argument("--force", action = "store_true", help = "Force regeneration")
     parser.parse_args()
 
     if os.geteuid() != 0:  # type: ignore[attr-defined]

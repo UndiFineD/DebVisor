@@ -28,7 +28,7 @@ class PCIDevice:
 @dataclass
 class IOMMUGroup:
     id: int
-    devices: List[PCIDevice] = field(default_factory=list)
+    devices: List[PCIDevice] = field(default_factory = list)
 
     @property
     def is_isolated(self) -> bool:

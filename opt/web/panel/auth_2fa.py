@@ -129,7 +129,7 @@ from io import BytesIO
 import base64
 from collections import defaultdict
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -152,15 +152,15 @@ class TwoFAVerificationRateLimiter:
     - Audit log for all failed attempts
     """
 
-    MAX_ATTEMPTS=5
-    WINDOW_SECONDS=300    # 5 minutes
-    LOCKOUT_SECONDS=300    # 5 minutes
+    MAX_ATTEMPTS = 5
+    WINDOW_SECONDS = 300    # 5 minutes
+    LOCKOUT_SECONDS = 300    # 5 minutes
 
     def __init__(self) -> None:
         """Initialize the rate limiter."""
         self.attempts: Dict[str, List[RateLimitAttemppt]] = defaultdict(list)
         self.lockouts: Dict[str, datetime] = {}
-        self._lock=__import__("threading").Lock()
+        self._lock = __import__("threading").Lock()
 
     def record_failed_attempt(
         self, ip_address: str, method: str, user_account: Optional[str] = None
@@ -174,32 +174,32 @@ class TwoFAVerificationRateLimiter:
             user_account: User account if known
         """
         with self._lock:
-            _now=datetime.now(timezone.utc)
-            attempt=RateLimitAttemppt(
-                _timestamp=now,
-                _ip_address=ip_address,
-                _method=method,
-                _user_account=user_account,
+            _now = datetime.now(timezone.utc)
+            attempt = RateLimitAttemppt(
+                _timestamp = now,
+                _ip_address = ip_address,
+                _method = method,
+                _user_account = user_account,
             )
             self.attempts[ip_address].append(attempt)
 
             # Clean old attempts outside window
-            _window_start=now - timedelta(seconds=self.WINDOW_SECONDS)
+            _window_start = now - timedelta(seconds = self.WINDOW_SECONDS)
             self.attempts[ip_address] = [
                 a for a in self.attempts[ip_address] if a.timestamp > window_start
             ]
 
             # Audit log the failed attempt
             logger.warning(
-                f"2FA verification failed: ip={ip_address}, "
-                f"method={method}, account={user_account}, "
-                f"attempt_count={len(self.attempts[ip_address])}"
+                f"2FA verification failed: ip = {ip_address}, "
+                f"method = {method}, account = {user_account}, "
+                f"attempt_count = {len(self.attempts[ip_address])}"
             )
 
             # Trigger lockout if threshold exceeded
             if len(self.attempts[ip_address]) >= self.MAX_ATTEMPTS:
                 self.lockouts[ip_address] = now + timedelta(
-                    _seconds=self.LOCKOUT_SECONDS
+                    _seconds = self.LOCKOUT_SECONDS
                 )
                 logger.error(
                     f"2FA verification rate limit exceeded for IP {ip_address}: "
@@ -220,11 +220,11 @@ class TwoFAVerificationRateLimiter:
             If limited, seconds_until_available shows when lockout expires
         """
         with self._lock:
-            _now=datetime.now(timezone.utc)
+            _now = datetime.now(timezone.utc)
 
             # Check active lockout
             if ip_address in self.lockouts:
-                lockout_expires=self.lockouts[ip_address]
+                lockout_expires = self.lockouts[ip_address]
                 if now < lockout_expires:
                     _seconds_remaining=(lockout_expires - now).total_seconds()
                     return True, int(seconds_remaining)
@@ -233,8 +233,8 @@ class TwoFAVerificationRateLimiter:
                     del self.lockouts[ip_address]
 
             # Check recent attempts in window
-            _window_start=now - timedelta(seconds=self.WINDOW_SECONDS)
-            recent_attempts=[
+            _window_start = now - timedelta(seconds = self.WINDOW_SECONDS)
+            recent_attempts = [
                 a
                 for a in self.attempts.get(ip_address, [])
                 if a.timestamp > window_start
@@ -268,8 +268,8 @@ class TwoFAVerificationRateLimiter:
             Number of failed attempts in current window
         """
         with self._lock:
-            _now=datetime.now(timezone.utc)
-            _window_start=now - timedelta(seconds=self.WINDOW_SECONDS)
+            _now = datetime.now(timezone.utc)
+            _window_start = now - timedelta(seconds = self.WINDOW_SECONDS)
             return len(
                 [
                     a
@@ -290,9 +290,9 @@ class TwoFAVerificationRateLimiter:
         """
         with self._lock:
             if ip_address:
-                _attempts=self.attempts.get(ip_address, [])
+                _attempts = self.attempts.get(ip_address, [])
             else:
-                _attempts=[a for ips in self.attempts.values() for a in ips]
+                _attempts = [a for ips in self.attempts.values() for a in ips]
 
             return [
                 {
@@ -309,19 +309,19 @@ class TwoFAVerificationRateLimiter:
 class TOTPConfig:
     """TOTP (Time-based One-Time Password) configuration."""
 
-    issuer_name: str="DebVisor"
-    account_name_prefix: str="DebVisor"
-    window_size: int=1    # Number of 30-second windows to accept
-    digits: int=6
+    issuer_name: str = "DebVisor"
+    account_name_prefix: str = "DebVisor"
+    window_size: int = 1    # Number of 30-second windows to accept
+    digits: int = 6
 
 
 @dataclass
 class BackupCodeConfig:
     """Backup code configuration."""
 
-    num_codes: int=9
-    code_length: int=8
-    expiration_days: Optional[int] = None    # None=never expire
+    num_codes: int = 9
+    code_length: int = 8
+    expiration_days: Optional[int] = None    # None = never expire
 
 
 class TOTPManager:
@@ -334,7 +334,7 @@ class TOTPManager:
         Args:
             config: TOTPConfig instance
         """
-        self.config=config or TOTPConfig()
+        self.config = config or TOTPConfig()
 
     def generate_secret(self) -> str:
         """
@@ -359,11 +359,11 @@ class TOTPManager:
         Returns:
             Provisioning URI for QR code
         """
-        issuer=issuer or self.config.issuer_name
-        _totp=pyotp.TOTP(secret)
+        issuer = issuer or self.config.issuer_name
+        _totp = pyotp.TOTP(secret)
         return totp.provisioning_uri(
-            _name=f"{self.config.account_name_prefix}:{account_name}",
-            _issuer_name=issuer,
+            _name = f"{self.config.account_name_prefix}:{account_name}",
+            _issuer_name = issuer,
         )
 
     def generate_qr_code(self, provisioninguri: str) -> str:
@@ -376,21 +376,21 @@ class TOTPManager:
         Returns:
             Base64-encoded PNG image
         """
-        qr=qrcode.QRCode(
-            _version=1,
-            _error_correction=qrcode.constants.ERROR_CORRECT_L,
-            _box_size=10,
-            _border=4,
+        qr = qrcode.QRCode(
+            _version = 1,
+            _error_correction = qrcode.constants.ERROR_CORRECT_L,
+            _box_size = 10,
+            _border = 4,
         )
         qr.add_data(provisioning_uri)
-        qr.make(fit=True)
+        qr.make(fit = True)
 
-        _img=qr.make_image(fill_color="black", back_color="white")
-        _buffer=BytesIO()
-        img.save(buffer, format="PNG")
+        _img = qr.make_image(fill_color = "black", back_color = "white")
+        _buffer = BytesIO()
+        img.save(buffer, format = "PNG")
         buffer.seek(0)
 
-        _img_base64=base64.b64encode(buffer.getvalue()).decode()
+        _img_base64 = base64.b64encode(buffer.getvalue()).decode()
         return f"data:image/png;base64, {img_base64}"
 
     def verify_token(self, secret: str, token: str) -> bool:
@@ -404,8 +404,8 @@ class TOTPManager:
         Returns:
             True if token is valid, False otherwise
         """
-        _totp=pyotp.TOTP(secret)
-        return totp.verify(token, valid_window=self.config.window_size)
+        _totp = pyotp.TOTP(secret)
+        return totp.verify(token, valid_window = self.config.window_size)
 
     def get_provisioning_info(self, secret: str, accountname: str) -> Dict[str, Any]:
         """
@@ -418,8 +418,8 @@ class TOTPManager:
         Returns:
             Dictionary with secret, provisioning URI, and QR code
         """
-        _provisioning_uri=self.get_totp_uri(secret, account_name)
-        _qr_code=self.generate_qr_code(provisioning_uri)
+        _provisioning_uri = self.get_totp_uri(secret, account_name)
+        _qr_code = self.generate_qr_code(provisioning_uri)
 
         return {
             "secret": secret,
@@ -440,7 +440,7 @@ class BackupCodeManager:
         Args:
             config: BackupCodeConfig instance
         """
-        self.config=config or BackupCodeConfig()
+        self.config = config or BackupCodeConfig()
 
     def generate_codes(self) -> List[str]:
         """
@@ -449,18 +449,18 @@ class BackupCodeManager:
         Returns:
             List of backup codes
         """
-        alphabet=string.ascii_uppercase + string.digits
-        codes=[]
+        alphabet = string.ascii_uppercase + string.digits
+        codes = []
 
         for _ in range(self.config.num_codes):
         # Generate code with format: XXXX-XXXX
-            code_part1="".join(
+            code_part1 = "".join(
                 secrets.choice(alphabet) for _ in range(self.config.code_length // 2)
             )
-            code_part2="".join(
+            code_part2 = "".join(
                 secrets.choice(alphabet) for _ in range(self.config.code_length // 2)
             )
-            code=f"{code_part1}-{code_part2}"
+            code = f"{code_part1}-{code_part2}"
             codes.append(code)
 
         return codes
@@ -478,7 +478,7 @@ class BackupCodeManager:
         import hashlib
 
         # Normalize: remove spaces, convert to uppercase
-        _normalized=code.replace(" ", "").replace("-", "").upper()
+        _normalized = code.replace(" ", "").replace("-", "").upper()
         return hashlib.sha256(normalized.encode()).hexdigest()
 
     def verify_code(self, code: str, hashedcode: str) -> bool:
@@ -504,7 +504,7 @@ class BackupCodeManager:
         Returns:
             Formatted string suitable for printing
         """
-        formatted="BACKUP CODES - Save these in a secure location\n"
+        formatted = "BACKUP CODES - Save these in a secure location\n"
         formatted += "=" * 50 + "\n\n"
 
         for i, code in enumerate(codes, 1):
@@ -526,7 +526,7 @@ class WebAuthnCredential:
     sign_count: int
     created_at: datetime
     name: str
-    is_primary: bool=False
+    is_primary: bool = False
 
 
 class WebAuthnManager:
@@ -537,10 +537,10 @@ class WebAuthnManager:
         try:
             import webauthn
 
-            _=webauthn
-            self.available=True
+            _ = webauthn
+            self.available = True
         except ImportError:
-            self.available=False
+            self.available = False
 
     def is_available(self) -> bool:
         """Check if WebAuthn is available."""
@@ -570,15 +570,15 @@ class WebAuthnManager:
             ResidentKeyRequirement,
         )
 
-        _options=generate_registration_options(
-            _rp_id="debvisor.local",
-            _rp_name="DebVisor",
-            _user_id=user_id.encode(),
-            _user_name=user_name,
-            _user_display_name=user_display_name,
-            _authenticator_selection=AuthenticatorSelectionCriteria(
-                _authenticator_attachment=AuthenticatorAttachment.CROSS_PLATFORM,
-                _resident_key=ResidentKeyRequirement.PREFERRED,
+        _options = generate_registration_options(
+            _rp_id = "debvisor.local",
+            _rp_name = "DebVisor",
+            _user_id = user_id.encode(),
+            _user_name = user_name,
+            _user_display_name = user_display_name,
+            _authenticator_selection = AuthenticatorSelectionCriteria(
+                _authenticator_attachment = AuthenticatorAttachment.CROSS_PLATFORM,
+                _resident_key = ResidentKeyRequirement.PREFERRED,
             ),
         )
 
@@ -607,12 +607,12 @@ class WebAuthnManager:
         from webauthn import base64url_to_bytes
 
         try:
-            _credential=RegistrationCredential.parse_raw(response_json)
-            verification=verify_registration_response(
-                _credential=credential,
-                _expected_challenge=base64url_to_bytes(challenge),
-                _expected_origin="https://debvisor.local",    # Should be configurable
-                _expected_rp_id="debvisor.local",
+            _credential = RegistrationCredential.parse_raw(response_json)
+            verification = verify_registration_response(
+                _credential = credential,
+                _expected_challenge = base64url_to_bytes(challenge),
+                _expected_origin = "https://debvisor.local",    # Should be configurable
+                _expected_rp_id = "debvisor.local",
             )
 
             return WebAuthnCredential(
@@ -621,13 +621,13 @@ class WebAuthnManager:
                     if isinstance(verification.credential_id, bytes)
                     else verification.credential_id
                 ),
-                _public_key=base64.b64encode(verification.credential_public_key).decode(
+                _public_key = base64.b64encode(verification.credential_public_key).decode(
                     "utf-8"
                 ),
-                _sign_count=verification.sign_count,
-                _created_at=datetime.now(timezone.utc),
-                _name="WebAuthn Key",
-                _is_primary=True,
+                _sign_count = verification.sign_count,
+                _created_at = datetime.now(timezone.utc),
+                _name = "WebAuthn Key",
+                _is_primary = True,
             )
         except Exception as e:
             logger.error(f"WebAuthn registration verification failed: {e}")
@@ -652,7 +652,7 @@ class WebAuthnManager:
 
         # Convert string IDs back to bytes if needed, depending on library version
         # Modern webauthn library handles bytes for allow_credentials
-        allow_credentials=[]
+        allow_credentials = []
         for cid in credential_ids:
             try:
                 allow_credentials.append(base64url_to_bytes(cid))
@@ -660,9 +660,9 @@ class WebAuthnManager:
             # nosec B112 - Skip invalid credential IDs during authentication options generation
                 continue
 
-        options=generate_authentication_options(
-            _rp_id="debvisor.local",
-            _allow_credentials=allow_credentials,
+        options = generate_authentication_options(
+            _rp_id = "debvisor.local",
+            _allow_credentials = allow_credentials,
         )
 
         return options_to_json(options)
@@ -694,15 +694,15 @@ class WebAuthnManager:
         from webauthn import base64url_to_bytes
 
         try:
-            _credential=AuthenticationCredential.parse_raw(response_json)
+            _credential = AuthenticationCredential.parse_raw(response_json)
 
-            verification=verify_authentication_response(
-                _credential=credential,
-                _expected_challenge=base64url_to_bytes(challenge),
-                _expected_origin="https://debvisor.local",
-                _expected_rp_id="debvisor.local",
-                _credential_public_key=base64.b64decode(credential_public_key),
-                _credential_current_sign_count=credential_sign_count,
+            verification = verify_authentication_response(
+                _credential = credential,
+                _expected_challenge = base64url_to_bytes(challenge),
+                _expected_origin = "https://debvisor.local",
+                _expected_rp_id = "debvisor.local",
+                _credential_public_key = base64.b64decode(credential_public_key),
+                _credential_current_sign_count = credential_sign_count,
             )
 
             return True, verification.new_sign_count
@@ -731,10 +731,10 @@ class TwoFactorAuthManager:
             totp_config: TOTP configuration
             backup_config: Backup code configuration
         """
-        self.totp_manager=TOTPManager(totp_config)
-        self.backup_manager=BackupCodeManager(backup_config)
-        self.webauthn_manager=WebAuthnManager()
-        self.rate_limiter=TwoFAVerificationRateLimiter()
+        self.totp_manager = TOTPManager(totp_config)
+        self.backup_manager = BackupCodeManager(backup_config)
+        self.webauthn_manager = WebAuthnManager()
+        self.rate_limiter = TwoFAVerificationRateLimiter()
 
     def initiate_enrollment(self, accountname: str, usetotp: bool=True) -> Dict[str, Any]:
         """
@@ -754,12 +754,12 @@ class TwoFactorAuthManager:
 
         # Generate TOTP secret and QR code
         if use_totp:
-            _secret=self.totp_manager.generate_secret()
-            _totp_info=self.totp_manager.get_provisioning_info(secret, account_name)
+            _secret = self.totp_manager.generate_secret()
+            _totp_info = self.totp_manager.get_provisioning_info(secret, account_name)
             enrollment_data["totp"] = totp_info
 
         # Generate backup codes
-        _backup_codes=self.backup_manager.generate_codes()
+        _backup_codes = self.backup_manager.generate_codes()
         enrollment_data["backup_codes"] = backup_codes
         enrollment_data["backup_codes_display"] = (
             self.backup_manager.format_for_display(backup_codes)
@@ -767,10 +767,10 @@ class TwoFactorAuthManager:
 
         # WebAuthn registration options (if available)
         if self.webauthn_manager.is_available():
-            webauthn_options=self.webauthn_manager.generate_registration_options(
-                _user_id=account_name,
-                _user_name=account_name,
-                _user_display_name=account_name,
+            webauthn_options = self.webauthn_manager.generate_registration_options(
+                _user_id = account_name,
+                _user_name = account_name,
+                _user_display_name = account_name,
             )
             enrollment_data["webauthn_options"] = webauthn_options
 
@@ -817,20 +817,20 @@ class TwoFactorAuthManager:
             import json
 
             try:
-                _context=json.loads(stored_secret)
-                _challenge=context.get("challenge")
-                _public_key=context.get("public_key")
-                _sign_count=context.get("sign_count", 0)
+                _context = json.loads(stored_secret)
+                _challenge = context.get("challenge")
+                _public_key = context.get("public_key")
+                _sign_count = context.get("sign_count", 0)
 
                 if not challenge or not public_key:
                     raise ValueError("Invalid WebAuthn context")
 
                 success, new_count=(
                     self.webauthn_manager.verify_authentication_response(
-                        _response_json=credential,
-                        _challenge=challenge,
-                        _credential_public_key=public_key,
-                        _credential_sign_count=sign_count,
+                        _response_json = credential,
+                        _challenge = challenge,
+                        _credential_public_key = public_key,
+                        _credential_sign_count = sign_count,
                     )
                 )
 
@@ -850,7 +850,7 @@ class TwoFactorAuthManager:
         method: str,
         credential: str,
         stored_secret: Optional[str] = None,
-        ip_address: str="127.0.0.1",
+        ip_address: str = "127.0.0.1",
         user_account: Optional[str] = None,
     ) -> Tuple[bool, Optional[str]]:
         """
@@ -873,7 +873,7 @@ class TwoFactorAuthManager:
             - If verification succeeds: (True, None)
         """
         # Check rate limit first
-        is_limited, seconds_remaining=self.rate_limiter.is_rate_limited(ip_address)
+        is_limited, seconds_remaining = self.rate_limiter.is_rate_limited(ip_address)
         if is_limited:
             return False, (
                 "2FA verification rate limited. "
@@ -882,7 +882,7 @@ class TwoFactorAuthManager:
 
         # Attempt verification
         try:
-            _success=self.verify_2fa_method(method, credential, stored_secret)
+            _success = self.verify_2fa_method(method, credential, stored_secret)
 
             if success:
             # Clear attempt history on success
@@ -930,7 +930,7 @@ class TwoFactorAuthManager:
         Returns:
             Formatted summary string
         """
-        summary="2FA Enrollment Summary\n"
+        summary = "2FA Enrollment Summary\n"
         summary += f"Account: {enrollment_data['account_name']}\n"
         summary += f"Time: {enrollment_data['timestamp']}\n\n"
 

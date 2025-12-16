@@ -124,40 +124,40 @@ import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class PerformanceMetric(Enum):
     """Types of performance metrics."""
 
-    LATENCY="latency"
-    THROUGHPUT="throughput"
-    MEMORY="memory"
-    CPU="cpu"
-    DISK_IO="disk_io"
-    NETWORK_IO="network_io"
-    P50="p50"
-    P95="p95"
-    P99="p99"
+    LATENCY = "latency"
+    THROUGHPUT = "throughput"
+    MEMORY = "memory"
+    CPU = "cpu"
+    DISK_IO = "disk_io"
+    NETWORK_IO = "network_io"
+    P50 = "p50"
+    P95 = "p95"
+    P99 = "p99"
 
 
 class TestScenario(Enum):
     """Performance test scenarios."""
 
-    LOW_LOAD="low_load"    # 10 concurrent operations
-    MEDIUM_LOAD="medium_load"    # 100 concurrent operations
-    HIGH_LOAD="high_load"    # 1000 concurrent operations
-    STRESS="stress"    # 10000 concurrent operations
-    SPIKE="spike"    # Sudden load increase
-    __test__=False
+    LOW_LOAD = "low_load"    # 10 concurrent operations
+    MEDIUM_LOAD = "medium_load"    # 100 concurrent operations
+    HIGH_LOAD = "high_load"    # 1000 concurrent operations
+    STRESS = "stress"    # 10000 concurrent operations
+    SPIKE = "spike"    # Sudden load increase
+    __test__ = False
 
 
 class SLALevel(Enum):
     """SLA compliance levels."""
 
-    GOLD="gold"    # 99.99% uptime, <100ms p99
-    SILVER="silver"    # 99.9% uptime, <500ms p99
-    BRONZE="bronze"    # 99% uptime, <1000ms p99
+    GOLD = "gold"    # 99.99% uptime, <100ms p99
+    SILVER = "silver"    # 99.9% uptime, <500ms p99
+    BRONZE = "bronze"    # 99% uptime, <1000ms p99
 
 
 @dataclass
@@ -178,11 +178,11 @@ class BenchmarkRun:
     scenario: TestScenario
     duration_ms: float
     iterations: int
-    latencies: List[float] = field(default_factory=list)
-    errors: int=0
-    throughput: float=0.0
-    memory_peak_mb: float=0.0
-    cpu_avg_percent: float=0.0
+    latencies: List[float] = field(default_factory = list)
+    errors: int = 0
+    throughput: float = 0.0
+    memory_peak_mb: float = 0.0
+    cpu_avg_percent: float = 0.0
 
     @property
     def p50(self) -> float:
@@ -196,8 +196,8 @@ class BenchmarkRun:
         """95th percentile latency."""
         if not self.latencies:
             return 0.0
-        _sorted_latencies=sorted(self.latencies)
-        _index=int(len(sorted_latencies) * 0.95)  # type: ignore[name-defined]
+        _sorted_latencies = sorted(self.latencies)
+        _index = int(len(sorted_latencies) * 0.95)  # type: ignore[name-defined]
         return sorted_latencies[index] if index < len(sorted_latencies) else 0.0  # type: ignore[name-defined]
 
     @property
@@ -205,8 +205,8 @@ class BenchmarkRun:
         """99th percentile latency."""
         if not self.latencies:
             return 0.0
-        _sorted_latencies=sorted(self.latencies)
-        _index=int(len(sorted_latencies) * 0.99)  # type: ignore[name-defined]
+        _sorted_latencies = sorted(self.latencies)
+        _index = int(len(sorted_latencies) * 0.99)  # type: ignore[name-defined]
         return sorted_latencies[index] if index < len(sorted_latencies) else 0.0  # type: ignore[name-defined]
 
     @property
@@ -235,7 +235,7 @@ class SLABenchmark:
     max_p99_ms: float
     max_error_rate: float
     min_uptime: float
-    results: List[BenchmarkRun] = field(default_factory=list)
+    results: List[BenchmarkRun] = field(default_factory = list)
 
     def validate(self, run: BenchmarkRun) -> bool:
         """Validate run against SLA."""
@@ -278,8 +278,8 @@ class PerformanceReport:
     @property
     def error_rate(self) -> float:
         """Overall error rate (0-1)."""
-        _total_errors=sum(r.errors for r in self.runs)
-        _total_ops=sum(r.iterations for r in self.runs)
+        _total_errors = sum(r.errors for r in self.runs)
+        _total_ops = sum(r.iterations for r in self.runs)
         if total_ops == 0:  # type: ignore[name-defined]
             return 0.0
         return total_errors / total_ops  # type: ignore[name-defined]
@@ -308,31 +308,31 @@ class RPCLatencyBenchmark:
     ) -> BenchmarkRun:
         """Benchmark an operation."""
         latencies: List[float] = []
-        _errors=0
-        _start_time=time.time()
+        _errors = 0
+        _start_time = time.time()
 
         for _ in range(iterations):
             try:
-                _op_start=time.time()
+                _op_start = time.time()
                 operation()
-                _op_end=time.time()
+                _op_end = time.time()
                 latencies.append((op_end - op_start) * 1000)    # Convert to ms  # type: ignore[name-defined]
             except Exception as e:
                 logger.error(f"Operation error: {e}")  # type: ignore[name-defined]
                 errors += 1  # type: ignore[name-defined]
 
-        _end_time=time.time()
+        _end_time = time.time()
         _duration_ms=(end_time - start_time) * 1000  # type: ignore[name-defined]
-        _throughput=iterations / (duration_ms / 1000) if duration_ms > 0 else 0  # type: ignore[name-defined]
+        _throughput = iterations / (duration_ms / 1000) if duration_ms > 0 else 0  # type: ignore[name-defined]
 
         return BenchmarkRun(  # type: ignore[call-arg]
-            _operation="rpc_call",
-            _scenario=scenario,
-            _duration_ms=duration_ms,  # type: ignore[name-defined]
-            _iterations=iterations,
-            _latencies=latencies,
-            _errors=errors,  # type: ignore[name-defined]
-            _throughput=throughput,  # type: ignore[name-defined]
+            _operation = "rpc_call",
+            _scenario = scenario,
+            _duration_ms = duration_ms,  # type: ignore[name-defined]
+            _iterations = iterations,
+            _latencies = latencies,
+            _errors = errors,  # type: ignore[name-defined]
+            _throughput = throughput,  # type: ignore[name-defined]
         )
 
 
@@ -344,26 +344,26 @@ class ThroughputBenchmark:
         operation: Callable[..., Any],
         concurrent_count: int,
         scenario: TestScenario,
-        duration_seconds: float=10.0,
+        duration_seconds: float = 10.0,
     ) -> BenchmarkRun:
         """Benchmark throughput with concurrent operations."""
         latencies: List[float] = []
-        _errors=0
-        _operations_completed=0
+        _errors = 0
+        _operations_completed = 0
 
-        _start_time=time.time()
+        _start_time = time.time()
 
-        with ThreadPoolExecutor(max_workers=concurrent_count) as executor:
-            futures=[]
+        with ThreadPoolExecutor(max_workers = concurrent_count) as executor:
+            futures = []
 
             while time.time() - start_time < duration_seconds:  # type: ignore[name-defined]
                 futures.append(executor.submit(operation))
 
             for future in as_completed(futures):
                 try:
-                    _op_start=time.time()
-                    future.result(timeout=5)
-                    _op_end=time.time()
+                    _op_start = time.time()
+                    future.result(timeout = 5)
+                    _op_end = time.time()
                     latencies.append((op_end - op_start) * 1000)  # type: ignore[name-defined]
                     operations_completed += 1  # type: ignore[name-defined]
                 except Exception as e:
@@ -376,20 +376,20 @@ class ThroughputBenchmark:
         )
 
         return BenchmarkRun(  # type: ignore[call-arg]
-            _operation="concurrent_ops",
-            _scenario=scenario,
-            _duration_ms=duration_ms,  # type: ignore[name-defined]
-            _iterations=operations_completed,  # type: ignore[name-defined]
-            _latencies=latencies,
-            _errors=errors,  # type: ignore[name-defined]
-            _throughput=throughput,  # type: ignore[name-defined]
+            _operation = "concurrent_ops",
+            _scenario = scenario,
+            _duration_ms = duration_ms,  # type: ignore[name-defined]
+            _iterations = operations_completed,  # type: ignore[name-defined]
+            _latencies = latencies,
+            _errors = errors,  # type: ignore[name-defined]
+            _throughput = throughput,  # type: ignore[name-defined]
         )
 
 
 class ScalabilityBenchmark:
     """Scalability testing (horizontal scaling)."""
 
-    SCALE_LEVELS=[10, 100, 1000, 10000]
+    SCALE_LEVELS = [10, 100, 1000, 10000]
 
     @staticmethod
     def benchmark_scalability(
@@ -397,26 +397,26 @@ class ScalabilityBenchmark:
     ) -> List[BenchmarkRun]:
         """Benchmark scalability at different node counts."""
         if node_counts is None:
-            node_counts=ScalabilityBenchmark.SCALE_LEVELS
+            node_counts = ScalabilityBenchmark.SCALE_LEVELS
 
         results: List[BenchmarkRun] = []
 
         for node_count in node_counts:
             logger.info(f"Testing with {node_count} nodes...")  # type: ignore[name-defined]
 
-            _run=BenchmarkRun(  # type: ignore[call-arg]
-                _operation=f"nodes_{node_count}",
-                _scenario=TestScenario.MEDIUM_LOAD,
-                _duration_ms=0,
-                _iterations=100,
-                _latencies=[],
-                _throughput=0,
+            _run = BenchmarkRun(  # type: ignore[call-arg]
+                _operation = f"nodes_{node_count}",
+                _scenario = TestScenario.MEDIUM_LOAD,
+                _duration_ms = 0,
+                _iterations = 100,
+                _latencies = [],
+                _throughput = 0,
             )
 
             # Simulate operations at scale
             for _ in range(100):
                 try:
-                    _start=time.time()
+                    _start = time.time()
                     operation()
                     _latency=(time.time() - start) * 1000  # type: ignore[name-defined]
                     run.latencies.append(latency)  # type: ignore[name-defined]
@@ -439,13 +439,13 @@ class ResourceProfilingBenchmark:
         memory_samples: List[float] = []
         cpu_samples: List[float] = []
 
-        _start_time=time.time()
+        _start_time = time.time()
 
         for _ in range(iterations):
             try:
-                _op_start=time.time()
+                _op_start = time.time()
                 operation()
-                _op_end=time.time()
+                _op_end = time.time()
                 latencies.append((op_end - op_start) * 1000)  # type: ignore[name-defined]
 
                 # Simulate resource monitoring
@@ -458,54 +458,54 @@ class ResourceProfilingBenchmark:
         _duration_ms=(time.time() - start_time) * 1000  # type: ignore[name-defined]
 
         return BenchmarkRun(  # type: ignore[call-arg]
-            _operation="profiled",
-            _scenario=TestScenario.MEDIUM_LOAD,
-            _duration_ms=duration_ms,  # type: ignore[name-defined]
-            _iterations=iterations,
-            _latencies=latencies,
-            _memory_peak_mb=max(memory_samples) if memory_samples else 0,
-            _cpu_avg_percent=statistics.mean(cpu_samples) if cpu_samples else 0,
+            _operation = "profiled",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = duration_ms,  # type: ignore[name-defined]
+            _iterations = iterations,
+            _latencies = latencies,
+            _memory_peak_mb = max(memory_samples) if memory_samples else 0,
+            _cpu_avg_percent = statistics.mean(cpu_samples) if cpu_samples else 0,
         )
 
 
 class PerformanceTestingFramework:
     """Main performance testing framework."""
 
-    SLA_BENCHMARKS={
+    SLA_BENCHMARKS = {
         SLALevel.GOLD: SLABenchmark(  # type: ignore[call-arg]
-            _sla_level=SLALevel.GOLD,
-            _max_p99_ms=100.0,
-            _max_error_rate=0.0001,    # 0.01%
-            _min_uptime=0.9999,
+            _sla_level = SLALevel.GOLD,
+            _max_p99_ms = 100.0,
+            _max_error_rate = 0.0001,    # 0.01%
+            _min_uptime = 0.9999,
         ),
         SLALevel.SILVER: SLABenchmark(  # type: ignore[call-arg]
-            _sla_level=SLALevel.SILVER,
-            _max_p99_ms=500.0,
-            _max_error_rate=0.001,    # 0.1%
-            _min_uptime=0.999,
+            _sla_level = SLALevel.SILVER,
+            _max_p99_ms = 500.0,
+            _max_error_rate = 0.001,    # 0.1%
+            _min_uptime = 0.999,
         ),
         SLALevel.BRONZE: SLABenchmark(  # type: ignore[call-arg]
-            _sla_level=SLALevel.BRONZE,
-            _max_p99_ms=1000.0,
-            _max_error_rate=0.01,    # 1%
-            _min_uptime=0.99,
+            _sla_level = SLALevel.BRONZE,
+            _max_p99_ms = 1000.0,
+            _max_error_rate = 0.01,    # 1%
+            _min_uptime = 0.99,
         ),
     }
 
     def __init__(self) -> None:
         """Initialize framework."""
         self.results: List[BenchmarkRun] = []
-        self.start_time=None
+        self.start_time = None
 
     def benchmark_latency(
         self,
         operation: Callable[..., Any],
-        iterations: int=1000,
-        scenario: TestScenario=TestScenario.MEDIUM_LOAD,
+        iterations: int = 1000,
+        scenario: TestScenario = TestScenario.MEDIUM_LOAD,
     ) -> BenchmarkRun:
         """Benchmark latency."""
         logger.info(f"Benchmarking latency with {iterations} iterations...")  # type: ignore[name-defined]
-        result=RPCLatencyBenchmark.benchmark_operation(
+        result = RPCLatencyBenchmark.benchmark_operation(
             operation, iterations, scenario
         )
         self.results.append(result)
@@ -514,13 +514,13 @@ class PerformanceTestingFramework:
     def benchmark_throughput(
         self,
         operation: Callable[..., Any],
-        concurrent_count: int=10,
-        scenario: TestScenario=TestScenario.MEDIUM_LOAD,
-        duration_seconds: float=10.0,
+        concurrent_count: int = 10,
+        scenario: TestScenario = TestScenario.MEDIUM_LOAD,
+        duration_seconds: float = 10.0,
     ) -> BenchmarkRun:
         """Benchmark throughput."""
         logger.info(f"Benchmarking throughput with {concurrent_count} concurrent...")  # type: ignore[name-defined]
-        result=ThroughputBenchmark.benchmark_concurrent(
+        result = ThroughputBenchmark.benchmark_concurrent(
             operation, concurrent_count, scenario, duration_seconds
         )
         self.results.append(result)
@@ -531,47 +531,47 @@ class PerformanceTestingFramework:
     ) -> List[BenchmarkRun]:
         """Benchmark scalability."""
         logger.info("Benchmarking scalability...")  # type: ignore[name-defined]
-        _results=ScalabilityBenchmark.benchmark_scalability(operation, node_counts)
+        _results = ScalabilityBenchmark.benchmark_scalability(operation, node_counts)
         self.results.extend(results)  # type: ignore[name-defined]
         return results  # type: ignore[name-defined]
 
     def profile_resources(
-        self, operation: Callable[..., Any], iterations: int=1000
+        self, operation: Callable[..., Any], iterations: int = 1000
     ) -> BenchmarkRun:
         """Profile resource usage."""
         logger.info("Profiling resource usage...")  # type: ignore[name-defined]
-        _result=ResourceProfilingBenchmark.profile_operation(operation, iterations)
+        _result = ResourceProfilingBenchmark.profile_operation(operation, iterations)
         self.results.append(result)  # type: ignore[name-defined]
         return result  # type: ignore[name-defined]
 
     def validate_sla(self, slalevel: SLALevel=SLALevel.SILVER) -> SLABenchmark:
         """Validate SLA compliance."""
-        sla=self.SLA_BENCHMARKS[sla_level]  # type: ignore[name-defined]
-        sla.results=self.results
+        sla = self.SLA_BENCHMARKS[sla_level]  # type: ignore[name-defined]
+        sla.results = self.results
         return sla
 
     def generate_report(self, testname: str) -> PerformanceReport:
         """Generate performance report."""
-        _total_operations=sum(r.iterations for r in self.results)
-        _total_duration=sum(r.duration_ms for r in self.results) / 1000
+        _total_operations = sum(r.iterations for r in self.results)
+        _total_duration = sum(r.duration_ms for r in self.results) / 1000
 
-        sla_results=[]
+        sla_results = []
         for level in SLALevel:
-            sla=self.SLA_BENCHMARKS[level]
-            sla.results=self.results
+            sla = self.SLA_BENCHMARKS[level]
+            sla.results = self.results
             sla_results.append(sla)
 
-        _report_id=f"perf-{datetime.now(timezone.utc).timestamp()}"
+        _report_id = f"perf-{datetime.now(timezone.utc).timestamp()}"
 
         return PerformanceReport(  # type: ignore[call-arg]
-            _report_id=report_id,  # type: ignore[name-defined]
-            _test_name=test_name,  # type: ignore[name-defined]
-            _total_operations=total_operations,  # type: ignore[name-defined]
-            _total_duration_s=total_duration,  # type: ignore[name-defined]
-            _runs=self.results,
-            _sla_results=sla_results,
+            _report_id = report_id,  # type: ignore[name-defined]
+            _test_name = test_name,  # type: ignore[name-defined]
+            _total_operations = total_operations,  # type: ignore[name-defined]
+            _total_duration_s = total_duration,  # type: ignore[name-defined]
+            _runs = self.results,
+            _sla_results = sla_results,
         )
 
     def to_json(self, report: PerformanceReport) -> str:
         """Convert report to JSON."""
-        return json.dumps(report.to_dict(), indent=2)
+        return json.dumps(report.to_dict(), indent = 2)

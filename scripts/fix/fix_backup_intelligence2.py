@@ -9,7 +9,7 @@ with open('opt/services/backup/backup_intelligence.py', 'r') as f:
 # Fix line 115: Remove spaces around = in function argument
 for i in range(len(lines)):
     if i + 1 == 115:  # Line 115 (0-indexed is 114)
-        lines[i] = lines[i].replace('default_factory = dict', 'default_factory=dict')
+        lines[i] = lines[i].replace('default_factory = dict', 'default_factory = dict')
     
     # Fix general issue: spaces in function call parameters like field(x = y) -> field(x=y)
     # But ONLY inside function calls (between parentheses)
@@ -22,7 +22,7 @@ for i in range(len(lines)):
     
     # Fix function argument spacing: remove spaces around = in calls
     # But keep spaces in assignments
-    lines[i] = re.sub(r'sandbox_network\s*=\s*"isolated', 'sandbox_network="isolated', lines[i])
+    lines[i] = re.sub(r'sandbox_network\s*=\s*"isolated', 'sandbox_network = "isolated', lines[i])
     lines[i] = re.sub(r'max_concurrent_tests\s*:\s*int\s*=\s*3', 'max_concurrent_tests: int = 3', lines[i])
     lines[i] = re.sub(r'test_timeout_minutes\s*:\s*int\s*=\s*60', 'test_timeout_minutes: int = 60', lines[i])
 
@@ -48,8 +48,8 @@ content = content.replace('_backups ', 'backups ')
 
 # Fix function call parameter spacing
 # These need NO spaces: field(default_factory=dict)
-content = re.sub(r'field\(\s+default_factory\s*=\s*dict', 'field(default_factory=dict', content)
-content = re.sub(r'field\(\s+default_factory\s*=\s*list', 'field(default_factory=list', content)
+content = re.sub(r'field\(\s+default_factory\s*=\s*dict', 'field(default_factory = dict', content)
+content = re.sub(r'field\(\s+default_factory\s*=\s*list', 'field(default_factory = list', content)
 
 # Fix function definition parameter defaults  
 # These NEED spaces: def foo(x: int = 5)

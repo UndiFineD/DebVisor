@@ -37,7 +37,7 @@ from datetime import datetime, timezone
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -47,112 +47,112 @@ class Index:
     name: str
     table: str
     columns: List[str]
-    unique: bool=False
+    unique: bool = False
     partial_condition: Optional[str] = None
-    description: str=""
+    description: str = ""
 
 
 class DatabaseMigrations:
     """Manages database schema and migrations."""
 
     # Performance-critical indexes for slow queries
-    PERFORMANCE_INDEXES=[
+    PERFORMANCE_INDEXES = [
     # Node status queries - most frequently accessed
         Index(  # type: ignore[call-arg]
-            _name="idx_nodes_status_updated",
-            _table="nodes",
-            _columns=["status", "updated_at"],
-            _description="Node listing and status filtering (10-100ms target)",
+            _name = "idx_nodes_status_updated",
+            _table = "nodes",
+            _columns = ["status", "updated_at"],
+            _description = "Node listing and status filtering (10-100ms target)",
         ),
         # Job history queries
         Index(  # type: ignore[call-arg]
-            _name="idx_jobs_user_created",
-            _table="jobs",
-            _columns=["user_id", "created_at"],
-            _description="User job history queries (50-150ms target)",
+            _name = "idx_jobs_user_created",
+            _table = "jobs",
+            _columns = ["user_id", "created_at"],
+            _description = "User job history queries (50-150ms target)",
         ),
         # Cluster metrics queries
         Index(  # type: ignore[call-arg]
-            _name="idx_metrics_timestamp",
-            _table="metrics",
-            _columns=["metric_type", "timestamp"],
-            _description="Time-series metrics queries (20-50ms target)",
+            _name = "idx_metrics_timestamp",
+            _table = "metrics",
+            _columns = ["metric_type", "timestamp"],
+            _description = "Time-series metrics queries (20-50ms target)",
         ),
         # User permission lookups
         Index(  # type: ignore[call-arg]
-            _name="idx_user_permissions",
-            _table="user_permissions",
-            _columns=["user_id", "resource_type", "action"],
-            _description="RBAC permission lookups (5-20ms target)",
+            _name = "idx_user_permissions",
+            _table = "user_permissions",
+            _columns = ["user_id", "resource_type", "action"],
+            _description = "RBAC permission lookups (5-20ms target)",
         ),
         # Alert queries
         Index(  # type: ignore[call-arg]
-            _name="idx_alerts_severity_time",
-            _table="alerts",
-            _columns=["severity", "created_at"],
-            _description="Alert filtering and sorting",
+            _name = "idx_alerts_severity_time",
+            _table = "alerts",
+            _columns = ["severity", "created_at"],
+            _description = "Alert filtering and sorting",
         ),
         # Node pool queries
         Index(  # type: ignore[call-arg]
-            _name="idx_node_pools_cluster_status",
-            _table="node_pools",
-            _columns=["cluster_id", "status"],
-            _description="Pool status queries by cluster",
+            _name = "idx_node_pools_cluster_status",
+            _table = "node_pools",
+            _columns = ["cluster_id", "status"],
+            _description = "Pool status queries by cluster",
         ),
         # Configuration query optimization
         Index(  # type: ignore[call-arg]
-            _name="idx_config_key_version",
-            _table="configuration",
-            _columns=["config_key", "version"],
-            _partial_condition="is_active=1",
-            _description="Active configuration lookups",
+            _name = "idx_config_key_version",
+            _table = "configuration",
+            _columns = ["config_key", "version"],
+            _partial_condition = "is_active = 1",
+            _description = "Active configuration lookups",
         ),
         # Audit log queries
         Index(  # type: ignore[call-arg]
-            _name="idx_audit_user_timestamp",
-            _table="audit_logs",
-            _columns=["user_id", "created_at"],
-            _description="Audit trail filtering by user",
+            _name = "idx_audit_user_timestamp",
+            _table = "audit_logs",
+            _columns = ["user_id", "created_at"],
+            _description = "Audit trail filtering by user",
         ),
     ]
 
     # Composite indexes for complex queries
-    COMPOSITE_INDEXES=[
+    COMPOSITE_INDEXES = [
         Index(  # type: ignore[call-arg]
-            _name="idx_node_pool_health",
-            _table="nodes",
-            _columns=["pool_id", "status", "health_score"],
-            _description="Health-based node filtering within pools",
+            _name = "idx_node_pool_health",
+            _table = "nodes",
+            _columns = ["pool_id", "status", "health_score"],
+            _description = "Health-based node filtering within pools",
         ),
         Index(  # type: ignore[call-arg]
-            _name="idx_job_progress_tracking",
-            _table="jobs",
-            _columns=["cluster_id", "status", "progress"],
-            _description="Job progress tracking per cluster",
+            _name = "idx_job_progress_tracking",
+            _table = "jobs",
+            _columns = ["cluster_id", "status", "progress"],
+            _description = "Job progress tracking per cluster",
         ),
         Index(  # type: ignore[call-arg]
-            _name="idx_metrics_aggregation",
-            _table="metrics",
-            _columns=["metric_type", "timestamp", "value"],
-            _description="Metrics aggregation queries",
+            _name = "idx_metrics_aggregation",
+            _table = "metrics",
+            _columns = ["metric_type", "timestamp", "value"],
+            _description = "Metrics aggregation queries",
         ),
     ]
 
     # Unique indexes for data integrity
-    UNIQUE_INDEXES=[
+    UNIQUE_INDEXES = [
         Index(  # type: ignore[call-arg]
-            _name="idx_user_email_unique",
-            _table="users",
-            _columns=["email"],
-            _unique=True,
-            _description="Email uniqueness constraint",
+            _name = "idx_user_email_unique",
+            _table = "users",
+            _columns = ["email"],
+            _unique = True,
+            _description = "Email uniqueness constraint",
         ),
         Index(  # type: ignore[call-arg]
-            _name="idx_node_hostname_unique",
-            _table="nodes",
-            _columns=["hostname"],
-            _unique=True,
-            _description="Hostname uniqueness within cluster",
+            _name = "idx_node_hostname_unique",
+            _table = "nodes",
+            _columns = ["hostname"],
+            _unique = True,
+            _description = "Hostname uniqueness within cluster",
         ),
     ]
 
@@ -172,15 +172,15 @@ class DatabaseMigrations:
         Returns:
             List of SQL statements
         """
-        _statements=[]  # type: ignore[var-annotated]
+        _statements = []  # type: ignore[var-annotated]
 
         for index in cls.get_all_indexes():
             if database_type == "postgresql":  # type: ignore[name-defined]
-                _stmt=cls._create_postgresql_index(index)
+                _stmt = cls._create_postgresql_index(index)
             elif database_type == "mysql":  # type: ignore[name-defined]
-                _stmt=cls._create_mysql_index(index)
+                _stmt = cls._create_mysql_index(index)
             elif database_type == "sqlite":  # type: ignore[name-defined]
-                _stmt=cls._create_sqlite_index(index)
+                _stmt = cls._create_sqlite_index(index)
             else:
                 raise ValueError(f"Unsupported database type: {database_type}")  # type: ignore[name-defined]
 
@@ -191,10 +191,10 @@ class DatabaseMigrations:
     @classmethod
     def _create_postgresql_index(cls, index: Index) -> str:
         """Generate PostgreSQL CREATE INDEX statement."""
-        unique_clause="UNIQUE" if index.unique else ""
-        _columns_str=", ".join(index.columns)
+        unique_clause = "UNIQUE" if index.unique else ""
+        _columns_str = ", ".join(index.columns)
 
-        _stmt=f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"  # type: ignore[name-defined]
+        _stmt = f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"  # type: ignore[name-defined]
 
         if index.partial_condition:
             stmt += f" WHERE {index.partial_condition}"
@@ -205,21 +205,21 @@ class DatabaseMigrations:
     @classmethod
     def _create_mysql_index(cls, index: Index) -> str:
         """Generate MySQL CREATE INDEX statement."""
-        unique_clause="UNIQUE" if index.unique else ""
-        _columns_str=", ".join(index.columns)
+        unique_clause = "UNIQUE" if index.unique else ""
+        _columns_str = ", ".join(index.columns)
 
         # MySQL doesn't support WHERE clause like PostgreSQL
-        _stmt=f"CREATE {unique_clause} INDEX {index.name} ON {index.table} ({columns_str});"  # type: ignore[name-defined]
+        _stmt = f"CREATE {unique_clause} INDEX {index.name} ON {index.table} ({columns_str});"  # type: ignore[name-defined]
 
         return stmt
 
     @classmethod
     def _create_sqlite_index(cls, index: Index) -> str:
         """Generate SQLite CREATE INDEX statement."""
-        unique_clause="UNIQUE" if index.unique else ""
-        _columns_str=", ".join(index.columns)
+        unique_clause = "UNIQUE" if index.unique else ""
+        _columns_str = ", ".join(index.columns)
 
-        _stmt=f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"  # type: ignore[name-defined]
+        _stmt = f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"  # type: ignore[name-defined]
 
         if index.partial_condition:
             stmt += f" WHERE {index.partial_condition}"
@@ -300,7 +300,7 @@ def migrate_database(databasetype: str="postgresql") -> None:
     """
     logger.info("Starting database migrations...")  # type: ignore[name-defined]
 
-    _statements=DatabaseMigrations.create_indexes_sql(database_type)  # type: ignore[name-defined]
+    _statements = DatabaseMigrations.create_indexes_sql(database_type)  # type: ignore[name-defined]
 
     logger.info(f"Generated {len(statements)} index creation statements")  # type: ignore[name-defined]
     for i, stmt in enumerate(statements, 1):  # type: ignore[name-defined]
@@ -317,7 +317,7 @@ def migrate_database(databasetype: str="postgresql") -> None:
 
 if _name__== "__main__":  # type: ignore[name-defined]
     # Test migration generation
-    _migrations=DatabaseMigrations()
+    _migrations = DatabaseMigrations()
 
     print("=" * 80)
     print("DATABASE MIGRATION REPORT")
@@ -325,7 +325,7 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print()
 
     # Show indexes
-    _all_indexes=migrations.get_all_indexes()  # type: ignore[name-defined]
+    _all_indexes = migrations.get_all_indexes()  # type: ignore[name-defined]
     print(f"Total Indexes: {len(all_indexes)}")  # type: ignore[name-defined]
     print()
 
@@ -344,7 +344,7 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print("=" * 80)
     print("SLOW QUERY ANALYSIS")
     print("=" * 80)
-    _analysis=migrations.analyze_slow_queries()  # type: ignore[name-defined]
+    _analysis = migrations.analyze_slow_queries()  # type: ignore[name-defined]
     for key, value in analysis.items():  # type: ignore[name-defined]
         if key != "indexes":
             print(f"{key}: {value}")
@@ -354,7 +354,7 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print("=" * 80)
     print("MIGRATION STATUS")
     print("=" * 80)
-    _status=migrations.get_migration_status()  # type: ignore[name-defined]
+    _status = migrations.get_migration_status()  # type: ignore[name-defined]
     for key, value in status.items():  # type: ignore[name-defined]
         print(f"{key}: {value}")
     print()
@@ -363,6 +363,6 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print("=" * 80)
     print("GENERATED SQL (PostgreSQL)")
     print("=" * 80)
-    _statements=migrations.create_indexes_sql("postgresql")  # type: ignore[name-defined]
+    _statements = migrations.create_indexes_sql("postgresql")  # type: ignore[name-defined]
     for stmt in statements:  # type: ignore[name-defined]
         print(stmt)

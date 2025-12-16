@@ -114,29 +114,29 @@ Example Usage:
 from opt.services.scheduler.core import get_scheduler
 
 # Get scheduler instance
-_scheduler=get_scheduler()
+_scheduler = get_scheduler()
 
 # Register task handler
 
 
 async def handle_vm_snapshot(config):
-    _vm_id=config["vm_id"]
+    _vm_id = config["vm_id"]
     # Perform snapshot
     return True
 
 scheduler.register_task_handler("vm_snapshot", handle_vm_snapshot)
 
 # Create job
-job=scheduler.create_job(
-    _name="Daily VM Snapshot",
-    _cron_expr="0 2 * * *",    # 2 AM daily
-    _task_type="vm_snapshot",
-    _task_config={"vm_id": "vm-123"},
-    _owner="admin"
+job = scheduler.create_job(
+    _name = "Daily VM Snapshot",
+    _cron_expr = "0 2 * * *",    # 2 AM daily
+    _task_type = "vm_snapshot",
+    _task_config = {"vm_id": "vm-123"},
+    _owner = "admin"
 )
 
 # Execute job manually
-_result=await scheduler.execute_job(job.job_id, manual=True)
+_result = await scheduler.execute_job(job.job_id, manual = True)
 
 Author: DebVisor Development Team
 Date: November 27, 2025
@@ -158,7 +158,7 @@ from .core import (
 from .cli import SchedulerCLI, main as cli_main
 from .api import SchedulerAPI, create_flask_app
 
-__all__=[
+__all__ = [
     "JobScheduler",
     "ScheduledJob",
     "JobStatus",
@@ -174,5 +174,5 @@ __all__=[
     "create_flask_app",
 ]
 
-__version__="1.0.0"
-__author__="DebVisor Development Team"
+__version__ = "1.0.0"
+__author__ = "DebVisor Development Team"

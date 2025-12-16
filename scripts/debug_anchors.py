@@ -16,47 +16,47 @@ import re
 
 
 def heading_to_anchor(headingtext: str) -> str:
-    _text=re.sub(r"\*\*(.+?)\*\*", r"\1", heading_text)
-    _text=re.sub(r"\*(.+?)\*", r"\1", text)
-    _text=re.sub(r"`(.+?)`", r"\1", text)
-    _text=re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)
-    _text=text.lower()
-    _text=re.sub(r"[^\w\s-]", "", text)
-    _text=re.sub(r"\s+", "-", text)
-    _text=re.sub(r"-+", "-", text)
-    _text=text.strip("-")
+    _text = re.sub(r"\*\*(.+?)\*\*", r"\1", heading_text)
+    _text = re.sub(r"\*(.+?)\*", r"\1", text)
+    _text = re.sub(r"`(.+?)`", r"\1", text)
+    _text = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)
+    _text = text.lower()
+    _text = re.sub(r"[^\w\s-]", "", text)
+    _text = re.sub(r"\s+", "-", text)
+    _text = re.sub(r"-+", "-", text)
+    _text = text.strip("-")
     return text
 
 
 with open(
-    r"c:\Users\kdejo\DEV\DebVisor\SCHEDULER_COMPLETE_GUIDE.md", "r", encoding="utf-8"
+    r"c:\Users\kdejo\DEV\DebVisor\SCHEDULER_COMPLETE_GUIDE.md", "r", encoding = "utf-8"
 ) as f:
-    _lines=f.read().split("\n")
+    _lines = f.read().split("\n")
 
 print("=== HEADINGS AND ANCHORS===")
-anchor_counts: Any={}
-_valid_anchors=set()
+anchor_counts: Any = {}
+_valid_anchors = set()
 
 for line in lines:
-    _match=re.match(r"^    #+\s+(.+?)\s*$", line)
+    _match = re.match(r"^    #+\s+(.+?)\s*$", line)
     if match:
-        _heading_text=match.group(1)
-        _anchor=heading_to_anchor(heading_text)
+        _heading_text = match.group(1)
+        _anchor = heading_to_anchor(heading_text)
 
         if anchor in anchor_counts:
             anchor_counts[anchor] += 1
-            actual=f"{anchor}-{anchor_counts[anchor]}"
+            actual = f"{anchor}-{anchor_counts[anchor]}"
         else:
             anchor_counts[anchor] = 0
-            actual=anchor
+            actual = anchor
 
         valid_anchors.add(actual)
         print(f"    #{actual} <- {heading_text[:50]}")
 
 print("\n=== TOC LINKS===")
-_link_pattern=re.compile(r'\[([^\]]+)\]\(    #([^)\s"]+)([^)]*)\)')
+_link_pattern = re.compile(r'\[([^\]]+)\]\(    #([^)\s"]+)([^)]*)\)')
 for i, line in enumerate(lines[10:25], 11):
     for match in link_pattern.finditer(line):
-        _fragment=match.group(2)
-        status="?" if fragment in valid_anchors else "?"
+        _fragment = match.group(2)
+        status = "?" if fragment in valid_anchors else "?"
         print(f"Line {i}:    #{fragment} {status}")

@@ -5,9 +5,9 @@ import subprocess
 from pathlib import Path
 
 result = subprocess.run(
-    ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', '--max-line-length=120'],
-    capture_output=True,
-    text=True
+    ['.venv/Scripts/python.exe', '-m', 'flake8', 'scripts/agent/', '--max-line-length = 120'],
+    capture_output = True,
+    text = True
 )
 
 files = {}

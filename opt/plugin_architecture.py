@@ -72,10 +72,10 @@ class PluginMetadata:
     author: str
     plugin_type: PluginType
     description: str
-    dependencies: List[str] = field(default_factory=list)
+    dependencies: List[str] = field(default_factory = list)
     required_version: str = "1.0.0"
-    config_schema: Dict[str, Any] = field(default_factory=dict)
-    permissions: List[str] = field(default_factory=list)
+    config_schema: Dict[str, Any] = field(default_factory = dict)
+    permissions: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -87,7 +87,7 @@ class PluginInfo:
     status: PluginStatus
     loaded_at: Optional[datetime] = None
     error_message: Optional[str] = None
-    config: Dict[str, Any] = field(default_factory=dict)
+    config: Dict[str, Any] = field(default_factory = dict)
     checksum: str = ""
 
 
@@ -270,12 +270,12 @@ class PluginLoader:
 
             # Create plugin info
             plugin_info = PluginInfo(
-                plugin_id=metadata.name,
-                metadata=metadata,
-                status=PluginStatus.ACTIVE,
-                loaded_at=datetime.now(timezone.utc),
-                config=config,
-                checksum=checksum,
+                plugin_id = metadata.name,
+                metadata = metadata,
+                status = PluginStatus.ACTIVE,
+                loaded_at = datetime.now(timezone.utc),
+                config = config,
+                checksum = checksum,
             )
 
             self.plugins[metadata.name] = plugin_info
@@ -290,19 +290,19 @@ class PluginLoader:
         except Exception as e:
             logger.error(f"Failed to load plugin: {e}")
             plugin_info = PluginInfo(
-                plugin_id=module_path,
-                metadata=PluginMetadata(
-                    name=module_path,
-                    version="0.0.0",
-                    author="unknown",
-                    plugin_type=PluginType.CUSTOM,
-                    description="",
+                plugin_id = module_path,
+                metadata = PluginMetadata(
+                    name = module_path,
+                    version = "0.0.0",
+                    author = "unknown",
+                    plugin_type = PluginType.CUSTOM,
+                    description = "",
                 ),
-                status=PluginStatus.ERROR,
-                error_message="Plugin load failed; check logs for details",
+                status = PluginStatus.ERROR,
+                error_message = "Plugin load failed; check logs for details",
             )
             self.plugins[module_path] = plugin_info
-            logger.error(f"Plugin load failed for {module_path}: {e}", exc_info=True)
+            logger.error(f"Plugin load failed for {module_path}: {e}", exc_info = True)
             return plugin_info
 
     def unload_plugin(self, plugin_name: str) -> bool:

@@ -7,7 +7,7 @@ import glob
 
 def fix_file(file_path: Path) -> int:
     """Fix a single file and return number of fixes applied"""
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding = 'utf-8') as f:
         lines = f.readlines()
     
     changes = 0
@@ -150,7 +150,7 @@ def fix_file(file_path: Path) -> int:
                 j -= 1
     
     # Write back if changes were made
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, 'w', encoding = 'utf-8') as f:
         f.writelines(lines)
     
     return changes

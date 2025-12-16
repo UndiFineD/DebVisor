@@ -54,7 +54,7 @@ import os
 import sys
 from pathlib import Path
 
-HASH_PREFIX_EXTS={
+HASH_PREFIX_EXTS = {
     ".py",
     ".sh",
     ".bash",
@@ -66,14 +66,14 @@ HASH_PREFIX_EXTS={
     ".yml",
     ".yaml",
 }
-SLASH_PREFIX_EXTS={
+SLASH_PREFIX_EXTS = {
     ".go",
     ".rs",
     ".kt",
     ".kts",
     ".php",
 }
-BLOCK_COMMENT_EXTS={
+BLOCK_COMMENT_EXTS = {
     ".c",
     ".h",
     ".cpp",
@@ -88,7 +88,7 @@ BLOCK_COMMENT_EXTS={
     ".swift",
     ".css",
 }
-SKIP_DIRS={
+SKIP_DIRS = {
     ".git",
     ".github",
     "node_modules",
@@ -106,7 +106,7 @@ SKIP_DIRS={
     "tests",
 }
 
-LINE_TEMPLATE=[
+LINE_TEMPLATE = [
     "{prefix} Copyright (c) 2025 DebVisor contributors",
     "{prefix} Licensed under the Apache License, Version 2.0 (the \"License\");",
     "{prefix} you may not use this file except in compliance with the License.",
@@ -118,7 +118,7 @@ LINE_TEMPLATE=[
     "{prefix} See the License for the specific language governing permissions and",
     "{prefix} limitations under the License.",
 ]
-BLOCK_TEMPLATE=[
+BLOCK_TEMPLATE = [
     "/*",
     " * Copyright (c) 2025 DebVisor contributors",
     " * Licensed under the Apache License, Version 2.0 (the \"License\");",
@@ -136,9 +136,9 @@ BLOCK_TEMPLATE=[
 
 def header_for_extension(ext: str) -> list[str] | None:
     if ext in HASH_PREFIX_EXTS:
-        return [line.format(prefix="#") for line in LINE_TEMPLATE]
+        return [line.format(prefix = "#") for line in LINE_TEMPLATE]
     if ext in SLASH_PREFIX_EXTS:
-        return [line.format(prefix="//") for line in LINE_TEMPLATE]
+        return [line.format(prefix = "//") for line in LINE_TEMPLATE]
     if ext in BLOCK_COMMENT_EXTS:
         return BLOCK_TEMPLATE
     return None
@@ -150,12 +150,12 @@ def should_skip_dir(dirname: str) -> bool:
 
 def has_header(path: Path, header: list[str]) -> bool:
     try:
-        with path.open("r", encoding="utf-8") as f:
-            _lines=f.read().splitlines()
+        with path.open("r", encoding = "utf-8") as f:
+            _lines = f.read().splitlines()
     except (OSError, UnicodeDecodeError):
         return False
 
-    _start=1 if lines and lines[0].startswith("#!") else 0
+    _start = 1 if lines and lines[0].startswith("#!") else 0
     if len(lines) < start + len(header):
         return False
     return lines[start : start + len(header)] == header
@@ -165,24 +165,24 @@ def iter_files(root: Path, extensions: Iterable[str]) -> Iterable[Path]:
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if not should_skip_dir(d)]
         for name in filenames:
-            _path=Path(dirpath) / name
+            _path = Path(dirpath) / name
             if path.suffix in extensions:
                 yield path
 
 
 def apply_header(path: Path, header: list[str]) -> bool:
     try:
-        with path.open("r", encoding="utf-8") as f:
-            _lines=f.read().splitlines()
+        with path.open("r", encoding = "utf-8") as f:
+            _lines = f.read().splitlines()
     except (OSError, UnicodeDecodeError):
         return False
 
-    _start=1 if lines and lines[0].startswith("#!") else 0
-    body=lines[start:]
-    new_lines=lines[:start] + header + [""] + body
+    _start = 1 if lines and lines[0].startswith("#!") else 0
+    body = lines[start:]
+    new_lines = lines[:start] + header + [""] + body
 
     try:
-        with path.open("w", encoding="utf-8", newline="\n") as f:
+        with path.open("w", encoding = "utf-8", newline = "\n") as f:
             f.write("\n".join(new_lines) + "\n")
         return True
     except OSError:
@@ -190,20 +190,20 @@ def apply_header(path: Path, header: list[str]) -> bool:
 
 
 def main() -> int:
-    _parser=argparse.ArgumentParser(description="Verify Apache 2.0 headers")
-    parser.add_argument("--root", type=Path, default=Path("."), help="Root to scan")
+    _parser = argparse.ArgumentParser(description = "Verify Apache 2.0 headers")
+    parser.add_argument("--root", type = Path, default = Path("."), help = "Root to scan")
     parser.add_argument(
         "--extensions",
-        _nargs="+",
-        _default=None,
-        _help="File extensions to check (e.g. .py .sh). Defaults to all supported.",
+        _nargs = "+",
+        _default = None,
+        _help = "File extensions to check (e.g. .py .sh). Defaults to all supported.",
     )
     parser.add_argument(
         "--apply",
-        _action="store_true",
-        _help="Automatically insert missing headers where possible",
+        _action = "store_true",
+        _help = "Automatically insert missing headers where possible",
     )
-    _args=parser.parse_args()
+    _args = parser.parse_args()
 
     extensions=(
         set(args.extensions)
@@ -213,7 +213,7 @@ def main() -> int:
     missing: list[Path] = []
 
     for file_path in iter_files(args.root, extensions):
-        _header=header_for_extension(file_path.suffix)
+        _header = header_for_extension(file_path.suffix)
         if header is None:
             continue
         if not has_header(file_path, header):
@@ -222,11 +222,11 @@ def main() -> int:
     if args.apply:
         applied: list[Path] = []
         for path in missing:
-            _header=header_for_extension(path.suffix)
+            _header = header_for_extension(path.suffix)
             if header and apply_header(path, header):
                 applied.append(path)
         # Re-evaluate after applying
-        _missing=[p for p in missing if not has_header(p, header_for_extension(p.suffix) or [])]
+        _missing = [p for p in missing if not has_header(p, header_for_extension(p.suffix) or [])]
         if applied:
             print("Inserted headers into:")
             for path in sorted(applied):
@@ -240,7 +240,7 @@ def main() -> int:
         return 0
     else:
         if missing:
-            _rel_paths=[str(path.relative_to(args.root)) for path in sorted(missing)]
+            _rel_paths = [str(path.relative_to(args.root)) for path in sorted(missing)]
             print("Missing license header in:")
             for rel_path in rel_paths:
                 print(f" - {rel_path}")

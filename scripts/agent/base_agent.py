@@ -136,7 +136,7 @@ class PromptTemplate:
     template: str
     description: str = ""
     version: str = "1.0"
-    tags: List[str] = field(default_factory=list)
+    tags: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -150,7 +150,7 @@ class ConversationMessage:
     """
     role: str  # "user", "assistant", "system"
     content: str
-    timestamp: float = field(default_factory=time.time)
+    timestamp: float = field(default_factory = time.time)
 
 
 @dataclass
@@ -210,7 +210,7 @@ class HealthCheckResult:
     backend_available: bool
     memory_ok: bool = True
     disk_ok: bool = True
-    details: Dict[str, Any] = field(default_factory=dict)
+    details: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -234,7 +234,7 @@ class AuthConfig:
     password: str = ""
     oauth_client_id: str = ""
     oauth_client_secret: str = ""
-    custom_headers: Dict[str, str] = field(default_factory=dict)
+    custom_headers: Dict[str, str] = field(default_factory = dict)
 
 
 @dataclass
@@ -288,7 +288,7 @@ class PromptVersion:
     variant: str
     prompt_text: str
     weight: float = 1.0
-    metrics: Dict[str, float] = field(default_factory=dict)
+    metrics: Dict[str, float] = field(default_factory = dict)
 
 
 @dataclass
@@ -304,7 +304,7 @@ class MultimodalInput:
     input_type: InputType
     content: str
     mime_type: str = ""
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -318,9 +318,9 @@ class ComposedAgent:
         depends_on: Other agents this depends on.
     """
     agent_type: str
-    config: Dict[str, Any] = field(default_factory=dict)
+    config: Dict[str, Any] = field(default_factory = dict)
     order: int = 0
-    depends_on: List[str] = field(default_factory=list)
+    depends_on: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -334,7 +334,7 @@ class SerializationConfig:
         encryption: Whether to encrypt output.
     """
     format: SerializationFormat = SerializationFormat.JSON
-    options: Dict[str, Any] = field(default_factory=dict)
+    options: Dict[str, Any] = field(default_factory = dict)
     compression: bool = False
     encryption: bool = False
 
@@ -348,8 +348,8 @@ class FilePriorityConfig:
         extension_priorities: Extensions mapped to priorities.
         default_priority: Default priority level.
     """
-    path_patterns: Dict[str, FilePriority] = field(default_factory=dict)
-    extension_priorities: Dict[str, FilePriority] = field(default_factory=dict)
+    path_patterns: Dict[str, FilePriority] = field(default_factory = dict)
+    extension_priorities: Dict[str, FilePriority] = field(default_factory = dict)
     default_priority: FilePriority = FilePriority.NORMAL
 
 
@@ -357,32 +357,32 @@ class FilePriorityConfig:
 
 DEFAULT_PROMPT_TEMPLATES: List[PromptTemplate] = [
     PromptTemplate(
-        id="improve_code",
-        name="Code Improvement",
-        template="Improve the following code:\n\n{content}\n\nFocus on: {focus}",
-        description="General code improvement template",
-        tags=["code", "improvement"]
+        id = "improve_code",
+        name = "Code Improvement",
+        template = "Improve the following code:\n\n{content}\n\nFocus on: {focus}",
+        description = "General code improvement template",
+        tags = ["code", "improvement"]
     ),
     PromptTemplate(
-        id="add_docstrings",
-        name="Add Docstrings",
-        template="Add comprehensive docstrings to all functions and classes:\n\n{content}",
-        description="Template for adding documentation",
-        tags=["documentation"]
+        id = "add_docstrings",
+        name = "Add Docstrings",
+        template = "Add comprehensive docstrings to all functions and classes:\n\n{content}",
+        description = "Template for adding documentation",
+        tags = ["documentation"]
     ),
     PromptTemplate(
-        id="fix_bugs",
-        name="Bug Fix",
-        template="Analyze and fix bugs in this code:\n\n{content}\n\nKnown issues: {issues}",
-        description="Template for bug fixing",
-        tags=["bugs", "fix"]
+        id = "fix_bugs",
+        name = "Bug Fix",
+        template = "Analyze and fix bugs in this code:\n\n{content}\n\nKnown issues: {issues}",
+        description = "Template for bug fixing",
+        tags = ["bugs", "fix"]
     ),
     PromptTemplate(
-        id="add_tests",
-        name="Generate Tests",
-        template="Generate comprehensive tests for:\n\n{content}\n\nCoverage focus: {coverage}",
-        description="Template for test generation",
-        tags=["tests", "coverage"]
+        id = "add_tests",
+        name = "Generate Tests",
+        template = "Generate comprehensive tests for:\n\n{content}\n\nCoverage focus: {coverage}",
+        description = "Template for test generation",
+        tags = ["tests", "coverage"]
     ),
 ]
 
@@ -429,9 +429,9 @@ def setup_logging(verbosity_arg: int = 0) -> None:
     if verbosity_arg > 0:
         level = logging.DEBUG
     logging.basicConfig(
-        level=level,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        datefmt='%H:%M:%S'
+        level = level,
+        format = '%(asctime)s - %(levelname)s - %(message)s',
+        datefmt = '%H:%M:%S'
     )
     logging.debug(f"Logging configured at level: {logging.getLevelName(level)}")
 
@@ -535,14 +535,14 @@ class BaseAgent:
             AgentConfig: Configuration object with settings from env vars.
         """
         return AgentConfig(
-            backend=os.environ.get("DV_AGENT_BACKEND", "auto"),
-            model=os.environ.get("DV_AGENT_MODEL", ""),
-            max_tokens=int(os.environ.get("DV_AGENT_MAX_TOKENS", "4096")),
-            temperature=float(os.environ.get("DV_AGENT_TEMPERATURE", "0.7")),
-            retry_count=int(os.environ.get("DV_AGENT_RETRY_COUNT", "3")),
-            timeout=int(os.environ.get("DV_AGENT_TIMEOUT", "60")),
-            cache_enabled=os.environ.get("DV_AGENT_CACHE", "true").lower() == "true",
-            token_budget=int(os.environ.get("DV_AGENT_TOKEN_BUDGET", "100000")),
+            backend = os.environ.get("DV_AGENT_BACKEND", "auto"),
+            model = os.environ.get("DV_AGENT_MODEL", ""),
+            max_tokens = int(os.environ.get("DV_AGENT_MAX_TOKENS", "4096")),
+            temperature = float(os.environ.get("DV_AGENT_TEMPERATURE", "0.7")),
+            retry_count = int(os.environ.get("DV_AGENT_RETRY_COUNT", "3")),
+            timeout = int(os.environ.get("DV_AGENT_TIMEOUT", "60")),
+            cache_enabled = os.environ.get("DV_AGENT_CACHE", "true").lower() == "true",
+            token_budget = int(os.environ.get("DV_AGENT_TOKEN_BUDGET", "100000")),
         )
 
     @property
@@ -608,7 +608,7 @@ class BaseAgent:
         if self.file_path.exists():
             try:
                 logging.debug(f"Reading content from {self.file_path}")
-                self.previous_content = self.file_path.read_text(encoding='utf-8')
+                self.previous_content = self.file_path.read_text(encoding = 'utf-8')
                 logging.info(f"Read {len(self.previous_content)} bytes from {self.file_path.name}")
             except Exception as e:
                 logging.error(f"Failed to read file {self.file_path}: {e}")
@@ -706,15 +706,15 @@ class BaseAgent:
             # Cache the response
             if self._config.cache_enabled:
                 BaseAgent._response_cache[cache_key] = CacheEntry(
-                    key=cache_key,
-                    response=improvement,
-                    timestamp=time.time(),
-                    quality_score=quality.value
+                    key = cache_key,
+                    response = improvement,
+                    timestamp = time.time(),
+                    quality_score = quality.value
                 )
 
             # Add to conversation history
-            self._conversation_history.append(ConversationMessage(role="user", content=prompt))
-            self._conversation_history.append(ConversationMessage(role="assistant", content=improvement[:500]))
+            self._conversation_history.append(ConversationMessage(role = "user", content = prompt))
+            self._conversation_history.append(ConversationMessage(role = "assistant", content = improvement[:500]))
 
             logging.info(f"Content improved successfully ({len(improvement)} bytes)")
             self._trigger_event(EventType.POST_IMPROVE, {"quality": quality.name})
@@ -839,8 +839,8 @@ class BaseAgent:
 
         logging.info(f"Writing {len(content_to_write)} bytes to {self.file_path.name}")
         # Ensure parent directory exists
-        self.file_path.parent.mkdir(parents=True, exist_ok=True)
-        self.file_path.write_text(content_to_write, encoding='utf-8')
+        self.file_path.parent.mkdir(parents = True, exist_ok = True)
+        self.file_path.write_text(content_to_write, encoding = 'utf-8')
 
     def get_diff(self) -> str:
         """Get the diff between previous and current content.
@@ -866,10 +866,10 @@ class BaseAgent:
         """
         logging.debug("Generating diff between previous and current content")
         diff = difflib.unified_diff(
-            self.previous_content.splitlines(keepends=True),
-            self.current_content.splitlines(keepends=True),
-            fromfile='previous',
-            tofile='current'
+            self.previous_content.splitlines(keepends = True),
+            self.current_content.splitlines(keepends = True),
+            fromfile = 'previous',
+            tofile = 'current'
         )
         diff_str = ''.join(diff)
         if diff_str:
@@ -919,7 +919,7 @@ class BaseAgent:
         if not template:
             raise ValueError(f"Template not found: {template_id}")
 
-        prompt = template.template.format(**variables, content=self.previous_content)
+        prompt = template.template.format(**variables, content = self.previous_content)
         return self.improve_content(prompt)
 
     # ========== Conversation History ==========
@@ -931,7 +931,7 @@ class BaseAgent:
             role: Message role (user, assistant, system).
             content: Message content.
         """
-        self._conversation_history.append(ConversationMessage(role=role, content=content))
+        self._conversation_history.append(ConversationMessage(role = role, content = content))
 
     def clear_history(self) -> None:
         """Clear conversation history."""
@@ -1143,9 +1143,9 @@ class BaseAgent:
         backend_available = any(v.get("available", False) for v in backend_status.values() if isinstance(v, dict))
 
         return HealthCheckResult(
-            healthy=backend_available,
-            backend_available=backend_available,
-            details={
+            healthy = backend_available,
+            backend_available = backend_available,
+            details = {
                 "backends": backend_status,
                 "cache_entries": len(cls._response_cache),
                 "plugins": list(cls._plugins.keys()),
@@ -1168,7 +1168,7 @@ class BaseAgent:
             "state_data": self._state_data,
             "history_length": len(self._conversation_history),
         }
-        state_path.write_text(json.dumps(state, indent=2), encoding="utf-8")
+        state_path.write_text(json.dumps(state, indent = 2), encoding = "utf-8")
         logging.debug(f"State saved to {state_path}")
 
     def load_state(self, path: Optional[Path] = None) -> bool:
@@ -1185,7 +1185,7 @@ class BaseAgent:
             return False
 
         try:
-            state = json.loads(state_path.read_text(encoding="utf-8"))
+            state = json.loads(state_path.read_text(encoding = "utf-8"))
             self._token_usage = state.get("token_usage", 0)
             self._state_data = state.get("state_data", {})
             logging.debug(f"State loaded from {state_path}")
@@ -1239,7 +1239,7 @@ class RequestBatcher:
         results: Completed batch results.
 
     Example:
-        batcher = RequestBatcher(batch_size=10)
+        batcher = RequestBatcher(batch_size = 10)
         batcher.add_request(BatchRequest(Path("file.py"), "Improve"))
         results = batcher.process_all(agent_factory)
     """
@@ -1259,7 +1259,7 @@ class RequestBatcher:
         self.max_concurrent = max_concurrent
         self.queue: List[BatchRequest] = []
         self.results: List[BatchResult] = []
-        logging.debug(f"RequestBatcher initialized with batch_size={batch_size}")
+        logging.debug(f"RequestBatcher initialized with batch_size = {batch_size}")
 
     def add_request(self, request: BatchRequest) -> None:
         """Add a request to the queue.
@@ -1324,10 +1324,10 @@ class RequestBatcher:
                 content = agent.improve_content(request.prompt)
 
                 result = BatchResult(
-                    file_path=request.file_path,
-                    success=True,
-                    content=content,
-                    processing_time=time.time() - start_time
+                    file_path = request.file_path,
+                    success = True,
+                    content = content,
+                    processing_time = time.time() - start_time
                 )
 
                 if request.callback:
@@ -1335,10 +1335,10 @@ class RequestBatcher:
 
             except Exception as e:
                 result = BatchResult(
-                    file_path=request.file_path,
-                    success=False,
-                    error=str(e),
-                    processing_time=time.time() - start_time
+                    file_path = request.file_path,
+                    success = False,
+                    error = str(e),
+                    processing_time = time.time() - start_time
                 )
 
             results.append(result)
@@ -1398,7 +1398,7 @@ class AuthenticationManager:
         token_cache: Cached authentication tokens.
 
     Example:
-        auth = AuthenticationManager(AuthConfig(method=AuthMethod.BEARER_TOKEN, token="xxx"))
+        auth = AuthenticationManager(AuthConfig(method = AuthMethod.BEARER_TOKEN, token = "xxx"))
         headers = auth.get_headers()
     """
 
@@ -1410,7 +1410,7 @@ class AuthenticationManager:
         """
         self.config = config or AuthConfig()
         self.token_cache: Dict[str, str] = {}
-        logging.debug(f"AuthenticationManager initialized with method={self.config.method.value}")
+        logging.debug(f"AuthenticationManager initialized with method = {self.config.method.value}")
 
     def get_headers(self) -> Dict[str, str]:
         """Get authentication headers.
@@ -1699,7 +1699,7 @@ class MultimodalProcessor:
         self.add_input(MultimodalInput(
             InputType.CODE,
             code,
-            metadata={"language": language}
+            metadata = {"language": language}
         ))
 
     def build_prompt(self) -> str:
@@ -1769,8 +1769,8 @@ class AgentComposer:
 
     Example:
         composer = AgentComposer()
-        composer.add_agent(ComposedAgent("coder", order=1))
-        composer.add_agent(ComposedAgent("tests", order=2, depends_on=["coder"]))
+        composer.add_agent(ComposedAgent("coder", order = 1))
+        composer.add_agent(ComposedAgent("tests", order = 2, depends_on = ["coder"]))
         result = composer.execute(file_path, prompt)
     """
 
@@ -1883,7 +1883,7 @@ class SerializationManager:
         config: Serialization configuration.
 
     Example:
-        manager = SerializationManager(SerializationConfig(format=SerializationFormat.JSON))
+        manager = SerializationManager(SerializationConfig(format = SerializationFormat.JSON))
         data = manager.serialize({"key": "value"})
         obj = manager.deserialize(data)
     """
@@ -1895,7 +1895,7 @@ class SerializationManager:
             config: Serialization configuration.
         """
         self.config = config or SerializationConfig()
-        logging.debug(f"SerializationManager initialized with format={self.config.format.value}")
+        logging.debug(f"SerializationManager initialized with format = {self.config.format.value}")
 
     def serialize(self, data: Any) -> bytes:
         """Serialize data to bytes.
@@ -1907,7 +1907,7 @@ class SerializationManager:
             Serialized bytes.
         """
         if self.config.format == SerializationFormat.JSON:
-            result = json.dumps(data, indent=2).encode("utf-8")
+            result = json.dumps(data, indent = 2).encode("utf-8")
         elif self.config.format == SerializationFormat.PICKLE:
             import pickle
             result = pickle.dumps(data)
@@ -2078,27 +2078,27 @@ for template in DEFAULT_PROMPT_TEMPLATES:
 def create_main_function(agent_class: Type[BaseAgent], description: str, context_help: str) -> Callable[[], None]:
     """Create a main function for an agent class."""
     def main() -> None:
-        parser = argparse.ArgumentParser(description=description)
+        parser = argparse.ArgumentParser(description = description)
         parser.add_argument(
             '--describe-backends',
-            action='store_true',
-            help='Print which AI backends are available/configured and exit',
+            action = 'store_true',
+            help = 'Print which AI backends are available/configured and exit',
         )
         parser.add_argument(
             '--backend',
-            choices=['auto', 'copilot', 'gh', 'github-models'],
-            default=None,
-            help='Select backend (overrides DV_AGENT_BACKEND for this run only)',
+            choices = ['auto', 'copilot', 'gh', 'github-models'],
+            default = None,
+            help = 'Select backend (overrides DV_AGENT_BACKEND for this run only)',
         )
         parser.add_argument(
             '--verbose',
             '-v',
-            action='count',
-            default=0,
-            help='Increase verbosity (can be used multiple times, e.g. -vv)',
+            action = 'count',
+            default = 0,
+            help = 'Increase verbosity (can be used multiple times, e.g. -vv)',
         )
-        parser.add_argument('--context', required=True, help=context_help)
-        parser.add_argument('--prompt', required=True, help='Prompt for improving the content')
+        parser.add_argument('--context', required = True, help = context_help)
+        parser.add_argument('--prompt', required = True, help = 'Prompt for improving the content')
         args = parser.parse_args()
         setup_logging(args.verbose)
         if args.backend:

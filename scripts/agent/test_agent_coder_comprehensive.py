@@ -455,7 +455,7 @@ def func():
     y = 2
     return x + y
 """
-        non_empty_lines = [l for l in code.split("\n") if l.strip()]
+        non_empty_lines = [line for line in code.split("\n") if line.strip()]
         assert len(non_empty_lines) > 0
 
 

@@ -130,7 +130,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -138,32 +138,32 @@ _logger=logging.getLogger(__name__)
 # =============================================================================
 class AlertSeverity(Enum):
     """Alert severity levels."""
-    CRITICAL="critical"
-    HIGH="high"
-    MEDIUM="medium"
-    LOW="low"
-    INFO="info"
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+    INFO = "info"
 
 
 class RemediationStatus(Enum):
     """Status of remediation execution."""
-    PENDING="pending"
-    IN_PROGRESS="in_progress"
-    COMPLETED="completed"
-    FAILED="failed"
-    SKIPPED="skipped"
+    PENDING = "pending"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    SKIPPED = "skipped"
 
 
 class RunbookCategory(Enum):
     """Categories of operational runbooks."""
-    PERFORMANCE="performance"
-    SECURITY="security"
-    AVAILABILITY="availability"
-    CAPACITY="capacity"
-    NETWORK="network"
-    STORAGE="storage"
-    DATABASE="database"
-    APPLICATION="application"
+    PERFORMANCE = "performance"
+    SECURITY = "security"
+    AVAILABILITY = "availability"
+    CAPACITY = "capacity"
+    NETWORK = "network"
+    STORAGE = "storage"
+    DATABASE = "database"
+    APPLICATION = "application"
 
 
 # =============================================================================
@@ -180,8 +180,8 @@ class SystemAlert:
     severity: AlertSeverity
     source: str  # e.g., "prometheus", "logs", "health_check"
     timestamp: datetime
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    labels: Dict[str, str] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
+    labels: Dict[str, str] = field(default_factory = dict)
     raw_data: Optional[str] = None
 
 
@@ -193,8 +193,8 @@ class RemediationStep:
     command: Optional[str] = None
     expected_output: Optional[str] = None
     verification: Optional[str] = None
-    safety_level: str="safe"  # safe, caution, dangerous
-    estimated_duration: str="< 1 min"
+    safety_level: str = "safe"  # safe, caution, dangerous
+    estimated_duration: str = "< 1 min"
     rollback_command: Optional[str] = None
 
 
@@ -207,10 +207,10 @@ class RunbookRecommendation:
     confidence_score: float  # 0.0 to 1.0
     root_cause_analysis: str
     remediation_steps: List[RemediationStep]
-    prerequisites: List[str] = field(default_factory=list)
-    documentation_links: List[str] = field(default_factory=list)
-    estimated_time: str="5-10 minutes"
-    risk_assessment: str="Low"
+    prerequisites: List[str] = field(default_factory = list)
+    documentation_links: List[str] = field(default_factory = list)
+    estimated_time: str = "5-10 minutes"
+    risk_assessment: str = "Low"
     success_rate: Optional[float] = None  # Historical success rate
     generated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -224,10 +224,10 @@ class RemediationExecution:
     status: RemediationStatus
     started_at: datetime
     completed_at: Optional[datetime] = None
-    executed_steps: List[int] = field(default_factory=list)
-    step_results: Dict[int, Dict[str, Any]] = field(default_factory=dict)
+    executed_steps: List[int] = field(default_factory = list)
+    step_results: Dict[int, Dict[str, Any]] = field(default_factory = dict)
     error_message: Optional[str] = None
-    user_approved: bool=False
+    user_approved: bool = False
 
 
 # =============================================================================
@@ -248,7 +248,7 @@ class RunbookKnowledgeBase:
 
     def _initialize_patterns(self) -> None:
         """Initialize common operational patterns."""
-        self.patterns={
+        self.patterns = {
             "high_cpu_usage": {
                 "indicators": ["cpu", "high", "usage", "overload", "throttle"],
                 "category": RunbookCategory.PERFORMANCE,
@@ -355,19 +355,19 @@ class RunbookKnowledgeBase:
 
     def match_pattern(self, alert: SystemAlert) -> Optional[Dict[str, Any]]:
         """Match an alert to a known pattern."""
-        _alert_text=f"{alert.title} {alert.description}".lower()
+        _alert_text = f"{alert.title} {alert.description}".lower()
 
-        _best_match=None
-        best_score=0
+        _best_match = None
+        best_score = 0
 
         for pattern_name, pattern_data in self.patterns.items():
-            score=sum(
+            score = sum(
                 1 for indicator in pattern_data["indicators"]
                 if indicator in alert_text
             )
 
             if score > best_score:
-                best_score=score
+                best_score = score
                 _best_match=(pattern_name, pattern_data)
 
         if best_match and best_score > 0:
@@ -392,7 +392,7 @@ class AIRunbookGenerator:
     """
 
     def __init__(self, knowledgebase: RunbookKnowledgeBase) -> None:
-        self.kb=knowledge_base
+        self.kb = knowledge_base
         self.historical_success: Dict[str, float] = {}
 
     async def generate_runbook(
@@ -404,31 +404,31 @@ class AIRunbookGenerator:
         logger.info(f"Generating runbook for alert: {alert.alert_id}")
 
         # Match alert to known patterns
-        _pattern=self.kb.match_pattern(alert)
+        _pattern = self.kb.match_pattern(alert)
 
         if not pattern:
             logger.warning(f"No pattern match for alert {alert.alert_id}")
             return self._generate_generic_runbook(alert, context)
 
         # Generate runbook from pattern
-        runbook_id=f"rb-{alert.alert_id}"
+        runbook_id = f"rb-{alert.alert_id}"
 
-        _steps=self._create_remediation_steps(pattern, alert, context)
+        _steps = self._create_remediation_steps(pattern, alert, context)
 
-        _recommendation=RunbookRecommendation(
-            _runbook_id=runbook_id,
-            _title=f"Remediation for {alert.title}",
-            _category=pattern["category"],
-            _confidence_score=self._calculate_confidence(pattern, alert),
-            _root_cause_analysis=self._generate_root_cause_analysis(
+        _recommendation = RunbookRecommendation(
+            _runbook_id = runbook_id,
+            _title = f"Remediation for {alert.title}",
+            _category = pattern["category"],
+            _confidence_score = self._calculate_confidence(pattern, alert),
+            _root_cause_analysis = self._generate_root_cause_analysis(
                 pattern, alert, context
             ),
-            _remediation_steps=steps,
-            _prerequisites=self._identify_prerequisites(pattern, alert),
-            _documentation_links=self._get_documentation_links(pattern),
-            _estimated_time=self._estimate_time(steps),
-            _risk_assessment=self._assess_risk(steps),
-            _success_rate=self.historical_success.get(runbook_id),
+            _remediation_steps = steps,
+            _prerequisites = self._identify_prerequisites(pattern, alert),
+            _documentation_links = self._get_documentation_links(pattern),
+            _estimated_time = self._estimate_time(steps),
+            _risk_assessment = self._assess_risk(steps),
+            _success_rate = self.historical_success.get(runbook_id),
         )
 
         logger.info(
@@ -445,17 +445,17 @@ class AIRunbookGenerator:
     ) -> float:
         """Calculate confidence score for the recommendation."""
         # Simple scoring based on pattern match strength
-        _alert_text=f"{alert.title} {alert.description}".lower()
+        _alert_text = f"{alert.title} {alert.description}".lower()
 
-        matches=sum(
+        matches = sum(
             1 for indicator in pattern["indicators"]
             if indicator in alert_text
         )
 
-        _confidence=min(0.5 + (matches * 0.1), 0.95)
+        _confidence = min(0.5 + (matches * 0.1), 0.95)
 
         # Boost confidence if we have historical success
-        runbook_id=f"rb-{alert.alert_id}"
+        runbook_id = f"rb-{alert.alert_id}"
         if runbook_id in self.historical_success:
             _confidence=(confidence + self.historical_success[runbook_id]) / 2
 
@@ -468,7 +468,7 @@ class AIRunbookGenerator:
         context: Optional[Dict[str, Any]]
     ) -> str:
         """Generate root cause analysis."""
-        analysis=f"Alert: {alert.title}\n\n"
+        analysis = f"Alert: {alert.title}\n\n"
         analysis += f"Severity: {alert.severity.value}\n\n"
         analysis += "Possible Root Causes:\n"
 
@@ -489,17 +489,17 @@ class AIRunbookGenerator:
         context: Optional[Dict[str, Any]]
     ) -> List[RemediationStep]:
         """Create detailed remediation steps."""
-        steps=[]
+        steps = []
 
         for i, step_desc in enumerate(pattern.get("remediation_steps", []), 1):
-            step=RemediationStep(
-                _step_number=i,
-                _description=step_desc,
-                _command=self._generate_command(step_desc, alert, context),
-                _expected_output=self._describe_expected_output(step_desc),
-                _verification=self._create_verification_check(step_desc),
-                _safety_level=self._assess_step_safety(step_desc),
-                _estimated_duration=self._estimate_step_duration(step_desc),
+            step = RemediationStep(
+                _step_number = i,
+                _description = step_desc,
+                _command = self._generate_command(step_desc, alert, context),
+                _expected_output = self._describe_expected_output(step_desc),
+                _verification = self._create_verification_check(step_desc),
+                _safety_level = self._assess_step_safety(step_desc),
+                _estimated_duration = self._estimate_step_duration(step_desc),
             )
             steps.append(step)
 
@@ -512,7 +512,7 @@ class AIRunbookGenerator:
         context: Optional[Dict[str, Any]]
     ) -> Optional[str]:
         """Generate specific command for a remediation step."""
-        _step_lower=step_desc.lower()
+        _step_lower = step_desc.lower()
 
         # Pattern-based command generation
         if "top cpu" in step_lower or "identify" in step_lower:
@@ -556,10 +556,10 @@ class AIRunbookGenerator:
 
     def _assess_step_safety(self, stepdesc: str) -> str:
         """Assess safety level of a remediation step."""
-        dangerous_keywords=["delete", "remove", "kill", "force"]
-        caution_keywords=["restart", "stop", "modify", "change"]
+        dangerous_keywords = ["delete", "remove", "kill", "force"]
+        caution_keywords = ["restart", "stop", "modify", "change"]
 
-        _step_lower=step_desc.lower()
+        _step_lower = step_desc.lower()
 
         if any(kw in step_lower for kw in dangerous_keywords):
             return "dangerous"
@@ -585,7 +585,7 @@ class AIRunbookGenerator:
         alert: SystemAlert
     ) -> List[str]:
         """Identify prerequisites for remediation."""
-        prereqs=[
+        prereqs = [
             "Root or sudo access to the system",
             "Backup of current configuration",
         ]
@@ -617,8 +617,8 @@ class AIRunbookGenerator:
 
     def _assess_risk(self, steps: List[RemediationStep]) -> str:
         """Assess overall risk of remediation."""
-        dangerous_count=sum(1 for s in steps if s.safety_level== "dangerous")
-        caution_count=sum(1 for s in steps if s.safety_level== "caution")
+        dangerous_count = sum(1 for s in steps if s.safety_level== "dangerous")
+        caution_count = sum(1 for s in steps if s.safety_level== "caution")
 
         if dangerous_count > 0:
             return "High"
@@ -633,45 +633,45 @@ class AIRunbookGenerator:
         context: Optional[Dict[str, Any]]
     ) -> RunbookRecommendation:
         """Generate a generic runbook when no pattern matches."""
-        _steps=[
+        _steps = [
             RemediationStep(
-                _step_number=1,
-                _description="Review alert details and error messages",
-                _safety_level="safe",
+                _step_number = 1,
+                _description = "Review alert details and error messages",
+                _safety_level = "safe",
             ),
             RemediationStep(
-                _step_number=2,
-                _description="Check system logs for related errors",
-                _command="journalctl -xe | tail -100",
-                _safety_level="safe",
+                _step_number = 2,
+                _description = "Check system logs for related errors",
+                _command = "journalctl -xe | tail -100",
+                _safety_level = "safe",
             ),
             RemediationStep(
-                _step_number=3,
-                _description="Verify system resource availability",
-                _command="free -h && df -h && uptime",
-                _safety_level="safe",
+                _step_number = 3,
+                _description = "Verify system resource availability",
+                _command = "free -h && df -h && uptime",
+                _safety_level = "safe",
             ),
             RemediationStep(
-                _step_number=4,
-                _description="Consult documentation or escalate to on-call engineer",
-                _safety_level="safe",
+                _step_number = 4,
+                _description = "Consult documentation or escalate to on-call engineer",
+                _safety_level = "safe",
             ),
         ]
 
         return RunbookRecommendation(
-            _runbook_id=f"rb-generic-{alert.alert_id}",
-            _title=f"Investigation Steps for {alert.title}",
-            _category=RunbookCategory.APPLICATION,
-            _confidence_score=0.3,
+            _runbook_id = f"rb-generic-{alert.alert_id}",
+            _title = f"Investigation Steps for {alert.title}",
+            _category = RunbookCategory.APPLICATION,
+            _confidence_score = 0.3,
             _root_cause_analysis=(
                 f"Alert: {alert.title}\n\n"
                 "No specific pattern matched. Follow generic investigation steps."
             ),
-            _remediation_steps=steps,
-            _prerequisites=["System access"],
-            _documentation_links=["https://docs.debvisor.com/operations/troubleshooting"],
-            _estimated_time="15-30 minutes",
-            _risk_assessment="Low",
+            _remediation_steps = steps,
+            _prerequisites = ["System access"],
+            _documentation_links = ["https://docs.debvisor.com/operations/troubleshooting"],
+            _estimated_time = "15-30 minutes",
+            _risk_assessment = "Low",
         )
 
 
@@ -684,15 +684,15 @@ class OperationalRunbookManager:
     """
 
     def __init__(self) -> None:
-        self.kb=RunbookKnowledgeBase()
-        self.generator=AIRunbookGenerator(self.kb)
+        self.kb = RunbookKnowledgeBase()
+        self.generator = AIRunbookGenerator(self.kb)
         self.active_executions: Dict[str, RemediationExecution] = {}
 
     async def handle_alert(
         self,
         alert: SystemAlert,
         context: Optional[Dict[str, Any]] = None,
-        auto_remediate: bool=False
+        auto_remediate: bool = False
     ) -> Optional[RunbookRecommendation]:
         """
         Handle a system alert and generate runbook recommendation.
@@ -705,7 +705,7 @@ class OperationalRunbookManager:
         Returns:
             Generated runbook recommendation
         """
-        _runbook=await self.generator.generate_runbook(alert, context)
+        _runbook = await self.generator.generate_runbook(alert, context)
 
         if not runbook:
             logger.error(f"Failed to generate runbook for alert {alert.alert_id}")
@@ -717,7 +717,7 @@ class OperationalRunbookManager:
         )
 
         if auto_remediate and runbook.confidence_score >= 0.7:
-            await self.execute_runbook(runbook, alert, auto_execute_safe=True)
+            await self.execute_runbook(runbook, alert, auto_execute_safe = True)
 
         return runbook
 
@@ -725,18 +725,18 @@ class OperationalRunbookManager:
         self,
         runbook: RunbookRecommendation,
         alert: SystemAlert,
-        auto_execute_safe: bool=False
+        auto_execute_safe: bool = False
     ) -> RemediationExecution:
         """Execute a runbook's remediation steps."""
-        _execution_id=f"exec-{alert.alert_id}-{datetime.now().timestamp()}"
+        _execution_id = f"exec-{alert.alert_id}-{datetime.now().timestamp()}"
 
-        execution=RemediationExecution(
-            _execution_id=execution_id,
-            _runbook_id=runbook.runbook_id,
-            _alert_id=alert.alert_id,
-            _status=RemediationStatus.PENDING,
-            _started_at=datetime.now(timezone.utc),
-            _user_approved=not auto_execute_safe,
+        execution = RemediationExecution(
+            _execution_id = execution_id,
+            _runbook_id = runbook.runbook_id,
+            _alert_id = alert.alert_id,
+            _status = RemediationStatus.PENDING,
+            _started_at = datetime.now(timezone.utc),
+            _user_approved = not auto_execute_safe,
         )
 
         self.active_executions[execution_id] = execution
@@ -745,7 +745,7 @@ class OperationalRunbookManager:
         # For now, just log the steps
         logger.info(f"Starting execution {execution_id} for runbook {runbook.runbook_id}")
 
-        execution.status=RemediationStatus.IN_PROGRESS
+        execution.status = RemediationStatus.IN_PROGRESS
 
         for step in runbook.remediation_steps:
             if auto_execute_safe and step.safety_level != "safe":
@@ -766,8 +766,8 @@ class OperationalRunbookManager:
                 "timestamp": datetime.now(timezone.utc).isoformat(),
             }
 
-        execution.status=RemediationStatus.COMPLETED
-        execution.completed_at=datetime.now(timezone.utc)
+        execution.status = RemediationStatus.COMPLETED
+        execution.completed_at = datetime.now(timezone.utc)
 
         logger.info(f"Completed execution {execution_id}")
 
@@ -785,25 +785,25 @@ class OperationalRunbookManager:
 
 async def main():
     """Example usage of AI-assisted operational runbooks."""
-    _manager=OperationalRunbookManager()
+    _manager = OperationalRunbookManager()
 
     # Simulate a high CPU alert
-    alert=SystemAlert(
-        _alert_id="alert-12345",
-        _title="High CPU Usage Detected",
-        _description="CPU usage has exceeded 90% for the past 5 minutes",
-        _severity=AlertSeverity.HIGH,
-        _source="prometheus",
-        _timestamp=datetime.now(timezone.utc),
-        _metadata={"cpu_percent": 92.5, "host": "web-server-01"},
-        _labels={"service": "web", "environment": "production"},
+    alert = SystemAlert(
+        _alert_id = "alert-12345",
+        _title = "High CPU Usage Detected",
+        _description = "CPU usage has exceeded 90% for the past 5 minutes",
+        _severity = AlertSeverity.HIGH,
+        _source = "prometheus",
+        _timestamp = datetime.now(timezone.utc),
+        _metadata = {"cpu_percent": 92.5, "host": "web-server-01"},
+        _labels = {"service": "web", "environment": "production"},
     )
 
     # Generate runbook
-    runbook=await manager.handle_alert(
+    runbook = await manager.handle_alert(
         alert,
-        _context={"service_name": "nginx", "host": "web-server-01"},
-        _auto_remediate=False,
+        _context = {"service_name": "nginx", "host": "web-server-01"},
+        _auto_remediate = False,
     )
 
     if runbook:

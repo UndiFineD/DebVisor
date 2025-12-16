@@ -33,8 +33,8 @@ while i < len(lines):
                 body_line = lines[k]
 
                 # Fix specific parameter naming issues
-                body_line = body_line.replace('self.max_samples=max_samples', 'self.max_samples = max_samples')
-                body_line = body_line.replace('self.prediction_horizon_hours=prediction_horizon_hours',
+                body_line = body_line.replace('self.max_samples = max_samples', 'self.max_samples = max_samples')
+                body_line = body_line.replace('self.prediction_horizon_hours = prediction_horizon_hours',
                                               'self.prediction_horizon_hours = prediction_horizon_hours')
 
                 # Fix operators missing spaces

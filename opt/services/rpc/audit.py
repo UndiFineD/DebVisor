@@ -115,15 +115,15 @@ from typing import Any, Dict, Callable
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class FileAuditPersistence:
     """Persists audit entries to a file."""
 
     def __init__(self, logpath: str) -> None:
-        self.log_path=log_path
-        os.makedirs(os.path.dirname(log_path), exist_ok=True)
+        self.log_path = log_path
+        os.makedirs(os.path.dirname(log_path), exist_ok = True)
 
     def write(self, entry: AuditEntry) -> None:
         """Write entry to log file."""
@@ -139,17 +139,17 @@ class RPCAuditLogger(AuditLogger):
 
     def __init__(self, signer: AuditSigner, persistence: FileAuditPersistence) -> None:
         super().__init__(signer)
-        self.persistence=persistence
-        self.last_hash=None
+        self.persistence = persistence
+        self.last_hash = None
 
         # Try to read last hash from file
         try:
             if os.path.exists(persistence.log_path):
                 with open(persistence.log_path, "r") as f:
-                    _lines=f.readlines()
+                    _lines = f.readlines()
                     if lines:
-                        _last_entry=json.loads(lines[-1])
-                        self.last_hash=last_entry.get("signature")
+                        _last_entry = json.loads(lines[-1])
+                        self.last_hash = last_entry.get("signature")
         except Exception:
             pass
 
@@ -157,19 +157,19 @@ class RPCAuditLogger(AuditLogger):
         self, method: str, principal: str, status: str, details: Dict[str, Any]
     ) -> None:
         """Log an RPC call."""
-        _entry=self.create_entry(
-            _operation="execute",
-            _resource_type="rpc",
-            _resource_id=method,
-            _actor_id=principal,
-            _action=f"RPC Call: {method}",
-            _status=status,
-            _details=details,
-            _previous_hash=self.last_hash or "0" * 64,
+        _entry = self.create_entry(
+            _operation = "execute",
+            _resource_type = "rpc",
+            _resource_id = method,
+            _actor_id = principal,
+            _action = f"RPC Call: {method}",
+            _status = status,
+            _details = details,
+            _previous_hash = self.last_hash or "0" * 64,
         )
 
         self.persistence.write(entry)
-        self.last_hash=entry.signature
+        self.last_hash = entry.signature
 
 
 class AuditInterceptor(grpc.ServerInterceptor):
@@ -178,18 +178,18 @@ class AuditInterceptor(grpc.ServerInterceptor):
     """
 
     def __init__(self, config: Dict[str, Any]) -> None:
-        _log_file=config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
+        _log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
 
         # In production, SECRET_KEY must be set in environment
-        _secret_key=os.getenv("SECRET_KEY")
+        _secret_key = os.getenv("SECRET_KEY")
         if not secret_key:
             if os.getenv("FLASK_ENV") == "production":
                 raise ValueError("SECRET_KEY not set in production environment")
-            secret_key="dev-key"
+            secret_key = "dev-key"
 
-        _signer=AuditSigner(secret_key=secret_key)
-        _persistence=FileAuditPersistence(log_file)
-        self.audit=RPCAuditLogger(signer, persistence)
+        _signer = AuditSigner(secret_key = secret_key)
+        _persistence = FileAuditPersistence(log_file)
+        self.audit = RPCAuditLogger(signer, persistence)
         logger.info(f"AuditInterceptor initialized (log: {log_file})")
 
     def intercept_service(
@@ -197,11 +197,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
         continuation: Callable[[grpc.HandlerCallDetails], Any],
         handler_call_details: grpc.HandlerCallDetails,
     ) -> Any:
-        _method=handler_call_details.method
-        _start_time=datetime.now(timezone.utc)
+        _method = handler_call_details.method
+        _start_time = datetime.now(timezone.utc)
 
         # Extract principal (placeholder - needs integration with auth context)
-        principal="anonymous"
+        principal = "anonymous"
         # In a real scenario, we'd extract this from context, but intercept_service
         # doesn't give easy access to context before calling continuation.
         # We might need to wrap the behavior.
@@ -214,38 +214,38 @@ class AuditInterceptor(grpc.ServerInterceptor):
             try:
                 from opt.services.rpc.auth import extract_identity
 
-                _identity=extract_identity(context)
+                _identity = extract_identity(context)
                 if identity:
-                    _principal=identity.principal_id
+                    _principal = identity.principal_id
             except ImportError:
                 pass
             except Exception:
                 pass
 
-            status="success"
-            error_details=None
+            status = "success"
+            error_details = None
 
             try:
-                _response=continuation(handler_call_details)(request, context)
+                _response = continuation(handler_call_details)(request, context)
                 return response
             except Exception as e:
-                status="failure"
-                _error_details=str(e)
+                status = "failure"
+                _error_details = str(e)
                 raise
             finally:
             # Log the call
                 duration=(
                     datetime.now(timezone.utc) - start_time
                 ).total_seconds() * 1000
-                details={"duration_ms": duration, "error": error_details}
+                details = {"duration_ms": duration, "error": error_details}
                 self.audit.log_rpc_call(method, principal, status, details)
 
         return grpc.unary_unary_rpc_method_handler(
             _wrapped_behavior,
-            _request_deserializer=handler_call_details.method_handlers[
+            _request_deserializer = handler_call_details.method_handlers[
                 handler_call_details.method
             ].request_deserializer,
-            _response_serializer=handler_call_details.method_handlers[
+            _response_serializer = handler_call_details.method_handlers[
                 handler_call_details.method
             ].response_serializer,
         )

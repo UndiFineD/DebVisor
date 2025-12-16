@@ -15,7 +15,7 @@ for filename in os.listdir(agent_dir):
     
     filepath = os.path.join(agent_dir, filename)
     
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding = 'utf-8') as f:
         content = f.read()
     
     original_length = len(content)
@@ -58,7 +58,7 @@ for filename in os.listdir(agent_dir):
         fixed = (original_length - len(content)) // 1
         total_fixed += max(1, fixed // 2)  # Rough estimate
         
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding = 'utf-8') as f:
             f.write(content)
 
 print(f"E303/E304 blank line issues fixed: ~{total_fixed}")

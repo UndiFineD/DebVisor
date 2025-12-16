@@ -75,7 +75,7 @@ class ContextTemplate:
     file_type: str
     sections: List[str]
     template_content: str
-    required_fields: List[str] = field(default_factory=list)
+    required_fields: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -93,7 +93,7 @@ class ContextVersion:
     version: str
     timestamp: str
     content_hash: str
-    changes: List[str] = field(default_factory=list)
+    changes: List[str] = field(default_factory = list)
     author: str = ""
 
 
@@ -121,10 +121,10 @@ class ContextAnnotation:
 # Default templates for common file types
 DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
     "python": ContextTemplate(
-        name="Python Module",
-        file_type=".py",
-        sections=["Purpose", "Classes", "Functions", "Dependencies", "Usage"],
-        template_content="""# Description: `{filename}`
+        name = "Python Module",
+        file_type = ".py",
+        sections = ["Purpose", "Classes", "Functions", "Dependencies", "Usage"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the module's purpose]
@@ -143,13 +143,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 # Example usage
 ```
 """,
-        required_fields=["Purpose"]
+        required_fields = ["Purpose"]
     ),
     "javascript": ContextTemplate(
-        name="JavaScript Module",
-        file_type=".js",
-        sections=["Purpose", "Exports", "Dependencies", "Usage"],
-        template_content="""# Description: `{filename}`
+        name = "JavaScript Module",
+        file_type = ".js",
+        sections = ["Purpose", "Exports", "Dependencies", "Usage"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the module's purpose]
@@ -165,13 +165,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 // Example usage
 ```
 """,
-        required_fields=["Purpose"]
+        required_fields = ["Purpose"]
     ),
     "shell": ContextTemplate(
-        name="Shell Script",
-        file_type=".sh",
-        sections=["Purpose", "Usage", "Arguments", "Environment Variables"],
-        template_content="""# Description: `{filename}`
+        name = "Shell Script",
+        file_type = ".sh",
+        sections = ["Purpose", "Usage", "Arguments", "Environment Variables"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the script's purpose]
@@ -189,13 +189,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 ## Environment Variables
 [List required environment variables]
 """,
-        required_fields=["Purpose", "Usage"]
+        required_fields = ["Purpose", "Usage"]
     ),
     "config": ContextTemplate(
-        name="Configuration File",
-        file_type=".json/.yaml/.toml",
-        sections=["Purpose", "Schema", "Options"],
-        template_content="""# Description: `{filename}`
+        name = "Configuration File",
+        file_type = ".json/.yaml/.toml",
+        sections = ["Purpose", "Schema", "Options"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the configuration's purpose]
@@ -208,13 +208,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 |--------|------|---------|-------------|
 |        |      |         |             |
 """,
-        required_fields=["Purpose"]
+        required_fields = ["Purpose"]
     ),
     "test": ContextTemplate(
-        name="Test File",
-        file_type="_test.py/test_.py",
-        sections=["Purpose", "Test Cases", "Fixtures", "Coverage"],
-        template_content="""# Description: `{filename}`
+        name = "Test File",
+        file_type = "_test.py/test_.py",
+        sections = ["Purpose", "Test Cases", "Fixtures", "Coverage"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe what this test file covers]
@@ -228,30 +228,30 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 ## Coverage
 [Note which modules/functions are tested]
 """,
-        required_fields=["Purpose", "Test Cases"]
+        required_fields = ["Purpose", "Test Cases"]
     ),
 }
 
 # Default validation rules
 DEFAULT_VALIDATION_RULES: List[ValidationRule] = [
     ValidationRule(
-        name="has_purpose",
-        pattern=r"##\s*Purpose",
-        message="Context should have a Purpose section",
-        severity="error",
-        required=True
+        name = "has_purpose",
+        pattern = r"##\s*Purpose",
+        message = "Context should have a Purpose section",
+        severity = "error",
+        required = True
     ),
     ValidationRule(
-        name="no_empty_sections",
-        pattern=r"##\s*\w+\s*\n\s*\n##",
-        message="Empty section detected",
-        severity="warning"
+        name = "no_empty_sections",
+        pattern = r"##\s*\w+\s*\n\s*\n##",
+        message = "Empty section detected",
+        severity = "warning"
     ),
     ValidationRule(
-        name="valid_code_blocks",
-        pattern=r"```\w*\n[\s\S]*?```",
-        message="Code blocks should have language identifier",
-        severity="info"
+        name = "valid_code_blocks",
+        pattern = r"```\w*\n[\s\S]*?```",
+        message = "Code blocks should have language identifier",
+        severity = "info"
     ),
 ]
 
@@ -340,9 +340,9 @@ class CrossRepoContext:
     """
     repo_name: str
     repo_url: str
-    related_files: List[str] = field(default_factory=list)
+    related_files: List[str] = field(default_factory = list)
     similarity_score: float = 0.0
-    common_patterns: List[str] = field(default_factory=list)
+    common_patterns: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -359,9 +359,9 @@ class ContextDiff:
     """
     version_from: str
     version_to: str
-    added_sections: List[str] = field(default_factory=list)
-    removed_sections: List[str] = field(default_factory=list)
-    modified_sections: List[str] = field(default_factory=list)
+    added_sections: List[str] = field(default_factory = list)
+    removed_sections: List[str] = field(default_factory = list)
+    modified_sections: List[str] = field(default_factory = list)
     change_summary: str = ""
 
 
@@ -376,9 +376,9 @@ class InheritedContext:
         overrides: Sections that override parent.
     """
     parent_path: str
-    inherited_sections: List[str] = field(default_factory=list)
+    inherited_sections: List[str] = field(default_factory = list)
     mode: InheritanceMode = InheritanceMode.MERGE
-    overrides: List[str] = field(default_factory=list)
+    overrides: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -393,7 +393,7 @@ class NLQueryResult:
     """
     query: str
     answer: str
-    relevant_contexts: List[str] = field(default_factory=list)
+    relevant_contexts: List[str] = field(default_factory = list)
     confidence: float = 0.0
 
 
@@ -409,7 +409,7 @@ class ExportedContext:
     """
     format: ExportFormat
     content: str
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
     created_at: str = ""
 
 
@@ -424,7 +424,7 @@ class ContextRecommendation:
         confidence: Recommendation confidence.
     """
     source_file: str
-    suggested_sections: List[str] = field(default_factory=list)
+    suggested_sections: List[str] = field(default_factory = list)
     reason: str = ""
     confidence: float = 0.0
 
@@ -441,7 +441,7 @@ class GeneratedCode:
     """
     language: str
     code: str
-    context_used: List[str] = field(default_factory=list)
+    context_used: List[str] = field(default_factory = list)
     description: str = ""
 
 
@@ -457,7 +457,7 @@ class RefactoringSuggestion:
     """
     suggestion_type: str
     description: str
-    affected_files: List[str] = field(default_factory=list)
+    affected_files: List[str] = field(default_factory = list)
     estimated_impact: str = "medium"
 
 
@@ -472,8 +472,8 @@ class VisualizationData:
         layout: Layout algorithm to use.
     """
     viz_type: VisualizationType
-    nodes: List[Dict[str, Any]] = field(default_factory=list)
-    edges: List[Tuple[str, str]] = field(default_factory=list)
+    nodes: List[Dict[str, Any]] = field(default_factory = list)
+    edges: List[Tuple[str, str]] = field(default_factory = list)
     layout: str = "hierarchical"
 
 
@@ -490,7 +490,7 @@ class SharedContext:
     """
     context_id: str
     owner: str
-    shared_with: List[str] = field(default_factory=list)
+    shared_with: List[str] = field(default_factory = list)
     permission: SharingPermission = SharingPermission.READ_ONLY
     last_sync: str = ""
 
@@ -524,9 +524,9 @@ class BranchComparison:
     """
     branch_a: str
     branch_b: str
-    files_only_in_a: List[str] = field(default_factory=list)
-    files_only_in_b: List[str] = field(default_factory=list)
-    modified_files: List[str] = field(default_factory=list)
+    files_only_in_a: List[str] = field(default_factory = list)
+    files_only_in_b: List[str] = field(default_factory = list)
+    modified_files: List[str] = field(default_factory = list)
 
 
 # ========== Session 6 Helper Classes ==========
@@ -581,9 +581,9 @@ class SemanticSearchEngine:
             score = len(query_words) / 10
             if score > 0.1:
                 self.results.append(SemanticSearchResult(
-                    file_path=file_path,
-                    content_snippet=f"Content from {file_path}",
-                    similarity_score=min(score, 1.0)
+                    file_path = file_path,
+                    content_snippet = f"Content from {file_path}",
+                    similarity_score = min(score, 1.0)
                 ))
 
         return sorted(self.results, key=lambda r: r.similarity_score, reverse=True)
@@ -615,7 +615,7 @@ class CrossRepoAnalyzer:
         Returns:
             Created CrossRepoContext.
         """
-        context = CrossRepoContext(repo_name=name, repo_url=url)
+        context = CrossRepoContext(repo_name = name, repo_url = url)
         self.repositories[name] = context
         return context
 
@@ -680,12 +680,12 @@ class ContextDiffer:
                 modified.append(section)
 
         return ContextDiff(
-            version_from=version_from,
-            version_to=version_to,
-            added_sections=added,
-            removed_sections=removed,
-            modified_sections=modified,
-            change_summary=f"Added {len(added)}, removed {len(removed)}, modified {len(modified)} sections"
+            version_from = version_from,
+            version_to = version_to,
+            added_sections = added,
+            removed_sections = removed,
+            modified_sections = modified,
+            change_summary = f"Added {len(added)}, removed {len(removed)}, modified {len(modified)} sections"
         )
 
 
@@ -721,8 +721,8 @@ class ContextInheritance:
             InheritedContext configuration.
         """
         inherited = InheritedContext(
-            parent_path=parent_path,
-            mode=mode
+            parent_path = parent_path,
+            mode = mode
         )
         self.inheritance_map[child_path] = inherited
         return inherited
@@ -785,10 +785,10 @@ class NLQueryEngine:
                 relevant.append(path)
 
         return NLQueryResult(
-            query=question,
-            answer=f"Found {len(relevant)} relevant context files",
-            relevant_contexts=relevant,
-            confidence=0.7 if relevant else 0.2
+            query = question,
+            answer = f"Found {len(relevant)} relevant context files",
+            relevant_contexts = relevant,
+            confidence = 0.7 if relevant else 0.2
         )
 
 
@@ -820,18 +820,18 @@ class ContextExporter:
             exported_content = self._to_rst(content)
 
         return ExportedContext(
-            format=format,
-            content=exported_content,
-            created_at=datetime.now().isoformat()
+            format = format,
+            content = exported_content,
+            created_at = datetime.now().isoformat()
         )
 
     def _to_html(self, content: str) -> str:
         """Convert markdown to HTML."""
         # Simplified conversion
         html = content
-        html = re.sub(r"^# (.+)$", r"<h1>\1</h1>", html, flags=re.M)
-        html = re.sub(r"^## (.+)$", r"<h2>\1</h2>", html, flags=re.M)
-        html = re.sub(r"^- (.+)$", r"<li>\1</li>", html, flags=re.M)
+        html = re.sub(r"^# (.+)$", r"<h1>\1</h1>", html, flags = re.M)
+        html = re.sub(r"^## (.+)$", r"<h2>\1</h2>", html, flags = re.M)
+        html = re.sub(r"^- (.+)$", r"<li>\1</li>", html, flags = re.M)
         return f"<html><body>{html}</body></html>"
 
     def _to_rst(self, content: str) -> str:
@@ -880,10 +880,10 @@ class ContextRecommender:
         common_sections = sorted(section_counts.items(), key=lambda x: x[1], reverse=True)
         if common_sections:
             recommendations.append(ContextRecommendation(
-                source_file=list(similar_contexts.keys())[0] if similar_contexts else "",
-                suggested_sections=[s[0] for s in common_sections[:5]],
-                reason="Common sections in similar files",
-                confidence=0.8
+                source_file = list(similar_contexts.keys())[0] if similar_contexts else "",
+                suggested_sections = [s[0] for s in common_sections[:5]],
+                reason = "Common sections in similar files",
+                confidence = 0.8
             ))
 
         return recommendations
@@ -919,10 +919,10 @@ class CodeGenerator:
         code = f"# Generated for: {prompt}\n# Based on context\n\ndef generated_function():\n    pass"
 
         return GeneratedCode(
-            language=language,
-            code=code,
-            context_used=[context[:50] + "..."] if context else [],
-            description=prompt
+            language = language,
+            code = code,
+            context_used = [context[:50] + "..."] if context else [],
+            description = prompt
         )
 
 
@@ -960,10 +960,10 @@ class RefactoringAdvisor:
         for desc, files in descriptions.items():
             if len(files) > 1:
                 suggestions.append(RefactoringSuggestion(
-                    suggestion_type="extract_common",
-                    description=f"Similar purpose found in {len(files)} files",
-                    affected_files=files,
-                    estimated_impact="medium"
+                    suggestion_type = "extract_common",
+                    description = f"Similar purpose found in {len(files)} files",
+                    affected_files = files,
+                    estimated_impact = "medium"
                 ))
 
         return suggestions
@@ -1002,9 +1002,9 @@ class ContextVisualizer:
                         edges.append((path, other_path))
 
         return VisualizationData(
-            viz_type=VisualizationType.DEPENDENCY_GRAPH,
-            nodes=nodes,
-            edges=edges
+            viz_type = VisualizationType.DEPENDENCY_GRAPH,
+            nodes = nodes,
+            edges = edges
         )
 
     def create_call_hierarchy(self, contexts: Dict[str, str]) -> VisualizationData:
@@ -1023,10 +1023,10 @@ class ContextVisualizer:
             nodes.append({"id": path, "label": Path(path).name})
 
         return VisualizationData(
-            viz_type=VisualizationType.CALL_HIERARCHY,
-            nodes=nodes,
-            edges=edges,
-            layout="tree"
+            viz_type = VisualizationType.CALL_HIERARCHY,
+            nodes = nodes,
+            edges = edges,
+            layout = "tree"
         )
 
 
@@ -1063,11 +1063,11 @@ class ContextSharingManager:
             SharedContext configuration.
         """
         shared = SharedContext(
-            context_id=context_id,
-            owner=owner,
-            shared_with=users,
-            permission=permission,
-            last_sync=datetime.now().isoformat()
+            context_id = context_id,
+            owner = owner,
+            shared_with = users,
+            permission = permission,
+            last_sync = datetime.now().isoformat()
         )
         self.shared_contexts[context_id] = shared
         return shared
@@ -1109,9 +1109,9 @@ class MergeConflictResolver:
 
         for match in re.finditer(pattern, content, re.DOTALL):
             conflicts.append(MergeConflict(
-                section="conflict",
-                ours=match.group(1),
-                theirs=match.group(2)
+                section = "conflict",
+                ours = match.group(1),
+                theirs = match.group(2)
             ))
 
         return conflicts
@@ -1173,11 +1173,11 @@ class BranchComparer:
                 modified.append(f)
 
         return BranchComparison(
-            branch_a=branch_a,
-            branch_b=branch_b,
-            files_only_in_a=list(files_a - files_b),
-            files_only_in_b=list(files_b - files_a),
-            modified_files=modified
+            branch_a = branch_a,
+            branch_b = branch_b,
+            files_only_in_a = list(files_a - files_b),
+            files_only_in_b = list(files_b - files_a),
+            modified_files = modified
         )
 
 
@@ -1276,7 +1276,7 @@ class ContextAgent(BaseAgent):
             return self._get_default_content()
 
         filename = self.file_path.name.replace('.description.md', '')
-        return template.template_content.format(filename=filename)
+        return template.template_content.format(filename = filename)
 
     # ========== Tagging ==========
 
@@ -1316,11 +1316,11 @@ class ContextAgent(BaseAgent):
         content_hash = hashlib.sha256(content.encode()).hexdigest()[:12]
 
         version_obj = ContextVersion(
-            version=version,
-            timestamp=datetime.now().isoformat(),
-            content_hash=content_hash,
-            changes=changes or [],
-            author=author
+            version = version,
+            timestamp = datetime.now().isoformat(),
+            content_hash = content_hash,
+            changes = changes or [],
+            author = author
         )
 
         self._versions.append(version_obj)
@@ -1359,7 +1359,7 @@ class ContextAgent(BaseAgent):
         if content is None:
             content = self.current_content or self.previous_content or ""
 
-        self._compressed_content = zlib.compress(content.encode(), level=9)
+        self._compressed_content = zlib.compress(content.encode(), level = 9)
         return self._compressed_content
 
     def decompress_content(self, compressed: Optional[bytes] = None) -> str:
@@ -1435,11 +1435,11 @@ class ContextAgent(BaseAgent):
     ) -> ContextAnnotation:
         """Add an annotation to the context."""
         annotation = ContextAnnotation(
-            id=hashlib.md5(f"{line_number}:{content}".encode()).hexdigest()[:8],
-            line_number=line_number,
-            content=content,
-            author=author,
-            timestamp=datetime.now().isoformat()
+            id = hashlib.md5(f"{line_number}:{content}".encode()).hexdigest()[:8],
+            line_number = line_number,
+            content = content,
+            author = author,
+            timestamp = datetime.now().isoformat()
         )
         self._annotations.append(annotation)
         return annotation
@@ -1571,7 +1571,7 @@ class ContextAgent(BaseAgent):
             "annotations": len(self._annotations),
             "custom": self._metadata
         }
-        return json.dumps(data, indent=2)
+        return json.dumps(data, indent = 2)
 
     # ========== Core Methods ==========
 
@@ -1611,7 +1611,7 @@ class ContextAgent(BaseAgent):
             logging.debug(f"Using source file: {self.source_path}")
             try:
                 # Limit source code to 8000 chars to avoid token limits
-                source_code = self.source_path.read_text(encoding='utf-8')[:8000]
+                source_code = self.source_path.read_text(encoding = 'utf-8')[:8000]
                 enhanced_prompt = (
                     f"{prompt}\n\n"
                     f"Source code to analyze ({self.source_path.name}):\n"

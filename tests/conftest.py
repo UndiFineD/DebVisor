@@ -38,19 +38,19 @@ if os.path.join(_project_root, "opt") not in sys.path:
 # ============================================================================
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope = "session")
 def setup_logging():
     """Configure logging for tests"""
     logging.basicConfig(
-        level=logging.DEBUG,
-        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        _handlers=[logging.StreamHandler(), logging.FileHandler("test_debug.log")],
+        level = logging.DEBUG,
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _handlers = [logging.StreamHandler(), logging.FileHandler("test_debug.log")],
     )
     yield
     logging.shutdown()
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope = "session", autouse = True)
 def cleanup_database_connections():
     """Clean up any lingering database connections after all tests"""
     yield
@@ -65,7 +65,7 @@ def cleanup_database_connections():
 # ============================================================================
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope = "session")
 def event_loop():
     """Create event loop for async tests"""
     loop = asyncio.get_event_loop_policy().new_event_loop()
@@ -107,13 +107,13 @@ def mock_database() -> None:
     db.connection = AsyncMock()
     db.cursor = AsyncMock()
     db.execute = AsyncMock()
-    db.fetch_one = AsyncMock(return_value={"id": "1", "name": "test"})
+    db.fetch_one = AsyncMock(return_value = {"id": "1", "name": "test"})
     db.fetch_all = AsyncMock(
-        return_value=[{"id": "1", "name": "test1"}, {"id": "2", "name": "test2"}]
+        return_value = [{"id": "1", "name": "test1"}, {"id": "2", "name": "test2"}]
     )
-    db.insert = AsyncMock(return_value="id-1")
-    db.update = AsyncMock(return_value=1)
-    db.delete = AsyncMock(return_value=1)
+    db.insert = AsyncMock(return_value = "id-1")
+    db.update = AsyncMock(return_value = 1)
+    db.delete = AsyncMock(return_value = 1)
     return db  # type: ignore[return-value]
 
 
@@ -121,12 +121,12 @@ def mock_database() -> None:
 def mock_cache() -> None:
     """Create mock cache (Redis-like)"""
     cache = AsyncMock()
-    cache.get = AsyncMock(return_value=None)
-    cache.set = AsyncMock(return_value=True)
-    cache.delete = AsyncMock(return_value=True)
-    cache.exists = AsyncMock(return_value=False)
-    cache.incr = AsyncMock(return_value=1)
-    cache.expire = AsyncMock(return_value=True)
+    cache.get = AsyncMock(return_value = None)
+    cache.set = AsyncMock(return_value = True)
+    cache.delete = AsyncMock(return_value = True)
+    cache.exists = AsyncMock(return_value = False)
+    cache.incr = AsyncMock(return_value = 1)
+    cache.expire = AsyncMock(return_value = True)
     return cache  # type: ignore[return-value]
 
 
@@ -134,10 +134,10 @@ def mock_cache() -> None:
 def mock_queue() -> None:
     """Create mock message queue"""
     queue = AsyncMock()
-    queue.push = AsyncMock(return_value=True)
-    queue.pop = AsyncMock(return_value={"message": "test"})
-    queue.length = AsyncMock(return_value=5)
-    queue.clear = AsyncMock(return_value=True)
+    queue.push = AsyncMock(return_value = True)
+    queue.pop = AsyncMock(return_value = {"message": "test"})
+    queue.length = AsyncMock(return_value = 5)
+    queue.clear = AsyncMock(return_value = True)
     return queue  # type: ignore[return-value]
 
 
@@ -150,11 +150,11 @@ def mock_queue() -> None:
 def mock_kubernetes() -> None:
     """Create mock Kubernetes client"""
     k8s = AsyncMock()
-    k8s.create_pod = AsyncMock(return_value="pod-001")
-    k8s.delete_pod = AsyncMock(return_value=True)
-    k8s.get_pod_status = AsyncMock(return_value="Running")
+    k8s.create_pod = AsyncMock(return_value = "pod-001")
+    k8s.delete_pod = AsyncMock(return_value = True)
+    k8s.get_pod_status = AsyncMock(return_value = "Running")
     k8s.list_pods = AsyncMock(
-        return_value=[
+        return_value = [
             {"name": "pod-1", "status": "Running"},
             {"name": "pod-2", "status": "Running"},
         ]
@@ -166,10 +166,10 @@ def mock_kubernetes() -> None:
 def mock_http_client() -> None:
     """Create mock HTTP client"""
     client = AsyncMock()
-    client.get = AsyncMock(return_value={"status": 200, "body": {"message": "success"}})
-    client.post = AsyncMock(return_value={"status": 201, "body": {"id": "1"}})
-    client.put = AsyncMock(return_value={"status": 200, "body": {"updated": True}})
-    client.delete = AsyncMock(return_value={"status": 204, "body": {}})
+    client.get = AsyncMock(return_value = {"status": 200, "body": {"message": "success"}})
+    client.post = AsyncMock(return_value = {"status": 201, "body": {"id": "1"}})
+    client.put = AsyncMock(return_value = {"status": 200, "body": {"updated": True}})
+    client.delete = AsyncMock(return_value = {"status": 204, "body": {}})
     return client  # type: ignore[return-value]
 
 
@@ -177,13 +177,13 @@ def mock_http_client() -> None:
 def mock_file_system() -> None:
     """Create mock file system"""
     fs = AsyncMock()
-    fs.read = AsyncMock(return_value="file content")
-    fs.write = AsyncMock(return_value=True)
-    fs.delete = AsyncMock(return_value=True)
-    fs.exists = AsyncMock(return_value=True)
-    fs.list_files = AsyncMock(return_value=["file1.txt", "file2.txt"])
-    fs.mkdir = AsyncMock(return_value=True)
-    fs.rmdir = AsyncMock(return_value=True)
+    fs.read = AsyncMock(return_value = "file content")
+    fs.write = AsyncMock(return_value = True)
+    fs.delete = AsyncMock(return_value = True)
+    fs.exists = AsyncMock(return_value = True)
+    fs.list_files = AsyncMock(return_value = ["file1.txt", "file2.txt"])
+    fs.mkdir = AsyncMock(return_value = True)
+    fs.rmdir = AsyncMock(return_value = True)
     return fs  # type: ignore[return-value]
 
 
@@ -418,7 +418,7 @@ def skip_if_integration() -> None:
     import os
 
     if os.getenv("INTEGRATION_TESTS") == "true":
-        return pytest.mark.skip(reason="Skipped in integration mode")  # type: ignore[return-value]
+        return pytest.mark.skip(reason = "Skipped in integration mode")  # type: ignore[return-value]
     return lambda func: func  # type: ignore[return-value]
 
 
@@ -427,7 +427,7 @@ def skip_if_not_integration() -> None:
     import os
 
     if os.getenv("INTEGRATION_TESTS") != "true":
-        return pytest.mark.skip(reason="Skipped unless in integration mode")  # type: ignore[return-value]
+        return pytest.mark.skip(reason = "Skipped unless in integration mode")  # type: ignore[return-value]
     return lambda func: func  # type: ignore[return-value]
 
 
@@ -446,14 +446,14 @@ def pytest_configure(config):
 # ============================================================================
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse = True)
 def reset_mocks():
     """Reset all mocks before each test"""
     yield
     # Cleanup happens here if needed
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse = True)
 def capture_test_time(request):
     """Capture and log test execution time"""
     start = time.time()
@@ -469,7 +469,7 @@ def capture_test_time(request):
 
 
 @pytest.fixture(
-    params=[
+    params = [
         {"name": "test_1", "value": 10},
         {"name": "test_2", "value": 20},
         {"name": "test_3", "value": 30},
@@ -548,7 +548,7 @@ def performance_timer() -> None:
 # ============================================================================
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope = "module")
 def module_setup():
     """Module-level setup"""
     print("\n=== Module Setup ===")
@@ -556,7 +556,7 @@ def module_setup():
     print("\n=== Module Teardown ===")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope = "session")
 def session_setup():
     """Session-level setup"""
     print("\n=== Session Setup ===")

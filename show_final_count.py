@@ -5,9 +5,9 @@ import subprocess
 import sys
 
 result = subprocess.run(
-    [sys.executable, "-m", "flake8", "--max-line-length=120", "scripts/agent/"],
-    capture_output=True,
-    text=True
+    [sys.executable, "-m", "flake8", "--max-line-length = 120", "scripts/agent/"],
+    capture_output = True,
+    text = True
 )
 
 lines = result.stdout.strip().split('\n') if result.stdout.strip() else []

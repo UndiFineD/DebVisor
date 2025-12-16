@@ -8,7 +8,7 @@ def fix_base_agent():
     
     with open(file_path, 'r') as f:
         content = f.read()
-        lines = content.splitlines(keepends=True)
+        lines = content.splitlines(keepends = True)
     
     fixes_applied = 0
     w293_count = 0

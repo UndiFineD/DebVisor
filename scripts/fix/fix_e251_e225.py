@@ -27,9 +27,9 @@ for line in lines:
         line = re.sub(r'(\w+)=(\w+)', r'\1 = \2', line)
 
     # Fix remaining underscore variables that might have slipped through
-    line = re.sub(r'(\s)_window\s+=', r'\1window =', line)
-    line = re.sub(r'(\s)_score\s+=', r'\1score =', line)
-    line = re.sub(r'(\s)_check_date\s+=', r'\1check_date =', line)
+    line = re.sub(r'(\s)_window\s+=', r'\1window = ', line)
+    line = re.sub(r'(\s)_score\s+=', r'\1score = ', line)
+    line = re.sub(r'(\s)_check_date\s+=', r'\1check_date = ', line)
 
     result_lines.append(line)
 

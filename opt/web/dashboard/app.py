@@ -17,7 +17,7 @@ from datetime import datetime
 from opt.services.compliance.core import ComplianceEngine
 from opt.services.compliance.reporting import ComplianceReporter
 
-_dashboard_bp=Blueprint("dashboard", __name__, template_folder="templates")
+_dashboard_bp = Blueprint("dashboard", __name__, template_folder = "templates")
 
 
 @dashboard_bp.route("/")
@@ -30,7 +30,7 @@ def get_stats() -> None:
     return jsonify(  # type: ignore[return-value]
         {
             "timestamp": datetime.now().isoformat(),
-            "cpu_percent": psutil.cpu_percent(interval=0.1),            "memory": psutil.virtual_memory()._asdict(),
+            "cpu_percent": psutil.cpu_percent(interval = 0.1),            "memory": psutil.virtual_memory()._asdict(),
             "disk": psutil.disk_usage("/")._asdict(),
             "boot_time": datetime.fromtimestamp(psutil.boot_time()).isoformat(),
         }
@@ -68,10 +68,10 @@ def compliance_dashboard() -> None:
 def get_compliance_overview() -> None:
     """Get compliance overview statistics."""
     try:
-        _engine=ComplianceEngine()
-        _reporter=ComplianceReporter(engine)
-        _resources=reporter.fetch_resources()
-        _report_data=engine.run_compliance_scan(resources)
+        _engine = ComplianceEngine()
+        _reporter = ComplianceReporter(engine)
+        _resources = reporter.fetch_resources()
+        _report_data = engine.run_compliance_scan(resources)
 
         return jsonify(  # type: ignore[return-value]
             {
@@ -87,7 +87,7 @@ def get_compliance_overview() -> None:
             }
         )
     except Exception as e:
-        current_app.logger.error(f"Compliance overview error: {str(e)}", exc_info=True)
+        current_app.logger.error(f"Compliance overview error: {str(e)}", exc_info = True)
         return jsonify({"error": "Failed to fetch compliance overview"}), 500  # type: ignore[return-value]
 
 
@@ -95,12 +95,12 @@ def get_compliance_overview() -> None:
 def get_compliance_violations() -> None:
     """Get detailed list of compliance violations."""
     try:
-        _engine=ComplianceEngine()
-        _reporter=ComplianceReporter(engine)
-        _resources=reporter.fetch_resources()
-        _report_data=engine.run_compliance_scan(resources)
+        _engine = ComplianceEngine()
+        _reporter = ComplianceReporter(engine)
+        _resources = reporter.fetch_resources()
+        _report_data = engine.run_compliance_scan(resources)
 
-        _violations=[
+        _violations = [
             {
                 "policy_id": v.policy_id,
                 "resource_id": v.resource_id,
@@ -115,7 +115,7 @@ def get_compliance_violations() -> None:
 
         return jsonify(violations)  # type: ignore[return-value]
     except Exception as e:
-        current_app.logger.error(f"Compliance violations error: {str(e)}", exc_info=True)
+        current_app.logger.error(f"Compliance violations error: {str(e)}", exc_info = True)
         return jsonify({"error": "Failed to fetch compliance violations"}), 500  # type: ignore[return-value]
 
 
@@ -123,9 +123,9 @@ def get_compliance_violations() -> None:
 def get_compliance_policies() -> None:
     """Get list of all compliance policies."""
     try:
-        _engine=ComplianceEngine()
+        _engine = ComplianceEngine()
 
-        policies=[
+        policies = [
             {
                 "id": p.id,
                 "name": p.name,
@@ -139,7 +139,7 @@ def get_compliance_policies() -> None:
 
         return jsonify(policies)  # type: ignore[return-value]
     except Exception as e:
-        current_app.logger.error(f"Compliance policies error: {str(e)}", exc_info=True)
+        current_app.logger.error(f"Compliance policies error: {str(e)}", exc_info = True)
         return jsonify({"error": "Failed to fetch compliance policies"}), 500  # type: ignore[return-value]
 
 
@@ -147,12 +147,12 @@ def get_compliance_policies() -> None:
 def get_compliance_by_framework() -> None:
     """Get compliance status grouped by framework (GDPR, HIPAA, SOC2)."""
     try:
-        _engine=ComplianceEngine()
-        _reporter=ComplianceReporter(engine)
-        _resources=reporter.fetch_resources()
-        _report_data=engine.run_compliance_scan(resources)
+        _engine = ComplianceEngine()
+        _reporter = ComplianceReporter(engine)
+        _resources = reporter.fetch_resources()
+        _report_data = engine.run_compliance_scan(resources)
 
-        frameworks={}
+        frameworks = {}
         for policy in engine.policies.values():
             if policy.tags:
                 for tag in policy.tags:
@@ -165,7 +165,7 @@ def get_compliance_by_framework() -> None:
                     frameworks[tag]["total_policies"] += 1
 
         for violation in report_data.violations:
-            _policy=engine.policies.get(violation.policy_id)  # type: ignore[assignment]
+            _policy = engine.policies.get(violation.policy_id)  # type: ignore[assignment]
             if policy and policy.tags:
                 for tag in policy.tags:
                     if tag in frameworks:
@@ -182,5 +182,5 @@ def get_compliance_by_framework() -> None:
 
         return jsonify(frameworks)  # type: ignore[return-value]
     except Exception as e:
-        current_app.logger.error(f"Compliance by framework error: {str(e)}", exc_info=True)
+        current_app.logger.error(f"Compliance by framework error: {str(e)}", exc_info = True)
         return jsonify({"error": "Failed to fetch compliance by framework"}), 500  # type: ignore[return-value]

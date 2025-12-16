@@ -125,7 +125,7 @@ from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict
 import random
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -134,29 +134,29 @@ _logger=logging.getLogger(__name__)
 class NodeState(Enum):
     """Node health states."""
 
-    HEALTHY="healthy"
-    DEGRADED="degraded"
-    UNHEALTHY="unhealthy"
-    DRAINING="draining"
-    CORDONED="cordoned"
-    UNKNOWN="unknown"
+    HEALTHY = "healthy"
+    DEGRADED = "degraded"
+    UNHEALTHY = "unhealthy"
+    DRAINING = "draining"
+    CORDONED = "cordoned"
+    UNKNOWN = "unknown"
 
 
 class SchedulingStrategy(Enum):
     """Workload scheduling strategies."""
 
-    SPREAD="spread"    # Spread across nodes
-    BINPACK="binpack"    # Pack tightly
-    BALANCED="balanced"    # Balance CPU/memory
-    ZONE_AWARE="zone-aware"    # Respect failure domains
+    SPREAD = "spread"    # Spread across nodes
+    BINPACK = "binpack"    # Pack tightly
+    BALANCED = "balanced"    # Balance CPU/memory
+    ZONE_AWARE = "zone-aware"    # Respect failure domains
 
 
 class FailoverPolicy(Enum):
     """HA failover policies."""
 
-    AUTOMATIC="automatic"
-    MANUAL="manual"
-    SEMI_AUTOMATIC="semi-automatic"    # Auto-detect, manual approve
+    AUTOMATIC = "automatic"
+    MANUAL = "manual"
+    SEMI_AUTOMATIC = "semi-automatic"    # Auto-detect, manual approve
 
 
 @dataclass
@@ -171,13 +171,13 @@ class ClusterStats:
     sync_lag_ms: float
     state_version: int
     last_sync: float
-    total_cpu_cores: int=0
-    total_memory_gb: float=0
-    used_cpu_cores: int=0
-    used_memory_gb: float=0
-    total_pods: int=0
-    running_pods: int=0
-    pending_pods: int=0
+    total_cpu_cores: int = 0
+    total_memory_gb: float = 0
+    used_cpu_cores: int = 0
+    used_memory_gb: float = 0
+    total_pods: int = 0
+    running_pods: int = 0
+    pending_pods: int = 0
 
 
 @dataclass
@@ -188,22 +188,22 @@ class NodeInfo:
     hostname: str
     ip_address: str
     state: NodeState
-    zone: str="default"
-    region: str="default"
-    rack: str="default"
-    cpu_capacity: int=0    # millicores
-    memory_capacity: int=0    # bytes
-    cpu_allocatable: int=0
-    memory_allocatable: int=0
-    cpu_used: int=0
-    memory_used: int=0
-    pod_count: int=0
-    pod_capacity: int=110
-    labels: Dict[str, str] = field(default_factory=dict)
-    taints: List[Dict[str, str]] = field(default_factory=list)
-    conditions: Dict[str, bool] = field(default_factory=dict)
-    last_heartbeat: float=0
-    version: int=0
+    zone: str = "default"
+    region: str = "default"
+    rack: str = "default"
+    cpu_capacity: int = 0    # millicores
+    memory_capacity: int = 0    # bytes
+    cpu_allocatable: int = 0
+    memory_allocatable: int = 0
+    cpu_used: int = 0
+    memory_used: int = 0
+    pod_count: int = 0
+    pod_capacity: int = 110
+    labels: Dict[str, str] = field(default_factory = dict)
+    taints: List[Dict[str, str]] = field(default_factory = list)
+    conditions: Dict[str, bool] = field(default_factory = dict)
+    last_heartbeat: float = 0
+    version: int = 0
 
 
 @dataclass
@@ -212,10 +212,10 @@ class StateDelta:
 
     version: int
     timestamp: float
-    node_updates: Dict[str, NodeInfo] = field(default_factory=dict)
-    node_deletions: Set[str] = field(default_factory=set)
-    resource_updates: Dict[str, Dict[str, Any]] = field(default_factory=dict[str, Any])
-    compressed_size: int=0
+    node_updates: Dict[str, NodeInfo] = field(default_factory = dict)
+    node_deletions: Set[str] = field(default_factory = set)
+    resource_updates: Dict[str, Dict[str, Any]] = field(default_factory = dict[str, Any])
+    compressed_size: int = 0
 
 
 @dataclass
@@ -225,8 +225,8 @@ class BatchResult:
     total: int
     successful: int
     failed: int
-    errors: Dict[str, str] = field(default_factory=dict)
-    duration_ms: float=0
+    errors: Dict[str, str] = field(default_factory = dict)
+    duration_ms: float = 0
 
 
 @dataclass
@@ -237,20 +237,20 @@ class SchedulingDecision:
     selected_node: str
     score: float
     reason: str
-    alternatives: List[Tuple[str, float]] = field(default_factory=list)
-    constraints_satisfied: List[str] = field(default_factory=list)
+    alternatives: List[Tuple[str, float]] = field(default_factory = list)
+    constraints_satisfied: List[str] = field(default_factory = list)
 
 
 @dataclass
 class HAConfig:
     """High Availability configuration."""
 
-    quorum_size: int=3
-    failover_policy: FailoverPolicy=FailoverPolicy.AUTOMATIC
-    failover_timeout_seconds: int=30
-    split_brain_prevention: bool=True
-    fencing_enabled: bool=True
-    witness_nodes: List[str] = field(default_factory=list)
+    quorum_size: int = 3
+    failover_policy: FailoverPolicy = FailoverPolicy.AUTOMATIC
+    failover_timeout_seconds: int = 30
+    split_brain_prevention: bool = True
+    fencing_enabled: bool = True
+    witness_nodes: List[str] = field(default_factory = list)
     preferred_leader: Optional[str] = None
 
 
@@ -258,45 +258,45 @@ class HAConfig:
 class EtcdTuning:
     """etcd performance tuning parameters."""
 
-    quota_backend_bytes: int=8 * 1024 * 1024 * 1024    # 8GB
-    auto_compaction_retention: str="1h"
-    auto_compaction_mode: str="periodic"
-    snapshot_count: int=10000
-    heartbeat_interval_ms: int=500
-    election_timeout_ms: int=5000
-    max_request_bytes: int=10 * 1024 * 1024    # 10MB
-    grpc_keepalive_min_time: str="10s"
-    grpc_keepalive_interval: str="2h"
-    grpc_keepalive_timeout: str="20s"
+    quota_backend_bytes: int = 8 * 1024 * 1024 * 1024    # 8GB
+    auto_compaction_retention: str = "1h"
+    auto_compaction_mode: str = "periodic"
+    snapshot_count: int = 10000
+    heartbeat_interval_ms: int = 500
+    election_timeout_ms: int = 5000
+    max_request_bytes: int = 10 * 1024 * 1024    # 10MB
+    grpc_keepalive_min_time: str = "10s"
+    grpc_keepalive_interval: str = "2h"
+    grpc_keepalive_timeout: str = "20s"
 
 
 @dataclass
 class APIServerTuning:
     """Kubernetes API server tuning."""
 
-    max_requests_inflight: int=1600
-    max_mutating_requests_inflight: int=800
-    request_timeout: str="1m"
-    min_request_timeout: int=300
-    watch_cache_sizes: Dict[str, int] = field(default_factory=dict)
-    enable_priority_fairness: bool=True
-    audit_log_batch_max_size: int=100
-    audit_log_batch_max_wait: str="1s"
+    max_requests_inflight: int = 1600
+    max_mutating_requests_inflight: int = 800
+    request_timeout: str = "1m"
+    min_request_timeout: int = 300
+    watch_cache_sizes: Dict[str, int] = field(default_factory = dict)
+    enable_priority_fairness: bool = True
+    audit_log_batch_max_size: int = 100
+    audit_log_batch_max_wait: str = "1s"
 
 
 @dataclass
 class ControllerTuning:
     """Controller manager tuning."""
 
-    concurrent_deployment_syncs: int=50
-    concurrent_replicaset_syncs: int=50
-    concurrent_service_syncs: int=10
-    concurrent_endpoint_syncs: int=10
-    node_monitor_period: str="5s"
-    node_monitor_grace_period: str="40s"
-    pod_eviction_timeout: str="5m"
-    kube_api_qps: int=100
-    kube_api_burst: int=150
+    concurrent_deployment_syncs: int = 50
+    concurrent_replicaset_syncs: int = 50
+    concurrent_service_syncs: int = 10
+    concurrent_endpoint_syncs: int = 10
+    node_monitor_period: str = "5s"
+    node_monitor_grace_period: str = "40s"
+    pod_eviction_timeout: str = "5m"
+    kube_api_qps: int = 100
+    kube_api_burst: int = 150
 
 
 # =============================================================================
@@ -306,7 +306,7 @@ class ConsistentHashRing:
     """Consistent hashing for workload distribution."""
 
     def __init__(self, replicas: int=150) -> None:
-        self.replicas=replicas
+        self.replicas = replicas
         self._ring: List[Tuple[int, str]] = []
         self._nodes: Set[str] = set()
 
@@ -321,8 +321,8 @@ class ConsistentHashRing:
 
         self._nodes.add(node_id)  # type: ignore[name-defined]
         for i in range(self.replicas):
-            virtual_key=f"{node_id}:{i}"  # type: ignore[name-defined]
-            _hash_val=self._hash(virtual_key)
+            virtual_key = f"{node_id}:{i}"  # type: ignore[name-defined]
+            _hash_val = self._hash(virtual_key)
             bisect.insort(self._ring, (hash_val, node_id))  # type: ignore[name-defined]
 
     def remove_node(self, nodeid: str) -> None:
@@ -331,17 +331,17 @@ class ConsistentHashRing:
             return
 
         self._nodes.discard(node_id)  # type: ignore[name-defined]
-        self.ring=[(h, n) for h, n in self._ring if n != node_id]  # type: ignore[name-defined]
+        self.ring = [(h, n) for h, n in self._ring if n != node_id]  # type: ignore[name-defined]
 
     def get_node(self, key: str) -> Optional[str]:
         """Get node for key."""
         if not self._ring:
             return None
 
-        _hash_val=self._hash(key)
-        _idx=bisect.bisect_left(self._ring, (hash_val,))  # type: ignore[name-defined]
+        _hash_val = self._hash(key)
+        _idx = bisect.bisect_left(self._ring, (hash_val,))  # type: ignore[name-defined]
         if idx >= len(self._ring):  # type: ignore[has-type, used-before-def]
-            idx=0
+            idx = 0
         return self._ring[idx][1]
 
     def get_nodes(self, key: str, count: int=3) -> List[str]:
@@ -349,13 +349,13 @@ class ConsistentHashRing:
         if not self._ring:
             return []
 
-        _hash_val=self._hash(key)
-        _idx=bisect.bisect_left(self._ring, (hash_val,))  # type: ignore[name-defined]
+        _hash_val = self._hash(key)
+        _idx = bisect.bisect_left(self._ring, (hash_val,))  # type: ignore[name-defined]
 
-        nodes=[]
-        _seen=set()  # type: ignore[var-annotated]
+        nodes = []
+        _seen = set()  # type: ignore[var-annotated]
         for i in range(len(self._ring)):
-            _, node=self._ring[(idx + i) % len(self._ring)]  # type: ignore[name-defined]
+            _, node = self._ring[(idx + i) % len(self._ring)]  # type: ignore[name-defined]
             if node not in seen:  # type: ignore[name-defined]
                 seen.add(node)  # type: ignore[name-defined]
                 nodes.append(node)
@@ -372,8 +372,8 @@ class DeltaStateSynchronizer:
     """Efficient state synchronization with delta compression."""
 
     def __init__(self, maxversions: int=100) -> None:
-        self.max_versions=max_versions  # type: ignore[name-defined]
-        self._current_version=0
+        self.max_versions = max_versions  # type: ignore[name-defined]
+        self._current_version = 0
         self._state: Dict[str, NodeInfo] = {}
         self._deltas: List[StateDelta] = []
         self._version_index: Dict[int, int] = {}    # version -> delta index
@@ -382,13 +382,13 @@ class DeltaStateSynchronizer:
         """Update node state and record delta."""
         # old_version = self._current_version
         self._current_version += 1
-        node.version=self._current_version
+        node.version = self._current_version
 
         # Create delta
-        delta=StateDelta(  # type: ignore[call-arg]
-            _version=self._current_version,
-            _timestamp=time.time(),
-            _node_updates={node.node_id: node},
+        delta = StateDelta(  # type: ignore[call-arg]
+            _version = self._current_version,
+            _timestamp = time.time(),
+            _node_updates = {node.node_id: node},
         )
 
         self._add_delta(delta)
@@ -403,10 +403,10 @@ class DeltaStateSynchronizer:
 
         self._current_version += 1
 
-        delta=StateDelta(  # type: ignore[call-arg]
-            _version=self._current_version,
-            _timestamp=time.time(),
-            _node_deletions={node_id},  # type: ignore[name-defined]
+        delta = StateDelta(  # type: ignore[call-arg]
+            _version = self._current_version,
+            _timestamp = time.time(),
+            _node_deletions = {node_id},  # type: ignore[name-defined]
         )
 
         self._add_delta(delta)
@@ -421,7 +421,7 @@ class DeltaStateSynchronizer:
 
         # Prune old deltas
         if len(self._deltas) > self.max_versions:
-            _old_delta=self._deltas.pop(0)
+            _old_delta = self._deltas.pop(0)
             del self._version_index[old_delta.version]  # type: ignore[name-defined]
             # Rebuild index
             for i, d in enumerate(self._deltas):
@@ -435,14 +435,14 @@ class DeltaStateSynchronizer:
         if since_version == 0 or since_version not in self._version_index:  # type: ignore[name-defined]
         # Full sync needed
             return StateDelta(  # type: ignore[call-arg]
-                _version=self._current_version,
-                _timestamp=time.time(),
-                _node_updates=dict(self._state),
+                _version = self._current_version,
+                _timestamp = time.time(),
+                _node_updates = dict(self._state),
             )
 
         # Combine deltas
-        start_idx=self._version_index[since_version] + 1  # type: ignore[name-defined]
-        _combined=StateDelta(version=self._current_version, timestamp=time.time())  # type: ignore[call-arg]
+        start_idx = self._version_index[since_version] + 1  # type: ignore[name-defined]
+        _combined = StateDelta(version = self._current_version, timestamp = time.time())  # type: ignore[call-arg]
 
         for delta in self._deltas[start_idx:]:
             combined.node_updates.update(delta.node_updates)  # type: ignore[name-defined]
@@ -469,13 +469,13 @@ class BinPackingScheduler:
     """Resource-aware bin-packing scheduler for large clusters."""
 
     def __init__(self, strategy: SchedulingStrategy=SchedulingStrategy.BALANCED) -> None:
-        self.strategy=strategy
+        self.strategy = strategy
         self._nodes: Dict[str, NodeInfo] = {}
         self._zone_nodes: Dict[str, List[str]] = defaultdict(list)
 
     def update_nodes(self, nodes: Dict[str, NodeInfo]) -> None:
         """Update node information."""
-        self._nodes=nodes
+        self._nodes = nodes
         self._zone_nodes.clear()
         for node_id, node in nodes.items():
             self._zone_nodes[node.zone].append(node_id)
@@ -488,15 +488,15 @@ class BinPackingScheduler:
         labels_required: Optional[Dict[str, str]] = None,
     ) -> Tuple[float, List[str]]:
         """Score node for workload placement."""
-        _reasons=[]  # type: ignore[var-annotated]
+        _reasons = []  # type: ignore[var-annotated]
 
         # Check node state
         if node.state != NodeState.HEALTHY:
             return -1.0, [f"Node state is {node.state.value}"]
 
         # Check capacity
-        cpu_available=node.cpu_allocatable - node.cpu_used
-        memory_available=node.memory_allocatable - node.memory_used
+        cpu_available = node.cpu_allocatable - node.cpu_used
+        memory_available = node.memory_allocatable - node.memory_used
 
         if cpu_request > cpu_available:
             return -1.0, [
@@ -526,29 +526,29 @@ class BinPackingScheduler:
         # Calculate score based on strategy
         if self.strategy == SchedulingStrategy.BINPACK:
         # Prefer nodes with less available resources (pack tightly)
-            _cpu_score=1.0 - (cpu_available / max(node.cpu_allocatable, 1))
-            _memory_score=1.0 - (memory_available / max(node.memory_allocatable, 1))
+            _cpu_score = 1.0 - (cpu_available / max(node.cpu_allocatable, 1))
+            _memory_score = 1.0 - (memory_available / max(node.memory_allocatable, 1))
             _score=(cpu_score + memory_score) / 2  # type: ignore[name-defined]
             reasons.append("binpack: preferring fuller nodes")  # type: ignore[name-defined]
 
         elif self.strategy == SchedulingStrategy.SPREAD:
         # Prefer nodes with more available resources (spread out)
-            _cpu_score=cpu_available / max(node.cpu_allocatable, 1)
-            _memory_score=memory_available / max(node.memory_allocatable, 1)
+            _cpu_score = cpu_available / max(node.cpu_allocatable, 1)
+            _memory_score = memory_available / max(node.memory_allocatable, 1)
             _score=(cpu_score + memory_score) / 2  # type: ignore[name-defined]
             reasons.append("spread: preferring emptier nodes")  # type: ignore[name-defined]
 
         elif self.strategy == SchedulingStrategy.BALANCED:
         # Balance CPU and memory utilization
-            _cpu_util=node.cpu_used / max(node.cpu_allocatable, 1)
-            _memory_util=node.memory_used / max(node.memory_allocatable, 1)
-            _imbalance=abs(cpu_util - memory_util)  # type: ignore[name-defined]
-            score=1.0 - imbalance  # type: ignore[name-defined]
-            reasons.append(f"balanced: imbalance={imbalance:.2f}")  # type: ignore[name-defined]
+            _cpu_util = node.cpu_used / max(node.cpu_allocatable, 1)
+            _memory_util = node.memory_used / max(node.memory_allocatable, 1)
+            _imbalance = abs(cpu_util - memory_util)  # type: ignore[name-defined]
+            score = 1.0 - imbalance  # type: ignore[name-defined]
+            reasons.append(f"balanced: imbalance = {imbalance:.2f}")  # type: ignore[name-defined]
 
         else:    # ZONE_AWARE
         # Will be handled at higher level
-            score=0.5
+            score = 0.5
 
         # Bonus for node conditions
         if node.conditions.get("Ready", False):
@@ -565,13 +565,13 @@ class BinPackingScheduler:
         workload_id: str,
         cpu_request: int,
         memory_request: int,
-        replicas: int=1,
+        replicas: int = 1,
         labels_required: Optional[Dict[str, str]] = None,
         anti_affinity_workloads: Optional[List[str]] = None,
         preferred_zones: Optional[List[str]] = None,
     ) -> List[SchedulingDecision]:
         """Schedule workload replicas across nodes."""
-        _decisions=[]  # type: ignore[var-annotated]
+        _decisions = []  # type: ignore[var-annotated]
         used_nodes: Set[str] = set()
         used_zones: Dict[str, int] = defaultdict(int)
 
@@ -583,7 +583,7 @@ class BinPackingScheduler:
                 if anti_affinity_workloads and node_id in used_nodes:
                     continue
 
-                score, reasons=self.score_node(
+                score, reasons = self.score_node(
                     node, cpu_request, memory_request, labels_required
                 )
 
@@ -592,9 +592,9 @@ class BinPackingScheduler:
 
                 # Zone-aware scoring
                 if self.strategy == SchedulingStrategy.ZONE_AWARE:
-                    zone=node.zone
+                    zone = node.zone
                     # Penalize zones with existing replicas
-                    _zone_penalty=used_zones.get(zone, 0) * 0.2
+                    _zone_penalty = used_zones.get(zone, 0) * 0.2
                     score -= zone_penalty  # type: ignore[name-defined]
 
                     # Bonus for preferred zones
@@ -610,22 +610,22 @@ class BinPackingScheduler:
             # Sort by score descending
             candidates.sort(key=lambda x: x[0], reverse=True)
 
-            best_score, best_node, reasons=candidates[0]
-            _alternatives=[(n, s) for s, n, _ in candidates[1:4]]
+            best_score, best_node, reasons = candidates[0]
+            _alternatives = [(n, s) for s, n, _ in candidates[1:4]]
 
-            decision=SchedulingDecision(  # type: ignore[call-arg]
-                _workload_id=f"{workload_id}-{replica}",
-                _selected_node=best_node,
-                _score=best_score,
-                _reason="; ".join(reasons),
-                _alternatives=alternatives,  # type: ignore[name-defined]
-                _constraints_satisfied=reasons,
+            decision = SchedulingDecision(  # type: ignore[call-arg]
+                _workload_id = f"{workload_id}-{replica}",
+                _selected_node = best_node,
+                _score = best_score,
+                _reason = "; ".join(reasons),
+                _alternatives = alternatives,  # type: ignore[name-defined]
+                _constraints_satisfied = reasons,
             )
             decisions.append(decision)  # type: ignore[name-defined]
 
             # Track placement
             used_nodes.add(best_node)
-            node=self._nodes[best_node]
+            node = self._nodes[best_node]
             used_zones[node.zone] += 1
 
             # Update node usage (for subsequent replicas)
@@ -644,32 +644,32 @@ class BatchOperationExecutor:
 
     def __init__(
         self,
-        batch_size: int=100,
-        max_workers: int=50,
-        backpressure_threshold: float=0.8,
+        batch_size: int = 100,
+        max_workers: int = 50,
+        backpressure_threshold: float = 0.8,
     ):
-        self.batch_size=batch_size
-        self.max_workers=max_workers
-        self.backpressure_threshold=backpressure_threshold
-        self._executor=ThreadPoolExecutor(max_workers=max_workers)
-        self._active_operations=0
-        self._lock=asyncio.Lock()
+        self.batch_size = batch_size
+        self.max_workers = max_workers
+        self.backpressure_threshold = backpressure_threshold
+        self._executor = ThreadPoolExecutor(max_workers = max_workers)
+        self._active_operations = 0
+        self._lock = asyncio.Lock()
 
     async def execute_batch(
         self,
         node_ids: List[str],
         operation: Callable[[str], bool],
-        timeout_seconds: int=30,
-        continue_on_error: bool=True,
+        timeout_seconds: int = 30,
+        continue_on_error: bool = True,
     ) -> BatchResult:
         """Execute operation across nodes in parallel batches."""
-        _start_time=time.time()
+        _start_time = time.time()
         results: Dict[str, bool] = {}
         errors: Dict[str, str] = {}
 
         # Process in batches
         for batch_start in range(0, len(node_ids), self.batch_size):
-            batch=node_ids[batch_start : batch_start + self.batch_size]
+            batch = node_ids[batch_start : batch_start + self.batch_size]
 
             # Check backpressure
             async with self._lock:
@@ -685,8 +685,8 @@ class BatchOperationExecutor:
             )
 
             # Submit batch operations
-            _loop=asyncio.get_event_loop()
-            _futures={
+            _loop = asyncio.get_event_loop()
+            _futures = {
                 node_id: loop.run_in_executor(  # type: ignore[name-defined]
                     self._executor,
                     self._execute_with_timeout,
@@ -700,7 +700,7 @@ class BatchOperationExecutor:
             # Collect results
             for node_id, future in futures.items():  # type: ignore[name-defined]
                 try:
-                    success, error=await future
+                    success, error = await future
                     results[node_id] = success
                     if error:
                         errors[node_id] = error
@@ -716,12 +716,12 @@ class BatchOperationExecutor:
             if not continue_on_error and errors:
                 break
 
-        _successful=sum(1 for v in results.values() if v)
+        _successful = sum(1 for v in results.values() if v)
         return BatchResult(  # type: ignore[call-arg]
-            _total=len(node_ids),
-            _successful=successful,  # type: ignore[name-defined]
-            _failed=len(node_ids) - successful,  # type: ignore[name-defined]
-            _errors=errors,
+            _total = len(node_ids),
+            _successful = successful,  # type: ignore[name-defined]
+            _failed = len(node_ids) - successful,  # type: ignore[name-defined]
+            _errors = errors,
             _duration_ms=(time.time() - start_time) * 1000,  # type: ignore[name-defined]
         )
 
@@ -730,7 +730,7 @@ class BatchOperationExecutor:
     ) -> Tuple[bool, Optional[str]]:
         """Execute operation with timeout."""
         try:
-            _result=operation(node_id)
+            _result = operation(node_id)
             return result, None  # type: ignore[name-defined]
         except Exception as e:
             return False, str(e)
@@ -739,23 +739,23 @@ class BatchOperationExecutor:
         self,
         node_ids: List[str],
         operation: Callable[[str], bool],
-        max_unavailable: int=1,
-        pause_between_ms: int=1000,
+        max_unavailable: int = 1,
+        pause_between_ms: int = 1000,
     ) -> BatchResult:
         """Execute rolling update across nodes."""
         results: Dict[str, bool] = {}
         errors: Dict[str, str] = {}
-        _start_time=time.time()
+        _start_time = time.time()
 
         # Process in waves respecting max_unavailable
         for i in range(0, len(node_ids), max_unavailable):
-            wave=node_ids[i : i + max_unavailable]
+            wave = node_ids[i : i + max_unavailable]
 
             logger.info(f"Rolling update wave {i // max_unavailable + 1}: {wave}")  # type: ignore[name-defined]
 
             # Execute wave
-            wave_result=await self.execute_batch(
-                wave, operation, continue_on_error=False
+            wave_result = await self.execute_batch(
+                wave, operation, continue_on_error = False
             )
 
             results.update({n: n not in wave_result.errors for n in wave})
@@ -765,18 +765,18 @@ class BatchOperationExecutor:
             if i + max_unavailable < len(node_ids):
                 await asyncio.sleep(pause_between_ms / 1000)
 
-        _successful=sum(1 for v in results.values() if v)
+        _successful = sum(1 for v in results.values() if v)
         return BatchResult(  # type: ignore[call-arg]
-            _total=len(node_ids),
-            _successful=successful,  # type: ignore[name-defined]
-            _failed=len(node_ids) - successful,  # type: ignore[name-defined]
-            _errors=errors,
+            _total = len(node_ids),
+            _successful = successful,  # type: ignore[name-defined]
+            _failed = len(node_ids) - successful,  # type: ignore[name-defined]
+            _errors = errors,
             _duration_ms=(time.time() - start_time) * 1000,  # type: ignore[name-defined]
         )
 
     def shutdown(self) -> None:
         """Shutdown executor."""
-        self._executor.shutdown(wait=True)
+        self._executor.shutdown(wait = True)
 
 
 # =============================================================================
@@ -786,7 +786,7 @@ class HAAutomationManager:
     """Manages high availability automation."""
 
     def __init__(self, config: Optional[HAConfig] = None) -> None:
-        self.config=config or HAConfig()
+        self.config = config or HAConfig()
         self._leader: Optional[str] = None
         self._members: Dict[str, Dict[str, Any]] = {}
         self._last_heartbeats: Dict[str, float] = {}
@@ -804,14 +804,14 @@ class HAAutomationManager:
 
     def check_quorum(self) -> Tuple[bool, int]:
         """Check if quorum is maintained."""
-        _now=time.time()
-        alive_members=sum(
+        _now = time.time()
+        alive_members = sum(
             1
             for node_id, last_hb in self._last_heartbeats.items()
             if now - last_hb < self.config.failover_timeout_seconds  # type: ignore[name-defined]
         )
 
-        has_quorum=alive_members >= self.config.quorum_size
+        has_quorum = alive_members >= self.config.quorum_size
         return has_quorum, alive_members
 
     def detect_split_brain(self) -> bool:
@@ -819,8 +819,8 @@ class HAAutomationManager:
         if not self.config.split_brain_prevention:
             return False
 
-        has_quorum, alive=self.check_quorum()
-        _total=len(self._members)
+        has_quorum, alive = self.check_quorum()
+        _total = len(self._members)
 
         # Split brain if exactly half of nodes are alive
         if total > 0 and alive == total // 2:  # type: ignore[name-defined]
@@ -831,7 +831,7 @@ class HAAutomationManager:
 
     async def elect_leader(self) -> Optional[str]:
         """Elect cluster leader."""
-        has_quorum, _=self.check_quorum()
+        has_quorum, _ = self.check_quorum()
         if not has_quorum:
             logger.error("Cannot elect leader: no quorum")  # type: ignore[name-defined]
             return None
@@ -841,22 +841,22 @@ class HAAutomationManager:
             self.config.preferred_leader
             and self.config.preferred_leader in self._members
         ):
-            _last_hb=self._last_heartbeats.get(self.config.preferred_leader, 0)
+            _last_hb = self._last_heartbeats.get(self.config.preferred_leader, 0)
             if time.time() - last_hb < self.config.failover_timeout_seconds:  # type: ignore[name-defined]
-                self._leader=self.config.preferred_leader
+                self._leader = self.config.preferred_leader
                 logger.info(f"Elected preferred leader: {self._leader}")  # type: ignore[name-defined]
                 return self._leader
 
         # Elect node with lowest ID (deterministic)
-        _now=time.time()
-        candidates=[
+        _now = time.time()
+        candidates = [
             node_id
             for node_id, last_hb in self._last_heartbeats.items()
             if now - last_hb < self.config.failover_timeout_seconds  # type: ignore[name-defined]
         ]
 
         if candidates:
-            self._leader=min(candidates)
+            self._leader = min(candidates)
             logger.info(f"Elected leader: {self._leader}")  # type: ignore[name-defined]
             return self._leader
 
@@ -864,7 +864,7 @@ class HAAutomationManager:
 
     async def handle_failover(self, failednode: str) -> Dict[str, Any]:
         """Handle node failure and failover."""
-        result={
+        result = {
             "failed_node": failed_node,  # type: ignore[name-defined]
             "action": "none",
             "new_leader": None,
@@ -876,14 +876,14 @@ class HAAutomationManager:
             result["action"] = "leader_failover"
 
             if self.config.failover_policy == FailoverPolicy.AUTOMATIC:
-                _new_leader=await self.elect_leader()
+                _new_leader = await self.elect_leader()
                 result["new_leader"] = new_leader  # type: ignore[name-defined]
             elif self.config.failover_policy == FailoverPolicy.SEMI_AUTOMATIC:
                 result["action"] = "failover_pending_approval"
 
         # Fence failed node if enabled
         if self.config.fencing_enabled:
-            _fenced=await self._fence_node(failed_node)  # type: ignore[name-defined]
+            _fenced = await self._fence_node(failed_node)  # type: ignore[name-defined]
             result["fenced"] = fenced  # type: ignore[name-defined]
 
             # Remove from members
@@ -910,7 +910,7 @@ class HAAutomationManager:
 
     def get_status(self) -> Dict[str, Any]:
         """Get HA cluster status."""
-        has_quorum, alive=self.check_quorum()
+        has_quorum, alive = self.check_quorum()
         return {
             "leader": self._leader,
             "members": list(self._members.keys()),
@@ -930,8 +930,8 @@ class EtcdOptimizer:
     """Optimizes etcd performance for large clusters."""
 
     def __init__(self, endpoints: List[str] = None) -> None:
-        self.endpoints=endpoints or ["http://localhost:2379"]
-        self._tuning=EtcdTuning()
+        self.endpoints = endpoints or ["http://localhost:2379"]
+        self._tuning = EtcdTuning()
 
     def get_tuning_config(self) -> Dict[str, str]:
         """Get etcd tuning configuration."""
@@ -950,7 +950,7 @@ class EtcdOptimizer:
 
     async def apply_tuning(self) -> bool:
         """Apply etcd tuning (via etcdctl)."""
-        _config=self.get_tuning_config()
+        _config = self.get_tuning_config()
         logger.info(f"Applying etcd tuning: {config}")  # type: ignore[name-defined]
 
         # In real implementation, would update etcd configuration
@@ -960,7 +960,7 @@ class EtcdOptimizer:
 
     async def defragment(self) -> Dict[str, bool]:
         """Defragment etcd on all endpoints."""
-        results={}
+        results = {}
         for endpoint in self.endpoints:
             try:
             # etcdctl defrag --endpoints=<endpoint>
@@ -1000,24 +1000,24 @@ class KubernetesTuningManager:
     """Manages Kubernetes component tuning for large clusters."""
 
     def __init__(self) -> None:
-        self._api_server_tuning=APIServerTuning()
-        self._controller_tuning=ControllerTuning()
+        self._api_server_tuning = APIServerTuning()
+        self._controller_tuning = ControllerTuning()
 
     def get_api_server_args(self) -> List[str]:
         """Get API server command line arguments."""
-        args=[
-            f"--max-requests-inflight={self._api_server_tuning.max_requests_inflight}",
-            "--max-mutating-requests-inflight="
+        args = [
+            f"--max-requests-inflight = {self._api_server_tuning.max_requests_inflight}",
+            "--max-mutating-requests-inflight = "
             f"{self._api_server_tuning.max_mutating_requests_inflight}",
-            f"--request-timeout={self._api_server_tuning.request_timeout}",
-            f"--min-request-timeout={self._api_server_tuning.min_request_timeout}",
+            f"--request-timeout = {self._api_server_tuning.request_timeout}",
+            f"--min-request-timeout = {self._api_server_tuning.min_request_timeout}",
         ]
 
         if self._api_server_tuning.enable_priority_fairness:
-            args.append("--enable-priority-and-fairness=true")
+            args.append("--enable-priority-and-fairness = true")
 
         # Watch cache sizes for specific resources
-        default_cache_sizes={
+        default_cache_sizes = {
             "pods": 1000,
             "nodes": 500,
             "endpoints": 500,
@@ -1025,48 +1025,48 @@ class KubernetesTuningManager:
             "configmaps": 500,
             "secrets": 500,
         }
-        cache_sizes={
+        cache_sizes = {
             **default_cache_sizes,
             **self._api_server_tuning.watch_cache_sizes,
         }
 
         for resource, size in cache_sizes.items():
-            args.append(f"--watch-cache-sizes={resource}    #{size}")
+            args.append(f"--watch-cache-sizes = {resource}    #{size}")
 
         return args
 
     def get_controller_manager_args(self) -> List[str]:
         """Get controller manager command line arguments."""
         return [
-            f"--concurrent-deployment-syncs={self._controller_tuning.concurrent_deployment_syncs}",
-            f"--concurrent-replicaset-syncs={self._controller_tuning.concurrent_replicaset_syncs}",
-            f"--concurrent-service-syncs={self._controller_tuning.concurrent_service_syncs}",
-            f"--concurrent-endpoint-syncs={self._controller_tuning.concurrent_endpoint_syncs}",
-            f"--node-monitor-period={self._controller_tuning.node_monitor_period}",
-            f"--node-monitor-grace-period={self._controller_tuning.node_monitor_grace_period}",
-            f"--pod-eviction-timeout={self._controller_tuning.pod_eviction_timeout}",
-            f"--kube-api-qps={self._controller_tuning.kube_api_qps}",
-            f"--kube-api-burst={self._controller_tuning.kube_api_burst}",
+            f"--concurrent-deployment-syncs = {self._controller_tuning.concurrent_deployment_syncs}",
+            f"--concurrent-replicaset-syncs = {self._controller_tuning.concurrent_replicaset_syncs}",
+            f"--concurrent-service-syncs = {self._controller_tuning.concurrent_service_syncs}",
+            f"--concurrent-endpoint-syncs = {self._controller_tuning.concurrent_endpoint_syncs}",
+            f"--node-monitor-period = {self._controller_tuning.node_monitor_period}",
+            f"--node-monitor-grace-period = {self._controller_tuning.node_monitor_grace_period}",
+            f"--pod-eviction-timeout = {self._controller_tuning.pod_eviction_timeout}",
+            f"--kube-api-qps = {self._controller_tuning.kube_api_qps}",
+            f"--kube-api-burst = {self._controller_tuning.kube_api_burst}",
         ]
 
     def get_kubelet_args(self, nodetype: str="worker") -> List[str]:
         """Get kubelet command line arguments."""
-        _args=[
-            "--max-pods=250",    # Increased from default 110
-            "--kube-api-qps=50",
-            "--kube-api-burst=100",
-            "--serialize-image-pulls=false",
-            "--registry-qps=10",
-            "--registry-burst=20",
-            "--event-qps=50",
-            "--event-burst=100",
+        _args = [
+            "--max-pods = 250",    # Increased from default 110
+            "--kube-api-qps = 50",
+            "--kube-api-burst = 100",
+            "--serialize-image-pulls = false",
+            "--registry-qps = 10",
+            "--registry-burst = 20",
+            "--event-qps = 50",
+            "--event-burst = 100",
         ]
 
         if node_type == "control-plane":  # type: ignore[name-defined]
             args.extend(  # type: ignore[name-defined]
                 [
-                    "--system-reserved=cpu=500m, memory=1Gi",
-                    "--kube-reserved=cpu=500m, memory=1Gi",
+                    "--system-reserved = cpu = 500m, memory = 1Gi",
+                    "--kube-reserved = cpu = 500m, memory = 1Gi",
                 ]
             )
 
@@ -1075,11 +1075,11 @@ class KubernetesTuningManager:
     def get_scheduler_args(self) -> List[str]:
         """Get scheduler command line arguments."""
         return [
-            "--kube-api-qps=100",
-            "--kube-api-burst=150",
-            "--leader-elect=true",
-            "--leader-elect-lease-duration=30s",
-            "--leader-elect-renew-deadline=15s",
+            "--kube-api-qps = 100",
+            "--kube-api-burst = 150",
+            "--leader-elect = true",
+            "--leader-elect-lease-duration = 30s",
+            "--leader-elect-renew-deadline = 15s",
         ]
 
     def generate_manifests(self) -> Dict[str, str]:
@@ -1100,25 +1100,25 @@ class LargeClusterOptimizer:
 
     def __init__(
         self,
-        batch_size: int=100,
-        max_workers: int=50,
-        scheduling_strategy: SchedulingStrategy=SchedulingStrategy.BALANCED,
+        batch_size: int = 100,
+        max_workers: int = 50,
+        scheduling_strategy: SchedulingStrategy = SchedulingStrategy.BALANCED,
     ):
-        self.batch_size=batch_size
-        self.max_workers=max_workers
+        self.batch_size = batch_size
+        self.max_workers = max_workers
 
         # Initialize components
-        self._hash_ring=ConsistentHashRing()
-        self._state_sync=DeltaStateSynchronizer()
-        self._scheduler=BinPackingScheduler(scheduling_strategy)
-        self._batch_executor=BatchOperationExecutor(batch_size, max_workers)
-        self._ha_manager=HAAutomationManager()
-        self._etcd_optimizer=EtcdOptimizer()
-        self._k8s_tuning=KubernetesTuningManager()
+        self._hash_ring = ConsistentHashRing()
+        self._state_sync = DeltaStateSynchronizer()
+        self._scheduler = BinPackingScheduler(scheduling_strategy)
+        self._batch_executor = BatchOperationExecutor(batch_size, max_workers)
+        self._ha_manager = HAAutomationManager()
+        self._etcd_optimizer = EtcdOptimizer()
+        self._k8s_tuning = KubernetesTuningManager()
 
         # Node cache
         self._node_cache: Dict[str, NodeInfo] = {}
-        self._last_sync_version=0
+        self._last_sync_version = 0
 
     async def initialize(self, nodeids: List[str]) -> None:
         """Initialize optimizer with node list."""
@@ -1126,11 +1126,11 @@ class LargeClusterOptimizer:
             self._hash_ring.add_node(node_id)
 
             # Create default node info
-            node=NodeInfo(  # type: ignore[call-arg]
-                _node_id=node_id,
-                _hostname=node_id,
-                _ip_address="",
-                _state=NodeState.UNKNOWN,
+            node = NodeInfo(  # type: ignore[call-arg]
+                _node_id = node_id,
+                _hostname = node_id,
+                _ip_address = "",
+                _state = NodeState.UNKNOWN,
             )
             self._node_cache[node_id] = node
             self._state_sync.update_node(node)
@@ -1142,9 +1142,9 @@ class LargeClusterOptimizer:
         self, node_ids: List[str], operation: Callable[[str], bool]
     ) -> Dict[str, bool]:
         """Execute operation across nodes in batches (sync wrapper)."""
-        _loop=asyncio.new_event_loop()
+        _loop = asyncio.new_event_loop()
         try:
-            result=loop.run_until_complete(  # type: ignore[name-defined]
+            result = loop.run_until_complete(  # type: ignore[name-defined]
                 self._batch_executor.execute_batch(node_ids, operation)
             )
             return {n: n not in result.errors for n in node_ids}
@@ -1159,7 +1159,7 @@ class LargeClusterOptimizer:
 
     def incremental_sync(self, lastsync_version: int) -> Dict[str, Any]:
         """Sync only changed state since last version."""
-        _delta=self._state_sync.get_delta_since(last_sync_version)  # type: ignore[name-defined]
+        _delta = self._state_sync.get_delta_since(last_sync_version)  # type: ignore[name-defined]
         if not delta:  # type: ignore[name-defined]
             return {
                 "version": self._state_sync.current_version,
@@ -1179,15 +1179,15 @@ class LargeClusterOptimizer:
 
     def get_cluster_stats(self) -> ClusterStats:
         """Get aggregated cluster statistics efficiently."""
-        _stats=ClusterStats(  # type: ignore[call-arg]
-            _total_nodes=len(self._node_cache),
-            _healthy_nodes=0,
-            _unhealthy_nodes=0,
-            _degraded_nodes=0,
-            _cordoned_nodes=0,
-            _sync_lag_ms=0.0,
-            _state_version=self._state_sync.current_version,
-            _last_sync=time.time(),
+        _stats = ClusterStats(  # type: ignore[call-arg]
+            _total_nodes = len(self._node_cache),
+            _healthy_nodes = 0,
+            _unhealthy_nodes = 0,
+            _degraded_nodes = 0,
+            _cordoned_nodes = 0,
+            _sync_lag_ms = 0.0,
+            _state_version = self._state_sync.current_version,
+            _last_sync = time.time(),
         )
 
         for node in self._node_cache.values():
@@ -1211,20 +1211,20 @@ class LargeClusterOptimizer:
 
     def enable_ha_automation(self, quorumsize: int=3) -> bool:
         """Configure automatic HA failover."""
-        self._ha_manager.config.quorum_size=quorum_size  # type: ignore[name-defined]
-        self._ha_manager.config.failover_policy=FailoverPolicy.AUTOMATIC
+        self._ha_manager.config.quorum_size = quorum_size  # type: ignore[name-defined]
+        self._ha_manager.config.failover_policy = FailoverPolicy.AUTOMATIC
 
         # Register all healthy nodes as HA members
         for node_id, node in self._node_cache.items():
             if node.state == NodeState.HEALTHY:
                 self._ha_manager.register_member(node_id, {"hostname": node.hostname})
 
-        logger.info(f"Enabled HA automation with quorum={quorum_size}")  # type: ignore[name-defined]
+        logger.info(f"Enabled HA automation with quorum = {quorum_size}")  # type: ignore[name-defined]
         return True
 
     def optimize_etcd_performance(self) -> Dict[str, str]:
         """Apply etcd tuning for large clusters."""
-        _tuning=self._etcd_optimizer.get_tuning_config()
+        _tuning = self._etcd_optimizer.get_tuning_config()
         logger.info(f"Applied etcd tuning: {tuning}")  # type: ignore[name-defined]
         return tuning  # type: ignore[name-defined]
 
@@ -1238,7 +1238,7 @@ class LargeClusterOptimizer:
         }
 
     def schedule_workload(
-        self, workload_id: str, cpu_request: int, memory_request: int, replicas: int=1
+        self, workload_id: str, cpu_request: int, memory_request: int, replicas: int = 1
     ) -> List[SchedulingDecision]:
         """Schedule workload using bin-packing scheduler."""
         return self._scheduler.schedule(
@@ -1252,7 +1252,7 @@ class LargeClusterOptimizer:
     def update_node_state(self, nodeid: str, state: NodeState) -> None:
         """Update node state."""
         if node_id in self._node_cache:  # type: ignore[name-defined]
-            self._node_cache[node_id].state=state  # type: ignore[name-defined]
+            self._node_cache[node_id].state = state  # type: ignore[name-defined]
             self._state_sync.update_node(self._node_cache[node_id])  # type: ignore[name-defined]
             self._scheduler.update_nodes(self._node_cache)
 
@@ -1273,42 +1273,42 @@ class LargeClusterOptimizer:
 async def main() -> None:
     """Demo large cluster optimizer."""
     logging.basicConfig(  # type: ignore[call-arg]
-        _level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        _level = logging.INFO, format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     # Create optimizer
-    optimizer=LargeClusterOptimizer(  # type: ignore[call-arg]
-        _batch_size=100, max_workers=50, scheduling_strategy=SchedulingStrategy.BALANCED
+    optimizer = LargeClusterOptimizer(  # type: ignore[call-arg]
+        _batch_size = 100, max_workers = 50, scheduling_strategy = SchedulingStrategy.BALANCED
     )
 
     # Initialize with simulated nodes
     print("Initializing cluster with 1000 nodes...")
-    _nodes=[f"node-{i:04d}" for i in range(1000)]
+    _nodes = [f"node-{i:04d}" for i in range(1000)]
     await optimizer.initialize(nodes)  # type: ignore[name-defined]
 
     # Update some node info
     for i, node_id in enumerate(nodes[:100]):  # type: ignore[name-defined]
         optimizer._node_cache[node_id] = NodeInfo(  # type: ignore[call-arg]
-            _node_id=node_id,
-            _hostname=node_id,
-            _ip_address=f"10.0.{i // 256}.{i % 256}",
+            _node_id = node_id,
+            _hostname = node_id,
+            _ip_address = f"10.0.{i // 256}.{i % 256}",
             _state=(
                 NodeState.HEALTHY if random.random() > 0.1 else NodeState.DEGRADED
             ),    # nosec B311
-            _zone=f"zone-{i % 3}",
-            _cpu_capacity=32000,    # 32 cores
-            _memory_capacity=128 * 1024 * 1024 * 1024,    # 128GB
-            _cpu_allocatable=30000,
-            _memory_allocatable=120 * 1024 * 1024 * 1024,
-            _cpu_used=random.randint(5000, 20000),    # nosec B311
-            _memory_used=random.randint(30, 80) * 1024 * 1024 * 1024,    # nosec B311
-            _pod_count=random.randint(10, 80),    # nosec B311
+            _zone = f"zone-{i % 3}",
+            _cpu_capacity = 32000,    # 32 cores
+            _memory_capacity = 128 * 1024 * 1024 * 1024,    # 128GB
+            _cpu_allocatable = 30000,
+            _memory_allocatable = 120 * 1024 * 1024 * 1024,
+            _cpu_used = random.randint(5000, 20000),    # nosec B311
+            _memory_used = random.randint(30, 80) * 1024 * 1024 * 1024,    # nosec B311
+            _pod_count = random.randint(10, 80),    # nosec B311
         )
 
     optimizer._scheduler.update_nodes(optimizer._node_cache)
 
     # Get cluster stats
-    _stats=optimizer.get_cluster_stats()
+    _stats = optimizer.get_cluster_stats()
     print("\nCluster Statistics:")
     print(f"  Total nodes: {stats.total_nodes}")  # type: ignore[name-defined]
     print(f"  Healthy: {stats.healthy_nodes}")  # type: ignore[name-defined]
@@ -1318,7 +1318,7 @@ async def main() -> None:
 
     # Test batch operation
     print("\nExecuting batch operation on 100 nodes...")
-    result=await optimizer.batch_operation_async(
+    result = await optimizer.batch_operation_async(
         nodes[:100], lambda n: True    # Simulate successful operation  # type: ignore[name-defined]
     )
     print(f"  Successful: {result.successful}/{result.total}")
@@ -1326,11 +1326,11 @@ async def main() -> None:
 
     # Test scheduling
     print("\nScheduling workload with 5 replicas...")
-    decisions=optimizer.schedule_workload(  # type: ignore[call-arg]
+    decisions = optimizer.schedule_workload(  # type: ignore[call-arg]
         "web-app",
-        _cpu_request=2000,    # 2 cores
-        _memory_request=4 * 1024 * 1024 * 1024,    # 4GB
-        _replicas=5,
+        _cpu_request = 2000,    # 2 cores
+        _memory_request = 4 * 1024 * 1024 * 1024,    # 4GB
+        _replicas = 5,
     )
     for d in decisions:
         print(f"  {d.workload_id} -> {d.selected_node} (score: {d.score:.2f})")
@@ -1338,25 +1338,25 @@ async def main() -> None:
     # Test consistent hashing
     print("\nConsistent hashing test:")
     for key in ["user-123", "session-456", "data-789"]:
-        _node=optimizer.get_node_for_key(key)
+        _node = optimizer.get_node_for_key(key)
         print(f"  {key} -> {node}")  # type: ignore[name-defined]
 
     # Enable HA
     print("\nEnabling HA automation...")
-    optimizer.enable_ha_automation(quorum_size=3)  # type: ignore[call-arg]
-    _ha_status=optimizer.get_ha_status()
+    optimizer.enable_ha_automation(quorum_size = 3)  # type: ignore[call-arg]
+    _ha_status = optimizer.get_ha_status()
     print(f"  Has quorum: {ha_status['has_quorum']}")  # type: ignore[name-defined]
     print(f"  Members: {ha_status['alive_members']}/{ha_status['total_members']}")  # type: ignore[name-defined]
 
     # Get Kubernetes tuning
     print("\nKubernetes tuning recommendations:")
-    _k8s_tuning=optimizer.get_k8s_tuning()
+    _k8s_tuning = optimizer.get_k8s_tuning()
     for component, args in k8s_tuning.items():  # type: ignore[name-defined]
         print(f"  {component}: {len(args)} parameters")
 
     # etcd tuning
     print("\netcd tuning configuration:")
-    _etcd_config=optimizer.optimize_etcd_performance()
+    _etcd_config = optimizer.optimize_etcd_performance()
     for key, value in list(etcd_config.items())[:5]:  # type: ignore[name-defined]
         print(f"  {key}: {value}")
 

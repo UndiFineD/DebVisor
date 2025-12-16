@@ -104,26 +104,26 @@ import math
 import yaml
 from prometheus_client import Counter, Gauge, start_http_server
 
-SERIES_PATH=os.environ.get("SERIES_PATH", "/config/series.yaml")
-LISTEN_PORT=int(os.environ.get("PORT", "8080"))
-INTERVAL_SEC=float(os.environ.get("INTERVAL_SEC", "5"))
+SERIES_PATH = os.environ.get("SERIES_PATH", "/config/series.yaml")
+LISTEN_PORT = int(os.environ.get("PORT", "8080"))
+INTERVAL_SEC = float(os.environ.get("INTERVAL_SEC", "5"))
 
 
 class Series:
 
     def __init__(self, name, stype, labels, shape) -> None:
-        self.name=name
-        self.type=s_type  # type: ignore[name-defined]
-        self.labels=labels or {}
-        self.shape=shape or {}
-        self.value=0.0
-        self.t0=time.time()
+        self.name = name
+        self.type = s_type  # type: ignore[name-defined]
+        self.labels = labels or {}
+        self.shape = shape or {}
+        self.value = 0.0
+        self.t0 = time.time()
         if self.type == "counter":
-            self.metric=Counter(
+            self.metric = Counter(
                 self.name, f"Synthetic counter {self.name}", list(self.labels.keys())
             )
         else:
-            self.metric=Gauge(  # type: ignore[assignment]
+            self.metric = Gauge(  # type: ignore[assignment]
                 self.name, f"Synthetic gauge {self.name}", list(self.labels.keys())
             )
 
@@ -132,56 +132,56 @@ class Series:
 
     def step(self) -> None:
         _pattern=(self.shape.get("pattern") or "ramp").lower()
-        _now=time.time()
-        _elapsed=now - self.t0  # type: ignore[name-defined]
+        _now = time.time()
+        _elapsed = now - self.t0  # type: ignore[name-defined]
         if pattern == "ramp":  # type: ignore[name-defined]
-            _step=float(self.shape.get("step", 1))
+            _step = float(self.shape.get("step", 1))
             self.value += step  # type: ignore[name-defined]
         elif pattern == "sine":  # type: ignore[name-defined]
-            _mn=float(self.shape.get("min", 0))
-            _mx=float(self.shape.get("max", 100))
-            _period=float(self.shape.get("period", 60))
+            _mn = float(self.shape.get("min", 0))
+            _mx = float(self.shape.get("max", 100))
+            _period = float(self.shape.get("period", 60))
             _amp=(mx - mn) / 2.0  # type: ignore[name-defined]
-            mid=mn + amp  # type: ignore[name-defined]
-            self.value=mid + amp * math.sin(2 * math.pi * (elapsed / period))  # type: ignore[name-defined]
+            mid = mn + amp  # type: ignore[name-defined]
+            self.value = mid + amp * math.sin(2 * math.pi * (elapsed / period))  # type: ignore[name-defined]
         elif pattern == "random":  # type: ignore[name-defined]
             import random
 
-            _mn=float(self.shape.get("min", 0))
-            _mx=float(self.shape.get("max", 100))
-            self.value=random.uniform(mn, mx)    # nosec B311  # type: ignore[name-defined]
+            _mn = float(self.shape.get("min", 0))
+            _mx = float(self.shape.get("max", 100))
+            self.value = random.uniform(mn, mx)    # nosec B311  # type: ignore[name-defined]
         else:
         # default ramp
             self.value += float(self.shape.get("step", 1))
 
         if self.type == "counter":
-            _inc=max(0.0, self.value)
+            _inc = max(0.0, self.value)
             # increment by current step; counters only go up
             self._labels().inc(inc)  # type: ignore[func-returns-value, name-defined, return-value]
             # reset for next step to avoid explosive growth
-            self.value=0.0
+            self.value = 0.0
         else:
             self._labels().set(self.value)  # type: ignore[func-returns-value, return-value]
 
 
 def load_series(path) -> None:
-    with open(path, "r", encoding="utf-8") as f:
-        _data=yaml.safe_load(f) or {}
-    series_list=[]
+    with open(path, "r", encoding = "utf-8") as f:
+        _data = yaml.safe_load(f) or {}
+    series_list = []
     for s in data.get("series", []):  # type: ignore[name-defined]
         series_list.append(
             Series(  # type: ignore[call-arg]
-                _name=s.get("name"),
+                _name = s.get("name"),
                 _s_type=(s.get("type") or "gauge").lower(),
-                _labels=s.get("labels") or {},
-                _shape=s.get("shape") or {},
+                _labels = s.get("labels") or {},
+                _shape = s.get("shape") or {},
             )
         )
     return series_list  # type: ignore[return-value]
 
 
 def main() -> None:
-    _series=load_series(SERIES_PATH)  # type: ignore[func-returns-value]
+    _series = load_series(SERIES_PATH)  # type: ignore[func-returns-value]
     start_http_server(LISTEN_PORT)
     while True:
         for s in series:  # type: ignore[name-defined]

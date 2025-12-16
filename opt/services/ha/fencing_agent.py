@@ -128,43 +128,43 @@ from abc import ABC, abstractmethod
 
 try:
 
-    HAS_REQUESTS=True
+    HAS_REQUESTS = True
 except ImportError:
-    HAS_REQUESTS=False
+    HAS_REQUESTS = False
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class FenceMethod(Enum):
     """Supported fencing methods."""
 
-    IPMI="ipmi"
-    REDFISH="redfish"
-    PDU="pdu"
-    WATCHDOG="watchdog"
-    STORAGE_SCSI="storage_scsi"
-    STORAGE_CEPH="storage_ceph"
-    SSH="ssh"    # Last resort
-    MANUAL="manual"
+    IPMI = "ipmi"
+    REDFISH = "redfish"
+    PDU = "pdu"
+    WATCHDOG = "watchdog"
+    STORAGE_SCSI = "storage_scsi"
+    STORAGE_CEPH = "storage_ceph"
+    SSH = "ssh"    # Last resort
+    MANUAL = "manual"
 
 
 class FenceAction(Enum):
     """Fencing actions."""
 
-    OFF="off"
-    ON="on"
-    REBOOT="reboot"
-    STATUS="status"
+    OFF = "off"
+    ON = "on"
+    REBOOT = "reboot"
+    STATUS = "status"
 
 
 class FenceResult(Enum):
     """Fencing operation result."""
 
-    SUCCESS="success"
-    FAILED="failed"
-    TIMEOUT="timeout"
-    SKIPPED="skipped"
-    PENDING_VERIFICATION="pending_verification"
+    SUCCESS = "success"
+    FAILED = "failed"
+    TIMEOUT = "timeout"
+    SKIPPED = "skipped"
+    PENDING_VERIFICATION = "pending_verification"
 
 
 @dataclass
@@ -173,11 +173,11 @@ class FenceTarget:
 
     node_id: str
     hostname: str
-    methods: List[FenceMethod] = field(default_factory=list)
-    params: Dict[str, Any] = field(default_factory=dict)
-    priority: int=100    # Lower=higher priority for fencing order
+    methods: List[FenceMethod] = field(default_factory = list)
+    params: Dict[str, Any] = field(default_factory = dict)
+    priority: int = 100    # Lower = higher priority for fencing order
     last_fenced: Optional[datetime] = None
-    fence_count: int=0
+    fence_count: int = 0
 
 
 @dataclass
@@ -191,8 +191,8 @@ class FenceEvent:
     action: FenceAction
     result: FenceResult
     duration_ms: int
-    message: str=""
-    initiator: str=""
+    message: str = ""
+    initiator: str = ""
 
 
 class FenceDriver(ABC):
@@ -213,27 +213,27 @@ class IPMIFenceDriver(FenceDriver):
     """IPMI/BMC fencing driver using ipmitool."""
 
     def __init__(self, timeout: int=30) -> None:
-        self.timeout=timeout
+        self.timeout = timeout
 
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
         """Execute IPMI power command."""
-        _params=target.params.get("ipmi", {})
-        _host=params.get("host")
-        _user=params.get("user", "admin")
-        _password=params.get("password", "")
+        _params = target.params.get("ipmi", {})
+        _host = params.get("host")
+        _user = params.get("user", "admin")
+        _password = params.get("password", "")
 
         if not host:
             logger.error(f"IPMI: No BMC host for {target.node_id}")
             return FenceResult.FAILED
 
-        _action_map={
+        _action_map = {
             FenceAction.OFF: "power off",
             FenceAction.ON: "power on",
             FenceAction.REBOOT: "power cycle",
             FenceAction.STATUS: "power status",
         }
 
-        _cmd=[
+        _cmd = [
             "ipmitool",
             "-I",
             "lanplus",
@@ -248,8 +248,8 @@ class IPMIFenceDriver(FenceDriver):
         logger.info(f"IPMI: Executing {action.value} on {target.node_id} ({host})")
 
         try:
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, timeout=self.timeout
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, timeout = self.timeout
             )    # nosec B603
 
             if result.returncode == 0:
@@ -271,7 +271,7 @@ class IPMIFenceDriver(FenceDriver):
 
     def verify(self, target: FenceTarget) -> bool:
         """Verify node power state is off."""
-        _result=self.execute(target, FenceAction.STATUS)
+        _result = self.execute(target, FenceAction.STATUS)
         if result == FenceResult.SUCCESS:
         # Check stdout from last command for "of" state
             return True    # Would need to capture and parse output
@@ -282,8 +282,8 @@ class RedfishFenceDriver(FenceDriver):
     """Redfish API fencing driver (DMTF standard)."""
 
     def __init__(self, timeout: int=30, verifyssl: bool=True) -> None:
-        self.timeout=timeout
-        self.verify_ssl=verify_ssl
+        self.timeout = timeout
+        self.verify_ssl = verify_ssl
         if not HAS_REQUESTS:
             logger.warning("Redfish: requests library not installed")
 
@@ -292,17 +292,17 @@ class RedfishFenceDriver(FenceDriver):
         if not HAS_REQUESTS:
             return FenceResult.FAILED
 
-        _params=target.params.get("redfish", {})
-        _host=params.get("host")
-        _user=params.get("user", "admin")
-        _password=params.get("password", "")
+        _params = target.params.get("redfish", {})
+        _host = params.get("host")
+        _user = params.get("user", "admin")
+        _password = params.get("password", "")
 
         if not host:
             logger.error(f"Redfish: No BMC host for {target.node_id}")
             return FenceResult.FAILED
 
         # Map actions to Redfish reset types
-        reset_type_map={
+        reset_type_map = {
             FenceAction.OFF: "ForceOff",
             FenceAction.ON: "On",
             FenceAction.REBOOT: "ForceRestart",
@@ -311,22 +311,22 @@ class RedfishFenceDriver(FenceDriver):
         if action == FenceAction.STATUS:
             return self._get_power_state(host, user, password, target)
 
-        _reset_type=reset_type_map.get(action)
+        _reset_type = reset_type_map.get(action)
         if not reset_type:
             return FenceResult.FAILED
 
         # Redfish endpoint for power actions
-        url=f"https://{host}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset"
+        url = f"https://{host}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset"
 
         try:
             logger.info(f"Redfish: Executing {action.value} on {target.node_id}")
 
-            response=requests.post(
+            response = requests.post(
                 url,
-                _json={"ResetType": reset_type},
+                _json = {"ResetType": reset_type},
                 _auth=(user, password),
-                _verify=self.verify_ssl,
-                _timeout=self.timeout,
+                _verify = self.verify_ssl,
+                _timeout = self.timeout,
             )
 
             if response.status_code in (200, 202, 204):
@@ -347,14 +347,14 @@ class RedfishFenceDriver(FenceDriver):
         self, host: str, user: str, password: str, target: FenceTarget
     ) -> FenceResult:
         """Get current power state via Redfish."""
-        url=f"https://{host}/redfish/v1/Systems/1"
+        url = f"https://{host}/redfish/v1/Systems/1"
         try:
-            response=requests.get(
-                url, auth=(user, password), verify=self.verify_ssl, timeout=self.timeout
+            response = requests.get(
+                url, auth=(user, password), verify = self.verify_ssl, timeout = self.timeout
             )
             if response.status_code == 200:
-                _data=response.json()
-                _state=data.get("PowerState", "Unknown")
+                _data = response.json()
+                _state = data.get("PowerState", "Unknown")
                 logger.info(f"Redfish: {target.node_id} power state: {state}")
                 return FenceResult.SUCCESS
         except Exception as e:
@@ -363,18 +363,18 @@ class RedfishFenceDriver(FenceDriver):
 
     def verify(self, target: FenceTarget) -> bool:
         """Verify power is off via Redfish."""
-        _params=target.params.get("redfish", {})
-        _host=params.get("host")
+        _params = target.params.get("redfish", {})
+        _host = params.get("host")
         if not host:
             return False
 
         try:
-            url=f"https://{host}/redfish/v1/Systems/1"
-            response=requests.get(
+            url = f"https://{host}/redfish/v1/Systems/1"
+            response = requests.get(
                 url,
                 _auth=(params.get("user", "admin"), params.get("password", "")),
-                _verify=self.verify_ssl,
-                _timeout=self.timeout,
+                _verify = self.verify_ssl,
+                _timeout = self.timeout,
             )
             if response.status_code == 200:
                 return response.json().get("PowerState") == "Of"
@@ -387,7 +387,7 @@ class WatchdogFenceDriver(FenceDriver):
     """Hardware/software watchdog fencing."""
 
     def __init__(self, device: str="/dev/watchdog") -> None:
-        self.device=device
+        self.device = device
 
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
         """Trigger watchdog reset (self-fencing)."""
@@ -399,7 +399,7 @@ class WatchdogFenceDriver(FenceDriver):
 
         try:
         # Write 'V' to cleanly close, or just close to trigger reboot
-            _watchdog_path=Path(self.device)
+            _watchdog_path = Path(self.device)
             if watchdog_path.exists():
             # Opening and closing without magic close triggers reboot
                 with open(self.device, "w"):
@@ -408,7 +408,7 @@ class WatchdogFenceDriver(FenceDriver):
                 return FenceResult.SUCCESS
             else:
             # Try software watchdog via sysrq
-                _sysrq=Path("/proc/sysrq-trigger")
+                _sysrq = Path("/proc/sysrq-trigger")
                 if sysrq.exists():
                     with open(sysrq, "w") as f:
                         f.write("b")    # Immediate reboot
@@ -430,23 +430,23 @@ class CephStorageFenceDriver(FenceDriver):
     """Ceph blocklist-based fencing for storage isolation."""
 
     def __init__(self, cephconf: str="/etc/ceph/ceph.con") -> None:
-        self.ceph_conf=ceph_conf
+        self.ceph_conf = ceph_conf
 
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
         """Add/remove node from Ceph blocklist."""
-        _params=target.params.get("ceph", {})
-        _client_addr=params.get("client_addr")
+        _params = target.params.get("ceph", {})
+        _client_addr = params.get("client_addr")
 
         if not client_addr:
         # Try to resolve from hostname
-            client_addr=target.hostname
+            client_addr = target.hostname
 
         if action == FenceAction.OFF:
         # Add to blocklist
-            cmd=["ceph", "osd", "blocklist", "add", client_addr]
+            cmd = ["ceph", "osd", "blocklist", "add", client_addr]
         elif action == FenceAction.ON:
         # Remove from blocklist
-            _cmd=["ceph", "osd", "blocklist", "rm", client_addr]
+            _cmd = ["ceph", "osd", "blocklist", "rm", client_addr]
         else:
             return FenceResult.SKIPPED
 
@@ -455,8 +455,8 @@ class CephStorageFenceDriver(FenceDriver):
         )
 
         try:
-            result=subprocess.run(
-                cmd, capture_output=True, text=True, timeout=30
+            result = subprocess.run(
+                cmd, capture_output = True, text = True, timeout = 30
             )    # nosec B603
 
             if result.returncode == 0:
@@ -472,15 +472,15 @@ class CephStorageFenceDriver(FenceDriver):
 
     def verify(self, target: FenceTarget) -> bool:
         """Verify node is in Ceph blocklist."""
-        _params=target.params.get("ceph", {})
-        _client_addr=params.get("client_addr", target.hostname)
+        _params = target.params.get("ceph", {})
+        _client_addr = params.get("client_addr", target.hostname)
 
         try:
-            result=subprocess.run(
+            result = subprocess.run(
                 ["ceph", "osd", "blocklist", "ls"],
-                _capture_output=True,
-                _text=True,
-                _timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )    # nosec B603, B607
             return client_addr in result.stdout
         except Exception:
@@ -493,15 +493,15 @@ class FencingAgent:
     def __init__(self) -> None:
         self._targets: Dict[str, FenceTarget] = {}
         self._events: List[FenceEvent] = []
-        self._lock=threading.Lock()
+        self._lock = threading.Lock()
         self._drivers: Dict[FenceMethod, FenceDriver] = {
             FenceMethod.IPMI: IPMIFenceDriver(),
-            FenceMethod.REDFISH: RedfishFenceDriver(verify_ssl=False),
+            FenceMethod.REDFISH: RedfishFenceDriver(verify_ssl = False),
             FenceMethod.WATCHDOG: WatchdogFenceDriver(),
             FenceMethod.STORAGE_CEPH: CephStorageFenceDriver(),
         }
         self._callbacks: List[Callable[[FenceEvent], None]] = []
-        self._max_events=1000
+        self._max_events = 1000
 
     def register_driver(self, method: FenceMethod, driver: FenceDriver) -> None:
         """Register a custom fence driver."""
@@ -534,9 +534,9 @@ class FencingAgent:
     def fence_node(
         self,
         node_id: str,
-        action: FenceAction=FenceAction.OFF,
-        initiator: str="system",
-        verify: bool=True,
+        action: FenceAction = FenceAction.OFF,
+        initiator: str = "system",
+        verify: bool = True,
     ) -> FenceResult:
         """Execute fencing on a node with fallback methods.
 
@@ -549,7 +549,7 @@ class FencingAgent:
         Returns:
             FenceResult indicating success/failure
         """
-        _target=self._targets.get(node_id)
+        _target = self._targets.get(node_id)
         if not target:
             logger.error(f"No fence target registered for {node_id}")
             return FenceResult.FAILED
@@ -565,27 +565,27 @@ class FencingAgent:
 
         # Try each configured method in order
         for method in target.methods:
-            _driver=self._drivers.get(method)
+            _driver = self._drivers.get(method)
             if not driver:
                 logger.warning(f"No driver for method {method.value}, skipping")
                 continue
 
-            _start_time=time.time()
-            _result=driver.execute(target, action)
-            _duration_ms=int((time.time() - start_time) * 1000)
+            _start_time = time.time()
+            _result = driver.execute(target, action)
+            _duration_ms = int((time.time() - start_time) * 1000)
 
             # Record event
-            event=FenceEvent(
-                _event_id=hashlib.sha256(f"{node_id}{time.time()}".encode()).hexdigest()[
+            event = FenceEvent(
+                _event_id = hashlib.sha256(f"{node_id}{time.time()}".encode()).hexdigest()[
                     :12
                 ],
-                _timestamp=datetime.now(timezone.utc),
-                _target_node=node_id,
-                _method=method,
-                _action=action,
-                _result=result,
-                _duration_ms=duration_ms,
-                _initiator=initiator,
+                _timestamp = datetime.now(timezone.utc),
+                _target_node = node_id,
+                _method = method,
+                _action = action,
+                _result = result,
+                _duration_ms = duration_ms,
+                _initiator = initiator,
             )
             self._record_event(event)
 
@@ -595,11 +595,11 @@ class FencingAgent:
                     time.sleep(5)    # Wait for power state change
                     if not driver.verify(target):
                         logger.warning(f"Fence verification failed for {node_id}")
-                        result=FenceResult.PENDING_VERIFICATION
+                        result = FenceResult.PENDING_VERIFICATION
 
                 # Update target stats
                 with self._lock:
-                    target.last_fenced=datetime.now(timezone.utc)
+                    target.last_fenced = datetime.now(timezone.utc)
                     target.fence_count += 1
 
                 logger.warning(f"FENCE SUCCESS: {node_id} via {method.value}")
@@ -616,7 +616,7 @@ class FencingAgent:
             self._events.append(event)
             # Trim old events
             if len(self._events) > self._max_events:
-                self._events=self._events[-self._max_events :]
+                self._events = self._events[-self._max_events :]
 
         # Notify callbacks
         for callback in self._callbacks:
@@ -629,24 +629,24 @@ class FencingAgent:
         self,
         node_id: Optional[str] = None,
         since: Optional[datetime] = None,
-        limit: int=100,
+        limit: int = 100,
     ) -> List[FenceEvent]:
         """Get fence event history."""
         with self._lock:
-            _events=self._events.copy()
+            _events = self._events.copy()
 
         if node_id:
-            events=[e for e in events if e.target_node == node_id]
+            events = [e for e in events if e.target_node == node_id]
         if since:
-            events=[e for e in events if e.timestamp >= since]
+            events = [e for e in events if e.timestamp >= since]
 
         return events[-limit:]
 
     def get_status(self) -> Dict[str, Any]:
         """Get fencing agent status."""
         with self._lock:
-            _targets=list(self._targets.values())
-            _events=self._events.copy()
+            _targets = list(self._targets.values())
+            _events = self._events.copy()
 
         return {
             "registered_targets": len(targets),
@@ -678,7 +678,7 @@ class FencingAgent:
     def export_events_json(self, filepath: str) -> None:
         """Export fence events to JSON file."""
         with self._lock:
-            _events_data=[
+            _events_data = [
                 {
                     "event_id": e.event_id,
                     "timestamp": e.timestamp.isoformat(),
@@ -694,7 +694,7 @@ class FencingAgent:
             ]
 
         with open(filepath, "w") as f:
-            json.dump(events_data, f, indent=2)
+            json.dump(events_data, f, indent = 2)
 
         logger.info(f"Exported {len(events_data)} fence events to {filepath}")
 
@@ -704,9 +704,9 @@ class STONITHCoordinator:
     """Coordinates STONITH (Shoot The Other Node In The Head) decisions."""
 
     def __init__(self, agent: FencingAgent, quorumnodes: List[str]) -> None:
-        self.agent=agent
-        self.quorum_nodes=quorum_nodes
-        self._lock=threading.Lock()
+        self.agent = agent
+        self.quorum_nodes = quorum_nodes
+        self._lock = threading.Lock()
 
     def request_fence(
         self, target_node: str, requesting_node: str, reason: str
@@ -726,8 +726,8 @@ class STONITHCoordinator:
 
         # TODO: Implement distributed lock/vote mechanism
         # For now, proceed with fence
-        result=self.agent.fence_node(
-            target_node, action=FenceAction.OFF, initiator=f"stonith:{requesting_node}"
+        result = self.agent.fence_node(
+            target_node, action = FenceAction.OFF, initiator = f"stonith:{requesting_node}"
         )
 
         return result == FenceResult.SUCCESS
@@ -737,37 +737,37 @@ class STONITHCoordinator:
 if _name__== "__main__":
     import argparse
 
-    _parser=argparse.ArgumentParser(description="DebVisor Fencing Agent")
+    _parser = argparse.ArgumentParser(description = "DebVisor Fencing Agent")
     parser.add_argument(
-        "action", choices=["status", "fence", "test"], help="Action to perform"
+        "action", choices = ["status", "fence", "test"], help = "Action to perform"
     )
-    parser.add_argument("--node", help="Target node ID")
+    parser.add_argument("--node", help = "Target node ID")
     parser.add_argument(
-        "--method", choices=["ipmi", "redfish"], default="ipmi", help="Fence method"
+        "--method", choices = ["ipmi", "redfish"], default = "ipmi", help = "Fence method"
     )
-    parser.add_argument("--host", help="BMC/IPMI host address")
-    parser.add_argument("--user", default="admin", help="BMC username")
-    parser.add_argument("--password", default="", help="BMC password")
-    _args=parser.parse_args()
+    parser.add_argument("--host", help = "BMC/IPMI host address")
+    parser.add_argument("--user", default = "admin", help = "BMC username")
+    parser.add_argument("--password", default = "", help = "BMC password")
+    _args = parser.parse_args()
 
     logging.basicConfig(
-        _level=logging.INFO,
-        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _level = logging.INFO,
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    _agent=FencingAgent()
+    _agent = FencingAgent()
 
     if args.action == "status":
-        _status=agent.get_status()
-        print(json.dumps(status, indent=2))
+        _status = agent.get_status()
+        print(json.dumps(status, indent = 2))
 
     elif args.action == "test":
     # Register a test target
-        _target=FenceTarget(
-            _node_id="test-node-01",
-            _hostname="test-node-01.local",
-            _methods=[FenceMethod.IPMI],
-            _params={
+        _target = FenceTarget(
+            _node_id = "test-node-01",
+            _hostname = "test-node-01.local",
+            _methods = [FenceMethod.IPMI],
+            _params = {
                 "ipmi": {
                     "host": args.host or "192.168.1.100",
                     "user": args.user,
@@ -777,7 +777,7 @@ if _name__== "__main__":
         )
         agent.register_target(target)
         print(f"Registered test target: {target.node_id}")
-        print(json.dumps(agent.get_status(), indent=2))
+        print(json.dumps(agent.get_status(), indent = 2))
 
     elif args.action == "fence":
         if not args.node:
@@ -788,12 +788,12 @@ if _name__== "__main__":
             exit(1)
 
         # Register and fence
-        method=FenceMethod.IPMI if args.method == "ipmi" else FenceMethod.REDFISH
-        _target=FenceTarget(
-            _node_id=args.node,
-            _hostname=args.node,
-            _methods=[method],
-            _params={
+        method = FenceMethod.IPMI if args.method == "ipmi" else FenceMethod.REDFISH
+        _target = FenceTarget(
+            _node_id = args.node,
+            _hostname = args.node,
+            _methods = [method],
+            _params = {
                 args.method: {
                     "host": args.host,
                     "user": args.user,
@@ -803,5 +803,5 @@ if _name__== "__main__":
         )
         agent.register_target(target)
 
-        _result=agent.fence_node(args.node, initiator="cli")
+        _result = agent.fence_node(args.node, initiator = "cli")
         print(f"Fence result: {result.value}")

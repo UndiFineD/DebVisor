@@ -123,46 +123,46 @@ from typing import Dict, Optional, Tuple, Any, List
 try:
     import brotli
 
-    BROTLI_AVAILABLE=True
+    BROTLI_AVAILABLE = True
 except ImportError:
-    BROTLI_AVAILABLE=False
+    BROTLI_AVAILABLE = False
 
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class CompressionAlgorithm(Enum):
     """Supported compression algorithms."""
 
-    NONE="none"
-    GZIP="gzip"
-    BROTLI="brotli"
+    NONE = "none"
+    GZIP = "gzip"
+    BROTLI = "brotli"
 
 
 @dataclass
 class CompressionConfig:
     """Compression configuration."""
 
-    enabled: bool=True
-    min_payload_bytes: int=1024    # Don't compress payloads smaller than 1KB
-    preferred_algorithm: CompressionAlgorithm=CompressionAlgorithm.GZIP
-    allow_brotli: bool=True
-    gzip_level: int=6    # 1-9, higher=better compression, slower
-    brotli_quality: int=4    # 0-11, higher=better compression, slower
+    enabled: bool = True
+    min_payload_bytes: int = 1024    # Don't compress payloads smaller than 1KB
+    preferred_algorithm: CompressionAlgorithm = CompressionAlgorithm.GZIP
+    allow_brotli: bool = True
+    gzip_level: int = 6    # 1-9, higher = better compression, slower
+    brotli_quality: int = 4    # 0-11, higher = better compression, slower
 
 
 class CompressionMetrics:
     """Track compression metrics."""
 
     def __init__(self) -> None:
-        self.total_requests=0
-        self.compressed_requests=0
-        self.gzip_requests=0
-        self.brotli_requests=0
-        self.total_bytes_original=0
-        self.total_bytes_compressed=0
-        self.compression_time_ms=0.0
-        self.decompression_time_ms=0.0
-        self.errors=0
+        self.total_requests = 0
+        self.compressed_requests = 0
+        self.gzip_requests = 0
+        self.brotli_requests = 0
+        self.total_bytes_original = 0
+        self.total_bytes_compressed = 0
+        self.compression_time_ms = 0.0
+        self.decompression_time_ms = 0.0
+        self.errors = 0
 
     def record_compression(
         self,
@@ -241,13 +241,13 @@ class CompressionManager:
         Args:
             config: CompressionConfig instance (uses defaults if None)
         """
-        self.config=config or CompressionConfig()
-        self.metrics=CompressionMetrics()
+        self.config = config or CompressionConfig()
+        self.metrics = CompressionMetrics()
 
         # Validate Brotli availability
         if self.config.allow_brotli and not BROTLI_AVAILABLE:
             logger.warning("Brotli not available. Install with: pip install brotli")
-            self.config.allow_brotli=False
+            self.config.allow_brotli = False
 
     def select_algorithm(
         self,
@@ -275,11 +275,11 @@ class CompressionManager:
             return CompressionAlgorithm.NONE
 
         # Check client capabilities
-        supported=client_supported or [
+        supported = client_supported or [
             CompressionAlgorithm.GZIP,
             CompressionAlgorithm.BROTLI if self.config.allow_brotli else None,
         ]
-        supported=[a for a in supported if a is not None]
+        supported = [a for a in supported if a is not None]
 
         if not supported:
             return CompressionAlgorithm.NONE
@@ -327,19 +327,19 @@ class CompressionManager:
         try:
         # Auto-select algorithm if not specified
             if algorithm is None:
-                _algorithm=self.select_algorithm(len(data), content_type=content_type)
+                _algorithm = self.select_algorithm(len(data), content_type = content_type)
 
             if algorithm == CompressionAlgorithm.NONE:
                 return data, algorithm
 
-            _start_time=time.time()
+            _start_time = time.time()
 
             if algorithm == CompressionAlgorithm.GZIP:
-                _compressed=gzip.compress(data, compresslevel=self.config.gzip_level)
+                _compressed = gzip.compress(data, compresslevel = self.config.gzip_level)
             elif algorithm == CompressionAlgorithm.BROTLI:
                 if not BROTLI_AVAILABLE:
                     raise ValueError("Brotli not available")
-                _compressed=brotli.compress(data, quality=self.config.brotli_quality)
+                _compressed = brotli.compress(data, quality = self.config.brotli_quality)
             else:
                 raise ValueError(f"Unknown compression algorithm: {algorithm}")
 
@@ -387,14 +387,14 @@ class CompressionManager:
             return data
 
         try:
-            _start_time=time.time()
+            _start_time = time.time()
 
             if algorithm == CompressionAlgorithm.GZIP:
-                _decompressed=gzip.decompress(data)
+                _decompressed = gzip.decompress(data)
             elif algorithm == CompressionAlgorithm.BROTLI:
                 if not BROTLI_AVAILABLE:
                     raise ValueError("Brotli not available")
-                _decompressed=brotli.decompress(data)
+                _decompressed = brotli.decompress(data)
             else:
                 raise ValueError(f"Unknown compression algorithm: {algorithm}")
 

@@ -13,9 +13,9 @@ import sys
 def get_flake8_issues():
     """Get E303 issues from flake8."""
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     issues = {}
@@ -35,7 +35,7 @@ def get_flake8_issues():
 def fix_e303(filepath, line_numbers):
     """Fix E303 issues in a file by removing excess blank lines."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except Exception as e:
         print(f"Error reading {filepath}: {e}")
@@ -43,7 +43,7 @@ def fix_e303(filepath, line_numbers):
     
     fixed = 0
     # Sort line numbers in reverse to avoid index shifting
-    for lineno in sorted(set(line_numbers), reverse=True):
+    for lineno in sorted(set(line_numbers), reverse = True):
         idx = lineno - 1
         if idx >= len(lines):
             continue
@@ -81,7 +81,7 @@ def fix_e303(filepath, line_numbers):
     # Write back
     if fixed > 0:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
         except Exception as e:
             print(f"Error writing {filepath}: {e}")

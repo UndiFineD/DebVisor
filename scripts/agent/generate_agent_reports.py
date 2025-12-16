@@ -237,7 +237,7 @@ class AuditAction(Enum):
 
 # =============================================================================
 
-@dataclass(frozen=True)
+@dataclass(frozen = True)
 class CompileResult:
 
     """Result of compile/syntax check."""
@@ -300,7 +300,7 @@ class ReportMetadata:
 
     file_path: str
 
-    generated_at: float = field(default_factory=time.time)
+    generated_at: float = field(default_factory = time.time)
 
     source_hash: str = ""
 
@@ -352,9 +352,9 @@ class ReportCache:
 
     """
 
-    reports: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    reports: Dict[str, Dict[str, Any]] = field(default_factory = dict)
 
-    last_updated: float = field(default_factory=time.time)
+    last_updated: float = field(default_factory = time.time)
 
     ttl_seconds: int = 3600  # 1 hour default
 
@@ -381,11 +381,11 @@ class ReportComparison:
 
     file_path: str
 
-    added_issues: List[str] = field(default_factory=list)
+    added_issues: List[str] = field(default_factory = list)
 
-    removed_issues: List[str] = field(default_factory=list)
+    removed_issues: List[str] = field(default_factory = list)
 
-    changed_issues: List[str] = field(default_factory=list)
+    changed_issues: List[str] = field(default_factory = list)
 
     summary: str = ""
 
@@ -416,9 +416,9 @@ class FilterCriteria:
 
     severity_min: SeverityLevel = SeverityLevel.INFO
 
-    categories: List[IssueCategory] = field(default_factory=list)
+    categories: List[IssueCategory] = field(default_factory = list)
 
-    file_patterns: List[str] = field(default_factory=list)
+    file_patterns: List[str] = field(default_factory = list)
 
 
 @dataclass
@@ -449,9 +449,9 @@ class ReportSubscription:
 
     frequency: SubscriptionFrequency = SubscriptionFrequency.DAILY
 
-    report_types: List[ReportType] = field(default_factory=list)
+    report_types: List[ReportType] = field(default_factory = list)
 
-    file_patterns: List[str] = field(default_factory=list)
+    file_patterns: List[str] = field(default_factory = list)
 
     enabled: bool = True
 
@@ -484,11 +484,11 @@ class ArchivedReport:
 
     content: str
 
-    archived_at: float = field(default_factory=time.time)
+    archived_at: float = field(default_factory = time.time)
 
     retention_days: int = 90
 
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -523,7 +523,7 @@ class ReportAnnotation:
 
     line_number: Optional[int] = None
 
-    created_at: float = field(default_factory=time.time)
+    created_at: float = field(default_factory = time.time)
 
 
 @dataclass
@@ -651,7 +651,7 @@ class AuditEntry:
 
     report_id: str
 
-    details: Dict[str, Any] = field(default_factory=dict)
+    details: Dict[str, Any] = field(default_factory = dict)
 
 
 @dataclass
@@ -672,7 +672,7 @@ class LocalizedString:
 
     key: str
 
-    translations: Dict[str, str] = field(default_factory=dict)
+    translations: Dict[str, str] = field(default_factory = dict)
 
     default: str = ""
 
@@ -697,9 +697,9 @@ class ValidationResult:
 
     valid: bool
 
-    errors: List[str] = field(default_factory=list)
+    errors: List[str] = field(default_factory = list)
 
-    warnings: List[str] = field(default_factory=list)
+    warnings: List[str] = field(default_factory = list)
 
     checksum: str = ""
 
@@ -722,13 +722,13 @@ class AggregatedReport:
 
     """
 
-    sources: List[str] = field(default_factory=list)
+    sources: List[str] = field(default_factory = list)
 
-    combined_issues: List[CodeIssue] = field(default_factory=list)
+    combined_issues: List[CodeIssue] = field(default_factory = list)
 
-    summary: Dict[str, Any] = field(default_factory=dict)
+    summary: Dict[str, Any] = field(default_factory = dict)
 
-    generated_at: float = field(default_factory=time.time)
+    generated_at: float = field(default_factory = time.time)
 
 
 # =============================================================================
@@ -782,11 +782,11 @@ class ReportCacheManager:
 
                 self.cache = ReportCache(
 
-                    reports=data.get('reports', {}),
+                    reports = data.get('reports', {}),
 
-                    last_updated=data.get('last_updated', time.time()),
+                    last_updated = data.get('last_updated', time.time()),
 
-                    ttl_seconds=data.get('ttl_seconds', 3600)
+                    ttl_seconds = data.get('ttl_seconds', 3600)
 
                 )
 
@@ -811,7 +811,7 @@ class ReportCacheManager:
 
             }
 
-            self.cache_file.write_text(json.dumps(data, indent=2))
+            self.cache_file.write_text(json.dumps(data, indent = 2))
 
         except Exception as e:
 
@@ -1000,13 +1000,13 @@ class ReportComparator:
 
         return ReportComparison(
 
-            file_path=file_stem,
+            file_path = file_stem,
 
-            added_issues=added,
+            added_issues = added,
 
-            removed_issues=removed,
+            removed_issues = removed,
 
-            summary=", ".join(summary_parts)
+            summary = ", ".join(summary_parts)
 
         )
 
@@ -1348,13 +1348,13 @@ class ReportArchiver:
 
         archived = ArchivedReport(
 
-            report_id=report_id,
+            report_id = report_id,
 
-            file_path=file_path,
+            file_path = file_path,
 
-            content=content,
+            content = content,
 
-            retention_days=retention_days
+            retention_days = retention_days
 
         )
 
@@ -1524,15 +1524,15 @@ class AnnotationManager:
 
         annotation = ReportAnnotation(
 
-            annotation_id=annotation_id,
+            annotation_id = annotation_id,
 
-            report_id=report_id,
+            report_id = report_id,
 
-            author=author,
+            author = author,
 
-            content=content,
+            content = content,
 
-            line_number=line_number
+            line_number = line_number
 
         )
 
@@ -1735,15 +1735,15 @@ class ReportSearchEngine:
 
             results.append(ReportSearchResult(
 
-                file_path=file_path,
+                file_path = file_path,
 
-                report_type=report_type,
+                report_type = report_type,
 
-                match_text=match_text,
+                match_text = match_text,
 
-                line_number=line_num,
+                line_number = line_num,
 
-                score=float(score)
+                score = float(score)
 
             ))
 
@@ -1824,13 +1824,13 @@ class MetricsCollector:
 
         metric = ReportMetric(
 
-            name=name,
+            name = name,
 
-            value=value,
+            value = value,
 
-            unit=unit,
+            unit = unit,
 
-            threshold=threshold
+            threshold = threshold
 
         )
 
@@ -1984,13 +1984,13 @@ class AccessController:
 
         permission = ReportPermission(
 
-            user_id=user_id,
+            user_id = user_id,
 
-            report_pattern=report_pattern,
+            report_pattern = report_pattern,
 
-            level=level,
+            level = level,
 
-            granted_by=granted_by
+            granted_by = granted_by
 
         )
 
@@ -2128,11 +2128,11 @@ class ReportExporter:
 
         html_content = content
 
-        html_content = re.sub(r'^  # (.+)$', r'<h1>\1</h1>', html_content, flags=re.MULTILINE)
+        html_content = re.sub(r'^  # (.+)$', r'<h1>\1</h1>', html_content, flags = re.MULTILINE)
 
-        html_content = re.sub(r'^  ## (.+)$', r'<h2>\1</h2>', html_content, flags=re.MULTILINE)
+        html_content = re.sub(r'^  ## (.+)$', r'<h2>\1</h2>', html_content, flags = re.MULTILINE)
 
-        html_content = re.sub(r'^- (.+)$', r'<li>\1</li>', html_content, flags=re.MULTILINE)
+        html_content = re.sub(r'^- (.+)$', r'<li>\1</li>', html_content, flags = re.MULTILINE)
 
         html_content = re.sub(r'`([^`]+)`', r'<code>\1</code>', html_content)
 
@@ -2224,7 +2224,7 @@ class ReportExporter:
 
         if output_path:
 
-            output_path.write_text(result, encoding="utf-8")
+            output_path.write_text(result, encoding = "utf-8")
 
 
         return result
@@ -2299,17 +2299,17 @@ class AuditLogger:
 
         entry = AuditEntry(
 
-            entry_id=f"audit_{int(time.time())}_{len(self.entries)}",
+            entry_id = f"audit_{int(time.time())}_{len(self.entries)}",
 
-            timestamp=time.time(),
+            timestamp = time.time(),
 
-            action=action,
+            action = action,
 
-            user_id=user_id,
+            user_id = user_id,
 
-            report_id=report_id,
+            report_id = report_id,
 
-            details=details or {}
+            details = details or {}
 
         )
 
@@ -2433,13 +2433,13 @@ class ReportValidator:
 
         return ValidationResult(
 
-            valid=len(errors) == 0,
+            valid = len(errors) == 0,
 
-            errors=errors,
+            errors = errors,
 
-            warnings=warnings,
+            warnings = warnings,
 
-            checksum=checksum
+            checksum = checksum
 
         )
 
@@ -2553,7 +2553,7 @@ class ReportLocalizer:
 
         default = translations.get("en-US", list(translations.values())[0] if translations else "")
 
-        self.strings[key] = LocalizedString(key=key, translations=translations, default=default)
+        self.strings[key] = LocalizedString(key = key, translations = translations, default = default)
 
 
     def get(self, key: str, locale: Optional[LocaleCode] = None) -> str:
@@ -2689,7 +2689,7 @@ class ReportAPI:
 
         if path.exists():
 
-            return path.read_text(encoding="utf-8")
+            return path.read_text(encoding = "utf-8")
 
         return None
 
@@ -2741,7 +2741,7 @@ class ReportAPI:
 
         try:
 
-            path.write_text(content, encoding="utf-8")
+            path.write_text(content, encoding = "utf-8")
 
             return True
 
@@ -2960,11 +2960,11 @@ class ReportAggregator:
 
         return AggregatedReport(
 
-            sources=list(self.sources.keys()),
+            sources = list(self.sources.keys()),
 
-            combined_issues=all_issues,
+            combined_issues = all_issues,
 
-            summary={
+            summary = {
 
                 "total_issues": len(all_issues),
 
@@ -2995,19 +2995,19 @@ class ReportAggregator:
 
 def _read_text(path: Path) -> str:
 
-    return path.read_text(encoding="utf-8", errors="replace")
+    return path.read_text(encoding = "utf-8", errors = "replace")
 
 
 def _sha256_text(text: str) -> str:
 
-    return hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()
+    return hashlib.sha256(text.encode("utf-8", errors = "replace")).hexdigest()
 
 
 def _try_parse_python(source: str, filename: str) -> Tuple[Optional[ast.AST], Optional[str]]:
 
     try:
 
-        return ast.parse(source, filename=filename), None
+        return ast.parse(source, filename = filename), None
 
     except SyntaxError as exc:
 
@@ -3024,11 +3024,11 @@ def _compile_check(path: Path) -> CompileResult:
 
     if tree is None:
 
-        return CompileResult(ok=False, error=err)
+        return CompileResult(ok = False, error = err)
 
     # If AST parse succeeded, consider syntax check OK.
 
-    return CompileResult(ok=True)
+    return CompileResult(ok = True)
 
 
 def _is_pytest_test_file(path: Path) -> bool:
@@ -3144,7 +3144,7 @@ def _write_md(path: Path, content: str) -> None:
 
     # Normalize newlines for Windows repos.
 
-    path.write_text(content.replace("\r\n", "\n").rstrip() + "\n", encoding="utf-8")
+    path.write_text(content.replace("\r\n", "\n").rstrip() + "\n", encoding = "utf-8")
 
 
 def _rel(path: Path) -> str:
@@ -3404,7 +3404,7 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
 
     if "subprocess.run" in source:
 
-        suggestions.append("Add robust subprocess error handling (`check=True`, timeouts, clearer stderr reporting).")
+        suggestions.append("Add robust subprocess error handling (`check = True`, timeouts, clearer stderr reporting).")
 
     if _detect_cli_entry(source) and _detect_argparse(source):
 
@@ -3491,11 +3491,11 @@ def main(argv: Sequence[str]) -> int:
 
     logging.basicConfig(
 
-        level=logging.INFO,
+        level = logging.INFO,
 
-        format='%(asctime)s - %(levelname)s - %(message)s',
+        format = '%(asctime)s - %(levelname)s - %(message)s',
 
-        datefmt='%H:%M:%S'
+        datefmt = '%H:%M:%S'
 
     )
 

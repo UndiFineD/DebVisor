@@ -39,12 +39,12 @@ from typing import Dict, List, Optional, Any
 try:
     from opt.core.logging import configure_logging
 
-    configure_logging(service_name="config-distributor")
+    configure_logging(service_name = "config-distributor")
 except ImportError:
     logging.basicConfig(  # type: ignore[call-arg]
-        _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+        _level = logging.INFO, format = "%(asctime)s - %(levelname)s - %(message)s"
     )
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -55,19 +55,19 @@ class ConfigVersion:
     timestamp: float
     content: Dict[str, Any]
     checksum: str
-    description: str=""
+    description: str = ""
 
     @classmethod
     def create(cls, content: Dict[str, Any], description: str="") -> "ConfigVersion":
-        _content_str=json.dumps(content, sort_keys=True)
-        _checksum=hashlib.sha256(content_str.encode()).hexdigest()  # type: ignore[name-defined]
-        _version_id=f"v{int(time.time())}_{checksum[:8]}"  # type: ignore[name-defined]
+        _content_str = json.dumps(content, sort_keys = True)
+        _checksum = hashlib.sha256(content_str.encode()).hexdigest()  # type: ignore[name-defined]
+        _version_id = f"v{int(time.time())}_{checksum[:8]}"  # type: ignore[name-defined]
         return cls(  # type: ignore[call-arg]
-            _version_id=version_id,  # type: ignore[name-defined]
-            _timestamp=time.time(),
-            _content=content,
-            _checksum=checksum,  # type: ignore[name-defined]
-            _description=description,
+            _version_id = version_id,  # type: ignore[name-defined]
+            _timestamp = time.time(),
+            _content = content,
+            _checksum = checksum,  # type: ignore[name-defined]
+            _description = description,
         )
 
 
@@ -75,12 +75,12 @@ class ConfigStore:
     """Local storage for configuration versions."""
 
     def __init__(self, storagedir: str) -> None:
-        self.storage_dir=Path(storage_dir)  # type: ignore[name-defined]
-        self.storage_dir.mkdir(parents=True, exist_ok=True)
-        self.current_version_file=self.storage_dir / "current_version"
+        self.storage_dir = Path(storage_dir)  # type: ignore[name-defined]
+        self.storage_dir.mkdir(parents = True, exist_ok = True)
+        self.current_version_file = self.storage_dir / "current_version"
 
     def save_version(self, version: ConfigVersion) -> None:
-        version_path=self.storage_dir / f"{version.version_id}.json"
+        version_path = self.storage_dir / f"{version.version_id}.json"
         with open(version_path, "w") as f:
             json.dump(
                 {
@@ -91,17 +91,17 @@ class ConfigStore:
                     "description": version.description,
                 },
                 f,
-                _indent=2,
+                _indent = 2,
             )
         logger.info(f"Saved config version {version.version_id}")  # type: ignore[name-defined]
 
     def load_version(self, versionid: str) -> Optional[ConfigVersion]:
-        version_path=self.storage_dir / f"{version_id}.json"  # type: ignore[name-defined]
+        version_path = self.storage_dir / f"{version_id}.json"  # type: ignore[name-defined]
         if not version_path.exists():
             return None
 
         with open(version_path, "r") as f:
-            _data=json.load(f)
+            _data = json.load(f)
             return ConfigVersion(**data)  # type: ignore[name-defined]
 
     def set_current(self, versionid: str) -> None:
@@ -112,7 +112,7 @@ class ConfigStore:
         if not self.current_version_file.exists():
             return None
         with open(self.current_version_file, "r") as f:
-            _version_id=f.read().strip()
+            _version_id = f.read().strip()
         return self.load_version(version_id)  # type: ignore[name-defined]
 
 
@@ -120,7 +120,7 @@ class ConfigDistributor:
     """Distributes configuration to nodes."""
 
     def __init__(self, store: ConfigStore) -> None:
-        self.store=store
+        self.store = store
 
     async def distribute(
         self, version: ConfigVersion, nodes: List[str]
@@ -133,12 +133,12 @@ class ConfigDistributor:
             f"Distributing version {version.version_id} to {len(nodes)} nodes..."
         )
 
-        results={}
+        results = {}
         # In a real implementation, this would use RPC calls.
         # Here we simulate the distribution.
 
-        _tasks=[self._push_to_node(node, version) for node in nodes]
-        _node_results=await asyncio.gather(*tasks, return_exceptions=True)  # type: ignore[name-defined]
+        _tasks = [self._push_to_node(node, version) for node in nodes]
+        _node_results = await asyncio.gather(*tasks, return_exceptions = True)  # type: ignore[name-defined]
 
         for node, result in zip(nodes, node_results):  # type: ignore[name-defined]
             if isinstance(result, Exception):
@@ -147,7 +147,7 @@ class ConfigDistributor:
             else:
                 results[node] = result  # type: ignore[assignment]
 
-        _success_count=sum(1 for r in results.values() if r)
+        _success_count = sum(1 for r in results.values() if r)
         logger.info(f"Distribution complete. Success: {success_count}/{len(nodes)}")  # type: ignore[name-defined]
         return results
 
@@ -167,7 +167,7 @@ class ConfigDistributor:
         self, nodes: List[str], target_version_id: str
     ) -> Dict[str, bool]:
         """Rollback nodes to a specific version."""
-        _version=self.store.load_version(target_version_id)
+        _version = self.store.load_version(target_version_id)
         if not version:  # type: ignore[name-defined]
             raise ValueError(f"Version {target_version_id} not found")
 
@@ -176,60 +176,60 @@ class ConfigDistributor:
 
 
 async def main_async() -> None:
-    _parser=argparse.ArgumentParser(description="DebVisor Config Distributor")
+    _parser = argparse.ArgumentParser(description = "DebVisor Config Distributor")
     parser.add_argument(  # type: ignore[name-defined]
         "--store-dir",
-        _default="/var/lib/debvisor/config_store",
-        _help="Storage directory",
+        _default = "/var/lib/debvisor/config_store",
+        _help = "Storage directory",
     )
 
-    _subparsers=parser.add_subparsers(dest="command", help="Commands")  # type: ignore[name-defined]
+    _subparsers = parser.add_subparsers(dest = "command", help = "Commands")  # type: ignore[name-defined]
 
     # Create Version
-    _create_parser=subparsers.add_parser("create", help="Create new config version")  # type: ignore[name-defined]
-    create_parser.add_argument("file", help="JSON config file")  # type: ignore[name-defined]
-    create_parser.add_argument("--desc", default="", help="Description")  # type: ignore[name-defined]
+    _create_parser = subparsers.add_parser("create", help = "Create new config version")  # type: ignore[name-defined]
+    create_parser.add_argument("file", help = "JSON config file")  # type: ignore[name-defined]
+    create_parser.add_argument("--desc", default = "", help = "Description")  # type: ignore[name-defined]
 
     # Distribute
-    _dist_parser=subparsers.add_parser("distribute", help="Distribute config")  # type: ignore[name-defined]
-    dist_parser.add_argument("version_id", help="Version ID to distribute")  # type: ignore[name-defined]
+    _dist_parser = subparsers.add_parser("distribute", help = "Distribute config")  # type: ignore[name-defined]
+    dist_parser.add_argument("version_id", help = "Version ID to distribute")  # type: ignore[name-defined]
     dist_parser.add_argument(  # type: ignore[name-defined]
-        "--nodes", required=True, help="Comma-separated list of nodes"
+        "--nodes", required = True, help = "Comma-separated list of nodes"
     )
 
     # List Versions
-    subparsers.add_parser("list", help="List versions")  # type: ignore[name-defined]
+    subparsers.add_parser("list", help = "List versions")  # type: ignore[name-defined]
 
-    _args=parser.parse_args()  # type: ignore[name-defined]
+    _args = parser.parse_args()  # type: ignore[name-defined]
 
     if not args.command:  # type: ignore[name-defined]
         parser.print_help()  # type: ignore[name-defined]
         return 1  # type: ignore[return-value]
 
-    _store=ConfigStore(args.store_dir)  # type: ignore[name-defined]
-    _distributor=ConfigDistributor(store)  # type: ignore[name-defined]
+    _store = ConfigStore(args.store_dir)  # type: ignore[name-defined]
+    _distributor = ConfigDistributor(store)  # type: ignore[name-defined]
 
     if args.command == "create":  # type: ignore[name-defined]
         with open(args.file, "r") as f:  # type: ignore[name-defined]
-            _content=json.load(f)
+            _content = json.load(f)
 
-        _version=ConfigVersion.create(content, args.desc)  # type: ignore[name-defined]
+        _version = ConfigVersion.create(content, args.desc)  # type: ignore[name-defined]
         store.save_version(version)  # type: ignore[name-defined]
         store.set_current(version.version_id)  # type: ignore[name-defined]
         print(f"Created version: {version.version_id}")  # type: ignore[name-defined]
 
     elif args.command == "distribute":  # type: ignore[name-defined]
-        _version=store.load_version(args.version_id)  # type: ignore[assignment, name-defined]
+        _version = store.load_version(args.version_id)  # type: ignore[assignment, name-defined]
         if not version:  # type: ignore[name-defined]
             print(f"Error: Version {args.version_id} not found")  # type: ignore[name-defined]
             return 1  # type: ignore[return-value]
 
-        _nodes=args.nodes.split(", ")  # type: ignore[name-defined]
-        _results=await distributor.distribute(version, nodes)  # type: ignore[name-defined]
+        _nodes = args.nodes.split(", ")  # type: ignore[name-defined]
+        _results = await distributor.distribute(version, nodes)  # type: ignore[name-defined]
 
         print("\nResults:")
         for node, success in results.items():  # type: ignore[name-defined]
-            status="? Success" if success else "? Failed"
+            status = "? Success" if success else "? Failed"
             print(f"  {node}: {status}")
 
     elif args.command == "list":  # type: ignore[name-defined]
@@ -238,7 +238,7 @@ async def main_async() -> None:
             print("No versions found.")
             return 0  # type: ignore[return-value]
 
-        versions=[]
+        versions = []
         for p in store.storage_dir.glob("*.json"):  # type: ignore[name-defined]
             if p.name == "current_version":
                 continue
@@ -250,7 +250,7 @@ async def main_async() -> None:
         print(f"{'Version ID':<25} {'Date':<20} {'Description'}")
         print("-" * 60)
         for v in versions:
-            date_str=time.strftime(
+            date_str = time.strftime(
                 "%Y-%m-%d %H:%M:%S", time.localtime(v["timestamp"])
             )
             print(f"{v['version_id']:<25} {date_str:<20} {v['description']}")

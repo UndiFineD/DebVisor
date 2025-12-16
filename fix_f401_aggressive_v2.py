@@ -11,9 +11,9 @@ from pathlib import Path
 def get_flake8_f401_issues():
     """Get F401 unused import issues from flake8."""
     result = subprocess.run(
-        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length=120'],
-        capture_output=True,
-        text=True
+        ['python', '-m', 'flake8', 'scripts/agent', '--max-line-length = 120'],
+        capture_output = True,
+        text = True
     )
     
     issues = {}
@@ -43,7 +43,7 @@ def extract_import_name(msg):
 def remove_f401_imports(filepath, issues):
     """Remove F401 unused imports from file."""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding = 'utf-8') as f:
             lines = f.readlines()
     except Exception as e:
         print(f"Error reading {filepath}: {e}")
@@ -51,7 +51,7 @@ def remove_f401_imports(filepath, issues):
     
     fixed = 0
     # Process in reverse order to avoid index shifting
-    for lineno in sorted(issues.keys(), reverse=True):
+    for lineno in sorted(issues.keys(), reverse = True):
         msg = issues[lineno]
         import_name = extract_import_name(msg)
         if not import_name:
@@ -80,7 +80,7 @@ def remove_f401_imports(filepath, issues):
     
     if fixed > 0:
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding = 'utf-8') as f:
                 f.writelines(lines)
         except Exception as e:
             print(f"Error writing {filepath}: {e}")

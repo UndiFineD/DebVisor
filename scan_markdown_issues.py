@@ -14,7 +14,7 @@ def _load_wrap_config(root: Path):
     cfg_path = root / 'md_wrap_config.json'
     if cfg_path.exists():
         try:
-            return json.loads(cfg_path.read_text(encoding='utf-8'))
+            return json.loads(cfg_path.read_text(encoding = 'utf-8'))
         except Exception:
             return {}
     return {}
@@ -33,7 +33,7 @@ def scan_markdown_file(file_path, max_line_length: int | None = None):
     """Scan a single markdown file for issues."""
     issues = defaultdict(int)
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, 'r', encoding = 'utf-8') as f:
             content = f.read()
     except Exception:
         return issues
@@ -108,7 +108,7 @@ def scan_markdown_file(file_path, max_line_length: int | None = None):
     in_code_block = False
     root = Path(__file__).parent
     cfg = _load_wrap_config(root)
-    limit = _wrap_limit_for(root, Path(file_path), cfg, default_limit=100)
+    limit = _wrap_limit_for(root, Path(file_path), cfg, default_limit = 100)
     if max_line_length is not None:
         limit = max_line_length
     prev_was_list = False
@@ -216,8 +216,8 @@ def scan_markdown_file(file_path, max_line_length: int | None = None):
         issues['MD046_code_block_style'] += 1
 
     # MD048: Code fence style (backticks vs tildes) - count only real fence markers
-    backtick_count = len(re.findall(r'^```', content, flags=re.MULTILINE))
-    tilde_count = len(re.findall(r'^~~~', content, flags=re.MULTILINE))
+    backtick_count = len(re.findall(r'^```', content, flags = re.MULTILINE))
+    tilde_count = len(re.findall(r'^~~~', content, flags = re.MULTILINE))
     if backtick_count > 0 and tilde_count > 0:
         issues['MD048_fence_style'] += 1
 
@@ -251,7 +251,7 @@ def scan_markdown_file(file_path, max_line_length: int | None = None):
             allowlist_path = Path(__file__).parent / 'md_link_allowlist.txt'
             allowlist = set()
             if allowlist_path.exists():
-                allowlist = {line.strip() for line in allowlist_path.read_text(encoding='utf-8').splitlines() if line.strip()}
+                allowlist = {line.strip() for line in allowlist_path.read_text(encoding = 'utf-8').splitlines() if line.strip()}
             rel = str(Path(file_path).relative_to(Path(__file__).parent)).replace('\\', '/')
             if rel not in allowlist:
                 issues['MD054_relative_links'] += 1
@@ -263,8 +263,8 @@ def scan_markdown_file(file_path, max_line_length: int | None = None):
 def main():
     """Scan all markdown files."""
     import argparse
-    parser = argparse.ArgumentParser(description="Scan markdown issues")
-    parser.add_argument("--max-line-length", type=int, default=None, help="override MD013 threshold")
+    parser = argparse.ArgumentParser(description = "Scan markdown issues")
+    parser.add_argument("--max-line-length", type = int, default = None, help = "override MD013 threshold")
     args = parser.parse_args()
 
     workspace_root = Path(__file__).parent
@@ -284,7 +284,7 @@ def main():
     files_with_issues = defaultdict(list)
 
     for md_file in sorted(markdown_files):
-        issues = scan_markdown_file(md_file, max_line_length=args.max_line_length)
+        issues = scan_markdown_file(md_file, max_line_length = args.max_line_length)
         if issues:
             relative_path = md_file.relative_to(workspace_root)
             for issue_type, count in issues.items():

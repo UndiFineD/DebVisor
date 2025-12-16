@@ -128,26 +128,26 @@ from datetime import datetime
 import statistics
 
 # Configure logging
-_logger=logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class HealthStatus(Enum):
     """Health check status enumeration."""
 
-    HEALTHY="healthy"
-    DEGRADED="degraded"
-    UNHEALTHY="unhealthy"
-    UNKNOWN="unknown"
+    HEALTHY = "healthy"
+    DEGRADED = "degraded"
+    UNHEALTHY = "unhealthy"
+    UNKNOWN = "unknown"
 
 
 class CheckCategory(Enum):
     """Categories of health checks."""
 
-    BINARY="binary"
-    SERVICE="service"
-    CONNECTIVITY="connectivity"
-    CONFIGURATION="configuration"
-    RESOURCE="resource"
+    BINARY = "binary"
+    SERVICE = "service"
+    CONNECTIVITY = "connectivity"
+    CONFIGURATION = "configuration"
+    RESOURCE = "resource"
 
 
 @dataclass
@@ -159,9 +159,9 @@ class CheckResult:
     status: HealthStatus
     score: int    # 0-100
     message: str
-    details: Dict[str, Any] = field(default_factory=dict)
+    details: Dict[str, Any] = field(default_factory = dict)
     remediation: Optional[str] = None
-    timestamp: datetime=field(default_factory=datetime.now)
+    timestamp: datetime = field(default_factory = datetime.now)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -187,7 +187,7 @@ class HealthReport:
     checks: List[CheckResult]
     summary: Dict[str, int]
     recommendations: List[str]
-    metrics: Dict[str, Any] = field(default_factory=dict)
+    metrics: Dict[str, Any] = field(default_factory = dict)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -205,7 +205,7 @@ class HealthReport:
 class BinaryChecker:
     """Verifies required binaries are available."""
 
-    REQUIRED_BINARIES=[
+    REQUIRED_BINARIES = [
         "python3",
         "systemctl",
         "journalctl",
@@ -219,16 +219,16 @@ class BinaryChecker:
 
     def check(self) -> CheckResult:
         """Check binary availability."""
-        missing=[]
+        missing = []
         for binary in self.REQUIRED_BINARIES:
             try:
                 subprocess.run(
-                    ["which", binary], check=True, capture_output=True, timeout=5
+                    ["which", binary], check = True, capture_output = True, timeout = 5
                 )    # nosec B603, B607
             except (subprocess.CalledProcessError, FileNotFoundError):
                 missing.append(binary)
 
-        _score=max(0, 100 - (len(missing) * 10))
+        _score = max(0, 100 - (len(missing) * 10))
         status=(
             HealthStatus.HEALTHY
             if len(missing) == 0
@@ -236,15 +236,15 @@ class BinaryChecker:
         )
 
         return CheckResult(
-            _category=CheckCategory.BINARY,
-            _name="Required Binaries",
-            _status=status,
-            _score=score,
+            _category = CheckCategory.BINARY,
+            _name = "Required Binaries",
+            _status = status,
+            _score = score,
             _message=(
                 f"{len(self.REQUIRED_BINARIES) - len(missing)}/"
                 f"{len(self.REQUIRED_BINARIES)} binaries available"
             ),
-            _details={"missing_binaries": missing},
+            _details = {"missing_binaries": missing},
             _remediation=(
                 "Install missing packages: " + ", ".join(missing) if missing else None
             ),
@@ -254,7 +254,7 @@ class BinaryChecker:
 class ServiceChecker:
     """Verifies critical services are running."""
 
-    REQUIRED_SERVICES=[
+    REQUIRED_SERVICES = [
         "docker",
         "kubelet",
         "ceph-osd",
@@ -264,12 +264,12 @@ class ServiceChecker:
 
     def check(self) -> CheckResult:
         """Check service status."""
-        failed=[]
+        failed = []
 
         for service in self.REQUIRED_SERVICES:
             try:
-                result=subprocess.run(
-                    ["systemctl", "is-active", service], capture_output=True, timeout=5
+                result = subprocess.run(
+                    ["systemctl", "is-active", service], capture_output = True, timeout = 5
                 )    # nosec B603, B607
                 if result.returncode != 0:
                     failed.append(service)
@@ -277,7 +277,7 @@ class ServiceChecker:
                 logger.warning(f"Could not check service {service}: {e}")
                 failed.append(service)
 
-        _score=max(0, 100 - (len(failed) * 15))
+        _score = max(0, 100 - (len(failed) * 15))
         status=(
             HealthStatus.HEALTHY
             if len(failed) == 0
@@ -285,15 +285,15 @@ class ServiceChecker:
         )
 
         return CheckResult(
-            _category=CheckCategory.SERVICE,
-            _name="Critical Services",
-            _status=status,
-            _score=score,
+            _category = CheckCategory.SERVICE,
+            _name = "Critical Services",
+            _status = status,
+            _score = score,
             _message=(
                 f"{len(self.REQUIRED_SERVICES) - len(failed)}/"
                 f"{len(self.REQUIRED_SERVICES)} services running"
             ),
-            _details={"failed_services": failed},
+            _details = {"failed_services": failed},
             _remediation=(
                 "Restart failed services: systemctl restart " + " ".join(failed)
                 if failed
@@ -305,7 +305,7 @@ class ServiceChecker:
 class ConnectivityChecker:
     """Verifies connectivity to critical endpoints."""
 
-    ENDPOINTS=[
+    ENDPOINTS = [
         ("Kubernetes API", "localhost:6443"),
         ("Docker Socket", "/var/run/docker.sock"),
         ("Ceph Monitor", "localhost:6789"),
@@ -313,7 +313,7 @@ class ConnectivityChecker:
 
     def check(self) -> CheckResult:
         """Check connectivity."""
-        failed=[]
+        failed = []
 
         for name, endpoint in self.ENDPOINTS:
             if endpoint.startswith("/"):
@@ -324,7 +324,7 @@ class ConnectivityChecker:
                     failed.append(name)
             else:
             # TCP endpoint
-                host, port=endpoint.split(":")
+                host, port = endpoint.split(":")
                 try:
                     subprocess.run(
                         [
@@ -332,14 +332,14 @@ class ConnectivityChecker:
                             "-c",
                             f"timeout 2 bash -c 'echo >/dev/tcp/{host}/{port}'",
                         ],
-                        _check=True,
-                        _capture_output=True,
-                        _timeout=5,
+                        _check = True,
+                        _capture_output = True,
+                        _timeout = 5,
                     )    # nosec B603, B607
                 except Exception:
                     failed.append(name)
 
-        _score=max(0, 100 - (len(failed) * 20))
+        _score = max(0, 100 - (len(failed) * 20))
         status=(
             HealthStatus.HEALTHY
             if len(failed) == 0
@@ -347,15 +347,15 @@ class ConnectivityChecker:
         )
 
         return CheckResult(
-            _category=CheckCategory.CONNECTIVITY,
-            _name="Critical Endpoints",
-            _status=status,
-            _score=score,
+            _category = CheckCategory.CONNECTIVITY,
+            _name = "Critical Endpoints",
+            _status = status,
+            _score = score,
             _message=(
                 f"{len(self.ENDPOINTS) - len(failed)}/"
                 f"{len(self.ENDPOINTS)} endpoints reachable"
             ),
-            _details={"unreachable_endpoints": failed},
+            _details = {"unreachable_endpoints": failed},
             _remediation=(
                 "Check firewall and service status for: " + ", ".join(failed)
                 if failed
@@ -367,7 +367,7 @@ class ConnectivityChecker:
 class ConfigurationChecker:
     """Verifies configuration files are valid."""
 
-    CONFIG_FILES=[
+    CONFIG_FILES = [
         "/etc/debvisor/config.yaml",
         "/etc/docker/daemon.json",
         "/etc/kubernetes/kubelet.con",
@@ -375,8 +375,8 @@ class ConfigurationChecker:
 
     def check(self) -> CheckResult:
         """Check configuration validity."""
-        missing=[]
-        _invalid=[]
+        missing = []
+        _invalid = []
 
         for config_file in self.CONFIG_FILES:
             import os
@@ -391,7 +391,7 @@ class ConfigurationChecker:
                 except Exception:
                     invalid.append(config_file)
 
-        _score=max(0, 100 - (len(missing) * 15) - (len(invalid) * 20))
+        _score = max(0, 100 - (len(missing) * 15) - (len(invalid) * 20))
         _status=(
             HealthStatus.HEALTHY
             if len(missing) + len(invalid) == 0
@@ -402,22 +402,22 @@ class ConfigurationChecker:
             )
         )
 
-        details={}
+        details = {}
         if missing:
             details["missing_configs"] = missing
         if invalid:
             details["invalid_configs"] = invalid
 
         return CheckResult(
-            _category=CheckCategory.CONFIGURATION,
-            _name="Configuration Integrity",
-            _status=status,
-            _score=score,
+            _category = CheckCategory.CONFIGURATION,
+            _name = "Configuration Integrity",
+            _status = status,
+            _score = score,
             _message=(
                 f"{len(self.CONFIG_FILES) - len(missing) - len(invalid)}/"
                 f"{len(self.CONFIG_FILES)} configs valid"
             ),
-            _details=details,
+            _details = details,
             _remediation=(
                 "Check and repair configuration files" if invalid or missing else None
             ),
@@ -429,18 +429,18 @@ class ResourceChecker:
 
     def check(self) -> CheckResult:
         """Check resource availability."""
-        _issues=[]
+        _issues = []
 
         # Check disk space
         try:
-            result=subprocess.run(
-                ["d", "-h", "/"], capture_output=True, text=True, timeout=5
+            result = subprocess.run(
+                ["d", "-h", "/"], capture_output = True, text = True, timeout = 5
             )    # nosec B603, B607
-            _lines=result.stdout.strip().split("\n")
+            _lines = result.stdout.strip().split("\n")
             if len(lines) > 1:
-                _parts=lines[1].split()
+                _parts = lines[1].split()
                 if len(parts) >= 5:
-                    _usage_pct=int(parts[4].rstrip("%"))
+                    _usage_pct = int(parts[4].rstrip("%"))
                     if usage_pct > 90:
                         issues.append(f"Disk usage high: {usage_pct}%")
         except Exception as e:
@@ -449,16 +449,16 @@ class ResourceChecker:
         # Check memory
         try:
             with open("/proc/meminfo", "r") as f:
-                _lines=f.readlines()
+                _lines = f.readlines()
                 for line in lines:
                     if "MemAvailable" in line:
-                        _available=int(line.split()[1])
+                        _available = int(line.split()[1])
                         if available < 512000:    # < 500MB
                             issues.append(f"Low available memory: {available}KB")
         except Exception as e:
             logger.warning(f"Could not check memory: {e}")
 
-        _score=max(0, 100 - (len(issues) * 20))
+        _score = max(0, 100 - (len(issues) * 20))
         status=(
             HealthStatus.HEALTHY
             if len(issues) == 0
@@ -466,13 +466,13 @@ class ResourceChecker:
         )
 
         return CheckResult(
-            _category=CheckCategory.RESOURCE,
-            _name="Resource Availability",
-            _status=status,
-            _score=score,
-            _message=f"Resource status: {'normal' if not issues else 'degraded'}",
-            _details={"issues": issues},
-            _remediation="Free up disk space and memory" if issues else None,
+            _category = CheckCategory.RESOURCE,
+            _name = "Resource Availability",
+            _status = status,
+            _score = score,
+            _message = f"Resource status: {'normal' if not issues else 'degraded'}",
+            _details = {"issues": issues},
+            _remediation = "Free up disk space and memory" if issues else None,
         )
 
 
@@ -485,11 +485,11 @@ class HealthCheckFramework:
 
     def __init__(self) -> None:
         """Initialize health check framework."""
-        self.binary_checker=BinaryChecker()
-        self.service_checker=ServiceChecker()
-        self.connectivity_checker=ConnectivityChecker()
-        self.config_checker=ConfigurationChecker()
-        self.resource_checker=ResourceChecker()
+        self.binary_checker = BinaryChecker()
+        self.service_checker = ServiceChecker()
+        self.connectivity_checker = ConnectivityChecker()
+        self.config_checker = ConfigurationChecker()
+        self.resource_checker = ResourceChecker()
         self.check_history: List[HealthReport] = []
 
     def run_checks(self) -> HealthReport:
@@ -499,7 +499,7 @@ class HealthCheckFramework:
         Returns:
             Comprehensive health report
         """
-        checks=[
+        checks = [
             self.binary_checker.check(),
             self.service_checker.check(),
             self.connectivity_checker.check(),
@@ -508,19 +508,19 @@ class HealthCheckFramework:
         ]
 
         # Calculate overall score
-        scores=[c.score for c in checks]
-        _overall_score=int(statistics.mean(scores)) if scores else 0
+        scores = [c.score for c in checks]
+        _overall_score = int(statistics.mean(scores)) if scores else 0
 
         # Determine overall status
         if overall_score >= 90:
-            overall_status=HealthStatus.HEALTHY
+            overall_status = HealthStatus.HEALTHY
         elif overall_score >= 70:
-            overall_status=HealthStatus.DEGRADED
+            overall_status = HealthStatus.DEGRADED
         else:
-            _overall_status=HealthStatus.UNHEALTHY
+            _overall_status = HealthStatus.UNHEALTHY
 
         # Summary
-        _summary={
+        _summary = {
             "healthy": sum(1 for c in checks if c.status== HealthStatus.HEALTHY),
             "degraded": sum(1 for c in checks if c.status== HealthStatus.DEGRADED),
             "unhealthy": sum(1 for c in checks if c.status== HealthStatus.UNHEALTHY),
@@ -528,19 +528,19 @@ class HealthCheckFramework:
         }
 
         # Recommendations
-        _recommendations=[
+        _recommendations = [
             c.remediation
             for c in checks
             if c.remediation and c.status != HealthStatus.HEALTHY
         ]
 
-        report=HealthReport(
-            _timestamp=datetime.now(),
-            _overall_score=overall_score,
-            _overall_status=overall_status,
-            _checks=checks,
-            _summary=summary,
-            _recommendations=recommendations,
+        report = HealthReport(
+            _timestamp = datetime.now(),
+            _overall_score = overall_score,
+            _overall_status = overall_status,
+            _checks = checks,
+            _summary = summary,
+            _recommendations = recommendations,
         )
 
         self.check_history.append(report)
@@ -548,7 +548,7 @@ class HealthCheckFramework:
 
     def format_report_table(self, report: HealthReport) -> str:
         """Format report as table."""
-        _lines=[
+        _lines = [
             f"\n{'=' * 70}",
             "  DebVisor Health Check Report",
             f"  Generated: {report.timestamp.strftime('%Y-%m-%d %H:%M:%S')}",
@@ -574,10 +574,10 @@ class HealthCheckFramework:
 
     def format_report_json(self, report: HealthReport) -> str:
         """Format report as JSON."""
-        return json.dumps(report.to_dict(), indent=2)
+        return json.dumps(report.to_dict(), indent = 2)
 
     def export_report(
-        self, report: HealthReport, filepath: str, format: str="json"
+        self, report: HealthReport, filepath: str, format: str = "json"
     ) -> None:
         """
         Export report to file.
@@ -588,9 +588,9 @@ class HealthCheckFramework:
             format: Export format (json, table)
         """
         if format == "json":
-            _content=self.format_report_json(report)
+            _content = self.format_report_json(report)
         elif format == "table":
-            _content=self.format_report_table(report)
+            _content = self.format_report_table(report)
         else:
             raise ValueError(f"Unknown format: {format}")
 
@@ -601,11 +601,11 @@ class HealthCheckFramework:
 
 # Example usage
 if _name__== "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level = logging.INFO)
 
     # Run health checks
-    _framework=HealthCheckFramework()
-    _report=framework.run_checks()
+    _framework = HealthCheckFramework()
+    _report = framework.run_checks()
 
     # Display report
     print(framework.format_report_table(report))
@@ -613,8 +613,8 @@ if _name__== "__main__":
     # Export reports
     import tempfile
 
-    _tmp_dir=tempfile.gettempdir()
-    framework.export_report(report, f"{tmp_dir}/health_check.json", format="json")
-    framework.export_report(report, f"{tmp_dir}/health_check.txt", format="table")
+    _tmp_dir = tempfile.gettempdir()
+    framework.export_report(report, f"{tmp_dir}/health_check.json", format = "json")
+    framework.export_report(report, f"{tmp_dir}/health_check.txt", format = "table")
 
     sys.exit(0 if report.overall_status== HealthStatus.HEALTHY else 1)

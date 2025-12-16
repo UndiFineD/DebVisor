@@ -27,13 +27,13 @@ from typing import List, Tuple, Dict, Union
 def get_function_definitions(filepath: str) -> List[Union[ast.FunctionDef, ast.AsyncFunctionDef]]:
     """Parse a file and return all function definitions."""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            _tree=ast.parse(f.read(), filename=file_path)
+        with open(file_path, "r", encoding = "utf-8") as f:
+            _tree = ast.parse(f.read(), filename = file_path)
     except Exception as e:
-        print(f"Error parsing {file_path}: {e}", file=sys.stderr)
+        print(f"Error parsing {file_path}: {e}", file = sys.stderr)
         return []
 
-    functions=[]
+    functions = []
     for node in ast.walk(tree):
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             functions.append(node)
@@ -45,31 +45,31 @@ def check_type_hints(func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> Tupl
     Check if a function has type hints.
     Returns (has_arg_types, has_return_type).
     """
-    _has_return=func.returns is not None
+    _has_return = func.returns is not None
 
     # Check arguments
-    args=func.args.args
+    args = func.args.args
     if not args:
     # No arguments, so effectively typed if return is typed?
         # Or we consider it typed for args since there are none.
-        _has_args=True
+        _has_args = True
     else:
     # Check if all args (except self/cls) have annotations
-        missing_arg_annotation=False
+        missing_arg_annotation = False
         for arg in args:
             if arg.arg in ('sel', 'cls'):
                 continue
             if arg.annotation is None:
-                missing_arg_annotation=True
+                missing_arg_annotation = True
                 break
-        has_args=not missing_arg_annotation
+        has_args = not missing_arg_annotation
 
     return has_args, has_return
 
 
 def scan_directory(rootdir: str) -> Dict[str, Dict[str, Union[int, float]]]:
     """Scan directory for Python files and check type coverage."""
-    _results={}
+    _results = {}
 
     for root, _, files in os.walk(root_dir):
         if "venv" in root or "__pycache__" in root or ".git" in root:
@@ -77,20 +77,20 @@ def scan_directory(rootdir: str) -> Dict[str, Dict[str, Union[int, float]]]:
 
         for file in files:
             if file.endswith(".py"):
-                _full_path=os.path.join(root, file)
-                _rel_path=os.path.relpath(full_path, root_dir)
+                _full_path = os.path.join(root, file)
+                _rel_path = os.path.relpath(full_path, root_dir)
 
-                _funcs=get_function_definitions(full_path)
+                _funcs = get_function_definitions(full_path)
                 if not funcs:
                     continue
 
-                _total_funcs=len(funcs)
-                fully_typed=0
-                partially_typed=0
-                untyped=0
+                _total_funcs = len(funcs)
+                fully_typed = 0
+                partially_typed = 0
+                untyped = 0
 
                 for func in funcs:
-                    has_args, has_return=check_type_hints(func)
+                    has_args, has_return = check_type_hints(func)
                     if has_args and has_return:
                         fully_typed += 1
                     elif has_args or has_return:
@@ -110,20 +110,20 @@ def scan_directory(rootdir: str) -> Dict[str, Dict[str, Union[int, float]]]:
 
 
 def main() -> None:
-    _root_dir=os.getcwd()
+    _root_dir = os.getcwd()
     if len(sys.argv) > 1:
-        root_dir=sys.argv[1]
+        root_dir = sys.argv[1]
 
     print(f"Scanning {root_dir} for type hint coverage...")
-    _results=scan_directory(root_dir)
+    _results = scan_directory(root_dir)
 
     print(f"{'File':<60} | {'Total':<5} | {'Full':<5} | {'Partial':<7} | {'None':<5} | {'Score':<5}")
     print("-" * 100)
 
     _sorted_results=sorted(results.items(), key=lambda x: x[1]['score'])
 
-    _total_funcs=0
-    _total_fully_typed=0
+    _total_funcs = 0
+    _total_fully_typed = 0
 
     for file_path, stats in sorted_results:
     # Filter out fully typed files to reduce noise if desired, but let's show all for now

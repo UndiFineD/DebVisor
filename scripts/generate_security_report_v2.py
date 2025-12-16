@@ -40,7 +40,7 @@ def main() -> int:
         print("Error: 'gh' executable not found in PATH.")
         return 1
 
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output = True, text = True)
 
     if result.returncode != 0:
         print("Error fetching alerts:")
@@ -62,7 +62,7 @@ def main() -> int:
     open_alerts = [a for a in alerts if a.get('state') == 'open']
     dismissed_alerts = [a for a in alerts if a.get('state') in ('dismissed', 'fixed')]
 
-    with open("security-scan.md", "w", encoding="utf-8") as f:
+    with open("security-scan.md", "w", encoding = "utf-8") as f:
         f.write("# Security Scan Report\n\n")
         f.write(f"**Total Alerts:** {len(alerts)}\n")
         f.write(f"**Open:** {len(open_alerts)} | **Dismissed/Fixed:** {len(dismissed_alerts)}\n\n")
@@ -112,8 +112,8 @@ def main() -> int:
         "by_severity": severity_buckets,
     }
     try:
-        with open("security-scan-summary.json", "w", encoding="utf-8") as jf:
-            json.dump(summary, jf, indent=2)
+        with open("security-scan-summary.json", "w", encoding = "utf-8") as jf:
+            json.dump(summary, jf, indent = 2)
         print("Summary generated: security-scan-summary.json")
     except Exception as e:
         print(f"Warning: failed to write summary JSON: {e}")

@@ -31,7 +31,7 @@ ZeroDivisionError: division by zero
 test.py:10:15: F401 'os' imported but unused
 """
         lines = flake8_output.split("\n")
-        errors = [l for l in lines if l.strip()]
+        errors = [line for line in lines if line.strip()]
         assert len(errors) == 2
         assert "E302" in errors[0]
         assert "F401" in errors[1]
@@ -185,8 +185,8 @@ class TestErrorContextExtraction(unittest.TestCase):
     raise ValueError("error")
 ValueError: error
 """
-        lines = [l.strip() for l in traceback.split("\n")]
-        frames = [l for l in lines if "File" in l]
+        lines = [line.strip() for line in traceback.split("\n")]
+        frames = [line for line in lines if "File" in line]
         assert len(frames) == 2
 
     def test_extract_error_message(self):

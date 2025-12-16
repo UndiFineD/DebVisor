@@ -112,48 +112,48 @@ from opt.web.panel.extensions import db
 class Node(db.Model):
     """Cluster node information model."""
 
-    __tablename__="node"
+    __tablename__ = "node"
 
     # Primary key
-    _id=db.Column(db.Integer, primary_key=True)
+    _id = db.Column(db.Integer, primary_key = True)
 
     # Node identification
-    _node_id=db.Column(
-        db.String(36), unique=True, nullable=False, index=True
+    _node_id = db.Column(
+        db.String(36), unique = True, nullable = False, index = True
     )    # UUID from RPC
-    _hostname=db.Column(db.String(253), nullable=False, index=True)    # FQDN
-    _ip_address=db.Column(db.String(45), nullable=False, index=True)    # IPv4 or IPv6
-    _mac_address=db.Column(db.String(17), nullable=True, index=True)
+    _hostname = db.Column(db.String(253), nullable = False, index = True)    # FQDN
+    _ip_address = db.Column(db.String(45), nullable = False, index = True)    # IPv4 or IPv6
+    _mac_address = db.Column(db.String(17), nullable = True, index = True)
 
     # Node capabilities
-    _cpu_cores=db.Column(db.Integer)
-    _memory_gb=db.Column(db.Integer)
-    _storage_gb=db.Column(db.Integer)
+    _cpu_cores = db.Column(db.Integer)
+    _memory_gb = db.Column(db.Integer)
+    _storage_gb = db.Column(db.Integer)
 
     # Status tracking
-    _status=db.Column(
-        db.String(20), default="unknown", index=True
+    _status = db.Column(
+        db.String(20), default = "unknown", index = True
     )    # online, offline, error
     _last_heartbeat=db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     # Metadata
-    _region=db.Column(db.String(100), nullable=True, index=True)
-    _rack=db.Column(db.String(100), nullable=True)
-    _labels=db.Column(db.Text, nullable=True)    # JSON-encoded labels
+    _region = db.Column(db.String(100), nullable = True, index = True)
+    _rack = db.Column(db.String(100), nullable = True)
+    _labels = db.Column(db.Text, nullable = True)    # JSON-encoded labels
 
     # Tracking
-    _created_at=db.Column(
+    _created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    _updated_at=db.Column(
+    _updated_at = db.Column(
         db.DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
     )
 
     # Relationships
-    _snapshots=db.relationship(
-        "Snapshot", backref="node", lazy=True, cascade="all, delete-orphan"
+    _snapshots = db.relationship(
+        "Snapshot", backref = "node", lazy = True, cascade = "all, delete-orphan"
     )
 
     def __repr__(self) -> str:
@@ -168,13 +168,13 @@ class Node(db.Model):
         """
         if not self.last_heartbeat:
             return False
-        _elapsed=datetime.now(timezone.utc) - self.last_heartbeat
+        _elapsed = datetime.now(timezone.utc) - self.last_heartbeat
         return bool(elapsed.total_seconds() < 300)    # 5 minutes
 
     def update_heartbeat(self) -> None:
         """Update last heartbeat timestamp to current time."""
-        self.last_heartbeat=datetime.now(timezone.utc)
-        self.status="online"
+        self.last_heartbeat = datetime.now(timezone.utc)
+        self.status = "online"
         db.session.commit()
 
     def to_dict(self, includesnapshots: bool=False) -> Dict[str, Any]:
@@ -186,7 +186,7 @@ class Node(db.Model):
         Returns:
             Dictionary representation of node
         """
-        _data={
+        _data = {
             "id": self.id,
             "node_id": self.node_id,
             "hostname": self.hostname,
@@ -218,7 +218,7 @@ class Node(db.Model):
         Returns:
             Node instance or None
         """
-        return Node.query.filter_by(hostname=hostname).first()    # type: ignore
+        return Node.query.filter_by(hostname = hostname).first()    # type: ignore
 
     @staticmethod
     def get_by_node_id(nodeid: str) -> Optional['Node']:
@@ -230,7 +230,7 @@ class Node(db.Model):
         Returns:
             Node instance or None
         """
-        return Node.query.filter_by(node_id=node_id).first()    # type: ignore
+        return Node.query.filter_by(node_id = node_id).first()    # type: ignore
 
     @staticmethod
     def get_healthy_nodes() -> List['Node']:
@@ -239,7 +239,7 @@ class Node(db.Model):
         Returns:
             List of healthy Node instances
         """
-        _nodes=Node.query.filter_by(status="online").all()
+        _nodes = Node.query.filter_by(status = "online").all()
         return [n for n in nodes if n.is_healthy()]
 
     @staticmethod
@@ -249,4 +249,4 @@ class Node(db.Model):
         Returns:
             List of offline Node instances
         """
-        return Node.query.filter_by(status="offline").all()    # type: ignore
+        return Node.query.filter_by(status = "offline").all()    # type: ignore
