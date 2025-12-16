@@ -59,7 +59,22 @@ fix_markdown_content = _load_fix_markdown_content()
 
 
 def setup_logging(verbosity: str) -> None:
-    """Configure logging based on verbosity level."""
+    """Configure logging based on verbosity level.
+    
+    Args:
+        verbosity: Verbosity level as string ('quiet', 'minimal', 'normal', 'elaborate'
+                  or '0', '1', '2', '3'). Defaults to 'INFO' level.
+                  
+    Returns:
+        None. Configures the root logger with the specified level.
+        
+    Example:
+        setup_logging('elaborate')  # Sets DEBUG level
+        
+    Note:
+        This function configures the global logging system. Should be called
+        once at application startup before other logging calls.
+    """
     levels = {
         'quiet': logging.ERROR,
         'minimal': logging.WARNING,
@@ -76,30 +91,103 @@ def setup_logging(verbosity: str) -> None:
         format='%(asctime)s - %(levelname)s - %(message)s',
         datefmt='%H:%M:%S'
     )
-
+    logging.debug(f"Logging configured at level: {logging.getLevelName(level)}")
 
 def load_codeignore(root: Path) -> Set[str]:
-    """Load ignore patterns from .codeignore file."""
+    """Load and parse ignore patterns from .codeignore file.
+    
+    Reads the .codeignore file from the repository root and extracts all
+    ignore patterns (lines that are not empty or comments).
+    
+    Args:
+        root: Path to the repository root directory.
+        
+    Returns:
+        Set of ignore patterns (strings) from the .codeignore file.
+        Returns empty set if file doesn't exist.
+        
+    Raises:
+        None. Logs warnings if file cannot be read but doesn't raise.
+        
+    Example:
+        patterns = load_codeignore(Path('/repo'))
+        # patterns might be: {'*.log', '__pycache__/', 'venv/**'}
+        
+    Note:
+        - Lines starting with '#' are treated as comments and ignored
+        - Empty lines are skipped
+        - File encoding is assumed to be UTF-8
+    """
     codeignore_path = root / ".codeignore"
     if codeignore_path.exists():
         try:
+            logging.debug(f"Loading .codeignore patterns from {codeignore_path}")
             content = codeignore_path.read_text(encoding='utf-8')
-            return {
+            patterns = {
                 line.strip() for line in content.split('\n')
                 if line.strip() and not line.strip().startswith('#')
             }
+            logging.info(f"Loaded {len(patterns)} ignore patterns from .codeignore")
+            return patterns
         except Exception as e:
             logging.warning(f"Could not read .codeignore file: {e}")
+    else:
+        logging.debug(f"No .codeignore file found at {codeignore_path}")
     return set()
 
 
 class Agent:
-    """Main agent that orchestrates sub-agents for code improvement."""
+    """Main agent that orchestrates sub-agents for code improvement.
+    
+    This class coordinates the improvement process across code files by delegating
+    tasks to specialized sub-agents (CoderAgent, TestsAgent, etc.) that handle
+    specific aspects of code quality and documentation.
+    
+    Attributes:
+        repo_root (Path): Root directory of the target repository.
+        agents_only (bool): If True, only process files in scripts/agent directory.
+        max_files (Optional[int]): Maximum number of files to process. None = no limit.
+        loop (int): Number of times to run the full improvement cycle (default: 1).
+        skip_code_update (bool): If True, skip code update phase.
+        no_git (bool): If True, don't commit changes to git.
+        ignored_patterns (Set[str]): Patterns from .codeignore file.
+        
+    Class Attributes:
+        SUPPORTED_EXTENSIONS (Set[str]): File extensions to process (py, sh, js, ts, etc.).
+        
+    Example:
+        agent = Agent(repo_root='.', agents_only=True, max_files=10)
+        agent.run()
+        
+    Note:
+        - Recursively finds code files in the repository
+        - Filters files according to .codeignore patterns
+        - Runs sub-agents on each file for improvements
+        - Optionally commits changes back to git
+    """
     SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
     def __init__(self, repo_root: str = '.', agents_only: bool = False,
             max_files: Optional[int] = None, loop: int = 1, skip_code_update: bool = False,
-            no_git: bool = False):
+            no_git: bool = False) -> None:
+        """Initialize the Agent with repository configuration.
+        
+        Args:
+            repo_root: Root directory of the repository to process. Defaults to '.'.
+            agents_only: If True, only process files in scripts/agent. Defaults to False.
+            max_files: Maximum number of files to process. None = unlimited. Defaults to None.
+            loop: Number of full cycles to run. Defaults to 1.
+            skip_code_update: If True, skip code update phase. Defaults to False.
+            no_git: If True, don't commit changes to git. Defaults to False.
+            
+        Raises:
+            FileNotFoundError: If repo_root doesn't exist.
+            
+        Note:
+            The repository root is automatically detected by looking for .git,
+            README.md, or package.json if not explicitly provided.
+        """
+        logging.info(f"Initializing Agent with repo_root={repo_root}")
         self.repo_root = self._find_repo_root(Path(repo_root))
         if not self.repo_root.exists():
             raise FileNotFoundError(f"Repository root not found: {self.repo_root}")
@@ -109,11 +197,40 @@ class Agent:
         self.skip_code_update = skip_code_update
         self.no_git = no_git
         self.ignored_patterns = load_codeignore(self.repo_root)
+        logging.info(f"Agent initialized: repo={self.repo_root}, loop={loop}, agents_only={agents_only}")
 
     def _run_command(self, cmd: List[str], timeout: int = 120) -> subprocess.CompletedProcess:
-        """Run a command with timeout and error handling."""
+        """Run a command with timeout, error handling, and logging.
+        
+        Executes a subprocess command with comprehensive error handling,
+        timeout protection, and logging of results.
+        
+        Args:
+            cmd: Command as list of strings (e.g., ['python', 'script.py', '--arg']).
+            timeout: Timeout in seconds for command execution. Defaults to 120.
+            
+        Returns:
+            subprocess.CompletedProcess: Contains returncode, stdout, stderr.
+            
+        Raises:
+            None. All errors are caught and logged. Returns failed CompletedProcess.
+            
+        Example:
+            result = agent._run_command(['python', '-m', 'pytest', 'test.py'])
+            if result.returncode == 0:
+                print("Success")
+            else:
+                print(f"Failed: {result.stderr}")
+                
+        Note:
+            - Uses UTF-8 encoding with 'replace' error handling for robustness
+            - Captures both stdout and stderr
+            - Logs command execution at DEBUG level
+            - Returns CompletedProcess even on timeout (returncode=-1)
+        """
+        logging.debug(f"Running command: {' '.join(cmd[:3])}... (timeout={timeout}s)")
         try:
-            return subprocess.run(
+            result = subprocess.run(
                 cmd,
                 cwd=self.repo_root,
                 capture_output=True,
@@ -123,49 +240,122 @@ class Agent:
                 errors='replace',
                 check=False
             )
+            logging.debug(f"Command completed with returncode={result.returncode}")
+            return result
         except subprocess.TimeoutExpired:
-            logging.error(f"Command timed out: {' '.join(cmd[:3])}...")
+            logging.error(f"Command timed out after {timeout}s: {' '.join(cmd[:3])}...")
             return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr="Timeout expired")
         except OSError as e:
             logging.error(f"Command failed to start: {e}")
             return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
         except Exception as e:
-            logging.error(f"Command failed: {e}")
+            logging.error(f"Command failed with unexpected error: {e}")
             return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
 
     def _find_repo_root(self, start_path: Path) -> Path:
-        """Find the repository root by looking for .git directory or other markers."""
+        """Find the repository root by looking for repository markers.
+        
+        Walks up the directory tree from the start path looking for markers
+        that indicate a repository root (.git, README.md, package.json).
+        
+        Args:
+            start_path: Starting directory path to search from.
+            
+        Returns:
+            Path: Repository root directory, or start_path if no markers found.
+            
+        Example:
+            root = agent._find_repo_root(Path('/some/nested/dir'))
+            # Returns Path to repo root if .git found in parents
+            
+        Note:
+            - Checks the starting path first, then walks up to parents
+            - Uses multiple markers to identify repo roots
+            - Returns start_path if no markers found (doesn't raise error)
+        """
         current = start_path.resolve()
+        logging.debug(f"Searching for repository root from {current}")
         # Walk up the directory tree looking for repository markers
         for path in [current] + list(current.parents):
             if (path / '.git').exists() or (path / 'README.md').exists() or \
                     (path / 'package.json').exists():
+                logging.info(f"Found repository root at {path}")
                 return path
         # If no markers found, return the original path
+        logging.debug(f"No repository markers found, using {start_path} as root")
         return start_path
 
     def find_code_files(self) -> List[Path]:
-        """Recursively find all supported code files."""
+        """Recursively find all supported code files in the repository.
+        
+        Searches the repository for files with supported extensions, optionally
+        filtered to the scripts/agent directory, and respects .codeignore patterns.
+        
+        Returns:
+            List[Path]: Sorted list of code files found, limited by max_files if set.
+            
+        Example:
+            files = agent.find_code_files()
+            print(f"Found {len(files)} code files")
+            
+        Note:
+            - Uses recursive glob patterns for efficiency
+            - Filters by SUPPORTED_EXTENSIONS (py, sh, js, ts, go, rb)
+            - Respects .codeignore patterns
+            - Returns sorted list for reproducibility
+            - Limited by max_files parameter if set
+        """
+        logging.info("Searching for code files...")
         code_files = []
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
+        logging.debug(f"Found {len(code_files)} files with supported extensions")
+        
         # Filter to scripts/agent directory if agents_only is True
         if self.agents_only:
             scripts_agent_dir = self.repo_root / 'scripts' / 'agent'
             code_files = [f for f in code_files if f.is_relative_to(scripts_agent_dir)]
+            logging.info(f"Filtered to scripts/agent directory: {len(code_files)} files")
+        
+        # Apply ignore patterns
         code_files = sorted([f for f in code_files if not self._is_ignored(f)])
+        logging.info(f"After filtering ignores: {len(code_files)} files")
+        
         if self.max_files:
             code_files = code_files[:self.max_files]
+            logging.info(f"Limited to max_files={self.max_files}")
+        
         return code_files
 
     def _is_ignored(self, path: Path) -> bool:
-        """Check if path should be ignored."""
+        """Check if path should be ignored based on .codeignore patterns.
+        
+        Checks if a path matches any of the ignore patterns from .codeignore,
+        using fnmatch patterns for flexible matching.
+        
+        Args:
+            path: Path object to check.
+            
+        Returns:
+            bool: True if path matches any ignore pattern, False otherwise.
+            
+        Example:
+            ignored = agent._is_ignored(Path('venv/lib/file.py'))
+            # Returns True if 'venv/**' or 'lib/**' in ignore patterns
+            
+        Note:
+            - Checks against full path, filename, and path components
+            - Uses fnmatch for Unix-style glob patterns
+            - Returns False if no ignore patterns loaded
+        """
         path_str = str(path)
-        return any(
-            fnmatch.fnmatch(path_str, pattern) or
-            fnmatch.fnmatch(path.name, pattern) or
-            any(fnmatch.fnmatch(part, pattern) for part in path.parts)
-            for pattern in self.ignored_patterns)
+        for pattern in self.ignored_patterns:
+            if (fnmatch.fnmatch(path_str, pattern) or
+                fnmatch.fnmatch(path.name, pattern) or
+                any(fnmatch.fnmatch(part, pattern) for part in path.parts)):
+                logging.debug(f"Path {path} ignored by pattern: {pattern}")
+                return True
+        return False
 
     def run_stats_update(self, files: List[Path]) -> None:
         """Run stats update."""
