@@ -8,9 +8,13 @@
 - Add comprehensive docstrings for all methods following Google style format. (Fixed)
 - Implement error recovery: retry failed file processing with exponential backoff. (Fixed)
 - Add cache for `.codeignore` patterns to avoid re-parsing on each run. (Fixed)
+- Add unit tests for edge cases (missing files, empty repos, malformed codeignore). (Fixed) [2025-12-16]
+  * TestCodeignoreCache: 4 tests for caching, invalidation, missing files, comments
+  * TestAgentContextManager: 2 tests for context manager support and error logging
+  * TestCommandRetry: 3 tests for retry logic, exponential backoff, timeout handling
+  * TestIgnorePatternMatching: 3 tests for pattern matching logic and edge cases
 
 ## Suggested improvements
-- [ ] Add unit tests for edge cases (missing files, empty repos, malformed codeignore).
 - [ ] Implement async file processing using `asyncio` for better performance.
 - [ ] Add progress bar using `tqdm` for visual feedback on large repos.
 - [ ] Support `.agentignore` files in subdirectories (cascading ignore patterns).

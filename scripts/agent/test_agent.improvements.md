@@ -2,15 +2,16 @@
 
 ## Fixed
 - Security: Use `check=True` or `check=False` explicitly in `subprocess.run`. (Fixed - verified in agent.py)
+- Add comprehensive error case testing (missing files, permission denied, git not found). (Fixed) [2025-12-16]
+  * test_agent_edge_cases.py: 26 comprehensive edge case and error scenario tests
+- Test edge cases: empty codeignore files, malformed ignore patterns. (Fixed) [2025-12-16]
+  * TestCodeignoreCache: Tests for missing files, comments, empty lines
 
 ## Suggested improvements
-- [ ] Add comprehensive error case testing (missing files, permission denied, git not found).
 - [ ] Test agent behavior with very large repositories (performance benchmarks).
 - [ ] Add tests for all command-line argument combinations.
-- [ ] Test edge cases: empty codeignore files, malformed ignore patterns.
 - [ ] Add fixture-based testing for common repo structures.
 - [ ] Test git operations: commits, pushes, branch switching.
-- [ ] Add mocking for subprocess calls to test error handling.
 - [ ] Test concurrent file processing scenarios.
 - [ ] Add parametrized tests for different file types.
 - [ ] Test interaction between multiple agents (integration tests).
