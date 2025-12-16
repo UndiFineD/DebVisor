@@ -19,6 +19,7 @@ These tests live next to the agent scripts so they can be run directly via:
 
 from __future__ import annotations
 import importlib
+import sys
 from pathlib import Path
 from types import ModuleType
 from typing import Any, Dict, List
@@ -158,3 +159,119 @@ def test_run_tests_with_test_file_invokes_pytest(agent_module: ModuleType, repo_
     assert cmd[1:3] == ["-m", "pytest"]
     assert str(test_file) in cmd
     assert called["kwargs"].get("cwd") == repo_root
+
+
+# ============================================================================
+# PHASE 4A: CORE FEATURES (DRY-RUN, SELECTIVE AGENTS, TIMEOUTS, METRICS)
+# ============================================================================
+
+class TestDryRunMode:
+    """Test dry-run mode functionality."""
+
+    def test_dry_run_flag_set_on_init(self, tmp_path: Path):
+        """Verify dry_run flag is set correctly on Agent initialization."""
+        (tmp_path / ".git").mkdir()
+        sys.path.insert(0, str(tmp_path.parent.parent / "scripts" / "agent"))
+        try:
+            import agent as agent_module
+            agent_obj = agent_module.Agent(repo_root=str(tmp_path), dry_run=True)
+            assert agent_obj.dry_run is True
+        finally:
+            sys.path.pop(0)
+
+    def test_dry_run_false_by_default(self, tmp_path: Path):
+        """Verify dry_run is False by default."""
+        (tmp_path / ".git").mkdir()
+        sys.path.insert(0, str(tmp_path.parent.parent / "scripts" / "agent"))
+        try:
+            import agent as agent_module
+            agent_obj = agent_module.Agent(repo_root=str(tmp_path))
+            assert agent_obj.dry_run is False
+        finally:
+            sys.path.pop(0)
+
+
+class TestCircuitBreaker:
+    """Tests for CircuitBreaker class."""
+
+    def test_circuit_breaker_initialization(self):
+        """Test circuit breaker initialization with defaults."""
+        # Import from agent module
+        sys.path.insert(0, str(Path(__file__).parent))
+        try:
+            import agent
+            cb = agent.CircuitBreaker("test_backend")
+            
+            assert cb.name == "test_backend"
+            assert cb.state == "CLOSED"
+            assert cb.failure_count == 0
+        finally:
+            sys.path.pop(0)
+
+    def test_circuit_breaker_success_call(self):
+        """Test successful call through circuit breaker."""
+        sys.path.insert(0, str(Path(__file__).parent))
+        try:
+            import agent
+            cb = agent.CircuitBreaker("test")
+            
+            def successful_func():
+                return "success"
+            
+            result = cb.call(successful_func)
+            
+            assert result == "success"
+            assert cb.state == "CLOSED"
+            assert cb.failure_count == 0
+        finally:
+            sys.path.pop(0)
+
+
+class TestReportGeneration:
+    """Tests for improvement report generation."""
+
+    def test_generate_improvement_report(self, tmp_path: Path):
+        """Test basic improvement report generation."""
+        sys.path.insert(0, str(Path(__file__).parent))
+        try:
+            import agent
+            agent_obj = agent.Agent(repo_root=str(tmp_path))
+            agent_obj.metrics = {
+                'files_processed': 10,
+                'files_modified': 5,
+                'agents_applied': {'coder': 4, 'tests': 3},
+                'start_time': 0.0,
+                'end_time': 10.0,
+            }
+            
+            report = agent_obj.generate_improvement_report()
+            
+            assert report['summary']['files_processed'] == 10
+            assert report['summary']['files_modified'] == 5
+        finally:
+            sys.path.pop(0)
+
+
+class TestCostAnalysis:
+    """Tests for cost analysis."""
+
+    def test_cost_analysis_basic(self, tmp_path: Path):
+        """Test basic cost analysis."""
+        sys.path.insert(0, str(Path(__file__).parent))
+        try:
+            import agent
+            agent_obj = agent.Agent(repo_root=str(tmp_path))
+            agent_obj.metrics = {
+                'files_processed': 10,
+                'agents_applied': {'coder': 8, 'tests': 7},
+                'start_time': 0.0,
+                'end_time': 10.0,
+            }
+            
+            analysis = agent_obj.cost_analysis(backend='github-models', cost_per_request=0.0001)
+            
+            assert analysis['backend'] == 'github-models'
+            assert analysis['files_processed'] == 10
+        finally:
+            sys.path.pop(0)
+
