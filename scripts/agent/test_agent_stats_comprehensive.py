@@ -9,9 +9,8 @@ statistical summaries, and performance tracking.
 import json
 import tempfile
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from unittest.mock import MagicMock, patch
 
 
 class TestTrendAnalysis(unittest.TestCase):

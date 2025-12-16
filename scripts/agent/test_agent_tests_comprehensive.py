@@ -7,7 +7,7 @@ error path testing, and property-based testing support.
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, ANY
+from unittest.mock import MagicMock
 
 
 class TestParametrizedTestGeneration(unittest.TestCase):

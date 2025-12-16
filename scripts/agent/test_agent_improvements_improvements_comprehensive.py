@@ -19,8 +19,6 @@ Tests all 15 suggested improvements for improvement analysis and tracking:
 """
 
 import unittest
-from unittest.mock import MagicMock, patch
-from typing import Dict, List, Any
 import yaml
 
 

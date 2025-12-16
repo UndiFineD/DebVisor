@@ -7,9 +7,8 @@ in agent_backend.improvements.md:
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, call, mock_open
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 class TestGitHubModelsIntegration(unittest.TestCase):

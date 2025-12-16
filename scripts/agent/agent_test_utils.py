@@ -27,11 +27,10 @@ import shutil
 import sys
 import tempfile
 import time
-from abc import ABC, abstractmethod
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime
-from enum import Enum, auto
+from enum import Enum
 from pathlib import Path
 from types import ModuleType
 from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple, TypeVar

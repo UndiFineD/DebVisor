@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 import subprocess
 import pytest
 from agent_test_utils import agent_dir_on_path

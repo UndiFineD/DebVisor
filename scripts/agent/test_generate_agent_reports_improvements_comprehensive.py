@@ -25,9 +25,9 @@ in generate_agent_reports.improvements.md, including:
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, call, mock_open
+from unittest.mock import MagicMock, patch
 import json
-from typing import Dict, List, Any
+from typing import Dict, Any
 
 
 class TestComprehensiveDocstrings(unittest.TestCase):
@@ -894,7 +894,7 @@ class TestReportScheduling(unittest.TestCase):
 
     def test_scheduled_generation_trigger(self):
         """Test triggering scheduled report generation."""
-        from datetime import datetime, timedelta
+        from datetime import datetime
 
         schedule_time = datetime(2024, 1, 15, 0, 0)
         current_time = datetime(2024, 1, 15, 0, 0)

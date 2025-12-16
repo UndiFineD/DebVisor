@@ -12,7 +12,6 @@ import logging
 import sys
 import time
 from pathlib import Path
-from unittest.mock import Mock, patch
 import pytest
 from tests.agent_test_utils import AGENT_DIR, agent_sys_path, load_module_from_path
 

@@ -9,13 +9,13 @@ in agent.improvements.md:
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, call, mock_open
+from unittest.mock import MagicMock
 from pathlib import Path
 import tempfile
 import shutil
 import time
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
 
 

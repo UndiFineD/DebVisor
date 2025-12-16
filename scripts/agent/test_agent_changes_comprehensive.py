@@ -7,7 +7,7 @@ markdown formatting, error handling, and changelog management features.
 """
 
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 
 class TestChangelogValidation(unittest.TestCase):

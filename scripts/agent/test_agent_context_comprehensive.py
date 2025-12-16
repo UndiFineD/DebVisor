@@ -7,7 +7,6 @@ context inheritance, and context cleanup.
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, ANY
 from datetime import datetime, timedelta
 
 

@@ -24,8 +24,7 @@ Tests all 20 suggested improvements for test generation and management:
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, Mock
-from typing import Dict, List, Any
+from unittest.mock import MagicMock
 
 
 class TestGeneratedTestExecution(unittest.TestCase):

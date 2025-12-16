@@ -7,7 +7,6 @@ categorization, filtering, export, visualization, and integration.
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, ANY
 from datetime import datetime
 import tempfile
 import os

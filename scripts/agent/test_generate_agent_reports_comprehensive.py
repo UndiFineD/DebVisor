@@ -7,7 +7,6 @@ metrics collection, and export functionality.
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, ANY
 import json
 import tempfile
 import os
@@ -358,7 +357,7 @@ class TestMetricsCollection(unittest.TestCase):
 
     def test_collect_time_metrics(self):
         """Test collecting time metrics."""
-        from datetime import datetime, timedelta
+        from datetime import datetime
 
         start = datetime.now()
         # Simulate work

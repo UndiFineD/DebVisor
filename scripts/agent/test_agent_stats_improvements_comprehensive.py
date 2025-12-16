@@ -8,7 +8,6 @@ filtering, comparison reports, and comprehensive metrics tracking.
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, mock_open
 from datetime import datetime, timedelta
 import json
 

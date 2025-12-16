@@ -16,7 +16,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any
-from datetime import datetime, timedelta
+from datetime import datetime
 import pytest
 from agent_test_utils import agent_dir_on_path, load_agent_module
 import unittest

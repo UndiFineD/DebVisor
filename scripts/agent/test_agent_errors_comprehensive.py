@@ -8,8 +8,7 @@ context extraction, remediation suggestions, and error reporting.
 
 import json
 import unittest
-from datetime import datetime, timedelta
-from unittest.mock import MagicMock, patch
+from datetime import datetime
 
 
 class TestErrorLogParsing(unittest.TestCase):
