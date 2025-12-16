@@ -22,7 +22,6 @@ Tests all 17 suggested improvements for context generation and analysis:
 
 import unittest
 from unittest.mock import MagicMock, patch, call
-from pathlib import Path
 from typing import Dict, List, Any
 import ast
 

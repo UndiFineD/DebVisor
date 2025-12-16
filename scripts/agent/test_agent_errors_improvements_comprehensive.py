@@ -14,7 +14,6 @@ Tests all 20 suggested improvements for error handling and analysis:
 
 import unittest
 from unittest.mock import MagicMock, patch, call
-from pathlib import Path
 from typing import Dict, List, Any
 from datetime import datetime, timedelta
 

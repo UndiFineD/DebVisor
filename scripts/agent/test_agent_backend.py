@@ -926,7 +926,6 @@ class TestAuditLogger:
 
     def test_log_request(self, agent_backend_module: any, tmp_path) -> None:
         """Test logging a request."""
-        from pathlib import Path
         AuditLogger = agent_backend_module.AuditLogger
 
         log_file = tmp_path / "audit.log"
@@ -946,7 +945,6 @@ class TestAuditLogger:
 
     def test_get_recent_entries(self, agent_backend_module: any, tmp_path) -> None:
         """Test getting recent entries."""
-        from pathlib import Path
         AuditLogger = agent_backend_module.AuditLogger
 
         log_file = tmp_path / "audit.log"

@@ -532,7 +532,6 @@ class TestPerformanceOptimization(unittest.TestCase):
 
     def test_cache_ai_responses(self):
         """Test caching AI responses."""
-        from functools import lru_cache
         import hashlib
 
         cache = {}

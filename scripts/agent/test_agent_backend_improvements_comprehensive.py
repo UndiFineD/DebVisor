@@ -170,7 +170,6 @@ class TestGitHubModelsIntegration(unittest.TestCase):
 
     def test_github_models_retry_logic(self):
         """Test retry logic for failed GitHub Models requests."""
-        from datetime import datetime
 
         class RetryableAPICall:
             def __init__(self, max_retries=3):
