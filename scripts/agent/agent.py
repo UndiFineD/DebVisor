@@ -38,11 +38,19 @@ import sys
 import os
 import logging
 from pathlib import Path
-from typing import List, Set, Optional, Dict
+from typing import List, Set, Optional, Dict, Any
 import argparse
 import fnmatch
 import importlib.util
 import time
+try:
+    from tqdm import tqdm
+    HAS_TQDM = True
+except ImportError:
+    HAS_TQDM = False
+    def tqdm(iterable, *args, **kwargs):
+        """Fallback if tqdm not available."""
+        return iterable
 
 # Import markdown fixing functionality
 def _load_fix_markdown_content() -> callable:
@@ -245,7 +253,8 @@ class Agent:
 
     def __init__(self, repo_root: str = '.', agents_only: bool = False,
             max_files: Optional[int] = None, loop: int = 1, skip_code_update: bool = False,
-            no_git: bool = False) -> None:
+            no_git: bool = False, dry_run: bool = False, selective_agents: Optional[List[str]] = None,
+            timeout_per_agent: Optional[Dict[str, int]] = None) -> None:
         """Initialize the Agent with repository configuration.
         
         Args:
@@ -255,6 +264,9 @@ class Agent:
             loop: Number of full cycles to run. Defaults to 1.
             skip_code_update: If True, skip code update phase. Defaults to False.
             no_git: If True, don't commit changes to git. Defaults to False.
+            dry_run: If True, preview changes without modifying files. Defaults to False.
+            selective_agents: List of agent names to execute (e.g., ['coder', 'tests']). Defaults to None (all).
+            timeout_per_agent: Dict mapping agent names to timeout values in seconds. Defaults to None.
             
         Raises:
             FileNotFoundError: If repo_root doesn't exist.
@@ -274,8 +286,25 @@ class Agent:
         self.loop = loop
         self.skip_code_update = skip_code_update
         self.no_git = no_git
+        self.dry_run = dry_run
+        self.selective_agents = set(selective_agents or [])
+        self.timeout_per_agent = timeout_per_agent or {}
         self.ignored_patterns = load_codeignore(self.repo_root)
+        
+        # Metrics tracking
+        self.metrics = {
+            'files_processed': 0,
+            'files_modified': 0,
+            'agents_applied': {},
+            'start_time': time.time(),
+            'end_time': None,
+        }
+        
         logging.info(f"Agent initialized: repo={self.repo_root}, loop={loop}, agents_only={agents_only}")
+        if dry_run:
+            logging.info("DRY RUN MODE: No files will be modified")
+        if selective_agents:
+            logging.info(f"Selective execution: agents={selective_agents}")
     
     def __enter__(self):
         """Context manager entry. Returns self for use in 'with' statement."""
@@ -288,6 +317,71 @@ class Agent:
         if exc_type is not None:
             logging.error(f"Agent context manager error: {exc_type.__name__}: {exc_val}")
         return False  # Don't suppress exceptions
+
+    def should_execute_agent(self, agent_name: str) -> bool:
+        """Check if an agent should be executed based on selective filters.
+        
+        Determines whether to run a specific agent based on the selective_agents
+        configuration provided at initialization.
+        
+        Args:
+            agent_name: Name of the agent (e.g., 'coder', 'tests', 'documentation').
+            
+        Returns:
+            bool: True if the agent should execute, False otherwise.
+            
+        Example:
+            if agent.should_execute_agent('coder'):
+                coder_agent.run()
+        """
+        if not self.selective_agents:
+            return True  # All agents run if no selective filter
+        return agent_name.lower() in self.selective_agents
+
+    def get_timeout_for_agent(self, agent_name: str, default: int = 120) -> int:
+        """Get configured timeout for a specific agent.
+        
+        Returns the timeout value for a specific agent, or a default if not configured.
+        
+        Args:
+            agent_name: Name of the agent (e.g., 'coder', 'tests').
+            default: Default timeout in seconds if not configured. Defaults to 120.
+            
+        Returns:
+            int: Timeout in seconds for the agent.
+            
+        Example:
+            timeout = agent.get_timeout_for_agent('coder', default=60)
+        """
+        return self.timeout_per_agent.get(agent_name.lower(), default)
+
+    def print_metrics_summary(self) -> None:
+        """Print a summary of execution metrics and statistics.
+        
+        Prints information about files processed, modifications made, agents applied,
+        and execution time. Useful for understanding the impact of agent runs.
+        
+        Example:
+            agent.run()
+            agent.print_metrics_summary()
+        """
+        self.metrics['end_time'] = time.time()
+        elapsed = self.metrics['end_time'] - self.metrics['start_time']
+        
+        summary = f"""
+=== Agent Execution Summary ===
+Files processed: {self.metrics['files_processed']}
+Files modified:  {self.metrics['files_modified']}
+Execution time:  {elapsed:.2f}s
+Dry-run mode:    {'Yes' if self.dry_run else 'No'}
+
+Agents applied:
+"""
+        for agent, count in sorted(self.metrics['agents_applied'].items()):
+            summary += f"  - {agent}: {count} files\n"
+        
+        logging.info(summary)
+        print(summary)
 
     def _run_command(self, cmd: List[str], timeout: int = 120, max_retries: int = 1) -> subprocess.CompletedProcess:
         """Run a command with timeout, error handling, retry logic, and logging.
@@ -862,18 +956,36 @@ def main() -> None:
                         help='Verbosity level: quiet, minimal, normal, elaborate (or 0-3)')
     parser.add_argument('--no-git', action='store_true',
                         help='Skip git commit and push operations')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='Preview changes without modifying files')
+    parser.add_argument('--only-agents', type=str, metavar='AGENTS',
+                        help='Comma-separated list of agents to execute (e.g., coder,tests,documentation)')
+    parser.add_argument('--timeout', type=int, metavar='SECONDS', default=120,
+                        help='Default timeout per agent in seconds (default: 120)')
     args = parser.parse_args()
     setup_logging(args.verbose)
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
+    
+    # Parse selective agents if provided
+    selective_agents = None
+    if args.only_agents:
+        selective_agents = [a.strip() for a in args.only_agents.split(',')]
+        logging.info(f"Running with selective agents: {selective_agents}")
+    
     agent = Agent(
         repo_root=args.dir,
         agents_only=args.agents_only,
-        max_files=args.max_files, loop=args.loop,
+        max_files=args.max_files,
+        loop=args.loop,
         skip_code_update=args.skip_code_update,
-        no_git=args.no_git
-        )
-    agent.run()
-
-
-if __name__ == '__main__':
-    main()
+        no_git=args.no_git,
+        dry_run=args.dry_run,
+        selective_agents=selective_agents,
+        timeout_per_agent={'coder': args.timeout, 'tests': args.timeout}
+    )
+    
+    try:
+        agent.run()
+    finally:
+        # Always print metrics summary
+        agent.print_metrics_summary()
