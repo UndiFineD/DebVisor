@@ -24,6 +24,15 @@
 - Implement selective agent execution: `--only-coder`, `--skip-tests`, etc. (Fixed) [2025-12-16]
   * TestSelectiveAgentExecution: 6 tests for agent filtering and execution control
   * New --only-agents CLI argument, selective_agents parameter, should_execute_agent() method
+- Add rollback functionality: save pre-agent versions for recovery. (Fixed) [2025-12-16]
+  * create_file_snapshot(): Create timestamped snapshots with content hashing
+  * restore_from_snapshot(): Restore from previous snapshots
+  * TestFileSnapshots: 8 tests for snapshot creation and restoration
+  * TestSnapshotIntegration: 4 tests for feature interactions
+- Support `.agentignore` files in subdirectories (cascading ignore patterns). (Fixed) [2025-12-16]
+  * load_cascading_codeignore(): Load patterns from directory hierarchy
+  * TestCascadingCodeignore: 6 tests for multi-level pattern loading
+  * Patterns cascade from root to target directory with no infinite loops
 
 ## Suggested improvements
 - [ ] Implement async file processing using `asyncio` for better performance.
