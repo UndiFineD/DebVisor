@@ -212,7 +212,7 @@ class TestErrorHandling(unittest.TestCase):
 - Feature A
 - Feature A
 """
-        lines = [l.strip() for l in changelog.split("\n") if l.startswith("- ")]
+        lines = [line.strip() for line in changelog.split("\n") if line.startswith("- ")]
         assert len(lines) == 2
         assert lines[0] == lines[1]
 
@@ -397,7 +397,7 @@ class TestIntegration(unittest.TestCase):
 ### Fixed
 - Bug 1
 """
-        entries = [l.strip() for l in changelog.split("\n") if l.startswith("- ")]
+        entries = [line.strip() for line in changelog.split("\n") if line.startswith("- ")]
         assert len(entries) == 3
         assert "Feature 1" in entries[0]
 

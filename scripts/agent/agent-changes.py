@@ -1289,8 +1289,8 @@ class ChangesAgent(BaseAgent):
         original_lines = self.previous_content.split('\n')
         new_lines = content.split('\n')
 
-        added = len([l for l in new_lines if l and l not in original_lines])
-        removed = len([l for l in original_lines if l and l not in new_lines])
+        added = len([line for line in new_lines if line and line not in original_lines])
+        removed = len([line for line in original_lines if line and line not in new_lines])
 
         return {
             "original_lines": len(original_lines),
@@ -1482,7 +1482,7 @@ class ChangesAgent(BaseAgent):
             pattern = rf"###\s*{section}\s*\n(.*?)(?=###|\Z)"
             matches = re.findall(pattern, content, re.DOTALL)
             if matches:
-                entries = [l for l in matches[0].split('\n') if l.strip().startswith('-')]
+                entries = [line for line in matches[0].split('\n') if line.strip().startswith('-')]
                 categories[section] = len(entries)
 
         # Count contributors (if mentioned)

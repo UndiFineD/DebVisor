@@ -523,7 +523,7 @@ class ProgressDashboard:
         lines = [
             "# Improvements Dashboard",
             f"\nGenerated: {report.report_date}",
-            f"\n## Summary",
+            "\n## Summary",
             f"- Completed: {report.completed_count}",
             f"- In Progress: {report.in_progress_count}",
             f"- Blocked: {report.blocked_count}",
@@ -1423,18 +1423,18 @@ class BranchComparer:
             Markdown formatted report.
         """
         lines = [
-            f"# Branch Comparison Report",
+            "# Branch Comparison Report",
             "",
             f"**Source Branch:** {comparison.source_branch}",
             f"**Target Branch:** {comparison.target_branch}",
             f"**File:** {comparison.file_path}",
             "",
-            f"## Summary",
+            "## Summary",
             f"- Added: {comparison.added_count}",
             f"- Removed: {comparison.removed_count}",
             f"- Modified: {comparison.modified_count}",
             "",
-            f"## Changes",
+            "## Changes",
         ]
 
         for diff in comparison.diffs:

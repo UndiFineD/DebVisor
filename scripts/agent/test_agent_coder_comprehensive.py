@@ -179,8 +179,8 @@ from typing import Dict
 from mymodule import func
 """
         lines = imports.split("\n")
-        stdlib_imports = [l for l in lines if "os" in l or "sys" in l]
-        local_imports = [l for lst in lines if "mymodule" in l]
+        stdlib_imports = [line for line in lines if "os" in line or "sys" in line]
+        local_imports = [line for line in lines if "mymodule" in line]
         assert len(stdlib_imports) > 0
         assert len(local_imports) > 0
 

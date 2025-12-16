@@ -1460,7 +1460,7 @@ class ErrorsAgent(BaseAgent):
         """Generate documentation for all errors."""
         docs = ["# Error Documentation\n"]
         stats = self.calculate_statistics()
-        docs.append(f"## Summary\n")
+        docs.append("## Summary\n")
         docs.append(f"- Total Errors: {stats['total_errors']}")
         docs.append(f"- Resolved: {stats['resolved_errors']}")
         docs.append(f"- Unresolved: {stats['unresolved_errors']}")

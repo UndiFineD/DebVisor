@@ -446,7 +446,7 @@ class TestUserExperience(unittest.TestCase):
     def test_html_preview_generation(self):
         """Test generating HTML preview."""
         markdown = "# Changelog\n## [1.0.0]\n### Added\n- Feature"
-        html = f"<html><body><h1>Changelog</h1></body></html>"
+        html = "<html><body><h1>Changelog</h1></body></html>"
 
         assert "<html>" in html
 
@@ -683,7 +683,7 @@ class TestIntegrationWorkflow(unittest.TestCase):
         original = "## [1.0.0]\n### Added\n- Feature"
 
         # Improve
-        enhanced = f"## [1.0.0] - 2025-12-16\n### Added\n- Feature description"
+        enhanced = "## [1.0.0] - 2025-12-16\n### Added\n- Feature description"
 
         # Validate
         is_valid = "##" in enhanced and "###" in enhanced

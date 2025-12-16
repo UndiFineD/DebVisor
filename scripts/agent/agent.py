@@ -66,9 +66,11 @@ try:
     HAS_TQDM = True
 except ImportError:
     HAS_TQDM = False
+
     def tqdm(iterable, *args, **kwargs):
         """Fallback if tqdm not available."""
         return iterable
+
 
 # Import markdown fixing functionality
 
@@ -83,6 +85,7 @@ def _load_fix_markdown_content() -> callable:
         spec.loader.exec_module(module)
         return module.fix_markdown_content
     return lambda x: x  # Fallback
+
 
 fix_markdown_content = _load_fix_markdown_content()
 
@@ -2878,12 +2881,12 @@ class Agent:
 
     def __enter__(self):
         """Context manager entry. Returns self for use in 'with' statement."""
-        logging.debug(f"Agent entering context manager")
+        logging.debug("Agent entering context manager")
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit. Handles cleanup if needed."""
-        logging.debug(f"Agent exiting context manager")
+        logging.debug("Agent exiting context manager")
         if exc_type is not None:
             logging.error(f"Agent context manager error: {exc_type.__name__}: {exc_val}")
         return False  # Don't suppress exceptions
@@ -3605,7 +3608,7 @@ Agents applied:
                             new_lines.append(line.replace('- [ ]', '- [x]'))
                             updated = True
                             break
-                        elif not '[x]' in line and not '[Fixed]' in line:
+                        elif '[x]' not in line and '[Fixed]' not in line:
                             new_lines.append(line + " [Fixed]")
                             updated = True
                             break

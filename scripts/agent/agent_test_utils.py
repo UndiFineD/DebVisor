@@ -1692,7 +1692,7 @@ class TestLogger:
 
     def get_errors(self, test_name: str) -> List[TestLogEntry]:
         """Get error logs for a test."""
-        return [l for l in self.get_logs(test_name) if l.level == "ERROR"]
+        return [entry for entry in self.get_logs(test_name) if entry.level == "ERROR"]
 
     def clear(self) -> None:
         """Clear all logs."""

@@ -352,7 +352,7 @@ def calculate(x, y):
 
         lines = [line.strip() for line in code.split('\n') if line.strip() and not line.strip().startswith('#')]
         # Excluding docstrings
-        loc = len([l for l in lines if l and not '"""' in l])
+        loc = len([line for line in lines if line and '"""' not in line])
 
         self.assertGreater(loc, 0)
 

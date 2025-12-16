@@ -1093,7 +1093,7 @@ class MetricNamespaceManager:
         # Check for child namespaces
         for ns in self.namespaces.values():
             if ns.parent == name:
-                raise ValueError(f"Cannot delete: namespace has children")
+                raise ValueError("Cannot delete: namespace has children")
 
         if name in self.namespaces:
             del self.namespaces[name]
@@ -1484,7 +1484,7 @@ class CloudExporter:
         for m in self.export_queue:
             tags = ",".join(f'{k}="{v}"' for k, v in m.tags.items())
             lines.append(f"{m.name}{{{tags}}} {m.value}")
-        logging.debug(f"Prometheus export:\n" + "\n".join(lines))
+        logging.debug("Prometheus export:\n" + "\n".join(lines))
 
     def _export_generic(self) -> None:
         """Generic export format."""
