@@ -1181,7 +1181,7 @@ class WCAGLevel(Enum):
 @dataclass
 class AccessibilityIssue:
     """An accessibility issue found in UI code.
-    
+
     Attributes:
         issue_type: Type of accessibility issue.
         severity: Severity level.
@@ -1207,7 +1207,7 @@ class AccessibilityIssue:
 @dataclass
 class ColorContrastResult:
     """Result of color contrast analysis.
-    
+
     Attributes:
         foreground: Foreground color (hex).
         background: Background color (hex).
@@ -1229,7 +1229,7 @@ class ColorContrastResult:
 @dataclass
 class AccessibilityReport:
     """Comprehensive accessibility report.
-    
+
     Attributes:
         file_path: Path to analyzed file.
         issues: List of accessibility issues.
@@ -1253,7 +1253,7 @@ class AccessibilityReport:
 @dataclass
 class ARIAAttribute:
     """ARIA attribute definition.
-    
+
     Attributes:
         name: ARIA attribute name (e.g., "aria-label").
         value: Current value.
@@ -1275,22 +1275,22 @@ class ARIAAttribute:
 
 class AccessibilityAnalyzer:
     """Analyzer for accessibility issues in UI code.
-    
+
     Detects accessibility problems and suggests improvements
     for web and GUI applications.
-    
+
     Attributes:
         target_level: Target WCAG conformance level.
         issues: Detected issues.
         rules: Enabled accessibility rules.
-    
+
     Example:
         analyzer = AccessibilityAnalyzer(WCAGLevel.AA)
         report = analyzer.analyze_file("component.py")
         for issue in report.issues:
             print(f"{issue.severity.name}: {issue.description}")
     """
-    
+
     # WCAG criterion to issue type mapping
     WCAG_CRITERIA: Dict[str, Tuple[AccessibilityIssueType, str]] = {
         "1.1.1": (AccessibilityIssueType.MISSING_ALT_TEXT, "Non-text Content"),
@@ -1304,10 +1304,10 @@ class AccessibilityAnalyzer:
         "3.3.2": (AccessibilityIssueType.MISSING_LABEL, "Labels or Instructions"),
         "4.1.2": (AccessibilityIssueType.ARIA_MISSING, "Name, Role, Value"),
     }
-    
+
     def __init__(self, target_level: WCAGLevel = WCAGLevel.AA) -> None:
         """Initialize accessibility analyzer.
-        
+
         Args:
             target_level: Target WCAG conformance level.
         """
@@ -1315,24 +1315,24 @@ class AccessibilityAnalyzer:
         self.issues: List[AccessibilityIssue] = []
         self.rules: Dict[str, bool] = {rule: True for rule in self.WCAG_CRITERIA}
         logging.debug(f"AccessibilityAnalyzer initialized with level {target_level.value}")
-    
+
     def analyze_file(self, file_path: str) -> AccessibilityReport:
         """Analyze a file for accessibility issues.
-        
+
         Args:
             file_path: Path to file to analyze.
-            
+
         Returns:
             Comprehensive accessibility report.
         """
         self.issues.clear()
         path = Path(file_path)
-        
+
         if not path.exists():
             return AccessibilityReport(file_path=file_path)
-        
+
         content = path.read_text(encoding="utf-8")
-        
+
         # Analyze based on file type
         if path.suffix in (".html", ".htm"):
             self._analyze_html(content)
@@ -1340,33 +1340,33 @@ class AccessibilityAnalyzer:
             self._analyze_python_ui(content)
         elif path.suffix in (".js", ".jsx", ".ts", ".tsx"):
             self._analyze_javascript_ui(content)
-        
+
         return self._generate_report(file_path)
-    
+
     def analyze_content(self, content: str, file_type: str = "html") -> AccessibilityReport:
         """Analyze content string for accessibility issues.
-        
+
         Args:
             content: Content to analyze.
             file_type: Type of content (html, python, javascript).
-            
+
         Returns:
             Accessibility report.
         """
         self.issues.clear()
-        
+
         if file_type == "html":
             self._analyze_html(content)
         elif file_type == "python":
             self._analyze_python_ui(content)
         elif file_type in ("javascript", "react"):
             self._analyze_javascript_ui(content)
-        
+
         return self._generate_report("content")
-    
+
     def _analyze_html(self, content: str) -> None:
         """Analyze HTML content for accessibility issues.
-        
+
         Args:
             content: HTML content string.
         """
@@ -1386,7 +1386,7 @@ class AccessibilityAnalyzer:
                     suggested_fix='Add alt="" for decorative or alt="description" for meaningful images',
                     auto_fixable=False
                 ))
-        
+
         # Check for form inputs without labels
         input_pattern = r'<input\s+[^>]*?>'
         for match in re.finditer(input_pattern, content, re.IGNORECASE):
@@ -1409,10 +1409,10 @@ class AccessibilityAnalyzer:
                             suggested_fix=f'Add <label for="{input_id}">Label text</label>',
                             auto_fixable=False
                         ))
-        
+
         # Check for missing ARIA landmarks
         landmarks = ['main', 'nav', 'header', 'footer', 'aside']
-        has_landmark = any(f'<{tag}' in content.lower() or f'role="{tag}"' in content.lower() 
+        has_landmark = any(f'<{tag}' in content.lower() or f'role="{tag}"' in content.lower()
                           for tag in landmarks)
         if not has_landmark and '<body' in content.lower():
             self.issues.append(AccessibilityIssue(
@@ -1425,12 +1425,12 @@ class AccessibilityAnalyzer:
                 suggested_fix="Add semantic HTML5 elements (main, nav, header, footer) or ARIA landmarks",
                 auto_fixable=False
             ))
-        
+
         # Check heading hierarchy
         heading_levels = []
         for match in re.finditer(r'<h([1-6])', content, re.IGNORECASE):
             heading_levels.append(int(match.group(1)))
-        
+
         if heading_levels:
             if heading_levels[0] != 1:
                 self.issues.append(AccessibilityIssue(
@@ -1443,7 +1443,7 @@ class AccessibilityAnalyzer:
                     suggested_fix="Start page with <h1> element",
                     auto_fixable=False
                 ))
-            
+
             # Check for skipped levels
             for i in range(1, len(heading_levels)):
                 if heading_levels[i] > heading_levels[i-1] + 1:
@@ -1457,10 +1457,10 @@ class AccessibilityAnalyzer:
                         suggested_fix="Use sequential heading levels without skipping",
                         auto_fixable=False
                     ))
-    
+
     def _analyze_python_ui(self, content: str) -> None:
         """Analyze Python UI code (tkinter, PyQt, etc.) for accessibility issues.
-        
+
         Args:
             content: Python source code.
         """
@@ -1471,17 +1471,17 @@ class AccessibilityAnalyzer:
             (r'Entry\s*\([^)]*\)', "Entry"),
             (r'Canvas\s*\([^)]*\)', "Canvas"),
         ]
-        
+
         for pattern, widget_name in widget_patterns:
             for match in re.finditer(pattern, content):
                 widget_call = match.group()
                 line_num = content[:match.start()].count('\n') + 1
-                
+
                 # Check for keyboard bindings
                 if 'bind' not in content[match.end():match.end()+200]:
                     # Check if there's a bind call near this widget
                     pass  # More complex analysis would be needed
-                
+
                 # Check for tooltips/accessibility text
                 if 'tooltip' not in widget_call.lower() and 'help' not in widget_call.lower():
                     self.issues.append(AccessibilityIssue(
@@ -1495,10 +1495,10 @@ class AccessibilityAnalyzer:
                         suggested_fix="Consider adding tooltip or accessibility description",
                         auto_fixable=False
                     ))
-    
+
     def _analyze_javascript_ui(self, content: str) -> None:
         """Analyze JavaScript/React UI code for accessibility issues.
-        
+
         Args:
             content: JavaScript/React source code.
         """
@@ -1520,7 +1520,7 @@ class AccessibilityAnalyzer:
                     suggested_fix="Add onKeyPress or onKeyDown handler for keyboard users",
                     auto_fixable=False
                 ))
-        
+
         # Check for div/span used as interactive elements
         interactive_div = r'<div[^>]*onClick'
         for match in re.finditer(interactive_div, content, re.IGNORECASE):
@@ -1538,7 +1538,7 @@ class AccessibilityAnalyzer:
                     suggested_fix='Use <button> or add role="button" tabIndex="0"',
                     auto_fixable=False
                 ))
-    
+
     def check_color_contrast(
         self,
         foreground: str,
@@ -1546,27 +1546,27 @@ class AccessibilityAnalyzer:
         is_large_text: bool = False
     ) -> ColorContrastResult:
         """Check color contrast ratio.
-        
+
         Args:
             foreground: Foreground color (hex).
             background: Background color (hex).
             is_large_text: Whether text is large (14pt bold or 18pt+).
-            
+
         Returns:
             Color contrast analysis result.
         """
         fg_luminance = self._relative_luminance(foreground)
         bg_luminance = self._relative_luminance(background)
-        
+
         lighter = max(fg_luminance, bg_luminance)
         darker = min(fg_luminance, bg_luminance)
         contrast_ratio = (lighter + 0.05) / (darker + 0.05)
-        
+
         # WCAG AA: 4.5:1 for normal text, 3:1 for large text
         # WCAG AAA: 7:1 for normal text, 4.5:1 for large text
         min_aa = 3.0 if is_large_text else 4.5
         min_aaa = 4.5 if is_large_text else 7.0
-        
+
         return ColorContrastResult(
             foreground=foreground,
             background=background,
@@ -1576,41 +1576,41 @@ class AccessibilityAnalyzer:
             min_ratio_aa=min_aa,
             min_ratio_aaa=min_aaa
         )
-    
+
     def _relative_luminance(self, hex_color: str) -> float:
         """Calculate relative luminance of a color.
-        
+
         Args:
             hex_color: Hex color string (e.g., "#FFFFFF").
-            
+
         Returns:
             Relative luminance value.
         """
         hex_color = hex_color.lstrip('#')
         if len(hex_color) == 3:
             hex_color = ''.join([c*2 for c in hex_color])
-        
+
         r = int(hex_color[0:2], 16) / 255
         g = int(hex_color[2:4], 16) / 255
         b = int(hex_color[4:6], 16) / 255
-        
+
         def adjust(c: float) -> float:
             return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
-        
+
         return 0.2126 * adjust(r) + 0.7152 * adjust(g) + 0.0722 * adjust(b)
-    
+
     def _generate_report(self, file_path: str) -> AccessibilityReport:
         """Generate accessibility report.
-        
+
         Args:
             file_path: Path to analyzed file.
-            
+
         Returns:
             Comprehensive accessibility report.
         """
         critical_count = sum(1 for i in self.issues if i.severity == AccessibilitySeverity.CRITICAL)
         serious_count = sum(1 for i in self.issues if i.severity == AccessibilitySeverity.SERIOUS)
-        
+
         # Calculate compliance score (100 - weighted issues)
         score = 100.0
         for issue in self.issues:
@@ -1623,7 +1623,7 @@ class AccessibilityAnalyzer:
             else:
                 score -= 2
         score = max(0, score)
-        
+
         # Generate recommendations
         recommendations = []
         if critical_count > 0:
@@ -1632,7 +1632,7 @@ class AccessibilityAnalyzer:
             recommendations.append("Fix serious issues to improve basic accessibility")
         if not self.issues:
             recommendations.append("Continue to test with screen readers and keyboard navigation")
-        
+
         return AccessibilityReport(
             file_path=file_path,
             issues=list(self.issues),
@@ -1643,47 +1643,47 @@ class AccessibilityAnalyzer:
             serious_count=serious_count,
             recommendations=recommendations
         )
-    
+
     def get_issues_by_severity(
         self,
         severity: AccessibilitySeverity
     ) -> List[AccessibilityIssue]:
         """Get issues filtered by severity.
-        
+
         Args:
             severity: Severity level to filter by.
-            
+
         Returns:
             List of issues with specified severity.
         """
         return [i for i in self.issues if i.severity == severity]
-    
+
     def get_issues_by_wcag_level(
         self,
         level: WCAGLevel
     ) -> List[AccessibilityIssue]:
         """Get issues filtered by WCAG level.
-        
+
         Args:
             level: WCAG level to filter by.
-            
+
         Returns:
             List of issues affecting specified level.
         """
         return [i for i in self.issues if i.wcag_level == level]
-    
+
     def enable_rule(self, wcag_criterion: str) -> None:
         """Enable a specific WCAG rule.
-        
+
         Args:
             wcag_criterion: WCAG criterion identifier.
         """
         if wcag_criterion in self.rules:
             self.rules[wcag_criterion] = True
-    
+
     def disable_rule(self, wcag_criterion: str) -> None:
         """Disable a specific WCAG rule.
-        
+
         Args:
             wcag_criterion: WCAG criterion identifier.
         """

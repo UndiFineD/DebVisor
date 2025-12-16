@@ -1022,37 +1022,37 @@ class TestRealTimeStatsStreaming:
     def test_stream_manager_creates_stream(self, stats_module: Any) -> None:
         """Test stream manager creates streams."""
         StatsStreamManager = stats_module.StatsStreamManager
-        
+
         manager = StatsStreamManager()
         stream = manager.create_stream("cpu_metrics", buffer_size=100)
-        
+
         assert stream.name == "cpu_metrics"
         assert stream.buffer_size == 100
 
     def test_stream_receives_data(self, stats_module: Any) -> None:
         """Test stream receives data points."""
         StatsStreamManager = stats_module.StatsStreamManager
-        
+
         manager = StatsStreamManager()
         stream = manager.create_stream("test_stream")
-        
+
         manager.publish("test_stream", {"value": 42})
         manager.publish("test_stream", {"value": 43})
-        
+
         data = stream.get_latest(count=2)
         assert len(data) == 2
 
     def test_stream_subscriber_receives_updates(self, stats_module: Any) -> None:
         """Test stream subscribers receive updates."""
         StatsStreamManager = stats_module.StatsStreamManager
-        
+
         manager = StatsStreamManager()
         manager.create_stream("events")
-        
+
         received: list[dict[str, Any]] = []
         manager.subscribe("events", lambda d: received.append(d))
         manager.publish("events", {"event": "test"})
-        
+
         assert len(received) == 1
 
 
@@ -1062,32 +1062,32 @@ class TestStatsFederationAcrossSources:
     def test_federation_adds_sources(self, stats_module: Any) -> None:
         """Test federation adds multiple sources."""
         StatsFederation = stats_module.StatsFederation
-        
+
         federation = StatsFederation()
         federation.add_source("source1", endpoint="http://localhost:8001")
         federation.add_source("source2", endpoint="http://localhost:8002")
-        
+
         assert len(federation.sources) == 2
 
     def test_federation_aggregates_data(self, stats_module: Any) -> None:
         """Test federation aggregates data from sources."""
         StatsFederation = stats_module.StatsFederation
-        
+
         federation = StatsFederation()
         federation.add_source("s1", data={"metric1": 100})
         federation.add_source("s2", data={"metric1": 200})
-        
+
         aggregated = federation.aggregate("metric1")
         assert aggregated["total"] == 300
 
     def test_federation_handles_source_failure(self, stats_module: Any) -> None:
         """Test federation handles source failures gracefully."""
         StatsFederation = stats_module.StatsFederation
-        
+
         federation = StatsFederation()
         federation.add_source("healthy", data={"value": 50})
         federation.add_source("failed", endpoint="http://invalid", healthy=False)
-        
+
         result = federation.aggregate("value")
         assert result["total"] == 50
         assert result["failed_sources"] == 1
@@ -1099,28 +1099,28 @@ class TestStatsRetentionPolicyEnforcement:
     def test_retention_policy_creation(self, stats_module: Any) -> None:
         """Test retention policy creation."""
         RetentionPolicy = stats_module.RetentionPolicy
-        
+
         policy = RetentionPolicy(
             name="short_term",
             retention_days=7,
             resolution="1m"
         )
-        
+
         assert policy.retention_days == 7
 
     def test_retention_enforcer_removes_old_data(self, stats_module: Any) -> None:
         """Test retention enforcer removes old data."""
         RetentionEnforcer = stats_module.RetentionEnforcer
         RetentionPolicy = stats_module.RetentionPolicy
-        
+
         enforcer = RetentionEnforcer()
         policy = RetentionPolicy("test", retention_days=1)
         enforcer.set_policy("metrics.*", policy)
-        
+
         # Add old and new data
         enforcer.add_data("metrics.cpu", timestamp=0, value=50)  # Very old
         enforcer.add_data("metrics.cpu", timestamp=datetime.now().timestamp(), value=60)
-        
+
         removed = enforcer.enforce()
         assert removed >= 1
 
@@ -1131,33 +1131,33 @@ class TestStatsNamespaceIsolation:
     def test_namespace_creation(self, stats_module: Any) -> None:
         """Test namespace creation."""
         StatsNamespace = stats_module.StatsNamespace
-        
+
         ns = StatsNamespace("production")
         assert ns.name == "production"
 
     def test_namespace_metric_scoping(self, stats_module: Any) -> None:
         """Test metrics are scoped to namespace."""
         StatsNamespace = stats_module.StatsNamespace
-        
+
         prod = StatsNamespace("production")
         dev = StatsNamespace("development")
-        
+
         prod.set_metric("cpu", 80)
         dev.set_metric("cpu", 20)
-        
+
         assert prod.get_metric("cpu") == 80
         assert dev.get_metric("cpu") == 20
 
     def test_namespace_isolation(self, stats_module: Any) -> None:
         """Test namespaces are isolated."""
         StatsNamespaceManager = stats_module.StatsNamespaceManager
-        
+
         manager = StatsNamespaceManager()
         ns1 = manager.create("ns1")
         ns2 = manager.create("ns2")
-        
+
         ns1.set_metric("counter", 100)
-        
+
         assert ns2.get_metric("counter") is None
 
 
@@ -1167,32 +1167,32 @@ class TestStatsMetricFormulaCalculation:
     def test_formula_simple_calculation(self, stats_module: Any) -> None:
         """Test simple formula calculation."""
         FormulaEngine = stats_module.FormulaEngine
-        
+
         engine = FormulaEngine()
         engine.define("usage_percent", "{used} / {total} * 100")
-        
+
         result = engine.calculate("usage_percent", {"used": 40, "total": 100})
         assert result == 40.0
 
     def test_formula_with_aggregation(self, stats_module: Any) -> None:
         """Test formula with aggregation functions."""
         FormulaEngine = stats_module.FormulaEngine
-        
+
         engine = FormulaEngine()
         engine.define("avg_latency", "AVG({latencies})")
-        
+
         result = engine.calculate("avg_latency", {"latencies": [10, 20, 30]})
         assert result == 20.0
 
     def test_formula_validation(self, stats_module: Any) -> None:
         """Test formula validation."""
         FormulaEngine = stats_module.FormulaEngine
-        
+
         engine = FormulaEngine()
-        
+
         valid = engine.validate("{a} + {b}")
         invalid = engine.validate("{a} +++ {b}")
-        
+
         assert valid.is_valid
         assert not invalid.is_valid
 
@@ -1203,29 +1203,29 @@ class TestStatsABComparison:
     def test_ab_comparison_basic(self, stats_module: Any) -> None:
         """Test basic A/B comparison."""
         ABComparator = stats_module.ABComparator
-        
+
         comparator = ABComparator()
-        
+
         group_a = {"conversion_rate": 0.12, "avg_time": 45}
         group_b = {"conversion_rate": 0.15, "avg_time": 40}
-        
+
         result = comparator.compare(group_a, group_b)
-        
+
         assert result.metrics_compared == 2
         assert "conversion_rate" in result.differences
 
     def test_ab_statistical_significance(self, stats_module: Any) -> None:
         """Test A/B statistical significance calculation."""
         ABComparator = stats_module.ABComparator
-        
+
         comparator = ABComparator()
-        
+
         # Large sample with clear difference
         result = comparator.calculate_significance(
             control_values=[10, 11, 12, 9, 10] * 100,
             treatment_values=[15, 16, 14, 15, 16] * 100
         )
-        
+
         assert result.is_significant
 
 
@@ -1235,13 +1235,13 @@ class TestStatsForecastingAccuracy:
     def test_forecaster_predicts_trend(self, stats_module: Any) -> None:
         """Test forecaster predicts trends."""
         StatsForecaster = stats_module.StatsForecaster
-        
+
         forecaster = StatsForecaster()
-        
+
         # Linear increasing data
         historical = [10, 20, 30, 40, 50]
         forecast = forecaster.predict(historical, periods=3)
-        
+
         assert len(forecast) == 3
         # Should continue increasing
         assert forecast[0] > historical[-1]
@@ -1249,12 +1249,12 @@ class TestStatsForecastingAccuracy:
     def test_forecaster_calculates_confidence(self, stats_module: Any) -> None:
         """Test forecaster calculates confidence intervals."""
         StatsForecaster = stats_module.StatsForecaster
-        
+
         forecaster = StatsForecaster()
-        
+
         historical = [100, 102, 98, 101, 99]
         result = forecaster.predict_with_confidence(historical, periods=2)
-        
+
         assert "predictions" in result
         assert "confidence_lower" in result
         assert "confidence_upper" in result
@@ -1266,35 +1266,35 @@ class TestStatsSnapshotCreationAndRestore:
     def test_snapshot_creation(self, stats_module: Any, tmp_path: Path) -> None:
         """Test snapshot creation."""
         StatsSnapshotManager = stats_module.StatsSnapshotManager
-        
+
         manager = StatsSnapshotManager(snapshot_dir=tmp_path)
-        
+
         data = {"cpu": 50, "memory": 70, "disk": 30}
         snapshot = manager.create_snapshot("system_metrics", data)
-        
+
         assert snapshot.name == "system_metrics"
         assert snapshot.data == data
 
     def test_snapshot_restore(self, stats_module: Any, tmp_path: Path) -> None:
         """Test snapshot restore."""
         StatsSnapshotManager = stats_module.StatsSnapshotManager
-        
+
         manager = StatsSnapshotManager(snapshot_dir=tmp_path)
-        
+
         original = {"value": 42}
         manager.create_snapshot("test", original)
-        
+
         restored = manager.restore_snapshot("test")
         assert restored == original
 
     def test_snapshot_list(self, stats_module: Any, tmp_path: Path) -> None:
         """Test listing snapshots."""
         StatsSnapshotManager = stats_module.StatsSnapshotManager
-        
+
         manager = StatsSnapshotManager(snapshot_dir=tmp_path)
         manager.create_snapshot("snap1", {"a": 1})
         manager.create_snapshot("snap2", {"b": 2})
-        
+
         snapshots = manager.list_snapshots()
         assert len(snapshots) == 2
 
@@ -1305,22 +1305,22 @@ class TestStatsThresholdAlerting:
     def test_threshold_alert_triggers(self, stats_module: Any) -> None:
         """Test threshold alert triggers."""
         ThresholdAlertManager = stats_module.ThresholdAlertManager
-        
+
         manager = ThresholdAlertManager()
         manager.set_threshold("cpu_usage", warning=70, critical=90)
-        
+
         alerts = manager.check("cpu_usage", 95)
-        
+
         assert len(alerts) >= 1
         assert any(a.severity == "critical" for a in alerts)
 
     def test_threshold_no_alert_below_threshold(self, stats_module: Any) -> None:
         """Test no alert when below threshold."""
         ThresholdAlertManager = stats_module.ThresholdAlertManager
-        
+
         manager = ThresholdAlertManager()
         manager.set_threshold("memory", warning=80, critical=95)
-        
+
         alerts = manager.check("memory", 50)
         assert len(alerts) == 0
 
@@ -1331,27 +1331,27 @@ class TestStatsSubscriptionAndNotification:
     def test_subscription_creation(self, stats_module: Any) -> None:
         """Test subscription creation."""
         StatsSubscriptionManager = stats_module.StatsSubscriptionManager
-        
+
         manager = StatsSubscriptionManager()
         sub = manager.subscribe(
             subscriber_id="user1",
             metric_pattern="cpu.*",
             delivery_method="email"
         )
-        
+
         assert sub.subscriber_id == "user1"
 
     def test_notification_delivery(self, stats_module: Any) -> None:
         """Test notification delivery."""
         StatsSubscriptionManager = stats_module.StatsSubscriptionManager
-        
+
         manager = StatsSubscriptionManager()
         manager.subscribe("user1", "alerts.*", "webhook")
-        
+
         delivered: list[str] = []
         manager.set_delivery_handler("webhook", lambda msg: delivered.append(msg))
         manager.notify("alerts.cpu", "CPU threshold exceeded")
-        
+
         assert len(delivered) >= 1
 
 
@@ -1361,24 +1361,24 @@ class TestStatsExportToMonitoringPlatforms:
     def test_prometheus_export(self, stats_module: Any) -> None:
         """Test Prometheus format export."""
         StatsExporter = stats_module.StatsExporter
-        
+
         exporter = StatsExporter(format="prometheus")
-        
+
         metrics = {"cpu_usage": 75.5, "memory_usage": 60.2}
         output = exporter.export(metrics)
-        
+
         assert "cpu_usage" in output
         assert "75.5" in output
 
     def test_json_export(self, stats_module: Any) -> None:
         """Test JSON format export."""
         StatsExporter = stats_module.StatsExporter
-        
+
         exporter = StatsExporter(format="json")
-        
+
         metrics = {"metric1": 100}
         output = exporter.export(metrics)
-        
+
         parsed = json.loads(output)
         assert parsed["metric1"] == 100
 
@@ -1389,7 +1389,7 @@ class TestStatsAnnotationPersistence:
     def test_annotation_creation(self, stats_module: Any) -> None:
         """Test annotation creation."""
         StatsAnnotationManager = stats_module.StatsAnnotationManager
-        
+
         manager = StatsAnnotationManager()
         annotation = manager.add_annotation(
             metric="cpu_usage",
@@ -1397,17 +1397,17 @@ class TestStatsAnnotationPersistence:
             text="Deployment started",
             author="admin"
         )
-        
+
         assert annotation.text == "Deployment started"
 
     def test_annotation_retrieval(self, stats_module: Any) -> None:
         """Test annotation retrieval."""
         StatsAnnotationManager = stats_module.StatsAnnotationManager
-        
+
         manager = StatsAnnotationManager()
         manager.add_annotation("cpu", timestamp=100, text="Event 1")
         manager.add_annotation("cpu", timestamp=200, text="Event 2")
-        
+
         annotations = manager.get_annotations("cpu")
         assert len(annotations) == 2
 
@@ -1418,27 +1418,27 @@ class TestStatsChangeNotificationSystem:
     def test_change_detection(self, stats_module: Any) -> None:
         """Test change detection."""
         StatsChangeDetector = stats_module.StatsChangeDetector
-        
+
         detector = StatsChangeDetector(threshold_percent=10)
-        
+
         detector.record("metric1", 100)
         detector.record("metric1", 115)
-        
+
         changes = detector.get_changes()
         assert len(changes) >= 1
 
     def test_change_notification(self, stats_module: Any) -> None:
         """Test change notification."""
         StatsChangeDetector = stats_module.StatsChangeDetector
-        
+
         detector = StatsChangeDetector(threshold_percent=20)
-        
+
         notifications: list[dict[str, Any]] = []
         detector.on_change(lambda c: notifications.append(c))
-        
+
         detector.record("metric1", 100)
         detector.record("metric1", 150)  # 50% change
-        
+
         assert len(notifications) >= 1
 
 
@@ -1448,25 +1448,25 @@ class TestStatsCompressionAlgorithms:
     def test_compression_reduces_size(self, stats_module: Any) -> None:
         """Test compression reduces data size."""
         StatsCompressor = stats_module.StatsCompressor
-        
+
         compressor = StatsCompressor()
-        
+
         # Repetitive data compresses well
         data = [100.0] * 1000
         compressed = compressor.compress(data)
-        
+
         assert len(compressed) < len(str(data))
 
     def test_compression_decompression_roundtrip(self, stats_module: Any) -> None:
         """Test compression/decompression roundtrip."""
         StatsCompressor = stats_module.StatsCompressor
-        
+
         compressor = StatsCompressor()
-        
+
         original = [10.5, 20.3, 30.1, 40.7, 50.9]
         compressed = compressor.compress(original)
         decompressed = compressor.decompress(compressed)
-        
+
         assert decompressed == original
 
 
@@ -1476,26 +1476,26 @@ class TestStatsRollupCalculations:
     def test_hourly_rollup(self, stats_module: Any) -> None:
         """Test hourly rollup calculation."""
         StatsRollupCalculator = stats_module.StatsRollupCalculator
-        
+
         calculator = StatsRollupCalculator()
-        
+
         # Add minute-level data
         for i in range(60):
             calculator.add_point("cpu", timestamp=i * 60, value=50 + i % 10)
-        
+
         hourly = calculator.rollup("cpu", interval="1h")
         assert len(hourly) == 1  # One hour of data
 
     def test_daily_rollup(self, stats_module: Any) -> None:
         """Test daily rollup calculation."""
         StatsRollupCalculator = stats_module.StatsRollupCalculator
-        
+
         calculator = StatsRollupCalculator()
-        
+
         # Add hourly data for a day
         for i in range(24):
             calculator.add_point("memory", timestamp=i * 3600, value=60)
-        
+
         daily = calculator.rollup("memory", interval="1d")
         assert len(daily) == 1
 
@@ -1506,13 +1506,13 @@ class TestStatsQueryPerformance:
     def test_query_with_time_range(self, stats_module: Any) -> None:
         """Test query with time range."""
         StatsQueryEngine = stats_module.StatsQueryEngine
-        
+
         engine = StatsQueryEngine()
-        
+
         # Add data
         for i in range(100):
             engine.insert("metric1", timestamp=i * 1000, value=i)
-        
+
         result = engine.query("metric1", start=10000, end=50000)
         assert len(result) > 0
         assert all(10000 <= r["timestamp"] <= 50000 for r in result)
@@ -1520,13 +1520,13 @@ class TestStatsQueryPerformance:
     def test_query_with_aggregation(self, stats_module: Any) -> None:
         """Test query with aggregation."""
         StatsQueryEngine = stats_module.StatsQueryEngine
-        
+
         engine = StatsQueryEngine()
-        
+
         engine.insert("metric1", timestamp=1000, value=10)
         engine.insert("metric1", timestamp=2000, value=20)
         engine.insert("metric1", timestamp=3000, value=30)
-        
+
         result = engine.query("metric1", aggregation="avg")
         assert result["value"] == 20.0
 
@@ -1537,28 +1537,28 @@ class TestStatsAccessControl:
     def test_access_control_grant(self, stats_module: Any) -> None:
         """Test granting access."""
         StatsAccessController = stats_module.StatsAccessController
-        
+
         controller = StatsAccessController()
         controller.grant("user1", "metrics.*", level="read")
-        
+
         assert controller.can_access("user1", "metrics.cpu", "read")
 
     def test_access_control_deny(self, stats_module: Any) -> None:
         """Test denying access."""
         StatsAccessController = stats_module.StatsAccessController
-        
+
         controller = StatsAccessController()
         controller.grant("user1", "public.*", level="read")
-        
+
         assert not controller.can_access("user1", "private.secret", "read")
 
     def test_access_control_write_level(self, stats_module: Any) -> None:
         """Test write level access."""
         StatsAccessController = stats_module.StatsAccessController
-        
+
         controller = StatsAccessController()
         controller.grant("admin", "metrics.*", level="write")
-        
+
         assert controller.can_access("admin", "metrics.cpu", "write")
         assert controller.can_access("admin", "metrics.cpu", "read")  # Write implies read
 
@@ -1569,39 +1569,38 @@ class TestStatsBackupAndRestore:
     def test_backup_creation(self, stats_module: Any, tmp_path: Path) -> None:
         """Test backup creation."""
         StatsBackupManager = stats_module.StatsBackupManager
-        
+
         manager = StatsBackupManager(backup_dir=tmp_path)
-        
+
         data = {"metrics": [{"name": "cpu", "value": 50}]}
         backup = manager.create_backup("full_backup", data)
-        
+
         assert backup.name == "full_backup"
         assert backup.path.exists()
 
     def test_backup_restore(self, stats_module: Any, tmp_path: Path) -> None:
         """Test backup restore."""
         StatsBackupManager = stats_module.StatsBackupManager
-        
+
         manager = StatsBackupManager(backup_dir=tmp_path)
-        
+
         original = {"value": 42, "items": [1, 2, 3]}
         manager.create_backup("test_backup", original)
-        
+
         restored = manager.restore("test_backup")
         assert restored == original
 
     def test_backup_list(self, stats_module: Any, tmp_path: Path) -> None:
         """Test listing backups."""
         StatsBackupManager = stats_module.StatsBackupManager
-        
+
         manager = StatsBackupManager(backup_dir=tmp_path)
         manager.create_backup("backup1", {"a": 1})
         manager.create_backup("backup2", {"b": 2})
-        
+
         backups = manager.list_backups()
         assert len(backups) == 2
 
 
 if __name__ == '__main__':
     unittest.main()
-

@@ -34,7 +34,7 @@ ZeroDivisionError: division by zero
 test.py:10:15: F401 'os' imported but unused
 """
         lines = flake8_output.split("\n")
-        errors = [l for l in lines if l.strip()]
+        errors = [l for lst in lines if l.strip()]
         assert len(errors) == 2
         assert "E302" in errors[0]
         assert "F401" in errors[1]
@@ -86,14 +86,14 @@ class TestErrorCategorization(unittest.TestCase):
             {"type": "SyntaxError", "message": "expected colon"},
             {"type": "RuntimeError", "message": "operation failed"},
         ]
-        
+
         grouped = {}
         for error in errors:
             etype = error["type"]
             if etype not in grouped:
                 grouped[etype] = []
             grouped[etype].append(error)
-        
+
         assert len(grouped["SyntaxError"]) == 2
         assert len(grouped["RuntimeError"]) == 1
 
@@ -108,7 +108,7 @@ class TestErrorDeduplication(unittest.TestCase):
             {"file": "a.py", "line": 5, "message": "error 1"},
             {"file": "b.py", "line": 10, "message": "error 2"},
         ]
-        
+
         seen = set()
         unique = []
         for error in errors:
@@ -116,7 +116,7 @@ class TestErrorDeduplication(unittest.TestCase):
             if key not in seen:
                 seen.add(key)
                 unique.append(error)
-        
+
         assert len(unique) == 2
         assert len(seen) == 2
 
@@ -126,14 +126,14 @@ class TestErrorDeduplication(unittest.TestCase):
             "AttributeError: 'NoneType' object has no attribute 'x'",
             "AttributeError: 'NoneType' object has no attribute 'y'",
         ]
-        
+
         patterns = {}
         for error in errors:
             pattern = error.split("'")[0]  # Base pattern
             if pattern not in patterns:
                 patterns[pattern] = []
             patterns[pattern].append(error)
-        
+
         assert len(patterns) == 1  # Same base pattern
 
 
@@ -147,12 +147,12 @@ class TestErrorTrendAnalysis(unittest.TestCase):
             {"timestamp": "2024-12-16T11:00:00", "type": "SyntaxError"},
             {"timestamp": "2024-12-16T12:00:00", "type": "RuntimeError"},
         ]
-        
+
         frequency = {}
         for error in errors:
             etype = error["type"]
             frequency[etype] = frequency.get(etype, 0) + 1
-        
+
         assert frequency["SyntaxError"] == 2
         assert frequency["RuntimeError"] == 1
 
@@ -188,8 +188,8 @@ class TestErrorContextExtraction(unittest.TestCase):
     raise ValueError("error")
 ValueError: error
 """
-        lines = [l.strip() for l in traceback.split("\n")]
-        frames = [l for l in lines if "File" in l]
+        lines = [l.strip() for lst in traceback.split("\n")]
+        frames = [l for lst in lines if "File" in l]
         assert len(frames) == 2
 
     def test_extract_error_message(self):
@@ -256,13 +256,13 @@ class TestMultiToolErrorIntegration(unittest.TestCase):
             {"tool": "pylint", "file": "a.py", "line": 5, "message": "error"},
             {"tool": "flake8", "file": "a.py", "line": 5, "message": "error"},
         ]
-        
+
         unique = {}
         for error in all_errors:
             key = (error["file"], error["line"], error["message"])
             if key not in unique:
                 unique[key] = error
-        
+
         assert len(unique) == 1
 
 
@@ -276,7 +276,7 @@ class TestErrorMetrics(unittest.TestCase):
             {"severity": "warning", "count": 5},
             {"severity": "info", "count": 10},
         ]
-        
+
         total = sum(e["count"] for e in errors)
         assert total == 17
         assert errors[0]["severity"] == "critical"
@@ -307,7 +307,7 @@ class TestErrorPriority(unittest.TestCase):
             "medium": 5,
             "low": 2,
         }
-        
+
         critical_score = severity_scores["critical"]
         assert critical_score == 10
 
@@ -319,7 +319,7 @@ class TestErrorPriority(unittest.TestCase):
             "frequent": 7,
             "constant": 10,
         }
-        
+
         frequent_score = frequency_scores["frequent"]
         assert frequent_score == 7
 
@@ -354,7 +354,7 @@ class TestErrorBaseline(unittest.TestCase):
         baseline = 10
         threshold_percent = 0.20  # 20% tolerance
         current = 13
-        
+
         deviation = (current - baseline) / baseline
         exceeds_threshold = deviation > threshold_percent
         assert exceeds_threshold
@@ -370,7 +370,7 @@ class TestErrorPrevention(unittest.TestCase):
             {"type": "NoneType", "method": "strip"},
             {"type": "NoneType", "method": "upper"},
         ]
-        
+
         none_errors = [e for e in errors if e["type"] == "NoneType"]
         assert len(none_errors) == 3
 
@@ -489,14 +489,14 @@ class TestIntegration(unittest.TestCase):
     def test_end_to_end_error_processing(self):
         """Test complete error processing workflow."""
         # Parse
-        raw_error = "ValueError: invalid input at line 42"
-        
+
+
         # Categorize
         error_type = "ValueError"
-        
+
         # Analyze
         priority = 5
-        
+
         # Report
         report = f"{error_type} - Priority: {priority}"
         assert error_type in report
@@ -508,13 +508,13 @@ class TestIntegration(unittest.TestCase):
             {"type": "RuntimeError", "severity": "high"},
             {"type": "Warning", "severity": "low"},
         ]
-        
+
         metrics = {
             "total": len(errors),
             "critical": sum(1 for e in errors if e["severity"] == "critical"),
             "high": sum(1 for e in errors if e["severity"] == "high"),
         }
-        
+
         assert metrics["total"] == 3
         assert metrics["critical"] == 1
 

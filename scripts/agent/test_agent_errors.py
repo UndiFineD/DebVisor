@@ -1302,10 +1302,10 @@ class TestErrorCorrelation:
         """Test basic error correlation."""
         target = tmp_path / "test.errors.md"
         target.write_text("# Errors\n- Error A\n- Error B")
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "Error A" in content
 
     def test_correlation_multiple_runs(self, errors_module: Any, tmp_path: Path) -> None:
@@ -1319,10 +1319,10 @@ class TestErrorCorrelation:
 - Error B
 """
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert previous.count("Error A") == 2
 
 
@@ -1344,10 +1344,10 @@ Traceback (most recent call last):
 ValueError: test
 """
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Traceback" in previous
         assert "ValueError" in previous
 
@@ -1369,10 +1369,10 @@ class TestErrorClustering:
 - ValueError: invalid value
 """
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         # Both TypeErrors should be present
         assert previous.count("TypeError") == 2
 
@@ -1412,10 +1412,10 @@ class TestResolutionTracking:
         target = tmp_path / "test.errors.md"
         content = "# Errors\n- [RESOLVED] Error A\n- [OPEN] Error B"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "[RESOLVED]" in previous
         assert "[OPEN]" in previous
 
@@ -1433,10 +1433,10 @@ class TestNotificationDelivery:
         target = tmp_path / "test.errors.md"
         content = "# Critical Error - NOTIFY: @team"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "NOTIFY:" in previous
 
 
@@ -1457,10 +1457,10 @@ class TestPatternRecognition:
 - NullPointerException at line 30
 """
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert previous.count("NullPointerException") == 3
 
 
@@ -1477,10 +1477,10 @@ class TestImpactAnalysis:
         target = tmp_path / "test.errors.md"
         content = "# Error\nAffected: auth_module, user_service, database"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "auth_module" in previous
 
 
@@ -1497,10 +1497,10 @@ class TestTimelineVisualization:
         target = tmp_path / "test.errors.md"
         content = "# Errors\n- [2025-01-16 10:30:00] Error occurred"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "2025-01-16" in previous
 
 
@@ -1517,10 +1517,10 @@ class TestRegressionDetection:
         target = tmp_path / "test.errors.md"
         content = "# Errors\n- [REGRESSION] Error reintroduced in v2.0"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "[REGRESSION]" in previous
 
 
@@ -1537,10 +1537,10 @@ class TestAutomatedFixSuggestions:
         target = tmp_path / "test.errors.md"
         content = "# Error\nFix: Add null check before accessing property"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Fix:" in previous
 
 
@@ -1557,10 +1557,10 @@ class TestExternalReporting:
         target = tmp_path / "test.errors.md"
         content = "# Error\nTracked in: JIRA-123"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "JIRA-123" in previous
 
 
@@ -1577,10 +1577,10 @@ class TestDeduplicationAccuracy:
         target = tmp_path / "test.errors.md"
         content = "# Errors\n- Same error\n- Same error"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         # Duplicates should be readable
         assert "Same error" in previous
 
@@ -1598,10 +1598,10 @@ class TestAnnotationPersistence:
         target = tmp_path / "test.errors.md"
         content = "# Error\n<!-- @owner: john -->\nCritical error"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "@owner:" in previous
 
 
@@ -1618,10 +1618,10 @@ class TestErrorBudget:
         target = tmp_path / "test.errors.md"
         content = "# Error Report\nBudget Used: 80%\nRemaining: 20%"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Budget Used:" in previous
 
 
@@ -1638,10 +1638,10 @@ class TestErrorEscalation:
         target = tmp_path / "test.errors.md"
         content = "# Error\n[ESCALATED] Critical production issue"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "[ESCALATED]" in previous
 
 
@@ -1658,10 +1658,10 @@ class TestErrorForecasting:
         target = tmp_path / "test.errors.md"
         content = "# Errors\nTrend: Increasing (+15% this week)"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Trend:" in previous
 
 
@@ -1683,10 +1683,10 @@ class TestErrorGrouping:
 - Error 2
 """
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "## TypeError" in previous
         assert "## ValueError" in previous
 
@@ -1704,10 +1704,10 @@ class TestErrorContextEnrichment:
         target = tmp_path / "test.errors.md"
         content = "# Error\nContext: User login flow, after OAuth callback"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Context:" in previous
 
 
@@ -1724,10 +1724,10 @@ class TestErrorSuppression:
         target = tmp_path / "test.errors.md"
         content = "# Errors\n- [SUPPRESSED] Known flaky test error"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "[SUPPRESSED]" in previous
 
     def test_suppression_reason(self, errors_module: Any, tmp_path: Path) -> None:
@@ -1735,8 +1735,8 @@ class TestErrorSuppression:
         target = tmp_path / "test.errors.md"
         content = "# Error\nSuppression Reason: Expected during maintenance window"
         target.write_text(content)
-        
+
         agent = errors_module.ErrorsAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Suppression Reason:" in previous

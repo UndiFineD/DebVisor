@@ -136,7 +136,7 @@ class TestErrorCategorization(unittest.TestCase):
             key = (err['file'], err['line'], err['type'])
             if key not in unique_errors:
                 unique_errors[key] = err['count']
-        
+
         self.assertEqual(len(unique_errors), 2)
 
     def test_error_grouping(self):
@@ -151,7 +151,7 @@ class TestErrorCategorization(unittest.TestCase):
         for err in errors:
             key = (err['type'], err['context'])
             grouped[key] = grouped.get(key, 0) + 1
-        
+
         self.assertEqual(len(grouped), 2)
 
 
@@ -204,11 +204,11 @@ class TestErrorContext(unittest.TestCase):
             '        result.append(item.value)',
             '    return result'
         ]
-        
+
         error_line = 2  # 0-indexed
         context_start = max(0, error_line - 1)
         context_end = min(len(code_lines), error_line + 2)
-        
+
         snippet = code_lines[context_start:context_end]
         self.assertEqual(len(snippet), 3)
 
@@ -255,8 +255,8 @@ class TestRemediationSuggestions(unittest.TestCase):
 
     def test_nlp_analysis_for_quickfixes(self):
         """Test NLP analysis for quick-fix recommendations."""
-        error_message = "TypeError: cannot concatenate 'str' and 'int' objects"
-        
+
+
         suggested_fixes = [
             'Convert int to str: str(variable)',
             'Use format string: f"{variable}"',
@@ -303,8 +303,8 @@ FAILED test_main.py::test_calculate - AssertionError: assert 5 == 6
 
     def test_extract_error_from_logs(self):
         """Test extracting structured errors from unstructured logs."""
-        log_line = "[2025-12-16 10:30:45] ERROR: Database connection failed: Connection refused"
-        
+
+
         error_data = {
             'timestamp': '2025-12-16 10:30:45',
             'level': 'ERROR',
@@ -389,7 +389,7 @@ class TestErrorPriority(unittest.TestCase):
             @staticmethod
             def calculate(severity, frequency, affected_users):
                 return (severity * 0.5) + (frequency * 0.3) + (affected_users * 0.2)
-        
+
         score = PriorityScore.calculate(severity=10, frequency=8, affected_users=100)
         self.assertGreater(score, 0)
 
@@ -423,13 +423,13 @@ class TestCustomErrorParsers(unittest.TestCase):
         class ParserRegistry:
             def __init__(self):
                 self.parsers = {}
-            
+
             def register(self, error_type, parser):
                 self.parsers[error_type] = parser
-            
+
             def get_parser(self, error_type):
                 return self.parsers.get(error_type)
-        
+
         registry = ParserRegistry()
         self.assertEqual(len(registry.parsers), 0)
 
@@ -438,7 +438,7 @@ class TestCustomErrorParsers(unittest.TestCase):
         class CustomParser:
             def parse(self, error_text):
                 return {'parsed': True, 'data': error_text}
-        
+
         parser = CustomParser()
         result = parser.parse("custom error")
         self.assertTrue(result['parsed'])
@@ -590,7 +590,7 @@ class TestErrorBaseline(unittest.TestCase):
         """Test calculating improvement against baseline."""
         baseline = {'total_errors': 250}
         current = {'total_errors': 150}
-        
+
         improvement_pct = ((baseline['total_errors'] - current['total_errors']) / baseline['total_errors']) * 100
         self.assertEqual(improvement_pct, 40.0)
 

@@ -746,7 +746,7 @@ class ContextInheritance:
             # Simple merge: keep child sections, add missing from parent
             child_sections = set(re.findall(r"##\s+(\w+)", child_content))
             parent_sections = re.findall(r"(##\s+\w+.*?)(?=##|\Z)", parent_content, re.DOTALL)
-            
+
             result = child_content
             for section in parent_sections:
                 section_name = re.search(r"##\s+(\w+)", section)
@@ -1188,7 +1188,7 @@ class ContextAgent(BaseAgent):
         super().__init__(file_path)
         self._validate_file_extension()
         self.source_path = self._derive_source_path()
-        
+
         # New features
         self._templates: Dict[str, ContextTemplate] = dict(DEFAULT_TEMPLATES)
         self._tags: Dict[str, ContextTag] = {}
@@ -1240,14 +1240,14 @@ class ContextAgent(BaseAgent):
         """Get the appropriate template for the current file."""
         if not self.source_path:
             return None
-        
+
         ext = self.source_path.suffix.lower()
         name = self.source_path.name.lower()
-        
+
         # Check test files first
         if "test" in name or name.startswith("test_"):
             return self._templates.get("test")
-        
+
         # Match by extension
         ext_mapping = {
             ".py": "python",
@@ -1260,7 +1260,7 @@ class ContextAgent(BaseAgent):
             ".yml": "config",
             ".toml": "config",
         }
-        
+
         template_name = ext_mapping.get(ext)
         return self._templates.get(template_name) if template_name else None
 
@@ -1271,10 +1271,10 @@ class ContextAgent(BaseAgent):
             template = self._templates.get(template_name)
         else:
             template = self.get_template_for_file()
-        
+
         if not template:
             return self._get_default_content()
-        
+
         filename = self.file_path.name.replace('.description.md', '')
         return template.template_content.format(filename=filename)
 
@@ -1314,7 +1314,7 @@ class ContextAgent(BaseAgent):
         """Create a new version snapshot."""
         content = self.current_content or self.previous_content or ""
         content_hash = hashlib.sha256(content.encode()).hexdigest()[:12]
-        
+
         version_obj = ContextVersion(
             version=version,
             timestamp=datetime.now().isoformat(),
@@ -1322,7 +1322,7 @@ class ContextAgent(BaseAgent):
             changes=changes or [],
             author=author
         )
-        
+
         self._versions.append(version_obj)
         logging.info(f"Created version {version}")
         return version_obj
@@ -1339,10 +1339,10 @@ class ContextAgent(BaseAgent):
         """Get diff between two versions."""
         ver1 = next((v for v in self._versions if v.version == v1), None)
         ver2 = next((v for v in self._versions if v.version == v2), None)
-        
+
         if not ver1 or not ver2:
             return {"error": "Version not found"}
-        
+
         return {
             "from_version": v1,
             "to_version": v2,
@@ -1358,7 +1358,7 @@ class ContextAgent(BaseAgent):
         """Compress content for storage."""
         if content is None:
             content = self.current_content or self.previous_content or ""
-        
+
         self._compressed_content = zlib.compress(content.encode(), level=9)
         return self._compressed_content
 
@@ -1366,10 +1366,10 @@ class ContextAgent(BaseAgent):
         """Decompress stored content."""
         if compressed is None:
             compressed = self._compressed_content
-        
+
         if compressed is None:
             return ""
-        
+
         return zlib.decompress(compressed).decode()
 
     def get_compression_ratio(self) -> float:
@@ -1377,11 +1377,11 @@ class ContextAgent(BaseAgent):
         content = self.current_content or self.previous_content or ""
         if not content:
             return 0.0
-        
+
         original_size = len(content.encode())
         compressed = self.compress_content(content)
         compressed_size = len(compressed)
-        
+
         return 1 - (compressed_size / original_size) if original_size > 0 else 0.0
 
     # ========== Validation ==========
@@ -1394,9 +1394,9 @@ class ContextAgent(BaseAgent):
         """Validate content against all rules."""
         if content is None:
             content = self.current_content or self.previous_content or ""
-        
+
         issues: List[Dict[str, Any]] = []
-        
+
         for rule in self._validation_rules:
             if rule.required:
                 # Required patterns must be present
@@ -1417,7 +1417,7 @@ class ContextAgent(BaseAgent):
                         "severity": rule.severity,
                         "matches": len(matches)
                     })
-        
+
         return issues
 
     def is_valid(self, content: Optional[str] = None) -> bool:
@@ -1482,28 +1482,28 @@ class ContextAgent(BaseAgent):
         """Calculate a priority score based on various factors."""
         score = 0.0
         content = self.current_content or self.previous_content or ""
-        
+
         # Base score from priority level
         score += self._priority.value * 10
-        
+
         # Add points for content completeness
         sections = ["Purpose", "Usage", "Dependencies", "Examples"]
         for section in sections:
             if f"## {section}" in content:
                 score += 5
-        
+
         # Add points for code examples
         code_blocks = re.findall(r"```\w+", content)
         score += min(len(code_blocks) * 3, 15)
-        
+
         # Add points for having tags
         score += min(len(self._tags) * 2, 10)
-        
+
         # Penalize for validation issues
         issues = self.validate_content(content)
         score -= len([i for i in issues if i.get("severity") == "error"]) * 10
         score -= len([i for i in issues if i.get("severity") == "warning"]) * 5
-        
+
         return max(0, min(100, score))
 
     # ========== Categorization ==========
@@ -1520,10 +1520,10 @@ class ContextAgent(BaseAgent):
         """Automatically categorize based on file analysis."""
         if not self.source_path:
             return FileCategory.OTHER
-        
+
         name = self.source_path.name.lower()
         ext = self.source_path.suffix.lower()
-        
+
         # Test files
         if "test" in name or name.startswith("test_"):
             self._category = FileCategory.TEST
@@ -1544,7 +1544,7 @@ class ContextAgent(BaseAgent):
             self._category = FileCategory.CODE
         else:
             self._category = FileCategory.OTHER
-        
+
         return self._category
 
     # ========== Metadata ==========
@@ -1578,7 +1578,7 @@ class ContextAgent(BaseAgent):
     def _get_default_content(self) -> str:
         """Return rich, structured template for new descriptions."""
         filename = self.file_path.name.replace('.description.md', '')
-        return f"""# Description: `{filename}`
+        return """# Description: `{filename}`
 
 ## Purpose
 [One-line purpose statement]
@@ -1621,7 +1621,7 @@ class ContextAgent(BaseAgent):
                 return super().improve_content(enhanced_prompt)
             except (OSError, UnicodeDecodeError):
                 pass
-                
+
         return super().improve_content(prompt)
 
 

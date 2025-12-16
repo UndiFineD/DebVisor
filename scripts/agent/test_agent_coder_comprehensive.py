@@ -180,7 +180,7 @@ from mymodule import func
 """
         lines = imports.split("\n")
         stdlib_imports = [l for l in lines if "os" in l or "sys" in l]
-        local_imports = [l for l in lines if "mymodule" in l]
+        local_imports = [l for lst in lines if "mymodule" in l]
         assert len(stdlib_imports) > 0
         assert len(local_imports) > 0
 
@@ -261,13 +261,13 @@ class TestBackupCreation(unittest.TestCase):
             f.write("original content")
             f.flush()
             original_file = f.name
-        
+
         try:
             # Create backup
             backup_file = original_file + ".bak"
             import shutil
             shutil.copy(original_file, backup_file)
-            
+
             # Verify backup exists
             assert Path(backup_file).exists()
             with open(backup_file) as bf:
@@ -290,19 +290,19 @@ class TestRollback(unittest.TestCase):
         """Test rollback when syntax error occurs."""
         original = "def func(): pass"
         broken = "def func(: pass"  # Syntax error
-        
+
         # Should detect broken state
         try:
             compile(broken, "<string>", "exec")
             needs_rollback = False
         except SyntaxError:
             needs_rollback = True
-        
+
         assert needs_rollback
 
     def test_rollback_on_test_failure(self):
         """Test rollback when tests fail."""
-        modified_code = "def add(a, b): return a - b"  # Wrong logic
+
         # Would fail test expecting sum
         assert 3 + 2 != 1  # Test would fail
 
@@ -313,42 +313,42 @@ class TestConcurrency(unittest.TestCase):
     def test_concurrent_file_generation(self):
         """Test generating multiple files concurrently."""
         import threading
-        
+
         generated_files = []
         lock = threading.Lock()
-        
+
         def generate_file(name):
             with lock:
                 generated_files.append(name)
-        
+
         threads = []
         for i in range(5):
             t = threading.Thread(target=generate_file, args=(f"file{i}",))
             threads.append(t)
             t.start()
-        
+
         for t in threads:
             t.join()
-        
+
         assert len(generated_files) == 5
 
     def test_concurrent_modifications(self):
         """Test concurrent code modifications."""
         import threading
-        
+
         counter = {"value": 0}
         lock = threading.Lock()
-        
+
         def modify():
             with lock:
                 counter["value"] += 1
-        
+
         threads = [threading.Thread(target=modify) for _ in range(10)]
         for t in threads:
             t.start()
         for t in threads:
             t.join()
-        
+
         assert counter["value"] == 10
 
 
@@ -369,7 +369,7 @@ class TestLargeFileHandling(unittest.TestCase):
                 f.write(f"line {i}\n")
             f.flush()
             fname = f.name
-        
+
         try:
             line_count = 0
             with open(fname) as f:
@@ -387,13 +387,13 @@ class TestErrorRecovery(unittest.TestCase):
         """Test retry mechanism on failure."""
         attempts = []
         max_retries = 3
-        
+
         def flaky_operation():
             attempts.append(1)
             if len(attempts) < 2:
                 raise ValueError("First attempt fails")
             return "success"
-        
+
         for attempt in range(max_retries):
             try:
                 result = flaky_operation()
@@ -402,18 +402,18 @@ class TestErrorRecovery(unittest.TestCase):
             except ValueError:
                 if attempt == max_retries - 1:
                     raise
-        
+
         assert len(attempts) == 2
 
     def test_exponential_backoff(self):
         """Test exponential backoff in retries."""
         import time
-        
+
         delays = []
         for attempt in range(3):
             delay = min(2 ** attempt, 60)  # Exponential with cap
             delays.append(delay)
-        
+
         assert delays == [1, 2, 4]
 
 
@@ -456,7 +456,7 @@ def func():
     y = 2
     return x + y
 """
-        non_empty_lines = [l for l in code.split("\n") if l.strip()]
+        non_empty_lines = [l for lst in code.split("\n") if l.strip()]
         assert len(non_empty_lines) > 0
 
 
@@ -465,14 +465,14 @@ class TestDocstringGeneration(unittest.TestCase):
 
     def test_function_docstring_generation(self):
         """Test generating docstrings for functions."""
-        func_signature = "def add(a: int, b: int) -> int:"
+
         # Generated docstring would be:
         docstring = """\"\"\"Add two numbers.
-        
+
         Args:
             a: First number
             b: Second number
-            
+
         Returns:
             Sum of a and b
         \"\"\""""
@@ -494,7 +494,7 @@ class TestIntegration(unittest.TestCase):
 
     def test_end_to_end_code_generation(self):
         """Test complete code generation workflow."""
-        prompt = "Generate a function to calculate factorial"
+
         # Generated code would be:
         generated = """def factorial(n: int) -> int:
     \"\"\"Calculate factorial of n.\"\"\"

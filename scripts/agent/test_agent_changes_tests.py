@@ -76,7 +76,7 @@ class TestChangelogEntryPriority:
         """Test critical priority entries are ranked highest."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = """# Changelog
 ## Critical
 - Security fix for vulnerability
@@ -86,23 +86,23 @@ class TestChangelogEntryPriority:
 """
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Security fix" in previous
 
     def test_importance_ordering(self, tmp_path: Path) -> None:
         """Test entries are ordered by importance."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         target = tmp_path / "test.changes.md"
         target.write_text("# Changelog\n- Entry 1\n- Entry 2")
-        
+
         agent = mod.ChangesAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "Entry 1" in content
 
 
@@ -118,25 +118,25 @@ class TestChangelogCrossReference:
         """Test commit reference format is preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Fix bug (abc123)"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "abc123" in previous
 
     def test_issue_reference_preserved(self, tmp_path: Path) -> None:
         """Test issue references are preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Fix #123"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         assert "#123" in agent.read_previous_content()
 
@@ -153,13 +153,13 @@ class TestChangelogConflictResolution:
         """Test conflicting entries can be detected."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         target = tmp_path / "conflict.changes.md"
         target.write_text("# Changelog\n- Entry A\n- Entry A modified")
-        
+
         agent = mod.ChangesAgent(str(target))
         content = agent.read_previous_content()
-        
+
         # Both entries should be present
         assert "Entry A" in content
 
@@ -176,28 +176,28 @@ class TestChangelogTemplateCustomization:
         """Test custom header is preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Custom Changelog Header\n\nCustom intro text\n\n## Changes\n- Item"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Custom Changelog Header" in previous
 
     def test_section_structure_maintained(self, tmp_path: Path) -> None:
         """Test section structure is maintained."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n## Added\n- A\n## Fixed\n- B"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "## Added" in previous
         assert "## Fixed" in previous
 
@@ -214,25 +214,25 @@ class TestChangelogMetadataExtraction:
         """Test date metadata is extracted."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n## [2025-01-16]\n- Entry"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "2025-01-16" in previous
 
     def test_author_metadata_preserved(self, tmp_path: Path) -> None:
         """Test author metadata is preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Entry by @author"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         assert "@author" in agent.read_previous_content()
 
@@ -249,25 +249,25 @@ class TestChangelogVersioning:
         """Test semantic version format is preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n## [1.2.3] - 2025-01-16\n- Entry"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "[1.2.3]" in previous
 
     def test_version_ordering(self, tmp_path: Path) -> None:
         """Test version sections are ordered."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n## [2.0.0]\n- B\n## [1.0.0]\n- A"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         assert "2.0.0" in agent.read_previous_content()
 
@@ -284,14 +284,14 @@ class TestChangelogEntryGrouping:
         """Test entries can be grouped by scope."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n## API\n- api change\n## Core\n- core change"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "## API" in previous
         assert "## Core" in previous
 
@@ -308,15 +308,15 @@ class TestChangelogFromCommits:
         """Test conventional commit format is handled."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         # Simulate content that might come from commits
         content = "# Changelog\n- feat: new feature\n- fix: bug fix"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "feat:" in previous
         assert "fix:" in previous
 
@@ -333,14 +333,14 @@ class TestChangelogDeduplication:
         """Test handling of duplicate entries."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Same entry\n- Same entry"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         # Content should be readable
         assert "Same entry" in previous
 
@@ -357,15 +357,15 @@ class TestChangelogFormatMigration:
         """Test old changelog formats can be read."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         # Old format without sections
         content = "Changes:\n* Item 1\n* Item 2"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Item 1" in previous
 
 
@@ -381,14 +381,14 @@ class TestChangelogApprovalWorkflow:
         """Test draft entries are handled."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n## Draft\n- Pending entry\n## Released\n- Final entry"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Draft" in previous
         assert "Released" in previous
 
@@ -405,14 +405,14 @@ class TestReleaseNotesIntegration:
         """Test release notes format is compatible."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Release Notes v1.0\n\n## Highlights\n- Major feature\n\n## All Changes\n- Detail"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Highlights" in previous
 
 
@@ -428,11 +428,11 @@ class TestIssuePRLinking:
         """Test GitHub issue links are preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Fix bug ([#42](https://github.com/org/repo/issues/42))"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         assert "issues/42" in agent.read_previous_content()
 
@@ -440,11 +440,11 @@ class TestIssuePRLinking:
         """Test PR references are preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Feature (PR #100)"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         assert "PR #100" in agent.read_previous_content()
 
@@ -461,16 +461,16 @@ class TestChangelogPerformance:
         """Test large changelog can be read."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         # Create large changelog
         entries = "\n".join([f"- Entry {i}" for i in range(100)])
         content = f"# Changelog\n{entries}"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Entry 0" in previous
         assert "Entry 99" in previous
 
@@ -487,14 +487,14 @@ class TestChangelogBackupRecovery:
         """Test reading doesn't create unexpected files."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Entry"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         agent.read_previous_content()
-        
+
         # Should not create backup just from reading
         backup_file = tmp_path / "test.changes.md.bak"
         assert not backup_file.exists()
@@ -512,14 +512,14 @@ class TestChangelogAuthentication:
         """Test signed entries are preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Entry <!-- signed:abc123 -->"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "signed:abc123" in previous
 
 
@@ -535,14 +535,14 @@ class TestChangelogArchival:
         """Test archived section is handled."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n## Current\n- New\n## Archived\n- Old"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Archived" in previous
         assert "Old" in previous
 
@@ -559,14 +559,14 @@ class TestChangelogSearchFiltering:
         """Test keywords can be found in content."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Fix critical security bug\n- Minor update"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "security" in previous
 
 
@@ -582,14 +582,14 @@ class TestChangelogTagging:
         """Test entry tags are preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- Entry [tag:important] [tag:security]"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "tag:important" in previous
         assert "tag:security" in previous
 
@@ -606,12 +606,12 @@ class TestChangelogNotificationTriggers:
         """Test breaking change markers are preserved."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-changes.py")
-        
+
         content = "# Changelog\n- BREAKING: API changed"
         target = tmp_path / "test.changes.md"
         target.write_text(content)
-        
+
         agent = mod.ChangesAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "BREAKING" in previous

@@ -39,13 +39,13 @@ impact: high
 ---
 Add caching to reduce database queries.
         """
-        
+
         # Extract frontmatter
         lines = content.split('\n')
         if lines[0] == '---' and '---' in lines[1:]:
-            end_idx = next(i for i, l in enumerate(lines[1:], 1) if l == '---')
+            end_idx = next(i for i, l in enumerate(lines[1:], 1) if lst == '---')
             yaml_content = '\n'.join(lines[1:end_idx])
-            
+
             frontmatter = yaml.safe_load(yaml_content)
             self.assertEqual(frontmatter['priority'], 'high')
             self.assertEqual(frontmatter['category'], 'performance')
@@ -60,7 +60,7 @@ Add caching to reduce database queries.
             'impact_score': 8.5,
             'description': 'Implement Redis caching'
         }
-        
+
         self.assertEqual(improvement['priority'], 'high')
         self.assertGreater(improvement['impact_score'], 8.0)
 
@@ -76,14 +76,14 @@ class TestPriorityFiltering(unittest.TestCase):
             {'id': 3, 'title': 'Important feature', 'priority': 'high'},
             {'id': 4, 'title': 'Optimization', 'priority': 'medium'}
         ]
-        
+
         high_priority = [i for i in improvements if i['priority'] == 'high']
         self.assertEqual(len(high_priority), 2)
 
     def test_priority_level_validation(self):
         """Test validating priority level values."""
         valid_priorities = ['critical', 'high', 'medium', 'low', 'info']
-        
+
         improvement = {'priority': 'high'}
         self.assertIn(improvement['priority'], valid_priorities)
 
@@ -96,10 +96,10 @@ class TestPriorityFiltering(unittest.TestCase):
             {'id': 4, 'priority': 'high'},
             {'id': 5, 'priority': 'low'}
         ]
-        
+
         selected_priorities = ['high', 'medium']
         filtered = [i for i in improvements if i['priority'] in selected_priorities]
-        
+
         self.assertEqual(len(filtered), 3)
 
 
@@ -114,7 +114,7 @@ class TestImprovementRanking(unittest.TestCase):
             'benefit': 9,
             'risk': 2
         }
-        
+
         # Impact = benefit / (risk + complexity)
         impact = improvement['benefit'] / (improvement['risk'] + improvement['complexity'])
         self.assertGreater(impact, 0)
@@ -127,7 +127,7 @@ class TestImprovementRanking(unittest.TestCase):
             {'id': 3, 'impact_score': 3.1},
             {'id': 4, 'impact_score': 9.5}
         ]
-        
+
         ranked = sorted(improvements, key=lambda x: x['impact_score'], reverse=True)
         self.assertEqual(ranked[0]['id'], 4)
 
@@ -138,7 +138,7 @@ class TestImprovementRanking(unittest.TestCase):
             {'id': 2, 'impact': 8, 'complexity': 8, 'score': 8/8},
             {'id': 3, 'impact': 5, 'complexity': 1, 'score': 5/1}
         ]
-        
+
         # Higher score is better (higher impact to complexity ratio)
         best = max(improvements, key=lambda x: x['score'])
         self.assertEqual(best['id'], 3)  # 5/1 = 5.0 is highest ratio
@@ -155,7 +155,7 @@ class TestMetricsCollection(unittest.TestCase):
             'pending': 20,
             'declined': 5
         }
-        
+
         self.assertEqual(metrics['applied'] + metrics['pending'] + metrics['declined'], 50)
 
     def test_success_rate_calculation(self):
@@ -165,7 +165,7 @@ class TestMetricsCollection(unittest.TestCase):
             'successful': 27,
             'failed': 3
         }
-        
+
         success_rate = (metrics['successful'] / metrics['attempted']) * 100
         self.assertEqual(success_rate, 90.0)
 
@@ -176,7 +176,7 @@ class TestMetricsCollection(unittest.TestCase):
             {'id': 2, 'estimated_hours': 8, 'actual_hours': 9.2},
             {'id': 3, 'estimated_hours': 2, 'actual_hours': 2.1}
         ]
-        
+
         avg_variance = sum((i['actual_hours'] - i['estimated_hours']) for i in improvements) / len(improvements)
         self.assertNotEqual(avg_variance, 0)
 
@@ -196,7 +196,7 @@ class TestImprovementTemplates(unittest.TestCase):
                 'Testing approach'
             ]
         }
-        
+
         self.assertEqual(len(template['sections']), 5)
 
     def test_security_template(self):
@@ -211,7 +211,7 @@ class TestImprovementTemplates(unittest.TestCase):
                 'Verification method'
             ]
         }
-        
+
         self.assertIn('Severity level', template['sections'])
 
     def test_refactoring_template(self):
@@ -226,7 +226,7 @@ class TestImprovementTemplates(unittest.TestCase):
                 'Backward compatibility'
             ]
         }
-        
+
         self.assertEqual(len(template['sections']), 5)
 
 
@@ -241,9 +241,9 @@ class TestAIPoweredPrioritization(unittest.TestCase):
             'performance_impact': 0.2,
             'security_risk': 0.1
         }
-        
+
         weights = {'duplication': 0.2, 'coverage': 0.3, 'perf': 0.3, 'security': 0.2}
-        
+
         # Weighted score would be calculated
         self.assertEqual(sum(weights.values()), 1.0)
 
@@ -254,7 +254,7 @@ class TestAIPoweredPrioritization(unittest.TestCase):
             {'type': 'ValueError', 'frequency': 5},
             {'type': 'KeyError', 'frequency': 8}
         ]
-        
+
         most_frequent = max(issues, key=lambda x: x['frequency'])
         self.assertEqual(most_frequent['type'], 'TypeError')
 
@@ -270,7 +270,7 @@ class TestDependencyDetection(unittest.TestCase):
             'improve_c': {'depends_on': ['improve_a', 'improve_b']},
             'improve_d': {'depends_on': []}
         }
-        
+
         # Check if improve_c depends on improve_b
         self.assertIn('improve_b', improvements['improve_c']['depends_on'])
 
@@ -282,7 +282,7 @@ class TestDependencyDetection(unittest.TestCase):
             'c': ['b'],
             'd': ['c']
         }
-        
+
         def get_all_deps(item, deps_dict):
             if not deps_dict.get(item):
                 return []
@@ -291,7 +291,7 @@ class TestDependencyDetection(unittest.TestCase):
             for dep in direct:
                 all_deps.extend(get_all_deps(dep, deps_dict))
             return list(set(all_deps))
-        
+
         all_deps_of_d = get_all_deps('d', deps)
         self.assertIn('c', all_deps_of_d)
         self.assertIn('a', all_deps_of_d)
@@ -309,7 +309,7 @@ class TestImprovementStatusTracking(unittest.TestCase):
             'completed': ['declined'],
             'declined': []
         }
-        
+
         self.assertIn('completed', statuses['in-progress'])
 
     def test_review_status_tracking(self):
@@ -321,7 +321,7 @@ class TestImprovementStatusTracking(unittest.TestCase):
             'review_date': '2025-12-16',
             'review_notes': 'Looks good, minor adjustments needed'
         }
-        
+
         self.assertEqual(improvement['status'], 'review')
 
     def test_completion_tracking(self):
@@ -333,7 +333,7 @@ class TestImprovementStatusTracking(unittest.TestCase):
             'implementation_time_hours': 4.5,
             'commits': ['abc123', 'def456']
         }
-        
+
         self.assertEqual(improvement['status'], 'completed')
 
 
@@ -355,7 +355,7 @@ class TestImprovementReportGeneration(unittest.TestCase):
                 'testing': 2
             }
         }
-        
+
         self.assertEqual(report['improvements_applied'], 25)
 
     def test_trend_analysis(self):
@@ -365,7 +365,7 @@ class TestImprovementReportGeneration(unittest.TestCase):
             {'month': 'Nov', 'improvements_applied': 8, 'success_rate': 0.87},
             {'month': 'Dec', 'improvements_applied': 12, 'success_rate': 0.92}
         ]
-        
+
         total = sum(m['improvements_applied'] for m in monthly)
         self.assertEqual(total, 25)
 
@@ -377,7 +377,7 @@ class TestImprovementReportGeneration(unittest.TestCase):
             'refactoring': 12,
             'testing': 8
         }
-        
+
         self.assertEqual(sum(distribution.values()), 45)
 
 
@@ -391,7 +391,7 @@ class TestCrossFileImprovementDetection(unittest.TestCase):
             'file_b.py': ['pattern_x', 'pattern_z'],
             'file_c.py': ['pattern_x', 'pattern_y'],
         }
-        
+
         # Find patterns appearing in multiple files
         pattern_files = {}
         for file, patterns_list in patterns.items():
@@ -399,7 +399,7 @@ class TestCrossFileImprovementDetection(unittest.TestCase):
                 if pattern not in pattern_files:
                     pattern_files[pattern] = []
                 pattern_files[pattern].append(file)
-        
+
         common_patterns = [p for p, files in pattern_files.items() if len(files) > 1]
         self.assertEqual(len(common_patterns), 2)  # pattern_x and pattern_y appear in multiple files
 
@@ -411,7 +411,7 @@ class TestCrossFileImprovementDetection(unittest.TestCase):
             'suggestion': 'Extract common utility to shared module',
             'impact': 'high'
         }
-        
+
         self.assertEqual(len(improvement['files_affected']), 3)
 
 
@@ -426,13 +426,13 @@ class TestNLPCategorization(unittest.TestCase):
             'refactoring': ['extract', 'simplify', 'clean', 'decouple', 'modularity'],
             'testing': ['coverage', 'unit test', 'integration', 'mock', 'fixture']
         }
-        
+
         text = "Add caching to reduce database query latency"
-        
+
         for category, words in keywords.items():
             if any(word in text.lower() for word in words):
                 matched_category = category
-        
+
         self.assertEqual(matched_category, 'performance')
 
     def test_improvement_description_parsing(self):
@@ -442,7 +442,7 @@ class TestNLPCategorization(unittest.TestCase):
             "Implement JWT token refresh mechanism",
             "Add unit tests for edge cases"
         ]
-        
+
         # Simple classification
         categories = []
         for desc in descriptions:
@@ -452,7 +452,7 @@ class TestNLPCategorization(unittest.TestCase):
                 categories.append('testing')
             else:
                 categories.append('feature')
-        
+
         self.assertEqual(len(categories), 3)
 
 
@@ -470,7 +470,7 @@ class TestAgentSpecificTemplates(unittest.TestCase):
                 'Testing'
             ]
         }
-        
+
         self.assertIn('Code quality', template['sections'])
 
     def test_analyzer_agent_template(self):
@@ -484,7 +484,7 @@ class TestAgentSpecificTemplates(unittest.TestCase):
                 'Performance'
             ]
         }
-        
+
         self.assertIn('Finding detection', template['sections'])
 
     def test_reporter_agent_template(self):
@@ -498,7 +498,7 @@ class TestAgentSpecificTemplates(unittest.TestCase):
                 'Actionability'
             ]
         }
-        
+
         self.assertEqual(len(template['sections']), 4)
 
 
@@ -512,7 +512,7 @@ class TestGitIntegration(unittest.TestCase):
             {'hash': 'def456', 'message': '[IMP-002] Refactor parser'},
             {'hash': 'ghi789', 'message': 'Update documentation'}  # Not an improvement
         ]
-        
+
         improvement_commits = [c for c in commits if '[IMP-' in c['message']]
         self.assertEqual(len(improvement_commits), 2)
 
@@ -530,7 +530,7 @@ class TestGitIntegration(unittest.TestCase):
                 'started_date': '2025-12-15'
             }
         }
-        
+
         self.assertEqual(len(mapping['IMP_001']['commits']), 2)
 
 
@@ -544,7 +544,7 @@ class TestBulkApplication(unittest.TestCase):
             {'id': 'IMP_002', 'title': 'Refactor parser', 'status': 'pending'},
             {'id': 'IMP_003', 'title': 'Add tests', 'status': 'pending'}
         ]
-        
+
         self.assertEqual(len(improvements_to_apply), 3)
 
     def test_checkpoint_system(self):
@@ -555,7 +555,7 @@ class TestBulkApplication(unittest.TestCase):
             {'step': 3, 'description': 'Apply improvements', 'completed': False},
             {'step': 4, 'description': 'Run tests', 'completed': False}
         ]
-        
+
         completed = sum(1 for c in checkpoints if c['completed'])
         self.assertEqual(completed, 2)
 
@@ -568,7 +568,7 @@ class TestBulkApplication(unittest.TestCase):
             'backup_location': '/tmp/backup_abc123',
             'can_rollback': True
         }
-        
+
         self.assertTrue(application_log['can_rollback'])
 
 
@@ -583,7 +583,7 @@ class TestImpactAnalysis(unittest.TestCase):
             'estimated_deletions': 12,
             'affected_files': 3
         }
-        
+
         net_change = improvement['estimated_additions'] - improvement['estimated_deletions']
         self.assertEqual(net_change, 33)
 
@@ -595,7 +595,7 @@ class TestImpactAnalysis(unittest.TestCase):
             'complexity_increase': 0.9,
             'concern': 'High'
         }
-        
+
         self.assertGreater(analysis['projected_complexity'], analysis['current_complexity'])
 
     def test_performance_impact_estimation(self):
@@ -606,7 +606,7 @@ class TestImpactAnalysis(unittest.TestCase):
             'projected': 150,  # ms
             'improvement_percent': ((250 - 150) / 250) * 100
         }
-        
+
         self.assertEqual(impact['improvement_percent'], 40.0)
 
 

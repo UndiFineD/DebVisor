@@ -1105,7 +1105,7 @@ class TemplateManager:
 
 class ChangesAgent(BaseAgent):
     """Updates code file changelogs using AI assistance.
-    
+
     Features:
     - Changelog templates for different project types
     - Preview mode before committing changes
@@ -1237,13 +1237,13 @@ class ChangesAgent(BaseAgent):
 
     def generate_next_version(self, bump_type: str = "patch") -> str:
         """Generate the next version based on the current strategy.
-        
+
         Args:
             bump_type: For SemVer: 'major', 'minor', 'patch'. For CalVer: ignored.
         """
         if self._versioning_strategy == VersioningStrategy.CALVER:
             return datetime.now().strftime("%Y.%m.%d")
-        
+
         # SemVer: Try to extract current version and bump it
         current_version = self._extract_latest_version()
         if current_version:
@@ -1285,14 +1285,14 @@ class ChangesAgent(BaseAgent):
     def preview_changes(self, content: str) -> Dict[str, Any]:
         """Preview changes and return a summary."""
         self._preview_content = content
-        
+
         # Calculate diff statistics
         original_lines = self.previous_content.split('\n')
         new_lines = content.split('\n')
-        
+
         added = len([l for l in new_lines if l and l not in original_lines])
         removed = len([l for l in original_lines if l and l not in new_lines])
-        
+
         return {
             "original_lines": len(original_lines),
             "new_lines": len(new_lines),
@@ -1318,7 +1318,7 @@ class ChangesAgent(BaseAgent):
         conflict_start = 0
         ours = []
         theirs = []
-        
+
         for i, line in enumerate(lines):
             if line.startswith('<<<<<<<'):
                 in_conflict = True
@@ -1341,7 +1341,7 @@ class ChangesAgent(BaseAgent):
                     ours.append(line)
                 else:
                     theirs.append(line)
-        
+
         return conflicts
 
     def resolve_merge_conflict(
@@ -1350,7 +1350,7 @@ class ChangesAgent(BaseAgent):
         resolution: str = "ours"
     ) -> str:
         """Resolve merge conflicts in the content.
-        
+
         Args:
             content: Content with merge conflicts
             resolution: 'ours', 'theirs', or 'both'
@@ -1361,7 +1361,7 @@ class ChangesAgent(BaseAgent):
         ours_section = True
         ours = []
         theirs = []
-        
+
         for line in lines:
             if line.startswith('<<<<<<<'):
                 in_conflict = True
@@ -1387,7 +1387,7 @@ class ChangesAgent(BaseAgent):
                     theirs.append(line)
             else:
                 result.append(line)
-        
+
         return '\n'.join(result)
 
     # ========== Entry Validation ==========
@@ -1399,7 +1399,7 @@ class ChangesAgent(BaseAgent):
     def validate_entry(self, entry: ChangelogEntry) -> List[Dict[str, str]]:
         """Validate a changelog entry against all rules."""
         issues = []
-        
+
         # Validate version format
         if entry.version:
             version_rule = next(
@@ -1412,7 +1412,7 @@ class ChangesAgent(BaseAgent):
                     "message": version_rule.message,
                     "severity": version_rule.severity
                 })
-        
+
         # Validate date format
         if entry.date:
             date_rule = next(
@@ -1425,7 +1425,7 @@ class ChangesAgent(BaseAgent):
                     "message": date_rule.message,
                     "severity": date_rule.severity
                 })
-        
+
         # Validate entry description
         entry_rule = next(
             (r for r in self._validation_rules if r.name == "entry_not_empty"),
@@ -1437,13 +1437,13 @@ class ChangesAgent(BaseAgent):
                 "message": entry_rule.message,
                 "severity": entry_rule.severity
             })
-        
+
         return issues
 
     def validate_changelog(self, content: str) -> List[Dict[str, Any]]:
         """Validate the entire changelog content."""
         all_issues = []
-        
+
         # Check for merge conflicts
         conflicts = self.detect_merge_conflicts(content)
         if conflicts:
@@ -1453,7 +1453,7 @@ class ChangesAgent(BaseAgent):
                 "severity": "error",
                 "message": f"Found {len(conflicts)} unresolved merge conflict(s)"
             })
-        
+
         # Check for required sections
         if self._template:
             for section in self._template.sections:
@@ -1464,7 +1464,7 @@ class ChangesAgent(BaseAgent):
                         "severity": "warning",
                         "message": f"Missing recommended section: {section}"
                     })
-        
+
         return all_issues
 
     # ========== Statistics ==========
@@ -1472,11 +1472,11 @@ class ChangesAgent(BaseAgent):
     def calculate_statistics(self) -> Dict[str, Any]:
         """Calculate statistics for the changelog."""
         content = self.current_content or self.previous_content
-        
+
         # Count versions
         version_pattern = r"##\s*\[?(\d+\.\d+\.\d+|\d{4}\.\d{2}\.\d{2})\]?"
         versions = re.findall(version_pattern, content)
-        
+
         # Count entries per category
         categories = {}
         for section in ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"]:
@@ -1485,11 +1485,11 @@ class ChangesAgent(BaseAgent):
             if matches:
                 entries = [l for l in matches[0].split('\n') if l.strip().startswith('-')]
                 categories[section] = len(entries)
-        
+
         # Count contributors (if mentioned)
         contributor_pattern = r"@(\w+)"
         contributors = set(re.findall(contributor_pattern, content))
-        
+
         self._statistics = {
             "version_count": len(versions),
             "latest_version": versions[0] if versions else None,
@@ -1500,7 +1500,7 @@ class ChangesAgent(BaseAgent):
             "line_count": len(content.split('\n')),
             "character_count": len(content)
         }
-        
+
         return self._statistics
 
     # ========== Entry Management ==========
@@ -1525,13 +1525,13 @@ class ChangesAgent(BaseAgent):
             tags=tags or [],
             linked_issues=linked_issues or []
         )
-        
+
         # Validate before adding
         issues = self.validate_entry(entry)
         if any(i["severity"] == "error" for i in issues):
             logging.error(f"Entry validation failed: {issues}")
             raise ValueError(f"Entry validation failed: {issues}")
-        
+
         self._entries.append(entry)
         return entry
 
@@ -1549,7 +1549,7 @@ class ChangesAgent(BaseAgent):
         seen = set()
         unique = []
         removed = 0
-        
+
         for entry in self._entries:
             key = hashlib.md5(
                 f"{entry.category}:{entry.description}".encode()
@@ -1559,7 +1559,7 @@ class ChangesAgent(BaseAgent):
                 unique.append(entry)
             else:
                 removed += 1
-        
+
         self._entries = unique
         return removed
 
@@ -1567,7 +1567,7 @@ class ChangesAgent(BaseAgent):
         """Format all entries as markdown changelog."""
         if not self._entries:
             return ""
-        
+
         # Group by version
         by_version: Dict[str, List[ChangelogEntry]] = {}
         for entry in self._entries:
@@ -1575,19 +1575,19 @@ class ChangesAgent(BaseAgent):
             if version not in by_version:
                 by_version[version] = []
             by_version[version].append(entry)
-        
+
         result = []
         for version, entries in by_version.items():
             date = entries[0].date if entries else datetime.now().strftime("%Y-%m-%d")
             result.append(f"## [{version}] - {date}\n")
-            
+
             # Group by category
             by_category: Dict[str, List[ChangelogEntry]] = {}
             for entry in entries:
                 if entry.category not in by_category:
                     by_category[entry.category] = []
                 by_category[entry.category].append(entry)
-            
+
             sections = self.get_template_sections()
             for category in sections:
                 if category in by_category:
@@ -1600,7 +1600,7 @@ class ChangesAgent(BaseAgent):
                             line += f" ({', '.join(entry.linked_issues)})"
                         result.append(line)
                     result.append("")
-        
+
         return '\n'.join(result)
 
     def _get_default_content(self) -> str:

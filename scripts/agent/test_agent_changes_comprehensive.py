@@ -271,7 +271,7 @@ class TestDuplicateDetection(unittest.TestCase):
             if line.startswith("## ["):
                 version = line.split("]")[0].replace("## [", "")
                 versions.append(version)
-        
+
         assert len(versions) == 2
         assert versions[0] == versions[1]
 
@@ -379,7 +379,7 @@ class TestIntegration(unittest.TestCase):
         # Validate structure
         assert "# Changelog" in changelog
         assert "## [1.0.0]" in changelog
-        
+
         # Extract version
         for line in changelog.split("\n"):
             if line.startswith("## ["):

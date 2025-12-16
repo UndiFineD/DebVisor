@@ -1070,7 +1070,7 @@ class ImprovementDiffType(Enum):
 @dataclass
 class ImprovementDiff:
     """Difference in a single improvement between branches.
-    
+
     Attributes:
         improvement_id: Unique improvement identifier.
         diff_type: Type of difference.
@@ -1088,7 +1088,7 @@ class ImprovementDiff:
 @dataclass
 class BranchComparison:
     """Result of comparing improvements across branches.
-    
+
     Attributes:
         source_branch: Source branch name.
         target_branch: Target branch name.
@@ -1114,7 +1114,7 @@ class BranchComparison:
 @dataclass
 class ConflictResolution:
     """Resolution for a conflicting improvement.
-    
+
     Attributes:
         improvement_id: ID of conflicting improvement.
         resolution: Resolved improvement version.
@@ -1134,31 +1134,31 @@ class ConflictResolution:
 
 class BranchComparer:
     """Comparer for improvements across git branches.
-    
+
     Enables comparison of improvement files between branches
     to identify additions, removals, and modifications.
-    
+
     Attributes:
         repo_path: Path to git repository.
         comparisons: History of comparisons.
-    
+
     Example:
         comparer = BranchComparer("/path/to/repo")
         result = comparer.compare("main", "feature/improvements")
         for diff in result.diffs:
             print(f"{diff.diff_type.value}: {diff.improvement_id}")
     """
-    
+
     def __init__(self, repo_path: Optional[str] = None) -> None:
         """Initialize branch comparer.
-        
+
         Args:
             repo_path: Path to git repository. Defaults to current directory.
         """
         self.repo_path = Path(repo_path) if repo_path else Path.cwd()
         self.comparisons: List[BranchComparison] = []
         logging.debug(f"BranchComparer initialized for {self.repo_path}")
-    
+
     def compare(
         self,
         source_branch: str,
@@ -1166,12 +1166,12 @@ class BranchComparer:
         file_path: str
     ) -> BranchComparison:
         """Compare improvements between branches.
-        
+
         Args:
             source_branch: Source branch name.
             target_branch: Target branch name.
             file_path: Path to improvements file.
-            
+
         Returns:
             Comparison result with diffs.
         """
@@ -1181,21 +1181,21 @@ class BranchComparer:
             file_path=file_path,
             status=BranchComparisonStatus.IN_PROGRESS
         )
-        
+
         try:
             # Get file content from each branch
             source_content = self._get_file_from_branch(source_branch, file_path)
             target_content = self._get_file_from_branch(target_branch, file_path)
-            
+
             # Parse improvements from each branch
             source_improvements = self._parse_improvements(source_content)
             target_improvements = self._parse_improvements(target_content)
-            
+
             # Calculate differences
             comparison.diffs = self._calculate_diffs(
                 source_improvements, target_improvements
             )
-            
+
             # Count by type
             comparison.added_count = sum(
                 1 for d in comparison.diffs if d.diff_type == ImprovementDiffType.ADDED
@@ -1206,23 +1206,23 @@ class BranchComparer:
             comparison.modified_count = sum(
                 1 for d in comparison.diffs if d.diff_type == ImprovementDiffType.MODIFIED
             )
-            
+
             comparison.status = BranchComparisonStatus.COMPLETED
-            
+
         except Exception as e:
             logging.error(f"Branch comparison failed: {e}")
             comparison.status = BranchComparisonStatus.FAILED
-        
+
         self.comparisons.append(comparison)
         return comparison
-    
+
     def _get_file_from_branch(self, branch: str, file_path: str) -> str:
         """Get file content from a specific branch.
-        
+
         Args:
             branch: Branch name.
             file_path: Path to file.
-            
+
         Returns:
             File content string.
         """
@@ -1237,55 +1237,55 @@ class BranchComparer:
             return result.stdout
         except subprocess.CalledProcessError:
             return ""
-    
+
     def _parse_improvements(self, content: str) -> Dict[str, Improvement]:
         """Parse improvements from markdown content.
-        
+
         Args:
             content: Markdown content with improvements.
-            
+
         Returns:
             Dictionary mapping improvement IDs to Improvement objects.
         """
         improvements: Dict[str, Improvement] = {}
-        
+
         # Parse improvement items from markdown
         pattern = r'- \[[ x]\] (.+?)(?=\n- \[|\n##|\Z)'
         matches = re.findall(pattern, content, re.DOTALL)
-        
+
         for i, match in enumerate(matches):
             title = match.strip().split('\n')[0]
             improvement_id = f"imp_{i}_{hashlib.md5(title.encode()).hexdigest()[:8]}"
-            
+
             improvements[improvement_id] = Improvement(
                 id=improvement_id,
                 title=title,
                 description=match.strip()
             )
-        
+
         return improvements
-    
+
     def _calculate_diffs(
         self,
         source: Dict[str, Improvement],
         target: Dict[str, Improvement]
     ) -> List[ImprovementDiff]:
         """Calculate differences between two improvement sets.
-        
+
         Args:
             source: Source branch improvements.
             target: Target branch improvements.
-            
+
         Returns:
             List of improvement differences.
         """
         diffs: List[ImprovementDiff] = []
         all_ids = set(source.keys()) | set(target.keys())
-        
+
         for imp_id in all_ids:
             in_source = imp_id in source
             in_target = imp_id in target
-            
+
             if in_source and not in_target:
                 diffs.append(ImprovementDiff(
                     improvement_id=imp_id,
@@ -1316,18 +1316,18 @@ class BranchComparer:
                     target_version=target[imp_id],
                     change_summary="No changes"
                 ))
-        
+
         return diffs
-    
+
     def get_added_improvements(
         self,
         comparison: BranchComparison
     ) -> List[Improvement]:
         """Get improvements added in target branch.
-        
+
         Args:
             comparison: Comparison result.
-            
+
         Returns:
             List of added improvements.
         """
@@ -1335,16 +1335,16 @@ class BranchComparer:
             d.target_version for d in comparison.diffs
             if d.diff_type == ImprovementDiffType.ADDED and d.target_version
         ]
-    
+
     def get_removed_improvements(
         self,
         comparison: BranchComparison
     ) -> List[Improvement]:
         """Get improvements removed in target branch.
-        
+
         Args:
             comparison: Comparison result.
-            
+
         Returns:
             List of removed improvements.
         """
@@ -1352,16 +1352,16 @@ class BranchComparer:
             d.source_version for d in comparison.diffs
             if d.diff_type == ImprovementDiffType.REMOVED and d.source_version
         ]
-    
+
     def get_modified_improvements(
         self,
         comparison: BranchComparison
     ) -> List[Tuple[Improvement, Improvement]]:
         """Get improvements modified between branches.
-        
+
         Args:
             comparison: Comparison result.
-            
+
         Returns:
             List of (source, target) improvement tuples.
         """
@@ -1371,7 +1371,7 @@ class BranchComparer:
             if d.diff_type == ImprovementDiffType.MODIFIED
             and d.source_version and d.target_version
         ]
-    
+
     def detect_conflicts(
         self,
         base_branch: str,
@@ -1380,19 +1380,19 @@ class BranchComparer:
         file_path: str
     ) -> List[ImprovementDiff]:
         """Detect conflicting changes in a three-way comparison.
-        
+
         Args:
             base_branch: Common ancestor branch.
             branch1: First branch.
             branch2: Second branch.
             file_path: Path to improvements file.
-            
+
         Returns:
             List of conflicting improvement diffs.
         """
         comp1 = self.compare(base_branch, branch1, file_path)
         comp2 = self.compare(base_branch, branch2, file_path)
-        
+
         # Find improvements modified in both branches
         modified1 = {
             d.improvement_id for d in comp1.diffs
@@ -1402,67 +1402,67 @@ class BranchComparer:
             d.improvement_id for d in comp2.diffs
             if d.diff_type == ImprovementDiffType.MODIFIED
         }
-        
+
         conflicts = modified1 & modified2
         return [
             d for d in comp1.diffs
             if d.improvement_id in conflicts
         ]
-    
+
     def generate_merge_report(
         self,
         comparison: BranchComparison
     ) -> str:
         """Generate a markdown merge report.
-        
+
         Args:
             comparison: Comparison result.
-            
+
         Returns:
             Markdown formatted report.
         """
         lines = [
             f"# Branch Comparison Report",
-            f"",
+            "",
             f"**Source Branch:** {comparison.source_branch}",
             f"**Target Branch:** {comparison.target_branch}",
             f"**File:** {comparison.file_path}",
-            f"",
+            "",
             f"## Summary",
             f"- Added: {comparison.added_count}",
             f"- Removed: {comparison.removed_count}",
             f"- Modified: {comparison.modified_count}",
-            f"",
+            "",
             f"## Changes",
         ]
-        
+
         for diff in comparison.diffs:
             if diff.diff_type == ImprovementDiffType.UNCHANGED:
                 continue
-            
+
             emoji = {
                 ImprovementDiffType.ADDED: "➕",
                 ImprovementDiffType.REMOVED: "➖",
                 ImprovementDiffType.MODIFIED: "📝"
             }.get(diff.diff_type, "•")
-            
+
             title = (
                 diff.target_version.title if diff.target_version
                 else diff.source_version.title if diff.source_version
                 else diff.improvement_id
             )
             lines.append(f"- {emoji} {title}")
-        
+
         return "\n".join(lines)
-    
+
     def get_comparison_history(self) -> List[BranchComparison]:
         """Get history of comparisons.
-        
+
         Returns:
             List of past comparisons.
         """
         return list(self.comparisons)
-    
+
     def clear_history(self) -> None:
         """Clear comparison history."""
         self.comparisons.clear()
@@ -1470,7 +1470,7 @@ class BranchComparer:
 
 class ImprovementsAgent(BaseAgent):
     """Updates code file improvement suggestions using AI assistance.
-    
+
     This agent reads .improvements.md files and uses AI to suggest better,
     more actionable improvements for the associated code file.
     """
@@ -1479,7 +1479,7 @@ class ImprovementsAgent(BaseAgent):
         super().__init__(file_path)
         self._validate_file_extension()
         self._check_associated_file()
-        
+
         # Improvement management
         self._improvements: List[Improvement] = []
         self._templates: Dict[str, ImprovementTemplate] = {
@@ -1501,13 +1501,13 @@ class ImprovementsAgent(BaseAgent):
             candidate = self.file_path.parent / base_name
             if candidate.exists():
                 return
-            
+
             # Try adding extensions
             for ext in ['.py', '.sh', '.js', '.ts', '.md']:
                 candidate = self.file_path.parent / (base_name + ext)
                 if candidate.exists() and candidate != self.file_path:
                     return
-            
+
             logging.warning(f"Could not find associated code file for {self.file_path.name}")
 
     # ========== Improvement Management ==========
@@ -1527,7 +1527,7 @@ class ImprovementsAgent(BaseAgent):
         improvement_id = hashlib.md5(
             f"{title}:{file_path}:{datetime.now().isoformat()}".encode()
         ).hexdigest()[:8]
-        
+
         improvement = Improvement(
             id=improvement_id,
             title=title,
@@ -1541,7 +1541,7 @@ class ImprovementsAgent(BaseAgent):
             tags=tags or [],
             dependencies=dependencies or []
         )
-        
+
         self._improvements.append(improvement)
         return improvement
 
@@ -1592,7 +1592,7 @@ class ImprovementsAgent(BaseAgent):
     def calculate_impact_score(self, improvement: Improvement) -> float:
         """Calculate impact score for an improvement."""
         score = improvement.priority.value * 20
-        
+
         # Adjust based on category
         category_weights = {
             ImprovementCategory.SECURITY: 20,
@@ -1603,20 +1603,20 @@ class ImprovementsAgent(BaseAgent):
             ImprovementCategory.DOCUMENTATION: 5,
         }
         score += category_weights.get(improvement.category, 0)
-        
+
         # Consider votes
         score += min(improvement.votes * 2, 20)
-        
+
         # Reduce score for items with many dependencies
         score -= len(improvement.dependencies) * 5
-        
+
         return max(0, min(100, score))
 
     def prioritize_improvements(self) -> List[Improvement]:
         """Return improvements sorted by impact score."""
         for imp in self._improvements:
             imp.impact_score = self.calculate_impact_score(imp)
-        
+
         return sorted(
             self._improvements,
             key=lambda i: (i.impact_score, i.priority.value),
@@ -1635,17 +1635,17 @@ class ImprovementsAgent(BaseAgent):
             EffortEstimate.LARGE: 32,
             EffortEstimate.EPIC: 80,
         }
-        
+
         total = 0
         by_category: Dict[str, int] = {}
-        
+
         for imp in self._improvements:
             if imp.status not in [ImprovementStatus.COMPLETED, ImprovementStatus.REJECTED]:
                 hours = effort_hours.get(imp.effort, 12)
                 total += hours
                 cat_name = imp.category.name
                 by_category[cat_name] = by_category.get(cat_name, 0) + hours
-        
+
         return {
             "total_hours": total,
             "by_category": by_category,
@@ -1663,7 +1663,7 @@ class ImprovementsAgent(BaseAgent):
         """Add a dependency between improvements."""
         improvement = self.get_improvement_by_id(improvement_id)
         depends_on = self.get_improvement_by_id(depends_on_id)
-        
+
         if improvement and depends_on and depends_on_id not in improvement.dependencies:
             improvement.dependencies.append(depends_on_id)
             return True
@@ -1674,7 +1674,7 @@ class ImprovementsAgent(BaseAgent):
         improvement = self.get_improvement_by_id(improvement_id)
         if not improvement:
             return []
-        
+
         return [
             self.get_improvement_by_id(dep_id)
             for dep_id in improvement.dependencies
@@ -1722,10 +1722,10 @@ class ImprovementsAgent(BaseAgent):
         template = self._templates.get(template_name)
         if not template:
             return None
-        
+
         title = template.title_pattern.format(**variables)
         description = template.description_template.format(**variables)
-        
+
         return self.add_improvement(
             title=title,
             description=description,
@@ -1778,24 +1778,24 @@ class ImprovementsAgent(BaseAgent):
         total = len(self._improvements)
         if total == 0:
             return {"total": 0}
-        
+
         by_status: Dict[str, int] = {}
         for status in ImprovementStatus:
             by_status[status.name] = len(self.get_improvements_by_status(status))
-        
+
         by_category: Dict[str, int] = {}
         for category in ImprovementCategory:
             by_category[category.name] = len(self.get_improvements_by_category(category))
-        
+
         by_priority: Dict[str, int] = {}
         for priority in ImprovementPriority:
             by_priority[priority.name] = len(self.get_improvements_by_priority(priority))
-        
+
         completed = by_status.get("COMPLETED", 0)
         completion_rate = (completed / total * 100) if total > 0 else 0
-        
+
         effort = self.estimate_total_effort()
-        
+
         self._analytics = {
             "total": total,
             "by_status": by_status,
@@ -1805,7 +1805,7 @@ class ImprovementsAgent(BaseAgent):
             "effort_estimation": effort,
             "avg_votes": sum(i.votes for i in self._improvements) / total,
         }
-        
+
         return self._analytics
 
     # ========== Export ==========
@@ -1846,22 +1846,22 @@ class ImprovementsAgent(BaseAgent):
     def generate_documentation(self) -> str:
         """Generate documentation for all improvements."""
         analytics = self.calculate_analytics()
-        
+
         docs = ["# Improvement Documentation\n"]
         docs.append("## Summary\n")
         docs.append(f"- Total Improvements: {analytics['total']}")
         docs.append(f"- Completion Rate: {analytics['completion_rate']:.1f}%")
         docs.append(f"- Total Effort: {analytics['effort_estimation']['estimated_days']:.1f} days\n")
-        
+
         docs.append("## By Status\n")
         for status, count in analytics['by_status'].items():
             if count > 0:
                 docs.append(f"- {status}: {count}")
-        
+
         docs.append("\n## Prioritized List\n")
         for imp in self.prioritize_improvements()[:10]:
             docs.append(f"- [{imp.priority.name}] {imp.title} (Score: {imp.impact_score:.1f})")
-        
+
         return '\n'.join(docs)
 
     # ========== Core Methods ==========

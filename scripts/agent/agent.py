@@ -72,6 +72,8 @@ except ImportError:
         return iterable
 
 # Import markdown fixing functionality
+
+
 def _load_fix_markdown_content() -> callable:
     """Load the markdown fixer module dynamically."""
     fix_dir = Path(__file__).parent.parent / 'fix'
@@ -162,7 +164,7 @@ class HealthStatus(Enum):
 @dataclass
 class RateLimitConfig:
     """Configuration for rate limiting.
-    
+
     Attributes:
         requests_per_second: Maximum requests per second.
         requests_per_minute: Maximum requests per minute.
@@ -180,7 +182,7 @@ class RateLimitConfig:
 @dataclass
 class AgentPluginConfig:
     """Configuration for an agent plugin.
-    
+
     Attributes:
         name: Unique plugin name.
         module_path: Path to the plugin module.
@@ -200,7 +202,7 @@ class AgentPluginConfig:
 @dataclass
 class FileLock:
     """File lock information.
-    
+
     Attributes:
         file_path: Path to the locked file.
         lock_type: Type of lock.
@@ -218,7 +220,7 @@ class FileLock:
 @dataclass
 class DiffResult:
     """Result of a diff operation.
-    
+
     Attributes:
         file_path: Path to the file.
         original_content: Original file content.
@@ -240,7 +242,7 @@ class DiffResult:
 @dataclass
 class IncrementalState:
     """State for incremental processing.
-    
+
     Attributes:
         last_run_timestamp: Timestamp of last successful run.
         processed_files: Dict of file paths to their last processed timestamp.
@@ -256,7 +258,7 @@ class IncrementalState:
 @dataclass
 class AgentHealthCheck:
     """Health check result for an agent.
-    
+
     Attributes:
         agent_name: Name of the agent.
         status: Health status.
@@ -276,7 +278,7 @@ class AgentHealthCheck:
 @dataclass
 class ShutdownState:
     """State for graceful shutdown.
-    
+
     Attributes:
         shutdown_requested: Whether shutdown has been requested.
         current_file: Currently processing file.
@@ -294,7 +296,7 @@ class ShutdownState:
 @dataclass
 class AgentConfig:
     """Full agent configuration loaded from config file.
-    
+
     Attributes:
         repo_root: Repository root directory.
         agents_only: Process only agent files.
@@ -328,20 +330,20 @@ class AgentConfig:
 
 class AgentPluginBase(ABC):
     """Abstract base class for agent plugins.
-    
+
     Provides interface for third-party agents to integrate with
     the agent orchestrator without modifying core code.
-    
+
     Attributes:
         name: Plugin name.
         priority: Execution priority.
         config: Plugin configuration.
     """
-    
+
     def __init__(self, name: str, priority: AgentPriority = AgentPriority.NORMAL,
                  config: Optional[Dict[str, Any]] = None):
         """Initialize the plugin.
-        
+
         Args:
             name: Unique plugin name.
             priority: Execution priority.
@@ -351,31 +353,31 @@ class AgentPluginBase(ABC):
         self.priority = priority
         self.config = config or {}
         self.logger = logging.getLogger(f"plugin.{name}")
-    
+
     @abstractmethod
     def run(self, file_path: Path, context: Dict[str, Any]) -> bool:
         """Execute the plugin on a file.
-        
+
         Args:
             file_path: Path to the file to process.
             context: Execution context with agent state.
-            
+
         Returns:
             bool: True if changes were made, False otherwise.
         """
         pass
-    
+
     def setup(self) -> None:
         """Called once when plugin is loaded. Override for initialization."""
         pass
-    
+
     def teardown(self) -> None:
         """Called once when plugin is unloaded. Override for cleanup."""
         pass
-    
+
     def health_check(self) -> AgentHealthCheck:
         """Check plugin health status.
-        
+
         Returns:
             AgentHealthCheck: Health check result.
         """
@@ -392,19 +394,19 @@ class AgentPluginBase(ABC):
 
 class RateLimiter:
     """Rate limiter for API calls using token bucket algorithm.
-    
+
     Manages API call rate to prevent throttling and ensure fair usage.
     Supports multiple strategies and configurable limits.
-    
+
     Attributes:
         config: Rate limiting configuration.
         tokens: Current number of available tokens.
         last_refill: Timestamp of last token refill.
     """
-    
+
     def __init__(self, config: Optional[RateLimitConfig] = None):
         """Initialize the rate limiter.
-        
+
         Args:
             config: Rate limiting configuration. Uses defaults if not provided.
         """
@@ -413,7 +415,7 @@ class RateLimiter:
         self.last_refill = time.time()
         self._lock = threading.Lock()
         self._request_timestamps: List[float] = []
-    
+
     def _refill_tokens(self) -> None:
         """Refill tokens based on elapsed time."""
         now = time.time()
@@ -421,24 +423,24 @@ class RateLimiter:
         refill_amount = elapsed * self.config.requests_per_second
         self.tokens = min(self.config.burst_size, self.tokens + refill_amount)
         self.last_refill = now
-    
+
     def acquire(self, timeout: Optional[float] = None) -> bool:
         """Acquire a token for making an API call.
-        
+
         Blocks until a token is available or timeout expires.
-        
+
         Args:
             timeout: Maximum time to wait for a token. None = wait forever.
-            
+
         Returns:
             bool: True if token acquired, False if timeout.
         """
         start_time = time.time()
-        
+
         while True:
             with self._lock:
                 self._refill_tokens()
-                
+
                 if self.tokens >= 1.0:
                     self.tokens -= 1.0
                     self._request_timestamps.append(time.time())
@@ -448,17 +450,17 @@ class RateLimiter:
                         t for t in self._request_timestamps if t > cutoff
                     ]
                     return True
-            
+
             # Check timeout
             if timeout is not None and (time.time() - start_time) >= timeout:
                 return False
-            
+
             # Wait before retry
             time.sleep(self.config.cooldown_seconds)
-    
+
     def get_stats(self) -> Dict[str, Any]:
         """Get rate limiter statistics.
-        
+
         Returns:
             Dict with current tokens, request count, etc.
         """
@@ -478,18 +480,18 @@ class RateLimiter:
 
 class FileLockManager:
     """Manages file locks to prevent concurrent modifications.
-    
+
     Provides advisory file locking to coordinate access between
     multiple agent instances or processes.
-    
+
     Attributes:
         locks: Dict of active file locks.
         lock_timeout: Default lock timeout in seconds.
     """
-    
+
     def __init__(self, lock_timeout: float = 300.0):
         """Initialize the lock manager.
-        
+
         Args:
             lock_timeout: Default lock timeout in seconds.
         """
@@ -497,29 +499,29 @@ class FileLockManager:
         self.lock_timeout = lock_timeout
         self._lock = threading.Lock()
         self._owner_id = f"{os.getpid()}_{threading.current_thread().ident}"
-    
+
     def acquire_lock(self, file_path: Path, 
                      lock_type: LockType = LockType.EXCLUSIVE,
                      timeout: Optional[float] = None) -> Optional[FileLock]:
         """Acquire a lock on a file.
-        
+
         Args:
             file_path: Path to file to lock.
             lock_type: Type of lock to acquire.
             timeout: Timeout for acquiring lock.
-            
+
         Returns:
             FileLock if acquired, None if timeout.
         """
         path_str = str(file_path.resolve())
         timeout = timeout or self.lock_timeout
         start_time = time.time()
-        
+
         while True:
             with self._lock:
                 # Check for expired locks
                 self._cleanup_expired_locks()
-                
+
                 # Check if already locked
                 existing_lock = self.locks.get(path_str)
                 if existing_lock is None:
@@ -538,25 +540,25 @@ class FileLockManager:
                       lock_type == LockType.SHARED):
                     # Shared locks can coexist
                     return existing_lock
-            
+
             # Check timeout
             if (time.time() - start_time) >= timeout:
                 logging.warning(f"Timeout acquiring lock on {file_path}")
                 return None
-            
+
             time.sleep(0.1)
-    
+
     def release_lock(self, file_path: Path) -> bool:
         """Release a lock on a file.
-        
+
         Args:
             file_path: Path to file to unlock.
-            
+
         Returns:
             bool: True if lock released, False if not owner.
         """
         path_str = str(file_path.resolve())
-        
+
         with self._lock:
             lock = self.locks.get(path_str)
             if lock and lock.owner == self._owner_id:
@@ -564,7 +566,7 @@ class FileLockManager:
                 logging.debug(f"Released lock on {file_path}")
                 return True
             return False
-    
+
     def _cleanup_expired_locks(self) -> None:
         """Remove expired locks."""
         now = time.time()
@@ -584,41 +586,41 @@ class FileLockManager:
 
 class DiffGenerator:
     """Generates diffs to preview changes before applying them.
-    
+
     Creates human-readable diffs in various formats to allow
     users to review changes before they are applied.
-    
+
     Attributes:
         output_format: Default output format for diffs.
         context_lines: Number of context lines in diff.
     """
-    
+
     def __init__(self, output_format: DiffOutputFormat = DiffOutputFormat.UNIFIED,
                  context_lines: int = 3):
         """Initialize the diff generator.
-        
+
         Args:
             output_format: Default output format.
             context_lines: Number of context lines.
         """
         self.output_format = output_format
         self.context_lines = context_lines
-    
+
     def generate_diff(self, file_path: Path, original: str, 
                       modified: str) -> DiffResult:
         """Generate a diff between original and modified content.
-        
+
         Args:
             file_path: Path to the file.
             original: Original file content.
             modified: Modified content.
-            
+
         Returns:
             DiffResult with diff information.
         """
         original_lines = original.splitlines(keepends=True)
         modified_lines = modified.splitlines(keepends=True)
-        
+
         # Generate unified diff
         diff_lines = list(difflib.unified_diff(
             original_lines,
@@ -627,13 +629,13 @@ class DiffGenerator:
             tofile=f"b/{file_path.name}",
             n=self.context_lines
         ))
-        
+
         # Count additions and deletions
         additions = sum(1 for line in diff_lines if line.startswith('+') 
                        and not line.startswith('+++'))
         deletions = sum(1 for line in diff_lines if line.startswith('-')
                        and not line.startswith('---'))
-        
+
         return DiffResult(
             file_path=file_path,
             original_content=original,
@@ -643,20 +645,20 @@ class DiffGenerator:
             deletions=deletions,
             changes=additions + deletions
         )
-    
+
     def format_diff(self, diff_result: DiffResult, 
                     output_format: Optional[DiffOutputFormat] = None) -> str:
         """Format a diff result for display.
-        
+
         Args:
             diff_result: DiffResult to format.
             output_format: Output format (uses default if not provided).
-            
+
         Returns:
             Formatted diff string.
         """
         fmt = output_format or self.output_format
-        
+
         if fmt == DiffOutputFormat.UNIFIED:
             return ''.join(diff_result.diff_lines)
         elif fmt == DiffOutputFormat.CONTEXT:
@@ -675,10 +677,10 @@ class DiffGenerator:
             return differ.make_file(original, modified)
         else:
             return ''.join(diff_result.diff_lines)
-    
+
     def print_diff(self, diff_result: DiffResult) -> None:
         """Print a colorized diff to console.
-        
+
         Args:
             diff_result: DiffResult to print.
         """
@@ -700,18 +702,18 @@ class DiffGenerator:
 
 class IncrementalProcessor:
     """Processes only files changed since last run.
-    
+
     Tracks file modification times and content hashes to enable
     incremental processing, avoiding reprocessing unchanged files.
-    
+
     Attributes:
         state_file: Path to state persistence file.
         state: Current incremental processing state.
     """
-    
+
     def __init__(self, repo_root: Path, state_file: str = ".agent_state.json"):
         """Initialize the incremental processor.
-        
+
         Args:
             repo_root: Repository root directory.
             state_file: Name of state file.
@@ -720,7 +722,7 @@ class IncrementalProcessor:
         self.state_file = repo_root / state_file
         self.state = IncrementalState()
         self._load_state()
-    
+
     def _load_state(self) -> None:
         """Load state from disk."""
         if self.state_file.exists():
@@ -735,7 +737,7 @@ class IncrementalProcessor:
                 logging.debug(f"Loaded incremental state from {self.state_file}")
             except Exception as e:
                 logging.warning(f"Failed to load state: {e}")
-    
+
     def _save_state(self) -> None:
         """Save state to disk."""
         try:
@@ -749,7 +751,7 @@ class IncrementalProcessor:
             logging.debug(f"Saved incremental state to {self.state_file}")
         except Exception as e:
             logging.warning(f"Failed to save state: {e}")
-    
+
     def _compute_file_hash(self, file_path: Path) -> str:
         """Compute MD5 hash of file content."""
         try:
@@ -757,26 +759,26 @@ class IncrementalProcessor:
             return hashlib.md5(content).hexdigest()
         except Exception:
             return ""
-    
+
     def get_changed_files(self, files: List[Path]) -> List[Path]:
         """Get list of files changed since last run.
-        
+
         Args:
             files: List of all files to consider.
-            
+
         Returns:
             List of files that have changed.
         """
         changed = []
-        
+
         for file_path in files:
             path_str = str(file_path)
-            
+
             # Check if file is new
             if path_str not in self.state.processed_files:
                 changed.append(file_path)
                 continue
-            
+
             # Check if file was modified
             try:
                 mtime = file_path.stat().st_mtime
@@ -787,30 +789,30 @@ class IncrementalProcessor:
                         changed.append(file_path)
             except Exception:
                 changed.append(file_path)
-        
+
         logging.info(f"Incremental: {len(changed)}/{len(files)} files changed")
         return changed
-    
+
     def mark_processed(self, file_path: Path) -> None:
         """Mark a file as processed.
-        
+
         Args:
             file_path: Path to the processed file.
         """
         path_str = str(file_path)
         self.state.processed_files[path_str] = time.time()
         self.state.file_hashes[path_str] = self._compute_file_hash(file_path)
-        
+
         # Remove from pending if present
         if path_str in self.state.pending_files:
             self.state.pending_files.remove(path_str)
-    
+
     def complete_run(self) -> None:
         """Mark the run as complete and save state."""
         self.state.last_run_timestamp = time.time()
         self.state.pending_files = []
         self._save_state()
-    
+
     def reset_state(self) -> None:
         """Reset incremental state (force full reprocessing)."""
         self.state = IncrementalState()
@@ -826,18 +828,18 @@ class IncrementalProcessor:
 
 class GracefulShutdown:
     """Handles graceful shutdown with state persistence.
-    
+
     Captures SIGINT/SIGTERM and allows current operation to complete
     before stopping, saving state for resume.
-    
+
     Attributes:
         state: Current shutdown state.
         state_file: Path to state persistence file.
     """
-    
+
     def __init__(self, repo_root: Path, state_file: str = ".agent_shutdown.json"):
         """Initialize graceful shutdown handler.
-        
+
         Args:
             repo_root: Repository root directory.
             state_file: Name of state file.
@@ -847,14 +849,14 @@ class GracefulShutdown:
         self.state = ShutdownState()
         self._original_sigint = None
         self._original_sigterm = None
-    
+
     def install_handlers(self) -> None:
         """Install signal handlers for graceful shutdown."""
         self._original_sigint = signal.signal(signal.SIGINT, self._handle_signal)
         if hasattr(signal, 'SIGTERM'):
             self._original_sigterm = signal.signal(signal.SIGTERM, self._handle_signal)
         logging.debug("Installed graceful shutdown handlers")
-    
+
     def restore_handlers(self) -> None:
         """Restore original signal handlers."""
         if self._original_sigint:
@@ -862,48 +864,48 @@ class GracefulShutdown:
         if self._original_sigterm and hasattr(signal, 'SIGTERM'):
             signal.signal(signal.SIGTERM, self._original_sigterm)
         logging.debug("Restored original signal handlers")
-    
+
     def _handle_signal(self, signum: int, frame: Any) -> None:
         """Handle shutdown signal."""
         signal_name = signal.Signals(signum).name
         logging.warning(f"Received {signal_name}, initiating graceful shutdown...")
         self.state.shutdown_requested = True
         self._save_state()
-    
+
     def should_continue(self) -> bool:
         """Check if processing should continue.
-        
+
         Returns:
             bool: True if should continue, False if shutdown requested.
         """
         return not self.state.shutdown_requested
-    
+
     def set_current_file(self, file_path: Optional[Path]) -> None:
         """Set the currently processing file.
-        
+
         Args:
             file_path: Path to current file, or None if not processing.
         """
         self.state.current_file = str(file_path) if file_path else None
-    
+
     def mark_completed(self, file_path: Path) -> None:
         """Mark a file as completed.
-        
+
         Args:
             file_path: Path to completed file.
         """
         self.state.completed_files.append(str(file_path))
         if str(file_path) in self.state.pending_files:
             self.state.pending_files.remove(str(file_path))
-    
+
     def set_pending_files(self, files: List[Path]) -> None:
         """Set the list of pending files.
-        
+
         Args:
             files: List of pending file paths.
         """
         self.state.pending_files = [str(f) for f in files]
-    
+
     def _save_state(self) -> None:
         """Save shutdown state to disk."""
         try:
@@ -917,16 +919,16 @@ class GracefulShutdown:
             self.state_file.write_text(json.dumps(data, indent=2))
         except Exception as e:
             logging.error(f"Failed to save shutdown state: {e}")
-    
+
     def load_resume_state(self) -> Optional[ShutdownState]:
         """Load state for resuming an interrupted run.
-        
+
         Returns:
             ShutdownState if resume state exists, None otherwise.
         """
         if not self.state_file.exists():
             return None
-        
+
         try:
             data = json.loads(self.state_file.read_text())
             state = ShutdownState(
@@ -942,7 +944,7 @@ class GracefulShutdown:
         except Exception as e:
             logging.warning(f"Failed to load resume state: {e}")
             return None
-    
+
     def cleanup(self) -> None:
         """Clean up state file after successful completion."""
         if self.state_file.exists():
@@ -957,15 +959,15 @@ class GracefulShutdown:
 
 class ConfigLoader:
     """Loads agent configuration from YAML/TOML/JSON files.
-    
+
     Supports multiple configuration file formats and provides
     validation and merging of configuration options.
-    
+
     Attributes:
         config_path: Path to configuration file.
         format: Configuration file format.
     """
-    
+
     SUPPORTED_EXTENSIONS = {
         '.yaml': ConfigFormat.YAML,
         '.yml': ConfigFormat.YAML,
@@ -973,29 +975,29 @@ class ConfigLoader:
         '.json': ConfigFormat.JSON,
         '.ini': ConfigFormat.INI,
     }
-    
+
     def __init__(self, config_path: Optional[Path] = None):
         """Initialize the config loader.
-        
+
         Args:
             config_path: Path to configuration file.
         """
         self.config_path = config_path
         self.format: Optional[ConfigFormat] = None
-        
+
         if config_path:
             ext = config_path.suffix.lower()
             self.format = self.SUPPORTED_EXTENSIONS.get(ext)
-    
+
     def load(self) -> AgentConfig:
         """Load configuration from file.
-        
+
         Returns:
             AgentConfig with loaded settings.
         """
         if not self.config_path or not self.config_path.exists():
             return AgentConfig()
-        
+
         try:
             content = self.config_path.read_text()
             data = self._parse_content(content)
@@ -1003,7 +1005,7 @@ class ConfigLoader:
         except Exception as e:
             logging.error(f"Failed to load config from {self.config_path}: {e}")
             return AgentConfig()
-    
+
     def _parse_content(self, content: str) -> Dict[str, Any]:
         """Parse configuration content based on format."""
         if self.format == ConfigFormat.JSON:
@@ -1027,7 +1029,7 @@ class ConfigLoader:
                     logging.warning("tomllib/toml not installed")
                     return {}
         return {}
-    
+
     def _build_config(self, data: Dict[str, Any]) -> AgentConfig:
         """Build AgentConfig from parsed data."""
         # Build rate limit config
@@ -1040,7 +1042,7 @@ class ConfigLoader:
                 burst_size=rl_data.get('burst_size', 10),
                 cooldown_seconds=rl_data.get('cooldown_seconds', 1.0)
             )
-        
+
         # Build plugin configs
         plugins = []
         for plugin_data in data.get('plugins', []):
@@ -1051,7 +1053,7 @@ class ConfigLoader:
                 enabled=plugin_data.get('enabled', True),
                 config=plugin_data.get('config', {})
             ))
-        
+
         return AgentConfig(
             repo_root=data.get('repo_root', '.'),
             agents_only=data.get('agents_only', False),
@@ -1065,14 +1067,14 @@ class ConfigLoader:
             selective_agents=data.get('selective_agents', []),
             timeout_per_agent=data.get('timeout_per_agent', {})
         )
-    
+
     @staticmethod
     def find_config_file(repo_root: Path) -> Optional[Path]:
         """Find configuration file in repository.
-        
+
         Args:
             repo_root: Repository root directory.
-            
+
         Returns:
             Path to config file if found, None otherwise.
         """
@@ -1081,13 +1083,13 @@ class ConfigLoader:
             '.agent.yaml', '.agent.yml', '.agent.toml', '.agent.json',
             'agent_config.yaml', 'agent_config.json'
         ]
-        
+
         for name in config_names:
             config_path = repo_root / name
             if config_path.exists():
                 logging.info(f"Found config file: {config_path}")
                 return config_path
-        
+
         return None
 
 
@@ -1098,43 +1100,43 @@ class ConfigLoader:
 
 class HealthChecker:
     """Performs health checks on agent components.
-    
+
     Verifies that all required components are available and functional
     before starting agent execution.
-    
+
     Attributes:
         repo_root: Repository root directory.
         results: Dict of health check results.
     """
-    
+
     def __init__(self, repo_root: Path):
         """Initialize the health checker.
-        
+
         Args:
             repo_root: Repository root directory.
         """
         self.repo_root = repo_root
         self.results: Dict[str, AgentHealthCheck] = {}
-    
+
     def check_agent_script(self, agent_name: str) -> AgentHealthCheck:
         """Check if an agent script exists and is valid.
-        
+
         Args:
             agent_name: Name of the agent (e.g., 'coder', 'tests').
-            
+
         Returns:
             AgentHealthCheck result.
         """
         start_time = time.time()
         script_path = self.repo_root / 'scripts' / 'agent' / f'agent-{agent_name}.py'
-        
+
         if not script_path.exists():
             return AgentHealthCheck(
                 agent_name=agent_name,
                 status=HealthStatus.UNHEALTHY,
                 error_message=f"Script not found: {script_path}"
             )
-        
+
         # Check if script is valid Python
         try:
             import ast
@@ -1153,15 +1155,15 @@ class HealthChecker:
                 status=HealthStatus.UNHEALTHY,
                 error_message=f"Syntax error: {e}"
             )
-    
+
     def check_git(self) -> AgentHealthCheck:
         """Check if git is available.
-        
+
         Returns:
             AgentHealthCheck result.
         """
         start_time = time.time()
-        
+
         try:
             result = subprocess.run(
                 ['git', '--version'],
@@ -1170,7 +1172,7 @@ class HealthChecker:
                 timeout=5
             )
             response_time = (time.time() - start_time) * 1000
-            
+
             if result.returncode == 0:
                 return AgentHealthCheck(
                     agent_name='git',
@@ -1190,16 +1192,16 @@ class HealthChecker:
                 status=HealthStatus.UNHEALTHY,
                 error_message=str(e)
             )
-    
+
     def check_python(self) -> AgentHealthCheck:
         """Check Python environment.
-        
+
         Returns:
             AgentHealthCheck result.
         """
         start_time = time.time()
         response_time = (time.time() - start_time) * 1000
-        
+
         return AgentHealthCheck(
             agent_name='python',
             status=HealthStatus.HEALTHY,
@@ -1209,45 +1211,45 @@ class HealthChecker:
                 'executable': sys.executable
             }
         )
-    
+
     def run_all_checks(self) -> Dict[str, AgentHealthCheck]:
         """Run all health checks.
-        
+
         Returns:
             Dict of check name to AgentHealthCheck result.
         """
         agent_names = ['coder', 'tests', 'changes', 'context', 'errors', 
                        'improvements', 'stats']
-        
+
         # Check core components
         self.results['python'] = self.check_python()
         self.results['git'] = self.check_git()
-        
+
         # Check agent scripts
         for name in agent_names:
             self.results[name] = self.check_agent_script(name)
-        
+
         return self.results
-    
+
     def is_healthy(self) -> bool:
         """Check if all components are healthy.
-        
+
         Returns:
             bool: True if all healthy, False otherwise.
         """
         if not self.results:
             self.run_all_checks()
-        
+
         return all(
             r.status == HealthStatus.HEALTHY 
             for r in self.results.values()
         )
-    
+
     def print_report(self) -> None:
         """Print health check report."""
         if not self.results:
             self.run_all_checks()
-        
+
         print("\n=== Agent Health Check Report ===\n")
         for name, result in sorted(self.results.items()):
             status_symbol = {
@@ -1256,13 +1258,13 @@ class HealthChecker:
                 HealthStatus.UNHEALTHY: "✗",
                 HealthStatus.UNKNOWN: "?"
             }.get(result.status, "?")
-            
+
             print(f"  [{status_symbol}] {name}: {result.status.name}")
             if result.error_message:
                 print(f"      Error: {result.error_message}")
             if result.response_time_ms > 0:
                 print(f"      Response: {result.response_time_ms:.1f}ms")
-        
+
         print()
 
 
@@ -1274,7 +1276,7 @@ class HealthChecker:
 @dataclass
 class AgentChainStep:
     """A step in an agent chain.
-    
+
     Attributes:
         agent_name: Name of the agent to execute.
         input_transform: Optional function to transform input.
@@ -1282,7 +1284,7 @@ class AgentChainStep:
         enabled: Whether this step is enabled.
         condition: Optional condition function to check before execution.
     """
-    
+
     agent_name: str
     input_transform: Optional[Callable[[Any], Any]] = None
     output_transform: Optional[Callable[[Any], Any]] = None
@@ -1292,26 +1294,26 @@ class AgentChainStep:
 
 class AgentChain:
     """Chain multiple agents for sequential execution.
-    
+
     Allows output of one agent to be used as input to the next.
-    
+
     Example:
         chain = AgentChain()
         chain.add_step("coder", output_transform=extract_code)
         chain.add_step("tests", input_transform=prepare_for_tests)
         results = chain.execute(initial_input)
     """
-    
+
     def __init__(self, name: str = "default_chain") -> None:
         """Initialize agent chain.
-        
+
         Args:
             name: Chain name for identification.
         """
         self.name = name
         self._steps: List[AgentChainStep] = []
         self._results: List[Dict[str, Any]] = []
-    
+
     def add_step(
         self,
         agent_name: str,
@@ -1320,13 +1322,13 @@ class AgentChain:
         condition: Optional[Callable[[Any], bool]] = None,
     ) -> "AgentChain":
         """Add a step to the chain.
-        
+
         Args:
             agent_name: Name of agent to execute.
             input_transform: Transform input before agent.
             output_transform: Transform output after agent.
             condition: Condition to check before execution.
-            
+
         Returns:
             Self for chaining.
         """
@@ -1338,24 +1340,24 @@ class AgentChain:
         )
         self._steps.append(step)
         return self
-    
+
     def execute(self, initial_input: Any, agent_executor: Callable[[str, Any], Any]) -> List[Dict[str, Any]]:
         """Execute the chain.
-        
+
         Args:
             initial_input: Input to first agent.
             agent_executor: Function to execute an agent.
-            
+
         Returns:
             List of results from each step.
         """
         self._results = []
         current_input = initial_input
-        
+
         for step in self._steps:
             if not step.enabled:
                 continue
-            
+
             # Check condition
             if step.condition and not step.condition(current_input):
                 self._results.append({
@@ -1364,27 +1366,27 @@ class AgentChain:
                     "reason": "condition not met",
                 })
                 continue
-            
+
             # Transform input
             if step.input_transform:
                 current_input = step.input_transform(current_input)
-            
+
             # Execute agent
             try:
                 output = agent_executor(step.agent_name, current_input)
-                
+
                 # Transform output
                 if step.output_transform:
                     output = step.output_transform(output)
-                
+
                 self._results.append({
                     "agent": step.agent_name,
                     "success": True,
                     "output": output,
                 })
-                
+
                 current_input = output
-                
+
             except Exception as e:
                 self._results.append({
                     "agent": step.agent_name,
@@ -1392,9 +1394,9 @@ class AgentChain:
                     "error": str(e),
                 })
                 break
-        
+
         return self._results
-    
+
     def get_results(self) -> List[Dict[str, Any]]:
         """Get results from last execution."""
         return self._results
@@ -1407,22 +1409,22 @@ class AgentChain:
 
 class GitBranchProcessor:
     """Process files changed in a specific git branch.
-    
+
     Example:
         processor = GitBranchProcessor(repo_root)
         changed_files = processor.get_changed_files("feature-branch")
         for file in changed_files:
             process(file)
     """
-    
+
     def __init__(self, repo_root: Path) -> None:
         """Initialize processor.
-        
+
         Args:
             repo_root: Repository root directory.
         """
         self.repo_root = repo_root
-    
+
     def get_changed_files(
         self,
         branch: str,
@@ -1430,12 +1432,12 @@ class GitBranchProcessor:
         extensions: Optional[List[str]] = None,
     ) -> List[Path]:
         """Get files changed in branch compared to base.
-        
+
         Args:
             branch: Branch to check.
             base_branch: Base branch for comparison.
             extensions: File extensions to include (e.g., [".py", ".md"]).
-            
+
         Returns:
             List of changed file paths.
         """
@@ -1447,11 +1449,11 @@ class GitBranchProcessor:
                 text=True,
                 timeout=30,
             )
-            
+
             if result.returncode != 0:
                 logging.warning(f"Git diff failed: {result.stderr}")
                 return []
-            
+
             files = []
             for line in result.stdout.strip().split("\n"):
                 if not line:
@@ -1462,13 +1464,13 @@ class GitBranchProcessor:
                         files.append(file_path)
                 else:
                     files.append(file_path)
-            
+
             return files
-            
+
         except Exception as e:
             logging.error(f"Error getting branch changes: {e}")
             return []
-    
+
     def get_current_branch(self) -> Optional[str]:
         """Get current git branch name."""
         try:
@@ -1482,13 +1484,13 @@ class GitBranchProcessor:
             return result.stdout.strip() if result.returncode == 0 else None
         except Exception:
             return None
-    
+
     def list_branches(self, pattern: Optional[str] = None) -> List[str]:
         """List branches, optionally filtered by pattern.
-        
+
         Args:
             pattern: Glob pattern to match branch names.
-            
+
         Returns:
             List of branch names.
         """
@@ -1500,16 +1502,16 @@ class GitBranchProcessor:
                 text=True,
                 timeout=10,
             )
-            
+
             if result.returncode != 0:
                 return []
-            
+
             branches = result.stdout.strip().split("\n")
             if pattern:
                 branches = [b for b in branches if fnmatch.fnmatch(b, pattern)]
-            
+
             return branches
-            
+
         except Exception:
             return []
 
@@ -1522,7 +1524,7 @@ class GitBranchProcessor:
 @dataclass
 class ValidationRule:
     """A custom validation rule.
-    
+
     Attributes:
         name: Rule name.
         file_pattern: Glob pattern for files to apply to.
@@ -1530,7 +1532,7 @@ class ValidationRule:
         error_message: Message on validation failure.
         severity: Rule severity (error, warning, info).
     """
-    
+
     name: str
     file_pattern: str
     validator: Callable[[str, Path], bool]
@@ -1540,7 +1542,7 @@ class ValidationRule:
 
 class ValidationRuleManager:
     """Manage custom validation rules per file type.
-    
+
     Example:
         manager = ValidationRuleManager()
         manager.add_rule(ValidationRule(
@@ -1551,25 +1553,25 @@ class ValidationRuleManager:
         ))
         results = manager.validate(file_path, content)
     """
-    
+
     def __init__(self) -> None:
         """Initialize rule manager."""
         self._rules: Dict[str, ValidationRule] = {}
-    
+
     def add_rule(self, rule: ValidationRule) -> None:
         """Add a validation rule.
-        
+
         Args:
             rule: Rule to add.
         """
         self._rules[rule.name] = rule
-    
+
     def remove_rule(self, name: str) -> bool:
         """Remove a rule by name.
-        
+
         Args:
             name: Rule name.
-            
+
         Returns:
             True if removed, False if not found.
         """
@@ -1577,19 +1579,19 @@ class ValidationRuleManager:
             del self._rules[name]
             return True
         return False
-    
+
     def validate(self, file_path: Path, content: str) -> List[Dict[str, Any]]:
         """Validate content against applicable rules.
-        
+
         Args:
             file_path: File path being validated.
             content: File content.
-            
+
         Returns:
             List of validation results.
         """
         results = []
-        
+
         for rule in self._rules.values():
             if fnmatch.fnmatch(file_path.name, rule.file_pattern):
                 try:
@@ -1607,15 +1609,15 @@ class ValidationRuleManager:
                         "severity": "error",
                         "message": f"Validation error: {e}",
                     })
-        
+
         return results
-    
+
     def get_rules_for_file(self, file_path: Path) -> List[ValidationRule]:
         """Get rules applicable to a file.
-        
+
         Args:
             file_path: File path.
-            
+
         Returns:
             List of applicable rules.
         """
@@ -1632,23 +1634,23 @@ class ValidationRuleManager:
 
 class AgentPriorityQueue:
     """Priority queue for ordered agent execution.
-    
+
     Executes agents in priority order with support for dependencies.
-    
+
     Example:
         queue = AgentPriorityQueue()
         queue.add_agent("critical_fix", priority=1)
         queue.add_agent("tests", priority=5, depends_on=["critical_fix"])
         queue.add_agent("docs", priority=10)
-        
+
         for agent in queue.get_execution_order():
             execute(agent)
     """
-    
+
     def __init__(self) -> None:
         """Initialize priority queue."""
         self._agents: Dict[str, Dict[str, Any]] = {}
-    
+
     def add_agent(
         self,
         name: str,
@@ -1657,7 +1659,7 @@ class AgentPriorityQueue:
         metadata: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Add agent to queue.
-        
+
         Args:
             name: Agent name.
             priority: Priority (lower = higher priority).
@@ -1669,13 +1671,13 @@ class AgentPriorityQueue:
             "depends_on": depends_on or [],
             "metadata": metadata or {},
         }
-    
+
     def remove_agent(self, name: str) -> bool:
         """Remove agent from queue.
-        
+
         Args:
             name: Agent name.
-            
+
         Returns:
             True if removed, False if not found.
         """
@@ -1683,42 +1685,42 @@ class AgentPriorityQueue:
             del self._agents[name]
             return True
         return False
-    
+
     def get_execution_order(self) -> List[str]:
         """Get agents in execution order.
-        
+
         Returns:
             List of agent names in order.
         """
         # Topological sort with priority
         executed = set()
         order = []
-        
+
         while len(order) < len(self._agents):
             available = []
-            
+
             for name, info in self._agents.items():
                 if name in executed:
                     continue
-                    
+
                 # Check if all dependencies are met
                 deps_met = all(d in executed for d in info["depends_on"])
                 if deps_met:
                     available.append((info["priority"], name))
-            
+
             if not available:
                 # Cycle detected or error
                 remaining = [n for n in self._agents if n not in executed]
                 logging.warning(f"Dependency cycle detected, adding remaining: {remaining}")
                 order.extend(sorted(remaining))
                 break
-            
+
             # Sort by priority and take the highest priority
             available.sort()
             _, next_agent = available[0]
             order.append(next_agent)
             executed.add(next_agent)
-        
+
         return order
 
 
@@ -1730,7 +1732,7 @@ class AgentPriorityQueue:
 @dataclass
 class TelemetrySpan:
     """A telemetry span for tracing.
-    
+
     Attributes:
         name: Span name.
         trace_id: Trace identifier.
@@ -1741,7 +1743,7 @@ class TelemetrySpan:
         attributes: Span attributes.
         events: Span events.
     """
-    
+
     name: str
     trace_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     span_id: str = field(default_factory=lambda: str(uuid.uuid4())[:16])
@@ -1754,55 +1756,55 @@ class TelemetrySpan:
 
 class TelemetryCollector:
     """Collect telemetry data for observability.
-    
+
     Provides OpenTelemetry-compatible span collection.
-    
+
     Example:
         collector = TelemetryCollector()
-        
+
         with collector.span("process_file") as span:
             span.set_attribute("file", "test.py")
             # ... process file ...
-            
+
         spans = collector.get_spans()
     """
-    
+
     def __init__(self, service_name: str = "agent") -> None:
         """Initialize collector.
-        
+
         Args:
             service_name: Service name for tracing.
         """
         self.service_name = service_name
         self._spans: List[TelemetrySpan] = []
         self._current_span: Optional[TelemetrySpan] = None
-    
+
     @contextmanager
     def span(self, name: str, attributes: Optional[Dict[str, Any]] = None):
         """Create a telemetry span.
-        
+
         Args:
             name: Span name.
             attributes: Initial attributes.
-            
+
         Yields:
             SpanContext for adding attributes and events.
         """
         parent_id = self._current_span.span_id if self._current_span else None
         trace_id = self._current_span.trace_id if self._current_span else str(uuid.uuid4())
-        
+
         span = TelemetrySpan(
             name=name,
             trace_id=trace_id,
             parent_id=parent_id,
             attributes=attributes or {},
         )
-        
+
         old_current = self._current_span
         self._current_span = span
-        
+
         context = SpanContext(span)
-        
+
         try:
             yield context
         except Exception as e:
@@ -1812,14 +1814,14 @@ class TelemetryCollector:
             span.end_time = time.time()
             self._spans.append(span)
             self._current_span = old_current
-    
+
     def get_spans(self) -> List[TelemetrySpan]:
         """Get all collected spans."""
         return list(self._spans)
-    
+
     def export_json(self) -> str:
         """Export spans as JSON.
-        
+
         Returns:
             JSON string of spans.
         """
@@ -1837,7 +1839,7 @@ class TelemetryCollector:
                 "events": span.events,
             })
         return json.dumps(spans_data, indent=2)
-    
+
     def clear(self) -> None:
         """Clear all spans."""
         self._spans.clear()
@@ -1845,27 +1847,27 @@ class TelemetryCollector:
 
 class SpanContext:
     """Context for a telemetry span."""
-    
+
     def __init__(self, span: TelemetrySpan) -> None:
         """Initialize context.
-        
+
         Args:
             span: The span to manage.
         """
         self._span = span
-    
+
     def set_attribute(self, key: str, value: Any) -> None:
         """Set a span attribute.
-        
+
         Args:
             key: Attribute key.
             value: Attribute value.
         """
         self._span.attributes[key] = value
-    
+
     def add_event(self, name: str, attributes: Optional[Dict[str, Any]] = None) -> None:
         """Add an event to the span.
-        
+
         Args:
             name: Event name.
             attributes: Event attributes.
@@ -1885,13 +1887,13 @@ class SpanContext:
 @dataclass
 class ExecutionCondition:
     """A condition for agent execution.
-    
+
     Attributes:
         name: Condition name.
         check: Function to check condition.
         description: Human-readable description.
     """
-    
+
     name: str
     check: Callable[[Path, str], bool]
     description: str = ""
@@ -1899,21 +1901,21 @@ class ExecutionCondition:
 
 class ConditionalExecutor:
     """Execute agents based on file content conditions.
-    
+
     Example:
         executor = ConditionalExecutor()
         executor.add_condition("has_todos", lambda p, c: "TODO" in c)
         executor.add_condition("is_large", lambda p, c: len(c) > 10000)
-        
+
         if executor.should_execute("coder", file_path, content):
             run_coder(file_path)
     """
-    
+
     def __init__(self) -> None:
         """Initialize executor."""
         self._conditions: Dict[str, ExecutionCondition] = {}
         self._agent_conditions: Dict[str, List[str]] = {}
-    
+
     def add_condition(
         self,
         name: str,
@@ -1921,7 +1923,7 @@ class ConditionalExecutor:
         description: str = "",
     ) -> None:
         """Add a condition.
-        
+
         Args:
             name: Condition name.
             check: Function taking (path, content) returning bool.
@@ -1932,7 +1934,7 @@ class ConditionalExecutor:
             check=check,
             description=description,
         )
-    
+
     def set_agent_conditions(
         self,
         agent_name: str,
@@ -1940,7 +1942,7 @@ class ConditionalExecutor:
         require_all: bool = False,
     ) -> None:
         """Set conditions for an agent.
-        
+
         Args:
             agent_name: Name of the agent.
             conditions: List of condition names.
@@ -1950,7 +1952,7 @@ class ConditionalExecutor:
             "conditions": conditions,
             "require_all": require_all,
         }
-    
+
     def should_execute(
         self,
         agent_name: str,
@@ -1958,22 +1960,22 @@ class ConditionalExecutor:
         content: str,
     ) -> bool:
         """Check if agent should execute for file.
-        
+
         Args:
             agent_name: Agent name.
             file_path: File path.
             content: File content.
-            
+
         Returns:
             True if agent should execute.
         """
         if agent_name not in self._agent_conditions:
             return True  # No conditions, always execute
-        
+
         config = self._agent_conditions[agent_name]
         condition_names = config["conditions"]
         require_all = config["require_all"]
-        
+
         results = []
         for cond_name in condition_names:
             if cond_name not in self._conditions:
@@ -1983,10 +1985,10 @@ class ConditionalExecutor:
                 results.append(condition.check(file_path, content))
             except Exception:
                 results.append(False)
-        
+
         if not results:
             return True
-        
+
         if require_all:
             return all(results)
         else:
@@ -2001,7 +2003,7 @@ class ConditionalExecutor:
 @dataclass
 class AgentTemplate:
     """A template for creating agents.
-    
+
     Attributes:
         name: Template name.
         description: Template description.
@@ -2009,7 +2011,7 @@ class AgentTemplate:
         config: Default configuration.
         file_patterns: File patterns to process.
     """
-    
+
     name: str
     description: str = ""
     agents: List[str] = field(default_factory=list)
@@ -2019,7 +2021,7 @@ class AgentTemplate:
 
 class TemplateManager:
     """Manage agent templates for common use cases.
-    
+
     Example:
         manager = TemplateManager()
         manager.add_template(AgentTemplate(
@@ -2027,16 +2029,16 @@ class TemplateManager:
             agents=["coder", "tests"],
             file_patterns=["*.py"],
         ))
-        
+
         template = manager.get_template("python_cleanup")
         agent = template_to_agent(template)
     """
-    
+
     def __init__(self) -> None:
         """Initialize manager."""
         self._templates: Dict[str, AgentTemplate] = {}
         self._register_defaults()
-    
+
     def _register_defaults(self) -> None:
         """Register default templates."""
         self._templates["python_full"] = AgentTemplate(
@@ -2045,14 +2047,14 @@ class TemplateManager:
             agents=["coder", "tests", "documentation", "errors"],
             file_patterns=["*.py"],
         )
-        
+
         self._templates["markdown_docs"] = AgentTemplate(
             name="markdown_docs",
             description="Markdown documentation improvement",
             agents=["documentation"],
             file_patterns=["*.md"],
         )
-        
+
         self._templates["quick_fix"] = AgentTemplate(
             name="quick_fix",
             description="Quick fixes only",
@@ -2060,26 +2062,26 @@ class TemplateManager:
             config={"max_files": 10},
             file_patterns=["*.py"],
         )
-    
+
     def add_template(self, template: AgentTemplate) -> None:
         """Add a template.
-        
+
         Args:
             template: Template to add.
         """
         self._templates[template.name] = template
-    
+
     def get_template(self, name: str) -> Optional[AgentTemplate]:
         """Get a template by name.
-        
+
         Args:
             name: Template name.
-            
+
         Returns:
             Template or None if not found.
         """
         return self._templates.get(name)
-    
+
     def list_templates(self) -> List[str]:
         """List available template names."""
         return list(self._templates.keys())
@@ -2092,33 +2094,33 @@ class TemplateManager:
 
 class DependencyGraph:
     """Resolve agent dependencies for ordered execution.
-    
+
     Example:
         graph = DependencyGraph()
         graph.add_dependency("tests", "coder")  # tests depends on coder
         graph.add_dependency("docs", "tests")
-        
+
         order = graph.resolve()  # ["coder", "tests", "docs"]
     """
-    
+
     def __init__(self) -> None:
         """Initialize dependency graph."""
         self._nodes: Set[str] = set()
         self._edges: Dict[str, Set[str]] = {}  # node -> dependencies
-    
+
     def add_node(self, name: str) -> None:
         """Add a node.
-        
+
         Args:
             name: Node name.
         """
         self._nodes.add(name)
         if name not in self._edges:
             self._edges[name] = set()
-    
+
     def add_dependency(self, node: str, depends_on: str) -> None:
         """Add a dependency.
-        
+
         Args:
             node: Node that has the dependency.
             depends_on: Node that must run first.
@@ -2126,48 +2128,48 @@ class DependencyGraph:
         self.add_node(node)
         self.add_node(depends_on)
         self._edges[node].add(depends_on)
-    
+
     def resolve(self) -> List[str]:
         """Resolve execution order.
-        
+
         Returns:
             List of nodes in execution order.
-            
+
         Raises:
             ValueError: If circular dependency detected.
         """
         in_degree = {n: 0 for n in self._nodes}
-        
+
         for node, deps in self._edges.items():
             for dep in deps:
                 # This is reverse - we need nodes with deps to have higher in_degree
                 pass  # Actually, we track outgoing
-        
+
         # Build reverse graph for topological sort
         reverse = {n: set() for n in self._nodes}
         for node, deps in self._edges.items():
             for dep in deps:
                 reverse[dep].add(node)
-        
+
         # Calculate in-degree based on dependencies
         in_degree = {n: len(self._edges.get(n, set())) for n in self._nodes}
-        
+
         # Start with nodes that have no dependencies
         queue = [n for n in self._nodes if in_degree[n] == 0]
         result = []
-        
+
         while queue:
             node = queue.pop(0)
             result.append(node)
-            
+
             for dependent in reverse[node]:
                 in_degree[dependent] -= 1
                 if in_degree[dependent] == 0:
                     queue.append(dependent)
-        
+
         if len(result) != len(self._nodes):
             raise ValueError("Circular dependency detected")
-        
+
         return result
 
 
@@ -2179,7 +2181,7 @@ class DependencyGraph:
 @dataclass
 class ExecutionProfile:
     """A profile for agent execution settings.
-    
+
     Attributes:
         name: Profile name.
         max_files: Maximum files to process.
@@ -2188,7 +2190,7 @@ class ExecutionProfile:
         workers: Number of workers.
         dry_run: Dry run mode.
     """
-    
+
     name: str
     max_files: Optional[int] = None
     timeout: int = 120
@@ -2199,22 +2201,22 @@ class ExecutionProfile:
 
 class ProfileManager:
     """Manage agent execution profiles.
-    
+
     Example:
         manager = ProfileManager()
         manager.add_profile(ExecutionProfile("ci", dry_run=True, timeout=60))
         manager.add_profile(ExecutionProfile("full", parallel=True, workers=8))
-        
+
         manager.activate("ci")
         config = manager.get_active_config()
     """
-    
+
     def __init__(self) -> None:
         """Initialize manager."""
         self._profiles: Dict[str, ExecutionProfile] = {}
         self._active: Optional[str] = None
         self._register_defaults()
-    
+
     def _register_defaults(self) -> None:
         """Register default profiles."""
         self._profiles["default"] = ExecutionProfile(
@@ -2222,7 +2224,7 @@ class ProfileManager:
             timeout=120,
             parallel=False,
         )
-        
+
         self._profiles["fast"] = ExecutionProfile(
             name="fast",
             max_files=10,
@@ -2230,7 +2232,7 @@ class ProfileManager:
             parallel=True,
             workers=4,
         )
-        
+
         self._profiles["ci"] = ExecutionProfile(
             name="ci",
             timeout=300,
@@ -2238,28 +2240,28 @@ class ProfileManager:
             workers=2,
             dry_run=True,
         )
-    
+
     def add_profile(self, profile: ExecutionProfile) -> None:
         """Add a profile.
-        
+
         Args:
             profile: Profile to add.
         """
         self._profiles[profile.name] = profile
-    
+
     def activate(self, name: str) -> None:
         """Activate a profile.
-        
+
         Args:
             name: Profile name.
-            
+
         Raises:
             KeyError: If profile not found.
         """
         if name not in self._profiles:
             raise KeyError(f"Profile not found: {name}")
         self._active = name
-    
+
     def get_active_config(self) -> Optional[ExecutionProfile]:
         """Get active profile configuration."""
         if self._active:
@@ -2275,7 +2277,7 @@ class ProfileManager:
 @dataclass
 class CachedResult:
     """A cached agent result.
-    
+
     Attributes:
         file_path: File that was processed.
         agent_name: Agent that produced result.
@@ -2284,7 +2286,7 @@ class CachedResult:
         timestamp: When cached.
         ttl_seconds: Time to live.
     """
-    
+
     file_path: str
     agent_name: str
     content_hash: str
@@ -2295,30 +2297,30 @@ class CachedResult:
 
 class ResultCache:
     """Cache agent results for reuse.
-    
+
     Example:
         cache = ResultCache()
-        
+
         # Check cache
         result = cache.get("test.py", "coder", content_hash)
         if result is None:
             result = run_coder("test.py")
             cache.set("test.py", "coder", content_hash, result)
     """
-    
+
     def __init__(self, cache_dir: Optional[Path] = None) -> None:
         """Initialize cache.
-        
+
         Args:
             cache_dir: Directory for persistent cache.
         """
         self.cache_dir = cache_dir
         self._memory_cache: Dict[str, CachedResult] = {}
-    
+
     def _make_key(self, file_path: str, agent_name: str, content_hash: str) -> str:
         """Create cache key."""
         return f"{file_path}:{agent_name}:{content_hash}"
-    
+
     def get(
         self,
         file_path: str,
@@ -2326,17 +2328,17 @@ class ResultCache:
         content_hash: str,
     ) -> Optional[Any]:
         """Get cached result.
-        
+
         Args:
             file_path: File path.
             agent_name: Agent name.
             content_hash: Hash of content.
-            
+
         Returns:
             Cached result or None.
         """
         key = self._make_key(file_path, agent_name, content_hash)
-        
+
         if key in self._memory_cache:
             cached = self._memory_cache[key]
             # Check TTL
@@ -2344,9 +2346,9 @@ class ResultCache:
                 return cached.result
             else:
                 del self._memory_cache[key]
-        
+
         return None
-    
+
     def set(
         self,
         file_path: str,
@@ -2356,7 +2358,7 @@ class ResultCache:
         ttl_seconds: int = 3600,
     ) -> None:
         """Cache a result.
-        
+
         Args:
             file_path: File path.
             agent_name: Agent name.
@@ -2372,13 +2374,13 @@ class ResultCache:
             result=result,
             ttl_seconds=ttl_seconds,
         )
-    
+
     def invalidate(self, file_path: str) -> int:
         """Invalidate all cache entries for a file.
-        
+
         Args:
             file_path: File path.
-            
+
         Returns:
             Number of entries invalidated.
         """
@@ -2386,7 +2388,7 @@ class ResultCache:
         for key in to_remove:
             del self._memory_cache[key]
         return len(to_remove)
-    
+
     def clear(self) -> None:
         """Clear all cached results."""
         self._memory_cache.clear()
@@ -2400,7 +2402,7 @@ class ResultCache:
 @dataclass
 class ScheduledExecution:
     """A scheduled agent execution.
-    
+
     Attributes:
         name: Schedule name.
         cron: Cron expression (simplified).
@@ -2409,7 +2411,7 @@ class ScheduledExecution:
         last_run: Last run timestamp.
         next_run: Next run timestamp.
     """
-    
+
     name: str
     cron: str  # Simplified: "hourly", "daily", "weekly", or HH:MM
     agent_config: Dict[str, Any] = field(default_factory=dict)
@@ -2420,11 +2422,11 @@ class ScheduledExecution:
 
 class ExecutionScheduler:
     """Schedule agent executions.
-    
+
     Example:
         scheduler = ExecutionScheduler()
         scheduler.add_schedule("nightly", "daily", {"dry_run": True})
-        
+
         # In a loop
         while True:
             if scheduler.is_due("nightly"):
@@ -2432,11 +2434,11 @@ class ExecutionScheduler:
                 scheduler.mark_complete("nightly")
             time.sleep(60)
     """
-    
+
     def __init__(self) -> None:
         """Initialize scheduler."""
         self._schedules: Dict[str, ScheduledExecution] = {}
-    
+
     def add_schedule(
         self,
         name: str,
@@ -2444,7 +2446,7 @@ class ExecutionScheduler:
         agent_config: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Add a schedule.
-        
+
         Args:
             name: Schedule name.
             cron: Timing (hourly, daily, weekly, or HH:MM).
@@ -2457,11 +2459,11 @@ class ExecutionScheduler:
         )
         schedule.next_run = self._calculate_next_run(cron)
         self._schedules[name] = schedule
-    
+
     def _calculate_next_run(self, cron: str) -> float:
         """Calculate next run time."""
         now = time.time()
-        
+
         if cron == "hourly":
             return now + 3600
         elif cron == "daily":
@@ -2485,31 +2487,31 @@ class ExecutionScheduler:
                 return now + 86400
         else:
             return now + 86400  # Default to daily
-    
+
     def is_due(self, name: str) -> bool:
         """Check if schedule is due.
-        
+
         Args:
             name: Schedule name.
-            
+
         Returns:
             True if due for execution.
         """
         if name not in self._schedules:
             return False
-        
+
         schedule = self._schedules[name]
         if not schedule.enabled:
             return False
-        
+
         if schedule.next_run is None:
             return True
-        
+
         return time.time() >= schedule.next_run
-    
+
     def mark_complete(self, name: str) -> None:
         """Mark schedule as completed.
-        
+
         Args:
             name: Schedule name.
         """
@@ -2517,13 +2519,13 @@ class ExecutionScheduler:
             schedule = self._schedules[name]
             schedule.last_run = time.time()
             schedule.next_run = self._calculate_next_run(schedule.cron)
-    
+
     def get_config(self, name: str) -> Dict[str, Any]:
         """Get agent configuration for schedule.
-        
+
         Args:
             name: Schedule name.
-            
+
         Returns:
             Agent configuration dict.
         """
@@ -2534,19 +2536,19 @@ class ExecutionScheduler:
 
 def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 1.0, max_delay: float = 30.0):
     """Execute a function with exponential backoff retry on failure.
-    
+
     Retries a function call if it raises an exception, with exponentially
     increasing delays between attempts. Useful for transient failures.
-    
+
     Args:
         func: Callable that returns True on success, False on failure.
         max_attempts: Maximum number of attempts. Defaults to 3.
         base_delay: Initial delay in seconds. Defaults to 1.0.
         max_delay: Maximum delay between retries. Defaults to 30.0.
-        
+
     Returns:
         bool: True if func succeeded, False after max_attempts.
-        
+
     Note:
         - Delay formula: min(base_delay * (2 ^ attempt), max_delay)
         - Logs each retry attempt
@@ -2570,7 +2572,7 @@ def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 
 # Module-level worker function for multiprocessing (cannot be a nested function)
 def _multiprocessing_worker(agent_instance, file_path: Path) -> Optional[Path]:
     """Worker function for multiprocessing file processing.
-    
+
     This function must be at module level to be pickleable for multiprocessing.
     """
     try:
@@ -2585,17 +2587,17 @@ def _multiprocessing_worker(agent_instance, file_path: Path) -> Optional[Path]:
 
 def setup_logging(verbosity: str) -> None:
     """Configure logging based on verbosity level.
-    
+
     Args:
         verbosity: Verbosity level as string ('quiet', 'minimal', 'normal', 'elaborate'
                   or '0', '1', '2', '3'). Defaults to 'INFO' level.
-                  
+
     Returns:
         None. Configures the root logger with the specified level.
-        
+
     Example:
         setup_logging('elaborate')  # Sets DEBUG level
-        
+
     Note:
         This function configures the global logging system. Should be called
         once at application startup before other logging calls.
@@ -2618,29 +2620,30 @@ def setup_logging(verbosity: str) -> None:
     )
     logging.debug(f"Logging configured at level: {logging.getLevelName(level)}")
 
+
 def load_codeignore(root: Path) -> Set[str]:
     """Load and parse ignore patterns from .codeignore file.
-    
+
     Reads the .codeignore file from the repository root and extracts all
     ignore patterns (lines that are not empty or comments).
-    
+
     Caches patterns to avoid re-parsing on subsequent calls. Cache is invalidated
     if the file is modified (checked by file mtime).
-    
+
     Args:
         root: Path to the repository root directory.
-        
+
     Returns:
         Set of ignore patterns (strings) from the .codeignore file.
         Returns empty set if file doesn't exist.
-        
+
     Raises:
         None. Logs warnings if file cannot be read but doesn't raise.
-        
+
     Example:
         patterns = load_codeignore(Path('/repo'))
         # patterns might be: {'*.log', '__pycache__/', 'venv/**'}
-        
+
     Note:
         - Lines starting with '#' are treated as comments and ignored
         - Empty lines are skipped
@@ -2649,7 +2652,7 @@ def load_codeignore(root: Path) -> Set[str]:
     """
     codeignore_path = root / ".codeignore"
     cache_key = str(codeignore_path)
-    
+
     # Check cache validity
     if cache_key in _CODEIGNORE_CACHE and codeignore_path.exists():
         try:
@@ -2660,7 +2663,7 @@ def load_codeignore(root: Path) -> Set[str]:
                 return _CODEIGNORE_CACHE[cache_key]
         except OSError:
             pass
-    
+
     if codeignore_path.exists():
         try:
             logging.debug(f"Loading .codeignore patterns from {codeignore_path}")
@@ -2670,14 +2673,14 @@ def load_codeignore(root: Path) -> Set[str]:
                 if line.strip() and not line.strip().startswith('#')
             }
             logging.info(f"Loaded {len(patterns)} ignore patterns from .codeignore")
-            
+
             # Cache the patterns
             _CODEIGNORE_CACHE[cache_key] = patterns
             try:
                 _CODEIGNORE_CACHE_TIME[cache_key] = codeignore_path.stat().st_mtime
             except OSError:
                 pass
-            
+
             return patterns
         except Exception as e:
             logging.warning(f"Could not read .codeignore file: {e}")
@@ -2688,20 +2691,20 @@ def load_codeignore(root: Path) -> Set[str]:
 
 class CircuitBreaker:
     """Circuit breaker pattern for failing backends.
-    
+
     Manages failing backends with exponential backoff and recovery.
     Tracks failure state and prevents cascading failures.
-    
+
     States:
         CLOSED: Normal operation, requests pass through
         OPEN: Too many failures, requests fail immediately
         HALF_OPEN: Testing if backend recovered
     """
-    
+
     def __init__(self, name: str, failure_threshold: int = 5, 
                  recovery_timeout: int = 60, backoff_multiplier: float = 2.0):
         """Initialize circuit breaker.
-        
+
         Args:
             name: Name of the backend/service
             failure_threshold: Number of failures before opening circuit
@@ -2712,23 +2715,23 @@ class CircuitBreaker:
         self.failure_threshold = failure_threshold
         self.recovery_timeout = recovery_timeout
         self.backoff_multiplier = backoff_multiplier
-        
+
         self.state = "CLOSED"  # CLOSED, OPEN, HALF_OPEN
         self.failure_count = 0
         self.success_count = 0
         self.last_failure_time = 0.0
         self.consecutive_successes_needed = 2
-        
+
     def call(self, func: Callable, *args, **kwargs):
         """Execute function through circuit breaker.
-        
+
         Args:
             func: Callable to execute
             *args, **kwargs: Arguments to pass to function
-            
+
         Returns:
             Result of func if successful
-            
+
         Raises:
             Exception: If circuit is open or func fails
         """
@@ -2739,7 +2742,7 @@ class CircuitBreaker:
                 logging.info(f"Circuit breaker '{self.name}' entering HALF_OPEN state")
             else:
                 raise Exception(f"Circuit breaker '{self.name}' is OPEN")
-        
+
         try:
             result = func(*args, **kwargs)
             self.on_success()
@@ -2747,22 +2750,22 @@ class CircuitBreaker:
         except Exception as e:
             self.on_failure()
             raise
-    
+
     def on_success(self):
         """Record successful call."""
         self.failure_count = 0
-        
+
         if self.state == "HALF_OPEN":
             self.success_count += 1
             if self.success_count >= self.consecutive_successes_needed:
                 self.state = "CLOSED"
                 logging.info(f"Circuit breaker '{self.name}' closed (recovered)")
-    
+
     def on_failure(self):
         """Record failed call."""
         self.failure_count += 1
         self.last_failure_time = time.time()
-        
+
         if self.failure_count >= self.failure_threshold:
             self.state = "OPEN"
             logging.error(f"Circuit breaker '{self.name}' opened (too many failures)")
@@ -2770,13 +2773,13 @@ class CircuitBreaker:
 
 class Agent:
     """Main agent that orchestrates sub-agents for code improvement.
-    
+
     This class coordinates the improvement process across code files by delegating
     tasks to specialized sub-agents (CoderAgent, TestsAgent, etc.) that handle
     specific aspects of code quality and documentation.
-    
+
     Supports context manager protocol for resource management.
-    
+
     Attributes:
         repo_root (Path): Root directory of the target repository.
         agents_only (bool): If True, only process files in scripts/agent directory.
@@ -2785,15 +2788,15 @@ class Agent:
         skip_code_update (bool): If True, skip code update phase.
         no_git (bool): If True, don't commit changes to git.
         ignored_patterns (Set[str]): Patterns from .codeignore file.
-        
+
     Class Attributes:
         SUPPORTED_EXTENSIONS (Set[str]): File extensions to process (py, sh, js, ts, etc.).
-        
+
     Example:
         with Agent(repo_root='.', agents_only=True) as agent:
             files = agent.find_code_files()
             agent.run()
-        
+
     Note:
         - Can be used as context manager for automatic cleanup
         - Recursively finds code files in the repository
@@ -2810,7 +2813,7 @@ class Agent:
             enable_async: bool = False, enable_multiprocessing: bool = False,
             max_workers: int = 4) -> None:
         """Initialize the Agent with repository configuration.
-        
+
         Args:
             repo_root: Root directory of the repository to process. Defaults to '.'.
             agents_only: If True, only process files in scripts/agent. Defaults to False.
@@ -2824,14 +2827,14 @@ class Agent:
             enable_async: If True, use async file processing. Defaults to False.
             enable_multiprocessing: If True, use multiprocessing for agents. Defaults to False.
             max_workers: Maximum number of worker threads/processes. Defaults to 4.
-            
+
         Raises:
             FileNotFoundError: If repo_root doesn't exist.
-            
+
         Note:
             The repository root is automatically detected by looking for .git,
             README.md, or package.json if not explicitly provided.
-            
+
             Supports context manager protocol via __enter__ and __exit__.
         """
         logging.info(f"Initializing Agent with repo_root={repo_root}")
@@ -2850,11 +2853,11 @@ class Agent:
         self.enable_multiprocessing = enable_multiprocessing
         self.max_workers = max_workers
         self.ignored_patterns = load_codeignore(self.repo_root)
-        
+
         # Webhook support
         self.webhooks: List[str] = []
         self.callbacks: List[Callable] = []
-        
+
         # Metrics tracking
         self.metrics = {
             'files_processed': 0,
@@ -2863,7 +2866,7 @@ class Agent:
             'start_time': time.time(),
             'end_time': None,
         }
-        
+
         logging.info(f"Agent initialized: repo={self.repo_root}, loop={loop}, agents_only={agents_only}")
         if dry_run:
             logging.info("DRY RUN MODE: No files will be modified")
@@ -2873,12 +2876,12 @@ class Agent:
             logging.info("Async file processing enabled")
         if enable_multiprocessing:
             logging.info(f"Multiprocessing enabled with {max_workers} workers")
-    
+
     def __enter__(self):
         """Context manager entry. Returns self for use in 'with' statement."""
         logging.debug(f"Agent entering context manager")
         return self
-    
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit. Handles cleanup if needed."""
         logging.debug(f"Agent exiting context manager")
@@ -2888,16 +2891,16 @@ class Agent:
 
     def should_execute_agent(self, agent_name: str) -> bool:
         """Check if an agent should be executed based on selective filters.
-        
+
         Determines whether to run a specific agent based on the selective_agents
         configuration provided at initialization.
-        
+
         Args:
             agent_name: Name of the agent (e.g., 'coder', 'tests', 'documentation').
-            
+
         Returns:
             bool: True if the agent should execute, False otherwise.
-            
+
         Example:
             if agent.should_execute_agent('coder'):
                 coder_agent.run()
@@ -2908,16 +2911,16 @@ class Agent:
 
     def get_timeout_for_agent(self, agent_name: str, default: int = 120) -> int:
         """Get configured timeout for a specific agent.
-        
+
         Returns the timeout value for a specific agent, or a default if not configured.
-        
+
         Args:
             agent_name: Name of the agent (e.g., 'coder', 'tests').
             default: Default timeout in seconds if not configured. Defaults to 120.
-            
+
         Returns:
             int: Timeout in seconds for the agent.
-            
+
         Example:
             timeout = agent.get_timeout_for_agent('coder', default=60)
         """
@@ -2925,18 +2928,18 @@ class Agent:
 
     def print_metrics_summary(self) -> None:
         """Print a summary of execution metrics and statistics.
-        
+
         Prints information about files processed, modifications made, agents applied,
         and execution time. Useful for understanding the impact of agent runs.
-        
+
         Example:
             agent.run()
             agent.print_metrics_summary()
         """
         self.metrics['end_time'] = time.time()
         elapsed = self.metrics['end_time'] - self.metrics['start_time']
-        
-        summary = f"""
+
+        summary = """
 === Agent Execution Summary ===
 Files processed: {self.metrics['files_processed']}
 Files modified:  {self.metrics['files_modified']}
@@ -2947,26 +2950,26 @@ Agents applied:
 """
         for agent, count in sorted(self.metrics['agents_applied'].items()):
             summary += f"  - {agent}: {count} files\n"
-        
+
         logging.info(summary)
         print(summary)
 
     def generate_improvement_report(self) -> Dict[str, Any]:
         """Generate comprehensive improvement report with statistics.
-        
+
         Creates detailed report including:
         - Overall statistics (files processed, modified, time)
         - Per-file summaries with improvements made
         - Agent effectiveness (improvements per agent)
         - Performance metrics
-        
+
         Returns:
             Dict with report structure and statistics
-            
+
         Example:
             report = agent.generate_improvement_report()
             print(f"Report generated: {report['summary']}")
-            
+
         Note:
             - Aggregates metrics from all processed files
             - Calculates effectiveness metrics
@@ -2974,7 +2977,7 @@ Agents applied:
         """
         self.metrics['end_time'] = time.time()
         elapsed = self.metrics['end_time'] - self.metrics['start_time']
-        
+
         report = {
             'timestamp': time.time(),
             'summary': {
@@ -2990,33 +2993,33 @@ Agents applied:
                 'multiprocessing_enabled': self.enable_multiprocessing,
             }
         }
-        
+
         # Calculate effectiveness metrics
         files_proc = report['summary']['files_processed']
         files_mod = report['summary']['files_modified']
         report['summary']['modification_rate'] = (files_mod / files_proc * 100) if files_proc > 0 else 0
-        
+
         logging.info(f"Generated improvement report: {files_proc} files processed, {files_mod} modified")
         return report
 
     def benchmark_execution(self, files: List[Path]) -> Dict[str, Any]:
         """Benchmark execution time per file and per agent.
-        
+
         Measures and tracks execution time for individual files and agents.
         Useful for identifying performance bottlenecks and optimization targets.
-        
+
         Args:
             files: List of files that were processed
-            
+
         Returns:
             Dict with timing statistics per file and agent
-            
+
         Example:
             agent.run()
             benchmarks = agent.benchmark_execution(files)
             slowest = max(benchmarks['per_file'].items(), key=lambda x: x[1])
             print(f"Slowest file: {slowest[0]} ({slowest[1]:.2f}s)")
-            
+
         Note:
             - Requires enable_async or enable_multiprocessing for meaningful data
             - Tracks timing from metrics collected during execution
@@ -3026,7 +3029,7 @@ Agents applied:
                      self.metrics.get('start_time', time.time()))
         files_count = len(files)
         avg_per_file = total_time / max(files_count, 1)
-        
+
         benchmarks = {
             'total_time': total_time,
             'file_count': files_count,
@@ -3036,7 +3039,7 @@ Agents applied:
             },
             'per_agent': dict(self.metrics.get('agents_applied', {})),
         }
-        
+
         logging.debug(f"Benchmarks: {files_count} files in {total_time:.2f}s "
                      f"({avg_per_file:.2f}s/file)")
         return benchmarks
@@ -3044,21 +3047,21 @@ Agents applied:
     def cost_analysis(self, backend: str = 'github-models', 
                      cost_per_request: float = 0.0001) -> Dict[str, Any]:
         """Analyze API usage cost for the agent execution.
-        
+
         Estimates cost based on files processed, agents applied, and backend pricing.
         Useful for understanding operational costs of running the agent.
-        
+
         Args:
             backend: Backend service name (e.g., 'github-models', 'openai', 'anthropic')
             cost_per_request: Cost per API request in currency units
-            
+
         Returns:
             Dict with cost analysis and estimates
-            
+
         Example:
             cost = agent.cost_analysis(backend='github-models', cost_per_request=0.0001)
             print(f"Estimated cost: ${cost['total_estimated_cost']:.4f}")
-            
+
         Note:
             - Cost is estimated based on files and agents
             - Actual cost depends on token usage and pricing model
@@ -3067,11 +3070,11 @@ Agents applied:
         files_processed = self.metrics.get('files_processed', 0)
         agents_applied = self.metrics.get('agents_applied', {})
         total_agent_runs = sum(agents_applied.values())
-        
+
         # Estimate requests: one per file per agent type
         estimated_requests = total_agent_runs
         estimated_cost = estimated_requests * cost_per_request
-        
+
         analysis = {
             'backend': backend,
             'files_processed': files_processed,
@@ -3082,7 +3085,7 @@ Agents applied:
             'total_estimated_cost': estimated_cost,
             'cost_per_file': estimated_cost / max(files_processed, 1),
         }
-        
+
         logging.info(f"Cost analysis: {estimated_requests} requests, "
                     f"${estimated_cost:.4f} estimated")
         return analysis
@@ -3090,21 +3093,21 @@ Agents applied:
     def cleanup_old_snapshots(self, max_age_days: int = 7, 
                              max_snapshots_per_file: int = 10) -> int:
         """Clean up old file snapshots according to retention policy.
-        
+
         Removes snapshots older than max_age_days or exceeding max_snapshots_per_file
         per file. Helps manage disk space used by snapshots.
-        
+
         Args:
             max_age_days: Keep snapshots newer than this many days
             max_snapshots_per_file: Maximum snapshots to keep per file
-            
+
         Returns:
             Number of snapshots deleted
-            
+
         Example:
             cleaned = agent.cleanup_old_snapshots(max_age_days=7, max_snapshots_per_file=5)
             print(f"Cleaned up {cleaned} old snapshots")
-            
+
         Note:
             - Deletes files from .agent_snapshots directory
             - Preserves most recent snapshots
@@ -3114,12 +3117,12 @@ Agents applied:
         if not snapshot_dir.exists():
             logging.debug("No snapshot directory found, nothing to clean")
             return 0
-        
+
         try:
             current_time = time.time()
             max_age_seconds = max_age_days * 24 * 60 * 60
             snapshots_deleted = 0
-            
+
             # Group snapshots by file
             snapshots_by_file: Dict[str, List[Path]] = {}
             for snapshot_file in snapshot_dir.glob('*'):
@@ -3131,12 +3134,12 @@ Agents applied:
                         if filename not in snapshots_by_file:
                             snapshots_by_file[filename] = []
                         snapshots_by_file[filename].append(snapshot_file)
-            
+
             # Clean by age and count
             for filename, snapshots in snapshots_by_file.items():
                 # Sort by modification time (newest first)
                 snapshots.sort(key=lambda x: x.stat().st_mtime, reverse=True)
-                
+
                 for i, snapshot in enumerate(snapshots):
                     # Delete if too old
                     mtime = snapshot.stat().st_mtime
@@ -3150,26 +3153,26 @@ Agents applied:
                         snapshot.unlink()
                         snapshots_deleted += 1
                         logging.debug(f"Deleted excess snapshot: {snapshot.name}")
-            
+
             logging.info(f"Cleaned up {snapshots_deleted} old snapshots")
             return snapshots_deleted
-            
+
         except Exception as e:
             logging.error(f"Failed to cleanup snapshots: {e}")
             return 0
 
     def create_file_snapshot(self, file_path: Path) -> Optional[str]:
         """Create a snapshot of file content before modifications.
-        
+
         Saves the current content of a file for potential rollback later.
         Useful for preserving pre-agent versions before applying improvements.
-        
+
         Args:
             file_path: Path to the file to snapshot.
-            
+
         Returns:
             str: Snapshot ID (timestamp-based) for later rollback, or None if snapshot failed.
-            
+
         Example:
             snapshot_id = agent.create_file_snapshot(Path('src/main.py'))
             # Make changes...
@@ -3180,42 +3183,42 @@ Agents applied:
             if not file_path.exists():
                 logging.debug(f"Cannot snapshot non-existent file: {file_path}")
                 return None
-            
+
             # Create snapshots directory if needed
             snapshot_dir = self.repo_root / '.agent_snapshots'
             snapshot_dir.mkdir(exist_ok=True)
-            
+
             # Generate snapshot ID based on timestamp
             import hashlib
             content = file_path.read_text(encoding='utf-8', errors='replace')
             content_hash = hashlib.md5(content.encode()).hexdigest()[:8]
             snapshot_id = f"{time.time():.0f}_{content_hash}"
-            
+
             # Save relative path and content
             rel_path = file_path.relative_to(self.repo_root)
             snapshot_file = snapshot_dir / f"{snapshot_id}_{rel_path.name}"
             snapshot_file.write_text(content, encoding='utf-8')
-            
+
             logging.debug(f"Created snapshot {snapshot_id} for {rel_path}")
             return snapshot_id
-            
+
         except Exception as e:
             logging.error(f"Failed to create snapshot for {file_path}: {e}")
             return None
 
     def restore_from_snapshot(self, file_path: Path, snapshot_id: str) -> bool:
         """Restore a file from a previously created snapshot.
-        
+
         Restores file content from a snapshot created by create_file_snapshot().
         Useful for rollback when agent modifications are undesirable.
-        
+
         Args:
             file_path: Path to the file to restore.
             snapshot_id: Snapshot ID returned by create_file_snapshot().
-            
+
         Returns:
             bool: True if restoration successful, False otherwise.
-            
+
         Example:
             snapshot_id = agent.create_file_snapshot(Path('src/main.py'))
             # Modifications...
@@ -3226,44 +3229,44 @@ Agents applied:
             if not snapshot_dir.exists():
                 logging.warning(f"Snapshot directory not found: {snapshot_dir}")
                 return False
-            
+
             # Find snapshot file matching pattern
             rel_path = file_path.relative_to(self.repo_root)
             pattern = f"{snapshot_id}_{rel_path.name}"
-            
+
             snapshot_file = snapshot_dir / pattern
             if not snapshot_file.exists():
                 logging.warning(f"Snapshot not found: {pattern}")
                 return False
-            
+
             # Restore content
             content = snapshot_file.read_text(encoding='utf-8')
             file_path.write_text(content, encoding='utf-8')
-            
+
             logging.info(f"Restored {rel_path} from snapshot {snapshot_id}")
             return True
-            
+
         except Exception as e:
             logging.error(f"Failed to restore snapshot for {file_path}: {e}")
             return False
 
     def load_cascading_codeignore(self, directory: Optional[Path] = None) -> Set[str]:
         """Load .codeignore patterns with cascading support.
-        
+
         Loads ignore patterns from .codeignore files in the directory and all
         parent directories up to the repository root. This enables hierarchical
         ignore patterns where subdirectories can have their own .codeignore.
-        
+
         Args:
             directory: Directory to start searching from. Defaults to repo_root.
-            
+
         Returns:
             Set[str]: Combined set of ignore patterns from all .codeignore files.
-            
+
         Example:
             # Load patterns from /repo/.codeignore and /repo/src/.codeignore
             patterns = agent.load_cascading_codeignore(Path('src'))
-            
+
         Note:
             - Patterns closer to the target directory take precedence
             - All patterns are combined into a single set for efficiency
@@ -3271,10 +3274,10 @@ Agents applied:
         """
         if directory is None:
             directory = self.repo_root
-        
+
         all_patterns = set()
         current_dir = directory.resolve()
-        
+
         # Walk up to repo root, loading .codeignore files
         while current_dir >= self.repo_root:
             codeignore_file = current_dir / '.codeignore'
@@ -3285,40 +3288,40 @@ Agents applied:
                     logging.debug(f"Loaded {len(patterns)} patterns from {codeignore_file}")
                 except Exception as e:
                     logging.warning(f"Failed to load {codeignore_file}: {e}")
-            
+
             # Stop at repo root
             if current_dir == self.repo_root:
                 break
-            
+
             current_dir = current_dir.parent
-        
+
         logging.debug(f"Total cascading patterns from {directory}: {len(all_patterns)}")
         return all_patterns
 
     def _run_command(self, cmd: List[str], timeout: int = 120, max_retries: int = 1) -> subprocess.CompletedProcess:
         """Run a command with timeout, error handling, retry logic, and logging.
-        
+
         Executes a subprocess command with comprehensive error handling,
         timeout protection, exponential backoff retry, and logging of results.
-        
+
         Args:
             cmd: Command as list of strings (e.g., ['python', 'script.py', '--arg']).
             timeout: Timeout in seconds for command execution. Defaults to 120.
             max_retries: Number of retry attempts on failure. Defaults to 1 (no retry).
-            
+
         Returns:
             subprocess.CompletedProcess: Contains returncode, stdout, stderr.
-            
+
         Raises:
             None. All errors are caught and logged. Returns failed CompletedProcess.
-            
+
         Example:
             result = agent._run_command(['python', '-m', 'pytest', 'test.py'], max_retries=2)
             if result.returncode == 0:
                 print("Success")
             else:
                 print(f"Failed: {result.stderr}")
-                
+
         Note:
             - Uses UTF-8 encoding with 'replace' error handling for robustness
             - Captures both stdout and stderr
@@ -3350,37 +3353,37 @@ Agents applied:
             except Exception as e:
                 logging.error(f"Command failed with unexpected error: {e}")
                 return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
-        
+
         result = attempt_command()
-        
+
         # Retry on failure with exponential backoff
         for attempt in range(1, max_retries):
             if result.returncode == 0:
                 return result
-            
+
             delay = min(1.0 * (2 ** (attempt - 1)), 30.0)  # Max 30 seconds
             logging.warning(f"Command failed (attempt {attempt}), retrying in {delay}s...")
             time.sleep(delay)
             result = attempt_command()
-        
+
         return result
 
     def _find_repo_root(self, start_path: Path) -> Path:
         """Find the repository root by looking for repository markers.
-        
+
         Walks up the directory tree from the start path looking for markers
         that indicate a repository root (.git, README.md, package.json).
-        
+
         Args:
             start_path: Starting directory path to search from.
-            
+
         Returns:
             Path: Repository root directory, or start_path if no markers found.
-            
+
         Example:
             root = agent._find_repo_root(Path('/some/nested/dir'))
             # Returns Path to repo root if .git found in parents
-            
+
         Note:
             - Checks the starting path first, then walks up to parents
             - Uses multiple markers to identify repo roots
@@ -3400,17 +3403,17 @@ Agents applied:
 
     def find_code_files(self) -> List[Path]:
         """Recursively find all supported code files in the repository.
-        
+
         Searches the repository for files with supported extensions, optionally
         filtered to the scripts/agent directory, and respects .codeignore patterns.
-        
+
         Returns:
             List[Path]: Sorted list of code files found, limited by max_files if set.
-            
+
         Example:
             files = agent.find_code_files()
             print(f"Found {len(files)} code files")
-            
+
         Note:
             - Uses recursive glob patterns for efficiency
             - Filters by SUPPORTED_EXTENSIONS (py, sh, js, ts, go, rb)
@@ -3423,39 +3426,39 @@ Agents applied:
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
         logging.debug(f"Found {len(code_files)} files with supported extensions")
-        
+
         # Filter to scripts/agent directory if agents_only is True
         if self.agents_only:
             scripts_agent_dir = self.repo_root / 'scripts' / 'agent'
             code_files = [f for f in code_files if f.is_relative_to(scripts_agent_dir)]
             logging.info(f"Filtered to scripts/agent directory: {len(code_files)} files")
-        
+
         # Apply ignore patterns
         code_files = sorted([f for f in code_files if not self._is_ignored(f)])
         logging.info(f"After filtering ignores: {len(code_files)} files")
-        
+
         if self.max_files:
             code_files = code_files[:self.max_files]
             logging.info(f"Limited to max_files={self.max_files}")
-        
+
         return code_files
 
     def _is_ignored(self, path: Path) -> bool:
         """Check if path should be ignored based on .codeignore patterns.
-        
+
         Checks if a path matches any of the ignore patterns from .codeignore,
         using fnmatch patterns for flexible matching.
-        
+
         Args:
             path: Path object to check.
-            
+
         Returns:
             bool: True if path matches any ignore pattern, False otherwise.
-            
+
         Example:
             ignored = agent._is_ignored(Path('venv/lib/file.py'))
             # Returns True if 'venv/**' or 'lib/**' in ignore patterns
-            
+
         Note:
             - Checks against full path, filename, and path components
             - Uses fnmatch for Unix-style glob patterns
@@ -3519,11 +3522,11 @@ Agents applied:
             '--prompt', prompt
             ]
         result = self._run_command(cmd)
-        
+
         # Check if changes were made based on output
         stdout_ok = result.stdout and "No changes made" not in result.stdout
         stderr_ok = not result.stderr or "No changes made" not in result.stderr
-        
+
         if stdout_ok and stderr_ok:
             changes_made = True
         # Create improvements file if it doesn't exist
@@ -3544,11 +3547,11 @@ Agents applied:
             '--prompt', prompt
             ]
         result = self._run_command(cmd)
-        
+
         # Check if changes were made based on output
         stdout_ok = result.stdout and "No changes made" not in result.stdout
         stderr_ok = not result.stderr or "No changes made" not in result.stderr
-        
+
         if stdout_ok and stderr_ok:
             changes_made = True
         return bool(changes_made)
@@ -3564,16 +3567,16 @@ Agents applied:
             import re
             # Match "1. ", "1) ", "- [ ]", "- ", "* "
             list_pattern = re.compile(r'^(\d+[\.\)]|\*|\-)\s+(\[ \]\s+)?(.*)')
-            
+
             for line in lines:
                 stripped = line.strip()
                 if not stripped:
                     continue
-                
+
                 # Skip checked items
                 if '[x]' in stripped or '[Fixed]' in stripped:
                     continue
-                
+
                 match = list_pattern.match(stripped)
                 if match:
                     item_text = match.group(3).strip()
@@ -3660,11 +3663,11 @@ Agents applied:
             '--prompt', prompt
             ]
         result = self._run_command(cmd, timeout=300)
-        
+
         # Check if changes were made based on output
         stdout_ok = result.stdout and "No changes made" not in result.stdout
         stderr_ok = not result.stderr or "No changes made" not in result.stderr
-        
+
         changes_made = stdout_ok and stderr_ok
         if changes_made and target_improvements:
             # Assume targeted improvements were fixed if code changed
@@ -3695,11 +3698,11 @@ Agents applied:
             '--prompt', prompt
             ]
         result = self._run_command(cmd)
-        
+
         # Check if changes were made based on output
         stdout_ok = result.stdout and "No changes made" not in result.stdout
         stderr_ok = not result.stderr or "No changes made" not in result.stderr
-        
+
         if stdout_ok and stderr_ok:
             changes_made = True
         # Create context file if it doesn't exist
@@ -3721,7 +3724,7 @@ Agents applied:
             changes_made = True
         # Create tests file if it doesn't exist and the code file is not already a test file
         if not tests_file.exists() and not base.startswith('test_'):
-            content = f"""# Tests for {code_file.name}
+            content = """# Tests for {code_file.name}
 import pytest
 
 def test_placeholder():
@@ -3816,21 +3819,21 @@ def test_placeholder():
 
     def register_webhook(self, webhook_url: str) -> None:
         """Register a webhook URL for event notifications.
-        
+
         Registers a webhook URL that will receive POST requests for agent events
         (file processing, completion, errors, etc.). Useful for integration with
         external systems like Slack, Discord, or custom monitoring dashboards.
-        
+
         Args:
             webhook_url: Full URL of the webhook endpoint.
-            
+
         Returns:
             None. Logs registration.
-            
+
         Example:
             agent.register_webhook('https://hooks.slack.com/services/xxx')
             agent.register_webhook('https://example.com/agent-events')
-            
+
         Note:
             - Multiple webhooks can be registered
             - Webhooks are sent asynchronously and don't block execution
@@ -3841,23 +3844,23 @@ def test_placeholder():
 
     def register_callback(self, callback: Callable[[str, Dict[str, Any]], None]) -> None:
         """Register a callback function for agent events.
-        
+
         Registers a Python callable that will be invoked for agent events.
         Callbacks are called synchronously and can receive event data.
-        
+
         Args:
             callback: Callable accepting (event_name: str, event_data: Dict).
-            
+
         Returns:
             None. Logs registration.
-            
+
         Example:
             def my_callback(event_name: str, event_data: Dict):
                 print(f"Event: {event_name}")
                 print(f"Data: {event_data}")
-            
+
             agent.register_callback(my_callback)
-            
+
         Note:
             - Multiple callbacks can be registered
             - Callbacks are called in registration order
@@ -3869,24 +3872,24 @@ def test_placeholder():
 
     def send_webhook_notification(self, event_name: str, event_data: Dict[str, Any]) -> None:
         """Send notification to all registered webhooks.
-        
+
         Sends event notifications to all registered webhook URLs via HTTP POST.
         Uses JSON encoding for the payload. Failed sends are logged but don't halt.
-        
+
         Args:
             event_name: Name of the event (e.g., 'file_processed', 'error').
             event_data: Event data as dictionary (will be JSON-encoded).
-            
+
         Returns:
             None. Logs results.
-            
+
         Example:
             agent.send_webhook_notification('agent_complete', {
                 'files_processed': 42,
                 'files_modified': 15,
                 'duration_seconds': 123.45
             })
-            
+
         Note:
             - Webhooks are sent asynchronously in background threads
             - If requests library not available, webhooks are skipped
@@ -3894,13 +3897,13 @@ def test_placeholder():
         """
         if not HAS_REQUESTS or not self.webhooks:
             return
-        
+
         payload = {
             'event': event_name,
             'timestamp': time.time(),
             'data': event_data
         }
-        
+
         for webhook_url in self.webhooks:
             try:
                 logging.debug(f"Sending webhook: {webhook_url}")
@@ -3915,23 +3918,23 @@ def test_placeholder():
 
     def execute_callbacks(self, event_name: str, event_data: Dict[str, Any]) -> None:
         """Execute all registered callback functions for an event.
-        
+
         Invokes all registered callback functions with event data.
         Exceptions in callbacks are caught and logged, allowing other callbacks to run.
-        
+
         Args:
             event_name: Name of the event (e.g., 'file_processed').
             event_data: Event data to pass to callbacks.
-            
+
         Returns:
             None. Logs execution results.
-            
+
         Example:
             agent.execute_callbacks('processing_complete', {
                 'file': 'main.py',
                 'changes_made': True
             })
-            
+
         Note:
             - Callbacks are called synchronously in registration order
             - Exceptions in one callback don't prevent others from running
@@ -3948,22 +3951,22 @@ def test_placeholder():
 
     async def async_process_files(self, files: List[Path]) -> List[Path]:
         """Process multiple files concurrently using async/await.
-        
+
         Processes files concurrently using asyncio for I/O-bound operations.
         Useful when the bottleneck is waiting for external services rather than CPU.
         Returns immediately; file processing happens asynchronously.
-        
+
         Args:
             files: List of file paths to process.
-            
+
         Returns:
             List[Path]: List of files that were modified.
-            
+
         Example:
             files = agent.find_code_files()
             modified = await agent.async_process_files(files)
             print(f"Modified {len(modified)} files")
-            
+
         Note:
             - Requires enable_async=True in __init__
             - Uses ThreadPoolExecutor for I/O operations
@@ -3972,7 +3975,7 @@ def test_placeholder():
             - Modified files are tracked in metrics
         """
         modified_files = []
-        
+
         async def process_file_async(file_path: Path):
             """Process a single file asynchronously."""
             try:
@@ -3983,34 +3986,34 @@ def test_placeholder():
                 logging.info(f"[async] Completed {file_path.name}")
             except Exception as e:
                 logging.error(f"[async] Failed to process {file_path.name}: {e}")
-        
+
         # Create tasks for all files
         tasks = [process_file_async(f) for f in files]
-        
+
         # Run tasks concurrently
         if tasks:
             await asyncio.gather(*tasks)
-        
+
         return modified_files
 
     def process_files_multiprocessing(self, files: List[Path]) -> List[Path]:
         """Process multiple files using multiprocessing for parallel execution.
-        
+
         Processes files in parallel using separate Python processes.
         Useful for CPU-intensive operations or avoiding Python's GIL.
         Each worker processes multiple files sequentially.
-        
+
         Args:
             files: List of file paths to process.
-            
+
         Returns:
             List[Path]: List of files that were processed.
-            
+
         Example:
             files = agent.find_code_files()
             processed = agent.process_files_multiprocessing(files)
             print(f"Processed {len(processed)} files")
-            
+
         Note:
             - Requires enable_multiprocessing=True in __init__
             - Uses ProcessPoolExecutor for CPU-bound operations
@@ -4020,41 +4023,41 @@ def test_placeholder():
             - Modified count is estimated from total processed
         """
         processed_files = []
-        
+
         # Use ThreadPoolExecutor for parallel processing (easier pickling than ProcessPoolExecutor)
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             # Create partial functions that can be pickled more easily
             worker_func = functools.partial(_multiprocessing_worker, self)
-            
+
             results = list(tqdm(
                 executor.map(worker_func, files),
                 total=len(files),
                 desc="Processing files (multiprocessing)"
             ) if HAS_TQDM else executor.map(worker_func, files))
-        
+
         # Filter out None results
         processed_files = [f for f in results if f is not None]
         self.metrics['files_processed'] = len(processed_files)
-        
+
         return processed_files
 
     def process_files_threaded(self, files: List[Path]) -> List[Path]:
         """Process multiple files using threading for concurrent I/O.
-        
+
         Processes files concurrently using worker threads. Good for I/O-bound
         operations while keeping code simpler than async. Works around Python's GIL.
-        
+
         Args:
             files: List of file paths to process.
-            
+
         Returns:
             List[Path]: List of files that were processed.
-            
+
         Example:
             files = agent.find_code_files()
             processed = agent.process_files_threaded(files)
             print(f"Processed {len(processed)} files")
-            
+
         Note:
             - Uses ThreadPoolExecutor for concurrent I/O
             - Respects max_workers setting
@@ -4063,7 +4066,7 @@ def test_placeholder():
             - Progress tracking with tqdm if available
         """
         processed_files = []
-        
+
         def worker_thread_process_file(file_path: Path) -> Path:
             """Worker function to process a file in a separate thread."""
             try:
@@ -4074,7 +4077,7 @@ def test_placeholder():
             except Exception as e:
                 logging.error(f"[thread] Failed: {e}")
                 return None
-        
+
         # Use ThreadPoolExecutor for parallel I/O
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             results = list(tqdm(
@@ -4082,22 +4085,22 @@ def test_placeholder():
                 total=len(files),
                 desc="Processing files (threaded)"
             ) if HAS_TQDM else executor.map(worker_thread_process_file, files))
-        
+
         # Filter out None results
         processed_files = [f for f in results if f is not None]
         self.metrics['files_processed'] = len(processed_files)
-        
+
         return processed_files
 
     def run_with_parallel_execution(self) -> None:
         """Run the main agent loop with parallel execution strategy.
-        
+
         Runs the agent with either async, multiprocessing, or threaded execution
         based on configuration. Falls back to sequential if neither enabled.
-        
+
         Returns:
             None. Results logged and metrics updated.
-            
+
         Note:
             - Priority: multiprocessing > async > threaded > sequential
             - Webhooks and callbacks triggered on completion
@@ -4105,10 +4108,10 @@ def test_placeholder():
         """
         code_files = self.find_code_files()
         logging.info(f"Found {len(code_files)} code files to process")
-        
+
         for loop_iteration in range(1, self.loop + 1):
             logging.info(f"Starting loop iteration {loop_iteration}/{self.loop}")
-            
+
             # Choose execution strategy
             if self.enable_multiprocessing:
                 logging.info("Using multiprocessing for parallel execution")
@@ -4119,13 +4122,13 @@ def test_placeholder():
             else:
                 logging.info("Using threaded execution")
                 self.process_files_threaded(code_files)
-            
+
             logging.info(f"Completed loop iteration {loop_iteration}/{self.loop}")
-        
+
         # Trigger completion events
         self.execute_callbacks('agent_complete', self.metrics)
         self.send_webhook_notification('agent_complete', self.metrics)
-        
+
         # Final stats update
         logging.info("Final stats:")
         self.run_stats_update(code_files)
@@ -4136,19 +4139,19 @@ def test_placeholder():
         if hasattr(self, 'shutdown_handler') and not self.shutdown_handler.should_continue():
             logging.info(f"Skipping {code_file.name} due to shutdown request")
             return
-        
+
         # Acquire file lock if enabled
         if hasattr(self, 'lock_manager'):
             lock = self.lock_manager.acquire_lock(code_file)
             if not lock:
                 logging.warning(f"Could not acquire lock for {code_file.name}, skipping")
                 return
-        
+
         try:
             # Set current file for graceful shutdown
             if hasattr(self, 'shutdown_handler'):
                 self.shutdown_handler.set_current_file(code_file)
-            
+
             logging.info(f"Processing {code_file.relative_to(self.repo_root)}...")
             max_iterations = 1
             iteration = 0
@@ -4170,20 +4173,20 @@ def test_placeholder():
                 logging.info(f"Reached maximum iterations ({max_iterations}) for {code_file.name}")
             logging.info(f"Completed processing {code_file.name} in {iteration} iterations")
             self._commit_and_push(code_file)
-            
+
             # Mark as processed for incremental processing
             if hasattr(self, 'incremental_processor'):
                 self.incremental_processor.mark_processed(code_file)
-            
+
             # Mark completed for graceful shutdown
             if hasattr(self, 'shutdown_handler'):
                 self.shutdown_handler.mark_completed(code_file)
-                
+
         finally:
             # Release file lock
             if hasattr(self, 'lock_manager'):
                 self.lock_manager.release_lock(code_file)
-            
+
             # Clear current file
             if hasattr(self, 'shutdown_handler'):
                 self.shutdown_handler.set_current_file(None)
@@ -4191,74 +4194,74 @@ def test_placeholder():
     # =========================================================================
     # Plugin System Methods
     # =========================================================================
-    
+
     def register_plugin(self, plugin: AgentPluginBase) -> None:
         """Register a custom agent plugin.
-        
+
         Allows third-party agents to be added without modifying core code.
         Plugins are called during file processing after built-in agents.
-        
+
         Args:
             plugin: Plugin instance implementing AgentPluginBase.
-            
+
         Example:
             class MyPlugin(AgentPluginBase):
                 def run(self, file_path, context):
                     # Custom processing
                     return True
-            
+
             agent.register_plugin(MyPlugin("custom"))
         """
         if not hasattr(self, 'plugins'):
             self.plugins: Dict[str, AgentPluginBase] = {}
-        
+
         plugin.setup()
         self.plugins[plugin.name] = plugin
         logging.info(f"Registered plugin: {plugin.name} (priority: {plugin.priority.name})")
-    
+
     def unregister_plugin(self, plugin_name: str) -> bool:
         """Unregister a plugin by name.
-        
+
         Args:
             plugin_name: Name of plugin to remove.
-            
+
         Returns:
             bool: True if plugin was removed, False if not found.
         """
         if not hasattr(self, 'plugins') or plugin_name not in self.plugins:
             return False
-        
+
         plugin = self.plugins[plugin_name]
         plugin.teardown()
         del self.plugins[plugin_name]
         logging.info(f"Unregistered plugin: {plugin_name}")
         return True
-    
+
     def get_plugin(self, plugin_name: str) -> Optional[AgentPluginBase]:
         """Get a registered plugin by name.
-        
+
         Args:
             plugin_name: Name of plugin to retrieve.
-            
+
         Returns:
             Plugin instance or None if not found.
         """
         if not hasattr(self, 'plugins'):
             return None
         return self.plugins.get(plugin_name)
-    
+
     def run_plugins(self, file_path: Path) -> Dict[str, bool]:
         """Run all registered plugins on a file.
-        
+
         Args:
             file_path: Path to file to process.
-            
+
         Returns:
             Dict mapping plugin name to success status.
         """
         if not hasattr(self, 'plugins') or not self.plugins:
             return {}
-        
+
         results = {}
         context = {
             'agent': self,
@@ -4266,45 +4269,45 @@ def test_placeholder():
             'dry_run': self.dry_run,
             'metrics': self.metrics
         }
-        
+
         # Sort plugins by priority
         sorted_plugins = sorted(
             self.plugins.values(),
             key=lambda p: p.priority.value
         )
-        
+
         for plugin in sorted_plugins:
             if not plugin.config.get('enabled', True):
                 continue
-            
+
             try:
                 # Apply rate limiting if configured
                 if hasattr(self, 'rate_limiter'):
                     self.rate_limiter.acquire(timeout=30.0)
-                
+
                 result = plugin.run(file_path, context)
                 results[plugin.name] = result
-                
+
                 if result:
                     self.metrics['agents_applied'][plugin.name] = \
                         self.metrics['agents_applied'].get(plugin.name, 0) + 1
-                
+
             except Exception as e:
                 logging.error(f"Plugin {plugin.name} failed: {e}")
                 results[plugin.name] = False
-        
+
         return results
-    
+
     def load_plugins_from_config(self, plugin_configs: List[AgentPluginConfig]) -> None:
         """Load plugins from configuration.
-        
+
         Args:
             plugin_configs: List of plugin configurations.
         """
         for config in plugin_configs:
             if not config.enabled:
                 continue
-            
+
             try:
                 # Import plugin module
                 spec = importlib.util.spec_from_file_location(
@@ -4313,7 +4316,7 @@ def test_placeholder():
                 if spec and spec.loader:
                     module = importlib.util.module_from_spec(spec)
                     spec.loader.exec_module(module)
-                    
+
                     # Get entry point
                     plugin_class = getattr(module, config.entry_point, None)
                     if plugin_class and issubclass(plugin_class, AgentPluginBase):
@@ -4331,13 +4334,13 @@ def test_placeholder():
     # =========================================================================
     # Rate Limiting Methods
     # =========================================================================
-    
+
     def enable_rate_limiting(self, config: Optional[RateLimitConfig] = None) -> None:
         """Enable rate limiting for API calls.
-        
+
         Args:
             config: Rate limiting configuration. Uses defaults if not provided.
-            
+
         Example:
             agent.enable_rate_limiting(RateLimitConfig(
                 requests_per_second=5.0,
@@ -4346,10 +4349,10 @@ def test_placeholder():
         """
         self.rate_limiter = RateLimiter(config)
         logging.info(f"Rate limiting enabled: {config or 'default settings'}")
-    
+
     def get_rate_limit_stats(self) -> Dict[str, Any]:
         """Get current rate limiter statistics.
-        
+
         Returns:
             Dict with rate limiter stats.
         """
@@ -4360,13 +4363,13 @@ def test_placeholder():
     # =========================================================================
     # File Locking Methods
     # =========================================================================
-    
+
     def enable_file_locking(self, lock_timeout: float = 300.0) -> None:
         """Enable file locking for concurrent modification prevention.
-        
+
         Args:
             lock_timeout: Default lock timeout in seconds.
-            
+
         Example:
             agent.enable_file_locking(lock_timeout=600.0)
         """
@@ -4376,44 +4379,44 @@ def test_placeholder():
     # =========================================================================
     # Diff Preview Methods
     # =========================================================================
-    
+
     def enable_diff_preview(self, output_format: DiffOutputFormat = DiffOutputFormat.UNIFIED) -> None:
         """Enable diff preview mode.
-        
+
         Args:
             output_format: Output format for diffs.
-            
+
         Example:
             agent.enable_diff_preview(DiffOutputFormat.HTML)
         """
         self.diff_generator = DiffGenerator(output_format)
         logging.info(f"Diff preview enabled (format: {output_format.name})")
-    
+
     def preview_changes(self, file_path: Path, new_content: str) -> DiffResult:
         """Preview changes to a file without applying them.
-        
+
         Args:
             file_path: Path to the file.
             new_content: Proposed new content.
-            
+
         Returns:
             DiffResult with change information.
         """
         if not hasattr(self, 'diff_generator'):
             self.diff_generator = DiffGenerator()
-        
+
         original = file_path.read_text() if file_path.exists() else ""
         return self.diff_generator.generate_diff(file_path, original, new_content)
-    
+
     def show_pending_diffs(self) -> None:
         """Show all pending diffs for dry-run mode."""
         if not hasattr(self, 'pending_diffs'):
             self.pending_diffs: List[DiffResult] = []
-        
+
         if not self.pending_diffs:
             print("No pending changes.")
             return
-        
+
         print(f"\n=== Pending Changes ({len(self.pending_diffs)} files) ===\n")
         for diff in self.pending_diffs:
             print(f"--- {diff.file_path} ---")
@@ -4425,13 +4428,13 @@ def test_placeholder():
     # =========================================================================
     # Incremental Processing Methods
     # =========================================================================
-    
+
     def enable_incremental_processing(self) -> None:
         """Enable incremental processing (only changed files).
-        
+
         Tracks file modification times and hashes to skip unchanged files.
         State is persisted to disk for resume across runs.
-        
+
         Example:
             agent.enable_incremental_processing()
             files = agent.find_code_files()  # All files
@@ -4439,20 +4442,20 @@ def test_placeholder():
         """
         self.incremental_processor = IncrementalProcessor(self.repo_root)
         logging.info("Incremental processing enabled")
-    
+
     def get_changed_files(self, files: List[Path]) -> List[Path]:
         """Get files that changed since last run.
-        
+
         Args:
             files: List of all files to check.
-            
+
         Returns:
             List of files that have changed.
         """
         if hasattr(self, 'incremental_processor'):
             return self.incremental_processor.get_changed_files(files)
         return files
-    
+
     def reset_incremental_state(self) -> None:
         """Reset incremental processing state (force full reprocessing)."""
         if hasattr(self, 'incremental_processor'):
@@ -4461,13 +4464,13 @@ def test_placeholder():
     # =========================================================================
     # Graceful Shutdown Methods
     # =========================================================================
-    
+
     def enable_graceful_shutdown(self) -> None:
         """Enable graceful shutdown with state persistence.
-        
+
         Installs signal handlers to allow current operation to complete
         and saves state for resume.
-        
+
         Example:
             agent.enable_graceful_shutdown()
             agent.run()  # Can be interrupted with Ctrl+C
@@ -4475,16 +4478,16 @@ def test_placeholder():
         self.shutdown_handler = GracefulShutdown(self.repo_root)
         self.shutdown_handler.install_handlers()
         logging.info("Graceful shutdown enabled")
-    
+
     def resume_from_shutdown(self) -> Optional[List[Path]]:
         """Resume processing from interrupted state.
-        
+
         Returns:
             List of pending files to process, or None if no resume state.
         """
         if not hasattr(self, 'shutdown_handler'):
             self.shutdown_handler = GracefulShutdown(self.repo_root)
-        
+
         state = self.shutdown_handler.load_resume_state()
         if state and state.pending_files:
             return [Path(f) for f in state.pending_files]
@@ -4493,13 +4496,13 @@ def test_placeholder():
     # =========================================================================
     # Health Check Methods
     # =========================================================================
-    
+
     def run_health_checks(self) -> Dict[str, AgentHealthCheck]:
         """Run health checks on all agent components.
-        
+
         Returns:
             Dict of component name to health check result.
-            
+
         Example:
             results = agent.run_health_checks()
             if all(r.status == HealthStatus.HEALTHY for r in results.values()):
@@ -4507,16 +4510,16 @@ def test_placeholder():
         """
         checker = HealthChecker(self.repo_root)
         return checker.run_all_checks()
-    
+
     def is_healthy(self) -> bool:
         """Check if all components are healthy.
-        
+
         Returns:
             bool: True if all healthy, False otherwise.
         """
         results = self.run_health_checks()
         return all(r.status == HealthStatus.HEALTHY for r in results.values())
-    
+
     def print_health_report(self) -> None:
         """Print a health check report."""
         checker = HealthChecker(self.repo_root)
@@ -4526,24 +4529,24 @@ def test_placeholder():
     # =========================================================================
     # Configuration File Methods
     # =========================================================================
-    
+
     @classmethod
     def from_config_file(cls, config_path: Path) -> "Agent":
         """Create an Agent instance from a configuration file.
-        
+
         Args:
             config_path: Path to YAML/TOML/JSON config file.
-            
+
         Returns:
             Configured Agent instance.
-            
+
         Example:
             agent = Agent.from_config_file(Path("agent.yaml"))
             agent.run()
         """
         loader = ConfigLoader(config_path)
         config = loader.load()
-        
+
         agent = cls(
             repo_root=config.repo_root,
             agents_only=config.agents_only,
@@ -4554,34 +4557,34 @@ def test_placeholder():
             selective_agents=config.selective_agents or None,
             timeout_per_agent=config.timeout_per_agent or None
         )
-        
+
         # Apply rate limiting if configured
         if config.rate_limit:
             agent.enable_rate_limiting(config.rate_limit)
-        
+
         # Load plugins if configured
         if config.plugins:
             agent.load_plugins_from_config(config.plugins)
-        
+
         return agent
-    
+
     @classmethod
     def auto_configure(cls, repo_root: str = ".") -> "Agent":
         """Auto-configure agent from config file if found.
-        
+
         Args:
             repo_root: Repository root directory.
-            
+
         Returns:
             Configured Agent instance.
-            
+
         Example:
             agent = Agent.auto_configure()  # Looks for agent.yaml etc.
             agent.run()
         """
         root = Path(repo_root).resolve()
         config_path = ConfigLoader.find_config_file(root)
-        
+
         if config_path:
             return cls.from_config_file(config_path)
         else:
@@ -4589,7 +4592,7 @@ def test_placeholder():
 
     def run(self) -> None:
         """Run the main agent loop.
-        
+
         Executes the main agent loop, processing all code files found.
         Uses parallel execution if enabled, otherwise sequential processing.
         Triggers webhooks and callbacks on completion.
@@ -4608,7 +4611,7 @@ def test_placeholder():
             # Final stats update
             logging.info("Final stats:")
             self.run_stats_update(code_files)
-            
+
             # Trigger completion events
             self.execute_callbacks('agent_complete', self.metrics)
             self.send_webhook_notification('agent_complete', self.metrics)
@@ -4662,18 +4665,18 @@ def main() -> None:
                         help='Resume from previous interrupted run')
     parser.add_argument('--diff-preview', action='store_true',
                         help='Show diffs before applying changes (requires --dry-run)')
-    
+
     args = parser.parse_args()
     setup_logging(args.verbose)
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
-    
+
     # Health check mode
     if args.health_check:
         checker = HealthChecker(Path(args.dir).resolve())
         checker.run_all_checks()
         checker.print_report()
         sys.exit(0 if checker.is_healthy() else 1)
-    
+
     # Load from config file if provided
     if args.config:
         agent = Agent.from_config_file(Path(args.config))
@@ -4683,7 +4686,7 @@ def main() -> None:
         if args.only_agents:
             selective_agents = [a.strip() for a in args.only_agents.split(',')]
             logging.info(f"Running with selective agents: {selective_agents}")
-        
+
         agent = Agent(
             repo_root=args.dir,
             agents_only=args.agents_only,
@@ -4698,50 +4701,50 @@ def main() -> None:
             enable_multiprocessing=args.enable_multiprocessing,
             max_workers=args.workers
         )
-    
+
     # Register webhooks if provided
     if args.webhook:
         for webhook_url in args.webhook:
             agent.register_webhook(webhook_url)
-    
+
     # Enable rate limiting if provided
     if args.rate_limit:
         agent.enable_rate_limiting(RateLimitConfig(
             requests_per_second=args.rate_limit
         ))
-    
+
     # Enable file locking if requested
     if args.enable_file_locking:
         agent.enable_file_locking()
-    
+
     # Enable incremental processing if requested
     if args.incremental:
         agent.enable_incremental_processing()
-    
+
     # Enable graceful shutdown if requested
     if args.graceful_shutdown:
         agent.enable_graceful_shutdown()
-    
+
     # Enable diff preview if requested
     if args.diff_preview:
         agent.enable_diff_preview()
-    
+
     # Resume from previous run if requested
     if args.resume:
         pending_files = agent.resume_from_shutdown()
         if pending_files:
             logging.info(f"Resuming with {len(pending_files)} pending files")
-    
+
     try:
         agent.run()
     finally:
         # Always print metrics summary
         agent.print_metrics_summary()
-        
+
         # Cleanup graceful shutdown state on successful completion
         if hasattr(agent, 'shutdown_handler'):
             agent.shutdown_handler.cleanup()
-        
+
         # Save incremental processing state
         if hasattr(agent, 'incremental_processor'):
             agent.incremental_processor.complete_run()

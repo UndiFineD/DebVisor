@@ -274,7 +274,7 @@ class StatsAgent:
         self.files = [Path(f) for f in files]
         self.stats: Dict[str, Any] = {}
         self._validate_files()
-        
+
         # New features
         self._metrics: Dict[str, List[Metric]] = {}
         self._custom_metrics: Dict[str, Callable[[], float]] = {}
@@ -288,13 +288,13 @@ class StatsAgent:
         """Validate input files."""
         if not self.files:
             raise ValueError("No files provided")
-        
+
         invalid = [f for f in self.files if not f.exists()]
         if invalid:
             logging.warning(f"Files not found: {', '.join(map(str, invalid))}")
             # Filter out invalid files
             self.files = [f for f in self.files if f.exists()]
-            
+
         if not self.files:
             raise ValueError("No valid files found after filtering")
 
@@ -336,14 +336,14 @@ class StatsAgent:
             namespace=namespace,
             tags=tags or {}
         )
-        
+
         if name not in self._metrics:
             self._metrics[name] = []
         self._metrics[name].append(metric)
-        
+
         # Check thresholds
         self._check_thresholds(metric)
-        
+
         return metric
 
     def get_metric_history(
@@ -367,20 +367,20 @@ class StatsAgent:
         history = self._metrics.get(metric_name, [])
         if len(history) < 10:
             return False, 0.0
-        
+
         values = [m.value for m in history]
         mean = sum(values) / len(values)
         variance = sum((x - mean) ** 2 for x in values) / len(values)
         std = math.sqrt(variance) if variance > 0 else 0.001
-        
+
         z_score = abs(value - mean) / std
         is_anomaly = z_score > threshold_std
-        
+
         # Track anomaly scores
         if metric_name not in self._anomaly_scores:
             self._anomaly_scores[metric_name] = []
         self._anomaly_scores[metric_name].append(z_score)
-        
+
         return is_anomaly, z_score
 
     def get_anomaly_scores(self, metric_name: str) -> List[float]:
@@ -419,7 +419,7 @@ class StatsAgent:
         for threshold in self._thresholds:
             if threshold.metric_name != metric.name:
                 continue
-            
+
             breached = False
             if threshold.operator == ">" and metric.value > threshold.value:
                 breached = True
@@ -431,7 +431,7 @@ class StatsAgent:
                 breached = True
             elif threshold.operator == "==" and metric.value == threshold.value:
                 breached = True
-            
+
             if breached:
                 self._create_alert(metric, threshold)
 
@@ -476,9 +476,9 @@ class StatsAgent:
         """Create a snapshot of current metrics."""
         current_stats = self.calculate_stats()
         custom = self.collect_custom_metrics()
-        
+
         metrics = {**current_stats, **custom}
-        
+
         snapshot = MetricSnapshot(
             id=hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:8],
             timestamp=datetime.now().isoformat(),
@@ -500,13 +500,13 @@ class StatsAgent:
         """Compare two snapshots."""
         s1 = next((s for s in self._snapshots if s.id == snapshot1_id), None)
         s2 = next((s for s in self._snapshots if s.id == snapshot2_id), None)
-        
+
         if not s1 or not s2:
             return {}
-        
+
         comparison = {}
         all_keys = set(s1.metrics.keys()) | set(s2.metrics.keys())
-        
+
         for key in all_keys:
             v1 = s1.metrics.get(key, 0)
             v2 = s2.metrics.get(key, 0)
@@ -516,7 +516,7 @@ class StatsAgent:
                 "difference": v2 - v1,
                 "percentage_change": ((v2 - v1) / v1 * 100) if v1 != 0 else 0
             }
-        
+
         return comparison
 
     # ========== Retention Policies ==========
@@ -542,15 +542,15 @@ class StatsAgent:
         """Apply retention policies and return count of removed items."""
         removed = 0
         now = datetime.now()
-        
+
         for metric_name, metrics in list(self._metrics.items()):
             # Get namespace from first metric
             namespace = metrics[0].namespace if metrics else "default"
             policy = self._retention_policies.get(namespace)
-            
+
             if not policy:
                 continue
-            
+
             # Remove old metrics
             cutoff = now - timedelta(days=policy.max_age_days)
             original_count = len(metrics)
@@ -559,11 +559,11 @@ class StatsAgent:
                 if datetime.fromisoformat(m.timestamp) > cutoff
             ]
             removed += original_count - len(self._metrics[metric_name])
-            
+
             # Apply max points limit
             if policy.max_points > 0 and len(self._metrics[metric_name]) > policy.max_points:
                 self._metrics[metric_name] = self._metrics[metric_name][-policy.max_points:]
-        
+
         return removed
 
     # ========== Forecasting ==========
@@ -577,23 +577,23 @@ class StatsAgent:
         history = self._metrics.get(metric_name, [])
         if len(history) < 3:
             return []
-        
+
         values = [m.value for m in history]
         n = len(values)
-        
+
         # Simple linear regression
         x_mean = (n - 1) / 2
         y_mean = sum(values) / n
-        
+
         numerator = sum((i - x_mean) * (values[i] - y_mean) for i in range(n))
         denominator = sum((i - x_mean) ** 2 for i in range(n))
-        
+
         if denominator == 0:
             return [y_mean] * periods
-        
+
         slope = numerator / denominator
         intercept = y_mean - slope * x_mean
-        
+
         # Forecast future values
         return [slope * (n + i) + intercept for i in range(periods)]
 
@@ -604,13 +604,13 @@ class StatsAgent:
         history = self._metrics.get(metric_name, [])
         if not history:
             return b''
-        
+
         data = json.dumps([{
             "value": m.value,
             "timestamp": m.timestamp,
             "tags": m.tags
         } for m in history])
-        
+
         return zlib.compress(data.encode())
 
     def decompress_metrics(
@@ -623,7 +623,7 @@ class StatsAgent:
         """Decompress metric data."""
         if not compressed:
             return []
-        
+
         data = json.loads(zlib.decompress(compressed).decode())
         return [
             Metric(
@@ -710,7 +710,7 @@ class StatsAgent:
         if not HAS_MATPLOTLIB:
             logging.warning("matplotlib not available for visualization")
             return
-        
+
         labels = list(self.stats.keys())
         values = list(self.stats.values())
         plt.bar(labels, values, color='skyblue')
@@ -2131,7 +2131,7 @@ def main() -> None:
     parser.add_argument('--baseline', help='Path to baseline stats for comparison')
     parser.add_argument('--verbose', default='normal', help='Verbosity level')
     args = parser.parse_args()
-    
+
     # Setup logging
     levels = {
         'quiet': logging.ERROR,

@@ -24,7 +24,7 @@ class TestReportGeneration(unittest.TestCase):
             "timestamp": datetime.now().isoformat(),
             "version": "1.0",
         }
-        
+
         assert report["title"] == "Test Report"
         assert report["version"] == "1.0"
 
@@ -38,7 +38,7 @@ class TestReportGeneration(unittest.TestCase):
                 "recommendations": "Recommendations content",
             },
         }
-        
+
         assert len(report["sections"]) == 3
         assert "summary" in report["sections"]
 
@@ -52,7 +52,7 @@ class TestReportGeneration(unittest.TestCase):
                 "tags": ["important", "analysis"],
             },
         }
-        
+
         assert report["metadata"]["author"] == "Agent"
         assert "important" in report["metadata"]["tags"]
 
@@ -66,7 +66,7 @@ class TestReportGeneration(unittest.TestCase):
                 "errors": 5,
             },
         }
-        
+
         assert report["data"]["total_items"] == 100
         assert report["data"]["processed"] + report["data"]["errors"] == 100
 
@@ -78,7 +78,7 @@ class TestMarkdownReportFormatting(unittest.TestCase):
         """Test formatting markdown header."""
         title = "Report Title"
         markdown = f"# {title}\n\n"
-        
+
         assert "# " in markdown
         assert title in markdown
 
@@ -93,7 +93,7 @@ Content 1
 ## Section 2
 Content 2
 """
-        
+
         assert "##" in markdown
         assert "Section 1" in markdown
         assert "Section 2" in markdown
@@ -104,11 +104,11 @@ Content 2
             {"name": "Item 1", "count": 10},
             {"name": "Item 2", "count": 20},
         ]
-        
+
         markdown = "| Name | Count |\n|---|---|\n"
         for row in data:
             markdown += f"| {row['name']} | {row['count']} |\n"
-        
+
         assert "| Name | Count |" in markdown
         assert "| Item 1 | 10 |" in markdown
 
@@ -118,14 +118,14 @@ Content 2
         markdown = ""
         for item in items:
             markdown += f"- {item}\n"
-        
+
         assert markdown.count("-") == 3
 
     def test_format_markdown_code_block(self):
         """Test formatting markdown code block."""
         code = "def hello():\n    print('Hello')"
         markdown = f"```python\n{code}\n```"
-        
+
         assert "```python" in markdown
         assert code in markdown
 
@@ -144,7 +144,7 @@ class TestHTMLReportFormatting(unittest.TestCase):
 </body>
 </html>
 """
-        
+
         assert "<html>" in html
         assert "<h1>" in html
 
@@ -156,7 +156,7 @@ class TestHTMLReportFormatting(unittest.TestCase):
 <tr><td>Data 1</td><td>Data 2</td></tr>
 </table>
 """
-        
+
         assert "<table>" in html
         assert "<th>" in html
         assert "<td>" in html
@@ -176,7 +176,7 @@ p { font-size: 14px; }
 </body>
 </html>
 """
-        
+
         assert "<style>" in html
         assert "color: blue" in html
 
@@ -192,7 +192,7 @@ Content
 </body>
 </html>
 """
-        
+
         assert 'viewport' in html
         assert 'width=device-width' in html
 
@@ -207,10 +207,10 @@ class TestJSONReportFormatting(unittest.TestCase):
             "timestamp": "2025-12-16",
             "items": [1, 2, 3],
         }
-        
+
         json_str = json.dumps(data)
         restored = json.loads(json_str)
-        
+
         assert restored["title"] == "Report"
 
     def test_format_json_nested(self):
@@ -224,7 +224,7 @@ class TestJSONReportFormatting(unittest.TestCase):
                 },
             },
         }
-        
+
         json_str = json.dumps(data)
         assert '"report"' in json_str
 
@@ -236,19 +236,19 @@ class TestJSONReportFormatting(unittest.TestCase):
                 {"id": 2, "name": "Item 2"},
             ],
         }
-        
+
         json_str = json.dumps(data)
         restored = json.loads(json_str)
-        
+
         assert len(restored["items"]) == 2
 
     def test_format_json_pretty_print(self):
         """Test JSON pretty printing."""
         data = {"key": "value"}
-        
+
         pretty_json = json.dumps(data, indent=2)
         compact_json = json.dumps(data)
-        
+
         assert len(pretty_json) > len(compact_json)
 
 
@@ -262,11 +262,11 @@ class TestCSVReportFormatting(unittest.TestCase):
             ["Item 1", "10", "Done"],
             ["Item 2", "20", "Pending"],
         ]
-        
+
         csv_lines = [",".join(headers)]
         for row in rows:
             csv_lines.append(",".join(row))
-        
+
         csv_content = "\n".join(csv_lines)
         assert "Name,Count,Status" in csv_content
 
@@ -275,15 +275,15 @@ class TestCSVReportFormatting(unittest.TestCase):
         data = [
             ['Item "A"', 'Value "B"'],
         ]
-        
-        csv_line = ','.join([f'"{item}"' for item in data[0]])
+
+        csv_line = ','.join(['"{item}"' for item in data[0]])
         assert '"Item \\"A\\""' in csv_line or '"Item' in csv_line
 
     def test_format_csv_escaping(self):
         """Test CSV escaping."""
         value = 'Text with, comma'
-        escaped = f'"{value}"'
-        
+        escaped = '"{value}"'
+
         assert escaped == '"Text with, comma"'
 
     def test_format_csv_header_footer(self):
@@ -292,7 +292,7 @@ class TestCSVReportFormatting(unittest.TestCase):
         csv += "Name,Value\n"
         csv += "Item 1,100\n"
         csv += "# Total: 1 item"
-        
+
         assert csv.startswith("#")
         assert "Name,Value" in csv
 
@@ -303,39 +303,39 @@ class TestReportTemplates(unittest.TestCase):
     def test_template_substitution(self):
         """Test template substitution."""
         template = "Report for {project} generated on {date}"
-        
+
         report = template.format(project="MyApp", date="2025-12-16")
         assert report == "Report for MyApp generated on 2025-12-16"
 
     def test_template_with_conditionals(self):
         """Test template with conditionals."""
         data = {"has_errors": True, "errors": 5}
-        
+
         if data["has_errors"]:
             message = f"Found {data['errors']} errors"
         else:
             message = "No errors"
-        
+
         assert "Found 5 errors" in message
 
     def test_template_with_loops(self):
         """Test template with loops."""
         items = ["Item 1", "Item 2", "Item 3"]
-        
+
         content = "Items:\n"
         for item in items:
             content += f"  - {item}\n"
-        
+
         assert "- Item 1" in content
         assert content.count("-") == 3
 
     def test_template_inheritance(self):
         """Test template inheritance."""
         base_template = "### {title}\n{content}"
-        
+
         title = "Section"
         content = "Details"
-        
+
         result = base_template.format(title=title, content=content)
         assert "### Section" in result
 
@@ -346,28 +346,28 @@ class TestMetricsCollection(unittest.TestCase):
     def test_collect_count_metrics(self):
         """Test collecting count metrics."""
         items = [1, 2, 3, 4, 5]
-        
+
         metrics = {
             "total_items": len(items),
             "sum": sum(items),
             "average": sum(items) / len(items),
         }
-        
+
         assert metrics["total_items"] == 5
         assert metrics["average"] == 3.0
 
     def test_collect_time_metrics(self):
         """Test collecting time metrics."""
         from datetime import datetime, timedelta
-        
+
         start = datetime.now()
         # Simulate work
         import time
         time.sleep(0.01)
         end = datetime.now()
-        
+
         elapsed = (end - start).total_seconds()
-        
+
         assert elapsed > 0
 
     def test_collect_status_metrics(self):
@@ -377,12 +377,12 @@ class TestMetricsCollection(unittest.TestCase):
             {"status": "success"},
             {"status": "failed"},
         ]
-        
+
         metrics = {
             "success": sum(1 for i in items if i["status"] == "success"),
             "failed": sum(1 for i in items if i["status"] == "failed"),
         }
-        
+
         assert metrics["success"] == 2
         assert metrics["failed"] == 1
 
@@ -394,7 +394,7 @@ class TestMetricsCollection(unittest.TestCase):
             "error_rate": 5 / 1000,
             "success_rate": 995 / 1000,
         }
-        
+
         assert metrics["error_rate"] == 0.005
         assert metrics["success_rate"] == 0.995
 
@@ -407,11 +407,11 @@ class TestReportExport(unittest.TestCase):
         with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f:
             f.write("Report content")
             temp_file = f.name
-        
+
         try:
             with open(temp_file, 'r') as f:
                 content = f.read()
-            
+
             assert content == "Report content"
         finally:
             os.unlink(temp_file)
@@ -419,11 +419,11 @@ class TestReportExport(unittest.TestCase):
     def test_export_markdown_file(self):
         """Test exporting markdown file."""
         content = "# Title\n\nContent"
-        
+
         with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.md') as f:
             f.write(content)
             filename = f.name
-        
+
         try:
             assert os.path.exists(filename)
         finally:
@@ -432,15 +432,15 @@ class TestReportExport(unittest.TestCase):
     def test_export_json_file(self):
         """Test exporting JSON file."""
         data = {"title": "Report", "items": [1, 2, 3]}
-        
+
         with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json') as f:
             json.dump(data, f)
             filename = f.name
-        
+
         try:
             with open(filename, 'r') as f:
                 restored = json.load(f)
-            
+
             assert restored["title"] == "Report"
         finally:
             os.unlink(filename)
@@ -449,14 +449,14 @@ class TestReportExport(unittest.TestCase):
         """Test exporting to multiple formats."""
         data = {"title": "Report", "content": "Data"}
         formats = ["md", "json", "csv"]
-        
+
         exported = {}
         for fmt in formats:
             if fmt == "json":
                 exported[fmt] = json.dumps(data)
             else:
                 exported[fmt] = str(data)
-        
+
         assert len(exported) == 3
 
 
@@ -470,12 +470,12 @@ class TestReportAggregation(unittest.TestCase):
             {"name": "Report 2", "items": 20},
             {"name": "Report 3", "items": 15},
         ]
-        
+
         aggregated = {
             "total_reports": len(reports),
             "total_items": sum(r["items"] for r in reports),
         }
-        
+
         assert aggregated["total_reports"] == 3
         assert aggregated["total_items"] == 45
 
@@ -486,20 +486,20 @@ class TestReportAggregation(unittest.TestCase):
             {"type": "A", "value": 20},
             {"type": "B", "value": 15},
         ]
-        
+
         grouped = {}
         for item in items:
             if item["type"] not in grouped:
                 grouped[item["type"]] = []
             grouped[item["type"]].append(item["value"])
-        
+
         assert len(grouped["A"]) == 2
         assert grouped["B"] == [15]
 
     def test_aggregate_with_statistics(self):
         """Test aggregating with statistics."""
         values = [10, 20, 30, 40, 50]
-        
+
         stats = {
             "count": len(values),
             "sum": sum(values),
@@ -507,7 +507,7 @@ class TestReportAggregation(unittest.TestCase):
             "min": min(values),
             "max": max(values),
         }
-        
+
         assert stats["count"] == 5
         assert stats["mean"] == 30
         assert stats["min"] == 10
@@ -522,10 +522,10 @@ class TestReportValidation(unittest.TestCase):
             "title": "Report",
             "timestamp": "2025-12-16",
         }
-        
+
         required = ["title", "timestamp"]
         valid = all(field in report for field in required)
-        
+
         assert valid
 
     def test_validate_report_structure(self):
@@ -535,7 +535,7 @@ class TestReportValidation(unittest.TestCase):
             "sections": {},
             "data": {},
         }
-        
+
         structure_valid = all(k in report for k in ["metadata", "sections", "data"])
         assert structure_valid
 
@@ -546,7 +546,7 @@ class TestReportValidation(unittest.TestCase):
             "items": [1, 2, 3],
             "count": 3,
         }
-        
+
         assert isinstance(report["title"], str)
         assert isinstance(report["items"], list)
         assert isinstance(report["count"], int)
@@ -557,7 +557,7 @@ class TestReportValidation(unittest.TestCase):
             "items": [1, 2, 3, 4, 5],
             "count": 5,
         }
-        
+
         consistent = len(report["items"]) == report["count"]
         assert consistent
 
@@ -573,18 +573,18 @@ class TestReportIntegration(unittest.TestCase):
             "success": 95,
             "failed": 5,
         }
-        
+
         # Generate report
         report = {
             "title": "Test Report",
             "data": data,
             "timestamp": datetime.now().isoformat(),
         }
-        
+
         # Validate
         assert report["title"] == "Test Report"
         assert report["data"]["total"] == 100
-        
+
         # Export
         json_export = json.dumps(report)
         assert len(json_export) > 0
@@ -592,17 +592,17 @@ class TestReportIntegration(unittest.TestCase):
     def test_multi_format_export_workflow(self):
         """Test multi-format export workflow."""
         content = "# Report\n\nContent"
-        
+
         # Export as markdown
         with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as f:
             f.write(content)
             md_file = f.name
-        
+
         # Export as txt
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
             f.write(content)
             txt_file = f.name
-        
+
         try:
             assert os.path.exists(md_file)
             assert os.path.exists(txt_file)
@@ -613,7 +613,7 @@ class TestReportIntegration(unittest.TestCase):
     def test_batch_report_generation(self):
         """Test batch report generation."""
         reports = []
-        
+
         for i in range(5):
             report = {
                 "id": i,
@@ -621,7 +621,7 @@ class TestReportIntegration(unittest.TestCase):
                 "data": {"count": i * 10},
             }
             reports.append(report)
-        
+
         assert len(reports) == 5
         assert reports[0]["id"] == 0
         assert reports[4]["data"]["count"] == 40

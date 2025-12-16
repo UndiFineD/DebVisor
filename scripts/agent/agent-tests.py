@@ -1888,7 +1888,7 @@ class TestScheduler:
 
 class TestsAgent(BaseAgent):
     """Updates code file test suites using AI assistance.
-    
+
     Invariants:
     - self.file_path must point to a test file (usually starting with 'test_').
     - The agent attempts to locate the corresponding source file to provide context.
@@ -1896,13 +1896,13 @@ class TestsAgent(BaseAgent):
 
     def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
-        
+
         # Test management
         self._tests: List[TestCase] = []
         self._test_runs: List[TestRun] = []
         self._coverage_gaps: List[CoverageGap] = []
         self._factories: Dict[str, TestFactory] = {}
-        
+
         # Configuration
         self._flakiness_threshold: float = 0.1  # 10% failure rate = flaky
         self._parallel_enabled: bool = False
@@ -1966,19 +1966,19 @@ class TestsAgent(BaseAgent):
     def calculate_priority_score(self, test: TestCase) -> float:
         """Calculate a priority score for a test."""
         score = test.priority.value * 20
-        
+
         # Boost score for tests that fail often
         if test.run_count > 0:
             failure_rate = test.failure_count / test.run_count
             score += failure_rate * 30
-        
+
         # Boost score for faster tests (they're cheaper to run)
         if test.duration_ms > 0 and test.duration_ms < 100:
             score += 10
-        
+
         # Reduce score for flaky tests
         score -= test.flakiness_score * 20
-        
+
         return max(0, min(100, score))
 
     def get_critical_tests(self) -> List[TestCase]:
@@ -1991,7 +1991,7 @@ class TestsAgent(BaseAgent):
         """Calculate flakiness score for a test."""
         if test.run_count < 5:
             return 0.0  # Not enough data
-        
+
         failure_rate = test.failure_count / test.run_count
         return failure_rate
 
@@ -2104,12 +2104,12 @@ class TestsAgent(BaseAgent):
         run_id = hashlib.md5(
             f"{datetime.now().isoformat()}:{len(test_results)}".encode()
         ).hexdigest()[:8]
-        
+
         passed = sum(1 for s in test_results.values() if s == TestStatus.PASSED)
         failed = sum(1 for s in test_results.values() if s == TestStatus.FAILED)
         skipped = sum(1 for s in test_results.values() if s == TestStatus.SKIPPED)
         errors = sum(1 for s in test_results.values() if s == TestStatus.ERROR)
-        
+
         run = TestRun(
             id=run_id,
             timestamp=datetime.now().isoformat(),
@@ -2122,7 +2122,7 @@ class TestsAgent(BaseAgent):
             test_results=test_results
         )
         self._test_runs.append(run)
-        
+
         # Update individual test statistics
         for test_name, status in test_results.items():
             test = self.get_test_by_name(test_name)
@@ -2131,7 +2131,7 @@ class TestsAgent(BaseAgent):
                 test.last_run = run.timestamp
                 if status == TestStatus.FAILED:
                     test.failure_count += 1
-        
+
         return run
 
     def get_test_runs(self) -> List[TestRun]:
@@ -2161,18 +2161,18 @@ class TestsAgent(BaseAgent):
         """Group tests for parallel execution."""
         if not self._parallel_enabled:
             return [self._tests]
-        
+
         # Group by dependencies - tests with same deps can't run in parallel
         groups: List[List[TestCase]] = []
         assigned: Set[str] = set()
-        
+
         for test in self._tests:
             if test.id in assigned:
                 continue
-            
+
             group = [test]
             assigned.add(test.id)
-            
+
             # Find other tests that can run with this one
             for other in self._tests:
                 if other.id in assigned:
@@ -2182,9 +2182,9 @@ class TestsAgent(BaseAgent):
                     if len(group) < self._max_parallel:
                         group.append(other)
                         assigned.add(other.id)
-            
+
             groups.append(group)
-        
+
         return groups
 
     # ========== Documentation Generation ==========
@@ -2192,14 +2192,14 @@ class TestsAgent(BaseAgent):
     def generate_test_documentation(self) -> str:
         """Generate documentation for all tests."""
         docs = ["# Test Documentation\n"]
-        
+
         # Summary
         docs.append("## Summary\n")
         docs.append(f"- Total Tests: {len(self._tests)}")
         docs.append(f"- Critical: {len(self.get_tests_by_priority(TestPriority.CRITICAL))}")
         docs.append(f"- Flaky: {len(self.detect_flaky_tests())}")
         docs.append(f"- Coverage Gaps: {len(self._coverage_gaps)}\n")
-        
+
         # Tests by priority
         docs.append("## Tests by Priority\n")
         for priority in TestPriority:
@@ -2210,7 +2210,7 @@ class TestsAgent(BaseAgent):
                     status_icon = "✓" if test.status == TestStatus.PASSED else "✗"
                     docs.append(f"- [{status_icon}] `{test.name}` (line {test.line_number})")
                 docs.append("")
-        
+
         return '\n'.join(docs)
 
     def export_tests(self, format: str = "json") -> str:
@@ -2236,20 +2236,20 @@ class TestsAgent(BaseAgent):
         total = len(self._tests)
         if total == 0:
             return {"total_tests": 0}
-        
+
         by_status = {}
         for status in TestStatus:
             count = len([t for t in self._tests if t.status == status])
             by_status[status.name] = count
-        
+
         by_priority = {}
         for priority in TestPriority:
             count = len([t for t in self._tests if t.priority == priority])
             by_priority[priority.name] = count
-        
+
         avg_duration = sum(t.duration_ms for t in self._tests) / total if total > 0 else 0
         flaky_count = len([t for t in self._tests if t.flakiness_score > self._flakiness_threshold])
-        
+
         return {
             "total_tests": total,
             "by_status": by_status,
@@ -2276,26 +2276,26 @@ class TestsAgent(BaseAgent):
         """Locate source file for test file (test_foo.py -> foo.py)."""
         if not self.file_path.name.startswith('test_'):
             return None
-        
+
         source_name = self.file_path.name[5:]  # Remove test_ prefix
         # Try to find source file in common locations
         # 1. Same directory
         source_path = self.file_path.parent / source_name
         if source_path.exists():
             return source_path
-            
+
         # 2. Parent directory (if tests are in tests/)
         if self.file_path.parent.name == 'tests':
             source_path = self.file_path.parent.parent / source_name
             if source_path.exists():
                 return source_path
-                
+
         # 3. scripts/agent directory (specific to this project structure)
         agent_dir = self.file_path.parent.parent / 'scripts' / 'agent'
         source_path = agent_dir / source_name
         if source_path.exists():
             return source_path
-            
+
         return None
 
     def _validate_syntax(self, content: str) -> bool:
@@ -2312,7 +2312,7 @@ class TestsAgent(BaseAgent):
         try:
             tree = ast.parse(content)
             issues = []
-            
+
             # Check 1: All test functions follow naming convention
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef):
@@ -2333,14 +2333,14 @@ class TestsAgent(BaseAgent):
                                 if isinstance(item.context_expr.func, ast.Attribute):
                                     if item.context_expr.func.attr == 'raises':
                                         has_raises = True
-                
+
                 if not (has_assert or has_raises):
                     issues.append(f"Test '{func.name}' lacks assertions")
-            
+
             if issues:
                 logging.warning(f"Test structure issues: {', '.join(issues)}")
                 # We don't fail validation for this yet, just warn
-            
+
             return True
         except Exception as e:
             logging.warning(f"Failed to validate test structure: {e}")
@@ -2366,7 +2366,7 @@ class TestsAgent(BaseAgent):
                 max_source_chars = 20000
                 if len(source_content) > max_source_chars:
                     source_content = source_content[:max_source_chars] + "\n# ... (truncated)"
-                
+
                 enhanced_prompt = (
                     f"{prompt}\n\n"
                     f"# Source Code being tested ({source_path.name}):\n"
@@ -2383,9 +2383,9 @@ class TestsAgent(BaseAgent):
             logging.error("Generated tests failed syntax validation. Reverting.")
             self.current_content = self.previous_content
             return self.previous_content
-        
+
         logging.debug("Syntax validation passed")
-            
+
         # Validate structure
         self._validate_test_structure(new_content)
 

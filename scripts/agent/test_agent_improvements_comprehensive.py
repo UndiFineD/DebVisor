@@ -27,17 +27,17 @@ def slow_function(items):
         improvements = []
         if "for" in code and code.count("for") > 1:
             improvements.append("Nested loop can be optimized")
-        
+
         assert len(improvements) > 0
 
     def test_detect_style_improvements(self):
         """Test detecting style improvements."""
         violations = []
-        
+
         code_line = "x=1+2"  # No spaces
         if "=" in code_line and " = " not in code_line:
             violations.append("Missing spaces around operator")
-        
+
         assert len(violations) > 0
 
     def test_detect_complexity_improvements(self):
@@ -46,14 +46,14 @@ def slow_function(items):
             # Simplified complexity calculation
             conditions = code.count("if") + code.count("elif") + code.count("for")
             return conditions
-        
+
         code = "if a:\n    if b:\n        if c:\n            pass"
         complexity = calculate_cyclomatic_complexity(code)
-        
+
         improvements = []
         if complexity > 2:  # Changed from > 3 to match actual count of 3
             improvements.append("High cyclomatic complexity")
-        
+
         assert complexity > 2
 
     def test_detect_error_handling_improvements(self):
@@ -67,7 +67,7 @@ def process(data):
         improvements = []
         if "open" in code and "with" not in code:
             improvements.append("Use 'with' statement for file handling")
-        
+
         assert len(improvements) > 0
 
     def test_detect_documentation_improvements(self):
@@ -79,7 +79,7 @@ def complex_function(a, b, c, d, e):
         improvements = []
         if "def" in code and '"""' not in code:
             improvements.append("Missing docstring")
-        
+
         assert len(improvements) > 0
 
 
@@ -90,7 +90,7 @@ class TestImprovementParsing(unittest.TestCase):
         """Test parsing improvement text."""
         improvement_text = "Refactor long method into smaller functions"
         parts = improvement_text.split()
-        
+
         assert parts[0] == "Refactor"
         assert "method" in improvement_text
 
@@ -102,20 +102,20 @@ class TestImprovementParsing(unittest.TestCase):
             "type": "refactoring",
             "estimated_effort": "2 hours",
         }
-        
+
         assert improvement["title"] == "Reduce complexity"
         assert improvement["severity"] == "medium"
 
     def test_parse_improvement_from_linter(self):
         """Test parsing improvement from linter output."""
-        lint_output = "line 5: W291 trailing whitespace"
-        
+
+
         parsed = {
             "line": 5,
             "code": "W291",
             "message": "trailing whitespace",
         }
-        
+
         assert parsed["line"] == 5
         assert "trailing" in parsed["message"]
 
@@ -129,7 +129,7 @@ class TestImprovementParsing(unittest.TestCase):
             "before": "x=1+2",
             "after": "x = 1 + 2",
         }
-        
+
         assert improvement_with_context["file"] == "module.py"
         assert improvement_with_context["before"] != improvement_with_context["after"]
 
@@ -144,7 +144,7 @@ class TestImprovementClassification(unittest.TestCase):
             "Inline variable",
             "Rename function",
         ]
-        
+
         refactoring = [i for i in improvements if any(x in i for x in ["Extract", "Inline", "Rename"])]
         assert len(refactoring) == 3
 
@@ -155,7 +155,7 @@ class TestImprovementClassification(unittest.TestCase):
             "Remove unused import",
             "Fix naming convention",
         ]
-        
+
         style_related = [i for i in improvements if any(x in i for x in ["spaces", "import", "naming"])]
         assert len(style_related) == 3
 
@@ -166,7 +166,7 @@ class TestImprovementClassification(unittest.TestCase):
             "Cache computation",
             "Use list comprehension",
         ]
-        
+
         perf = [i for i in improvements if any(x in i for x in ["Optimize", "Cache", "comprehension"])]
         assert len(perf) == 3
 
@@ -177,7 +177,7 @@ class TestImprovementClassification(unittest.TestCase):
             "Use parameterized queries",
             "Add encryption",
         ]
-        
+
         security = [i for i in improvements if any(x in i for x in ["Validate", "parameterized", "encryption"])]
         assert len(security) == 3
 
@@ -188,7 +188,7 @@ class TestImprovementClassification(unittest.TestCase):
             "Add type hints",
             "Add comments",
         ]
-        
+
         doc = [i for i in improvements if any(x in i for x in ["docstring", "type", "comments"])]
         assert len(doc) == 3
 
@@ -203,10 +203,10 @@ class TestImprovementPriority(unittest.TestCase):
             "issue_b": {"count": 3},
             "issue_c": {"count": 15},
         }
-        
+
         # Sort by frequency
         sorted_improvements = sorted(improvements.items(), key=lambda x: x[1]["count"], reverse=True)
-        
+
         assert sorted_improvements[0][0] == "issue_c"
         assert sorted_improvements[0][1]["count"] == 15
 
@@ -217,10 +217,10 @@ class TestImprovementPriority(unittest.TestCase):
             {"type": "style", "severity": "low"},
             {"type": "perf", "severity": "medium"},
         ]
-        
+
         severity_order = {"critical": 3, "medium": 2, "low": 1}
         sorted_improvements = sorted(improvements, key=lambda x: severity_order[x["severity"]], reverse=True)
-        
+
         assert sorted_improvements[0]["severity"] == "critical"
 
     def test_score_by_impact(self):
@@ -230,9 +230,9 @@ class TestImprovementPriority(unittest.TestCase):
             "large": {"lines_affected": 100},
             "medium": {"lines_affected": 30},
         }
-        
+
         sorted_improvements = sorted(improvements.items(), key=lambda x: x[1]["lines_affected"], reverse=True)
-        
+
         assert sorted_improvements[0][0] == "large"
 
     def test_combined_priority_score(self):
@@ -243,12 +243,12 @@ class TestImprovementPriority(unittest.TestCase):
             score += improvement.get("severity_level", 0) * 3
             score += improvement.get("impact", 0) * 1
             return score
-        
+
         improvements = [
             {"frequency": 5, "severity_level": 2, "impact": 3},
             {"frequency": 3, "severity_level": 3, "impact": 2},
         ]
-        
+
         scored = [(i, calculate_priority(i)) for i in improvements]
         # First: 5*2 + 2*3 + 3*1 = 10 + 6 + 3 = 19
         # Second: 3*2 + 3*3 + 2*1 = 6 + 9 + 2 = 17
@@ -264,7 +264,7 @@ class TestImprovementValidation(unittest.TestCase):
             {"id": 1, "title": "Improvement 1"},
             {"id": 2, "title": "Improvement 2"},
         ]
-        
+
         exists = any(i["id"] == 1 for i in improvements)
         assert exists
 
@@ -274,7 +274,7 @@ class TestImprovementValidation(unittest.TestCase):
             {"id": 1, "message": "Same issue"},
             {"id": 2, "message": "Different issue"},
         ]
-        
+
         messages = [i["message"] for i in improvements]
         assert len(messages) == len(set(messages))
 
@@ -284,7 +284,7 @@ class TestImprovementValidation(unittest.TestCase):
             "description": "Fix the bug",
             "steps": ["Step 1", "Step 2", "Step 3"],
         }
-        
+
         actionable = len(improvement.get("steps", [])) > 0
         assert actionable
 
@@ -295,7 +295,7 @@ class TestImprovementValidation(unittest.TestCase):
             "line_start": 10,
             "line_end": 15,
         }
-        
+
         has_scope = all(k in improvement for k in ["file", "line_start", "line_end"])
         assert has_scope
 
@@ -310,7 +310,7 @@ class TestImprovementFiltering(unittest.TestCase):
             {"type": "perf", "title": "Optimize loop"},
             {"type": "style", "title": "Fix naming"},
         ]
-        
+
         style_improvements = [i for i in improvements if i["type"] == "style"]
         assert len(style_improvements) == 2
 
@@ -321,7 +321,7 @@ class TestImprovementFiltering(unittest.TestCase):
             {"severity": "low", "title": "Minor style"},
             {"severity": "high", "title": "Security issue"},
         ]
-        
+
         high_severity = [i for i in improvements if i["severity"] == "high"]
         assert len(high_severity) == 2
 
@@ -332,7 +332,7 @@ class TestImprovementFiltering(unittest.TestCase):
             {"file": "b.py", "title": "Fix B"},
             {"file": "a.py", "title": "Fix A2"},
         ]
-        
+
         file_a = [i for i in improvements if i["file"] == "a.py"]
         assert len(file_a) == 2
 
@@ -343,10 +343,10 @@ class TestImprovementFiltering(unittest.TestCase):
             {"type": "perf", "priority": 8},
             {"type": "style", "priority": 3},
         ]
-        
+
         filtered = [i for i in improvements if i["type"] == "style"]
         sorted_filtered = sorted(filtered, key=lambda x: x["priority"], reverse=True)
-        
+
         assert sorted_filtered[0]["priority"] == 5
 
 
@@ -360,10 +360,10 @@ class TestImprovementTracking(unittest.TestCase):
             "title": "Fix bug",
             "status": "open",
         }
-        
+
         improvement["status"] = "in_progress"
         assert improvement["status"] == "in_progress"
-        
+
         improvement["status"] = "completed"
         assert improvement["status"] == "completed"
 
@@ -372,10 +372,10 @@ class TestImprovementTracking(unittest.TestCase):
         history = []
         improvement = {"title": "Original"}
         history.append({"timestamp": datetime.now(), "title": improvement["title"]})
-        
+
         improvement["title"] = "Updated"
         history.append({"timestamp": datetime.now(), "title": improvement["title"]})
-        
+
         assert len(history) == 2
         assert history[0]["title"] == "Original"
         assert history[1]["title"] == "Updated"
@@ -387,23 +387,23 @@ class TestImprovementTracking(unittest.TestCase):
             "title": "Task",
             "assignee": None,
         }
-        
+
         improvement["assignee"] = "alice"
         assert improvement["assignee"] == "alice"
-        
+
         improvement["assignee"] = "bob"
         assert improvement["assignee"] == "bob"
 
     def test_track_improvement_deadline(self):
         """Test tracking improvement deadline."""
         from datetime import datetime, timedelta
-        
+
         improvement = {
             "id": 1,
             "created": datetime.now(),
             "deadline": None,
         }
-        
+
         improvement["deadline"] = datetime.now() + timedelta(days=7)
         assert improvement["deadline"] is not None
 
@@ -418,17 +418,17 @@ class TestImprovementReporting(unittest.TestCase):
             {"type": "perf", "severity": "high"},
             {"type": "style", "severity": "medium"},
         ]
-        
+
         summary = {
             "total": len(improvements),
             "by_type": {},
             "by_severity": {},
         }
-        
+
         for imp in improvements:
             summary["by_type"][imp["type"]] = summary["by_type"].get(imp["type"], 0) + 1
             summary["by_severity"][imp["severity"]] = summary["by_severity"].get(imp["severity"], 0) + 1
-        
+
         assert summary["total"] == 3
         assert summary["by_type"]["style"] == 2
 
@@ -438,13 +438,13 @@ class TestImprovementReporting(unittest.TestCase):
             {"id": 1, "title": "Fix A", "status": "completed"},
             {"id": 2, "title": "Fix B", "status": "open"},
         ]
-        
+
         report = {
             "total": len(improvements),
             "completed": sum(1 for i in improvements if i["status"] == "completed"),
             "open": sum(1 for i in improvements if i["status"] == "open"),
         }
-        
+
         assert report["completed"] == 1
         assert report["open"] == 1
 
@@ -455,10 +455,10 @@ class TestImprovementReporting(unittest.TestCase):
             {"id": 1, "title": "Fix A"},
             {"id": 2, "title": "Fix B"},
         ]
-        
+
         json_str = json.dumps(improvements)
         restored = json.loads(json_str)
-        
+
         assert len(restored) == 2
         assert restored[0]["title"] == "Fix A"
 
@@ -468,11 +468,11 @@ class TestImprovementReporting(unittest.TestCase):
             {"title": "Issue 1", "severity": "high"},
             {"title": "Issue 2", "severity": "low"},
         ]
-        
+
         markdown = "# Improvements\n\n"
         for imp in improvements:
             markdown += f"- {imp['title']} ({imp['severity']})\n"
-        
+
         assert "Issue 1" in markdown
         assert "high" in markdown
 
@@ -487,19 +487,19 @@ class TestImprovementIntegration(unittest.TestCase):
             {"id": 1, "title": "Issue 1", "status": "open"},
             {"id": 2, "title": "Issue 2", "status": "open"},
         ]
-        
+
         assert len(improvements) == 2
-        
+
         # Classify
         improvements[0]["type"] = "style"
         improvements[1]["type"] = "perf"
-        
+
         # Prioritize
         improvements = sorted(improvements, key=lambda x: x["id"])
-        
+
         # Track
         improvements[0]["status"] = "completed"
-        
+
         assert improvements[0]["status"] == "completed"
         assert improvements[1]["status"] == "open"
 
@@ -508,9 +508,9 @@ class TestImprovementIntegration(unittest.TestCase):
         linter_improvements = [{"source": "linter", "type": "style"}]
         complexity_improvements = [{"source": "complexity", "type": "perf"}]
         security_improvements = [{"source": "security", "type": "security"}]
-        
+
         all_improvements = linter_improvements + complexity_improvements + security_improvements
-        
+
         assert len(all_improvements) == 3
         assert all_improvements[0]["source"] == "linter"
 

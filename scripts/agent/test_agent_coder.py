@@ -26,10 +26,11 @@ def base_agent_module() -> Any:
         return base_agent
 
 
-def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, base_agent_module: Any) -> None:
+def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    base_agent_module: Any)
     def fake_improve_content(self, prompt: str) -> str:
         return "x = 1 # AI GENERATED CONTENT"
-    
+
     monkeypatch.setattr(base_agent_module.BaseAgent, "improve_content", fake_improve_content)
 
     with agent_dir_on_path():
@@ -49,7 +50,7 @@ def test_coder_agent_non_keyword_delegates_to_base(
 
     def fake_run_subagent(self: Any, description: str, prompt: str, original_content: str = "") -> str:
         return "IMPROVED"
-    
+
     monkeypatch.setattr(
         base_agent_module.BaseAgent,
         "run_subagent",
@@ -554,7 +555,7 @@ def test_generate_documentation_class(tmp_path: Path) -> None:
 
 class MyClass:
     """A class that does something."""
-    
+
     def method(self, value):
         """A method."""
         return value
@@ -1433,7 +1434,7 @@ class TestAccessibilityAnalyzer:
         analyzer = mod.AccessibilityAnalyzer()
         html_content = '<html><body><img src="test.jpg"></body></html>'
         report = analyzer.analyze_content(html_content, "html")
-        alt_issues = [i for i in report.issues 
+        alt_issues = [i for i in report.issues
             if i.issue_type == mod.AccessibilityIssueType.MISSING_ALT_TEXT]
         assert len(alt_issues) > 0
 
@@ -1444,7 +1445,7 @@ class TestAccessibilityAnalyzer:
         analyzer = mod.AccessibilityAnalyzer()
         html_content = '<html><body><img src="test.jpg" alt="Test image"></body></html>'
         report = analyzer.analyze_content(html_content, "html")
-        alt_issues = [i for i in report.issues 
+        alt_issues = [i for i in report.issues
             if i.issue_type == mod.AccessibilityIssueType.MISSING_ALT_TEXT]
         assert len(alt_issues) == 0
 
@@ -1455,7 +1456,7 @@ class TestAccessibilityAnalyzer:
         analyzer = mod.AccessibilityAnalyzer()
         html_content = '<html><body><input type="text" id="name"></body></html>'
         report = analyzer.analyze_content(html_content, "html")
-        label_issues = [i for i in report.issues 
+        label_issues = [i for i in report.issues
             if i.issue_type == mod.AccessibilityIssueType.MISSING_LABEL]
         assert len(label_issues) > 0
 
@@ -1467,7 +1468,7 @@ class TestAccessibilityAnalyzer:
         # Page starts with h2 instead of h1
         html_content = '<html><body><h2>Title</h2></body></html>'
         report = analyzer.analyze_content(html_content, "html")
-        heading_issues = [i for i in report.issues 
+        heading_issues = [i for i in report.issues
             if i.issue_type == mod.AccessibilityIssueType.HEADING_HIERARCHY]
         assert len(heading_issues) > 0
 
@@ -1478,7 +1479,7 @@ class TestAccessibilityAnalyzer:
         analyzer = mod.AccessibilityAnalyzer()
         js_content = '<button onClick={handleClick}>Click me</button>'
         report = analyzer.analyze_content(js_content, "javascript")
-        keyboard_issues = [i for i in report.issues 
+        keyboard_issues = [i for i in report.issues
             if i.issue_type == mod.AccessibilityIssueType.KEYBOARD_NAVIGATION]
         assert len(keyboard_issues) > 0
 
@@ -1489,7 +1490,7 @@ class TestAccessibilityAnalyzer:
         analyzer = mod.AccessibilityAnalyzer()
         js_content = '<div onClick={handleClick}>Clickable</div>'
         report = analyzer.analyze_content(js_content, "javascript")
-        semantic_issues = [i for i in report.issues 
+        semantic_issues = [i for i in report.issues
             if i.issue_type == mod.AccessibilityIssueType.SEMANTIC_HTML]
         assert len(semantic_issues) > 0
 
@@ -1530,7 +1531,7 @@ class TestAccessibilityAnalyzer:
         critical_issues = analyzer.get_issues_by_severity(
             mod.AccessibilitySeverity.CRITICAL
         )
-        assert all(i.severity == mod.AccessibilitySeverity.CRITICAL 
+        assert all(i.severity == mod.AccessibilitySeverity.CRITICAL
             for i in critical_issues)
 
     def test_get_issues_by_wcag_level(self) -> None:
@@ -1627,7 +1628,7 @@ class TestCodeRefactoring:
         """Test detecting refactoring opportunities."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def process(data):
     result = []
@@ -1638,25 +1639,25 @@ def process(data):
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         agent.read_previous_content()
         content = agent.previous_content
-        
+
         assert "def process" in content
 
     def test_suggest_simplification(self, tmp_path: Path) -> None:
         """Test suggesting code simplification."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = "x = True if condition else False"
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "True" in content
 
 
@@ -1672,26 +1673,26 @@ class TestMultiLanguageCodeGeneration:
         """Test generating Python code."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         target = tmp_path / "test.py"
         target.write_text("# Python code")
-        
+
         agent = mod.CoderAgent(str(target))
         lang = agent.detect_language()
-        
+
         assert lang == mod.CodeLanguage.PYTHON
 
     def test_generate_javascript_code(self, tmp_path: Path) -> None:
         """Test generating JavaScript code."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         target = tmp_path / "test.js"
         target.write_text("// JavaScript code")
-        
+
         agent = mod.CoderAgent(str(target))
         lang = agent.detect_language()
-        
+
         assert lang == mod.CodeLanguage.JAVASCRIPT
 
 
@@ -1707,24 +1708,24 @@ class TestCodeDocumentationGeneration:
         """Test detecting missing docstrings."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def my_function(x, y):
     return x + y
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "def my_function" in content
 
     def test_detect_existing_docstring(self, tmp_path: Path) -> None:
         """Test detecting existing docstrings."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = '''
 def documented_function(x, y):
     """Add two numbers."""
@@ -1732,10 +1733,10 @@ def documented_function(x, y):
 '''
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert '"""Add two numbers."""' in content
 
 
@@ -1751,7 +1752,7 @@ class TestCodeOptimizationPatterns:
         """Test detecting inefficient loop patterns."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 result = []
 for i in range(len(items)):
@@ -1759,17 +1760,17 @@ for i in range(len(items)):
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "range(len(" in content
 
     def test_detect_list_comprehension_opportunity(self, tmp_path: Path) -> None:
         """Test detecting list comprehension opportunities."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 result = []
 for x in data:
@@ -1777,10 +1778,10 @@ for x in data:
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "append" in content
 
 
@@ -1796,7 +1797,7 @@ class TestDeadCodeDetection:
         """Test detecting unused imports."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 import os
 import sys
@@ -1805,17 +1806,17 @@ print("hello")
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "import os" in content
 
     def test_detect_unused_variable(self, tmp_path: Path) -> None:
         """Test detecting unused variables."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def func():
     unused = 42
@@ -1823,10 +1824,10 @@ def func():
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "unused = 42" in content
 
 
@@ -1842,7 +1843,7 @@ class TestDependencyInjectionPatterns:
         """Test detecting hardcoded dependencies."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 class Service:
     def __init__(self):
@@ -1850,10 +1851,10 @@ class Service:
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "Database()" in content
 
 
@@ -1869,15 +1870,15 @@ class TestCodeSplitting:
         """Test detecting functions that should be split."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = "\n".join([f"    line{i} = {i}" for i in range(50)])
         code = f"def large_function():\n{code}\n    return None"
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         metrics = agent.calculate_metrics()
-        
+
         assert metrics is not None
 
 
@@ -1893,7 +1894,7 @@ class TestCodeConsistency:
         """Test detecting naming inconsistencies."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def camelCase():
     pass
@@ -1903,10 +1904,10 @@ def snake_case():
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "camelCase" in content
         assert "snake_case" in content
 
@@ -1923,7 +1924,7 @@ class TestCodeTemplates:
         """Test reading template-like code."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 # Template: {name}
 class {ClassName}:
@@ -1932,10 +1933,10 @@ class {ClassName}:
 """
         target = tmp_path / "template.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "{name}" in content
 
 
@@ -1951,34 +1952,34 @@ class TestTypeAnnotationInference:
         """Test detecting missing type hints."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def add(x, y):
     return x + y
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "def add(x, y)" in content
 
     def test_detect_existing_type_hints(self, tmp_path: Path) -> None:
         """Test detecting existing type hints."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def add(x: int, y: int) -> int:
     return x + y
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "-> int" in content
 
 
@@ -1994,17 +1995,17 @@ class TestStyleUnification:
         """Test detecting mixed quote styles."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = '''
 x = "double"
 y = 'single'
 '''
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert '"double"' in content
         assert "'single'" in content
 
@@ -2021,7 +2022,7 @@ class TestMergeConflictResolution:
         """Test detecting merge conflict markers."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 <<<<<<< HEAD
 x = 1
@@ -2031,10 +2032,10 @@ x = 2
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "<<<<<<< HEAD" in content
 
 
@@ -2050,17 +2051,17 @@ class TestAPICompatibility:
         """Test detecting API signatures."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def public_api(arg1, arg2, *, keyword=None):
     pass
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "keyword=None" in content
 
 
@@ -2076,14 +2077,14 @@ class TestIncrementalImprovement:
         """Test small improvements are detected."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = "x=1\ny=2"  # Missing spaces
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert content is not None
 
 
@@ -2099,7 +2100,7 @@ class TestQualityGates:
         """Test quality score is calculated."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = '''
 def good_function(x: int) -> int:
     """Return double of x."""
@@ -2107,10 +2108,10 @@ def good_function(x: int) -> int:
 '''
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         score = agent.calculate_quality_score()
-        
+
         assert score is not None
         assert score.score >= 0
 
@@ -2127,16 +2128,16 @@ class TestSecurityScanning:
         """Test detecting hardcoded secrets."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = '''
 API_KEY = "sk_live_xxxxxxxxxxxx"
 '''
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "API_KEY" in content
 
 
@@ -2152,7 +2153,7 @@ class TestComplexityAnalysis:
         """Test calculating cyclomatic complexity."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def complex_function(x):
     if x > 0:
@@ -2163,10 +2164,10 @@ def complex_function(x):
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         metrics = agent.calculate_metrics()
-        
+
         assert metrics is not None
 
 
@@ -2182,17 +2183,17 @@ class TestCoverageGapDetection:
         """Test detecting untested functions."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def untested_function():
     return 42
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "untested_function" in content
 
 
@@ -2208,7 +2209,7 @@ class TestPerformanceProfiling:
         """Test detecting potential performance issues."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 def slow_function(n):
     result = []
@@ -2218,10 +2219,10 @@ def slow_function(n):
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "result + [i]" in content
 
 
@@ -2237,32 +2238,32 @@ class TestMigrationAutomation:
         """Test detecting deprecated syntax."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 # Old-style string formatting
 message = "Hello %s" % name
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert '"%s"' in content
 
     def test_detect_python2_syntax(self, tmp_path: Path) -> None:
         """Test detecting Python 2 style syntax."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-coder.py")
-        
+
         code = """
 class OldStyle:
     pass
 """
         target = tmp_path / "test.py"
         target.write_text(code)
-        
+
         agent = mod.CoderAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "class OldStyle" in content

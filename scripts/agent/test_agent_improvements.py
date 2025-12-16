@@ -1044,10 +1044,10 @@ class TestBranchComparer:
         """Test calculating diffs with added improvement."""
         comparer = improvements_module.BranchComparer()
         imp = agent.add_improvement("Test", "Description")
-        
+
         source = {}
         target = {imp.id: imp}
-        
+
         diffs = comparer._calculate_diffs(source, target)
         added = [d for d in diffs if d.diff_type == improvements_module.ImprovementDiffType.ADDED]
         assert len(added) == 1
@@ -1056,10 +1056,10 @@ class TestBranchComparer:
         """Test calculating diffs with removed improvement."""
         comparer = improvements_module.BranchComparer()
         imp = agent.add_improvement("Test", "Description")
-        
+
         source = {imp.id: imp}
         target = {}
-        
+
         diffs = comparer._calculate_diffs(source, target)
         removed = [d for d in diffs if d.diff_type == improvements_module.ImprovementDiffType.REMOVED]
         assert len(removed) == 1
@@ -1068,10 +1068,10 @@ class TestBranchComparer:
         """Test calculating diffs with unchanged improvement."""
         comparer = improvements_module.BranchComparer()
         imp = agent.add_improvement("Test", "Description")
-        
+
         source = {imp.id: imp}
         target = {imp.id: imp}
-        
+
         diffs = comparer._calculate_diffs(source, target)
         unchanged = [d for d in diffs if d.diff_type == improvements_module.ImprovementDiffType.UNCHANGED]
         assert len(unchanged) == 1
@@ -1080,7 +1080,7 @@ class TestBranchComparer:
         """Test getting added improvements from comparison."""
         comparer = improvements_module.BranchComparer()
         imp = agent.add_improvement("New feature", "Details")
-        
+
         diff = improvements_module.ImprovementDiff(
             improvement_id=imp.id,
             diff_type=improvements_module.ImprovementDiffType.ADDED,
@@ -1092,7 +1092,7 @@ class TestBranchComparer:
             file_path="test.md",
             diffs=[diff]
         )
-        
+
         added = comparer.get_added_improvements(comparison)
         assert len(added) == 1
         assert added[0].title == "New feature"
@@ -1101,7 +1101,7 @@ class TestBranchComparer:
         """Test getting removed improvements from comparison."""
         comparer = improvements_module.BranchComparer()
         imp = agent.add_improvement("Old feature", "Details")
-        
+
         diff = improvements_module.ImprovementDiff(
             improvement_id=imp.id,
             diff_type=improvements_module.ImprovementDiffType.REMOVED,
@@ -1113,7 +1113,7 @@ class TestBranchComparer:
             file_path="test.md",
             diffs=[diff]
         )
-        
+
         removed = comparer.get_removed_improvements(comparison)
         assert len(removed) == 1
         assert removed[0].title == "Old feature"
@@ -1123,7 +1123,7 @@ class TestBranchComparer:
         comparer = improvements_module.BranchComparer()
         imp1 = agent.add_improvement("Feature v1", "Details v1")
         imp2 = agent.add_improvement("Feature v2", "Details v2")
-        
+
         diff = improvements_module.ImprovementDiff(
             improvement_id="common_id",
             diff_type=improvements_module.ImprovementDiffType.MODIFIED,
@@ -1136,7 +1136,7 @@ class TestBranchComparer:
             file_path="test.md",
             diffs=[diff]
         )
-        
+
         modified = comparer.get_modified_improvements(comparison)
         assert len(modified) == 1
         assert modified[0][0].title == "Feature v1"
@@ -1146,7 +1146,7 @@ class TestBranchComparer:
         """Test generating merge report."""
         comparer = improvements_module.BranchComparer()
         imp = agent.add_improvement("New feature", "Details")
-        
+
         diff = improvements_module.ImprovementDiff(
             improvement_id=imp.id,
             diff_type=improvements_module.ImprovementDiffType.ADDED,
@@ -1160,7 +1160,7 @@ class TestBranchComparer:
             diffs=[diff],
             added_count=1
         )
-        
+
         report = comparer.generate_merge_report(comparison)
         assert "# Branch Comparison Report" in report
         assert "main" in report
@@ -1176,7 +1176,7 @@ class TestBranchComparer:
             file_path="test.md"
         )
         comparer.comparisons.append(comparison)
-        
+
         history = comparer.get_comparison_history()
         assert len(history) == 1
 
@@ -1190,7 +1190,7 @@ class TestBranchComparer:
         )
         comparer.comparisons.append(comparison)
         comparer.clear_history()
-        
+
         assert len(comparer.comparisons) == 0
 
 
@@ -1200,23 +1200,23 @@ class TestSession8Integration:
     def test_full_comparison_workflow(self, improvements_module: Any, agent: Any) -> None:
         """Test full comparison workflow."""
         comparer = improvements_module.BranchComparer()
-        
+
         # Create source and target improvement sets
         imp1 = agent.add_improvement("Common feature", "Details")
         imp2 = agent.add_improvement("New in target", "Details")
         imp3 = agent.add_improvement("Only in source", "Details")
-        
+
         source = {imp1.id: imp1, imp3.id: imp3}
         target = {imp1.id: imp1, imp2.id: imp2}
-        
+
         # Calculate diffs
         diffs = comparer._calculate_diffs(source, target)
-        
+
         # Should have: 1 added (imp2), 1 removed (imp3), 1 unchanged (imp1)
         added = [d for d in diffs if d.diff_type == improvements_module.ImprovementDiffType.ADDED]
         removed = [d for d in diffs if d.diff_type == improvements_module.ImprovementDiffType.REMOVED]
         unchanged = [d for d in diffs if d.diff_type == improvements_module.ImprovementDiffType.UNCHANGED]
-        
+
         assert len(added) == 1
         assert len(removed) == 1
         assert len(unchanged) == 1
@@ -1224,10 +1224,10 @@ class TestSession8Integration:
     def test_merge_report_with_multiple_changes(self, improvements_module: Any, agent: Any) -> None:
         """Test merge report with various change types."""
         comparer = improvements_module.BranchComparer()
-        
+
         imp_added = agent.add_improvement("Added", "New feature")
         imp_removed = agent.add_improvement("Removed", "Old feature")
-        
+
         diffs = [
             improvements_module.ImprovementDiff(
                 improvement_id="added_1",
@@ -1240,7 +1240,7 @@ class TestSession8Integration:
                 source_version=imp_removed
             ),
         ]
-        
+
         comparison = improvements_module.BranchComparison(
             source_branch="main",
             target_branch="feature/update",
@@ -1250,7 +1250,7 @@ class TestSession8Integration:
             added_count=1,
             removed_count=1
         )
-        
+
         report = comparer.generate_merge_report(comparison)
         assert "➕" in report  # Added emoji
         assert "➖" in report  # Removed emoji
@@ -1269,34 +1269,34 @@ class TestImprovementImpactScoring:
     def test_impact_scorer_initialization(self, improvements_module: Any) -> None:
         """Test impact scorer initialization."""
         ImpactScorer = improvements_module.ImpactScorer
-        
+
         scorer = ImpactScorer()
         assert scorer.weights is not None
 
     def test_calculate_impact_score(self, improvements_module: Any, agent: Any) -> None:
         """Test calculating impact score."""
         ImpactScorer = improvements_module.ImpactScorer
-        
+
         scorer = ImpactScorer()
         imp = agent.add_improvement("Performance fix", "Reduces latency by 50%")
-        
+
         score = scorer.calculate_score(imp)
         assert 0 <= score <= 100
 
     def test_impact_factors(self, improvements_module: Any) -> None:
         """Test impact factors are considered."""
         ImpactScorer = improvements_module.ImpactScorer
-        
+
         scorer = ImpactScorer()
         scorer.set_weights({
             "complexity": 0.3,
             "reach": 0.4,
             "urgency": 0.3
         })
-        
+
         factors = {"complexity": 80, "reach": 60, "urgency": 90}
         score = scorer.calculate_weighted_score(factors)
-        
+
         # Weighted average: 0.3*80 + 0.4*60 + 0.3*90 = 24 + 24 + 27 = 75
         assert 74 <= score <= 76
 
@@ -1307,37 +1307,37 @@ class TestImprovementDependencyResolution:
     def test_dependency_resolver_init(self, improvements_module: Any) -> None:
         """Test dependency resolver initialization."""
         DependencyResolver = improvements_module.DependencyResolver
-        
+
         resolver = DependencyResolver()
         assert resolver.dependencies == {}
 
     def test_add_dependency(self, improvements_module: Any, agent: Any) -> None:
         """Test adding dependencies."""
         DependencyResolver = improvements_module.DependencyResolver
-        
+
         resolver = DependencyResolver()
         imp1 = agent.add_improvement("Base feature", "Foundation")
         imp2 = agent.add_improvement("Dependent feature", "Requires base")
-        
+
         resolver.add_dependency(imp2.id, imp1.id)
-        
+
         deps = resolver.get_dependencies(imp2.id)
         assert imp1.id in deps
 
     def test_resolve_order(self, improvements_module: Any, agent: Any) -> None:
         """Test resolving dependency order."""
         DependencyResolver = improvements_module.DependencyResolver
-        
+
         resolver = DependencyResolver()
         imp1 = agent.add_improvement("First", "No deps")
         imp2 = agent.add_improvement("Second", "Depends on first")
         imp3 = agent.add_improvement("Third", "Depends on second")
-        
+
         resolver.add_dependency(imp2.id, imp1.id)
         resolver.add_dependency(imp3.id, imp2.id)
-        
+
         order = resolver.resolve_order([imp1.id, imp2.id, imp3.id])
-        
+
         assert order.index(imp1.id) < order.index(imp2.id)
         assert order.index(imp2.id) < order.index(imp3.id)
 
@@ -1348,17 +1348,17 @@ class TestEffortEstimationAlgorithms:
     def test_effort_estimator_init(self, improvements_module: Any) -> None:
         """Test effort estimator initialization."""
         EffortEstimator = improvements_module.EffortEstimator
-        
+
         estimator = EffortEstimator()
         assert estimator.base_rates is not None
 
     def test_estimate_simple_task(self, improvements_module: Any, agent: Any) -> None:
         """Test estimating simple task effort."""
         EffortEstimator = improvements_module.EffortEstimator
-        
+
         estimator = EffortEstimator()
         imp = agent.add_improvement("Simple fix", "Typo correction")
-        
+
         estimate = estimator.estimate(imp, complexity="low")
         assert estimate.hours > 0
         assert estimate.hours < 8  # Simple task should be < 1 day
@@ -1366,14 +1366,14 @@ class TestEffortEstimationAlgorithms:
     def test_estimate_with_historical_data(self, improvements_module: Any, agent: Any) -> None:
         """Test estimation using historical data."""
         EffortEstimator = improvements_module.EffortEstimator
-        
+
         estimator = EffortEstimator()
         estimator.add_historical_data("bug_fix", actual_hours=4)
         estimator.add_historical_data("bug_fix", actual_hours=6)
-        
+
         imp = agent.add_improvement("Bug fix", "Fix null pointer")
         estimate = estimator.estimate(imp, category="bug_fix")
-        
+
         # Should be around average of historical data (5 hours)
         assert 4 <= estimate.hours <= 6
 
@@ -1384,29 +1384,29 @@ class TestImprovementTemplateInstantiation:
     def test_template_creation(self, improvements_module: Any) -> None:
         """Test creating improvement template."""
         ImprovementTemplate = improvements_module.ImprovementTemplate
-        
+
         template = ImprovementTemplate(
             name="bug_fix",
             title_pattern="Fix: {issue}",
             description_template="Resolves {issue_id}: {details}"
         )
-        
+
         assert template.name == "bug_fix"
 
     def test_template_instantiation(self, improvements_module: Any) -> None:
         """Test instantiating template."""
         ImprovementTemplate = improvements_module.ImprovementTemplate
-        
+
         template = ImprovementTemplate(
             name="feature",
             title_pattern="Add {feature_name}",
             description_template="Implements {feature_name} functionality"
         )
-        
+
         result = template.instantiate({
             "feature_name": "dark mode"
         })
-        
+
         assert result["title"] == "Add dark mode"
         assert "dark mode" in result["description"]
 
@@ -1417,17 +1417,17 @@ class TestStatusWorkflowTransitions:
     def test_workflow_engine_init(self, improvements_module: Any) -> None:
         """Test workflow engine initialization."""
         WorkflowEngine = improvements_module.WorkflowEngine
-        
+
         engine = WorkflowEngine()
         assert len(engine.states) > 0
 
     def test_valid_transition(self, improvements_module: Any, agent: Any) -> None:
         """Test valid status transition."""
         WorkflowEngine = improvements_module.WorkflowEngine
-        
+
         engine = WorkflowEngine()
         imp = agent.add_improvement("Test", "Details")
-        
+
         result = engine.transition(imp, from_status="pending", to_status="in_progress")
         assert result.success
         assert imp.status == "in_progress"
@@ -1435,10 +1435,10 @@ class TestStatusWorkflowTransitions:
     def test_invalid_transition_blocked(self, improvements_module: Any, agent: Any) -> None:
         """Test invalid transition is blocked."""
         WorkflowEngine = improvements_module.WorkflowEngine
-        
+
         engine = WorkflowEngine()
         imp = agent.add_improvement("Test", "Details")
-        
+
         # Can't go from pending directly to completed
         result = engine.transition(imp, from_status="pending", to_status="completed")
         assert not result.success
@@ -1450,35 +1450,35 @@ class TestVotingAndPrioritization:
     def test_voting_system_init(self, improvements_module: Any) -> None:
         """Test voting system initialization."""
         VotingSystem = improvements_module.VotingSystem
-        
+
         voting = VotingSystem()
         assert voting.votes == {}
 
     def test_cast_vote(self, improvements_module: Any, agent: Any) -> None:
         """Test casting a vote."""
         VotingSystem = improvements_module.VotingSystem
-        
+
         voting = VotingSystem()
         imp = agent.add_improvement("Popular feature", "Many want this")
-        
+
         voting.cast_vote(imp.id, voter_id="user1", vote_value=1)
         voting.cast_vote(imp.id, voter_id="user2", vote_value=1)
-        
+
         assert voting.get_vote_count(imp.id) == 2
 
     def test_prioritization_by_votes(self, improvements_module: Any, agent: Any) -> None:
         """Test prioritization by vote count."""
         VotingSystem = improvements_module.VotingSystem
-        
+
         voting = VotingSystem()
         imp1 = agent.add_improvement("Less popular", "Few want")
         imp2 = agent.add_improvement("Most popular", "Many want")
-        
+
         voting.cast_vote(imp1.id, "user1", 1)
         voting.cast_vote(imp2.id, "user1", 1)
         voting.cast_vote(imp2.id, "user2", 1)
         voting.cast_vote(imp2.id, "user3", 1)
-        
+
         prioritized = voting.get_prioritized_list([imp1.id, imp2.id])
         assert prioritized[0] == imp2.id
 
@@ -1489,7 +1489,7 @@ class TestSchedulingAndResourceAllocation:
     def test_scheduler_init(self, improvements_module: Any) -> None:
         """Test scheduler initialization."""
         ImprovementScheduler = improvements_module.ImprovementScheduler
-        
+
         scheduler = ImprovementScheduler()
         assert scheduler.schedule == []
 
@@ -1497,24 +1497,24 @@ class TestSchedulingAndResourceAllocation:
         """Test scheduling an improvement."""
         ImprovementScheduler = improvements_module.ImprovementScheduler
         from datetime import datetime, timedelta
-        
+
         scheduler = ImprovementScheduler()
         imp = agent.add_improvement("Scheduled task", "For next week")
-        
+
         start_date = datetime.now() + timedelta(days=7)
         scheduled = scheduler.schedule_improvement(imp.id, start_date=start_date)
-        
+
         assert scheduled.start_date == start_date
 
     def test_resource_allocation(self, improvements_module: Any, agent: Any) -> None:
         """Test resource allocation."""
         ImprovementScheduler = improvements_module.ImprovementScheduler
-        
+
         scheduler = ImprovementScheduler()
         imp = agent.add_improvement("Resource task", "Needs team")
-        
+
         scheduler.allocate_resources(imp.id, resources=["dev1", "dev2"])
-        
+
         allocation = scheduler.get_allocation(imp.id)
         assert "dev1" in allocation.resources
 
@@ -1525,18 +1525,18 @@ class TestDashboardRenderingAndUpdates:
     def test_dashboard_creation(self, improvements_module: Any) -> None:
         """Test dashboard creation."""
         ImprovementDashboard = improvements_module.ImprovementDashboard
-        
+
         dashboard = ImprovementDashboard()
         assert dashboard is not None
 
     def test_dashboard_render(self, improvements_module: Any, agent: Any) -> None:
         """Test dashboard rendering."""
         ImprovementDashboard = improvements_module.ImprovementDashboard
-        
+
         dashboard = ImprovementDashboard()
         imp1 = agent.add_improvement("Task 1", "Details")
         imp2 = agent.add_improvement("Task 2", "Details")
-        
+
         rendered = dashboard.render([imp1, imp2])
         assert "Task 1" in rendered
         assert "Task 2" in rendered
@@ -1544,15 +1544,15 @@ class TestDashboardRenderingAndUpdates:
     def test_dashboard_update_on_change(self, improvements_module: Any, agent: Any) -> None:
         """Test dashboard updates on changes."""
         ImprovementDashboard = improvements_module.ImprovementDashboard
-        
+
         dashboard = ImprovementDashboard()
-        
+
         updated: list[bool] = []
         dashboard.on_update(lambda: updated.append(True))
-        
+
         imp = agent.add_improvement("New task", "Details")
         dashboard.add_improvement(imp)
-        
+
         assert len(updated) >= 1
 
 
@@ -1562,29 +1562,29 @@ class TestAutomatedValidationIntegration:
     def test_validator_init(self, improvements_module: Any) -> None:
         """Test validator initialization."""
         ImprovementValidator = improvements_module.ImprovementValidator
-        
+
         validator = ImprovementValidator()
         assert validator.rules is not None
 
     def test_validate_improvement(self, improvements_module: Any, agent: Any) -> None:
         """Test validating an improvement."""
         ImprovementValidator = improvements_module.ImprovementValidator
-        
+
         validator = ImprovementValidator()
         imp = agent.add_improvement("Valid improvement", "With proper description")
-        
+
         result = validator.validate(imp)
         assert result.is_valid
 
     def test_validation_failure(self, improvements_module: Any, agent: Any) -> None:
         """Test validation failure."""
         ImprovementValidator = improvements_module.ImprovementValidator
-        
+
         validator = ImprovementValidator()
         validator.add_rule("min_description_length", min_length=50)
-        
+
         imp = agent.add_improvement("Short", "Too short")
-        
+
         result = validator.validate(imp)
         assert not result.is_valid
         assert "description" in result.errors[0].lower()
@@ -1596,31 +1596,31 @@ class TestRollbackTracking:
     def test_rollback_manager_init(self, improvements_module: Any) -> None:
         """Test rollback manager initialization."""
         RollbackManager = improvements_module.RollbackManager
-        
+
         manager = RollbackManager()
         assert manager.rollbacks == []
 
     def test_create_rollback_point(self, improvements_module: Any, agent: Any) -> None:
         """Test creating rollback point."""
         RollbackManager = improvements_module.RollbackManager
-        
+
         manager = RollbackManager()
         imp = agent.add_improvement("Risky change", "May need rollback")
-        
+
         point = manager.create_rollback_point(imp.id, state={"status": "pending"})
-        
+
         assert point.improvement_id == imp.id
 
     def test_rollback_to_point(self, improvements_module: Any, agent: Any) -> None:
         """Test rolling back to point."""
         RollbackManager = improvements_module.RollbackManager
-        
+
         manager = RollbackManager()
         imp = agent.add_improvement("Change", "Details")
-        
+
         manager.create_rollback_point(imp.id, state={"status": "pending"})
         imp.status = "completed"
-        
+
         restored = manager.rollback(imp.id)
         assert restored["status"] == "pending"
 
@@ -1631,17 +1631,17 @@ class TestCodeAnalysisToolSuggestions:
     def test_analyzer_init(self, improvements_module: Any) -> None:
         """Test analyzer initialization."""
         CodeAnalyzer = improvements_module.CodeAnalyzer
-        
+
         analyzer = CodeAnalyzer()
         assert analyzer.tools is not None
 
     def test_suggest_tools_for_improvement(self, improvements_module: Any, agent: Any) -> None:
         """Test suggesting tools for improvement."""
         CodeAnalyzer = improvements_module.CodeAnalyzer
-        
+
         analyzer = CodeAnalyzer()
         imp = agent.add_improvement("Security fix", "Fix SQL injection")
-        
+
         suggestions = analyzer.suggest_tools(imp)
         assert len(suggestions) > 0
         # Security tools should be suggested
@@ -1654,28 +1654,28 @@ class TestDocumentationGenerationQuality:
     def test_doc_generator_init(self, improvements_module: Any) -> None:
         """Test documentation generator initialization."""
         DocGenerator = improvements_module.DocGenerator
-        
+
         generator = DocGenerator()
         assert generator.templates is not None
 
     def test_generate_improvement_docs(self, improvements_module: Any, agent: Any) -> None:
         """Test generating improvement documentation."""
         DocGenerator = improvements_module.DocGenerator
-        
+
         generator = DocGenerator()
         imp = agent.add_improvement("New API endpoint", "Adds /users endpoint")
-        
+
         docs = generator.generate(imp)
         assert "API" in docs or "endpoint" in docs
 
     def test_docs_include_metadata(self, improvements_module: Any, agent: Any) -> None:
         """Test docs include metadata."""
         DocGenerator = improvements_module.DocGenerator
-        
+
         generator = DocGenerator()
         imp = agent.add_improvement("Feature", "Details")
         imp.metadata = {"version": "1.0", "author": "team"}
-        
+
         docs = generator.generate(imp, include_metadata=True)
         assert "version" in docs or "1.0" in docs
 
@@ -1686,31 +1686,31 @@ class TestAssignmentAndOwnershipTracking:
     def test_assignment_manager_init(self, improvements_module: Any) -> None:
         """Test assignment manager initialization."""
         AssignmentManager = improvements_module.AssignmentManager
-        
+
         manager = AssignmentManager()
         assert manager.assignments == {}
 
     def test_assign_improvement(self, improvements_module: Any, agent: Any) -> None:
         """Test assigning improvement."""
         AssignmentManager = improvements_module.AssignmentManager
-        
+
         manager = AssignmentManager()
         imp = agent.add_improvement("Task", "Details")
-        
+
         manager.assign(imp.id, assignee="developer1")
-        
+
         assert manager.get_assignee(imp.id) == "developer1"
 
     def test_ownership_history(self, improvements_module: Any, agent: Any) -> None:
         """Test ownership history tracking."""
         AssignmentManager = improvements_module.AssignmentManager
-        
+
         manager = AssignmentManager()
         imp = agent.add_improvement("Task", "Details")
-        
+
         manager.assign(imp.id, assignee="dev1")
         manager.assign(imp.id, assignee="dev2")
-        
+
         history = manager.get_ownership_history(imp.id)
         assert len(history) == 2
         assert history[0]["assignee"] == "dev1"
@@ -1722,17 +1722,17 @@ class TestSLAEnforcementAndAlerting:
     def test_sla_manager_init(self, improvements_module: Any) -> None:
         """Test SLA manager initialization."""
         SLAManager = improvements_module.SLAManager
-        
+
         manager = SLAManager()
         assert manager.sla_policies is not None
 
     def test_set_sla_policy(self, improvements_module: Any) -> None:
         """Test setting SLA policy."""
         SLAManager = improvements_module.SLAManager
-        
+
         manager = SLAManager()
         manager.set_policy("critical", response_hours=4, resolution_hours=24)
-        
+
         policy = manager.get_policy("critical")
         assert policy.resolution_hours == 24
 
@@ -1740,13 +1740,13 @@ class TestSLAEnforcementAndAlerting:
         """Test SLA violation alerting."""
         SLAManager = improvements_module.SLAManager
         from datetime import datetime, timedelta
-        
+
         manager = SLAManager()
         manager.set_policy("urgent", resolution_hours=1)
-        
+
         imp = agent.add_improvement("Urgent fix", "Needs immediate attention")
         imp.created_at = datetime.now() - timedelta(hours=2)  # 2 hours old
-        
+
         violations = manager.check_violations([imp], priority="urgent")
         assert len(violations) >= 1
 
@@ -1757,37 +1757,37 @@ class TestAnalyticsAndTrendCalculations:
     def test_analytics_engine_init(self, improvements_module: Any) -> None:
         """Test analytics engine initialization."""
         AnalyticsEngine = improvements_module.AnalyticsEngine
-        
+
         engine = AnalyticsEngine()
         assert engine is not None
 
     def test_calculate_completion_trend(self, improvements_module: Any, agent: Any) -> None:
         """Test calculating completion trend."""
         AnalyticsEngine = improvements_module.AnalyticsEngine
-        
+
         engine = AnalyticsEngine()
-        
+
         # Create some completed improvements
         for i in range(5):
             imp = agent.add_improvement(f"Task {i}", "Details")
             imp.status = "completed"
             engine.record_completion(imp)
-        
+
         trend = engine.get_completion_trend(period_days=30)
         assert trend.total_completed == 5
 
     def test_velocity_calculation(self, improvements_module: Any, agent: Any) -> None:
         """Test velocity calculation."""
         AnalyticsEngine = improvements_module.AnalyticsEngine
-        
+
         engine = AnalyticsEngine()
-        
+
         for i in range(10):
             imp = agent.add_improvement(f"Sprint task {i}", "Details")
             imp.story_points = 3
             imp.status = "completed"
             engine.record_completion(imp)
-        
+
         velocity = engine.calculate_velocity(sprint_days=14)
         assert velocity > 0
 
@@ -1798,34 +1798,34 @@ class TestImprovementBulkOperations:
     def test_bulk_manager_init(self, improvements_module: Any) -> None:
         """Test bulk manager initialization."""
         BulkManager = improvements_module.BulkManager
-        
+
         manager = BulkManager()
         assert manager is not None
 
     def test_bulk_status_update(self, improvements_module: Any, agent: Any) -> None:
         """Test bulk status update."""
         BulkManager = improvements_module.BulkManager
-        
+
         manager = BulkManager()
-        
+
         imps = [agent.add_improvement(f"Task {i}", "Details") for i in range(5)]
         ids = [imp.id for imp in imps]
-        
+
         result = manager.bulk_update_status(ids, new_status="in_progress")
-        
+
         assert result.success_count == 5
 
     def test_bulk_assign(self, improvements_module: Any, agent: Any) -> None:
         """Test bulk assignment."""
         BulkManager = improvements_module.BulkManager
-        
+
         manager = BulkManager()
-        
+
         imps = [agent.add_improvement(f"Task {i}", "Details") for i in range(3)]
         ids = [imp.id for imp in imps]
-        
+
         result = manager.bulk_assign(ids, assignee="team_lead")
-        
+
         assert result.success_count == 3
 
 
@@ -1835,32 +1835,32 @@ class TestImprovementArchival:
     def test_archive_manager_init(self, improvements_module: Any) -> None:
         """Test archive manager initialization."""
         ArchiveManager = improvements_module.ArchiveManager
-        
+
         manager = ArchiveManager()
         assert manager.archived == []
 
     def test_archive_improvement(self, improvements_module: Any, agent: Any) -> None:
         """Test archiving improvement."""
         ArchiveManager = improvements_module.ArchiveManager
-        
+
         manager = ArchiveManager()
         imp = agent.add_improvement("Old task", "Completed long ago")
         imp.status = "completed"
-        
+
         manager.archive(imp)
-        
+
         assert imp.id in [a.id for a in manager.archived]
 
     def test_restore_from_archive(self, improvements_module: Any, agent: Any) -> None:
         """Test restoring from archive."""
         ArchiveManager = improvements_module.ArchiveManager
-        
+
         manager = ArchiveManager()
         imp = agent.add_improvement("Task", "Details")
-        
+
         manager.archive(imp)
         restored = manager.restore(imp.id)
-        
+
         assert restored.id == imp.id
         assert imp.id not in [a.id for a in manager.archived]
 
@@ -1871,32 +1871,32 @@ class TestImprovementExportFormats:
     def test_exporter_init(self, improvements_module: Any) -> None:
         """Test exporter initialization."""
         ImprovementExporter = improvements_module.ImprovementExporter
-        
+
         exporter = ImprovementExporter()
         assert exporter.formats is not None
 
     def test_export_to_json(self, improvements_module: Any, agent: Any) -> None:
         """Test export to JSON."""
         ImprovementExporter = improvements_module.ImprovementExporter
-        
+
         exporter = ImprovementExporter()
         imp = agent.add_improvement("Export test", "For JSON export")
-        
+
         output = exporter.export([imp], format="json")
         parsed = json.loads(output)
-        
+
         assert len(parsed) == 1
         assert parsed[0]["title"] == "Export test"
 
     def test_export_to_csv(self, improvements_module: Any, agent: Any) -> None:
         """Test export to CSV."""
         ImprovementExporter = improvements_module.ImprovementExporter
-        
+
         exporter = ImprovementExporter()
         imp = agent.add_improvement("CSV test", "For CSV export")
-        
+
         output = exporter.export([imp], format="csv")
-        
+
         assert "title" in output  # Header
         assert "CSV test" in output
 
@@ -1907,35 +1907,35 @@ class TestImprovementNotifications:
     def test_notification_manager_init(self, improvements_module: Any) -> None:
         """Test notification manager initialization."""
         NotificationManager = improvements_module.NotificationManager
-        
+
         manager = NotificationManager()
         assert manager.subscribers == []
 
     def test_subscribe_to_improvement(self, improvements_module: Any, agent: Any) -> None:
         """Test subscribing to improvement."""
         NotificationManager = improvements_module.NotificationManager
-        
+
         manager = NotificationManager()
         imp = agent.add_improvement("Important", "Watch this")
-        
+
         manager.subscribe(imp.id, subscriber="user@example.com")
-        
+
         subscribers = manager.get_subscribers(imp.id)
         assert "user@example.com" in subscribers
 
     def test_notification_on_status_change(self, improvements_module: Any, agent: Any) -> None:
         """Test notification on status change."""
         NotificationManager = improvements_module.NotificationManager
-        
+
         manager = NotificationManager()
         imp = agent.add_improvement("Task", "Details")
-        
+
         notifications: list[dict[str, Any]] = []
         manager.on_notification(lambda n: notifications.append(n))
         manager.subscribe(imp.id, subscriber="watcher")
-        
+
         manager.notify_status_change(imp.id, old_status="pending", new_status="completed")
-        
+
         assert len(notifications) >= 1
 
 
@@ -1945,42 +1945,42 @@ class TestImprovementAccessControl:
     def test_access_controller_init(self, improvements_module: Any) -> None:
         """Test access controller initialization."""
         AccessController = improvements_module.AccessController
-        
+
         controller = AccessController()
         assert controller.permissions is not None
 
     def test_grant_access(self, improvements_module: Any, agent: Any) -> None:
         """Test granting access."""
         AccessController = improvements_module.AccessController
-        
+
         controller = AccessController()
         imp = agent.add_improvement("Restricted", "Limited access")
-        
+
         controller.grant(imp.id, user="manager", level="write")
-        
+
         assert controller.can_access(imp.id, user="manager", level="write")
 
     def test_deny_unauthorized_access(self, improvements_module: Any, agent: Any) -> None:
         """Test denying unauthorized access."""
         AccessController = improvements_module.AccessController
-        
+
         controller = AccessController()
         imp = agent.add_improvement("Private", "No public access")
-        
+
         controller.grant(imp.id, user="owner", level="admin")
-        
+
         assert not controller.can_access(imp.id, user="random_user", level="read")
 
     def test_role_based_access(self, improvements_module: Any, agent: Any) -> None:
         """Test role-based access."""
         AccessController = improvements_module.AccessController
-        
+
         controller = AccessController()
         controller.define_role("developer", permissions=["read", "comment"])
         controller.define_role("admin", permissions=["read", "write", "delete", "admin"])
-        
+
         imp = agent.add_improvement("Team task", "For the team")
         controller.assign_role(imp.id, user="dev1", role="developer")
-        
+
         assert controller.can_access(imp.id, user="dev1", level="read")
         assert not controller.can_access(imp.id, user="dev1", level="delete")

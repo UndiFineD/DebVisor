@@ -43,9 +43,9 @@ Distinguishes between different block types (headings vs fences vs lists)\n\n1.
 **HTML
 Handling**:\n\n - Escapes problematic tokens\n\n - Converts
 angle-bracket-wrapped
-URLs:`]([[https://url`]([https://url]([https://ur]([https://u](https://](https://url`]([https://url]([https://ur]([https://u](https://)u)r)l)`)>)
+URLs:`]([[[https://url`]([https://url]([https://ur]([https://u](https://](https://url`]([https://url]([https://ur]([https://u](https:/](https://url`]([https://url]([https://ur]([https://u](https://](https://url`]([https://url]([https://ur]([https://u](https:/)/)u)r)l)`)>)
 
-## →`\n\n]([[https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https://](https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https://)u)r)l)`)>)\)n)\)n)
+## →`\n\n]([[[https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https://](https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https:/](https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https://](https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https:/)/)u)r)l)`)>)\)n)\)n)
 
 Preserves valid markdown links\n\n1. **Robust Regex Patterns**:\n\n - Anchored
 patterns

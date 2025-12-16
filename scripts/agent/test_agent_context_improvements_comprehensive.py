@@ -40,7 +40,7 @@ def calculate(x: int, y: int) -> int:
         """
         tree = ast.parse(code)
         func_def = tree.body[0]
-        
+
         self.assertIsInstance(func_def, ast.FunctionDef)
         self.assertEqual(func_def.name, 'calculate')
         self.assertEqual(len(func_def.args.args), 2)
@@ -51,13 +51,13 @@ def calculate(x: int, y: int) -> int:
 class DataProcessor:
     def __init__(self, name: str):
         self.name = name
-    
+
     def process(self, data):
         return data
         """
         tree = ast.parse(code)
         class_def = tree.body[0]
-        
+
         self.assertIsInstance(class_def, ast.ClassDef)
         self.assertEqual(class_def.name, 'DataProcessor')
         self.assertEqual(len(class_def.body), 2)
@@ -68,14 +68,14 @@ class DataProcessor:
 class Calculator:
     def add(self, a: int, b: int) -> int:
         return a + b
-    
+
     def multiply(self, a: int, b: int) -> int:
         return a * b
         """
         tree = ast.parse(code)
         class_def = tree.body[0]
         methods = [n for n in class_def.body if isinstance(n, ast.FunctionDef)]
-        
+
         self.assertEqual(len(methods), 2)
         self.assertEqual(methods[0].name, 'add')
 
@@ -100,7 +100,7 @@ class TestGitHistoryIntegration(unittest.TestCase):
             {'hash': 'def456', 'message': 'Feature: add async support'},
             {'hash': 'ghi789', 'message': 'Refactor: extract utilities to separate module'}
         ]
-        
+
         fix_commits = [c for c in commits if c['message'].startswith('Fix')]
         self.assertEqual(len(fix_commits), 1)
 
@@ -128,7 +128,7 @@ import numpy as np
         """
         tree = ast.parse(code)
         imports = [node for node in ast.walk(tree) if isinstance(node, (ast.Import, ast.ImportFrom))]
-        
+
         self.assertEqual(len(imports), 4)
 
     def test_dependency_tree_building(self):
@@ -139,7 +139,7 @@ import numpy as np
             'module_c': ['module_d'],
             'module_d': []
         }
-        
+
         # Check depth
         def max_depth(node, deps, visited=None):
             if visited is None:
@@ -150,7 +150,7 @@ import numpy as np
             if not deps.get(node):
                 return 1
             return 1 + max(max_depth(child, deps, visited) for child in deps.get(node, []))
-        
+
         depth = max_depth('module_a', dependencies)
         self.assertEqual(depth, 3)
 
@@ -161,27 +161,27 @@ import numpy as np
             'module_b': ['module_c'],
             'module_c': ['module_a']
         }
-        
+
         # Simple cycle detection
         def has_cycle(node, deps, visited=None, rec_stack=None):
             if visited is None:
                 visited = set()
             if rec_stack is None:
                 rec_stack = set()
-            
+
             visited.add(node)
             rec_stack.add(node)
-            
+
             for child in deps.get(node, []):
                 if child not in visited:
                     if has_cycle(child, deps, visited, rec_stack):
                         return True
                 elif child in rec_stack:
                     return True
-            
+
             rec_stack.remove(node)
             return False
-        
+
         cycle_exists = has_cycle('module_a', dependencies)
         self.assertTrue(cycle_exists)
 
@@ -197,7 +197,7 @@ class TestContextSummarization(unittest.TestCase):
             'classes': 5,
             'imports': 15
         }
-        
+
         # Determine summary priority
         summary_items = [
             f"Classes: {file_info['classes']}",
@@ -214,7 +214,7 @@ class TestContextSummarization(unittest.TestCase):
             {'name': 'function_definitions', 'lines': '501-1500'},
             {'name': 'utility_functions', 'lines': '1501-2500'}
         ]
-        
+
         self.assertEqual(len(sections), 4)
 
     def test_docstring_extraction_for_summary(self):
@@ -227,7 +227,7 @@ This module provides functionality for:
 - Analyzing dependencies
 - Generating summaries
         """
-        
+
         self.assertIn('Summary', module_docstring)
 
 
@@ -242,11 +242,11 @@ class TestRelatedFilesDetection(unittest.TestCase):
             'module_c.py': ['from module_a import func2', 'import sys'],
             'test_module_a.py': ['from module_a import func1']
         }
-        
+
         # Find files importing module_a
-        importers = [f for f, imports in file_structure.items() 
+        importers = [f for f, imports in file_structure.items()
                      if any('module_a' in i for i in imports)]
-        
+
         self.assertIn('test_module_a.py', importers)
         self.assertIn('module_c.py', importers)
 
@@ -258,7 +258,7 @@ class TestRelatedFilesDetection(unittest.TestCase):
             {'file': 'config.py', 'relevance': 0.60, 'relation': 'imports'},
             {'file': 'legacy_module.py', 'relevance': 0.30, 'relation': 'old_usage'}
         ]
-        
+
         top_related = sorted(related_files, key=lambda x: x['relevance'], reverse=True)
         self.assertEqual(top_related[0]['file'], 'test_module.py')
 
@@ -282,16 +282,16 @@ class PublicClass:
     def public_method(self):
         '''Public method.'''
         pass
-    
+
     def _private_method(self):
         '''Private method.'''
         pass
         """
-        
+
         tree = ast.parse(code)
-        public_items = [node.name for node in tree.body 
+        public_items = [node.name for node in tree.body
                        if hasattr(node, 'name') and not node.name.startswith('_')]
-        
+
         self.assertIn('public_function', public_items)
         self.assertIn('PublicClass', public_items)
         self.assertNotIn('_private_function', public_items)
@@ -300,19 +300,19 @@ class PublicClass:
         """Test parsing docstrings for documentation."""
         docstring = """
         Calculate sum of two numbers.
-        
+
         Args:
             x (int): First number
             y (int): Second number
-            
+
         Returns:
             int: Sum of x and y
-            
+
         Example:
             >>> add(2, 3)
             5
         """
-        
+
         self.assertIn('Args:', docstring)
         self.assertIn('Returns:', docstring)
 
@@ -327,7 +327,7 @@ class TestCoverageMetrics(unittest.TestCase):
             'covered_lines': 450,
             'percentage': (450 / 500) * 100
         }
-        
+
         self.assertEqual(coverage['percentage'], 90.0)
 
     def test_coverage_by_function(self):
@@ -338,7 +338,7 @@ class TestCoverageMetrics(unittest.TestCase):
             {'function': 'format_output', 'coverage': 70},
             {'function': 'debug_helper', 'coverage': 0}
         ]
-        
+
         uncovered = [f for f in function_coverage if f['coverage'] < 100]
         self.assertEqual(len(uncovered), 3)
 
@@ -353,18 +353,18 @@ def calculate(x, y):
     result = x + y
     return result
         """
-        
+
         lines = [line.strip() for line in code.split('\n') if line.strip() and not line.strip().startswith('#')]
         # Excluding docstrings
         loc = len([l for l in lines if l and not '"""' in l])
-        
+
         self.assertGreater(loc, 0)
 
     def test_cyclomatic_complexity(self):
         """Test calculating cyclomatic complexity."""
         # Simplified complexity: 1 + number of conditional statements
         conditions = ['if', 'elif', 'else', 'and', 'or', 'for', 'while', 'except']
-        
+
         code = """
 if x > 0:
     if y > 0:
@@ -376,11 +376,11 @@ elif x < 0:
 else:
     return 0
         """
-        
+
         complexity = 1  # base
         for condition in conditions:
             complexity += code.count(condition)
-        
+
         self.assertGreater(complexity, 1)
 
     def test_maintainability_index(self):
@@ -391,7 +391,7 @@ else:
             'halstead_volume': 500,
             'comments_percentage': 0.25
         }
-        
+
         # MI formula (simplified): 171 - 5.2*ln(Halstead) - 0.23*CC - 16.2*ln(LOC)
         # For testing, just check structure
         self.assertIn('loc', metrics)
@@ -409,10 +409,10 @@ class TestCodeSmellDetection(unittest.TestCase):
             'long_func': 200,  # Code smell
             'very_long_func': 500  # Code smell
         }
-        
+
         smell_threshold = 100
         smells = [name for name, length in function_lengths.items() if length > smell_threshold]
-        
+
         self.assertEqual(len(smells), 2)
 
     def test_duplicate_code_detection(self):
@@ -422,10 +422,10 @@ class TestCodeSmellDetection(unittest.TestCase):
             'for item in items: process(item)',  # Duplicate
             'for item in items: do_something(item)'
         ]
-        
-        duplicates = [code_blocks[0] for i in range(len(code_blocks)) 
+
+        duplicates = [code_blocks[0] for i in range(len(code_blocks))
                      if code_blocks[0] == code_blocks[i]]
-        
+
         self.assertEqual(len(duplicates), 2)
 
     def test_deep_nesting_detection(self):
@@ -438,12 +438,12 @@ if a:
             if d:
                 result = execute()  # 4 levels deep
         """
-        
+
         # Count opening braces/indents
         for line in code_snippet.split('\n'):
             if line.strip().startswith('if'):
                 nesting_levels += 1
-        
+
         self.assertEqual(nesting_levels, 4)
 
 
@@ -458,7 +458,7 @@ class TestArchitectureDecisions(unittest.TestCase):
             'observer': ['subscribe', 'notify'],
             'strategy': ['strategy =', 'execute']
         }
-        
+
         self.assertEqual(len(patterns), 4)
 
     def test_architectural_decision_record(self):
@@ -470,7 +470,7 @@ class TestArchitectureDecisions(unittest.TestCase):
             'date': '2025-12-16',
             'status': 'accepted'
         }
-        
+
         self.assertEqual(adr['status'], 'accepted')
 
 
@@ -485,14 +485,14 @@ class TestChangeStatistics(unittest.TestCase):
             {'date': '2025-12-10', 'type': 'feature'},
             {'date': '2025-12-05', 'type': 'bugfix'},
         ]
-        
+
         self.assertEqual(len(changes), 4)
 
     def test_time_since_last_change(self):
         """Test calculating time since last change."""
-        last_change_date = '2025-12-16'
-        current_date = '2025-12-16'
-        
+
+
+
         # Days since change would be 0
         days_since = 0
         self.assertEqual(days_since, 0)
@@ -504,7 +504,7 @@ class TestChangeStatistics(unittest.TestCase):
             'bob': {'commits': 15, 'changes': 95},
             'charlie': {'commits': 5, 'changes': 20}
         }
-        
+
         total_commits = sum(c['commits'] for c in contributors.values())
         self.assertEqual(total_commits, 45)
 
@@ -517,13 +517,13 @@ class TestPluginSystem(unittest.TestCase):
         class PluginRegistry:
             def __init__(self):
                 self.providers = {}
-            
+
             def register(self, name, provider):
                 self.providers[name] = provider
-            
+
             def get_provider(self, name):
                 return self.providers.get(name)
-        
+
         registry = PluginRegistry()
         self.assertEqual(len(registry.providers), 0)
 
@@ -532,10 +532,10 @@ class TestPluginSystem(unittest.TestCase):
         class CustomProvider:
             def name(self):
                 return "custom_context"
-            
+
             def extract(self, file_path):
                 return {'custom_data': 'value'}
-        
+
         provider = CustomProvider()
         self.assertEqual(provider.name(), 'custom_context')
 
@@ -546,28 +546,28 @@ class TestContextCaching(unittest.TestCase):
     def test_cache_storage(self):
         """Test caching extracted context."""
         cache = {}
-        
+
         def get_context(file_path):
             if file_path in cache:
                 return cache[file_path]
-            
+
             # Simulate extraction
             context = {'data': 'extracted'}
             cache[file_path] = context
             return context
-        
+
         ctx1 = get_context('file.py')
         ctx2 = get_context('file.py')  # From cache
-        
+
         self.assertEqual(ctx1, ctx2)
 
     def test_cache_invalidation(self):
         """Test invalidating cache when file changes."""
         cache = {'file.py': {'data': 'old'}}
-        
+
         # Invalidate cache for specific file
         cache.pop('file.py', None)
-        
+
         self.assertNotIn('file.py', cache)
 
 
@@ -582,7 +582,7 @@ class TestContextPrioritization(unittest.TestCase):
             {'item': 'import_statement', 'relevance': 0.40},
             {'item': 'comment', 'relevance': 0.30}
         ]
-        
+
         sorted_items = sorted(context_items, key=lambda x: x['relevance'], reverse=True)
         self.assertEqual(sorted_items[0]['item'], 'primary_function')
 
@@ -595,7 +595,7 @@ class TestContextPrioritization(unittest.TestCase):
             {'priority': 'low', 'content': 'deprecated_code'},
             {'priority': 'low', 'content': 'old_comments'}
         ]
-        
+
         truncated = [c for c in context if c['priority'] != 'low']
         self.assertEqual(len(truncated), 3)
 
@@ -617,7 +617,7 @@ class TestContextVisualization(unittest.TestCase):
                 {'from': 'module_a', 'to': 'module_c'}
             ]
         }
-        
+
         self.assertEqual(len(graph['nodes']), 3)
         self.assertEqual(len(graph['edges']), 3)
 
@@ -629,7 +629,7 @@ class TestContextVisualization(unittest.TestCase):
             'data_access': ['database_module'],
             'infrastructure': ['logging_module']
         }
-        
+
         self.assertEqual(len(layers), 4)
 
 
@@ -645,7 +645,7 @@ class TestContextFiltering(unittest.TestCase):
             'TOKEN',
             'CREDENTIAL'
         ]
-        
+
         code = "API_KEY = 'secret123'"
         has_sensitive = any(pattern in code for pattern in sensitive_patterns)
         self.assertTrue(has_sensitive)
@@ -657,14 +657,14 @@ class TestContextFiltering(unittest.TestCase):
             'imports': ['import os'],
             'functions': ['process_data']
         }
-        
+
         # Filter code containing sensitive patterns
         sensitive_keywords = ['API_KEY', 'PASSWORD', 'SECRET']
         filtered_code = context['code']
         for keyword in sensitive_keywords:
             if keyword in context['code']:
                 filtered_code = '[REDACTED]'
-        
+
         self.assertEqual(filtered_code, '[REDACTED]')
 
 
@@ -680,7 +680,7 @@ class TestCrossModuleContext(unittest.TestCase):
                 'shared_classes': ['DataProcessor']
             }
         }
-        
+
         self.assertEqual(len(relationships['module_a']['imports_from']), 2)
 
     def test_shared_interface_detection(self):
@@ -691,7 +691,7 @@ class TestCrossModuleContext(unittest.TestCase):
                 'methods': ['process', 'validate', 'output']
             }
         }
-        
+
         self.assertEqual(len(interfaces['Processor']['modules']), 3)
 
 

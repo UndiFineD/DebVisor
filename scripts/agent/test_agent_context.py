@@ -1498,28 +1498,28 @@ class TestSemanticSearch:
         """Test basic semantic search."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "def calculate_total(items): return sum(items)"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "calculate_total" in previous
 
     def test_semantic_search_relevance(self, tmp_path: Path) -> None:
         """Test semantic search returns relevant results."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "# User Authentication\nThis module handles user login."
         target = tmp_path / "auth.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         content = agent.read_previous_content()
-        
+
         assert "Authentication" in content
 
 
@@ -1535,14 +1535,14 @@ class TestCrossRepositoryContext:
         """Test detecting cross-repository references."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "Depends on: github.com/org/other-repo"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "github.com" in previous
 
 
@@ -1558,7 +1558,7 @@ class TestContextDiffing:
         """Test diff content is detected."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = """
 ## Version 2.0
 - New feature
@@ -1567,10 +1567,10 @@ class TestContextDiffing:
 """
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Version 2.0" in previous
         assert "Version 1.0" in previous
 
@@ -1587,14 +1587,14 @@ class TestContextTemplateApplication:
         """Test template placeholder detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "# {module_name}\n\nDescription: {description}"
         target = tmp_path / "template.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "{module_name}" in previous
 
 
@@ -1610,14 +1610,14 @@ class TestContextInheritance:
         """Test detecting inheritance in context."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "Extends: base_module\nInherits: core.BaseClass"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Extends:" in previous
 
 
@@ -1633,28 +1633,28 @@ class TestContextTagging:
         """Test tag detection in context."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "Tags: [security], [authentication], [api]"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "[security]" in previous
 
     def test_category_detection(self, tmp_path: Path) -> None:
         """Test category detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "Category: Core Infrastructure"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Category:" in previous
 
 
@@ -1670,14 +1670,14 @@ class TestNaturalLanguageSearch:
         """Test natural language content is searchable."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "This module handles the user login process and session management."
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "user login" in previous
 
 
@@ -1693,14 +1693,14 @@ class TestContextVersioning:
         """Test version header detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "# Context v2.0.0\n\nUpdated description."
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "v2.0.0" in previous
 
 
@@ -1716,14 +1716,14 @@ class TestContextCompression:
         """Test large context can be read."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "\n".join([f"Line {i}: Description text" for i in range(100)])
         target = tmp_path / "large.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Line 0" in previous
         assert "Line 99" in previous
 
@@ -1740,14 +1740,14 @@ class TestContextExport:
         """Test markdown format is preserved for export."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "# Title\n\n## Section\n\n- Item 1\n- Item 2"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "# Title" in previous
         assert "## Section" in previous
 
@@ -1764,14 +1764,14 @@ class TestContextValidation:
         """Test valid context format is accepted."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "# Module: test_module\n\n## Purpose\n\nTest purpose."
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Module:" in previous
 
 
@@ -1787,14 +1787,14 @@ class TestContextAnnotation:
         """Test annotation detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "<!-- @author: John Doe -->\n# Module"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "@author" in previous
 
 
@@ -1810,14 +1810,14 @@ class TestContextRecommendation:
         """Test related content detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "Related: auth_module, user_module, session_module"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "auth_module" in previous
 
 
@@ -1833,7 +1833,7 @@ class TestContextAwareCodeGeneration:
         """Test code example detection in context."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = """
 ## Example Usage
 
@@ -1844,10 +1844,10 @@ result = function(arg)
 """
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "```python" in previous
 
 
@@ -1863,14 +1863,14 @@ class TestContextBasedRefactoring:
         """Test refactoring note detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "TODO: Refactor this module to use async/await"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Refactor" in previous
 
 
@@ -1886,7 +1886,7 @@ class TestContextMergeConflict:
         """Test conflict marker detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = """
 <<<<<<< HEAD
 Old description
@@ -1896,10 +1896,10 @@ New description
 """
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "<<<<<<< HEAD" in previous
 
 
@@ -1915,14 +1915,14 @@ class TestContextAccessControl:
         """Test read access to context."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "# Private Module\n\nInternal use only."
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "Private Module" in previous
 
 
@@ -1938,14 +1938,14 @@ class TestContextArchival:
         """Test archived marker detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "<!-- ARCHIVED: 2024-12-01 -->\n# Old Module"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "ARCHIVED" in previous
 
 
@@ -1961,14 +1961,14 @@ class TestContextSearchIndexing:
         """Test keywords can be extracted from context."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "Keywords: authentication, security, oauth2, jwt"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "authentication" in previous
         assert "jwt" in previous
 
@@ -1985,26 +1985,26 @@ class TestContextNotification:
         """Test alert marker detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "> ⚠️ WARNING: This module is deprecated."
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "WARNING" in previous
 
     def test_breaking_change_detection(self, tmp_path: Path) -> None:
         """Test breaking change detection."""
         with agent_dir_on_path():
             mod = load_agent_module("agent-context.py")
-        
+
         content = "BREAKING CHANGE: API signature changed in v2.0"
         target = tmp_path / "test.description.md"
         target.write_text(content)
-        
+
         agent = mod.ContextAgent(str(target))
         previous = agent.read_previous_content()
-        
+
         assert "BREAKING CHANGE" in previous

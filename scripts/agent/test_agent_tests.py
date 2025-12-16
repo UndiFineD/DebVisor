@@ -313,13 +313,13 @@ class TestTestRunRecording:
         """Test recording a test run."""
         agent.add_test("test1", "test.py", 10)
         agent.add_test("test2", "test.py", 20)
-        
+
         results = {
             "test1": tests_module.TestStatus.PASSED,
             "test2": tests_module.TestStatus.FAILED
         }
         run = agent.record_test_run(results, duration_ms=1000)
-        
+
         assert run.total_tests == 2
         assert run.passed == 1
         assert run.failed == 1
@@ -1006,12 +1006,12 @@ class TestTestPrioritizationAlgorithms:
     def test_prioritizer_by_recent_changes(self, tests_module: Any) -> None:
         """Test prioritization by recent changes."""
         TestPrioritizer = tests_module.TestPrioritizer
-        
+
         prioritizer = TestPrioritizer()
         prioritizer.add_test("test1", changed_recently=True)
         prioritizer.add_test("test2", changed_recently=False)
         prioritizer.add_test("test3", changed_recently=True)
-        
+
         ordered = prioritizer.prioritize_by_changes()
         # Recently changed tests should come first
         assert ordered[0] in ["test1", "test3"]
@@ -1019,23 +1019,23 @@ class TestTestPrioritizationAlgorithms:
     def test_prioritizer_by_failure_history(self, tests_module: Any) -> None:
         """Test prioritization by failure history."""
         TestPrioritizer = tests_module.TestPrioritizer
-        
+
         prioritizer = TestPrioritizer()
         prioritizer.add_test("test1", failure_rate=0.8)
         prioritizer.add_test("test2", failure_rate=0.1)
         prioritizer.add_test("test3", failure_rate=0.5)
-        
+
         ordered = prioritizer.prioritize_by_failure_rate()
         assert ordered[0] == "test1"  # Highest failure rate first
 
     def test_prioritizer_combined_strategy(self, tests_module: Any) -> None:
         """Test combined prioritization strategy."""
         TestPrioritizer = tests_module.TestPrioritizer
-        
+
         prioritizer = TestPrioritizer()
         prioritizer.add_test("test1", changed_recently=False, failure_rate=0.9)
         prioritizer.add_test("test2", changed_recently=True, failure_rate=0.1)
-        
+
         ordered = prioritizer.prioritize_combined(change_weight=0.5, failure_weight=0.5)
         assert len(ordered) == 2
 
@@ -1046,33 +1046,33 @@ class TestFlakinessDetectionAndQuarantine:
     def test_flakiness_detector_identifies_flaky(self, tests_module: Any) -> None:
         """Test flakiness detector identifies flaky tests."""
         FlakinessDetector = tests_module.FlakinessDetector
-        
+
         detector = FlakinessDetector()
         # Add inconsistent results
         detector.record_result("test1", passed=True)
         detector.record_result("test1", passed=False)
         detector.record_result("test1", passed=True)
         detector.record_result("test1", passed=False)
-        
+
         assert detector.is_flaky("test1")
 
     def test_flakiness_detector_stable_test(self, tests_module: Any) -> None:
         """Test flakiness detector identifies stable tests."""
         FlakinessDetector = tests_module.FlakinessDetector
-        
+
         detector = FlakinessDetector()
         for _ in range(10):
             detector.record_result("test_stable", passed=True)
-        
+
         assert not detector.is_flaky("test_stable")
 
     def test_quarantine_manager(self, tests_module: Any) -> None:
         """Test quarantine manager."""
         QuarantineManager = tests_module.QuarantineManager
-        
+
         manager = QuarantineManager()
         manager.quarantine("flaky_test1", reason="Flaky for 7 days")
-        
+
         assert manager.is_quarantined("flaky_test1")
         assert not manager.is_quarantined("stable_test")
 
@@ -1083,11 +1083,11 @@ class TestTestImpactAnalysis:
     def test_impact_analyzer_file_changes(self, tests_module: Any) -> None:
         """Test impact analysis for file changes."""
         ImpactAnalyzer = tests_module.ImpactAnalyzer
-        
+
         analyzer = ImpactAnalyzer()
         analyzer.map_test_to_files("test_auth", ["auth.py", "utils.py"])
         analyzer.map_test_to_files("test_db", ["database.py"])
-        
+
         affected = analyzer.get_affected_tests(changed_files=["auth.py"])
         assert "test_auth" in affected
         assert "test_db" not in affected
@@ -1095,11 +1095,11 @@ class TestTestImpactAnalysis:
     def test_impact_analyzer_dependency_graph(self, tests_module: Any) -> None:
         """Test impact analysis with dependency graph."""
         ImpactAnalyzer = tests_module.ImpactAnalyzer
-        
+
         analyzer = ImpactAnalyzer()
         analyzer.add_dependency("utils.py", "auth.py")
         analyzer.map_test_to_files("test_auth", ["auth.py"])
-        
+
         # Changing utils.py should affect test_auth via dependency
         affected = analyzer.get_affected_tests(
             changed_files=["utils.py"],
@@ -1114,14 +1114,14 @@ class TestDataFactoryIntegration:
     def test_data_factory_creates_objects(self, tests_module: Any) -> None:
         """Test data factory creates test objects."""
         DataFactory = tests_module.DataFactory
-        
+
         factory = DataFactory()
         factory.register("user", {
             "id": "auto_increment",
             "name": "random_string",
             "email": "random_email"
         })
-        
+
         user = factory.create("user")
         assert "id" in user
         assert "name" in user
@@ -1130,10 +1130,10 @@ class TestDataFactoryIntegration:
     def test_data_factory_with_overrides(self, tests_module: Any) -> None:
         """Test data factory with field overrides."""
         DataFactory = tests_module.DataFactory
-        
+
         factory = DataFactory()
         factory.register("user", {"name": "random_string", "age": 25})
-        
+
         user = factory.create("user", overrides={"name": "John", "age": 30})
         assert user["name"] == "John"
         assert user["age"] == 30
@@ -1141,10 +1141,10 @@ class TestDataFactoryIntegration:
     def test_data_factory_batch_create(self, tests_module: Any) -> None:
         """Test data factory batch creation."""
         DataFactory = tests_module.DataFactory
-        
+
         factory = DataFactory()
         factory.register("item", {"value": "random_int"})
-        
+
         items = factory.create_batch("item", count=5)
         assert len(items) == 5
 
@@ -1155,12 +1155,12 @@ class TestTestParallelizationStrategies:
     def test_round_robin_distribution(self, tests_module: Any) -> None:
         """Test round-robin test distribution."""
         ParallelizationStrategy = tests_module.ParallelizationStrategy
-        
+
         strategy = ParallelizationStrategy("round_robin", workers=4)
         tests = ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"]
-        
+
         distribution = strategy.distribute(tests)
-        
+
         # Each worker should have 2 tests
         for worker_tests in distribution.values():
             assert len(worker_tests) == 2
@@ -1168,12 +1168,12 @@ class TestTestParallelizationStrategies:
     def test_load_balanced_distribution(self, tests_module: Any) -> None:
         """Test load-balanced test distribution."""
         ParallelizationStrategy = tests_module.ParallelizationStrategy
-        
+
         strategy = ParallelizationStrategy("load_balanced", workers=2)
         tests = {"t1": 1000, "t2": 500, "t3": 200, "t4": 300}  # With durations
-        
+
         distribution = strategy.distribute_balanced(tests)
-        
+
         # Total time should be balanced between workers
         assert len(distribution) == 2
 
@@ -1184,11 +1184,11 @@ class TestCoverageGapAnalysis:
     def test_gap_analyzer_finds_uncovered(self, tests_module: Any) -> None:
         """Test gap analyzer finds uncovered code."""
         CoverageGapAnalyzer = tests_module.CoverageGapAnalyzer
-        
+
         analyzer = CoverageGapAnalyzer()
         analyzer.add_coverage_data("file.py", covered_lines={1, 2, 3, 5, 6})
         analyzer.set_total_lines("file.py", total_lines=10)
-        
+
         gaps = analyzer.find_gaps("file.py")
         assert 4 in gaps
         assert 7 in gaps
@@ -1196,11 +1196,11 @@ class TestCoverageGapAnalysis:
     def test_gap_analyzer_coverage_percentage(self, tests_module: Any) -> None:
         """Test gap analyzer calculates percentage."""
         CoverageGapAnalyzer = tests_module.CoverageGapAnalyzer
-        
+
         analyzer = CoverageGapAnalyzer()
         analyzer.add_coverage_data("file.py", covered_lines={1, 2, 3, 4, 5})
         analyzer.set_total_lines("file.py", total_lines=10)
-        
+
         percentage = analyzer.get_coverage_percentage("file.py")
         assert percentage == 50.0
 
@@ -1211,13 +1211,13 @@ class TestContractTestingIntegration:
     def test_contract_validator_valid(self, tests_module: Any) -> None:
         """Test contract validator with valid data."""
         ContractValidator = tests_module.ContractValidator
-        
+
         validator = ContractValidator()
         contract = {
             "request": {"method": "GET", "path": "/users"},
             "response": {"status": 200, "body": {"type": "array"}}
         }
-        
+
         result = validator.validate(
             contract,
             actual_response={"status": 200, "body": []}
@@ -1227,12 +1227,12 @@ class TestContractTestingIntegration:
     def test_contract_validator_invalid(self, tests_module: Any) -> None:
         """Test contract validator with invalid data."""
         ContractValidator = tests_module.ContractValidator
-        
+
         validator = ContractValidator()
         contract = {
             "response": {"status": 200}
         }
-        
+
         result = validator.validate(
             contract,
             actual_response={"status": 404}
@@ -1246,12 +1246,12 @@ class TestTestSuiteOptimization:
     def test_optimizer_removes_redundant(self, tests_module: Any) -> None:
         """Test optimizer removes redundant tests."""
         TestSuiteOptimizer = tests_module.TestSuiteOptimizer
-        
+
         optimizer = TestSuiteOptimizer()
         optimizer.add_test("test1", covers={"func_a", "func_b"})
         optimizer.add_test("test2", covers={"func_a"})  # Redundant
         optimizer.add_test("test3", covers={"func_c"})
-        
+
         optimized = optimizer.optimize()
         assert "test1" in optimized
         assert "test3" in optimized
@@ -1260,16 +1260,16 @@ class TestTestSuiteOptimization:
     def test_optimizer_preserves_coverage(self, tests_module: Any) -> None:
         """Test optimizer preserves coverage."""
         TestSuiteOptimizer = tests_module.TestSuiteOptimizer
-        
+
         optimizer = TestSuiteOptimizer()
         optimizer.add_test("test1", covers={"a", "b"})
         optimizer.add_test("test2", covers={"c", "d"})
-        
+
         optimized = optimizer.optimize()
         total_coverage = set()
         for test in optimized:
             total_coverage.update(optimizer.get_coverage(test))
-        
+
         assert total_coverage == {"a", "b", "c", "d"}
 
 
@@ -1279,23 +1279,23 @@ class TestEnvironmentProvisioningAutomation:
     def test_provisioner_creates_environment(self, tests_module: Any) -> None:
         """Test provisioner creates test environment."""
         EnvironmentProvisioner = tests_module.EnvironmentProvisioner
-        
+
         provisioner = EnvironmentProvisioner()
         env = provisioner.provision({
             "python_version": "3.11",
             "dependencies": ["pytest", "requests"]
         })
-        
+
         assert env.status == "ready"
         assert "pytest" in env.dependencies
 
     def test_provisioner_cleanup(self, tests_module: Any) -> None:
         """Test provisioner cleans up environment."""
         EnvironmentProvisioner = tests_module.EnvironmentProvisioner
-        
+
         provisioner = EnvironmentProvisioner()
         env = provisioner.provision({"python_version": "3.11"})
-        
+
         provisioner.cleanup(env)
         assert env.status == "cleaned"
 
@@ -1306,30 +1306,30 @@ class TestTestReplayFunctionality:
     def test_recorder_saves_execution(self, tests_module: Any) -> None:
         """Test recorder saves test execution."""
         TestRecorder = tests_module.TestRecorder
-        
+
         recorder = TestRecorder()
         recorder.start_recording("test_example")
         recorder.record_action("call", {"func": "do_something", "args": [1, 2]})
         recorder.record_action("assert", {"expected": 3, "actual": 3})
         recording = recorder.stop_recording()
-        
+
         assert len(recording.actions) == 2
 
     def test_replayer_executes_recording(self, tests_module: Any) -> None:
         """Test replayer executes recorded test."""
         TestReplayer = tests_module.TestReplayer
         TestRecorder = tests_module.TestRecorder
-        
+
         # Create a recording
         recorder = TestRecorder()
         recorder.start_recording("test1")
         recorder.record_action("call", {"result": 42})
         recording = recorder.stop_recording()
-        
+
         # Replay it
         replayer = TestReplayer()
         result = replayer.replay(recording)
-        
+
         assert result.success
 
 
@@ -1339,14 +1339,14 @@ class TestDocumentationGenerationFromTests:
     def test_doc_generator_extracts_examples(self, tests_module: Any) -> None:
         """Test doc generator extracts examples from tests."""
         TestDocGenerator = tests_module.TestDocGenerator
-        
+
         generator = TestDocGenerator()
         generator.add_test(
             name="test_addition",
             docstring="Test that addition works.",
             code="assert 1 + 2 == 3"
         )
-        
+
         docs = generator.generate()
         assert "addition" in docs.lower()
         assert "1 + 2" in docs
@@ -1354,12 +1354,12 @@ class TestDocumentationGenerationFromTests:
     def test_doc_generator_groups_by_module(self, tests_module: Any) -> None:
         """Test doc generator groups tests by module."""
         TestDocGenerator = tests_module.TestDocGenerator
-        
+
         generator = TestDocGenerator()
         generator.add_test(name="test_a", module="module1")
         generator.add_test(name="test_b", module="module1")
         generator.add_test(name="test_c", module="module2")
-        
+
         docs = generator.generate_grouped()
         assert "module1" in docs
         assert "module2" in docs
@@ -1371,35 +1371,35 @@ class TestDependencyInjectionPatterns:
     def test_di_container_registers_dependencies(self, tests_module: Any) -> None:
         """Test DI container registers dependencies."""
         DIContainer = tests_module.DIContainer
-        
+
         container = DIContainer()
         container.register("database", lambda: {"connection": "mock"})
         container.register("cache", lambda: {"type": "memory"})
-        
+
         assert container.has("database")
         assert container.has("cache")
 
     def test_di_container_resolves_dependencies(self, tests_module: Any) -> None:
         """Test DI container resolves dependencies."""
         DIContainer = tests_module.DIContainer
-        
+
         container = DIContainer()
         container.register("config", lambda: {"timeout": 30})
-        
+
         config = container.resolve("config")
         assert config["timeout"] == 30
 
     def test_di_container_with_test_overrides(self, tests_module: Any) -> None:
         """Test DI container supports test overrides."""
         DIContainer = tests_module.DIContainer
-        
+
         container = DIContainer()
         container.register("service", lambda: {"real": True})
-        
+
         with container.override("service", lambda: {"mock": True}):
             service = container.resolve("service")
             assert service["mock"] is True
-        
+
         # Should be restored
         service = container.resolve("service")
         assert service["real"] is True
@@ -1411,11 +1411,11 @@ class TestTestResultAggregationExtended:
     def test_aggregator_merges_multiple_runs(self, tests_module: Any) -> None:
         """Test aggregator merges results from multiple runs."""
         ResultAggregator = tests_module.ResultAggregator
-        
+
         aggregator = ResultAggregator()
         aggregator.add_run({"passed": 10, "failed": 2, "skipped": 1})
         aggregator.add_run({"passed": 8, "failed": 4, "skipped": 0})
-        
+
         merged = aggregator.merge()
         assert merged["total_passed"] == 18
         assert merged["total_failed"] == 6
@@ -1423,12 +1423,12 @@ class TestTestResultAggregationExtended:
     def test_aggregator_trend_analysis(self, tests_module: Any) -> None:
         """Test aggregator performs trend analysis."""
         ResultAggregator = tests_module.ResultAggregator
-        
+
         aggregator = ResultAggregator()
         aggregator.add_run({"passed": 10, "failed": 5})
         aggregator.add_run({"passed": 12, "failed": 3})
         aggregator.add_run({"passed": 14, "failed": 1})
-        
+
         trend = aggregator.get_trend()
         assert trend["pass_rate_trend"] == "improving"
 
@@ -1439,21 +1439,21 @@ class TestMutationTestingIntegration:
     def test_mutation_runner_applies_mutations(self, tests_module: Any) -> None:
         """Test mutation runner applies mutations."""
         MutationRunner = tests_module.MutationRunner
-        
+
         runner = MutationRunner()
         mutations = runner.generate_mutations("x = 1 + 2")
-        
+
         assert any("1 - 2" in m or "-" in m for m in mutations)
 
     def test_mutation_runner_calculates_score(self, tests_module: Any) -> None:
         """Test mutation runner calculates mutation score."""
         MutationRunner = tests_module.MutationRunner
-        
+
         runner = MutationRunner()
         runner.add_result("mutation1", killed=True)
         runner.add_result("mutation2", killed=True)
         runner.add_result("mutation3", killed=False)
-        
+
         score = runner.get_mutation_score()
         assert score == pytest.approx(66.67, rel=0.1)
 
@@ -1464,11 +1464,11 @@ class TestTestMetricsCollection:
     def test_metrics_collector_records_execution_time(self, tests_module: Any) -> None:
         """Test metrics collector records execution time."""
         TestMetricsCollector = tests_module.TestMetricsCollector
-        
+
         collector = TestMetricsCollector()
         collector.record_execution("test1", duration_ms=150)
         collector.record_execution("test2", duration_ms=250)
-        
+
         metrics = collector.get_metrics()
         assert metrics["total_duration_ms"] == 400
         assert metrics["average_duration_ms"] == 200
@@ -1476,10 +1476,10 @@ class TestTestMetricsCollection:
     def test_metrics_collector_tracks_flakiness(self, tests_module: Any) -> None:
         """Test metrics collector tracks flakiness."""
         TestMetricsCollector = tests_module.TestMetricsCollector
-        
+
         collector = TestMetricsCollector()
         collector.record_flaky("test_flaky", occurrences=3)
-        
+
         flaky_tests = collector.get_flaky_tests()
         assert "test_flaky" in flaky_tests
 
@@ -1490,30 +1490,30 @@ class TestTestBaselineManagement:
     def test_baseline_manager_saves_baseline(self, tests_module: Any, tmp_path: Path) -> None:
         """Test baseline manager saves baselines."""
         BaselineManager = tests_module.BaselineManager
-        
+
         manager = BaselineManager(baseline_dir=tmp_path)
         manager.save_baseline("test_output", {"value": 42})
-        
+
         loaded = manager.load_baseline("test_output")
         assert loaded["value"] == 42
 
     def test_baseline_manager_compares_to_baseline(self, tests_module: Any, tmp_path: Path) -> None:
         """Test baseline manager compares to baseline."""
         BaselineManager = tests_module.BaselineManager
-        
+
         manager = BaselineManager(baseline_dir=tmp_path)
         manager.save_baseline("test_output", {"value": 42})
-        
+
         result = manager.compare("test_output", {"value": 42})
         assert result.matches
 
     def test_baseline_manager_updates_baseline(self, tests_module: Any, tmp_path: Path) -> None:
         """Test baseline manager updates baselines."""
         BaselineManager = tests_module.BaselineManager
-        
+
         manager = BaselineManager(baseline_dir=tmp_path)
         manager.save_baseline("test_output", {"value": 42})
         manager.update_baseline("test_output", {"value": 100})
-        
+
         loaded = manager.load_baseline("test_output")
         assert loaded["value"] == 100

@@ -148,7 +148,7 @@ class CompileResult:
 @dataclass
 class CodeIssue:
     """Represents a code issue or improvement suggestion.
-    
+
     Attributes:
         message: Issue description.
         category: Issue category.
@@ -166,7 +166,7 @@ class CodeIssue:
 @dataclass
 class ReportMetadata:
     """Metadata for a generated report.
-    
+
     Attributes:
         file_path: Path to source file.
         generated_at: Timestamp of generation.
@@ -184,7 +184,7 @@ class ReportMetadata:
 @dataclass
 class ReportTemplate:
     """Template for report generation.
-    
+
     Attributes:
         name: Template name.
         sections: List of section names to include.
@@ -200,7 +200,7 @@ class ReportTemplate:
 @dataclass
 class ReportCache:
     """Cache for report data.
-    
+
     Attributes:
         reports: Dict mapping file path to cached report data.
         last_updated: Timestamp of last cache update.
@@ -214,7 +214,7 @@ class ReportCache:
 @dataclass
 class ReportComparison:
     """Result of comparing two report versions.
-    
+
     Attributes:
         file_path: Path to source file.
         added_issues: Issues added in new version.
@@ -232,7 +232,7 @@ class ReportComparison:
 @dataclass
 class FilterCriteria:
     """Criteria for filtering reports.
-    
+
     Attributes:
         date_from: Start date for filtering.
         date_to: End date for filtering.
@@ -250,7 +250,7 @@ class FilterCriteria:
 @dataclass
 class ReportSubscription:
     """Subscription for report delivery.
-    
+
     Attributes:
         subscriber_id: Unique subscriber identifier.
         email: Email address for delivery.
@@ -270,7 +270,7 @@ class ReportSubscription:
 @dataclass
 class ArchivedReport:
     """Archived report with retention info.
-    
+
     Attributes:
         report_id: Unique report identifier.
         file_path: Original file path.
@@ -290,7 +290,7 @@ class ArchivedReport:
 @dataclass
 class ReportAnnotation:
     """Annotation on a report.
-    
+
     Attributes:
         annotation_id: Unique annotation identifier.
         report_id: Associated report ID.
@@ -310,7 +310,7 @@ class ReportAnnotation:
 @dataclass
 class ReportSearchResult:
     """Result from report search.
-    
+
     Attributes:
         file_path: Path to report file.
         report_type: Type of report.
@@ -328,7 +328,7 @@ class ReportSearchResult:
 @dataclass
 class ReportMetric:
     """Custom metric for reports.
-    
+
     Attributes:
         name: Metric name.
         value: Metric value.
@@ -346,7 +346,7 @@ class ReportMetric:
 @dataclass
 class ReportPermission:
     """Permission for report access.
-    
+
     Attributes:
         user_id: User identifier.
         report_pattern: Glob pattern for reports.
@@ -364,7 +364,7 @@ class ReportPermission:
 @dataclass
 class AuditEntry:
     """Audit log entry.
-    
+
     Attributes:
         entry_id: Unique entry identifier.
         timestamp: Event timestamp.
@@ -384,7 +384,7 @@ class AuditEntry:
 @dataclass
 class LocalizedString:
     """Localized string with translations.
-    
+
     Attributes:
         key: String key.
         translations: Locale to text mapping.
@@ -398,7 +398,7 @@ class LocalizedString:
 @dataclass
 class ValidationResult:
     """Result of report validation.
-    
+
     Attributes:
         valid: Whether report is valid.
         errors: Validation errors.
@@ -414,7 +414,7 @@ class ValidationResult:
 @dataclass
 class AggregatedReport:
     """Report aggregated from multiple sources.
-    
+
     Attributes:
         sources: Source report paths.
         combined_issues: Combined issues from all sources.
@@ -434,22 +434,22 @@ class AggregatedReport:
 
 class ReportCacheManager:
     """Manages report caching with invalidation strategies.
-    
+
     Attributes:
         cache_file: Path to cache file.
         cache: Current cache data.
     """
-    
+
     def __init__(self, cache_file: Optional[Path] = None):
         """Initialize cache manager.
-        
+
         Args:
             cache_file: Path to cache file. Defaults to .report_cache.json.
         """
         self.cache_file = cache_file or AGENT_DIR / ".report_cache.json"
         self.cache = ReportCache()
         self._load_cache()
-    
+
     def _load_cache(self) -> None:
         """Load cache from disk."""
         if self.cache_file.exists():
@@ -462,7 +462,7 @@ class ReportCacheManager:
                 )
             except Exception as e:
                 logging.warning(f"Failed to load cache: {e}")
-    
+
     def _save_cache(self) -> None:
         """Save cache to disk."""
         try:
@@ -474,36 +474,36 @@ class ReportCacheManager:
             self.cache_file.write_text(json.dumps(data, indent=2))
         except Exception as e:
             logging.warning(f"Failed to save cache: {e}")
-    
+
     def get(self, file_path: str, source_hash: str) -> Optional[Dict[str, Any]]:
         """Get cached report if valid.
-        
+
         Args:
             file_path: Path to source file.
             source_hash: Current source hash.
-            
+
         Returns:
             Cached report data or None if not valid.
         """
         if file_path not in self.cache.reports:
             return None
-        
+
         cached = self.cache.reports[file_path]
-        
+
         # Check if hash matches
         if cached.get('source_hash') != source_hash:
             return None
-        
+
         # Check TTL
         cached_time = cached.get('generated_at', 0)
         if time.time() - cached_time > self.cache.ttl_seconds:
             return None
-        
+
         return cached
-    
+
     def set(self, file_path: str, source_hash: str, data: Dict[str, Any]) -> None:
         """Cache report data.
-        
+
         Args:
             file_path: Path to source file.
             source_hash: Current source hash.
@@ -516,10 +516,10 @@ class ReportCacheManager:
         }
         self.cache.last_updated = time.time()
         self._save_cache()
-    
+
     def invalidate(self, file_path: Optional[str] = None) -> None:
         """Invalidate cache entries.
-        
+
         Args:
             file_path: Path to invalidate. If None, clears all.
         """
@@ -537,39 +537,39 @@ class ReportCacheManager:
 
 class ReportComparator:
     """Compares report versions to show differences.
-    
+
     Attributes:
         reports_dir: Directory containing reports.
     """
-    
+
     def __init__(self, reports_dir: Path = AGENT_DIR):
         """Initialize comparator.
-        
+
         Args:
             reports_dir: Directory containing report files.
         """
         self.reports_dir = reports_dir
-    
+
     def compare(self, file_stem: str, old_content: str, new_content: str) -> ReportComparison:
         """Compare two report versions.
-        
+
         Args:
             file_stem: File stem (without extension).
             old_content: Previous report content.
             new_content: New report content.
-            
+
         Returns:
             ReportComparison with differences.
         """
         old_items = self._extract_items(old_content)
         new_items = self._extract_items(new_content)
-        
+
         old_set = set(old_items)
         new_set = set(new_items)
-        
+
         added = list(new_set - old_set)
         removed = list(old_set - new_set)
-        
+
         summary_parts = []
         if added:
             summary_parts.append(f"+{len(added)} new items")
@@ -577,14 +577,14 @@ class ReportComparator:
             summary_parts.append(f"-{len(removed)} removed items")
         if not summary_parts:
             summary_parts.append("No changes")
-        
+
         return ReportComparison(
             file_path=file_stem,
             added_issues=added,
             removed_issues=removed,
             summary=", ".join(summary_parts)
         )
-    
+
     def _extract_items(self, content: str) -> List[str]:
         """Extract list items from markdown content."""
         items = []
@@ -602,44 +602,44 @@ class ReportComparator:
 
 class ReportFilter:
     """Filters reports based on criteria.
-    
+
     Attributes:
         criteria: Filter criteria to apply.
     """
-    
+
     def __init__(self, criteria: Optional[FilterCriteria] = None):
         """Initialize filter.
-        
+
         Args:
             criteria: Filter criteria. Uses defaults if not provided.
         """
         self.criteria = criteria or FilterCriteria()
-    
+
     def matches(self, issue: CodeIssue) -> bool:
         """Check if issue matches filter criteria.
-        
+
         Args:
             issue: Code issue to check.
-            
+
         Returns:
             True if issue matches all criteria.
         """
         # Check severity
         if issue.severity.value < self.criteria.severity_min.value:
             return False
-        
+
         # Check category
         if self.criteria.categories and issue.category not in self.criteria.categories:
             return False
-        
+
         return True
-    
+
     def filter_issues(self, issues: List[CodeIssue]) -> List[CodeIssue]:
         """Filter list of issues.
-        
+
         Args:
             issues: List of issues to filter.
-            
+
         Returns:
             Filtered list of issues.
         """
@@ -653,41 +653,41 @@ class ReportFilter:
 
 class SubscriptionManager:
     """Manager for report subscriptions and scheduled delivery.
-    
+
     Handles subscriber management, delivery scheduling, and
     notification triggering.
-    
+
     Attributes:
         subscriptions: Active subscriptions.
         delivery_queue: Pending deliveries.
-    
+
     Example:
         manager = SubscriptionManager()
         manager.add_subscription(ReportSubscription("user1", "user@example.com"))
         manager.process_deliveries()
     """
-    
+
     def __init__(self) -> None:
         """Initialize subscription manager."""
         self.subscriptions: Dict[str, ReportSubscription] = {}
         self.delivery_queue: List[Dict[str, Any]] = []
         logging.debug("SubscriptionManager initialized")
-    
+
     def add_subscription(self, subscription: ReportSubscription) -> None:
         """Add a subscription.
-        
+
         Args:
             subscription: Subscription to add.
         """
         self.subscriptions[subscription.subscriber_id] = subscription
         logging.debug(f"Added subscription for {subscription.subscriber_id}")
-    
+
     def remove_subscription(self, subscriber_id: str) -> bool:
         """Remove a subscription.
-        
+
         Args:
             subscriber_id: Subscriber to remove.
-            
+
         Returns:
             True if removed.
         """
@@ -695,15 +695,15 @@ class SubscriptionManager:
             del self.subscriptions[subscriber_id]
             return True
         return False
-    
+
     def get_due_subscriptions(self) -> List[ReportSubscription]:
         """Get subscriptions due for delivery.
-        
+
         Returns:
             List of due subscriptions.
         """
         return [s for s in self.subscriptions.values() if s.enabled]
-    
+
     def queue_delivery(
         self,
         subscriber_id: str,
@@ -711,7 +711,7 @@ class SubscriptionManager:
         report_type: ReportType
     ) -> None:
         """Queue a report delivery.
-        
+
         Args:
             subscriber_id: Target subscriber.
             report_content: Report content.
@@ -723,10 +723,10 @@ class SubscriptionManager:
             "type": report_type,
             "queued_at": time.time()
         })
-    
+
     def process_deliveries(self) -> int:
         """Process pending deliveries.
-        
+
         Returns:
             Number of deliveries processed.
         """
@@ -737,29 +737,29 @@ class SubscriptionManager:
 
 class ReportArchiver:
     """Manager for report archiving with retention policies.
-    
+
     Handles archiving, retrieval, and cleanup of historical reports.
-    
+
     Attributes:
         archive_dir: Directory for archived reports.
         archives: In-memory archive index.
-    
+
     Example:
         archiver = ReportArchiver(Path("./archives"))
         archiver.archive("file.py", report_content)
         old_reports = archiver.list_archives("file.py")
     """
-    
+
     def __init__(self, archive_dir: Optional[Path] = None) -> None:
         """Initialize archiver.
-        
+
         Args:
             archive_dir: Directory for archives.
         """
         self.archive_dir = archive_dir or AGENT_DIR / ".archives"
         self.archives: Dict[str, List[ArchivedReport]] = {}
         logging.debug(f"ReportArchiver initialized at {self.archive_dir}")
-    
+
     def archive(
         self,
         file_path: str,
@@ -767,12 +767,12 @@ class ReportArchiver:
         retention_days: int = 90
     ) -> ArchivedReport:
         """Archive a report.
-        
+
         Args:
             file_path: Source file path.
             content: Report content.
             retention_days: Days to retain.
-            
+
         Returns:
             Created archive entry.
         """
@@ -783,30 +783,30 @@ class ReportArchiver:
             content=content,
             retention_days=retention_days
         )
-        
+
         if file_path not in self.archives:
             self.archives[file_path] = []
         self.archives[file_path].append(archived)
-        
+
         return archived
-    
+
     def list_archives(self, file_path: str) -> List[ArchivedReport]:
         """List archives for a file.
-        
+
         Args:
             file_path: File to list archives for.
-            
+
         Returns:
             List of archived reports.
         """
         return self.archives.get(file_path, [])
-    
+
     def get_archive(self, report_id: str) -> Optional[ArchivedReport]:
         """Get a specific archive.
-        
+
         Args:
             report_id: Archive ID.
-            
+
         Returns:
             Archived report if found.
         """
@@ -815,16 +815,16 @@ class ReportArchiver:
                 if archive.report_id == report_id:
                     return archive
         return None
-    
+
     def cleanup_expired(self) -> int:
         """Remove expired archives.
-        
+
         Returns:
             Number of archives removed.
         """
         removed = 0
         current_time = time.time()
-        
+
         for file_path in list(self.archives.keys()):
             valid = []
             for archive in self.archives[file_path]:
@@ -834,29 +834,29 @@ class ReportArchiver:
                 else:
                     removed += 1
             self.archives[file_path] = valid
-        
+
         return removed
 
 
 class AnnotationManager:
     """Manager for report annotations and comments.
-    
+
     Handles adding, retrieving, and managing annotations on reports.
-    
+
     Attributes:
         annotations: Annotations by report ID.
-    
+
     Example:
         manager = AnnotationManager()
         manager.add_annotation("report1", "user", "Important note")
         notes = manager.get_annotations("report1")
     """
-    
+
     def __init__(self) -> None:
         """Initialize annotation manager."""
         self.annotations: Dict[str, List[ReportAnnotation]] = {}
         logging.debug("AnnotationManager initialized")
-    
+
     def add_annotation(
         self,
         report_id: str,
@@ -865,13 +865,13 @@ class AnnotationManager:
         line_number: Optional[int] = None
     ) -> ReportAnnotation:
         """Add an annotation.
-        
+
         Args:
             report_id: Report to annotate.
             author: Annotation author.
             content: Annotation content.
             line_number: Line number if applicable.
-            
+
         Returns:
             Created annotation.
         """
@@ -883,30 +883,30 @@ class AnnotationManager:
             content=content,
             line_number=line_number
         )
-        
+
         if report_id not in self.annotations:
             self.annotations[report_id] = []
         self.annotations[report_id].append(annotation)
-        
+
         return annotation
-    
+
     def get_annotations(self, report_id: str) -> List[ReportAnnotation]:
         """Get annotations for a report.
-        
+
         Args:
             report_id: Report ID.
-            
+
         Returns:
             List of annotations.
         """
         return self.annotations.get(report_id, [])
-    
+
     def remove_annotation(self, annotation_id: str) -> bool:
         """Remove an annotation.
-        
+
         Args:
             annotation_id: Annotation to remove.
-            
+
         Returns:
             True if removed.
         """
@@ -920,24 +920,24 @@ class AnnotationManager:
 
 class ReportSearchEngine:
     """Search engine for reports.
-    
+
     Enables full-text search across historical report data.
-    
+
     Attributes:
         index: Search index mapping terms to locations.
-    
+
     Example:
         engine = ReportSearchEngine()
         engine.index_report("file.py", ReportType.ERRORS, content)
         results = engine.search("syntax error")
     """
-    
+
     def __init__(self) -> None:
         """Initialize search engine."""
         self.index: Dict[str, List[Tuple[str, ReportType, int]]] = {}
         self._reports: Dict[str, str] = {}
         logging.debug("ReportSearchEngine initialized")
-    
+
     def index_report(
         self,
         file_path: str,
@@ -945,7 +945,7 @@ class ReportSearchEngine:
         content: str
     ) -> None:
         """Index a report for searching.
-        
+
         Args:
             file_path: Report file path.
             report_type: Type of report.
@@ -953,7 +953,7 @@ class ReportSearchEngine:
         """
         key = f"{file_path}:{report_type.name}"
         self._reports[key] = content
-        
+
         # Build index
         for line_num, line in enumerate(content.split("\n"), 1):
             words = re.findall(r'\w+', line.lower())
@@ -961,39 +961,39 @@ class ReportSearchEngine:
                 if word not in self.index:
                     self.index[word] = []
                 self.index[word].append((file_path, report_type, line_num))
-    
+
     def search(self, query: str, max_results: int = 20) -> List[ReportSearchResult]:
         """Search reports.
-        
+
         Args:
             query: Search query.
             max_results: Maximum results to return.
-            
+
         Returns:
             List of search results.
         """
         words = re.findall(r'\w+', query.lower())
         matches: Dict[str, int] = {}
-        
+
         for word in words:
             if word in self.index:
                 for file_path, report_type, line_num in self.index[word]:
                     key = f"{file_path}:{report_type.name}:{line_num}"
                     matches[key] = matches.get(key, 0) + 1
-        
+
         results: List[ReportSearchResult] = []
         for key, score in sorted(matches.items(), key=lambda x: -x[1])[:max_results]:
             parts = key.split(":")
             file_path = parts[0]
             report_type = ReportType[parts[1]]
             line_num = int(parts[2])
-            
+
             # Get match context
             report_key = f"{file_path}:{report_type.name}"
             content = self._reports.get(report_key, "")
             lines = content.split("\n")
             match_text = lines[line_num - 1] if line_num <= len(lines) else ""
-            
+
             results.append(ReportSearchResult(
                 file_path=file_path,
                 report_type=report_type,
@@ -1001,29 +1001,29 @@ class ReportSearchEngine:
                 line_number=line_num,
                 score=float(score)
             ))
-        
+
         return results
 
 
 class MetricsCollector:
     """Collector for custom report metrics and KPIs.
-    
+
     Tracks and calculates metrics across reports.
-    
+
     Attributes:
         metrics: Collected metrics by file.
-    
+
     Example:
         collector = MetricsCollector()
         collector.record("file.py", "issues_count", 5)
         summary = collector.get_summary()
     """
-    
+
     def __init__(self) -> None:
         """Initialize metrics collector."""
         self.metrics: Dict[str, List[ReportMetric]] = {}
         logging.debug("MetricsCollector initialized")
-    
+
     def record(
         self,
         file_path: str,
@@ -1033,14 +1033,14 @@ class MetricsCollector:
         threshold: Optional[float] = None
     ) -> ReportMetric:
         """Record a metric.
-        
+
         Args:
             file_path: File being measured.
             name: Metric name.
             value: Metric value.
             unit: Unit of measurement.
             threshold: Alert threshold.
-            
+
         Returns:
             Created metric.
         """
@@ -1050,33 +1050,33 @@ class MetricsCollector:
             unit=unit,
             threshold=threshold
         )
-        
+
         if file_path not in self.metrics:
             self.metrics[file_path] = []
         self.metrics[file_path].append(metric)
-        
+
         return metric
-    
+
     def get_metrics(self, file_path: str) -> List[ReportMetric]:
         """Get metrics for a file.
-        
+
         Args:
             file_path: File path.
-            
+
         Returns:
             List of metrics.
         """
         return self.metrics.get(file_path, [])
-    
+
     def get_summary(self) -> Dict[str, Any]:
         """Get summary of all metrics.
-        
+
         Returns:
             Summary dictionary.
         """
         total_files = len(self.metrics)
         total_metrics = sum(len(m) for m in self.metrics.values())
-        
+
         # Calculate averages by metric name
         averages: Dict[str, List[float]] = {}
         for metrics in self.metrics.values():
@@ -1084,12 +1084,12 @@ class MetricsCollector:
                 if metric.name not in averages:
                     averages[metric.name] = []
                 averages[metric.name].append(metric.value)
-        
+
         avg_summary = {
             name: sum(vals) / len(vals) if vals else 0
             for name, vals in averages.items()
         }
-        
+
         return {
             "total_files": total_files,
             "total_metrics": total_metrics,
@@ -1099,23 +1099,23 @@ class MetricsCollector:
 
 class AccessController:
     """Controller for report access permissions.
-    
+
     Manages user permissions and access control for reports.
-    
+
     Attributes:
         permissions: User permissions.
-    
+
     Example:
         controller = AccessController()
         controller.grant("user1", "*.md", PermissionLevel.READ)
         can_read = controller.check("user1", "report.md", PermissionLevel.READ)
     """
-    
+
     def __init__(self) -> None:
         """Initialize access controller."""
         self.permissions: List[ReportPermission] = []
         logging.debug("AccessController initialized")
-    
+
     def grant(
         self,
         user_id: str,
@@ -1124,13 +1124,13 @@ class AccessController:
         granted_by: str = "system"
     ) -> ReportPermission:
         """Grant permission to a user.
-        
+
         Args:
             user_id: User to grant permission to.
             report_pattern: Pattern for reports.
             level: Permission level.
             granted_by: Who is granting.
-            
+
         Returns:
             Created permission.
         """
@@ -1142,14 +1142,14 @@ class AccessController:
         )
         self.permissions.append(permission)
         return permission
-    
+
     def revoke(self, user_id: str, report_pattern: str) -> bool:
         """Revoke a permission.
-        
+
         Args:
             user_id: User ID.
             report_pattern: Pattern to revoke.
-            
+
         Returns:
             True if revoked.
         """
@@ -1158,7 +1158,7 @@ class AccessController:
                 self.permissions.remove(perm)
                 return True
         return False
-    
+
     def check(
         self,
         user_id: str,
@@ -1166,17 +1166,17 @@ class AccessController:
         required_level: PermissionLevel
     ) -> bool:
         """Check if user has permission.
-        
+
         Args:
             user_id: User to check.
             report_path: Report being accessed.
             required_level: Required permission level.
-            
+
         Returns:
             True if permitted.
         """
         import fnmatch
-        
+
         for perm in self.permissions:
             if perm.user_id != user_id:
                 continue
@@ -1190,26 +1190,26 @@ class AccessController:
 
 class ReportExporter:
     """Exporter for various report formats.
-    
+
     Exports reports to different formats including PDF, PPT, CSV.
-    
+
     Example:
         exporter = ReportExporter()
         html = exporter.to_html(markdown_content)
         csv_data = exporter.to_csv(issues)
     """
-    
+
     def __init__(self) -> None:
         """Initialize exporter."""
         logging.debug("ReportExporter initialized")
-    
+
     def to_html(self, content: str, title: str = "Report") -> str:
         """Convert markdown to HTML.
-        
+
         Args:
             content: Markdown content.
             title: Document title.
-            
+
         Returns:
             HTML content.
         """
@@ -1219,30 +1219,30 @@ class ReportExporter:
         html_content = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html_content, flags=re.MULTILINE)
         html_content = re.sub(r'^- (.+)$', r'<li>\1</li>', html_content, flags=re.MULTILINE)
         html_content = re.sub(r'`([^`]+)`', r'<code>\1</code>', html_content)
-        
-        return f"""<!DOCTYPE html>
+
+        return """<!DOCTYPE html>
 <html>
 <head><title>{title}</title></head>
 <body>{html_content}</body>
 </html>"""
-    
+
     def to_csv(self, issues: List[CodeIssue]) -> str:
         """Export issues to CSV.
-        
+
         Args:
             issues: List of issues.
-            
+
         Returns:
             CSV content.
         """
         lines = ["message,category,severity,line_number,function_name"]
         for issue in issues:
             lines.append(
-                f'"{issue.message}",{issue.category.name},{issue.severity.name},'
+                '"{issue.message}",{issue.category.name},{issue.severity.name},'
                 f'{issue.line_number or ""},"{issue.function_name or ""}"'
             )
         return "\n".join(lines)
-    
+
     def export(
         self,
         content: str,
@@ -1250,12 +1250,12 @@ class ReportExporter:
         output_path: Optional[Path] = None
     ) -> str:
         """Export report to format.
-        
+
         Args:
             content: Report content.
             format: Target format.
             output_path: Optional output file.
-            
+
         Returns:
             Exported content.
         """
@@ -1265,32 +1265,32 @@ class ReportExporter:
             result = json.dumps({"content": content})
         else:
             result = content
-        
+
         if output_path:
             output_path.write_text(result, encoding="utf-8")
-        
+
         return result
 
 
 class AuditLogger:
     """Logger for report audit trail.
-    
+
     Records all actions performed on reports for compliance.
-    
+
     Attributes:
         entries: Audit log entries.
-    
+
     Example:
         logger = AuditLogger()
         logger.log(AuditAction.READ, "user1", "report.md")
         history = logger.get_history("report.md")
     """
-    
+
     def __init__(self) -> None:
         """Initialize audit logger."""
         self.entries: List[AuditEntry] = []
         logging.debug("AuditLogger initialized")
-    
+
     def log(
         self,
         action: AuditAction,
@@ -1299,13 +1299,13 @@ class AuditLogger:
         details: Optional[Dict[str, Any]] = None
     ) -> AuditEntry:
         """Log an action.
-        
+
         Args:
             action: Action performed.
             user_id: User who performed it.
             report_id: Affected report.
             details: Additional details.
-            
+
         Returns:
             Created entry.
         """
@@ -1319,24 +1319,24 @@ class AuditLogger:
         )
         self.entries.append(entry)
         return entry
-    
+
     def get_history(self, report_id: str) -> List[AuditEntry]:
         """Get audit history for report.
-        
+
         Args:
             report_id: Report ID.
-            
+
         Returns:
             List of entries.
         """
         return [e for e in self.entries if e.report_id == report_id]
-    
+
     def get_user_activity(self, user_id: str) -> List[AuditEntry]:
         """Get activity for user.
-        
+
         Args:
             user_id: User ID.
-            
+
         Returns:
             List of entries.
         """
@@ -1345,61 +1345,61 @@ class AuditLogger:
 
 class ReportValidator:
     """Validator for report data integrity.
-    
+
     Validates report structure, content, and checksums.
-    
+
     Example:
         validator = ReportValidator()
         result = validator.validate(content)
         if not result.valid:
             print(result.errors)
     """
-    
+
     def __init__(self) -> None:
         """Initialize validator."""
         logging.debug("ReportValidator initialized")
-    
+
     def validate(self, content: str) -> ValidationResult:
         """Validate report content.
-        
+
         Args:
             content: Report content.
-            
+
         Returns:
             Validation result.
         """
         errors: List[str] = []
         warnings: List[str] = []
-        
+
         # Check for required sections
         if "# " not in content:
             errors.append("Missing main heading")
-        
+
         # Check for empty content
         if len(content.strip()) < 10:
             errors.append("Content too short")
-        
+
         # Check for malformed links
         if re.search(r'\[.*?\]\(\s*\)', content):
             warnings.append("Contains empty link targets")
-        
+
         # Calculate checksum
         checksum = hashlib.sha256(content.encode()).hexdigest()[:16]
-        
+
         return ValidationResult(
             valid=len(errors) == 0,
             errors=errors,
             warnings=warnings,
             checksum=checksum
         )
-    
+
     def verify_checksum(self, content: str, expected: str) -> bool:
         """Verify content checksum.
-        
+
         Args:
             content: Report content.
             expected: Expected checksum.
-            
+
         Returns:
             True if matches.
         """
@@ -1409,22 +1409,22 @@ class ReportValidator:
 
 class ReportLocalizer:
     """Localizer for report internationalization.
-    
+
     Handles translation of report strings.
-    
+
     Attributes:
         strings: Localized strings.
         current_locale: Current locale.
-    
+
     Example:
         localizer = ReportLocalizer()
         localizer.add_string("error.syntax", {"en-US": "Syntax Error"})
         text = localizer.get("error.syntax")
     """
-    
+
     def __init__(self, locale: LocaleCode = LocaleCode.EN_US) -> None:
         """Initialize localizer.
-        
+
         Args:
             locale: Default locale.
         """
@@ -1432,7 +1432,7 @@ class ReportLocalizer:
         self.current_locale = locale
         self._init_defaults()
         logging.debug(f"ReportLocalizer initialized with {locale.value}")
-    
+
     def _init_defaults(self) -> None:
         """Initialize default strings."""
         defaults = {
@@ -1445,37 +1445,37 @@ class ReportLocalizer:
         }
         for key, translations in defaults.items():
             self.add_string(key, translations)
-    
+
     def add_string(self, key: str, translations: Dict[str, str]) -> None:
         """Add a localized string.
-        
+
         Args:
             key: String key.
             translations: Locale to text mapping.
         """
         default = translations.get("en-US", list(translations.values())[0] if translations else "")
         self.strings[key] = LocalizedString(key=key, translations=translations, default=default)
-    
+
     def get(self, key: str, locale: Optional[LocaleCode] = None) -> str:
         """Get localized string.
-        
+
         Args:
             key: String key.
             locale: Override locale.
-            
+
         Returns:
             Localized text.
         """
         loc = locale or self.current_locale
         if key not in self.strings:
             return key
-        
+
         string = self.strings[key]
         return string.translations.get(loc.value, string.default)
-    
+
     def set_locale(self, locale: LocaleCode) -> None:
         """Set current locale.
-        
+
         Args:
             locale: New locale.
         """
@@ -1484,42 +1484,42 @@ class ReportLocalizer:
 
 class ReportAPI:
     """API for programmatic report access.
-    
+
     Provides a RESTful-style interface for report operations.
-    
+
     Example:
         api = ReportAPI()
         reports = api.list_reports()
         report = api.get_report("file.py", ReportType.ERRORS)
     """
-    
+
     def __init__(self, reports_dir: Path = AGENT_DIR) -> None:
         """Initialize API.
-        
+
         Args:
             reports_dir: Directory containing reports.
         """
         self.reports_dir = reports_dir
         logging.debug(f"ReportAPI initialized for {reports_dir}")
-    
+
     def list_reports(self, file_pattern: str = "*.md") -> List[str]:
         """List available reports.
-        
+
         Args:
             file_pattern: Glob pattern.
-            
+
         Returns:
             List of report paths.
         """
         return [str(p) for p in self.reports_dir.glob(file_pattern)]
-    
+
     def get_report(self, file_stem: str, report_type: ReportType) -> Optional[str]:
         """Get a specific report.
-        
+
         Args:
             file_stem: File stem.
             report_type: Report type.
-            
+
         Returns:
             Report content if found.
         """
@@ -1530,11 +1530,11 @@ class ReportAPI:
         }
         suffix = suffix_map.get(report_type, ".md")
         path = self.reports_dir / f"{file_stem}{suffix}"
-        
+
         if path.exists():
             return path.read_text(encoding="utf-8")
         return None
-    
+
     def create_report(
         self,
         file_stem: str,
@@ -1542,12 +1542,12 @@ class ReportAPI:
         content: str
     ) -> bool:
         """Create or update a report.
-        
+
         Args:
             file_stem: File stem.
             report_type: Report type.
             content: Report content.
-            
+
         Returns:
             True if successful.
         """
@@ -1558,7 +1558,7 @@ class ReportAPI:
         }
         suffix = suffix_map.get(report_type, ".md")
         path = self.reports_dir / f"{file_stem}{suffix}"
-        
+
         try:
             path.write_text(content, encoding="utf-8")
             return True
@@ -1568,23 +1568,23 @@ class ReportAPI:
 
 class ReportScheduler:
     """Scheduler for report generation.
-    
+
     Handles scheduling report generation with cron-like expressions.
-    
+
     Attributes:
         schedules: Scheduled tasks.
-    
+
     Example:
         scheduler = ReportScheduler()
         scheduler.add_schedule("daily", "0 8 * * *", ["*.py"])
         due = scheduler.get_due_tasks()
     """
-    
+
     def __init__(self) -> None:
         """Initialize scheduler."""
         self.schedules: Dict[str, Dict[str, Any]] = {}
         logging.debug("ReportScheduler initialized")
-    
+
     def add_schedule(
         self,
         name: str,
@@ -1592,7 +1592,7 @@ class ReportScheduler:
         file_patterns: List[str]
     ) -> None:
         """Add a schedule.
-        
+
         Args:
             name: Schedule name.
             cron_expr: Cron expression.
@@ -1603,13 +1603,13 @@ class ReportScheduler:
             "patterns": file_patterns,
             "last_run": 0.0
         }
-    
+
     def remove_schedule(self, name: str) -> bool:
         """Remove a schedule.
-        
+
         Args:
             name: Schedule name.
-            
+
         Returns:
             True if removed.
         """
@@ -1617,19 +1617,19 @@ class ReportScheduler:
             del self.schedules[name]
             return True
         return False
-    
+
     def get_due_tasks(self) -> List[str]:
         """Get tasks due to run.
-        
+
         Returns:
             List of due schedule names.
         """
         # Simple implementation - in production would parse cron
         return list(self.schedules.keys())
-    
+
     def mark_completed(self, name: str) -> None:
         """Mark a task as completed.
-        
+
         Args:
             name: Schedule name.
         """
@@ -1639,50 +1639,50 @@ class ReportScheduler:
 
 class ReportAggregator:
     """Aggregator for combining reports from multiple sources.
-    
+
     Combines and summarizes reports across files.
-    
+
     Example:
         aggregator = ReportAggregator()
         aggregator.add_source("file1.py", issues1)
         aggregator.add_source("file2.py", issues2)
         combined = aggregator.aggregate()
     """
-    
+
     def __init__(self) -> None:
         """Initialize aggregator."""
         self.sources: Dict[str, List[CodeIssue]] = {}
         logging.debug("ReportAggregator initialized")
-    
+
     def add_source(self, file_path: str, issues: List[CodeIssue]) -> None:
         """Add a source to aggregate.
-        
+
         Args:
             file_path: Source file.
             issues: Issues from file.
         """
         self.sources[file_path] = issues
-    
+
     def aggregate(self) -> AggregatedReport:
         """Aggregate all sources.
-        
+
         Returns:
             Aggregated report.
         """
         all_issues: List[CodeIssue] = []
         for issues in self.sources.values():
             all_issues.extend(issues)
-        
+
         # Calculate summary
         by_severity: Dict[str, int] = {}
         by_category: Dict[str, int] = {}
-        
+
         for issue in all_issues:
             sev = issue.severity.name
             cat = issue.category.name
             by_severity[sev] = by_severity.get(sev, 0) + 1
             by_category[cat] = by_category.get(cat, 0) + 1
-        
+
         return AggregatedReport(
             sources=list(self.sources.keys()),
             combined_issues=all_issues,
@@ -1693,7 +1693,7 @@ class ReportAggregator:
                 "by_category": by_category
             }
         )
-    
+
     def clear(self) -> None:
         """Clear all sources."""
         self.sources.clear()
@@ -1896,7 +1896,7 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
 
 def _find_issues(tree: ast.AST, source: str) -> List[str]:
     issues: List[str] = []
-    
+
     # 1. Mutable defaults
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef):
@@ -1930,7 +1930,7 @@ def _find_issues(tree: ast.AST, source: str) -> List[str]:
 def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
     functions, classes = _find_top_level_defs(tree)
     suggestions: List[str] = []
-    
+
     # AST-based issues
     suggestions.extend(_find_issues(tree, source))
 
@@ -1951,10 +1951,10 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
         suggestions.append("Consider documenting class construction/expected invariants.")
     if "print(" in source and "logging" not in source:
         suggestions.append("Consider using `logging` instead of `print` for controllable verbosity.")
-    
+
     # Keep it short and deterministic.
     suggestions = sorted(list(set(suggestions))) # Dedupe and sort
-    
+
     lines: List[str] = []
     lines.append(f"# Improvements: `{py_path.name}`")
     lines.append("")
@@ -1994,7 +1994,7 @@ def main(argv: Sequence[str]) -> int:
     if not py_files:
         logging.error(f"No .py files found under {AGENT_DIR}")
         return 1
-    
+
     count = 0
     skipped = 0
     errors_count = 0
@@ -2004,7 +2004,7 @@ def main(argv: Sequence[str]) -> int:
             source = _read_text(py_path)
             current_sha = _sha256_text(source)[:16]
             stem = py_path.stem
-            
+
             # Incremental check
             existing_sha = _get_existing_sha(stem)
             if existing_sha == current_sha:
@@ -2015,7 +2015,7 @@ def main(argv: Sequence[str]) -> int:
             logging.info(f"Processing {py_path.name}...")
             tree, parse_err = _try_parse_python(source, str(py_path))
             compile_result = _compile_check(py_path)
-            
+
             # If parse failed, still emit minimal files.
             if tree is None:
                 description = (
@@ -2033,12 +2033,12 @@ def main(argv: Sequence[str]) -> int:
                 description = render_description(py_path, source, tree)
                 errors = render_errors(py_path, source, compile_result)
                 improvements = render_improvements(py_path, source, tree)
-            
+
             _write_md(AGENT_DIR / f"{stem}.description.md", description)
             _write_md(AGENT_DIR / f"{stem}.errors.md", errors)
             _write_md(AGENT_DIR / f"{stem}.improvements.md", improvements)
             count += 1
-            
+
         except Exception as e:
             logging.error(f"Error processing {py_path.name}: {e}")
             errors_count += 1

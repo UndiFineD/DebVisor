@@ -85,13 +85,13 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
             def __init__(self, max_retries=3):
                 self.max_retries = max_retries
                 self.attempt_count = 0
-            
+
             def attempt_fix(self):
                 self.attempt_count += 1
                 if self.attempt_count < 2:  # Fix on second attempt
                     raise SyntaxError("Invalid syntax")
                 return "fixed code"
-        
+
         retry = RetryMechanism(max_retries=3)
         result = None
         for _ in range(3):
@@ -100,7 +100,7 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
                 break
             except SyntaxError:
                 pass
-        
+
         self.assertEqual(retry.attempt_count, 2)
 
     def test_ai_powered_syntax_error_autofix(self):
@@ -155,7 +155,7 @@ class TestCodeFormatting(unittest.TestCase):
 
     def test_isort_import_organization(self):
         """Test isort for import statement organization."""
-        unorganized_imports = """
+
 import os
 import sys
 from typing import List
@@ -192,7 +192,7 @@ import requests
         """Test preserving original formatting if changes are minimal."""
         original = "def func():\n    pass\n"
         formatted = "def func():\n    pass\n"
-        
+
         if original == formatted:
             result = original
         self.assertEqual(original, result)
@@ -225,14 +225,14 @@ class TestSecurityValidation(unittest.TestCase):
         """Test detection of unsafe function usage."""
         unsafe_functions = ['eval', 'exec', 'pickle.loads', '__import__']
         code_sample = "result = eval(user_input)"
-        
+
         unsafe_detected = any(func in code_sample for func in unsafe_functions)
         self.assertTrue(unsafe_detected)
 
     def test_sql_injection_detection(self):
         """Test detecting SQL injection in string concatenation."""
         vulnerable_code = 'query = f"SELECT * FROM users WHERE id={user_id}"'
-        
+
         # Check for f-string with variable in SQL
         is_vulnerable = 'SELECT' in vulnerable_code and '{' in vulnerable_code
         self.assertTrue(is_vulnerable)
@@ -264,7 +264,7 @@ class TestDiffAndChangeManagement(unittest.TestCase):
         """Test diff-based code application (edit mode vs full rewrite)."""
         original = "def func():\n    pass\n"
         new = "def func():\n    return None\n"
-        
+
         # Compute diff
         diff_lines = [
             '- def func():',
@@ -307,9 +307,9 @@ class TestDiffAndChangeManagement(unittest.TestCase):
 
     def test_timestamped_backup_files(self):
         """Test creating backup files with timestamps."""
-        original_file = 'code.py'
+
         backup_file = 'code.py.backup.20251216_100000'
-        
+
         self.assertIn('backup', backup_file)
         self.assertIn('20251216', backup_file)
 
@@ -330,15 +330,15 @@ class TestDocumentationAndClarity(unittest.TestCase):
 
     def test_auto_generate_docstrings(self):
         """Test auto-generating docstrings (Google/NumPy style)."""
-        function_signature = 'def calculate_total(items: List[float], tax_rate: float = 0.1) -> float:'
-        
+
+
         google_style_docstring = '''
         """Calculate total with tax.
-        
+
         Args:
             items (List[float]): List of item prices.
             tax_rate (float): Tax rate as decimal. Defaults to 0.1.
-        
+
         Returns:
             float: Total including tax.
         """
@@ -347,29 +347,29 @@ class TestDocumentationAndClarity(unittest.TestCase):
 
     def test_validate_docstring_completeness(self):
         """Test validating existing docstrings for completeness."""
-        incomplete_docstring = '"""Calculate total."""'
+
         complete_docstring = '''"""Calculate total with tax.
-        
+
         Args:
             items: List of prices.
-        
+
         Returns:
             Total amount.
         """'''
-        
+
         # Complete should have Args, Returns
         self.assertIn('Args:', complete_docstring)
 
     def test_add_missing_type_annotations(self):
         """Test adding type annotations to function signatures."""
-        untyped = "def calculate(x, y):\n    return x + y"
+
         typed = "def calculate(x: float, y: float) -> float:\n    return x + y"
-        
+
         self.assertIn(':', typed)
 
     def test_inline_comments_for_complex_logic(self):
         """Test generating inline comments for complex logic."""
-        complex_code = """
+
 result = [x for x in items if x > threshold and x % 2 == 0]
         """
         commented_code = """
@@ -414,7 +414,7 @@ class TestMultiLanguageSupport(unittest.TestCase):
         """Test YAML/JSON syntax validation."""
         invalid_json = '{"key": "value",}'  # Trailing comma
         valid_json = '{"key": "value"}'
-        
+
         self.assertNotEqual(invalid_json, valid_json)
 
     def test_pluggable_validator_architecture(self):
@@ -422,13 +422,13 @@ class TestMultiLanguageSupport(unittest.TestCase):
         class ValidatorRegistry:
             def __init__(self):
                 self.validators = {}
-            
+
             def register(self, language, validator):
                 self.validators[language] = validator
-            
+
             def get_validator(self, language):
                 return self.validators.get(language)
-        
+
         registry = ValidatorRegistry()
         self.assertEqual(len(registry.validators), 0)
 
@@ -447,14 +447,14 @@ class TestPerformanceOptimization(unittest.TestCase):
     def test_parallel_validation_for_multiple_files(self):
         """Test implementing parallel validation."""
         from concurrent.futures import ThreadPoolExecutor
-        
+
         def validate_file(filepath):
             return {'file': filepath, 'valid': True}
-        
+
         files = ['file1.py', 'file2.py', 'file3.py']
         with ThreadPoolExecutor(max_workers=3) as executor:
             results = list(executor.map(validate_file, files))
-        
+
         self.assertEqual(len(results), 3)
 
     def test_progress_indicators(self):
@@ -463,10 +463,10 @@ class TestPerformanceOptimization(unittest.TestCase):
             def __init__(self, total):
                 self.total = total
                 self.current = 0
-            
+
             def progress_percent(self):
                 return (self.current / self.total) * 100 if self.total > 0 else 0
-        
+
         tracker = ProgressTracker(100)
         tracker.current = 50
         self.assertEqual(tracker.progress_percent(), 50.0)
@@ -475,7 +475,7 @@ class TestPerformanceOptimization(unittest.TestCase):
         """Test optimizing AST parsing for large files."""
         large_file_size = 15000  # lines
         batch_size = 1000
-        
+
         batches = (large_file_size // batch_size) + (1 if large_file_size % batch_size else 0)
         self.assertEqual(batches, 15)
 
@@ -491,7 +491,7 @@ class TestPerformanceOptimization(unittest.TestCase):
                         break
                     chunks.append(chunk)
             return len(chunks)
-        
+
         # This tests the concept
         self.assertTrue(callable(process_file_in_chunks))
 
@@ -563,10 +563,10 @@ class TestConfigurationAndCustomization(unittest.TestCase):
         class PluginRegistry:
             def __init__(self):
                 self.plugins = {}
-            
+
             def register_plugin(self, name, plugin):
                 self.plugins[name] = plugin
-        
+
         registry = PluginRegistry()
         self.assertEqual(len(registry.plugins), 0)
 
@@ -707,23 +707,23 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
         class BaseValidator:
             def validate(self, code):
                 raise NotImplementedError
-        
+
         class SyntaxValidator(BaseValidator):
             def validate(self, code):
                 return {'syntax': 'valid'}
-        
+
         validator = SyntaxValidator()
         self.assertTrue(hasattr(validator, 'validate'))
 
     def test_abstract_base_class_for_validators(self):
         """Test abstract base class for validators (strategy pattern)."""
         from abc import ABC, abstractmethod
-        
+
         class ValidatorStrategy(ABC):
             @abstractmethod
             def validate(self, code):
                 pass
-        
+
         self.assertTrue(hasattr(ValidatorStrategy, 'validate'))
 
     def test_separation_of_concerns(self):
@@ -733,7 +733,7 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
             def validate(self, code): return True
             def format(self, code): return code
             def write(self, code, path): pass
-        
+
         pipeline = CodePipeline()
         self.assertTrue(hasattr(pipeline, 'parse'))
 
@@ -742,7 +742,7 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
         class CodeValidationError(Exception): pass
         class SyntaxValidationError(CodeValidationError): pass
         class SecurityValidationError(CodeValidationError): pass
-        
+
         self.assertTrue(issubclass(SyntaxValidationError, CodeValidationError))
 
     def test_context_managers_for_file_ops(self):
@@ -752,7 +752,7 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
                 return self
             def __exit__(self, *args):
                 pass
-        
+
         manager = FileManager()
         self.assertTrue(hasattr(manager, '__enter__'))
 
@@ -760,11 +760,11 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
         """Test reducing coupling between CoderAgent and BaseAgent."""
         class BaseAgent:
             def run(self): pass
-        
+
         class CoderAgent:
             def __init__(self, base_agent=None):
                 self.base_agent = base_agent
-        
+
         coder = CoderAgent()
         self.assertIsNone(coder.base_agent)
 

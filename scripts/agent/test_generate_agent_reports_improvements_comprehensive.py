@@ -107,7 +107,7 @@ class TestReportRefactoring(unittest.TestCase):
         # - structured_report_generator.py (JSON, YAML)
         # - visual_report_generator.py (HTML, charts, graphs)
         # - distribution_report_handler.py (email, webhook, API)
-        
+
         modules = [
             "base_report_generator.py",
             "text_report_generator.py",
@@ -122,15 +122,15 @@ class TestReportRefactoring(unittest.TestCase):
         """Test abstract interface for report generators."""
         class BaseReportGenerator:
             """Abstract base class for report generation."""
-            
+
             def generate(self, data: Dict[str, Any]) -> str:
                 """Generate report from data."""
                 raise NotImplementedError
-            
+
             def validate(self) -> bool:
                 """Validate report can be generated."""
                 raise NotImplementedError
-        
+
         self.assertTrue(hasattr(BaseReportGenerator, 'generate'))
         self.assertTrue(hasattr(BaseReportGenerator, 'validate'))
 
@@ -138,21 +138,21 @@ class TestReportRefactoring(unittest.TestCase):
         """Test factory pattern for report generator creation."""
         class ReportGeneratorFactory:
             """Factory for creating report generators."""
-            
+
             _generators = {
                 'markdown': 'MarkdownReportGenerator',
                 'json': 'JSONReportGenerator',
                 'html': 'HTMLReportGenerator',
                 'pdf': 'PDFReportGenerator'
             }
-            
+
             @classmethod
             def create(cls, report_type: str):
                 """Create report generator of specified type."""
                 if report_type not in cls._generators:
                     raise ValueError(f"Unknown report type: {report_type}")
                 return cls._generators[report_type]
-        
+
         self.assertIn('markdown', ReportGeneratorFactory._generators)
         self.assertIn('json', ReportGeneratorFactory._generators)
 
@@ -173,7 +173,7 @@ class TestMultipleFormatSupport(unittest.TestCase):
             </div>
         </body>
         </html>"""
-        
+
         self.assertIn("<!DOCTYPE html>", html_content)
         self.assertIn("<h1>", html_content)
         self.assertIn("metrics", html_content)
@@ -187,7 +187,7 @@ class TestMultipleFormatSupport(unittest.TestCase):
             'margins': {'top': 1, 'bottom': 1, 'left': 1, 'right': 1},
             'fonts': ['Helvetica', 'Times-Roman']
         }
-        
+
         self.assertEqual(pdf_config['page_size'], 'A4')
         self.assertEqual(pdf_config['orientation'], 'portrait')
 
@@ -205,7 +205,7 @@ class TestMultipleFormatSupport(unittest.TestCase):
 | Coverage | 85% |
 | Issues | 12 |
 """
-        
+
         self.assertIn("# Agent Report", markdown_report)
         self.assertIn("## Summary", markdown_report)
         self.assertIn("|", markdown_report)
@@ -223,7 +223,7 @@ class TestMultipleFormatSupport(unittest.TestCase):
             },
             "metrics": []
         }
-        
+
         json_str = json.dumps(report_data)
         self.assertIn("metadata", json_str)
         self.assertIn("summary", json_str)
@@ -237,7 +237,7 @@ class TestMultipleFormatSupport(unittest.TestCase):
             ("report.json", "json"),
             ("report.xlsx", "excel")
         ]
-        
+
         for filename, expected_format in files:
             detected = filename.split('.')[-1]
             format_map = {
@@ -259,17 +259,17 @@ class TestIncrementalGeneration(unittest.TestCase):
             'agent.py': {'hash': 'abc123', 'mtime': 1000},
             'base_agent.py': {'hash': 'def456', 'mtime': 1001}
         }
-        
+
         current_files = {
             'agent.py': {'hash': 'abc123', 'mtime': 1000},  # unchanged
             'base_agent.py': {'hash': 'xyz789', 'mtime': 1002}  # changed
         }
-        
+
         changed_files = [
             f for f in current_files
             if current_files[f]['hash'] != baseline_files.get(f, {}).get('hash')
         ]
-        
+
         self.assertIn('base_agent.py', changed_files)
         self.assertNotIn('agent.py', changed_files)
 
@@ -279,15 +279,15 @@ class TestIncrementalGeneration(unittest.TestCase):
             'section_1': {'data': 'unchanged', 'timestamp': 1000},
             'section_2': {'data': 'changed', 'timestamp': 1000}
         }
-        
-        current_timestamp = 2000
+
+
         unchanged_threshold = 1500
-        
+
         skipped = [
             s for s, v in report_cache.items()
             if v['timestamp'] < unchanged_threshold
         ]
-        
+
         self.assertIn('section_1', skipped)
 
     def test_incremental_metrics_update(self):
@@ -298,14 +298,14 @@ class TestIncrementalGeneration(unittest.TestCase):
             'warnings': 42,
             'timestamp': 1000
         }
-        
-        new_files = {'agent.py': 'new', 'base_agent.py': 'updated'}
-        
+
+
+
         # Only update metrics for changed files
         updated_metrics = previous_metrics.copy()
         updated_metrics['timestamp'] = 2000
         updated_metrics['files'] = 151
-        
+
         self.assertEqual(updated_metrics['timestamp'], 2000)
         self.assertNotEqual(
             updated_metrics['timestamp'],
@@ -323,7 +323,7 @@ class TestReportCaching(unittest.TestCase):
             'metrics': {'content': 'Metrics data', 'valid': True},
             'details': {'content': 'Details data', 'valid': False}
         }
-        
+
         valid_sections = [k for k, v in cache.items() if v['valid']]
         self.assertEqual(len(valid_sections), 2)
 
@@ -333,14 +333,14 @@ class TestReportCaching(unittest.TestCase):
             {'key': 'entry1', 'timestamp': 1000, 'ttl': 300},
             {'key': 'entry2', 'timestamp': 1000, 'ttl': 600}
         ]
-        
+
         current_time = 1400
-        
+
         valid_entries = [
             e for e in cache_entries
             if current_time - e['timestamp'] < e['ttl']
         ]
-        
+
         self.assertEqual(len(valid_entries), 1)
         self.assertEqual(valid_entries[0]['key'], 'entry2')
 
@@ -352,31 +352,31 @@ class TestReportCaching(unittest.TestCase):
                 'data': 'cached report'
             }
         }
-        
+
         new_hash = 'def456'
-        
+
         # Invalidate cache if hash changed
         if cache['report_v1']['file_hash'] != new_hash:
             cache['report_v1'] = None
-        
+
         self.assertIsNone(cache['report_v1'])
 
     def test_cache_with_file_hashing(self):
         """Test cache validation using file hashing."""
         import hashlib
-        
+
         content = "report data"
         hash_value = hashlib.md5(content.encode()).hexdigest()
-        
+
         cache_entry = {
             'content': content,
             'hash': hash_value
         }
-        
+
         # Verify cache by comparing hashes
         new_content = "report data"
         new_hash = hashlib.md5(new_content.encode()).hexdigest()
-        
+
         self.assertEqual(cache_entry['hash'], new_hash)
 
 
@@ -392,7 +392,7 @@ class TestReportCustomization(unittest.TestCase):
             'recommendations': False,
             'trends': True
         }
-        
+
         selected_sections = [s for s, inc in available_sections.items() if inc]
         self.assertIn('summary', selected_sections)
         self.assertNotIn('recommendations', selected_sections)
@@ -408,9 +408,9 @@ class TestReportCustomization(unittest.TestCase):
             'duplicated_code',
             'security_issues'
         ]
-        
+
         custom_selection = ['test_coverage', 'security_issues', 'warnings']
-        
+
         selected = [m for m in all_metrics if m in custom_selection]
         self.assertEqual(len(selected), 3)
 
@@ -418,24 +418,24 @@ class TestReportCustomization(unittest.TestCase):
         """Test custom report templates."""
         template = """
         # {title}
-        
+
         ## Overview
         {overview}
-        
+
         ## Metrics
         {metrics}
-        
+
         ## Recommendations
         {recommendations}
         """
-        
+
         filled_template = template.format(
             title="Agent Analysis Report",
             overview="This report analyzes...",
             metrics="- Coverage: 85%",
             recommendations="- Add tests"
         )
-        
+
         self.assertIn("Agent Analysis Report", filled_template)
         self.assertIn("85%", filled_template)
 
@@ -447,9 +447,9 @@ class TestReportCustomization(unittest.TestCase):
             {'name': 'errors', 'value': 2},
             {'name': 'complexity', 'value': 45}
         ]
-        
+
         high_value_metrics = [m for m in metrics if m['value'] > 40]
-        
+
         self.assertEqual(len(high_value_metrics), 2)
 
 
@@ -470,7 +470,7 @@ class TestVisualReportGeneration(unittest.TestCase):
                 {'date': '2024-01-03', 'value': 82}
             ]
         }
-        
+
         self.assertEqual(chart_config['type'], 'line')
         self.assertEqual(len(chart_config['data']), 3)
 
@@ -481,7 +481,7 @@ class TestVisualReportGeneration(unittest.TestCase):
             'values': [150, 200, 120],
             'title': 'Lines of Code by Module'
         }
-        
+
         self.assertEqual(len(bar_data['categories']), 3)
         self.assertEqual(len(bar_data['values']), 3)
 
@@ -496,7 +496,7 @@ class TestVisualReportGeneration(unittest.TestCase):
                 [78, 52, 95]
             ]
         }
-        
+
         self.assertEqual(len(heatmap_data['values']), 3)
         self.assertEqual(len(heatmap_data['values'][0]), 3)
 
@@ -507,14 +507,14 @@ class TestVisualReportGeneration(unittest.TestCase):
             'values': [450, 25, 10],
             'colors': ['#2ecc71', '#e74c3c', '#f39c12']
         }
-        
+
         total = sum(pie_data['values'])
         self.assertEqual(total, 485)
 
     def test_save_charts_as_image(self):
         """Test saving generated charts as image files."""
         image_formats = ['png', 'pdf', 'svg', 'jpg']
-        
+
         for fmt in image_formats:
             filepath = f"/reports/chart.{fmt}"
             self.assertTrue(filepath.endswith(f".{fmt}"))
@@ -532,14 +532,14 @@ class TestExecutiveSummary(unittest.TestCase):
             'errors': 2,
             'code_complexity': 4.2
         }
-        
-        summary = f"""
+
+        summary = """
         Executive Summary
         - Total Files: {metrics['total_files']}
         - Test Coverage: {metrics['test_coverage']}%
         - Critical Issues: {metrics['errors']}
         """
-        
+
         self.assertIn("150", summary)
         self.assertIn("85.5", summary)
 
@@ -552,7 +552,7 @@ class TestExecutiveSummary(unittest.TestCase):
             'complexity_trend': 'stable',
             'highlight': 'Coverage improved due to new tests'
         }
-        
+
         self.assertIn('%', summary['coverage_trend'])
 
     def test_summary_with_priority_issues(self):
@@ -562,7 +562,7 @@ class TestExecutiveSummary(unittest.TestCase):
             {'priority': 'high', 'count': 8},
             {'priority': 'medium', 'count': 15}
         ]
-        
+
         critical = [i for i in issues if i['priority'] == 'critical']
         self.assertEqual(len(critical), 1)
         self.assertEqual(critical[0]['count'], 2)
@@ -578,16 +578,16 @@ class TestReportTemplating(unittest.TestCase):
         Generated: {date}
         Summary: {summary}
         """
-        
+
         data = {
             'agent_name': 'TestAgent',
             'date': '2024-01-15',
             'summary': 'Analysis complete'
         }
-        
+
         # Simulate template rendering
         result = template_str.format(**data)
-        
+
         self.assertIn('TestAgent', result)
 
     def test_template_with_conditional_sections(self):
@@ -600,16 +600,16 @@ class TestReportTemplating(unittest.TestCase):
                 'warnings': True
             }
         }
-        
+
         active_sections = [s for s, v in template_config['sections'].items() if v]
         self.assertNotIn('recommendations', active_sections)
 
     def test_template_inheritance(self):
         """Test template inheritance for code reuse."""
-        base_template = "# Report\n{{ content }}"
-        
+
+
         derived_template = "# Agent Report\n{{ agent_name }}\n{{ content }}"
-        
+
         self.assertIn("# Agent Report", derived_template)
 
 
@@ -623,7 +623,7 @@ class TestGitIntegration(unittest.TestCase):
             {'hash': 'def456', 'author': 'Bob', 'date': '2024-01-14'},
             {'hash': 'ghi789', 'author': 'Alice', 'date': '2024-01-13'}
         ]
-        
+
         authors = set(c['author'] for c in commits)
         self.assertIn('Alice', authors)
         self.assertIn('Bob', authors)
@@ -644,7 +644,7 @@ class TestGitIntegration(unittest.TestCase):
                 'files_changed': 1
             }
         ]
-        
+
         self.assertEqual(len(commit_history), 2)
         self.assertEqual(commit_history[0]['files_changed'], 3)
 
@@ -667,7 +667,7 @@ class TestGitIntegration(unittest.TestCase):
                 }
             ]
         }
-        
+
         self.assertEqual(len(blame_data['lines']), 2)
 
 
@@ -681,7 +681,7 @@ class TestCrossFileAnalysis(unittest.TestCase):
             'base_agent.py': ['agent_errors.py'],
             'agent_context.py': []
         }
-        
+
         self.assertEqual(len(dependencies['agent.py']), 2)
 
     def test_import_cycle_detection(self):
@@ -691,12 +691,12 @@ class TestCrossFileAnalysis(unittest.TestCase):
             'module_b.py': ['module_c.py'],
             'module_c.py': ['module_a.py']
         }
-        
+
         # Cycle detection
         cycle_detected = (
             'module_a.py' in imports.get('module_c.py', [])
         )
-        
+
         self.assertTrue(cycle_detected)
 
     def test_coupling_metrics(self):
@@ -710,12 +710,12 @@ class TestCrossFileAnalysis(unittest.TestCase):
                 'agent_errors.py': 5
             }
         }
-        
+
         high_coupling = [
             (m, cnt) for m, deps in coupling.items()
             for dep, cnt in deps.items() if cnt > 10
         ]
-        
+
         self.assertEqual(len(high_coupling), 1)
 
 
@@ -730,7 +730,7 @@ class TestTestCoverageIntegration(unittest.TestCase):
             'agent_context.py': 78.5,
             'agent_errors.py': 88.0
         }
-        
+
         low_coverage = [f for f, c in coverage.items() if c < 80]
         self.assertIn('agent_context.py', low_coverage)
 
@@ -741,7 +741,7 @@ class TestTestCoverageIntegration(unittest.TestCase):
             {'date': '2024-01-08', 'coverage': 78.5},
             {'date': '2024-01-15', 'coverage': 85.5}
         ]
-        
+
         trend = coverage_history[-1]['coverage'] - coverage_history[0]['coverage']
         self.assertEqual(trend, 10.5)
 
@@ -752,7 +752,7 @@ class TestTestCoverageIntegration(unittest.TestCase):
             'uncovered_branches': 12,
             'high_risk_uncovered': 2
         }
-        
+
         self.assertGreater(gap_analysis['uncovered_branches'], gap_analysis['uncovered_functions'])
 
 
@@ -767,7 +767,7 @@ class TestPerformanceMetrics(unittest.TestCase):
             'visualization': 3.1,
             'distribution': 0.8
         }
-        
+
         total_time = sum(timings.values())
         self.assertGreater(total_time, 7)
 
@@ -778,7 +778,7 @@ class TestPerformanceMetrics(unittest.TestCase):
             'average_memory_mb': 180,
             'memory_per_file_kb': 1.5
         }
-        
+
         self.assertGreater(memory_stats['peak_memory_mb'], memory_stats['average_memory_mb'])
 
     def test_performance_comparison_over_time(self):
@@ -787,10 +787,10 @@ class TestPerformanceMetrics(unittest.TestCase):
             {'date': '2024-01-01', 'execution_time': 5.2},
             {'date': '2024-01-15', 'execution_time': 3.8}
         ]
-        
+
         improvement = performance[0]['execution_time'] - performance[1]['execution_time']
         improvement_pct = (improvement / performance[0]['execution_time']) * 100
-        
+
         self.assertGreater(improvement_pct, 0)
 
 
@@ -804,13 +804,13 @@ class TestTechnicalDebt(unittest.TestCase):
             'test_coverage': {'weight': 0.4, 'value': 0.85},
             'code_duplication': {'weight': 0.3, 'value': 0.12}
         }
-        
+
         # Lower coverage is worse (negate for scoring)
         debt_score = (
             debt_factors['code_complexity']['weight'] * debt_factors['code_complexity']['value'] +
             debt_factors['code_duplication']['weight'] * debt_factors['code_duplication']['value']
         )
-        
+
         self.assertGreater(debt_score, 0)
 
     def test_debt_prioritization(self):
@@ -820,7 +820,7 @@ class TestTechnicalDebt(unittest.TestCase):
             {'type': 'complex_function', 'impact': 'medium', 'effort': 'high'},
             {'type': 'code_duplication', 'impact': 'low', 'effort': 'low'}
         ]
-        
+
         # Prioritize by impact/effort ratio
         priorities = sorted(
             debt_items,
@@ -829,16 +829,16 @@ class TestTechnicalDebt(unittest.TestCase):
             ) / (1 if x['effort'] == 'high' else (0.5 if x['effort'] == 'medium' else 0.25)),
             reverse=True
         )
-        
+
         self.assertEqual(priorities[0]['type'], 'low_coverage')
 
     def test_debt_timeline_projection(self):
         """Test projecting debt paydown timeline."""
         current_debt = 1000
         weekly_reduction = 50
-        
+
         weeks_to_zero = current_debt / weekly_reduction
-        
+
         self.assertEqual(weeks_to_zero, 20)
 
 
@@ -851,7 +851,7 @@ class TestRecommendationGeneration(unittest.TestCase):
         recommendations = [
             f"Add tests for {f}" for f in uncovered_files if 'agent' in f
         ]
-        
+
         self.assertGreaterEqual(len(recommendations), 1)
 
     def test_complexity_reduction_recommendations(self):
@@ -861,11 +861,11 @@ class TestRecommendationGeneration(unittest.TestCase):
             'process_metrics': 6,
             'generate_report': 5
         }
-        
+
         high_complexity = [
             f for f, c in complex_functions.items() if c > 6
         ]
-        
+
         self.assertIn('analyze_files', high_complexity)
 
     def test_priority_based_recommendations(self):
@@ -875,11 +875,11 @@ class TestRecommendationGeneration(unittest.TestCase):
             {'action': 'Refactor function', 'priority': 'medium', 'impact': 'medium'},
             {'action': 'Update docstring', 'priority': 'low', 'impact': 'low'}
         ]
-        
+
         sorted_recs = sorted(recommendations, key=lambda x: (
             1 if x['priority'] == 'high' else (0.5 if x['priority'] == 'medium' else 0)
         ), reverse=True)
-        
+
         self.assertEqual(sorted_recs[0]['action'], 'Add test coverage')
 
 
@@ -893,17 +893,17 @@ class TestReportScheduling(unittest.TestCase):
             'weekly': {'time': 'Monday 09:00', 'enabled': True},
             'monthly': {'time': '1st 10:00', 'enabled': False}
         }
-        
+
         enabled_schedules = [s for s, cfg in schedule.items() if cfg['enabled']]
         self.assertEqual(len(enabled_schedules), 2)
 
     def test_scheduled_generation_trigger(self):
         """Test triggering scheduled report generation."""
         from datetime import datetime, timedelta
-        
+
         schedule_time = datetime(2024, 1, 15, 0, 0)
         current_time = datetime(2024, 1, 15, 0, 0)
-        
+
         should_generate = current_time >= schedule_time
         self.assertTrue(should_generate)
 
@@ -914,7 +914,7 @@ class TestReportScheduling(unittest.TestCase):
             {'report_id': 2, 'status': 'processing'},
             {'report_id': 3, 'status': 'pending'}
         ]
-        
+
         pending = [r for r in queue if r['status'] == 'pending']
         self.assertEqual(len(pending), 2)
 
@@ -929,7 +929,7 @@ class TestReportVersioning(unittest.TestCase):
             {'version': 2, 'date': '2024-01-08', 'metrics': {'coverage': 78}},
             {'version': 3, 'date': '2024-01-15', 'metrics': {'coverage': 85}}
         ]
-        
+
         self.assertEqual(len(reports), 3)
         self.assertEqual(reports[-1]['metrics']['coverage'], 85)
 
@@ -937,9 +937,9 @@ class TestReportVersioning(unittest.TestCase):
         """Test generating diff between report versions."""
         v1 = {'coverage': 75, 'warnings': 20, 'errors': 5}
         v2 = {'coverage': 85, 'warnings': 15, 'errors': 2}
-        
+
         diff = {k: v2[k] - v1[k] for k in v1}
-        
+
         self.assertEqual(diff['coverage'], 10)
         self.assertEqual(diff['errors'], -3)
 
@@ -953,7 +953,7 @@ class TestReportVersioning(unittest.TestCase):
                 'timestamp': '2024-01-08T10:00:00'
             }
         ]
-        
+
         self.assertEqual(len(change_log[0]['changes']), 2)
 
 
@@ -965,11 +965,11 @@ class TestReportDistribution(unittest.TestCase):
         """Test sending reports via email."""
         mock_instance = mock_smtp.return_value
         mock_instance.send_message = MagicMock()
-        
+
         # Simulate email sending
         recipients = ['user@example.com', 'admin@example.com']
-        subject = 'Agent Report'
-        
+
+
         self.assertEqual(len(recipients), 2)
 
     def test_webhook_distribution(self):
@@ -980,7 +980,7 @@ class TestReportDistribution(unittest.TestCase):
             'headers': {'Authorization': 'Bearer token123'},
             'timeout': 30
         }
-        
+
         self.assertEqual(webhook_config['method'], 'POST')
 
     def test_api_endpoint_distribution(self):
@@ -991,7 +991,7 @@ class TestReportDistribution(unittest.TestCase):
             'authentication': 'bearer_token',
             'rate_limit': '1000/hour'
         }
-        
+
         self.assertIn('/api/reports/', api_endpoint['path'])
 
     def test_slack_integration(self):
@@ -1001,7 +1001,7 @@ class TestReportDistribution(unittest.TestCase):
             'channel': '#reports',
             'mention_on_alert': '@channel'
         }
-        
+
         self.assertEqual(slack_config['channel'], '#reports')
 
     def test_distribution_failure_handling(self):
@@ -1013,7 +1013,7 @@ class TestReportDistribution(unittest.TestCase):
             'retry_count': 3,
             'next_retry': '2024-01-15T11:00:00'
         }
-        
+
         should_retry = distribution_attempt['retry_count'] < 5
         self.assertTrue(should_retry)
 
@@ -1024,14 +1024,14 @@ class TestInteractiveReports(unittest.TestCase):
     def test_drill_down_capability(self):
         """Test drill-down from summary to details."""
         summary = {'total_files': 150, 'test_coverage': 85}
-        
+
         # Drill down by clicking on coverage
         details = {
             'covered_files': 127,
             'uncovered_files': 23,
             'critical_uncovered': 5
         }
-        
+
         self.assertEqual(details['covered_files'] + details['uncovered_files'], 150)
 
     def test_filter_and_search_capability(self):
@@ -1041,7 +1041,7 @@ class TestInteractiveReports(unittest.TestCase):
             {'file': 'base_agent.py', 'coverage': 92, 'warnings': 2},
             {'file': 'agent_context.py', 'coverage': 78, 'warnings': 8}
         ]
-        
+
         filtered = [d for d in data if d['coverage'] > 80]
         self.assertEqual(len(filtered), 2)
 
@@ -1052,10 +1052,10 @@ class TestInteractiveReports(unittest.TestCase):
             {'date': '2024-01-08', 'coverage': 80},
             {'date': '2024-01-15', 'coverage': 85}
         ]
-        
+
         # Filter for last 2 weeks
         filtered_metrics = all_metrics[-2:]
-        
+
         self.assertEqual(len(filtered_metrics), 2)
 
 
@@ -1069,10 +1069,10 @@ class TestTeamLevelReporting(unittest.TestCase):
             'agent2': {'files': 75, 'coverage': 82},
             'agent3': {'files': 45, 'coverage': 88}
         }
-        
+
         total_files = sum(m['files'] for m in agent_metrics.values())
         avg_coverage = sum(m['coverage'] for m in agent_metrics.values()) / len(agent_metrics)
-        
+
         self.assertEqual(total_files, 170)
         self.assertAlmostEqual(avg_coverage, 85, places=1)
 
@@ -1083,25 +1083,25 @@ class TestTeamLevelReporting(unittest.TestCase):
             {'week': 2, 'avg_coverage': 80, 'total_warnings': 40},
             {'week': 3, 'avg_coverage': 85, 'total_warnings': 25}
         ]
-        
+
         improvement = team_history[-1]['avg_coverage'] - team_history[0]['avg_coverage']
         self.assertEqual(improvement, 10)
 
     def test_individual_vs_team_comparison(self):
         """Test comparing individual metrics against team average."""
         team_avg_coverage = 83.5
-        
+
         individual_metrics = {
             'alice': 85.0,
             'bob': 82.0,
             'charlie': 83.5
         }
-        
+
         above_average = [
             p for p, cov in individual_metrics.items()
             if cov > team_avg_coverage
         ]
-        
+
         self.assertIn('alice', above_average)
         self.assertNotIn('bob', above_average)
 

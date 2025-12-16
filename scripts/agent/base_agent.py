@@ -122,7 +122,7 @@ class InputType(Enum):
 @dataclass
 class PromptTemplate:
     """Reusable prompt template.
-    
+
     Attributes:
         id: Unique identifier for the template.
         name: Human-readable template name.
@@ -142,7 +142,7 @@ class PromptTemplate:
 @dataclass
 class ConversationMessage:
     """A message in conversation history.
-    
+
     Attributes:
         role: The role (user, assistant, system).
         content: Message content.
@@ -156,7 +156,7 @@ class ConversationMessage:
 @dataclass
 class CacheEntry:
     """Cached response entry.
-    
+
     Attributes:
         key: Content-based cache key.
         response: Cached response content.
@@ -174,7 +174,7 @@ class CacheEntry:
 @dataclass
 class AgentConfig:
     """Agent configuration from environment or file.
-    
+
     Attributes:
         backend: AI backend to use.
         model: Model name/ID for the backend.
@@ -198,7 +198,7 @@ class AgentConfig:
 @dataclass
 class HealthCheckResult:
     """Result of agent health check.
-    
+
     Attributes:
         healthy: Overall health status.
         backend_available: Whether AI backend is available.
@@ -216,7 +216,7 @@ class HealthCheckResult:
 @dataclass
 class AuthConfig:
     """Authentication configuration.
-    
+
     Attributes:
         method: Authentication method type.
         api_key: API key for API_KEY auth.
@@ -240,7 +240,7 @@ class AuthConfig:
 @dataclass
 class BatchRequest:
     """Request in a batch processing queue.
-    
+
     Attributes:
         file_path: Path to the file to process.
         prompt: Improvement prompt.
@@ -256,7 +256,7 @@ class BatchRequest:
 @dataclass
 class BatchResult:
     """Result of a batch processing request.
-    
+
     Attributes:
         file_path: Path to the processed file.
         success: Whether processing succeeded.
@@ -274,7 +274,7 @@ class BatchResult:
 @dataclass
 class PromptVersion:
     """Versioned prompt for A/B testing.
-    
+
     Attributes:
         version_id: Unique version identifier.
         template_id: Reference to base template.
@@ -294,7 +294,7 @@ class PromptVersion:
 @dataclass
 class MultimodalInput:
     """Multimodal input for agents.
-    
+
     Attributes:
         input_type: Type of input (text, image, etc.).
         content: Content data (text, base64, path).
@@ -310,7 +310,7 @@ class MultimodalInput:
 @dataclass
 class ComposedAgent:
     """Configuration for agent composition.
-    
+
     Attributes:
         agent_type: Type of agent to use.
         config: Agent-specific configuration.
@@ -326,7 +326,7 @@ class ComposedAgent:
 @dataclass
 class SerializationConfig:
     """Configuration for custom serialization.
-    
+
     Attributes:
         format: Serialization format.
         options: Format-specific options.
@@ -342,7 +342,7 @@ class SerializationConfig:
 @dataclass
 class FilePriorityConfig:
     """Configuration for file priority.
-    
+
     Attributes:
         path_patterns: Patterns mapped to priorities.
         extension_priorities: Extensions mapped to priorities.
@@ -389,21 +389,21 @@ DEFAULT_PROMPT_TEMPLATES: List[PromptTemplate] = [
 
 def setup_logging(verbosity_arg: int = 0) -> None:
     """Configure logging based on environment variable and argument.
-    
+
     Sets up Python's logging system with level determined by environment
     variable (DV_AGENT_VERBOSITY) and/or command-line argument.
-    
+
     Args:
         verbosity_arg: Verbosity level from --verbose argument (0-3).
                       Levels: 0=ERROR, 1=WARNING, 2=INFO, 3=DEBUG.
                       Defaults to 0 (ERROR).
-                      
+
     Returns:
         None. Configures the global logging system.
-        
+
     Environment Variables:
         DV_AGENT_VERBOSITY: Can be set to 'quiet', 'minimal', 'normal', or 'elaborate'.
-        
+
     Note:
         - verbosity_arg takes precedence when provided and forces DEBUG level
         - Environment variable is used as fallback
@@ -458,18 +458,18 @@ except ImportError:
 
 class BaseAgent:
     """Base class for all AI-powered agents.
-    
+
     Provides common functionality for agents that use AI backends to improve
     code files, documentation, tests, and other artifacts. Handles file I/O,
     diff generation, and integration with AI services.
-    
+
     Supports context manager protocol for automatic resource cleanup.
-    
+
     Attributes:
         file_path (Path): Path to the file being improved.
         previous_content (str): Original file content before improvements.
         current_content (str): Improved file content after agent processing.
-        
+
     Subclasses:
         - CoderAgent: Improves source code files
         - TestsAgent: Generates and improves test files
@@ -478,16 +478,16 @@ class BaseAgent:
         - ErrorsAgent: Analyzes and documents errors
         - ImprovementsAgent: Suggests code improvements
         - StatsAgent: Collects and reports statistics
-        
+
     Example:
         class MyAgent(BaseAgent):
             def _get_default_content(self):
                 return "# New File\\n"
-        
+
         with MyAgent('path/to/file.md') as agent:
             agent.improve_content("Make it better")
             agent.update_file()
-        
+
     Note:
         - Automatically detects markdown files for formatting cleanup
         - Provides fallback responses when AI backend unavailable
@@ -503,11 +503,11 @@ class BaseAgent:
 
     def __init__(self, file_path: str) -> None:
         """Initialize the BaseAgent with file path.
-        
+
         Args:
             file_path: Path to the file to improve. Can be absolute or relative.
                       Will be converted to pathlib.Path object.
-                      
+
         Note:
             Automatically reads previous content on initialization.
             Supports context manager protocol via __enter__ and __exit__.
@@ -515,7 +515,7 @@ class BaseAgent:
         self.file_path = Path(file_path)
         self.previous_content = ""
         self.current_content = ""
-        
+
         # New attributes for enhanced functionality
         self._state = AgentState.INITIALIZED
         self._conversation_history: List[ConversationMessage] = []
@@ -524,13 +524,13 @@ class BaseAgent:
         self._state_data: Dict[str, Any] = {}
         self._post_processors: List[Callable[[str], str]] = []
         self._model: Optional[str] = None
-        
+
         logging.debug(f"Initializing {self.__class__.__name__} for {file_path}")
         self.read_previous_content()
-    
+
     def _load_config(self) -> AgentConfig:
         """Load agent configuration from environment variables.
-        
+
         Returns:
             AgentConfig: Configuration object with settings from env vars.
         """
@@ -552,7 +552,7 @@ class BaseAgent:
 
     def set_model(self, model: str) -> None:
         """Set the model to use for this agent.
-        
+
         Args:
             model: Model identifier (e.g., "gpt-4", "claude-3").
         """
@@ -562,15 +562,15 @@ class BaseAgent:
     def get_model(self) -> Optional[str]:
         """Get the currently configured model."""
         return self._model or self._config.model or None
-    
+
     def __enter__(self):
         """Context manager entry. Returns self for use in 'with' statement."""
         logging.debug(f"{self.__class__.__name__} entering context manager")
         return self
-    
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit. Handles cleanup if needed.
-        
+
         Note:
             - Logs any exceptions that occurred
             - Does not suppress exceptions
@@ -587,16 +587,16 @@ class BaseAgent:
 
     def read_previous_content(self) -> str:
         """Read the existing file content from disk.
-        
+
         Reads the file specified by file_path, storing content in previous_content.
         If file doesn't exist, loads default content for new files.
-        
+
         Returns:
             str: The read content (same as previous_content attribute).
-            
+
         Raises:
             None. Logs errors but doesn't raise. Returns empty string on failure.
-            
+
         Note:
             - Uses UTF-8 encoding
             - Handles missing files gracefully
@@ -604,7 +604,7 @@ class BaseAgent:
         """
         self._state = AgentState.READING
         self._trigger_event(EventType.PRE_READ, {"file_path": str(self.file_path)})
-        
+
         if self.file_path.exists():
             try:
                 logging.debug(f"Reading content from {self.file_path}")
@@ -616,24 +616,24 @@ class BaseAgent:
         else:
             logging.debug(f"File does not exist, using default content: {self.file_path}")
             self.previous_content = self._get_default_content()
-        
+
         self._trigger_event(EventType.POST_READ, {"content_length": len(self.previous_content)})
         return self.previous_content
 
     def _get_default_content(self) -> str:
         """Return default content for new files.
-        
+
         Provides a template for new files when they don't exist yet.
         Override in subclasses to provide agent-specific defaults.
-        
+
         Returns:
             str: Default content template for the file type.
-            
+
         Example:
             class TestsAgent(BaseAgent):
                 def _get_default_content(self):
                     return "# Tests\\n\\n# Add tests here\\n"
-                    
+
         Note:
             Called automatically by read_previous_content() for missing files.
         """
@@ -641,24 +641,24 @@ class BaseAgent:
 
     def improve_content(self, prompt: str) -> str:
         """Use AI to improve the content.
-        
+
         Calls the agent_backend with the previous content and a prompt,
         receives improved content, and stores it in current_content.
-        
+
         Args:
             prompt: The prompt describing what improvements to make.
                    e.g., "Add comprehensive docstrings to all functions"
-                   
+
         Returns:
             str: The improved content (same as current_content attribute).
-            
+
         Raises:
             None. Falls back to previous_content on error.
-            
+
         Example:
             agent.improve_content("Improve error handling")
             print(agent.current_content)
-            
+
         Note:
             - Overridable in subclasses for agent-specific behavior
             - Logs warnings on failure but doesn't raise
@@ -666,7 +666,7 @@ class BaseAgent:
         """
         self._state = AgentState.PROCESSING
         self._trigger_event(EventType.PRE_IMPROVE, {"prompt": prompt})
-        
+
         # Check cache first if enabled
         cache_key = self._generate_cache_key(prompt, self.previous_content)
         if self._config.cache_enabled and cache_key in BaseAgent._response_cache:
@@ -675,23 +675,23 @@ class BaseAgent:
             logging.debug(f"Cache hit for prompt (hits: {cached.hit_count})")
             self.current_content = cached.response
             return self.current_content
-        
+
         description = f"Improve the {self.__class__.__name__.replace('Agent', '').lower()} for {self.file_path.stem}"
         try:
             logging.info(f"Improving content with prompt: {prompt[:50]}...")
-            
+
             # Add conversation context if available
             full_prompt = self._build_prompt_with_history(prompt)
-            
+
             improvement = self.run_subagent(description, full_prompt, self.previous_content)
-            
+
             # Apply post-processors
             for processor in self._post_processors:
                 improvement = processor(improvement)
-            
+
             # Score response quality
             quality = self._score_response_quality(improvement)
-            
+
             # Retry if quality is poor
             if quality.value <= ResponseQuality.POOR.value and self._config.retry_count > 0:
                 logging.warning(f"Response quality {quality.name}, retrying...")
@@ -700,9 +700,9 @@ class BaseAgent:
                     quality = self._score_response_quality(improvement)
                     if quality.value >= ResponseQuality.ACCEPTABLE.value:
                         break
-            
+
             self.current_content = improvement
-            
+
             # Cache the response
             if self._config.cache_enabled:
                 BaseAgent._response_cache[cache_key] = CacheEntry(
@@ -711,11 +711,11 @@ class BaseAgent:
                     timestamp=time.time(),
                     quality_score=quality.value
                 )
-            
+
             # Add to conversation history
             self._conversation_history.append(ConversationMessage(role="user", content=prompt))
             self._conversation_history.append(ConversationMessage(role="assistant", content=improvement[:500]))
-            
+
             logging.info(f"Content improved successfully ({len(improvement)} bytes)")
             self._trigger_event(EventType.POST_IMPROVE, {"quality": quality.name})
             return self.current_content
@@ -726,22 +726,22 @@ class BaseAgent:
 
     def run_subagent(self, description: str, prompt: str, original_content: str = "") -> str:
         """Run a subagent using one of several AI backends.
-        
+
         Delegates to agent_backend.run_subagent which selects the appropriate
         AI backend (copilot, GitHub Models, etc.) and executes the request.
-        
+
         Args:
             description: Human-readable description of the task.
             prompt: The prompt to send to the AI backend.
             original_content: The content being improved (context for AI).
                             Defaults to empty string.
-                            
+
         Returns:
             str: Response from the AI backend, or fallback if unavailable.
-            
+
         Raises:
             None. Returns fallback response on error.
-            
+
         Note:
             - Backend selection is automatic or via DV_AGENT_BACKEND env var
             - Supports multiple backends: copilot, GitHub Models, local
@@ -757,11 +757,11 @@ class BaseAgent:
     @staticmethod
     def get_backend_status() -> dict:
         """Return a diagnostic snapshot of backend availability and configuration.
-        
+
         Returns:
             dict: Status information for all available AI backends.
                  Includes availability, version, and configuration details.
-                 
+
         Example:
             status = BaseAgent.get_backend_status()
             for backend, info in status.items():
@@ -773,11 +773,11 @@ class BaseAgent:
     @staticmethod
     def describe_backends() -> str:
         """Return human-readable backend diagnostics for debugging.
-        
+
         Returns:
             str: Formatted text describing available backends and their status.
                  Useful for troubleshooting configuration issues.
-                 
+
         Example:
             print(BaseAgent.describe_backends())
             # Output: Available backends, versions, configuration details
@@ -787,13 +787,13 @@ class BaseAgent:
 
     def _get_fallback_response(self) -> str:
         """Return fallback response when Copilot CLI is unavailable.
-        
+
         Called when AI backend is not available. Override in subclasses to provide
         agent-specific fallback content.
-        
+
         Returns:
             str: Fallback response text with helpful instructions.
-            
+
         Note:
             Called automatically by run_subagent() when backend unavailable.
             Subclasses should override to provide domain-specific defaults.
@@ -808,22 +808,22 @@ class BaseAgent:
 
     def update_file(self) -> None:
         """Write the improved content back to the file.
-        
+
         Writes current_content to disk, with special handling for markdown files
         which get normalized/fixed using the fix_markdown_content function.
-        
+
         Returns:
             None.
-            
+
         Raises:
             OSError: If file write fails.
-            
+
         Note:
             - Automatically detects markdown files (.md, .markdown, .plan.md)
             - Applies markdown normalization only to markdown files
             - Uses UTF-8 encoding for all files
             - Creates parent directories if they don't exist
-            
+
         Example:
             agent.current_content = "# Improved Content"
             agent.update_file()  # Writes to agent.file_path
@@ -836,7 +836,7 @@ class BaseAgent:
         if is_markdown:
             logging.debug(f"Applying markdown formatting to {self.file_path.name}")
             content_to_write = fix_markdown_content(content_to_write)
-        
+
         logging.info(f"Writing {len(content_to_write)} bytes to {self.file_path.name}")
         # Ensure parent directory exists
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -844,13 +844,13 @@ class BaseAgent:
 
     def get_diff(self) -> str:
         """Get the diff between previous and current content.
-        
+
         Generates a unified diff showing what changed between the original
         and improved versions of the file.
-        
+
         Returns:
             str: Unified diff format. Empty string if no changes.
-            
+
         Example:
             diff = agent.get_diff()
             if diff:
@@ -858,7 +858,7 @@ class BaseAgent:
                 print(diff)
             else:
                 print("No changes")
-                
+
         Note:
             - Uses difflib.unified_diff for standard format
             - Preserves line endings in diff
@@ -883,7 +883,7 @@ class BaseAgent:
     @classmethod
     def register_template(cls, template: PromptTemplate) -> None:
         """Register a prompt template for reuse.
-        
+
         Args:
             template: The prompt template to register.
         """
@@ -893,10 +893,10 @@ class BaseAgent:
     @classmethod
     def get_template(cls, template_id: str) -> Optional[PromptTemplate]:
         """Get a registered prompt template by ID.
-        
+
         Args:
             template_id: The template ID to look up.
-            
+
         Returns:
             The template if found, None otherwise.
         """
@@ -904,21 +904,21 @@ class BaseAgent:
 
     def improve_with_template(self, template_id: str, variables: Dict[str, str]) -> str:
         """Improve content using a registered template.
-        
+
         Args:
             template_id: ID of the template to use.
             variables: Variables to substitute in the template.
-            
+
         Returns:
             Improved content.
-            
+
         Raises:
             ValueError: If template not found.
         """
         template = self.get_template(template_id)
         if not template:
             raise ValueError(f"Template not found: {template_id}")
-        
+
         prompt = template.template.format(**variables, content=self.previous_content)
         return self.improve_content(prompt)
 
@@ -926,7 +926,7 @@ class BaseAgent:
 
     def add_to_history(self, role: str, content: str) -> None:
         """Add a message to conversation history.
-        
+
         Args:
             role: Message role (user, assistant, system).
             content: Message content.
@@ -944,29 +944,29 @@ class BaseAgent:
 
     def _build_prompt_with_history(self, prompt: str) -> str:
         """Build prompt with conversation history context.
-        
+
         Args:
             prompt: The current prompt.
-            
+
         Returns:
             Prompt with history context prepended.
         """
         if not self._conversation_history:
             return prompt
-        
+
         # Include last few messages for context
         recent = self._conversation_history[-6:]  # Last 3 exchanges
         context_lines = []
         for msg in recent:
             context_lines.append(f"[{msg.role}]: {msg.content[:200]}...")
-        
+
         return f"Previous context:\n{''.join(context_lines)}\n\nCurrent request:\n{prompt}"
 
     # ========== Response Post-Processing ==========
 
     def add_post_processor(self, processor: Callable[[str], str]) -> None:
         """Add a response post-processor.
-        
+
         Args:
             processor: Function that transforms response content.
         """
@@ -981,45 +981,45 @@ class BaseAgent:
 
     def _score_response_quality(self, response: str) -> ResponseQuality:
         """Score the quality of an AI response.
-        
+
         Args:
             response: The response to score.
-            
+
         Returns:
             Quality score enum value.
         """
         if not response or response.isspace():
             return ResponseQuality.INVALID
-        
+
         # Basic quality heuristics
         score = 3  # Start at ACCEPTABLE
-        
+
         # Longer responses generally better (to a point)
         if len(response) > 100:
             score += 1
         if len(response) < 20:
             score -= 1
-        
+
         # Check for error indicators
         error_indicators = ["error", "failed", "unavailable", "unable"]
         if any(ind in response.lower() for ind in error_indicators):
             score -= 1
-        
+
         # Check for actual content
         if response.strip().startswith("#") or "def " in response or "class " in response:
             score += 1
-        
+
         return ResponseQuality(min(max(score, 1), 5))
 
     # ========== Cache Management ==========
 
     def _generate_cache_key(self, prompt: str, content: str) -> str:
         """Generate a content-based cache key.
-        
+
         Args:
             prompt: The prompt.
             content: The content being processed.
-            
+
         Returns:
             SHA256 hash key.
         """
@@ -1035,7 +1035,7 @@ class BaseAgent:
     @classmethod
     def get_cache_stats(cls) -> Dict[str, Any]:
         """Get cache statistics.
-        
+
         Returns:
             Dictionary with cache stats.
         """
@@ -1054,10 +1054,10 @@ class BaseAgent:
 
     def check_token_budget(self, estimated_tokens: int) -> bool:
         """Check if request fits within token budget.
-        
+
         Args:
             estimated_tokens: Estimated tokens for the request.
-            
+
         Returns:
             True if within budget, False otherwise.
         """
@@ -1068,7 +1068,7 @@ class BaseAgent:
     @classmethod
     def register_hook(cls, event: EventType, callback: Callable[[Dict[str, Any]], None]) -> None:
         """Register an event hook.
-        
+
         Args:
             event: Event type to hook.
             callback: Callback function to invoke.
@@ -1081,7 +1081,7 @@ class BaseAgent:
     @classmethod
     def unregister_hook(cls, event: EventType, callback: Callable) -> None:
         """Unregister an event hook.
-        
+
         Args:
             event: Event type.
             callback: Callback to remove.
@@ -1091,14 +1091,14 @@ class BaseAgent:
 
     def _trigger_event(self, event: EventType, data: Dict[str, Any]) -> None:
         """Trigger an event and invoke all registered hooks.
-        
+
         Args:
             event: Event type.
             data: Event data to pass to hooks.
         """
         data["agent"] = self.__class__.__name__
         data["file_path"] = str(self.file_path)
-        
+
         for callback in self._event_hooks.get(event, []):
             try:
                 callback(data)
@@ -1110,7 +1110,7 @@ class BaseAgent:
     @classmethod
     def register_plugin(cls, name: str, plugin: Any) -> None:
         """Register an agent plugin.
-        
+
         Args:
             name: Plugin name.
             plugin: Plugin instance.
@@ -1121,10 +1121,10 @@ class BaseAgent:
     @classmethod
     def get_plugin(cls, name: str) -> Optional[Any]:
         """Get a registered plugin.
-        
+
         Args:
             name: Plugin name.
-            
+
         Returns:
             Plugin instance if found.
         """
@@ -1135,13 +1135,13 @@ class BaseAgent:
     @classmethod
     def health_check(cls) -> HealthCheckResult:
         """Perform agent health check.
-        
+
         Returns:
             HealthCheckResult with diagnostic information.
         """
         backend_status = cls.get_backend_status()
         backend_available = any(v.get("available", False) for v in backend_status.values() if isinstance(v, dict))
-        
+
         return HealthCheckResult(
             healthy=backend_available,
             backend_available=backend_available,
@@ -1156,7 +1156,7 @@ class BaseAgent:
 
     def save_state(self, path: Optional[Path] = None) -> None:
         """Save agent state to disk.
-        
+
         Args:
             path: Path to save state file. Defaults to {file_path}.state.json.
         """
@@ -1173,17 +1173,17 @@ class BaseAgent:
 
     def load_state(self, path: Optional[Path] = None) -> bool:
         """Load agent state from disk.
-        
+
         Args:
             path: Path to state file. Defaults to {file_path}.state.json.
-            
+
         Returns:
             True if state loaded successfully.
         """
         state_path = path or self.file_path.with_suffix(".state.json")
         if not state_path.exists():
             return False
-        
+
         try:
             state = json.loads(state_path.read_text(encoding="utf-8"))
             self._token_usage = state.get("token_usage", 0)
@@ -1198,10 +1198,10 @@ class BaseAgent:
 
     def estimate_tokens(self, text: str) -> int:
         """Estimate token count for text.
-        
+
         Args:
             text: Text to estimate.
-            
+
         Returns:
             Estimated token count (rough approximation).
         """
@@ -1210,11 +1210,11 @@ class BaseAgent:
 
     def truncate_for_context(self, text: str, max_tokens: int) -> str:
         """Truncate text to fit within token limit.
-        
+
         Args:
             text: Text to truncate.
             max_tokens: Maximum tokens allowed.
-            
+
         Returns:
             Truncated text with ellipsis if truncated.
         """
@@ -1228,29 +1228,29 @@ class BaseAgent:
 
 class RequestBatcher:
     """Batch processor for multiple file requests.
-    
+
     Handles efficient processing of multiple files in batches
     with priority-based ordering and parallel execution.
-    
+
     Attributes:
         batch_size: Maximum requests per batch.
         max_concurrent: Maximum concurrent requests.
         queue: Pending batch requests.
         results: Completed batch results.
-    
+
     Example:
         batcher = RequestBatcher(batch_size=10)
         batcher.add_request(BatchRequest(Path("file.py"), "Improve"))
         results = batcher.process_all(agent_factory)
     """
-    
+
     def __init__(
         self,
         batch_size: int = 10,
         max_concurrent: int = 4
     ) -> None:
         """Initialize the request batcher.
-        
+
         Args:
             batch_size: Maximum requests per batch.
             max_concurrent: Maximum concurrent requests.
@@ -1260,79 +1260,79 @@ class RequestBatcher:
         self.queue: List[BatchRequest] = []
         self.results: List[BatchResult] = []
         logging.debug(f"RequestBatcher initialized with batch_size={batch_size}")
-    
+
     def add_request(self, request: BatchRequest) -> None:
         """Add a request to the queue.
-        
+
         Args:
             request: The batch request to add.
         """
         self.queue.append(request)
         logging.debug(f"Added request for {request.file_path}")
-    
+
     def add_requests(self, requests: List[BatchRequest]) -> None:
         """Add multiple requests to the queue.
-        
+
         Args:
             requests: List of batch requests to add.
         """
         self.queue.extend(requests)
         logging.debug(f"Added {len(requests)} requests to queue")
-    
+
     def get_queue_size(self) -> int:
         """Get the current queue size.
-        
+
         Returns:
             Number of pending requests.
         """
         return len(self.queue)
-    
+
     def clear_queue(self) -> None:
         """Clear all pending requests."""
         self.queue.clear()
         logging.debug("Request queue cleared")
-    
+
     def _sort_by_priority(self) -> List[BatchRequest]:
         """Sort requests by priority (highest first).
-        
+
         Returns:
             Sorted list of requests.
         """
         return sorted(self.queue, key=lambda r: r.priority.value, reverse=True)
-    
+
     def process_batch(
         self,
         agent_factory: Callable[[str], "BaseAgent"]
     ) -> List[BatchResult]:
         """Process a single batch of requests.
-        
+
         Args:
             agent_factory: Factory function to create agents.
-            
+
         Returns:
             List of batch results.
         """
         sorted_requests = self._sort_by_priority()
         batch = sorted_requests[:self.batch_size]
         results: List[BatchResult] = []
-        
+
         for request in batch:
             start_time = time.time()
             try:
                 agent = agent_factory(str(request.file_path))
                 agent.read_previous_content()
                 content = agent.improve_content(request.prompt)
-                
+
                 result = BatchResult(
                     file_path=request.file_path,
                     success=True,
                     content=content,
                     processing_time=time.time() - start_time
                 )
-                
+
                 if request.callback:
                     request.callback(content)
-                    
+
             except Exception as e:
                 result = BatchResult(
                     file_path=request.file_path,
@@ -1340,22 +1340,22 @@ class RequestBatcher:
                     error=str(e),
                     processing_time=time.time() - start_time
                 )
-            
+
             results.append(result)
             self.queue.remove(request)
-        
+
         self.results.extend(results)
         return results
-    
+
     def process_all(
         self,
         agent_factory: Callable[[str], "BaseAgent"]
     ) -> List[BatchResult]:
         """Process all queued requests.
-        
+
         Args:
             agent_factory: Factory function to create agents.
-            
+
         Returns:
             List of all batch results.
         """
@@ -1364,19 +1364,19 @@ class RequestBatcher:
             batch_results = self.process_batch(agent_factory)
             all_results.extend(batch_results)
         return all_results
-    
+
     def get_stats(self) -> Dict[str, Any]:
         """Get batch processing statistics.
-        
+
         Returns:
             Dictionary with processing stats.
         """
         if not self.results:
             return {"processed": 0, "success_rate": 0.0, "avg_time": 0.0}
-        
+
         successful = sum(1 for r in self.results if r.success)
         total_time = sum(r.processing_time for r in self.results)
-        
+
         return {
             "processed": len(self.results),
             "successful": successful,
@@ -1389,37 +1389,37 @@ class RequestBatcher:
 
 class AuthenticationManager:
     """Manager for authentication methods.
-    
+
     Handles various authentication methods for AI backends
     including API keys, bearer tokens, OAuth2, and custom auth.
-    
+
     Attributes:
         config: Authentication configuration.
         token_cache: Cached authentication tokens.
-    
+
     Example:
         auth = AuthenticationManager(AuthConfig(method=AuthMethod.BEARER_TOKEN, token="xxx"))
         headers = auth.get_headers()
     """
-    
+
     def __init__(self, config: Optional[AuthConfig] = None) -> None:
         """Initialize authentication manager.
-        
+
         Args:
             config: Authentication configuration.
         """
         self.config = config or AuthConfig()
         self.token_cache: Dict[str, str] = {}
         logging.debug(f"AuthenticationManager initialized with method={self.config.method.value}")
-    
+
     def get_headers(self) -> Dict[str, str]:
         """Get authentication headers.
-        
+
         Returns:
             Dictionary of HTTP headers for authentication.
         """
         headers: Dict[str, str] = {}
-        
+
         if self.config.method == AuthMethod.API_KEY:
             headers["X-API-Key"] = self.config.api_key
         elif self.config.method == AuthMethod.BEARER_TOKEN:
@@ -1432,45 +1432,45 @@ class AuthenticationManager:
         elif self.config.method == AuthMethod.OAUTH2:
             token = self._get_oauth_token()
             headers["Authorization"] = f"Bearer {token}"
-        
+
         # Add custom headers
         headers.update(self.config.custom_headers)
-        
+
         return headers
-    
+
     def _get_oauth_token(self) -> str:
         """Get OAuth2 token (with caching).
-        
+
         Returns:
             OAuth2 access token.
         """
         cache_key = f"oauth_{self.config.oauth_client_id}"
         if cache_key in self.token_cache:
             return self.token_cache[cache_key]
-        
+
         # In production, would exchange credentials for token
         # For now, return placeholder
         token = self.config.token or "oauth_token_placeholder"
         self.token_cache[cache_key] = token
         return token
-    
+
     def refresh_token(self) -> None:
         """Refresh authentication token."""
         self.token_cache.clear()
         logging.debug("Authentication tokens refreshed")
-    
+
     def set_custom_header(self, key: str, value: str) -> None:
         """Set a custom header.
-        
+
         Args:
             key: Header name.
             value: Header value.
         """
         self.config.custom_headers[key] = value
-    
+
     def validate(self) -> bool:
         """Validate authentication configuration.
-        
+
         Returns:
             True if configuration is valid.
         """
@@ -1489,31 +1489,31 @@ class AuthenticationManager:
 
 class PromptVersionManager:
     """Manager for prompt versioning and A/B testing.
-    
+
     Handles prompt version management, variant selection,
     and metrics tracking for A/B testing.
-    
+
     Attributes:
         versions: Registered prompt versions.
         metrics: Collected metrics per version.
         selection_history: History of version selections.
-    
+
     Example:
         manager = PromptVersionManager()
         manager.register_version(PromptVersion("v1", "improve", "A", "Improve {content}"))
         selected = manager.select_version("improve")
     """
-    
+
     def __init__(self) -> None:
         """Initialize the prompt version manager."""
         self.versions: Dict[str, List[PromptVersion]] = {}
         self.metrics: Dict[str, Dict[str, float]] = {}
         self.selection_history: List[Dict[str, Any]] = []
         logging.debug("PromptVersionManager initialized")
-    
+
     def register_version(self, version: PromptVersion) -> None:
         """Register a prompt version.
-        
+
         Args:
             version: The prompt version to register.
         """
@@ -1521,37 +1521,37 @@ class PromptVersionManager:
             self.versions[version.template_id] = []
         self.versions[version.template_id].append(version)
         logging.debug(f"Registered version {version.version_id} for {version.template_id}")
-    
+
     def get_versions(self, template_id: str) -> List[PromptVersion]:
         """Get all versions for a template.
-        
+
         Args:
             template_id: The template ID.
-            
+
         Returns:
             List of prompt versions.
         """
         return self.versions.get(template_id, [])
-    
+
     def select_version(self, template_id: str) -> Optional[PromptVersion]:
         """Select a version using weighted random selection.
-        
+
         Args:
             template_id: The template ID.
-            
+
         Returns:
             Selected prompt version.
         """
         import random
-        
+
         versions = self.get_versions(template_id)
         if not versions:
             return None
-        
+
         # Weighted selection
         total_weight = sum(v.weight for v in versions)
         r = random.uniform(0, total_weight)
-        
+
         cumulative = 0
         for version in versions:
             cumulative += version.weight
@@ -1563,9 +1563,9 @@ class PromptVersionManager:
                     "timestamp": time.time()
                 })
                 return version
-        
+
         return versions[-1]
-    
+
     def record_metric(
         self,
         version_id: str,
@@ -1573,7 +1573,7 @@ class PromptVersionManager:
         value: float
     ) -> None:
         """Record a metric for a version.
-        
+
         Args:
             version_id: The version ID.
             metric_name: Name of the metric.
@@ -1581,54 +1581,54 @@ class PromptVersionManager:
         """
         if version_id not in self.metrics:
             self.metrics[version_id] = {}
-        
+
         # Rolling average
         current = self.metrics[version_id].get(metric_name, value)
         self.metrics[version_id][metric_name] = (current + value) / 2
-    
+
     def get_best_version(self, template_id: str, metric: str = "quality") -> Optional[PromptVersion]:
         """Get the best performing version.
-        
+
         Args:
             template_id: The template ID.
             metric: Metric to use for comparison.
-            
+
         Returns:
             Best performing version.
         """
         versions = self.get_versions(template_id)
         if not versions:
             return None
-        
+
         best: Optional[PromptVersion] = None
         best_score = -1.0
-        
+
         for version in versions:
             score = self.metrics.get(version.version_id, {}).get(metric, 0)
             if score > best_score:
                 best_score = score
                 best = version
-        
+
         return best or versions[0]
-    
+
     def get_ab_report(self, template_id: str) -> Dict[str, Any]:
         """Get A/B testing report for a template.
-        
+
         Args:
             template_id: The template ID.
-            
+
         Returns:
             Report with version statistics.
         """
         versions = self.get_versions(template_id)
         selections = [s for s in self.selection_history if s["template_id"] == template_id]
-        
+
         report: Dict[str, Any] = {
             "template_id": template_id,
             "total_selections": len(selections),
             "versions": {}
         }
-        
+
         for version in versions:
             version_selections = [s for s in selections if s["version_id"] == version.version_id]
             report["versions"][version.version_id] = {
@@ -1636,62 +1636,62 @@ class PromptVersionManager:
                 "selections": len(version_selections),
                 "metrics": self.metrics.get(version.version_id, {})
             }
-        
+
         return report
 
 
 class MultimodalProcessor:
     """Processor for multimodal inputs.
-    
+
     Handles processing of various input types including
     text, images, diagrams, and code for AI backends.
-    
+
     Attributes:
         inputs: List of multimodal inputs.
         processed: Processed content ready for AI.
-    
+
     Example:
         processor = MultimodalProcessor()
         processor.add_input(MultimodalInput(InputType.TEXT, "Hello"))
         processor.add_input(MultimodalInput(InputType.IMAGE, base64_data))
         prompt = processor.build_prompt()
     """
-    
+
     def __init__(self) -> None:
         """Initialize the multimodal processor."""
         self.inputs: List[MultimodalInput] = []
         self.processed: str = ""
         logging.debug("MultimodalProcessor initialized")
-    
+
     def add_input(self, input_data: MultimodalInput) -> None:
         """Add a multimodal input.
-        
+
         Args:
             input_data: The input to add.
         """
         self.inputs.append(input_data)
         logging.debug(f"Added {input_data.input_type.value} input")
-    
+
     def add_text(self, text: str) -> None:
         """Add text input.
-        
+
         Args:
             text: Text content.
         """
         self.add_input(MultimodalInput(InputType.TEXT, text))
-    
+
     def add_image(self, data: str, mime_type: str = "image/png") -> None:
         """Add image input (base64 encoded).
-        
+
         Args:
             data: Base64 encoded image data.
             mime_type: Image MIME type.
         """
         self.add_input(MultimodalInput(InputType.IMAGE, data, mime_type))
-    
+
     def add_code(self, code: str, language: str = "python") -> None:
         """Add code input.
-        
+
         Args:
             code: Source code.
             language: Programming language.
@@ -1701,15 +1701,15 @@ class MultimodalProcessor:
             code,
             metadata={"language": language}
         ))
-    
+
     def build_prompt(self) -> str:
         """Build combined prompt from all inputs.
-        
+
         Returns:
             Combined prompt string.
         """
         parts: List[str] = []
-        
+
         for inp in self.inputs:
             if inp.input_type == InputType.TEXT:
                 parts.append(inp.content)
@@ -1720,18 +1720,18 @@ class MultimodalProcessor:
                 parts.append(f"[Image: {inp.mime_type}]")
             elif inp.input_type == InputType.DIAGRAM:
                 parts.append(f"[Diagram: {inp.metadata.get('type', 'unknown')}]")
-        
+
         self.processed = "\n\n".join(parts)
         return self.processed
-    
+
     def get_api_messages(self) -> List[Dict[str, Any]]:
         """Get messages formatted for multimodal API.
-        
+
         Returns:
             List of message dictionaries.
         """
         messages: List[Dict[str, Any]] = []
-        
+
         for inp in self.inputs:
             if inp.input_type == InputType.TEXT:
                 messages.append({"type": "text", "text": inp.content})
@@ -1747,9 +1747,9 @@ class MultimodalProcessor:
                     "type": "text",
                     "text": f"```{inp.metadata.get('language', '')}\n{inp.content}\n```"
                 })
-        
+
         return messages
-    
+
     def clear(self) -> None:
         """Clear all inputs."""
         self.inputs.clear()
@@ -1758,52 +1758,52 @@ class MultimodalProcessor:
 
 class AgentComposer:
     """Composer for multi-agent workflows.
-    
+
     Orchestrates multiple agents working together on a task,
     handling dependencies and result aggregation.
-    
+
     Attributes:
         agents: Configured agents for composition.
         results: Results from each agent.
         execution_order: Calculated execution order.
-    
+
     Example:
         composer = AgentComposer()
         composer.add_agent(ComposedAgent("coder", order=1))
         composer.add_agent(ComposedAgent("tests", order=2, depends_on=["coder"]))
         result = composer.execute(file_path, prompt)
     """
-    
+
     def __init__(self) -> None:
         """Initialize the agent composer."""
         self.agents: List[ComposedAgent] = []
         self.results: Dict[str, str] = {}
         self.execution_order: List[str] = []
         logging.debug("AgentComposer initialized")
-    
+
     def add_agent(self, agent: ComposedAgent) -> None:
         """Add an agent to the composition.
-        
+
         Args:
             agent: The agent configuration to add.
         """
         self.agents.append(agent)
         self._calculate_execution_order()
         logging.debug(f"Added agent: {agent.agent_type}")
-    
+
     def _calculate_execution_order(self) -> None:
         """Calculate execution order based on dependencies."""
         # Topological sort
         sorted_agents: List[str] = []
         visited: set = set()
         temp: set = set()
-        
+
         def visit(agent_type: str) -> None:
             if agent_type in temp:
                 raise ValueError(f"Circular dependency detected for {agent_type}")
             if agent_type in visited:
                 return
-            
+
             temp.add(agent_type)
             agent = next((a for a in self.agents if a.agent_type == agent_type), None)
             if agent:
@@ -1812,13 +1812,13 @@ class AgentComposer:
             temp.remove(agent_type)
             visited.add(agent_type)
             sorted_agents.append(agent_type)
-        
+
         for agent in sorted(self.agents, key=lambda a: a.order):
             if agent.agent_type not in visited:
                 visit(agent.agent_type)
-        
+
         self.execution_order = sorted_agents
-    
+
     def execute(
         self,
         file_path: str,
@@ -1826,45 +1826,45 @@ class AgentComposer:
         agent_factory: Callable[[str, str], "BaseAgent"]
     ) -> Dict[str, str]:
         """Execute the composed agents.
-        
+
         Args:
             file_path: Path to the file to process.
             prompt: Base prompt for agents.
             agent_factory: Factory to create agents (type, path).
-            
+
         Returns:
             Dictionary of results from each agent.
         """
         self.results.clear()
         current_content = ""
-        
+
         for agent_type in self.execution_order:
             agent_config = next((a for a in self.agents if a.agent_type == agent_type), None)
             if not agent_config:
                 continue
-            
+
             # Create agent
             agent = agent_factory(agent_type, file_path)
-            
+
             # Build prompt with context from previous agents
             enhanced_prompt = prompt
             for dep in agent_config.depends_on:
                 if dep in self.results:
                     enhanced_prompt += f"\n\nPrevious {dep} result:\n{self.results[dep][:500]}"
-            
+
             # Process
             if current_content:
                 agent.previous_content = current_content
-            
+
             result = agent.improve_content(enhanced_prompt)
             self.results[agent_type] = result
             current_content = result
-        
+
         return self.results
-    
+
     def get_final_result(self) -> str:
         """Get the final aggregated result.
-        
+
         Returns:
             Content from the last executed agent.
         """
@@ -1875,34 +1875,34 @@ class AgentComposer:
 
 class SerializationManager:
     """Manager for custom serialization formats.
-    
+
     Handles serialization and deserialization of agent data
     in various formats with optional compression and encryption.
-    
+
     Attributes:
         config: Serialization configuration.
-    
+
     Example:
         manager = SerializationManager(SerializationConfig(format=SerializationFormat.JSON))
         data = manager.serialize({"key": "value"})
         obj = manager.deserialize(data)
     """
-    
+
     def __init__(self, config: Optional[SerializationConfig] = None) -> None:
         """Initialize serialization manager.
-        
+
         Args:
             config: Serialization configuration.
         """
         self.config = config or SerializationConfig()
         logging.debug(f"SerializationManager initialized with format={self.config.format.value}")
-    
+
     def serialize(self, data: Any) -> bytes:
         """Serialize data to bytes.
-        
+
         Args:
             data: Data to serialize.
-            
+
         Returns:
             Serialized bytes.
         """
@@ -1914,26 +1914,26 @@ class SerializationManager:
         else:
             # Default to JSON
             result = json.dumps(data).encode("utf-8")
-        
+
         if self.config.compression:
             import zlib
             result = zlib.compress(result)
-        
+
         return result
-    
+
     def deserialize(self, data: bytes) -> Any:
         """Deserialize bytes to data.
-        
+
         Args:
             data: Serialized bytes.
-            
+
         Returns:
             Deserialized data.
         """
         if self.config.compression:
             import zlib
             data = zlib.decompress(data)
-        
+
         if self.config.format == SerializationFormat.JSON:
             return json.loads(data.decode("utf-8"))
         elif self.config.format == SerializationFormat.PICKLE:
@@ -1941,10 +1941,10 @@ class SerializationManager:
             return pickle.loads(data)
         else:
             return json.loads(data.decode("utf-8"))
-    
+
     def save_to_file(self, data: Any, path: Path) -> None:
         """Save serialized data to file.
-        
+
         Args:
             data: Data to save.
             path: File path.
@@ -1952,13 +1952,13 @@ class SerializationManager:
         serialized = self.serialize(data)
         path.write_bytes(serialized)
         logging.debug(f"Saved {len(serialized)} bytes to {path}")
-    
+
     def load_from_file(self, path: Path) -> Any:
         """Load data from file.
-        
+
         Args:
             path: File path.
-            
+
         Returns:
             Deserialized data.
         """
@@ -1968,22 +1968,22 @@ class SerializationManager:
 
 class FilePriorityManager:
     """Manager for file priority and request ordering.
-    
+
     Determines file priority based on patterns, extensions,
     and custom rules for request prioritization.
-    
+
     Attributes:
         config: Priority configuration.
-    
+
     Example:
         manager = FilePriorityManager()
         manager.set_pattern_priority("*.py", FilePriority.HIGH)
         priority = manager.get_priority(Path("main.py"))
     """
-    
+
     def __init__(self, config: Optional[FilePriorityConfig] = None) -> None:
         """Initialize priority manager.
-        
+
         Args:
             config: Priority configuration.
         """
@@ -1998,31 +1998,31 @@ class FilePriorityManager:
             ".txt": FilePriority.LOW,
         }
         logging.debug("FilePriorityManager initialized")
-    
+
     def set_pattern_priority(self, pattern: str, priority: FilePriority) -> None:
         """Set priority for a path pattern.
-        
+
         Args:
             pattern: Glob pattern.
             priority: Priority level.
         """
         self.config.path_patterns[pattern] = priority
-    
+
     def set_extension_priority(self, extension: str, priority: FilePriority) -> None:
         """Set priority for a file extension.
-        
+
         Args:
             extension: File extension (with dot).
             priority: Priority level.
         """
         self.config.extension_priorities[extension] = priority
-    
+
     def get_priority(self, path: Path) -> FilePriority:
         """Get priority for a file.
-        
+
         Args:
             path: File path.
-            
+
         Returns:
             Priority level.
         """
@@ -2032,38 +2032,38 @@ class FilePriorityManager:
         for pattern, priority in self.config.path_patterns.items():
             if fnmatch.fnmatch(path_str, pattern):
                 return priority
-        
+
         # Check extension
         ext = path.suffix.lower()
         if ext in self.config.extension_priorities:
             return self.config.extension_priorities[ext]
         if ext in self._default_extensions:
             return self._default_extensions[ext]
-        
+
         return self.config.default_priority
-    
+
     def sort_by_priority(self, paths: List[Path]) -> List[Path]:
         """Sort paths by priority (highest first).
-        
+
         Args:
             paths: List of file paths.
-            
+
         Returns:
             Sorted list of paths.
         """
         return sorted(paths, key=lambda p: self.get_priority(p).value, reverse=True)
-    
+
     def filter_by_priority(
         self,
         paths: List[Path],
         min_priority: FilePriority = FilePriority.LOW
     ) -> List[Path]:
         """Filter paths by minimum priority.
-        
+
         Args:
             paths: List of file paths.
             min_priority: Minimum priority to include.
-            
+
         Returns:
             Filtered list of paths.
         """
