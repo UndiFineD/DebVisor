@@ -49,7 +49,6 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 try:
     import matplotlib.pyplot as plt
-    import numpy as np
     HAS_MATPLOTLIB = True
 except ImportError:
     HAS_MATPLOTLIB = False

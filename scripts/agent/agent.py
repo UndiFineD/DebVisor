@@ -45,7 +45,6 @@ import fnmatch
 import importlib.util
 import time
 import asyncio
-import multiprocessing
 import functools
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from contextlib import contextmanager
@@ -500,7 +499,7 @@ class FileLockManager:
         self._lock = threading.Lock()
         self._owner_id = f"{os.getpid()}_{threading.current_thread().ident}"
 
-    def acquire_lock(self, file_path: Path, 
+    def acquire_lock(self, file_path: Path,
                      lock_type: LockType = LockType.EXCLUSIVE,
                      timeout: Optional[float] = None) -> Optional[FileLock]:
         """Acquire a lock on a file.
@@ -536,7 +535,7 @@ class FileLockManager:
                     self.locks[path_str] = lock
                     logging.debug(f"Acquired {lock_type.name} lock on {file_path}")
                     return lock
-                elif (existing_lock.lock_type == LockType.SHARED and 
+                elif (existing_lock.lock_type == LockType.SHARED and
                       lock_type == LockType.SHARED):
                     # Shared locks can coexist
                     return existing_lock
@@ -606,7 +605,7 @@ class DiffGenerator:
         self.output_format = output_format
         self.context_lines = context_lines
 
-    def generate_diff(self, file_path: Path, original: str, 
+    def generate_diff(self, file_path: Path, original: str,
                       modified: str) -> DiffResult:
         """Generate a diff between original and modified content.
 
@@ -631,7 +630,7 @@ class DiffGenerator:
         ))
 
         # Count additions and deletions
-        additions = sum(1 for line in diff_lines if line.startswith('+') 
+        additions = sum(1 for line in diff_lines if line.startswith('+')
                        and not line.startswith('+++'))
         deletions = sum(1 for line in diff_lines if line.startswith('-')
                        and not line.startswith('---'))
@@ -646,7 +645,7 @@ class DiffGenerator:
             changes=additions + deletions
         )
 
-    def format_diff(self, diff_result: DiffResult, 
+    def format_diff(self, diff_result: DiffResult,
                     output_format: Optional[DiffOutputFormat] = None) -> str:
         """Format a diff result for display.
 
@@ -1218,7 +1217,7 @@ class HealthChecker:
         Returns:
             Dict of check name to AgentHealthCheck result.
         """
-        agent_names = ['coder', 'tests', 'changes', 'context', 'errors', 
+        agent_names = ['coder', 'tests', 'changes', 'context', 'errors',
                        'improvements', 'stats']
 
         # Check core components
@@ -1241,7 +1240,7 @@ class HealthChecker:
             self.run_all_checks()
 
         return all(
-            r.status == HealthStatus.HEALTHY 
+            r.status == HealthStatus.HEALTHY
             for r in self.results.values()
         )
 
@@ -2701,7 +2700,7 @@ class CircuitBreaker:
         HALF_OPEN: Testing if backend recovered
     """
 
-    def __init__(self, name: str, failure_threshold: int = 5, 
+    def __init__(self, name: str, failure_threshold: int = 5,
                  recovery_timeout: int = 60, backoff_multiplier: float = 2.0):
         """Initialize circuit breaker.
 
@@ -3025,7 +3024,7 @@ Agents applied:
             - Tracks timing from metrics collected during execution
             - Per-file timing estimated from total/file count
         """
-        total_time = (self.metrics.get('end_time', time.time()) - 
+        total_time = (self.metrics.get('end_time', time.time()) -
                      self.metrics.get('start_time', time.time()))
         files_count = len(files)
         avg_per_file = total_time / max(files_count, 1)
@@ -3044,7 +3043,7 @@ Agents applied:
                      f"({avg_per_file:.2f}s/file)")
         return benchmarks
 
-    def cost_analysis(self, backend: str = 'github-models', 
+    def cost_analysis(self, backend: str = 'github-models',
                      cost_per_request: float = 0.0001) -> Dict[str, Any]:
         """Analyze API usage cost for the agent execution.
 
@@ -3090,7 +3089,7 @@ Agents applied:
                     f"${estimated_cost:.4f} estimated")
         return analysis
 
-    def cleanup_old_snapshots(self, max_age_days: int = 7, 
+    def cleanup_old_snapshots(self, max_age_days: int = 7,
                              max_snapshots_per_file: int = 10) -> int:
         """Clean up old file snapshots according to retention policy.
 

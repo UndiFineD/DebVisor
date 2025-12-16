@@ -245,7 +245,7 @@ class TestSnapshot:
             ).hexdigest()
 
 
-@dataclass  
+@dataclass
 class TestAssertion:
     """Custom assertion for agent testing.
 

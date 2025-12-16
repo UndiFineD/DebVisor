@@ -21,10 +21,10 @@ import difflib
 import json
 import logging
 import os
+import subprocess
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-import subprocess
 import sys
 from typing import Optional, Dict, List, Any, Callable, Type
 import hashlib
@@ -2073,6 +2073,7 @@ class FilePriorityManager:
 # Initialize default templates
 for template in DEFAULT_PROMPT_TEMPLATES:
     BaseAgent.register_template(template)
+
 
 def create_main_function(agent_class: Type[BaseAgent], description: str, context_help: str) -> Callable[[], None]:
     """Create a main function for an agent class."""
