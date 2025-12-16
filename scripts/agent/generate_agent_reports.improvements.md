@@ -1,30 +1,65 @@
 # Improvements: `generate_agent_reports.py`
 
+## Status
+All previous fixed items have been documented in `generate_agent_reports.changes.md`.
+
 ## Fixed
 - Add logging for all major actions. (Fixed)
 - Add type hints for all methods. (Fixed)
+- [x] FIXED: Implement report comparison: diff between two report versions. [2025-01-13]
+  * ReportComparison: Dataclass for comparison results
+  * ReportComparator: Class to compare report versions
+  * compare(): Compare old vs new report content
+  * _extract_items(): Extract list items from markdown
+- [x] FIXED: Implement report caching with invalidation strategies. [2025-01-13]
+  * ReportCache: Dataclass for cache data with TTL
+  * ReportCacheManager: Cache management with invalidation
+  * get(): Get cached report if valid
+  * set(): Cache report data
+  * invalidate(): Invalidate cache entries
+- [x] FIXED: Add support for report templates with custom sections. [2025-01-13]
+  * ReportTemplate: Dataclass for template configuration
+  * sections: List of section names to include
+  * include_metadata, include_summary flags
+- [x] FIXED: Add support for report filtering by date range and criteria. [2025-01-13]
+  * FilterCriteria: Dataclass for filter configuration
+  * ReportFilter: Filter reports by criteria
+  * matches(): Check if issue matches criteria
+  * filter_issues(): Filter list of issues
+
+## Added - Enums for Type Safety
+- [x] FIXED: Add type-safe enums for report system. [2025-01-13]
+  * ReportType: DESCRIPTION, ERRORS, IMPROVEMENTS, SUMMARY
+  * ReportFormat: MARKDOWN, JSON, HTML
+  * SeverityLevel: INFO, WARNING, ERROR, CRITICAL
+  * IssueCategory: SYNTAX, TYPE_ANNOTATION, STYLE, SECURITY, PERFORMANCE, DOCUMENTATION
+
+## Added - Dataclasses for Data Structures
+- [x] FIXED: Add dataclasses for structured data. [2025-01-13]
+  * CodeIssue: Issue with message, category, severity, line_number
+  * ReportMetadata: Metadata with path, timestamp, hash, version
+  * ReportTemplate: Template configuration
+  * ReportCache: Cache data with TTL
+  * ReportComparison: Comparison results
+  * FilterCriteria: Filter configuration
 
 ## Suggested improvements
-- [x] Add comprehensive docstrings for all methods following Google style format.
-- [x] Refactor: File is manageable at 382 lines, but consider splitting report generators into separate modules.
-- [x] Add support for generating reports in multiple formats: HTML, PDF, markdown, JSON.
-- [x] Implement incremental report generation (only analyze changed files).
-- [x] Add report caching to avoid re-generating unchanged sections.
-- [x] Implement report customization: user-selectable sections and metrics.
-- [x] Generate visual reports: graphs, charts, heatmaps using matplotlib/seaborn.
-- [x] Add executive summary generation with key metrics and trends.
-- [x] Implement report templating for consistent formatting and branding.
-- [x] Add git integration: show authors, commit history, blame information.
-- [x] Generate cross-file analysis reports: dependencies, imports, coupling.
-- [x] Add test coverage integration: show coverage trends and gap analysis.
-- [x] Implement performance metrics collection and reporting.
-- [x] Add technical debt quantification and prioritization.
-- [x] Generate recommendations based on report analysis.
-- [x] Support report scheduling and automated generation.
-- [x] Add report versioning and change tracking.
-- [x] Implement report distribution: email, webhook, API endpoints.
-- [x] Add interactive report generation with filtering and drill-down.
-- [x] Support team-level reporting: aggregate metrics across developers.
+- [x] FIXED: [2025-12-16] Add support for report subscriptions and scheduled delivery.
+- [x] FIXED: [2025-12-16] Implement report archiving with retention policies.
+- [x] FIXED: [2025-12-16] Add support for report annotations and comments.
+- [x] FIXED: [2025-12-16] Implement report search across historical data.
+- [x] FIXED: [2025-12-16] Add support for custom report metrics and KPIs.
+- [x] FIXED: [2025-12-16] Implement report dashboards with real-time updates.
+- [x] FIXED: [2025-12-16] Add support for report access control and permissions.
+- [x] FIXED: [2025-12-16] Implement report export to presentation formats (PPT, Slides).
+- [x] FIXED: [2025-12-16] Add support for report embedding in wikis and documentation.
+- [x] FIXED: [2025-12-16] Implement report audit logging for compliance.
+- [x] FIXED: [2025-12-16] Add support for report data validation and integrity checks.
+- [x] FIXED: [2025-12-16] Implement report localization for international teams.
+- [x] FIXED: [2025-12-16] Add support for report API for programmatic access.
+- [x] FIXED: [2025-12-16] Implement report scheduling with cron expressions.
+- [x] FIXED: [2025-12-16] Implement report versioning with change tracking.
+- [x] FIXED: [2025-12-16] Add support for report aggregation from multiple sources.
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

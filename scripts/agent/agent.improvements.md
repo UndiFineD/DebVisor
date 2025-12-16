@@ -90,10 +90,92 @@
   * Total: 31 tests, all passing (4.2s execution time)
 
 ## Suggested improvements
-- [x] Refactor: File is large (900+ lines), consider splitting into: `agent_orchestrator.py`, `agent_processor.py`, `agent_reporter.py`.
-- [x] Add configurable timeout values per agent type (some may need longer timeouts).
-- [x] Implement progress tracking with timestamps for performance monitoring.
-- [x] Add integration tests with real repositories for end-to-end validation.
+- [x] FIXED: Add plugin system for custom agent types: enable third-party agents without modifying core code. [2025-01-13]
+  * AgentPluginBase: Abstract base class for plugins with setup/teardown lifecycle
+  * AgentPluginConfig: Dataclass for plugin configuration
+  * register_plugin(): Register custom agent plugins
+  * unregister_plugin(): Remove plugins by name
+  * get_plugin(): Retrieve registered plugins
+  * run_plugins(): Execute all plugins on a file
+  * load_plugins_from_config(): Load plugins from YAML/TOML config
+  * AgentPriority enum: CRITICAL, HIGH, NORMAL, LOW, BACKGROUND
+- [x] FIXED: Implement rate limiting for API backends to prevent throttling. [2025-01-13]
+  * RateLimitStrategy enum: FIXED_WINDOW, SLIDING_WINDOW, TOKEN_BUCKET, LEAKY_BUCKET
+  * RateLimitConfig: Dataclass with requests_per_second, burst_size, cooldown
+  * RateLimiter: Token bucket implementation with thread-safe acquire()
+  * enable_rate_limiting(): Enable rate limiting on agent
+  * get_rate_limit_stats(): Get current rate limiter statistics
+  * --rate-limit CLI argument
+- [x] FIXED: Add configuration file support (YAML/TOML) for persistent settings. [2025-01-13]
+  * ConfigFormat enum: YAML, TOML, JSON, INI
+  * AgentConfig: Dataclass for full agent configuration
+  * ConfigLoader: Load/parse config files with format detection
+  * Agent.from_config_file(): Create agent from config file
+  * Agent.auto_configure(): Auto-detect and load config
+  * --config CLI argument
+  * Supports agent.yaml, agent.toml, agent.json naming conventions
+- [ ] Implement agent chaining: allow output of one agent as input to another.
+- [ ] Add support for git branch-based processing: process files changed in a specific branch.
+- [x] FIXED: Implement file locking to prevent concurrent modifications. [2025-01-13]
+  * LockType enum: SHARED, EXCLUSIVE, ADVISORY
+  * FileLock: Dataclass for lock information
+  * FileLockManager: Thread-safe lock management with timeouts
+  * acquire_lock(): Acquire exclusive or shared locks
+  * release_lock(): Release held locks
+  * enable_file_locking(): Enable file locking on agent
+  * --enable-file-locking CLI argument
+  * Automatic cleanup of expired locks
+- [ ] Add support for remote file systems (S3, Azure Blob, GCS).
+- [x] FIXED: Implement diff preview mode: show changes before applying them. [2025-01-13]
+  * DiffOutputFormat enum: UNIFIED, CONTEXT, SIDE_BY_SIDE, HTML
+  * DiffResult: Dataclass with additions, deletions, diff_lines
+  * DiffGenerator: Generate and format diffs in multiple formats
+  * preview_changes(): Preview file changes without applying
+  * show_pending_diffs(): Show all pending diffs in dry-run mode
+  * enable_diff_preview(): Enable diff preview mode
+  * --diff-preview CLI argument
+  * Colorized console output with ANSI codes
+- [ ] Add support for custom validation rules per file type.
+- [ ] Implement agent priority queues for ordered execution.
+- [ ] Add telemetry and observability support (OpenTelemetry integration).
+- [x] FIXED: Implement graceful shutdown with state persistence. [2025-01-13]
+  * ShutdownState: Dataclass for shutdown state tracking
+  * GracefulShutdown: Signal handler with state persistence
+  * install_handlers(): Install SIGINT/SIGTERM handlers
+  * should_continue(): Check if processing should continue
+  * set_current_file(): Track currently processing file
+  * mark_completed(): Mark file as completed
+  * load_resume_state(): Load state for resuming interrupted runs
+  * enable_graceful_shutdown(): Enable graceful shutdown on agent
+  * resume_from_shutdown(): Resume from previous interrupted run
+  * --graceful-shutdown and --resume CLI arguments
+- [ ] Add support for conditional agent execution based on file content.
+- [x] FIXED: Implement incremental processing: only process files changed since last run. [2025-01-13]
+  * IncrementalState: Dataclass for tracking processed files and hashes
+  * IncrementalProcessor: Track file mtimes and content hashes
+  * get_changed_files(): Get files changed since last run
+  * mark_processed(): Mark file as processed with hash
+  * complete_run(): Save state after successful run
+  * reset_state(): Force full reprocessing
+  * enable_incremental_processing(): Enable incremental processing
+  * --incremental CLI argument
+- [ ] Add support for agent templates for common use cases.
+- [ ] Implement agent dependency resolution.
+- [ ] Add support for agent execution profiles.
+- [ ] Implement agent result caching.
+- [ ] Add support for agent execution scheduling.
+- [x] FIXED: Implement agent health checks. [2025-01-13]
+  * HealthStatus enum: HEALTHY, DEGRADED, UNHEALTHY, UNKNOWN
+  * AgentHealthCheck: Dataclass for health check results
+  * HealthChecker: Run health checks on all components
+  * check_python(): Check Python environment
+  * check_git(): Check git availability
+  * check_agent_script(): Check agent script validity
+  * run_all_checks(): Run all health checks
+  * is_healthy(): Quick health status check
+  * print_report(): Print formatted health report
+  * run_health_checks(): Agent method for health checks
+  * --health-check CLI argument
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

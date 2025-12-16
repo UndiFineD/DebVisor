@@ -8,39 +8,26 @@
   * TestCodeignoreCache: Tests for missing files, comments, empty lines
 
 ## Suggested improvements
-- [x] Test agent behavior with very large repositories (performance benchmarks). (Fixed) [2025-12-16]
-  * TestLargeRepositoryPerformance: Test with 100+ files
-  * Performance regression test: Ensures no degradation
-  * Scaling performance tests: Parametrized for 10, 50, 100 files
-- [x] Add tests for all command-line argument combinations. (Fixed) [2025-12-16]
-  * TestCLIArgumentCombinations: Basic CLI parsing tests
-- [x] Add fixture-based testing for common repo structures. (Fixed) [2025-12-16]
-  * simple_repo_structure fixture: Basic repo layout
-  * complex_repo_structure fixture: Multi-level structure with ignored files
-  * Integration tests using both fixtures
-- [x] Test git operations: commits, pushes, branch switching. (Fixed) [2025-12-16]
-  * TestGitCommit: Commit creation in temp repo
-  * TestGitBranches: Branch creation and switching
-- [x] Test concurrent file processing scenarios. (Fixed) [2025-12-16]
-  * TestConcurrentFileProcessing: Verify concurrent access to multiple files
-- [x] Add parametrized tests for different file types. (Fixed) [2025-12-16]
-  * TestParametrizedFileTypes: .py, .md, .txt, .json, .yaml files
-- [x] Test interaction between multiple agents (integration tests). (Fixed) [2025-12-16]
-  * TestMultipleAgentInteractions: Multiple agent targets
-  * TestAgentIntegrationWorkflow: Realistic workflow
-- [x] Add performance regression tests for agent operations. (Fixed) [2025-12-16]
-  * TestPerformanceRegression: Timing verification for operations
-  * TestScalingPerformance: Parametrized scaling tests
-- [x] Test logging output and verbosity levels. (Fixed) [2025-12-16]
-  * TestLoggingVerbosity: Logging at different levels
-  * TestDebugVerbosity: Debug-level output capture
-- [x] Add tests for configuration file handling. (Fixed) [2025-12-16]
-  * TestConfigurationFileHandling: Config file reading
-  * TestConfigFileParsing: Config file structure parsing
-- [x] Test graceful degradation when git is unavailable. (Fixed) [2025-12-16]
-  * TestGitUnavailableGracefulDegradation: Fallback when git missing
-- [x] Add tests for stats reporting accuracy. (Fixed) [2025-12-16]
-  * TestStatsReportingAccuracy: Accurate stat counting
+- [ ] Add tests for plugin-based agent loading and discovery.
+- [ ] Test agent communication and message passing.
+- [ ] Add tests for agent state serialization and restore.
+- [ ] Test distributed agent execution across multiple processes.
+- [ ] Add tests for agent dependency resolution.
+- [ ] Test agent lifecycle hooks (pre/post execution).
+- [ ] Add tests for agent resource quotas and limits.
+- [ ] Test agent retry policies with circuit breakers.
+- [ ] Add tests for agent metrics and telemetry collection.
+- [ ] Test agent configuration inheritance and overrides.
+- [ ] Add tests for agent sandbox isolation.
+- [ ] Test agent output validation and formatting.
+- [ ] Add tests for agent error aggregation and reporting.
+- [ ] Test agent compatibility across Python versions.
+- [ ] Add tests for agent profiling and performance analysis.
+- [ ] Test agent execution timeouts.
+- [ ] Add tests for agent memory management.
+- [ ] Test agent graceful shutdown.
+- [ ] Add tests for agent concurrent execution.
+- [ ] Test agent result caching.
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

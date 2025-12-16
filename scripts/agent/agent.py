@@ -38,7 +38,7 @@ import sys
 import os
 import logging
 from pathlib import Path
-from typing import List, Set, Optional, Dict, Any, Callable
+from typing import List, Set, Optional, Dict, Any, Callable, Union
 import argparse
 import fnmatch
 import importlib.util
@@ -48,6 +48,13 @@ import multiprocessing
 import functools
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import json
+import hashlib
+import signal
+import threading
+import difflib
+from dataclasses import dataclass, field
+from enum import Enum, auto
+from abc import ABC, abstractmethod
 try:
     import requests
     HAS_REQUESTS = True
@@ -82,6 +89,1181 @@ _CODEIGNORE_CACHE: Dict[str, Set[str]] = {}
 _CODEIGNORE_CACHE_TIME: Dict[str, float] = {}
 
 
+# =============================================================================
+# Enums for Type Safety
+# =============================================================================
+
+
+class AgentExecutionState(Enum):
+    """Execution state for an agent run."""
+    PENDING = auto()
+    RUNNING = auto()
+    COMPLETED = auto()
+    FAILED = auto()
+    CANCELLED = auto()
+    PAUSED = auto()
+
+
+class RateLimitStrategy(Enum):
+    """Rate limiting strategy for API calls."""
+    FIXED_WINDOW = auto()      # Fixed time window rate limiting
+    SLIDING_WINDOW = auto()    # Sliding window rate limiting
+    TOKEN_BUCKET = auto()      # Token bucket algorithm
+    LEAKY_BUCKET = auto()      # Leaky bucket algorithm
+
+
+class ConfigFormat(Enum):
+    """Configuration file format."""
+    YAML = auto()
+    TOML = auto()
+    JSON = auto()
+    INI = auto()
+
+
+class LockType(Enum):
+    """File locking type."""
+    SHARED = auto()       # Multiple readers allowed
+    EXCLUSIVE = auto()    # Single writer only
+    ADVISORY = auto()     # Advisory lock (not enforced by OS)
+
+
+class DiffOutputFormat(Enum):
+    """Output format for diff preview."""
+    UNIFIED = auto()      # Unified diff format
+    CONTEXT = auto()      # Context diff format
+    SIDE_BY_SIDE = auto()  # Side by side diff
+    HTML = auto()         # HTML formatted diff
+
+
+class AgentPriority(Enum):
+    """Priority level for agent execution."""
+    CRITICAL = 1
+    HIGH = 2
+    NORMAL = 3
+    LOW = 4
+    BACKGROUND = 5
+
+
+class HealthStatus(Enum):
+    """Health status for components."""
+    HEALTHY = auto()
+    DEGRADED = auto()
+    UNHEALTHY = auto()
+    UNKNOWN = auto()
+
+
+# =============================================================================
+# Dataclasses for Data Structures
+# =============================================================================
+
+
+@dataclass
+class RateLimitConfig:
+    """Configuration for rate limiting.
+    
+    Attributes:
+        requests_per_second: Maximum requests per second.
+        requests_per_minute: Maximum requests per minute.
+        burst_size: Maximum burst size for token bucket.
+        strategy: Rate limiting strategy to use.
+        cooldown_seconds: Cooldown period after hitting limit.
+    """
+    requests_per_second: float = 10.0
+    requests_per_minute: int = 60
+    burst_size: int = 10
+    strategy: RateLimitStrategy = RateLimitStrategy.TOKEN_BUCKET
+    cooldown_seconds: float = 1.0
+
+
+@dataclass
+class AgentPluginConfig:
+    """Configuration for an agent plugin.
+    
+    Attributes:
+        name: Unique plugin name.
+        module_path: Path to the plugin module.
+        entry_point: Entry point function name.
+        priority: Execution priority.
+        enabled: Whether the plugin is enabled.
+        config: Plugin-specific configuration.
+    """
+    name: str
+    module_path: str
+    entry_point: str = "run"
+    priority: AgentPriority = AgentPriority.NORMAL
+    enabled: bool = True
+    config: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class FileLock:
+    """File lock information.
+    
+    Attributes:
+        file_path: Path to the locked file.
+        lock_type: Type of lock.
+        owner: Lock owner identifier.
+        acquired_at: Timestamp when lock was acquired.
+        expires_at: Timestamp when lock expires (optional).
+    """
+    file_path: Path
+    lock_type: LockType
+    owner: str
+    acquired_at: float
+    expires_at: Optional[float] = None
+
+
+@dataclass
+class DiffResult:
+    """Result of a diff operation.
+    
+    Attributes:
+        file_path: Path to the file.
+        original_content: Original file content.
+        modified_content: Modified content after changes.
+        diff_lines: List of diff lines.
+        additions: Number of lines added.
+        deletions: Number of lines deleted.
+        changes: Number of lines changed.
+    """
+    file_path: Path
+    original_content: str
+    modified_content: str
+    diff_lines: List[str] = field(default_factory=list)
+    additions: int = 0
+    deletions: int = 0
+    changes: int = 0
+
+
+@dataclass
+class IncrementalState:
+    """State for incremental processing.
+    
+    Attributes:
+        last_run_timestamp: Timestamp of last successful run.
+        processed_files: Dict of file paths to their last processed timestamp.
+        file_hashes: Dict of file paths to their content hashes.
+        pending_files: List of files pending processing.
+    """
+    last_run_timestamp: float = 0.0
+    processed_files: Dict[str, float] = field(default_factory=dict)
+    file_hashes: Dict[str, str] = field(default_factory=dict)
+    pending_files: List[str] = field(default_factory=list)
+
+
+@dataclass
+class AgentHealthCheck:
+    """Health check result for an agent.
+    
+    Attributes:
+        agent_name: Name of the agent.
+        status: Health status.
+        response_time_ms: Response time in milliseconds.
+        last_check: Timestamp of last health check.
+        error_message: Error message if unhealthy.
+        details: Additional health details.
+    """
+    agent_name: str
+    status: HealthStatus
+    response_time_ms: float = 0.0
+    last_check: float = field(default_factory=time.time)
+    error_message: Optional[str] = None
+    details: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class ShutdownState:
+    """State for graceful shutdown.
+    
+    Attributes:
+        shutdown_requested: Whether shutdown has been requested.
+        current_file: Currently processing file.
+        completed_files: List of completed files.
+        pending_files: List of pending files.
+        start_time: Processing start time.
+    """
+    shutdown_requested: bool = False
+    current_file: Optional[str] = None
+    completed_files: List[str] = field(default_factory=list)
+    pending_files: List[str] = field(default_factory=list)
+    start_time: float = field(default_factory=time.time)
+
+
+@dataclass
+class AgentConfig:
+    """Full agent configuration loaded from config file.
+    
+    Attributes:
+        repo_root: Repository root directory.
+        agents_only: Process only agent files.
+        max_files: Maximum files to process.
+        loop: Number of processing loops.
+        dry_run: Preview mode without modifications.
+        no_git: Skip git operations.
+        verbosity: Logging verbosity level.
+        rate_limit: Rate limiting configuration.
+        plugins: List of plugin configurations.
+        selective_agents: Agents to execute.
+        timeout_per_agent: Timeout settings per agent.
+    """
+    repo_root: str = "."
+    agents_only: bool = False
+    max_files: Optional[int] = None
+    loop: int = 1
+    dry_run: bool = False
+    no_git: bool = False
+    verbosity: str = "normal"
+    rate_limit: Optional[RateLimitConfig] = None
+    plugins: List[AgentPluginConfig] = field(default_factory=list)
+    selective_agents: List[str] = field(default_factory=list)
+    timeout_per_agent: Dict[str, int] = field(default_factory=dict)
+
+
+# =============================================================================
+# Plugin Base Class
+# =============================================================================
+
+
+class AgentPluginBase(ABC):
+    """Abstract base class for agent plugins.
+    
+    Provides interface for third-party agents to integrate with
+    the agent orchestrator without modifying core code.
+    
+    Attributes:
+        name: Plugin name.
+        priority: Execution priority.
+        config: Plugin configuration.
+    """
+    
+    def __init__(self, name: str, priority: AgentPriority = AgentPriority.NORMAL,
+                 config: Optional[Dict[str, Any]] = None):
+        """Initialize the plugin.
+        
+        Args:
+            name: Unique plugin name.
+            priority: Execution priority.
+            config: Plugin-specific configuration.
+        """
+        self.name = name
+        self.priority = priority
+        self.config = config or {}
+        self.logger = logging.getLogger(f"plugin.{name}")
+    
+    @abstractmethod
+    def run(self, file_path: Path, context: Dict[str, Any]) -> bool:
+        """Execute the plugin on a file.
+        
+        Args:
+            file_path: Path to the file to process.
+            context: Execution context with agent state.
+            
+        Returns:
+            bool: True if changes were made, False otherwise.
+        """
+        pass
+    
+    def setup(self) -> None:
+        """Called once when plugin is loaded. Override for initialization."""
+        pass
+    
+    def teardown(self) -> None:
+        """Called once when plugin is unloaded. Override for cleanup."""
+        pass
+    
+    def health_check(self) -> AgentHealthCheck:
+        """Check plugin health status.
+        
+        Returns:
+            AgentHealthCheck: Health check result.
+        """
+        return AgentHealthCheck(
+            agent_name=self.name,
+            status=HealthStatus.HEALTHY
+        )
+
+
+# =============================================================================
+# Rate Limiter
+# =============================================================================
+
+
+class RateLimiter:
+    """Rate limiter for API calls using token bucket algorithm.
+    
+    Manages API call rate to prevent throttling and ensure fair usage.
+    Supports multiple strategies and configurable limits.
+    
+    Attributes:
+        config: Rate limiting configuration.
+        tokens: Current number of available tokens.
+        last_refill: Timestamp of last token refill.
+    """
+    
+    def __init__(self, config: Optional[RateLimitConfig] = None):
+        """Initialize the rate limiter.
+        
+        Args:
+            config: Rate limiting configuration. Uses defaults if not provided.
+        """
+        self.config = config or RateLimitConfig()
+        self.tokens = float(self.config.burst_size)
+        self.last_refill = time.time()
+        self._lock = threading.Lock()
+        self._request_timestamps: List[float] = []
+    
+    def _refill_tokens(self) -> None:
+        """Refill tokens based on elapsed time."""
+        now = time.time()
+        elapsed = now - self.last_refill
+        refill_amount = elapsed * self.config.requests_per_second
+        self.tokens = min(self.config.burst_size, self.tokens + refill_amount)
+        self.last_refill = now
+    
+    def acquire(self, timeout: Optional[float] = None) -> bool:
+        """Acquire a token for making an API call.
+        
+        Blocks until a token is available or timeout expires.
+        
+        Args:
+            timeout: Maximum time to wait for a token. None = wait forever.
+            
+        Returns:
+            bool: True if token acquired, False if timeout.
+        """
+        start_time = time.time()
+        
+        while True:
+            with self._lock:
+                self._refill_tokens()
+                
+                if self.tokens >= 1.0:
+                    self.tokens -= 1.0
+                    self._request_timestamps.append(time.time())
+                    # Clean old timestamps
+                    cutoff = time.time() - 60
+                    self._request_timestamps = [
+                        t for t in self._request_timestamps if t > cutoff
+                    ]
+                    return True
+            
+            # Check timeout
+            if timeout is not None and (time.time() - start_time) >= timeout:
+                return False
+            
+            # Wait before retry
+            time.sleep(self.config.cooldown_seconds)
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get rate limiter statistics.
+        
+        Returns:
+            Dict with current tokens, request count, etc.
+        """
+        with self._lock:
+            return {
+                "tokens_available": self.tokens,
+                "requests_last_minute": len(self._request_timestamps),
+                "requests_per_second": self.config.requests_per_second,
+                "burst_size": self.config.burst_size,
+            }
+
+
+# =============================================================================
+# File Lock Manager
+# =============================================================================
+
+
+class FileLockManager:
+    """Manages file locks to prevent concurrent modifications.
+    
+    Provides advisory file locking to coordinate access between
+    multiple agent instances or processes.
+    
+    Attributes:
+        locks: Dict of active file locks.
+        lock_timeout: Default lock timeout in seconds.
+    """
+    
+    def __init__(self, lock_timeout: float = 300.0):
+        """Initialize the lock manager.
+        
+        Args:
+            lock_timeout: Default lock timeout in seconds.
+        """
+        self.locks: Dict[str, FileLock] = {}
+        self.lock_timeout = lock_timeout
+        self._lock = threading.Lock()
+        self._owner_id = f"{os.getpid()}_{threading.current_thread().ident}"
+    
+    def acquire_lock(self, file_path: Path, 
+                     lock_type: LockType = LockType.EXCLUSIVE,
+                     timeout: Optional[float] = None) -> Optional[FileLock]:
+        """Acquire a lock on a file.
+        
+        Args:
+            file_path: Path to file to lock.
+            lock_type: Type of lock to acquire.
+            timeout: Timeout for acquiring lock.
+            
+        Returns:
+            FileLock if acquired, None if timeout.
+        """
+        path_str = str(file_path.resolve())
+        timeout = timeout or self.lock_timeout
+        start_time = time.time()
+        
+        while True:
+            with self._lock:
+                # Check for expired locks
+                self._cleanup_expired_locks()
+                
+                # Check if already locked
+                existing_lock = self.locks.get(path_str)
+                if existing_lock is None:
+                    # Acquire new lock
+                    lock = FileLock(
+                        file_path=file_path,
+                        lock_type=lock_type,
+                        owner=self._owner_id,
+                        acquired_at=time.time(),
+                        expires_at=time.time() + self.lock_timeout
+                    )
+                    self.locks[path_str] = lock
+                    logging.debug(f"Acquired {lock_type.name} lock on {file_path}")
+                    return lock
+                elif (existing_lock.lock_type == LockType.SHARED and 
+                      lock_type == LockType.SHARED):
+                    # Shared locks can coexist
+                    return existing_lock
+            
+            # Check timeout
+            if (time.time() - start_time) >= timeout:
+                logging.warning(f"Timeout acquiring lock on {file_path}")
+                return None
+            
+            time.sleep(0.1)
+    
+    def release_lock(self, file_path: Path) -> bool:
+        """Release a lock on a file.
+        
+        Args:
+            file_path: Path to file to unlock.
+            
+        Returns:
+            bool: True if lock released, False if not owner.
+        """
+        path_str = str(file_path.resolve())
+        
+        with self._lock:
+            lock = self.locks.get(path_str)
+            if lock and lock.owner == self._owner_id:
+                del self.locks[path_str]
+                logging.debug(f"Released lock on {file_path}")
+                return True
+            return False
+    
+    def _cleanup_expired_locks(self) -> None:
+        """Remove expired locks."""
+        now = time.time()
+        expired = [
+            path for path, lock in self.locks.items()
+            if lock.expires_at and lock.expires_at < now
+        ]
+        for path in expired:
+            logging.debug(f"Cleaning up expired lock on {path}")
+            del self.locks[path]
+
+
+# =============================================================================
+# Diff Generator
+# =============================================================================
+
+
+class DiffGenerator:
+    """Generates diffs to preview changes before applying them.
+    
+    Creates human-readable diffs in various formats to allow
+    users to review changes before they are applied.
+    
+    Attributes:
+        output_format: Default output format for diffs.
+        context_lines: Number of context lines in diff.
+    """
+    
+    def __init__(self, output_format: DiffOutputFormat = DiffOutputFormat.UNIFIED,
+                 context_lines: int = 3):
+        """Initialize the diff generator.
+        
+        Args:
+            output_format: Default output format.
+            context_lines: Number of context lines.
+        """
+        self.output_format = output_format
+        self.context_lines = context_lines
+    
+    def generate_diff(self, file_path: Path, original: str, 
+                      modified: str) -> DiffResult:
+        """Generate a diff between original and modified content.
+        
+        Args:
+            file_path: Path to the file.
+            original: Original file content.
+            modified: Modified content.
+            
+        Returns:
+            DiffResult with diff information.
+        """
+        original_lines = original.splitlines(keepends=True)
+        modified_lines = modified.splitlines(keepends=True)
+        
+        # Generate unified diff
+        diff_lines = list(difflib.unified_diff(
+            original_lines,
+            modified_lines,
+            fromfile=f"a/{file_path.name}",
+            tofile=f"b/{file_path.name}",
+            n=self.context_lines
+        ))
+        
+        # Count additions and deletions
+        additions = sum(1 for line in diff_lines if line.startswith('+') 
+                       and not line.startswith('+++'))
+        deletions = sum(1 for line in diff_lines if line.startswith('-')
+                       and not line.startswith('---'))
+        
+        return DiffResult(
+            file_path=file_path,
+            original_content=original,
+            modified_content=modified,
+            diff_lines=diff_lines,
+            additions=additions,
+            deletions=deletions,
+            changes=additions + deletions
+        )
+    
+    def format_diff(self, diff_result: DiffResult, 
+                    output_format: Optional[DiffOutputFormat] = None) -> str:
+        """Format a diff result for display.
+        
+        Args:
+            diff_result: DiffResult to format.
+            output_format: Output format (uses default if not provided).
+            
+        Returns:
+            Formatted diff string.
+        """
+        fmt = output_format or self.output_format
+        
+        if fmt == DiffOutputFormat.UNIFIED:
+            return ''.join(diff_result.diff_lines)
+        elif fmt == DiffOutputFormat.CONTEXT:
+            original = diff_result.original_content.splitlines(keepends=True)
+            modified = diff_result.modified_content.splitlines(keepends=True)
+            return ''.join(difflib.context_diff(
+                original, modified,
+                fromfile=f"a/{diff_result.file_path.name}",
+                tofile=f"b/{diff_result.file_path.name}",
+                n=self.context_lines
+            ))
+        elif fmt == DiffOutputFormat.HTML:
+            differ = difflib.HtmlDiff()
+            original = diff_result.original_content.splitlines()
+            modified = diff_result.modified_content.splitlines()
+            return differ.make_file(original, modified)
+        else:
+            return ''.join(diff_result.diff_lines)
+    
+    def print_diff(self, diff_result: DiffResult) -> None:
+        """Print a colorized diff to console.
+        
+        Args:
+            diff_result: DiffResult to print.
+        """
+        for line in diff_result.diff_lines:
+            if line.startswith('+') and not line.startswith('+++'):
+                print(f"\033[92m{line}\033[0m", end='')  # Green
+            elif line.startswith('-') and not line.startswith('---'):
+                print(f"\033[91m{line}\033[0m", end='')  # Red
+            elif line.startswith('@@'):
+                print(f"\033[96m{line}\033[0m", end='')  # Cyan
+            else:
+                print(line, end='')
+
+
+# =============================================================================
+# Incremental Processor
+# =============================================================================
+
+
+class IncrementalProcessor:
+    """Processes only files changed since last run.
+    
+    Tracks file modification times and content hashes to enable
+    incremental processing, avoiding reprocessing unchanged files.
+    
+    Attributes:
+        state_file: Path to state persistence file.
+        state: Current incremental processing state.
+    """
+    
+    def __init__(self, repo_root: Path, state_file: str = ".agent_state.json"):
+        """Initialize the incremental processor.
+        
+        Args:
+            repo_root: Repository root directory.
+            state_file: Name of state file.
+        """
+        self.repo_root = repo_root
+        self.state_file = repo_root / state_file
+        self.state = IncrementalState()
+        self._load_state()
+    
+    def _load_state(self) -> None:
+        """Load state from disk."""
+        if self.state_file.exists():
+            try:
+                data = json.loads(self.state_file.read_text())
+                self.state = IncrementalState(
+                    last_run_timestamp=data.get('last_run_timestamp', 0),
+                    processed_files=data.get('processed_files', {}),
+                    file_hashes=data.get('file_hashes', {}),
+                    pending_files=data.get('pending_files', [])
+                )
+                logging.debug(f"Loaded incremental state from {self.state_file}")
+            except Exception as e:
+                logging.warning(f"Failed to load state: {e}")
+    
+    def _save_state(self) -> None:
+        """Save state to disk."""
+        try:
+            data = {
+                'last_run_timestamp': self.state.last_run_timestamp,
+                'processed_files': self.state.processed_files,
+                'file_hashes': self.state.file_hashes,
+                'pending_files': self.state.pending_files
+            }
+            self.state_file.write_text(json.dumps(data, indent=2))
+            logging.debug(f"Saved incremental state to {self.state_file}")
+        except Exception as e:
+            logging.warning(f"Failed to save state: {e}")
+    
+    def _compute_file_hash(self, file_path: Path) -> str:
+        """Compute MD5 hash of file content."""
+        try:
+            content = file_path.read_bytes()
+            return hashlib.md5(content).hexdigest()
+        except Exception:
+            return ""
+    
+    def get_changed_files(self, files: List[Path]) -> List[Path]:
+        """Get list of files changed since last run.
+        
+        Args:
+            files: List of all files to consider.
+            
+        Returns:
+            List of files that have changed.
+        """
+        changed = []
+        
+        for file_path in files:
+            path_str = str(file_path)
+            
+            # Check if file is new
+            if path_str not in self.state.processed_files:
+                changed.append(file_path)
+                continue
+            
+            # Check if file was modified
+            try:
+                mtime = file_path.stat().st_mtime
+                if mtime > self.state.processed_files.get(path_str, 0):
+                    # Verify with hash comparison
+                    new_hash = self._compute_file_hash(file_path)
+                    if new_hash != self.state.file_hashes.get(path_str, ""):
+                        changed.append(file_path)
+            except Exception:
+                changed.append(file_path)
+        
+        logging.info(f"Incremental: {len(changed)}/{len(files)} files changed")
+        return changed
+    
+    def mark_processed(self, file_path: Path) -> None:
+        """Mark a file as processed.
+        
+        Args:
+            file_path: Path to the processed file.
+        """
+        path_str = str(file_path)
+        self.state.processed_files[path_str] = time.time()
+        self.state.file_hashes[path_str] = self._compute_file_hash(file_path)
+        
+        # Remove from pending if present
+        if path_str in self.state.pending_files:
+            self.state.pending_files.remove(path_str)
+    
+    def complete_run(self) -> None:
+        """Mark the run as complete and save state."""
+        self.state.last_run_timestamp = time.time()
+        self.state.pending_files = []
+        self._save_state()
+    
+    def reset_state(self) -> None:
+        """Reset incremental state (force full reprocessing)."""
+        self.state = IncrementalState()
+        if self.state_file.exists():
+            self.state_file.unlink()
+        logging.info("Incremental state reset")
+
+
+# =============================================================================
+# Graceful Shutdown Handler
+# =============================================================================
+
+
+class GracefulShutdown:
+    """Handles graceful shutdown with state persistence.
+    
+    Captures SIGINT/SIGTERM and allows current operation to complete
+    before stopping, saving state for resume.
+    
+    Attributes:
+        state: Current shutdown state.
+        state_file: Path to state persistence file.
+    """
+    
+    def __init__(self, repo_root: Path, state_file: str = ".agent_shutdown.json"):
+        """Initialize graceful shutdown handler.
+        
+        Args:
+            repo_root: Repository root directory.
+            state_file: Name of state file.
+        """
+        self.repo_root = repo_root
+        self.state_file = repo_root / state_file
+        self.state = ShutdownState()
+        self._original_sigint = None
+        self._original_sigterm = None
+    
+    def install_handlers(self) -> None:
+        """Install signal handlers for graceful shutdown."""
+        self._original_sigint = signal.signal(signal.SIGINT, self._handle_signal)
+        if hasattr(signal, 'SIGTERM'):
+            self._original_sigterm = signal.signal(signal.SIGTERM, self._handle_signal)
+        logging.debug("Installed graceful shutdown handlers")
+    
+    def restore_handlers(self) -> None:
+        """Restore original signal handlers."""
+        if self._original_sigint:
+            signal.signal(signal.SIGINT, self._original_sigint)
+        if self._original_sigterm and hasattr(signal, 'SIGTERM'):
+            signal.signal(signal.SIGTERM, self._original_sigterm)
+        logging.debug("Restored original signal handlers")
+    
+    def _handle_signal(self, signum: int, frame: Any) -> None:
+        """Handle shutdown signal."""
+        signal_name = signal.Signals(signum).name
+        logging.warning(f"Received {signal_name}, initiating graceful shutdown...")
+        self.state.shutdown_requested = True
+        self._save_state()
+    
+    def should_continue(self) -> bool:
+        """Check if processing should continue.
+        
+        Returns:
+            bool: True if should continue, False if shutdown requested.
+        """
+        return not self.state.shutdown_requested
+    
+    def set_current_file(self, file_path: Optional[Path]) -> None:
+        """Set the currently processing file.
+        
+        Args:
+            file_path: Path to current file, or None if not processing.
+        """
+        self.state.current_file = str(file_path) if file_path else None
+    
+    def mark_completed(self, file_path: Path) -> None:
+        """Mark a file as completed.
+        
+        Args:
+            file_path: Path to completed file.
+        """
+        self.state.completed_files.append(str(file_path))
+        if str(file_path) in self.state.pending_files:
+            self.state.pending_files.remove(str(file_path))
+    
+    def set_pending_files(self, files: List[Path]) -> None:
+        """Set the list of pending files.
+        
+        Args:
+            files: List of pending file paths.
+        """
+        self.state.pending_files = [str(f) for f in files]
+    
+    def _save_state(self) -> None:
+        """Save shutdown state to disk."""
+        try:
+            data = {
+                'shutdown_requested': self.state.shutdown_requested,
+                'current_file': self.state.current_file,
+                'completed_files': self.state.completed_files,
+                'pending_files': self.state.pending_files,
+                'start_time': self.state.start_time
+            }
+            self.state_file.write_text(json.dumps(data, indent=2))
+        except Exception as e:
+            logging.error(f"Failed to save shutdown state: {e}")
+    
+    def load_resume_state(self) -> Optional[ShutdownState]:
+        """Load state for resuming an interrupted run.
+        
+        Returns:
+            ShutdownState if resume state exists, None otherwise.
+        """
+        if not self.state_file.exists():
+            return None
+        
+        try:
+            data = json.loads(self.state_file.read_text())
+            state = ShutdownState(
+                shutdown_requested=False,  # Reset for resume
+                current_file=data.get('current_file'),
+                completed_files=data.get('completed_files', []),
+                pending_files=data.get('pending_files', []),
+                start_time=data.get('start_time', time.time())
+            )
+            logging.info(f"Loaded resume state: {len(state.completed_files)} completed, "
+                        f"{len(state.pending_files)} pending")
+            return state
+        except Exception as e:
+            logging.warning(f"Failed to load resume state: {e}")
+            return None
+    
+    def cleanup(self) -> None:
+        """Clean up state file after successful completion."""
+        if self.state_file.exists():
+            self.state_file.unlink()
+        self.restore_handlers()
+
+
+# =============================================================================
+# Configuration File Loader
+# =============================================================================
+
+
+class ConfigLoader:
+    """Loads agent configuration from YAML/TOML/JSON files.
+    
+    Supports multiple configuration file formats and provides
+    validation and merging of configuration options.
+    
+    Attributes:
+        config_path: Path to configuration file.
+        format: Configuration file format.
+    """
+    
+    SUPPORTED_EXTENSIONS = {
+        '.yaml': ConfigFormat.YAML,
+        '.yml': ConfigFormat.YAML,
+        '.toml': ConfigFormat.TOML,
+        '.json': ConfigFormat.JSON,
+        '.ini': ConfigFormat.INI,
+    }
+    
+    def __init__(self, config_path: Optional[Path] = None):
+        """Initialize the config loader.
+        
+        Args:
+            config_path: Path to configuration file.
+        """
+        self.config_path = config_path
+        self.format: Optional[ConfigFormat] = None
+        
+        if config_path:
+            ext = config_path.suffix.lower()
+            self.format = self.SUPPORTED_EXTENSIONS.get(ext)
+    
+    def load(self) -> AgentConfig:
+        """Load configuration from file.
+        
+        Returns:
+            AgentConfig with loaded settings.
+        """
+        if not self.config_path or not self.config_path.exists():
+            return AgentConfig()
+        
+        try:
+            content = self.config_path.read_text()
+            data = self._parse_content(content)
+            return self._build_config(data)
+        except Exception as e:
+            logging.error(f"Failed to load config from {self.config_path}: {e}")
+            return AgentConfig()
+    
+    def _parse_content(self, content: str) -> Dict[str, Any]:
+        """Parse configuration content based on format."""
+        if self.format == ConfigFormat.JSON:
+            return json.loads(content)
+        elif self.format == ConfigFormat.YAML:
+            try:
+                import yaml
+                return yaml.safe_load(content)
+            except ImportError:
+                logging.warning("PyYAML not installed, falling back to JSON")
+                return {}
+        elif self.format == ConfigFormat.TOML:
+            try:
+                import tomllib
+                return tomllib.loads(content)
+            except ImportError:
+                try:
+                    import toml
+                    return toml.loads(content)
+                except ImportError:
+                    logging.warning("tomllib/toml not installed")
+                    return {}
+        return {}
+    
+    def _build_config(self, data: Dict[str, Any]) -> AgentConfig:
+        """Build AgentConfig from parsed data."""
+        # Build rate limit config
+        rate_limit = None
+        if 'rate_limit' in data:
+            rl_data = data['rate_limit']
+            rate_limit = RateLimitConfig(
+                requests_per_second=rl_data.get('requests_per_second', 10.0),
+                requests_per_minute=rl_data.get('requests_per_minute', 60),
+                burst_size=rl_data.get('burst_size', 10),
+                cooldown_seconds=rl_data.get('cooldown_seconds', 1.0)
+            )
+        
+        # Build plugin configs
+        plugins = []
+        for plugin_data in data.get('plugins', []):
+            plugins.append(AgentPluginConfig(
+                name=plugin_data.get('name', 'unknown'),
+                module_path=plugin_data.get('module_path', ''),
+                entry_point=plugin_data.get('entry_point', 'run'),
+                enabled=plugin_data.get('enabled', True),
+                config=plugin_data.get('config', {})
+            ))
+        
+        return AgentConfig(
+            repo_root=data.get('repo_root', '.'),
+            agents_only=data.get('agents_only', False),
+            max_files=data.get('max_files'),
+            loop=data.get('loop', 1),
+            dry_run=data.get('dry_run', False),
+            no_git=data.get('no_git', False),
+            verbosity=data.get('verbosity', 'normal'),
+            rate_limit=rate_limit,
+            plugins=plugins,
+            selective_agents=data.get('selective_agents', []),
+            timeout_per_agent=data.get('timeout_per_agent', {})
+        )
+    
+    @staticmethod
+    def find_config_file(repo_root: Path) -> Optional[Path]:
+        """Find configuration file in repository.
+        
+        Args:
+            repo_root: Repository root directory.
+            
+        Returns:
+            Path to config file if found, None otherwise.
+        """
+        config_names = [
+            'agent.yaml', 'agent.yml', 'agent.toml', 'agent.json',
+            '.agent.yaml', '.agent.yml', '.agent.toml', '.agent.json',
+            'agent_config.yaml', 'agent_config.json'
+        ]
+        
+        for name in config_names:
+            config_path = repo_root / name
+            if config_path.exists():
+                logging.info(f"Found config file: {config_path}")
+                return config_path
+        
+        return None
+
+
+# =============================================================================
+# Health Checker
+# =============================================================================
+
+
+class HealthChecker:
+    """Performs health checks on agent components.
+    
+    Verifies that all required components are available and functional
+    before starting agent execution.
+    
+    Attributes:
+        repo_root: Repository root directory.
+        results: Dict of health check results.
+    """
+    
+    def __init__(self, repo_root: Path):
+        """Initialize the health checker.
+        
+        Args:
+            repo_root: Repository root directory.
+        """
+        self.repo_root = repo_root
+        self.results: Dict[str, AgentHealthCheck] = {}
+    
+    def check_agent_script(self, agent_name: str) -> AgentHealthCheck:
+        """Check if an agent script exists and is valid.
+        
+        Args:
+            agent_name: Name of the agent (e.g., 'coder', 'tests').
+            
+        Returns:
+            AgentHealthCheck result.
+        """
+        start_time = time.time()
+        script_path = self.repo_root / 'scripts' / 'agent' / f'agent-{agent_name}.py'
+        
+        if not script_path.exists():
+            return AgentHealthCheck(
+                agent_name=agent_name,
+                status=HealthStatus.UNHEALTHY,
+                error_message=f"Script not found: {script_path}"
+            )
+        
+        # Check if script is valid Python
+        try:
+            import ast
+            content = script_path.read_text()
+            ast.parse(content)
+            response_time = (time.time() - start_time) * 1000
+            return AgentHealthCheck(
+                agent_name=agent_name,
+                status=HealthStatus.HEALTHY,
+                response_time_ms=response_time,
+                details={'script_path': str(script_path)}
+            )
+        except SyntaxError as e:
+            return AgentHealthCheck(
+                agent_name=agent_name,
+                status=HealthStatus.UNHEALTHY,
+                error_message=f"Syntax error: {e}"
+            )
+    
+    def check_git(self) -> AgentHealthCheck:
+        """Check if git is available.
+        
+        Returns:
+            AgentHealthCheck result.
+        """
+        start_time = time.time()
+        
+        try:
+            result = subprocess.run(
+                ['git', '--version'],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            response_time = (time.time() - start_time) * 1000
+            
+            if result.returncode == 0:
+                return AgentHealthCheck(
+                    agent_name='git',
+                    status=HealthStatus.HEALTHY,
+                    response_time_ms=response_time,
+                    details={'version': result.stdout.strip()}
+                )
+            else:
+                return AgentHealthCheck(
+                    agent_name='git',
+                    status=HealthStatus.UNHEALTHY,
+                    error_message=result.stderr
+                )
+        except Exception as e:
+            return AgentHealthCheck(
+                agent_name='git',
+                status=HealthStatus.UNHEALTHY,
+                error_message=str(e)
+            )
+    
+    def check_python(self) -> AgentHealthCheck:
+        """Check Python environment.
+        
+        Returns:
+            AgentHealthCheck result.
+        """
+        start_time = time.time()
+        response_time = (time.time() - start_time) * 1000
+        
+        return AgentHealthCheck(
+            agent_name='python',
+            status=HealthStatus.HEALTHY,
+            response_time_ms=response_time,
+            details={
+                'version': sys.version,
+                'executable': sys.executable
+            }
+        )
+    
+    def run_all_checks(self) -> Dict[str, AgentHealthCheck]:
+        """Run all health checks.
+        
+        Returns:
+            Dict of check name to AgentHealthCheck result.
+        """
+        agent_names = ['coder', 'tests', 'changes', 'context', 'errors', 
+                       'improvements', 'stats']
+        
+        # Check core components
+        self.results['python'] = self.check_python()
+        self.results['git'] = self.check_git()
+        
+        # Check agent scripts
+        for name in agent_names:
+            self.results[name] = self.check_agent_script(name)
+        
+        return self.results
+    
+    def is_healthy(self) -> bool:
+        """Check if all components are healthy.
+        
+        Returns:
+            bool: True if all healthy, False otherwise.
+        """
+        if not self.results:
+            self.run_all_checks()
+        
+        return all(
+            r.status == HealthStatus.HEALTHY 
+            for r in self.results.values()
+        )
+    
+    def print_report(self) -> None:
+        """Print health check report."""
+        if not self.results:
+            self.run_all_checks()
+        
+        print("\n=== Agent Health Check Report ===\n")
+        for name, result in sorted(self.results.items()):
+            status_symbol = {
+                HealthStatus.HEALTHY: "✓",
+                HealthStatus.DEGRADED: "!",
+                HealthStatus.UNHEALTHY: "✗",
+                HealthStatus.UNKNOWN: "?"
+            }.get(result.status, "?")
+            
+            print(f"  [{status_symbol}] {name}: {result.status.name}")
+            if result.error_message:
+                print(f"      Error: {result.error_message}")
+            if result.response_time_ms > 0:
+                print(f"      Response: {result.response_time_ms:.1f}ms")
+        
+        print()
+
+
 def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 1.0, max_delay: float = 30.0):
     """Execute a function with exponential backoff retry on failure.
     
@@ -96,12 +1278,6 @@ def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 
         
     Returns:
         bool: True if func succeeded, False after max_attempts.
-        
-    Example:
-        success = _exponential_backoff_retry(
-            lambda: subprocess.run([...], check=True),
-            max_attempts=3
-        )
         
     Note:
         - Delay formula: min(base_delay * (2 ^ attempt), max_delay)
@@ -1688,27 +2864,460 @@ def test_placeholder():
 
     def process_file(self, code_file: Path) -> None:
         """Process a single code file through the improvement loop."""
-        logging.info(f"Processing {code_file.relative_to(self.repo_root)}...")
-        max_iterations = 1
-        iteration = 0
-        all_fixed = False
-        while not all_fixed and iteration < max_iterations:
-            iteration += 1
-            logging.info(f"Iteration {iteration} for {code_file.name}")
-            files_ready = self._check_files_ready(code_file)
-            if not files_ready and iteration == 1:
-                logging.info(f"Creating initial supporting files for {code_file.name}")
-            changes_made = self._perform_iteration(code_file)
-            # Check if all is marked as fixed (no more changes needed)
-            if not changes_made:
-                all_fixed = True
-                logging.info(f"No changes made in iteration {iteration}, marking as fixed")
-            else:
-                logging.info(f"Changes made in iteration {iteration}, continuing...")
-        if iteration >= max_iterations:
-            logging.info(f"Reached maximum iterations ({max_iterations}) for {code_file.name}")
-        logging.info(f"Completed processing {code_file.name} in {iteration} iterations")
-        self._commit_and_push(code_file)
+        # Check graceful shutdown
+        if hasattr(self, 'shutdown_handler') and not self.shutdown_handler.should_continue():
+            logging.info(f"Skipping {code_file.name} due to shutdown request")
+            return
+        
+        # Acquire file lock if enabled
+        if hasattr(self, 'lock_manager'):
+            lock = self.lock_manager.acquire_lock(code_file)
+            if not lock:
+                logging.warning(f"Could not acquire lock for {code_file.name}, skipping")
+                return
+        
+        try:
+            # Set current file for graceful shutdown
+            if hasattr(self, 'shutdown_handler'):
+                self.shutdown_handler.set_current_file(code_file)
+            
+            logging.info(f"Processing {code_file.relative_to(self.repo_root)}...")
+            max_iterations = 1
+            iteration = 0
+            all_fixed = False
+            while not all_fixed and iteration < max_iterations:
+                iteration += 1
+                logging.info(f"Iteration {iteration} for {code_file.name}")
+                files_ready = self._check_files_ready(code_file)
+                if not files_ready and iteration == 1:
+                    logging.info(f"Creating initial supporting files for {code_file.name}")
+                changes_made = self._perform_iteration(code_file)
+                # Check if all is marked as fixed (no more changes needed)
+                if not changes_made:
+                    all_fixed = True
+                    logging.info(f"No changes made in iteration {iteration}, marking as fixed")
+                else:
+                    logging.info(f"Changes made in iteration {iteration}, continuing...")
+            if iteration >= max_iterations:
+                logging.info(f"Reached maximum iterations ({max_iterations}) for {code_file.name}")
+            logging.info(f"Completed processing {code_file.name} in {iteration} iterations")
+            self._commit_and_push(code_file)
+            
+            # Mark as processed for incremental processing
+            if hasattr(self, 'incremental_processor'):
+                self.incremental_processor.mark_processed(code_file)
+            
+            # Mark completed for graceful shutdown
+            if hasattr(self, 'shutdown_handler'):
+                self.shutdown_handler.mark_completed(code_file)
+                
+        finally:
+            # Release file lock
+            if hasattr(self, 'lock_manager'):
+                self.lock_manager.release_lock(code_file)
+            
+            # Clear current file
+            if hasattr(self, 'shutdown_handler'):
+                self.shutdown_handler.set_current_file(None)
+
+    # =========================================================================
+    # Plugin System Methods
+    # =========================================================================
+    
+    def register_plugin(self, plugin: AgentPluginBase) -> None:
+        """Register a custom agent plugin.
+        
+        Allows third-party agents to be added without modifying core code.
+        Plugins are called during file processing after built-in agents.
+        
+        Args:
+            plugin: Plugin instance implementing AgentPluginBase.
+            
+        Example:
+            class MyPlugin(AgentPluginBase):
+                def run(self, file_path, context):
+                    # Custom processing
+                    return True
+            
+            agent.register_plugin(MyPlugin("custom"))
+        """
+        if not hasattr(self, 'plugins'):
+            self.plugins: Dict[str, AgentPluginBase] = {}
+        
+        plugin.setup()
+        self.plugins[plugin.name] = plugin
+        logging.info(f"Registered plugin: {plugin.name} (priority: {plugin.priority.name})")
+    
+    def unregister_plugin(self, plugin_name: str) -> bool:
+        """Unregister a plugin by name.
+        
+        Args:
+            plugin_name: Name of plugin to remove.
+            
+        Returns:
+            bool: True if plugin was removed, False if not found.
+        """
+        if not hasattr(self, 'plugins') or plugin_name not in self.plugins:
+            return False
+        
+        plugin = self.plugins[plugin_name]
+        plugin.teardown()
+        del self.plugins[plugin_name]
+        logging.info(f"Unregistered plugin: {plugin_name}")
+        return True
+    
+    def get_plugin(self, plugin_name: str) -> Optional[AgentPluginBase]:
+        """Get a registered plugin by name.
+        
+        Args:
+            plugin_name: Name of plugin to retrieve.
+            
+        Returns:
+            Plugin instance or None if not found.
+        """
+        if not hasattr(self, 'plugins'):
+            return None
+        return self.plugins.get(plugin_name)
+    
+    def run_plugins(self, file_path: Path) -> Dict[str, bool]:
+        """Run all registered plugins on a file.
+        
+        Args:
+            file_path: Path to file to process.
+            
+        Returns:
+            Dict mapping plugin name to success status.
+        """
+        if not hasattr(self, 'plugins') or not self.plugins:
+            return {}
+        
+        results = {}
+        context = {
+            'agent': self,
+            'repo_root': self.repo_root,
+            'dry_run': self.dry_run,
+            'metrics': self.metrics
+        }
+        
+        # Sort plugins by priority
+        sorted_plugins = sorted(
+            self.plugins.values(),
+            key=lambda p: p.priority.value
+        )
+        
+        for plugin in sorted_plugins:
+            if not plugin.config.get('enabled', True):
+                continue
+            
+            try:
+                # Apply rate limiting if configured
+                if hasattr(self, 'rate_limiter'):
+                    self.rate_limiter.acquire(timeout=30.0)
+                
+                result = plugin.run(file_path, context)
+                results[plugin.name] = result
+                
+                if result:
+                    self.metrics['agents_applied'][plugin.name] = \
+                        self.metrics['agents_applied'].get(plugin.name, 0) + 1
+                
+            except Exception as e:
+                logging.error(f"Plugin {plugin.name} failed: {e}")
+                results[plugin.name] = False
+        
+        return results
+    
+    def load_plugins_from_config(self, plugin_configs: List[AgentPluginConfig]) -> None:
+        """Load plugins from configuration.
+        
+        Args:
+            plugin_configs: List of plugin configurations.
+        """
+        for config in plugin_configs:
+            if not config.enabled:
+                continue
+            
+            try:
+                # Import plugin module
+                spec = importlib.util.spec_from_file_location(
+                    config.name, config.module_path
+                )
+                if spec and spec.loader:
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    
+                    # Get entry point
+                    plugin_class = getattr(module, config.entry_point, None)
+                    if plugin_class and issubclass(plugin_class, AgentPluginBase):
+                        plugin = plugin_class(
+                            config.name,
+                            config.priority,
+                            config.config
+                        )
+                        self.register_plugin(plugin)
+                    else:
+                        logging.warning(f"Invalid plugin entry point: {config.entry_point}")
+            except Exception as e:
+                logging.error(f"Failed to load plugin {config.name}: {e}")
+
+    # =========================================================================
+    # Rate Limiting Methods
+    # =========================================================================
+    
+    def enable_rate_limiting(self, config: Optional[RateLimitConfig] = None) -> None:
+        """Enable rate limiting for API calls.
+        
+        Args:
+            config: Rate limiting configuration. Uses defaults if not provided.
+            
+        Example:
+            agent.enable_rate_limiting(RateLimitConfig(
+                requests_per_second=5.0,
+                burst_size=10
+            ))
+        """
+        self.rate_limiter = RateLimiter(config)
+        logging.info(f"Rate limiting enabled: {config or 'default settings'}")
+    
+    def get_rate_limit_stats(self) -> Dict[str, Any]:
+        """Get current rate limiter statistics.
+        
+        Returns:
+            Dict with rate limiter stats.
+        """
+        if hasattr(self, 'rate_limiter'):
+            return self.rate_limiter.get_stats()
+        return {}
+
+    # =========================================================================
+    # File Locking Methods
+    # =========================================================================
+    
+    def enable_file_locking(self, lock_timeout: float = 300.0) -> None:
+        """Enable file locking for concurrent modification prevention.
+        
+        Args:
+            lock_timeout: Default lock timeout in seconds.
+            
+        Example:
+            agent.enable_file_locking(lock_timeout=600.0)
+        """
+        self.lock_manager = FileLockManager(lock_timeout)
+        logging.info(f"File locking enabled (timeout: {lock_timeout}s)")
+
+    # =========================================================================
+    # Diff Preview Methods
+    # =========================================================================
+    
+    def enable_diff_preview(self, output_format: DiffOutputFormat = DiffOutputFormat.UNIFIED) -> None:
+        """Enable diff preview mode.
+        
+        Args:
+            output_format: Output format for diffs.
+            
+        Example:
+            agent.enable_diff_preview(DiffOutputFormat.HTML)
+        """
+        self.diff_generator = DiffGenerator(output_format)
+        logging.info(f"Diff preview enabled (format: {output_format.name})")
+    
+    def preview_changes(self, file_path: Path, new_content: str) -> DiffResult:
+        """Preview changes to a file without applying them.
+        
+        Args:
+            file_path: Path to the file.
+            new_content: Proposed new content.
+            
+        Returns:
+            DiffResult with change information.
+        """
+        if not hasattr(self, 'diff_generator'):
+            self.diff_generator = DiffGenerator()
+        
+        original = file_path.read_text() if file_path.exists() else ""
+        return self.diff_generator.generate_diff(file_path, original, new_content)
+    
+    def show_pending_diffs(self) -> None:
+        """Show all pending diffs for dry-run mode."""
+        if not hasattr(self, 'pending_diffs'):
+            self.pending_diffs: List[DiffResult] = []
+        
+        if not self.pending_diffs:
+            print("No pending changes.")
+            return
+        
+        print(f"\n=== Pending Changes ({len(self.pending_diffs)} files) ===\n")
+        for diff in self.pending_diffs:
+            print(f"--- {diff.file_path} ---")
+            print(f"  +{diff.additions} -{diff.deletions}")
+            if hasattr(self, 'diff_generator'):
+                self.diff_generator.print_diff(diff)
+            print()
+
+    # =========================================================================
+    # Incremental Processing Methods
+    # =========================================================================
+    
+    def enable_incremental_processing(self) -> None:
+        """Enable incremental processing (only changed files).
+        
+        Tracks file modification times and hashes to skip unchanged files.
+        State is persisted to disk for resume across runs.
+        
+        Example:
+            agent.enable_incremental_processing()
+            files = agent.find_code_files()  # All files
+            changed = agent.get_changed_files(files)  # Only changed
+        """
+        self.incremental_processor = IncrementalProcessor(self.repo_root)
+        logging.info("Incremental processing enabled")
+    
+    def get_changed_files(self, files: List[Path]) -> List[Path]:
+        """Get files that changed since last run.
+        
+        Args:
+            files: List of all files to check.
+            
+        Returns:
+            List of files that have changed.
+        """
+        if hasattr(self, 'incremental_processor'):
+            return self.incremental_processor.get_changed_files(files)
+        return files
+    
+    def reset_incremental_state(self) -> None:
+        """Reset incremental processing state (force full reprocessing)."""
+        if hasattr(self, 'incremental_processor'):
+            self.incremental_processor.reset_state()
+
+    # =========================================================================
+    # Graceful Shutdown Methods
+    # =========================================================================
+    
+    def enable_graceful_shutdown(self) -> None:
+        """Enable graceful shutdown with state persistence.
+        
+        Installs signal handlers to allow current operation to complete
+        and saves state for resume.
+        
+        Example:
+            agent.enable_graceful_shutdown()
+            agent.run()  # Can be interrupted with Ctrl+C
+        """
+        self.shutdown_handler = GracefulShutdown(self.repo_root)
+        self.shutdown_handler.install_handlers()
+        logging.info("Graceful shutdown enabled")
+    
+    def resume_from_shutdown(self) -> Optional[List[Path]]:
+        """Resume processing from interrupted state.
+        
+        Returns:
+            List of pending files to process, or None if no resume state.
+        """
+        if not hasattr(self, 'shutdown_handler'):
+            self.shutdown_handler = GracefulShutdown(self.repo_root)
+        
+        state = self.shutdown_handler.load_resume_state()
+        if state and state.pending_files:
+            return [Path(f) for f in state.pending_files]
+        return None
+
+    # =========================================================================
+    # Health Check Methods
+    # =========================================================================
+    
+    def run_health_checks(self) -> Dict[str, AgentHealthCheck]:
+        """Run health checks on all agent components.
+        
+        Returns:
+            Dict of component name to health check result.
+            
+        Example:
+            results = agent.run_health_checks()
+            if all(r.status == HealthStatus.HEALTHY for r in results.values()):
+                agent.run()
+        """
+        checker = HealthChecker(self.repo_root)
+        return checker.run_all_checks()
+    
+    def is_healthy(self) -> bool:
+        """Check if all components are healthy.
+        
+        Returns:
+            bool: True if all healthy, False otherwise.
+        """
+        results = self.run_health_checks()
+        return all(r.status == HealthStatus.HEALTHY for r in results.values())
+    
+    def print_health_report(self) -> None:
+        """Print a health check report."""
+        checker = HealthChecker(self.repo_root)
+        checker.run_all_checks()
+        checker.print_report()
+
+    # =========================================================================
+    # Configuration File Methods
+    # =========================================================================
+    
+    @classmethod
+    def from_config_file(cls, config_path: Path) -> "Agent":
+        """Create an Agent instance from a configuration file.
+        
+        Args:
+            config_path: Path to YAML/TOML/JSON config file.
+            
+        Returns:
+            Configured Agent instance.
+            
+        Example:
+            agent = Agent.from_config_file(Path("agent.yaml"))
+            agent.run()
+        """
+        loader = ConfigLoader(config_path)
+        config = loader.load()
+        
+        agent = cls(
+            repo_root=config.repo_root,
+            agents_only=config.agents_only,
+            max_files=config.max_files,
+            loop=config.loop,
+            dry_run=config.dry_run,
+            no_git=config.no_git,
+            selective_agents=config.selective_agents or None,
+            timeout_per_agent=config.timeout_per_agent or None
+        )
+        
+        # Apply rate limiting if configured
+        if config.rate_limit:
+            agent.enable_rate_limiting(config.rate_limit)
+        
+        # Load plugins if configured
+        if config.plugins:
+            agent.load_plugins_from_config(config.plugins)
+        
+        return agent
+    
+    @classmethod
+    def auto_configure(cls, repo_root: str = ".") -> "Agent":
+        """Auto-configure agent from config file if found.
+        
+        Args:
+            repo_root: Repository root directory.
+            
+        Returns:
+            Configured Agent instance.
+            
+        Example:
+            agent = Agent.auto_configure()  # Looks for agent.yaml etc.
+            agent.run()
+        """
+        root = Path(repo_root).resolve()
+        config_path = ConfigLoader.find_config_file(root)
+        
+        if config_path:
+            return cls.from_config_file(config_path)
+        else:
+            return cls(repo_root=repo_root)
 
     def run(self) -> None:
         """Run the main agent loop.
@@ -1768,39 +3377,103 @@ def main() -> None:
                         help='Number of worker threads/processes (default: 4)')
     parser.add_argument('--webhook', type=str, action='append',
                         help='Register webhook URL for notifications (can be used multiple times)')
+    # Phase 6: New feature arguments
+    parser.add_argument('--config', type=str, metavar='FILE',
+                        help='Path to configuration file (YAML/TOML/JSON)')
+    parser.add_argument('--rate-limit', type=float, metavar='RPS',
+                        help='Rate limit API calls to RPS requests per second')
+    parser.add_argument('--enable-file-locking', action='store_true',
+                        help='Enable file locking to prevent concurrent modifications')
+    parser.add_argument('--incremental', action='store_true',
+                        help='Only process files changed since last run')
+    parser.add_argument('--graceful-shutdown', action='store_true',
+                        help='Enable graceful shutdown with state persistence')
+    parser.add_argument('--health-check', action='store_true',
+                        help='Run health checks and exit')
+    parser.add_argument('--resume', action='store_true',
+                        help='Resume from previous interrupted run')
+    parser.add_argument('--diff-preview', action='store_true',
+                        help='Show diffs before applying changes (requires --dry-run)')
     
     args = parser.parse_args()
     setup_logging(args.verbose)
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
     
-    # Parse selective agents if provided
-    selective_agents = None
-    if args.only_agents:
-        selective_agents = [a.strip() for a in args.only_agents.split(',')]
-        logging.info(f"Running with selective agents: {selective_agents}")
+    # Health check mode
+    if args.health_check:
+        checker = HealthChecker(Path(args.dir).resolve())
+        checker.run_all_checks()
+        checker.print_report()
+        sys.exit(0 if checker.is_healthy() else 1)
     
-    agent = Agent(
-        repo_root=args.dir,
-        agents_only=args.agents_only,
-        max_files=args.max_files,
-        loop=args.loop,
-        skip_code_update=args.skip_code_update,
-        no_git=args.no_git,
-        dry_run=args.dry_run,
-        selective_agents=selective_agents,
-        timeout_per_agent={'coder': args.timeout, 'tests': args.timeout},
-        enable_async=args.enable_async,
-        enable_multiprocessing=args.enable_multiprocessing,
-        max_workers=args.workers
-    )
+    # Load from config file if provided
+    if args.config:
+        agent = Agent.from_config_file(Path(args.config))
+    else:
+        # Parse selective agents if provided
+        selective_agents = None
+        if args.only_agents:
+            selective_agents = [a.strip() for a in args.only_agents.split(',')]
+            logging.info(f"Running with selective agents: {selective_agents}")
+        
+        agent = Agent(
+            repo_root=args.dir,
+            agents_only=args.agents_only,
+            max_files=args.max_files,
+            loop=args.loop,
+            skip_code_update=args.skip_code_update,
+            no_git=args.no_git,
+            dry_run=args.dry_run,
+            selective_agents=selective_agents,
+            timeout_per_agent={'coder': args.timeout, 'tests': args.timeout},
+            enable_async=args.enable_async,
+            enable_multiprocessing=args.enable_multiprocessing,
+            max_workers=args.workers
+        )
     
     # Register webhooks if provided
     if args.webhook:
         for webhook_url in args.webhook:
             agent.register_webhook(webhook_url)
     
+    # Enable rate limiting if provided
+    if args.rate_limit:
+        agent.enable_rate_limiting(RateLimitConfig(
+            requests_per_second=args.rate_limit
+        ))
+    
+    # Enable file locking if requested
+    if args.enable_file_locking:
+        agent.enable_file_locking()
+    
+    # Enable incremental processing if requested
+    if args.incremental:
+        agent.enable_incremental_processing()
+    
+    # Enable graceful shutdown if requested
+    if args.graceful_shutdown:
+        agent.enable_graceful_shutdown()
+    
+    # Enable diff preview if requested
+    if args.diff_preview:
+        agent.enable_diff_preview()
+    
+    # Resume from previous run if requested
+    if args.resume:
+        pending_files = agent.resume_from_shutdown()
+        if pending_files:
+            logging.info(f"Resuming with {len(pending_files)} pending files")
+    
     try:
         agent.run()
     finally:
         # Always print metrics summary
         agent.print_metrics_summary()
+        
+        # Cleanup graceful shutdown state on successful completion
+        if hasattr(agent, 'shutdown_handler'):
+            agent.shutdown_handler.cleanup()
+        
+        # Save incremental processing state
+        if hasattr(agent, 'incremental_processor'):
+            agent.incremental_processor.complete_run()

@@ -1,47 +1,113 @@
 # Improvements: `agent_backend.py`
 
+## Status
+All previous fixed items have been moved to `agent_backend.changes.md`.
+
 ## Fixed
 - Add unit tests for `llm_chat_via_github_models` (mocking requests). (Fixed) [2025-12-16]
-  * TestGitHubModelsRetry: 2 tests for retry logic and auth error handling
 - Add retry logic for network requests. (Fixed) [2025-12-16]
-  * Exponential backoff with configurable max retries (default 2)
-  * Retry only on transient errors (Timeout, ConnectionError), not auth errors
-  * Comprehensive error categorization and logging
 - Add environment variable handling tests. (Fixed) [2025-12-16]
-  * TestEnvironmentVariableHandling: 3 tests for backend selection and configuration
 - Add comprehensive error logging without token leakage. (Fixed) [2025-12-16]
-  * TestErrorLogging: 2 tests for error context and security
+- Support streaming responses. (Fixed) [2025-12-16]
+- Add cost estimation for API-based backends. (Fixed) [2025-12-16]
+- Implement graceful degradation with fallback chain. (Fixed) [2025-12-16]
+- Add response validation. (Fixed) [2025-12-16]
+- Cache responses for identical prompts. (Fixed) [2025-12-16]
+- Add integration tests with real GitHub Models API. (Fixed) [2025-12-16]
+- Support custom model endpoints and authentication methods. (Fixed) [2025-12-16]
+- Add metrics collection. (Fixed) [2025-12-16]
+- Implement circuit breaker pattern. (Fixed) [2025-12-16]
+- Add timeout configuration per backend type. (Fixed) [2025-12-16]
+
+## Session 6 [2025-01-13]
+
+### Added - Type-Safe Enums
+- [x] FIXED: Add type-safe enums for backend system. [2025-01-13]
+  * BackendType: COPILOT_CLI, GH_COPILOT, GITHUB_MODELS, AUTO
+  * BackendState: HEALTHY, DEGRADED, UNHEALTHY, UNKNOWN
+  * CircuitState: CLOSED, OPEN, HALF_OPEN
+  * RequestPriority: LOW, NORMAL, HIGH, CRITICAL
+  * ResponseTransform: NONE, STRIP_WHITESPACE, EXTRACT_CODE, EXTRACT_JSON, MARKDOWN_TO_TEXT
+  * LoadBalanceStrategy: ROUND_ROBIN, LEAST_CONNECTIONS, WEIGHTED, FAILOVER
+
+### Added - Dataclasses for Structured Data
+- [x] FIXED: Add dataclasses for structured data. [2025-01-13]
+  * BackendConfig: Configuration for a single backend
+  * RequestContext: Context with request_id, correlation_id, priority, metadata
+  * BackendResponse: Response with content, backend, latency_ms, cached, tokens_used
+  * BackendHealthStatus: Health status with state, success_rate, avg_latency_ms
+  * QueuedRequest: Request in queue with priority, timestamp, callback
+  * BatchRequest: Batch of requests for processing
+  * UsageQuota: Usage quota configuration
+
+### Added - Response Transformers
+- [x] FIXED: Add support for custom response transformers. [2025-01-13]
+  * ResponseTransformerBase: Abstract base class for transformers
+  * StripWhitespaceTransformer: Strip whitespace from responses
+  * ExtractCodeTransformer: Extract code blocks from markdown
+  * ExtractJsonTransformer: Extract JSON from responses
+
+### Added - Request Prioritization
+- [x] FIXED: Add support for request prioritization and queuing. [2025-01-13]
+  * RequestQueue: Priority queue for backend requests
+  * enqueue(): Add request with priority
+  * dequeue(): Get next request by priority
+  * Thread-safe implementation
+
+### Added - Request Batching
+- [x] FIXED: Implement request batching for multiple prompts. [2025-01-13]
+  * RequestBatcher: Batches requests for efficient processing
+  * add(): Add request to batch
+  * is_ready(): Check if batch is ready
+  * get_batch(): Get current batch
+
+### Added - Backend Health Monitoring
+- [x] FIXED: Implement backend health monitoring with automatic failover. [2025-01-13]
+  * BackendHealthMonitor: Monitors success/failure rates
+  * record_success()/record_failure(): Track request outcomes
+  * is_healthy(): Check backend health
+  * get_healthiest(): Get healthiest backend from list
+
+### Added - Load Balancing
+- [x] FIXED: Implement backend load balancing across multiple endpoints. [2025-01-13]
+  * LoadBalancer: Distributes requests across backends
+  * Strategies: Round robin, least connections, weighted, failover
+  * add_backend()/remove_backend(): Manage backends
+  * next(): Get next backend to use
+
+### Added - Usage Quotas
+- [x] FIXED: Add support for backend usage quotas and limits. [2025-01-13]
+  * UsageQuotaManager: Tracks usage against limits
+  * can_request(): Check if allowed
+  * record_request(): Record usage
+  * get_remaining(): Get remaining quota
+
+### Added - Request Tracing
+- [x] FIXED: Implement request tracing with correlation IDs. [2025-01-13]
+  * RequestTracer: Distributed tracing capabilities
+  * start_trace()/end_trace(): Trace lifecycle
+  * Correlation ID support for linking traces
+
+### Added - Audit Logging
+- [x] FIXED: Implement backend audit logging. [2025-01-13]
+  * AuditLogger: Logs requests for audit
+  * log_request(): Record request details
+  * get_recent_entries(): Retrieve audit history
 
 ## Suggested improvements
-- [x] Support streaming responses. (Fixed) [2025-12-16]
-  * Added `stream` parameter to `llm_chat_via_github_models`
-  * Payload includes stream flag when enabled
-- [x] Add cost estimation for API-based backends (track tokens, calculate cost). (Fixed) [2025-12-16]
-  * `estimate_tokens()`: Rough approximation (~4 chars per token)
-  * `estimate_cost()`: Calculates USD cost based on token count
-  * Metrics tracking: total_latency_ms, request count
-- [x] Implement graceful degradation: fall back to local models if API unavailable. (Fixed) [2025-12-16]
-  * `run_subagent()` already has fallback: copilot → github-models → gh
-  * Circuit breaker pattern prevents cascading failures
-- [x] Add response validation: ensure AI output contains expected content types. (Fixed) [2025-12-16]
-  * `validate_response_content()`: Validates response contains expected keywords
-  * `llm_chat_via_github_models()` includes `validate_content` parameter
-- [x] Cache responses for identical prompts across runs. (Fixed) [2025-12-16]
-  * `_response_cache` dict with SHA256 hash keys
-  * `use_cache` parameter in `llm_chat_via_github_models()`
-  * `clear_response_cache()`: Clear cache when needed
-- [x] Add integration tests with real GitHub Models API. (Fixed) [2025-12-16]
-  * TestGitHubModelsIntegration: 10 tests for API endpoint, authentication, payload format, response parsing, streaming, error handling, rate limiting, token tracking, concurrent requests, timeout handling, retry logic
-- [x] Support custom model endpoints and authentication methods. (Fixed) [2025-12-16]
-  * TestCustomModelEndpoints: 11 tests for endpoint configuration, authentication methods, request building, response parsing, fallback chain, SSL verification, timeout config, parameter mapping, cost tracking, health checking
-- [x] Add metrics collection: request count, latency, error rates per backend. (Fixed) [2025-12-16]
-  * `_metrics` global tracking requests, errors, timeouts, cache_hits, latency
-  * `get_metrics()`: Snapshot of current metrics
-  * `reset_metrics()`: Reset metrics to zero
-- [x] Implement circuit breaker pattern for failing backends. (Fixed) [2025-12-16]
-  * `CircuitBreaker` class with CLOSED/OPEN/HALF_OPEN states
-  * Configurable failure threshold and recovery timeout
-  * Prevents cascading failures
-- [x] Add timeout configuration per backend type. (Fixed) [2025-12-16]
-  * `configure_timeout_per_backend()`: Set timeouts per backend
-  * Environment variables: DV_AGENT_TIMEOUT_{BACKEND}
+- [ ] Add support for request signing and verification.
+- [ ] Implement request deduplication across concurrent calls.
+- [ ] Add support for backend version negotiation.
+- [ ] Add support for backend capability discovery.
+- [ ] Implement request replay for debugging and testing.
+- [ ] Add support for backend configuration hot-reloading.
+- [ ] Implement request compression for large payloads.
+- [ ] Implement backend analytics and usage reporting.
+- [ ] Add support for backend connection pooling.
+- [ ] Implement backend request throttling.
+- [ ] Add support for backend response caching with TTL.
+- [ ] Add support for backend A/B testing.
+
+## Notes
+- File: `scripts/agent/agent_backend.py`
+- All fixed improvements validated through unit and integration tests
