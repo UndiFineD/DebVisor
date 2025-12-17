@@ -27,7 +27,7 @@ def base_agent_module() -> Any:
 
 
 def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
-    base_agent_module: Any)
+    base_agent_module: Any):
     def fake_improve_content(self, prompt: str) -> str:
         return "x=1 # AI GENERATED CONTENT"
 

@@ -155,22 +155,20 @@ class TestCodeFormatting(unittest.TestCase):
 
     def test_isort_import_organization(self):
         """Test isort for import statement organization."""
-
-import os
+        input_imports = """import os
 import sys
 from typing import List
 import requests
 from pathlib import Path
-        """
+"""
         # isort would organize these
-        expected_organized="""
-import os
+        expected_organized = """import os
 import sys
 from pathlib import Path
 from typing import List
 
 import requests
-        """
+"""
         self.assertIn('from pathlib', expected_organized)
 
     def test_formatting_after_validation(self):
@@ -369,11 +367,9 @@ class TestDocumentationAndClarity(unittest.TestCase):
 
     def test_inline_comments_for_complex_logic(self):
         """Test generating inline comments for complex logic."""
-
-result=[x for x in items if x > threshold and x % 2 == 0]
+        original_code = """result=[x for x in items if x > threshold and x % 2 == 0]
         """
-        commented_code="""
-# Filter items: keep values above threshold that are even
+        commented_code = """# Filter items: keep values above threshold that are even
 result=[x for x in items if x > threshold and x % 2 == 0]
         """
         self.assertIn('Filter items', commented_code)

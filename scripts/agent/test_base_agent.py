@@ -46,8 +46,8 @@ def test_read_previous_content_missing_file_uses_default(tmp_path: Path, base_ag
 
 
 def test_improve_content_uses_run_subagent(monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
-    base_agent_module: Any)
-    target=tmp_path / "x.md"
+    base_agent_module: Any):
+    target = tmp_path / "x.md"
     target.write_text("BEFORE", encoding="utf-8")
 
     def fake_run_subagent(self: Any, description: str, prompt: str, original_content: str="") -> str:

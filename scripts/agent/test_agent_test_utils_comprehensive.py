@@ -74,7 +74,7 @@ class TestFixtureHelpers(unittest.TestCase):
 
     def test_create_temp_directory_structure(self):
         """Test creating temporary directory structure."""
-
+        structure = {
             "subdir1": {},
             "subdir2": {
                 "nested": {}
