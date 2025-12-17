@@ -43,9 +43,9 @@ from base_agent import BaseAgent, create_main_function
 
 class VersioningStrategy(Enum):
     """Supported versioning strategies."""
-    SEMVER="semver"  # Semantic Versioning (MAJOR.MINOR.PATCH)
-    CALVER="calver"  # Calendar Versioning (YYYY.MM.DD)
-    CUSTOM="custom"  # Custom versioning pattern
+    SEMVER = "semver"  # Semantic Versioning (MAJOR.MINOR.PATCH)
+    CALVER = "calver"  # Calendar Versioning (YYYY.MM.DD)
+    CUSTOM = "custom"  # Custom versioning pattern
 
 
 @dataclass
@@ -89,51 +89,51 @@ class ValidationRule:
 
 class LocalizationLanguage(Enum):
     """Supported languages for changelog localization."""
-    ENGLISH="en"
-    SPANISH="es"
-    FRENCH="fr"
-    GERMAN="de"
-    JAPANESE="ja"
-    CHINESE="zh"
-    PORTUGUESE="pt"
+    ENGLISH = "en"
+    SPANISH = "es"
+    FRENCH = "fr"
+    GERMAN = "de"
+    JAPANESE = "ja"
+    CHINESE = "zh"
+    PORTUGUESE = "pt"
 
 
 class DiffViewMode(Enum):
     """Modes for changelog diff visualization."""
-    UNIFIED="unified"
-    SIDE_BY_SIDE="side_by_side"
-    INLINE="inline"
+    UNIFIED = "unified"
+    SIDE_BY_SIDE = "side_by_side"
+    INLINE = "inline"
 
 
 class ImportSource(Enum):
     """External sources for changelog import."""
-    GITHUB_RELEASES="github_releases"
-    JIRA="jira"
-    GITLAB="gitlab"
-    MANUAL="manual"
+    GITHUB_RELEASES = "github_releases"
+    JIRA = "jira"
+    GITLAB = "gitlab"
+    MANUAL = "manual"
 
 
 class ComplianceCategory(Enum):
     """Categories for compliance checking."""
-    SECURITY="security"
-    LEGAL="legal"
-    PRIVACY="privacy"
-    ACCESSIBILITY="accessibility"
+    SECURITY = "security"
+    LEGAL = "legal"
+    PRIVACY = "privacy"
+    ACCESSIBILITY = "accessibility"
 
 
 class FeedFormat(Enum):
     """Feed format types for RSS / Atom generation."""
-    RSS_20="rss_20"
-    ATOM_10="atom_10"
-    JSON_FEED="json_feed"
+    RSS_20 = "rss_20"
+    ATOM_10 = "atom_10"
+    JSON_FEED = "json_feed"
 
 
 class GroupingStrategy(Enum):
     """Strategies for entry grouping."""
-    BY_DATE="by_date"
-    BY_VERSION="by_version"
-    BY_CATEGORY="by_category"
-    BY_AUTHOR="by_author"
+    BY_DATE = "by_date"
+    BY_VERSION = "by_version"
+    BY_CATEGORY = "by_category"
+    BY_AUTHOR = "by_author"
 
 
 # ========== Session 6 Dataclasses ==========
@@ -363,7 +363,7 @@ class ChangelogLocalizer:
         Returns:
             Changelog text in the specified language.
         """
-        result=[]
+        result = []
         for entry in self.entries:
             if language.value in entry.translations:
                 result.append(entry.translations[language.value])
@@ -429,7 +429,7 @@ class DiffVisualizer:
 
     def _render_unified(self, result: DiffResult) -> str:
         """Render unified diff view."""
-        lines=[]
+        lines = []
         lines.append("<div class='diff-unified'>")
         for line in result.deletions:
             lines.append(f"<span class='deletion'>- {line}</span>")
@@ -478,7 +478,7 @@ class ExternalImporter:
         entry=ImportedEntry(
             source=ImportSource.GITHUB_RELEASES,
             external_id=f"{owner}/{repo}",
-            title="GitHub Release",
+            title = "GitHub Release",
             description=f"Releases from {owner}/{repo}"
         )
         self.imported_entries.append(entry)
@@ -497,7 +497,7 @@ class ExternalImporter:
         entry=ImportedEntry(
             source=ImportSource.JIRA,
             external_id=project_key,
-            title="JIRA Import",
+            title = "JIRA Import",
             description=f"Issues from {project_key}"
         )
         self.imported_entries.append(entry)
@@ -509,10 +509,10 @@ class ExternalImporter:
         Returns:
             List of ChangelogEntry instances.
         """
-        result=[]
+        result = []
         for imported in self.imported_entries:
             result.append(ChangelogEntry(
-                category="Added",
+                category = "Added",
                 description=imported.description,
                 tags=imported.labels
             ))
@@ -540,9 +540,9 @@ class ChangelogSearcher:
         Returns:
             List of search results.
         """
-        results=[]
+        results = []
         lines=content.split('\n')
-        current_version="Unknown"
+        current_version = "Unknown"
 
         for i, line in enumerate(lines, 1):
             # Track current version
@@ -623,7 +623,7 @@ class ReferenceLinkManager:
             The created LinkedReference.
         """
         ref=LinkedReference(
-            ref_type="commit",
+            ref_type = "commit",
             ref_id=commit_sha[:7],
             url=url,
             title=title
@@ -652,7 +652,7 @@ class ReferenceLinkManager:
             The created LinkedReference.
         """
         ref=LinkedReference(
-            ref_type="issue",
+            ref_type = "issue",
             ref_id=f"#{issue_number}",
             url=url,
             title=title
@@ -729,7 +729,7 @@ class MonorepoAggregator:
         Returns:
             Unified changelog as markdown.
         """
-        result=["# Monorepo Changelog\n"]
+        result = ["# Monorepo Changelog\n"]
 
         for name, pkg in sorted(self.packages.items()):
             result.append(f"## {name} v{pkg.version}\n")
@@ -784,7 +784,7 @@ class ReleaseNotesGenerator:
             summary += f" with {len(breaking)} breaking change(s)"
 
         # Format full changelog
-        changelog_lines=[]
+        changelog_lines = []
         by_category: Dict[str, List[str]] = {}
         for entry in entries:
             if entry.category not in by_category:
@@ -803,7 +803,7 @@ class ReleaseNotesGenerator:
             summary=summary,
             highlights=highlights[:5],  # Top 5 highlights
             breaking_changes=breaking,
-            full_changelog='\n'.join(changelog_lines)
+            full_changelog = '\n'.join(changelog_lines)
         )
 
 
@@ -904,8 +904,8 @@ class ComplianceChecker:
         >>> results=checker.check_all(entries)
     """
 
-    SECURITY_KEYWORDS=["vulnerability", "cve", "security", "patch", "exploit"]
-    LEGAL_KEYWORDS=["license", "copyright", "trademark", "patent"]
+    SECURITY_KEYWORDS = ["vulnerability", "cve", "security", "patch", "exploit"]
+    LEGAL_KEYWORDS = ["license", "copyright", "trademark", "patent"]
 
     def check_security_compliance(self, entries: List[ChangelogEntry]) -> ComplianceResult:
         """Check security compliance.
@@ -916,8 +916,8 @@ class ComplianceChecker:
         Returns:
             ComplianceResult for security category.
         """
-        issues=[]
-        recommendations=[]
+        issues = []
+        recommendations = []
 
         # Check for security entries without proper categorization
         for entry in entries:
@@ -942,8 +942,8 @@ class ComplianceChecker:
         Returns:
             ComplianceResult for legal category.
         """
-        issues=[]
-        recommendations=[]
+        issues = []
+        recommendations = []
 
         # Check for entries that may need legal review
         for entry in entries:
@@ -1117,42 +1117,42 @@ class ChangesAgent(BaseAgent):
     # Default templates for different project types
     DEFAULT_TEMPLATES: Dict[str, ChangelogTemplate] = {
         "python": ChangelogTemplate(
-            name="Python Project",
-            project_type="python",
-            sections=["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"],
-            include_contributors=True
+            name = "Python Project",
+            project_type = "python",
+            sections = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"],
+            include_contributors = True
         ),
         "javascript": ChangelogTemplate(
-            name="JavaScript / Node.js Project",
-            project_type="javascript",
-            sections=["Features", "Bug Fixes", "Breaking Changes", "Documentation"],
+            name = "JavaScript / Node.js Project",
+            project_type = "javascript",
+            sections = ["Features", "Bug Fixes", "Breaking Changes", "Documentation"],
         ),
         "generic": ChangelogTemplate(
-            name="Generic Project",
-            project_type="generic",
-            sections=["Added", "Changed", "Fixed", "Removed"],
+            name = "Generic Project",
+            project_type = "generic",
+            sections = ["Added", "Changed", "Fixed", "Removed"],
         ),
     }
 
     # Default validation rules
     DEFAULT_VALIDATION_RULES: List[ValidationRule] = [
         ValidationRule(
-            name="version_format",
+            name = "version_format",
             pattern=r"^\d+\.\d+\.\d+$",
-            message="Version should follow semantic versioning (X.Y.Z)",
-            severity="warning"
+            message = "Version should follow semantic versioning (X.Y.Z)",
+            severity = "warning"
         ),
         ValidationRule(
-            name="date_format",
+            name = "date_format",
             pattern=r"^\d{4}-\d{2}-\d{2}$",
-            message="Date should be in ISO format (YYYY-MM-DD)",
-            severity="warning"
+            message = "Date should be in ISO format (YYYY-MM-DD)",
+            severity = "warning"
         ),
         ValidationRule(
-            name="entry_not_empty",
+            name = "entry_not_empty",
             pattern=r".{3,}",
-            message="Entry description should not be empty or too short",
-            severity="error"
+            message = "Entry description should not be empty or too short",
+            severity = "error"
         ),
     ]
 
@@ -1311,18 +1311,18 @@ class ChangesAgent(BaseAgent):
 
     def detect_merge_conflicts(self, content: str) -> List[Dict[str, str]]:
         """Detect merge conflict markers in the content."""
-        conflicts=[]
+        conflicts = []
         lines=content.split('\n')
-        in_conflict=False
-        conflict_start=0
-        ours=[]
-        theirs=[]
+        in_conflict = False
+        conflict_start = 0
+        ours = []
+        theirs = []
 
         for i, line in enumerate(lines):
             if line.startswith('<<<<<<<'):
-                in_conflict=True
+                in_conflict = True
                 conflict_start=i
-                ours=[]
+                ours = []
             elif line.startswith('=======') and in_conflict:
                 pass  # Separator
             elif line.startswith('>>>>>>>') and in_conflict:
@@ -1332,9 +1332,9 @@ class ChangesAgent(BaseAgent):
                     "ours": '\n'.join(ours),
                     "theirs": '\n'.join(theirs)
                 })
-                in_conflict=False
-                ours=[]
-                theirs=[]
+                in_conflict = False
+                ours = []
+                theirs = []
             elif in_conflict:
                 if '=======' not in content[content.find('<<<<<<<'):content.find(line)]:
                     ours.append(line)
@@ -1354,21 +1354,21 @@ class ChangesAgent(BaseAgent):
             content: Content with merge conflicts
             resolution: 'ours', 'theirs', or 'both'
         """
-        result=[]
+        result = []
         lines=content.split('\n')
-        in_conflict=False
-        ours_section=True
-        ours=[]
-        theirs=[]
+        in_conflict = False
+        ours_section = True
+        ours = []
+        theirs = []
 
         for line in lines:
             if line.startswith('<<<<<<<'):
-                in_conflict=True
-                ours_section=True
-                ours=[]
-                theirs=[]
+                in_conflict = True
+                ours_section = True
+                ours = []
+                theirs = []
             elif line.startswith('=======') and in_conflict:
-                ours_section=False
+                ours_section = False
             elif line.startswith('>>>>>>>') and in_conflict:
                 # Apply resolution
                 if resolution == "ours":
@@ -1378,7 +1378,7 @@ class ChangesAgent(BaseAgent):
                 else:  # both
                     result.extend(ours)
                     result.extend(theirs)
-                in_conflict=False
+                in_conflict = False
             elif in_conflict:
                 if ours_section:
                     ours.append(line)
@@ -1397,7 +1397,7 @@ class ChangesAgent(BaseAgent):
 
     def validate_entry(self, entry: ChangelogEntry) -> List[Dict[str, str]]:
         """Validate a changelog entry against all rules."""
-        issues=[]
+        issues = []
 
         # Validate version format
         if entry.version:
@@ -1441,7 +1441,7 @@ class ChangesAgent(BaseAgent):
 
     def validate_changelog(self, content: str) -> List[Dict[str, Any]]:
         """Validate the entire changelog content."""
-        all_issues=[]
+        all_issues = []
 
         # Check for merge conflicts
         conflicts=self.detect_merge_conflicts(content)
@@ -1477,12 +1477,12 @@ class ChangesAgent(BaseAgent):
         versions=re.findall(version_pattern, content)
 
         # Count entries per category
-        categories={}
+        categories = {}
         for section in ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"]:
             pattern=rf"###\s*{section}\s*\n(.*?)(?=###|\Z)"
             matches=re.findall(pattern, content, re.DOTALL)
             if matches:
-                entries=[line for line in matches[0].split('\n') if line.strip().startswith('-')]
+                entries = [line for line in matches[0].split('\n') if line.strip().startswith('-')]
                 categories[section] = len(entries)
 
         # Count contributors (if mentioned)
@@ -1540,14 +1540,14 @@ class ChangesAgent(BaseAgent):
 
     def get_entries_by_priority(self, min_priority: int=0) -> List[ChangelogEntry]:
         """Get entries with priority >= min_priority, sorted by priority."""
-        filtered=[e for e in self._entries if e.priority >= min_priority]
+        filtered = [e for e in self._entries if e.priority >= min_priority]
         return sorted(filtered, key=lambda e: e.priority, reverse=True)
 
     def deduplicate_entries(self) -> int:
         """Remove duplicate entries, returns count of removed."""
         seen=set()
-        unique=[]
-        removed=0
+        unique = []
+        removed = 0
 
         for entry in self._entries:
             key=hashlib.md5(
@@ -1575,7 +1575,7 @@ class ChangesAgent(BaseAgent):
                 by_version[version] = []
             by_version[version].append(entry)
 
-        result=[]
+        result = []
         for version, entries in by_version.items():
             date=entries[0].date if entries else datetime.now().strftime("%Y-%m-%d")
             result.append(f"## [{version}] - {date}\n")

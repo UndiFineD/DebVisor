@@ -49,25 +49,25 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 try:
     import matplotlib.pyplot as plt
-    HAS_MATPLOTLIB=True
+    HAS_MATPLOTLIB = True
 except ImportError:
-    HAS_MATPLOTLIB=False
+    HAS_MATPLOTLIB = False
 
 
 class MetricType(Enum):
     """Types of metrics."""
-    COUNTER="counter"
-    GAUGE="gauge"
-    HISTOGRAM="histogram"
-    SUMMARY="summary"
+    COUNTER = "counter"
+    GAUGE = "gauge"
+    HISTOGRAM = "histogram"
+    SUMMARY = "summary"
 
 
 class AlertSeverity(Enum):
     """Alert severity levels."""
-    CRITICAL=4
-    WARNING=3
-    INFO=2
-    DEBUG=1
+    CRITICAL = 4
+    WARNING = 3
+    INFO = 2
+    DEBUG = 1
 
 
 # ========== Session 7 Enums ==========
@@ -75,38 +75,38 @@ class AlertSeverity(Enum):
 
 class StreamingProtocol(Enum):
     """Protocols for real-time stats streaming."""
-    WEBSOCKET="websocket"
-    SSE="server_sent_events"
-    GRPC="grpc"
-    MQTT="mqtt"
+    WEBSOCKET = "websocket"
+    SSE = "server_sent_events"
+    GRPC = "grpc"
+    MQTT = "mqtt"
 
 
 class ExportDestination(Enum):
     """Cloud monitoring export destinations."""
-    DATADOG="datadog"
-    PROMETHEUS="prometheus"
-    GRAFANA="grafana"
-    CLOUDWATCH="cloudwatch"
-    STACKDRIVER="stackdriver"
+    DATADOG = "datadog"
+    PROMETHEUS = "prometheus"
+    GRAFANA = "grafana"
+    CLOUDWATCH = "cloudwatch"
+    STACKDRIVER = "stackdriver"
 
 
 class AggregationType(Enum):
     """Types of metric aggregation for rollups."""
-    SUM="sum"
-    AVG="average"
-    MIN="minimum"
-    MAX="maximum"
-    COUNT="count"
-    P50="percentile_50"
-    P95="percentile_95"
-    P99="percentile_99"
+    SUM = "sum"
+    AVG = "average"
+    MIN = "minimum"
+    MAX = "maximum"
+    COUNT = "count"
+    P50 = "percentile_50"
+    P95 = "percentile_95"
+    P99 = "percentile_99"
 
 
 class FederationMode(Enum):
     """Federation modes for multi-repo aggregation."""
-    PULL="pull"
-    PUSH="push"
-    HYBRID="hybrid"
+    PULL = "pull"
+    PUSH = "push"
+    HYBRID = "hybrid"
 
 
 @dataclass
@@ -288,7 +288,7 @@ class StatsAgent:
         if not self.files:
             raise ValueError("No files provided")
 
-        invalid=[f for f in self.files if not f.exists()]
+        invalid = [f for f in self.files if not f.exists()]
         if invalid:
             logging.warning(f"Files not found: {', '.join(map(str, invalid))}")
             # Filter out invalid files
@@ -310,7 +310,7 @@ class StatsAgent:
 
     def collect_custom_metrics(self) -> Dict[str, float]:
         """Collect all custom metrics."""
-        results={}
+        results = {}
         for name, collector in self._custom_metrics.items():
             try:
                 results[name] = collector()
@@ -367,7 +367,7 @@ class StatsAgent:
         if len(history) < 10:
             return False, 0.0
 
-        values=[m.value for m in history]
+        values = [m.value for m in history]
         mean=sum(values) / len(values)
         variance=sum((x - mean) ** 2 for x in values) / len(values)
         std=math.sqrt(variance) if variance > 0 else 0.001
@@ -419,17 +419,17 @@ class StatsAgent:
             if threshold.metric_name != metric.name:
                 continue
 
-            breached=False
+            breached = False
             if threshold.operator == ">" and metric.value > threshold.value:
-                breached=True
+                breached = True
             elif threshold.operator == "<" and metric.value < threshold.value:
-                breached=True
+                breached = True
             elif threshold.operator == ">=" and metric.value >= threshold.value:
-                breached=True
+                breached = True
             elif threshold.operator == "<=" and metric.value <= threshold.value:
-                breached=True
+                breached = True
             elif threshold.operator == "==" and metric.value == threshold.value:
-                breached=True
+                breached = True
 
             if breached:
                 self._create_alert(metric, threshold)
@@ -476,7 +476,7 @@ class StatsAgent:
         current_stats=self.calculate_stats()
         custom=self.collect_custom_metrics()
 
-        metrics={**current_stats, **custom}
+        metrics = {**current_stats, **custom}
 
         snapshot=MetricSnapshot(
             id=hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:8],
@@ -503,7 +503,7 @@ class StatsAgent:
         if not s1 or not s2:
             return {}
 
-        comparison={}
+        comparison = {}
         all_keys=set(s1.metrics.keys()) | set(s2.metrics.keys())
 
         for key in all_keys:
@@ -539,7 +539,7 @@ class StatsAgent:
 
     def apply_retention_policies(self) -> int:
         """Apply retention policies and return count of removed items."""
-        removed=0
+        removed = 0
         now=datetime.now()
 
         for metric_name, metrics in list(self._metrics.items()):
@@ -577,7 +577,7 @@ class StatsAgent:
         if len(history) < 3:
             return []
 
-        values=[m.value for m in history]
+        values = [m.value for m in history]
         n=len(values)
 
         # Simple linear regression
@@ -665,11 +665,11 @@ class StatsAgent:
     def calculate_stats(self) -> Dict[str, int]:
         """Calculate statistics for each file."""
         total_files=len(self.files)
-        files_with_context=0
-        files_with_changes=0
-        files_with_errors=0
-        files_with_improvements=0
-        files_with_tests=0
+        files_with_context = 0
+        files_with_changes = 0
+        files_with_errors = 0
+        files_with_improvements = 0
+        files_with_tests = 0
 
         for file_path in self.files:
             base=file_path.stem
@@ -696,7 +696,7 @@ class StatsAgent:
 
     def add_trend_analysis(self, previous_stats: Dict[str, int]) -> Dict[str, str]:
         """Compare current stats with previous run and calculate deltas."""
-        deltas={}
+        deltas = {}
         for key, current_value in self.stats.items():
             previous_value=previous_stats.get(key, 0)
             delta=current_value - previous_value
@@ -754,7 +754,7 @@ class StatsAgent:
 
     def generate_comparison_report(self, baseline_stats: Dict[str, int]) -> None:
         """Generate a comparison report between current and baseline stats."""
-        comparison={}
+        comparison = {}
         for key, current_value in self.stats.items():
             baseline_value=baseline_stats.get(key, 0)
             comparison[key] = {
@@ -900,7 +900,7 @@ class StatsStreamer:
         Returns:
             Number of subscribers notified.
         """
-        notified=0
+        notified = 0
         for subscriber in self.subscribers:
             if self.stream_metric(metric):
                 notified += 1
@@ -982,7 +982,7 @@ class StatsFederation:
         Returns:
             Dictionary of metrics per source.
         """
-        results={}
+        results = {}
         for name in self.sources:
             results[name] = self.sync_source(name)
         return results
@@ -1024,7 +1024,7 @@ class StatsFederation:
         Returns:
             Status information per source.
         """
-        status={}
+        status = {}
         for name, source in self.sources.items():
             status[name] = {
                 "enabled": source.enabled,
@@ -1128,7 +1128,7 @@ class MetricNamespaceManager:
         Returns:
             List of namespace names from root to given namespace.
         """
-        hierarchy=[]
+        hierarchy = []
         current=name
         while current:
             hierarchy.insert(0, current)
@@ -1209,7 +1209,7 @@ class AnnotationManager:
         """
         annotations=self.annotations.get(metric_name, [])
         if annotation_type:
-            annotations=[a for a in annotations if a.annotation_type == annotation_type]
+            annotations = [a for a in annotations if a.annotation_type == annotation_type]
         return annotations
 
     def delete_annotation(self, metric_name: str, timestamp: str) -> bool:
@@ -1244,7 +1244,7 @@ class AnnotationManager:
         if metric_name:
             data=self.annotations.get(metric_name, [])
         else:
-            data=[]
+            data = []
             for annotations in self.annotations.values():
                 data.extend(annotations)
 
@@ -1350,7 +1350,7 @@ class SubscriptionManager:
         Returns:
             List of subscription IDs that were notified.
         """
-        notified=[]
+        notified = []
         now=datetime.now()
 
         for sub_id, sub in self.subscriptions.items():
@@ -1480,9 +1480,9 @@ class CloudExporter:
 
     def _export_prometheus(self) -> None:
         """Export in Prometheus format."""
-        lines=[]
+        lines = []
         for m in self.export_queue:
-            tags=",".join(f'{k}="{v}"' for k, v in m.tags.items())
+            tags = ",".join(f'{k}="{v}"' for k, v in m.tags.items())
             lines.append(f"{m.name}{{{tags}}} {m.value}")
         logging.debug("Prometheus export:\n" + "\n".join(lines))
 
@@ -1604,11 +1604,11 @@ class ABComparisonEngine:
         val_b=comp.metrics_b.get(metric_name, 0)
 
         if val_a == val_b:
-            winner="tie"
+            winner = "tie"
         elif higher_is_better:
-            winner="a" if val_a > val_b else "b"
+            winner = "a" if val_a > val_b else "b"
         else:
-            winner="a" if val_a < val_b else "b"
+            winner = "a" if val_a < val_b else "b"
 
         improvement=abs(val_b - val_a) / val_a * 100 if val_a != 0 else 0
 
@@ -1847,7 +1847,7 @@ class DerivedMetricCalculator:
         Returns:
             Dictionary of all calculated derived metrics.
         """
-        results={}
+        results = {}
         for name in self.derived_metrics:
             value=self.calculate(name, metric_values)
             if value is not None:
@@ -2120,8 +2120,8 @@ class StatsAPIServer:
 
 def main() -> None:
     parser=argparse.ArgumentParser(
-        description='Stats Agent: Reports file update statistics',
-        epilog='Example: python scripts / agent / agent-stats.py --files scripts / agent/*.py'
+        description = 'Stats Agent: Reports file update statistics',
+        epilog = 'Example: python scripts / agent / agent-stats.py --files scripts / agent/*.py'
     )
     parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
     parser.add_argument('--format', choices=['text', 'json', 'csv'], default='text', help='Output format')

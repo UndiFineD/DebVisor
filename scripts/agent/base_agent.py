@@ -44,77 +44,77 @@ except ImportError:
 try:
     import requests
 except ImportError:  # pragma: no cover
-    requests=None  # type: ignore[assignment]
+    requests = None  # type: ignore[assignment]
 
 
 # ========== Enums for Type Safety ==========
 
 class AgentState(Enum):
     """Agent lifecycle states."""
-    INITIALIZED="initialized"
-    READING="reading"
-    PROCESSING="processing"
-    WRITING="writing"
-    COMPLETED="completed"
-    ERROR="error"
+    INITIALIZED = "initialized"
+    READING = "reading"
+    PROCESSING = "processing"
+    WRITING = "writing"
+    COMPLETED = "completed"
+    ERROR = "error"
 
 
 class ResponseQuality(Enum):
     """AI response quality levels."""
-    EXCELLENT=5
-    GOOD=4
-    ACCEPTABLE=3
-    POOR=2
-    INVALID=1
+    EXCELLENT = 5
+    GOOD = 4
+    ACCEPTABLE = 3
+    POOR = 2
+    INVALID = 1
 
 
 class EventType(Enum):
     """Agent event types for hooks."""
-    PRE_READ="pre_read"
-    POST_READ="post_read"
-    PRE_IMPROVE="pre_improve"
-    POST_IMPROVE="post_improve"
-    PRE_WRITE="pre_write"
-    POST_WRITE="post_write"
-    ERROR="error"
+    PRE_READ = "pre_read"
+    POST_READ = "post_read"
+    PRE_IMPROVE = "pre_improve"
+    POST_IMPROVE = "post_improve"
+    PRE_WRITE = "pre_write"
+    POST_WRITE = "post_write"
+    ERROR = "error"
 
 
 class AuthMethod(Enum):
     """Authentication methods for backends."""
-    NONE="none"
-    API_KEY="api_key"
-    BEARER_TOKEN="bearer_token"
-    BASIC_AUTH="basic_auth"
-    OAUTH2="oauth2"
-    CUSTOM="custom"
+    NONE = "none"
+    API_KEY = "api_key"
+    BEARER_TOKEN = "bearer_token"
+    BASIC_AUTH = "basic_auth"
+    OAUTH2 = "oauth2"
+    CUSTOM = "custom"
 
 
 class SerializationFormat(Enum):
     """Custom serialization formats."""
-    JSON="json"
-    YAML="yaml"
-    MSGPACK="msgpack"
-    PICKLE="pickle"
-    PROTOBUF="protobuf"
+    JSON = "json"
+    YAML = "yaml"
+    MSGPACK = "msgpack"
+    PICKLE = "pickle"
+    PROTOBUF = "protobuf"
 
 
 class FilePriority(Enum):
     """File priority levels for request prioritization."""
-    CRITICAL=5
-    HIGH=4
-    NORMAL=3
-    LOW=2
-    BACKGROUND=1
+    CRITICAL = 5
+    HIGH = 4
+    NORMAL = 3
+    LOW = 2
+    BACKGROUND = 1
 
 
 class InputType(Enum):
     """Input types for multimodal support."""
-    TEXT="text"
-    IMAGE="image"
-    DIAGRAM="diagram"
-    CODE="code"
-    AUDIO="audio"
-    VIDEO="video"
+    TEXT = "text"
+    IMAGE = "image"
+    DIAGRAM = "diagram"
+    CODE = "code"
+    AUDIO = "audio"
+    VIDEO = "video"
 
 
 # ========== Dataclasses for Data Structures ==========
@@ -357,32 +357,32 @@ class FilePriorityConfig:
 
 DEFAULT_PROMPT_TEMPLATES: List[PromptTemplate] = [
     PromptTemplate(
-        id="improve_code",
-        name="Code Improvement",
-        template="Improve the following code:\n\n{content}\n\nFocus on: {focus}",
-        description="General code improvement template",
-        tags=["code", "improvement"]
+        id = "improve_code",
+        name = "Code Improvement",
+        template = "Improve the following code:\n\n{content}\n\nFocus on: {focus}",
+        description = "General code improvement template",
+        tags = ["code", "improvement"]
     ),
     PromptTemplate(
-        id="add_docstrings",
-        name="Add Docstrings",
-        template="Add comprehensive docstrings to all functions and classes:\n\n{content}",
-        description="Template for adding documentation",
-        tags=["documentation"]
+        id = "add_docstrings",
+        name = "Add Docstrings",
+        template = "Add comprehensive docstrings to all functions and classes:\n\n{content}",
+        description = "Template for adding documentation",
+        tags = ["documentation"]
     ),
     PromptTemplate(
-        id="fix_bugs",
-        name="Bug Fix",
-        template="Analyze and fix bugs in this code:\n\n{content}\n\nKnown issues: {issues}",
-        description="Template for bug fixing",
-        tags=["bugs", "fix"]
+        id = "fix_bugs",
+        name = "Bug Fix",
+        template = "Analyze and fix bugs in this code:\n\n{content}\n\nKnown issues: {issues}",
+        description = "Template for bug fixing",
+        tags = ["bugs", "fix"]
     ),
     PromptTemplate(
-        id="add_tests",
-        name="Generate Tests",
-        template="Generate comprehensive tests for:\n\n{content}\n\nCoverage focus: {coverage}",
-        description="Template for test generation",
-        tags=["tests", "coverage"]
+        id = "add_tests",
+        name = "Generate Tests",
+        template = "Generate comprehensive tests for:\n\n{content}\n\nCoverage focus: {coverage}",
+        description = "Template for test generation",
+        tags = ["tests", "coverage"]
     ),
 ]
 
@@ -430,8 +430,8 @@ def setup_logging(verbosity_arg: int=0) -> None:
         level=logging.DEBUG
     logging.basicConfig(
         level=level,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        datefmt='%H:%M:%S'
+        format = '%(asctime)s - %(levelname)s - %(message)s',
+        datefmt = '%H:%M:%S'
     )
     logging.debug(f"Logging configured at level: {logging.getLevelName(level)}")
 
@@ -868,10 +868,10 @@ class BaseAgent:
         diff=difflib.unified_diff(
             self.previous_content.splitlines(keepends=True),
             self.current_content.splitlines(keepends=True),
-            fromfile='previous',
-            tofile='current'
+            fromfile = 'previous',
+            tofile = 'current'
         )
-        diff_str=''.join(diff)
+        diff_str = ''.join(diff)
         if diff_str:
             logging.debug(f"Generated {len(diff_str)} bytes of diff")
         else:
@@ -956,7 +956,7 @@ class BaseAgent:
 
         # Include last few messages for context
         recent=self._conversation_history[-6:]  # Last 3 exchanges
-        context_lines=[]
+        context_lines = []
         for msg in recent:
             context_lines.append(f"[{msg.role}]: {msg.content[:200]}...")
 
@@ -992,7 +992,7 @@ class BaseAgent:
             return ResponseQuality.INVALID
 
         # Basic quality heuristics
-        score=3  # Start at ACCEPTABLE
+        score = 3  # Start at ACCEPTABLE
 
         # Longer responses generally better (to a point)
         if len(response) > 100:
@@ -1001,7 +1001,7 @@ class BaseAgent:
             score -= 1
 
         # Check for error indicators
-        error_indicators=["error", "failed", "unavailable", "unable"]
+        error_indicators = ["error", "failed", "unavailable", "unable"]
         if any(ind in response.lower() for ind in error_indicators):
             score -= 1
 
@@ -1325,7 +1325,7 @@ class RequestBatcher:
 
                 result=BatchResult(
                     file_path=request.file_path,
-                    success=True,
+                    success = True,
                     content=content,
                     processing_time=time.time() - start_time
                 )
@@ -1336,7 +1336,7 @@ class RequestBatcher:
             except Exception as e:
                 result=BatchResult(
                     file_path=request.file_path,
-                    success=False,
+                    success = False,
                     error=str(e),
                     processing_time=time.time() - start_time
                 )
@@ -1552,7 +1552,7 @@ class PromptVersionManager:
         total_weight=sum(v.weight for v in versions)
         r=random.uniform(0, total_weight)
 
-        cumulative=0
+        cumulative = 0
         for version in versions:
             cumulative += version.weight
             if r <= cumulative:
@@ -1621,7 +1621,7 @@ class PromptVersionManager:
             Report with version statistics.
         """
         versions=self.get_versions(template_id)
-        selections=[s for s in self.selection_history if s["template_id"] == template_id]
+        selections = [s for s in self.selection_history if s["template_id"] == template_id]
 
         report: Dict[str, Any] = {
             "template_id": template_id,
@@ -1630,7 +1630,7 @@ class PromptVersionManager:
         }
 
         for version in versions:
-            version_selections=[s for s in selections if s["version_id"] == version.version_id]
+            version_selections = [s for s in selections if s["version_id"] == version.version_id]
             report["versions"][version.version_id] = {
                 "variant": version.variant,
                 "selections": len(version_selections),
@@ -1699,7 +1699,7 @@ class MultimodalProcessor:
         self.add_input(MultimodalInput(
             InputType.CODE,
             code,
-            metadata={"language": language}
+            metadata = {"language": language}
         ))
 
     def build_prompt(self) -> str:
@@ -1836,7 +1836,7 @@ class AgentComposer:
             Dictionary of results from each agent.
         """
         self.results.clear()
-        current_content=""
+        current_content = ""
 
         for agent_type in self.execution_order:
             agent_config=next((a for a in self.agents if a.agent_type == agent_type), None)
@@ -2081,21 +2081,21 @@ def create_main_function(agent_class: Type[BaseAgent], description: str, context
         parser=argparse.ArgumentParser(description=description)
         parser.add_argument(
             '--describe-backends',
-            action='store_true',
-            help='Print which AI backends are available / configured and exit',
+            action = 'store_true',
+            help = 'Print which AI backends are available / configured and exit',
         )
         parser.add_argument(
             '--backend',
-            choices=['auto', 'copilot', 'gh', 'github-models'],
-            default=None,
-            help='Select backend (overrides DV_AGENT_BACKEND for this run only)',
+            choices = ['auto', 'copilot', 'gh', 'github-models'],
+            default = None,
+            help = 'Select backend (overrides DV_AGENT_BACKEND for this run only)',
         )
         parser.add_argument(
             '--verbose',
             '-v',
-            action='count',
-            default=0,
-            help='Increase verbosity (can be used multiple times, e.g. -vv)',
+            action = 'count',
+            default = 0,
+            help = 'Increase verbosity (can be used multiple times, e.g. -vv)',
         )
         parser.add_argument('--context', required=True, help=context_help)
         parser.add_argument('--prompt', required=True, help='Prompt for improving the content')

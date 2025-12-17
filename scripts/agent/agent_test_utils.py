@@ -44,58 +44,58 @@ from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple, TypeVar
 class TestStatus(Enum):
     """Status of a test execution."""
 
-    PASSED="passed"
-    FAILED="failed"
-    SKIPPED="skipped"
-    ERROR="error"
-    PENDING="pending"
+    PASSED = "passed"
+    FAILED = "failed"
+    SKIPPED = "skipped"
+    ERROR = "error"
+    PENDING = "pending"
 
 
 class MockResponseType(Enum):
     """Types of mock AI backend responses."""
 
-    SUCCESS="success"
-    ERROR="error"
-    TIMEOUT="timeout"
-    RATE_LIMITED="rate_limited"
-    EMPTY="empty"
+    SUCCESS = "success"
+    ERROR = "error"
+    TIMEOUT = "timeout"
+    RATE_LIMITED = "rate_limited"
+    EMPTY = "empty"
 
 
 class IsolationLevel(Enum):
     """File system isolation levels."""
 
-    NONE="none"
-    TEMP_DIR="temp_dir"
-    COPY_ON_WRITE="copy_on_write"
-    SANDBOX="sandbox"
+    NONE = "none"
+    TEMP_DIR = "temp_dir"
+    COPY_ON_WRITE = "copy_on_write"
+    SANDBOX = "sandbox"
 
 
 class TestDataType(Enum):
     """Types of test data."""
 
-    PYTHON_CODE="python_code"
-    MARKDOWN="markdown"
-    JSON="json"
-    YAML="yaml"
-    TEXT="text"
+    PYTHON_CODE = "python_code"
+    MARKDOWN = "markdown"
+    JSON = "json"
+    YAML = "yaml"
+    TEXT = "text"
 
 
 class PerformanceMetricType(Enum):
     """Types of performance metrics."""
 
-    EXECUTION_TIME="execution_time"
-    MEMORY_USAGE="memory_usage"
-    FILE_IO="file_io"
-    CPU_TIME="cpu_time"
+    EXECUTION_TIME = "execution_time"
+    MEMORY_USAGE = "memory_usage"
+    FILE_IO = "file_io"
+    CPU_TIME = "cpu_time"
 
 
 class CleanupStrategy(Enum):
     """Cleanup strategies for test resources."""
 
-    IMMEDIATE="immediate"
-    DEFERRED="deferred"
-    ON_SUCCESS="on_success"
-    NEVER="never"
+    IMMEDIATE = "immediate"
+    DEFERRED = "deferred"
+    ON_SUCCESS = "on_success"
+    NEVER = "never"
 
 
 # ============================================================================
@@ -262,7 +262,7 @@ class TestAssertion:
     message: str=""
 
 
-AGENT_DIR=Path(__file__).resolve().parent
+AGENT_DIR = Path(__file__).resolve().parent
 
 
 # ============================================================================
@@ -498,7 +498,7 @@ class TestDataGenerator:
         Returns:
             str: Generated Python code.
         """
-        lines=['"""Generated test module."""', "", "import os", ""]
+        lines = ['"""Generated test module."""', "", "import os", ""]
 
         for i in range(num_functions):
             lines.append(f"def function_{i}(arg1, arg2):")
@@ -528,7 +528,7 @@ class TestDataGenerator:
         Returns:
             str: Generated markdown.
         """
-        lines=[]
+        lines = []
 
         if with_headers:
             lines.append("# Test Document")
@@ -701,7 +701,7 @@ class PerformanceTracker:
             metric=PerformanceMetric(
                 metric_type=PerformanceMetricType.EXECUTION_TIME,
                 value=duration,
-                unit="ms",
+                unit = "ms",
                 test_name=test_name,
             )
             self._metrics.append(metric)
@@ -873,8 +873,8 @@ class SnapshotManager:
             expected.content.splitlines(),
             actual.splitlines(),
             fromfile=f"snapshot/{name}",
-            tofile="actual",
-            lineterm="",
+            tofile = "actual",
+            lineterm = "",
         ))
 
 
@@ -920,7 +920,7 @@ class TestResultAggregator:
         skipped=sum(1 for r in self._results if r.status == TestStatus.SKIPPED)
         errors=sum(1 for r in self._results if r.status == TestStatus.ERROR)
 
-        durations=[r.duration_ms for r in self._results]
+        durations = [r.duration_ms for r in self._results]
 
         return {
             "total": total,
@@ -975,19 +975,19 @@ class AgentAssertions:
         try:
             compile(code, "<string>", "exec")
             assertion=TestAssertion(
-                name="valid_python",
-                expected="valid",
-                actual="valid",
-                passed=True,
+                name = "valid_python",
+                expected = "valid",
+                actual = "valid",
+                passed = True,
             )
             self._assertions.append(assertion)
             return True
         except SyntaxError as e:
             assertion=TestAssertion(
-                name="valid_python",
-                expected="valid",
+                name = "valid_python",
+                expected = "valid",
                 actual=f"invalid: {e}",
-                passed=False,
+                passed = False,
             )
             self._assertions.append(assertion)
             raise AssertionError(f"Invalid Python: {e}")
@@ -1001,10 +1001,10 @@ class AgentAssertions:
         Returns:
             bool: True if contains docstrings.
         """
-        has_docstring='"""' in code or "'''" in code
+        has_docstring = '"""' in code or "'''" in code
         assertion=TestAssertion(
-            name="contains_docstring",
-            expected=True,
+            name = "contains_docstring",
+            expected = True,
             actual=has_docstring,
             passed=has_docstring,
         )
@@ -1030,7 +1030,7 @@ class AgentAssertions:
         Returns:
             bool: True if structure matches.
         """
-        issues=[]
+        issues = []
 
         if headers and not re.search(r"^#+\s", content, re.MULTILINE):
             issues.append("missing headers")
@@ -1040,9 +1040,9 @@ class AgentAssertions:
 
         passed=len(issues) == 0
         assertion=TestAssertion(
-            name="markdown_structure",
-            expected="valid structure",
-            actual=", ".join(issues) if issues else "valid",
+            name = "markdown_structure",
+            expected = "valid structure",
+            actual = ", ".join(issues) if issues else "valid",
             passed=passed,
         )
         self._assertions.append(assertion)
@@ -1063,19 +1063,19 @@ class AgentAssertions:
         try:
             json.loads(content)
             assertion=TestAssertion(
-                name="json_valid",
-                expected="valid",
-                actual="valid",
-                passed=True,
+                name = "json_valid",
+                expected = "valid",
+                actual = "valid",
+                passed = True,
             )
             self._assertions.append(assertion)
             return True
         except json.JSONDecodeError as e:
             assertion=TestAssertion(
-                name="json_valid",
-                expected="valid",
+                name = "json_valid",
+                expected = "valid",
                 actual=f"invalid: {e}",
-                passed=False,
+                passed = False,
             )
             self._assertions.append(assertion)
             raise AssertionError(f"Invalid JSON: {e}")
@@ -1166,9 +1166,9 @@ class ParameterizedTestGenerator:
         import itertools
 
         keys=list(self._parameters.keys())
-        values=[self._parameters[k] for k in keys]
+        values = [self._parameters[k] for k in keys]
 
-        cases=[]
+        cases = []
         for i, combo in enumerate(itertools.product(*values)):
             params=dict(zip(keys, combo))
             expected=self._expected_fn(params) if self._expected_fn else None
@@ -1286,7 +1286,7 @@ class DependencyContainer:
         self._singletons.clear()
 
 
-T=TypeVar("T")
+T = TypeVar("T")
 
 
 # ============================================================================
@@ -1355,8 +1355,8 @@ class FlakinessDetector:
         runs=runs or self.default_runs
         test_name=test_name or test_fn.__name__
 
-        passes=0
-        failures=0
+        passes = 0
+        failures = 0
         failure_messages: List[str] = []
 
         for _ in range(runs):
@@ -1373,9 +1373,9 @@ class FlakinessDetector:
         # 0=all same result, 1=50 / 50 split
         if runs > 0:
             p=passes / runs
-            flakiness=1 - abs(2 * p - 1)  # 0 at 0% or 100%, 1 at 50%
+            flakiness = 1 - abs(2 * p - 1)  # 0 at 0% or 100%, 1 at 50%
         else:
-            flakiness=0.0
+            flakiness = 0.0
 
         report=FlakinessReport(
             test_name=test_name,
@@ -1399,7 +1399,7 @@ class FlakinessDetector:
 
     def get_flaky_tests(self, threshold: float=0.1) -> List[str]:
         """Get tests that exceed flakiness threshold."""
-        flaky=[]
+        flaky = []
         for name, reports in self._history.items():
             if reports and reports[-1].flakiness_score > threshold:
                 flaky.append(name)
@@ -1472,7 +1472,7 @@ class TestDataCleaner:
         if self._cleanup_done and not force:
             return 0
 
-        cleaned=0
+        cleaned = 0
 
         # Clean files
         for file_path in self._files:
@@ -1766,14 +1766,14 @@ class ParallelTestRunner:
             test_fn()
             return ParallelTestResult(
                 test_name=name,
-                passed=True,
+                passed = True,
                 duration_ms=(time.time() - start) * 1000,
                 worker_id=worker_id,
             )
         except Exception as e:
             return ParallelTestResult(
                 test_name=name,
-                passed=False,
+                passed = False,
                 duration_ms=(time.time() - start) * 1000,
                 error=str(e),
                 worker_id=worker_id,
@@ -1790,7 +1790,7 @@ class ParallelTestRunner:
         self._results=[]
 
         with ThreadPoolExecutor(max_workers=self.workers) as executor:
-            futures={}
+            futures = {}
             for i, (name, test_fn) in enumerate(self._tests.items()):
                 worker_id=i % self.workers
                 future=executor.submit(self._run_test, name, test_fn, worker_id)
@@ -1939,7 +1939,7 @@ class TestRecorder:
 
     def save(self, path: Path) -> None:
         """Save recordings to file."""
-        data=[]
+        data = []
         for r in self._recordings:
             data.append({
                 "call_type": r.call_type,
@@ -2086,7 +2086,7 @@ class BaselineManager:
         if not baseline:
             return {"error": "no baseline"}
 
-        diffs={}
+        diffs = {}
         for key, current_val in current.items():
             if key not in baseline.values:
                 diffs[key] = {"status": "new", "current": current_val}

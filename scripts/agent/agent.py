@@ -58,14 +58,14 @@ from enum import Enum, auto
 from abc import ABC, abstractmethod
 try:
     import requests
-    HAS_REQUESTS=True
+    HAS_REQUESTS = True
 except ImportError:
-    HAS_REQUESTS=False
+    HAS_REQUESTS = False
 try:
     from tqdm import tqdm
-    HAS_TQDM=True
+    HAS_TQDM = True
 except ImportError:
-    HAS_TQDM=False
+    HAS_TQDM = False
 
     def tqdm(iterable, *args, **kwargs):
         """Fallback if tqdm not available."""
@@ -102,60 +102,60 @@ _CODEIGNORE_CACHE_TIME: Dict[str, float] = {}
 
 class AgentExecutionState(Enum):
     """Execution state for an agent run."""
-    PENDING=auto()
-    RUNNING=auto()
-    COMPLETED=auto()
-    FAILED=auto()
-    CANCELLED=auto()
-    PAUSED=auto()
+    PENDING = auto()
+    RUNNING = auto()
+    COMPLETED = auto()
+    FAILED = auto()
+    CANCELLED = auto()
+    PAUSED = auto()
 
 
 class RateLimitStrategy(Enum):
     """Rate limiting strategy for API calls."""
-    FIXED_WINDOW=auto()      # Fixed time window rate limiting
-    SLIDING_WINDOW=auto()    # Sliding window rate limiting
-    TOKEN_BUCKET=auto()      # Token bucket algorithm
-    LEAKY_BUCKET=auto()      # Leaky bucket algorithm
+    FIXED_WINDOW = auto()      # Fixed time window rate limiting
+    SLIDING_WINDOW = auto()    # Sliding window rate limiting
+    TOKEN_BUCKET = auto()      # Token bucket algorithm
+    LEAKY_BUCKET = auto()      # Leaky bucket algorithm
 
 
 class ConfigFormat(Enum):
     """Configuration file format."""
-    YAML=auto()
-    TOML=auto()
-    JSON=auto()
-    INI=auto()
+    YAML = auto()
+    TOML = auto()
+    JSON = auto()
+    INI = auto()
 
 
 class LockType(Enum):
     """File locking type."""
-    SHARED=auto()       # Multiple readers allowed
-    EXCLUSIVE=auto()    # Single writer only
-    ADVISORY=auto()     # Advisory lock (not enforced by OS)
+    SHARED = auto()       # Multiple readers allowed
+    EXCLUSIVE = auto()    # Single writer only
+    ADVISORY = auto()     # Advisory lock (not enforced by OS)
 
 
 class DiffOutputFormat(Enum):
     """Output format for diff preview."""
-    UNIFIED=auto()      # Unified diff format
-    CONTEXT=auto()      # Context diff format
-    SIDE_BY_SIDE=auto()  # Side by side diff
-    HTML=auto()         # HTML formatted diff
+    UNIFIED = auto()      # Unified diff format
+    CONTEXT = auto()      # Context diff format
+    SIDE_BY_SIDE = auto()  # Side by side diff
+    HTML = auto()         # HTML formatted diff
 
 
 class AgentPriority(Enum):
     """Priority level for agent execution."""
-    CRITICAL=1
-    HIGH=2
-    NORMAL=3
-    LOW=4
-    BACKGROUND=5
+    CRITICAL = 1
+    HIGH = 2
+    NORMAL = 3
+    LOW = 4
+    BACKGROUND = 5
 
 
 class HealthStatus(Enum):
     """Health status for components."""
-    HEALTHY=auto()
-    DEGRADED=auto()
-    UNHEALTHY=auto()
-    UNKNOWN=auto()
+    HEALTHY = auto()
+    DEGRADED = auto()
+    UNHEALTHY = auto()
+    UNKNOWN = auto()
 
 
 # =============================================================================
@@ -771,7 +771,7 @@ class IncrementalProcessor:
         Returns:
             List of files that have changed.
         """
-        changed=[]
+        changed = []
 
         for file_path in files:
             path_str=str(file_path)
@@ -934,7 +934,7 @@ class GracefulShutdown:
         try:
             data=json.loads(self.state_file.read_text())
             state=ShutdownState(
-                shutdown_requested=False,  # Reset for resume
+                shutdown_requested = False,  # Reset for resume
                 current_file=data.get('current_file'),
                 completed_files=data.get('completed_files', []),
                 pending_files=data.get('pending_files', []),
@@ -970,7 +970,7 @@ class ConfigLoader:
         format: Configuration file format.
     """
 
-    SUPPORTED_EXTENSIONS={
+    SUPPORTED_EXTENSIONS = {
         '.yaml': ConfigFormat.YAML,
         '.yml': ConfigFormat.YAML,
         '.toml': ConfigFormat.TOML,
@@ -1035,7 +1035,7 @@ class ConfigLoader:
     def _build_config(self, data: Dict[str, Any]) -> AgentConfig:
         """Build AgentConfig from parsed data."""
         # Build rate limit config
-        rate_limit=None
+        rate_limit = None
         if 'rate_limit' in data:
             rl_data=data['rate_limit']
             rate_limit=RateLimitConfig(
@@ -1046,7 +1046,7 @@ class ConfigLoader:
             )
 
         # Build plugin configs
-        plugins=[]
+        plugins = []
         for plugin_data in data.get('plugins', []):
             plugins.append(AgentPluginConfig(
                 name=plugin_data.get('name', 'unknown'),
@@ -1149,7 +1149,7 @@ class HealthChecker:
                 agent_name=agent_name,
                 status=HealthStatus.HEALTHY,
                 response_time_ms=response_time,
-                details={'script_path': str(script_path)}
+                details = {'script_path': str(script_path)}
             )
         except SyntaxError as e:
             return AgentHealthCheck(
@@ -1169,28 +1169,28 @@ class HealthChecker:
         try:
             result=subprocess.run(
                 ['git', '--version'],
-                capture_output=True,
-                text=True,
-                timeout=5
+                capture_output = True,
+                text = True,
+                timeout = 5
             )
             response_time=(time.time() - start_time) * 1000
 
             if result.returncode == 0:
                 return AgentHealthCheck(
-                    agent_name='git',
+                    agent_name = 'git',
                     status=HealthStatus.HEALTHY,
                     response_time_ms=response_time,
-                    details={'version': result.stdout.strip()}
+                    details = {'version': result.stdout.strip()}
                 )
             else:
                 return AgentHealthCheck(
-                    agent_name='git',
+                    agent_name = 'git',
                     status=HealthStatus.UNHEALTHY,
                     error_message=result.stderr
                 )
         except Exception as e:
             return AgentHealthCheck(
-                agent_name='git',
+                agent_name = 'git',
                 status=HealthStatus.UNHEALTHY,
                 error_message=str(e)
             )
@@ -1205,7 +1205,7 @@ class HealthChecker:
         response_time=(time.time() - start_time) * 1000
 
         return AgentHealthCheck(
-            agent_name='python',
+            agent_name = 'python',
             status=HealthStatus.HEALTHY,
             response_time_ms=response_time,
             details={
@@ -1447,16 +1447,16 @@ class GitBranchProcessor:
             result=subprocess.run(
                 ["git", "diff", "--name-only", f"{base_branch}...{branch}"],
                 cwd=self.repo_root,
-                capture_output=True,
-                text=True,
-                timeout=30,
+                capture_output = True,
+                text = True,
+                timeout = 30,
             )
 
             if result.returncode != 0:
                 logging.warning(f"Git diff failed: {result.stderr}")
                 return []
 
-            files=[]
+            files = []
             for line in result.stdout.strip().split("\n"):
                 if not line:
                     continue
@@ -1479,9 +1479,9 @@ class GitBranchProcessor:
             result=subprocess.run(
                 ["git", "branch", "--show-current"],
                 cwd=self.repo_root,
-                capture_output=True,
-                text=True,
-                timeout=10,
+                capture_output = True,
+                text = True,
+                timeout = 10,
             )
             return result.stdout.strip() if result.returncode == 0 else None
         except Exception:
@@ -1500,9 +1500,9 @@ class GitBranchProcessor:
             result=subprocess.run(
                 ["git", "branch", "--list", "--format=%(refname:short)"],
                 cwd=self.repo_root,
-                capture_output=True,
-                text=True,
-                timeout=10,
+                capture_output = True,
+                text = True,
+                timeout = 10,
             )
 
             if result.returncode != 0:
@@ -1510,7 +1510,7 @@ class GitBranchProcessor:
 
             branches=result.stdout.strip().split("\n")
             if pattern:
-                branches=[b for b in branches if fnmatch.fnmatch(b, pattern)]
+                branches = [b for b in branches if fnmatch.fnmatch(b, pattern)]
 
             return branches
 
@@ -1548,10 +1548,10 @@ class ValidationRuleManager:
     Example:
         manager=ValidationRuleManager()
         manager.add_rule(ValidationRule(
-            name="max_line_length",
-            file_pattern="*.py",
+            name = "max_line_length",
+            file_pattern = "*.py",
             validator=lambda content, path: all(len(l) <= 100 for l in content.split("\\n")),
-            error_message="Line too long (>100 chars)",
+            error_message = "Line too long (>100 chars)",
         ))
         results=manager.validate(file_path, content)
     """
@@ -1592,7 +1592,7 @@ class ValidationRuleManager:
         Returns:
             List of validation results.
         """
-        results=[]
+        results = []
 
         for rule in self._rules.values():
             if fnmatch.fnmatch(file_path.name, rule.file_pattern):
@@ -1696,10 +1696,10 @@ class AgentPriorityQueue:
         """
         # Topological sort with priority
         executed=set()
-        order=[]
+        order = []
 
         while len(order) < len(self._agents):
-            available=[]
+            available = []
 
             for name, info in self._agents.items():
                 if name in executed:
@@ -1712,7 +1712,7 @@ class AgentPriorityQueue:
 
             if not available:
                 # Cycle detected or error
-                remaining=[n for n in self._agents if n not in executed]
+                remaining = [n for n in self._agents if n not in executed]
                 logging.warning(f"Dependency cycle detected, adding remaining: {remaining}")
                 order.extend(sorted(remaining))
                 break
@@ -1827,7 +1827,7 @@ class TelemetryCollector:
         Returns:
             JSON string of spans.
         """
-        spans_data=[]
+        spans_data = []
         for span in self._spans:
             spans_data.append({
                 "name": span.name,
@@ -1978,7 +1978,7 @@ class ConditionalExecutor:
         condition_names=config["conditions"]
         require_all=config["require_all"]
 
-        results=[]
+        results = []
         for cond_name in condition_names:
             if cond_name not in self._conditions:
                 continue
@@ -2027,9 +2027,9 @@ class TemplateManager:
     Example:
         manager=TemplateManager()
         manager.add_template(AgentTemplate(
-            name="python_cleanup",
-            agents=["coder", "tests"],
-            file_patterns=["*.py"],
+            name = "python_cleanup",
+            agents = ["coder", "tests"],
+            file_patterns = ["*.py"],
         ))
 
         template=manager.get_template("python_cleanup")
@@ -2044,25 +2044,25 @@ class TemplateManager:
     def _register_defaults(self) -> None:
         """Register default templates."""
         self._templates["python_full"] = AgentTemplate(
-            name="python_full",
-            description="Full Python code improvement",
-            agents=["coder", "tests", "documentation", "errors"],
-            file_patterns=["*.py"],
+            name = "python_full",
+            description = "Full Python code improvement",
+            agents = ["coder", "tests", "documentation", "errors"],
+            file_patterns = ["*.py"],
         )
 
         self._templates["markdown_docs"] = AgentTemplate(
-            name="markdown_docs",
-            description="Markdown documentation improvement",
-            agents=["documentation"],
-            file_patterns=["*.md"],
+            name = "markdown_docs",
+            description = "Markdown documentation improvement",
+            agents = ["documentation"],
+            file_patterns = ["*.md"],
         )
 
         self._templates["quick_fix"] = AgentTemplate(
-            name="quick_fix",
-            description="Quick fixes only",
-            agents=["coder"],
-            config={"max_files": 10},
-            file_patterns=["*.py"],
+            name = "quick_fix",
+            description = "Quick fixes only",
+            agents = ["coder"],
+            config = {"max_files": 10},
+            file_patterns = ["*.py"],
         )
 
     def add_template(self, template: AgentTemplate) -> None:
@@ -2140,7 +2140,7 @@ class DependencyGraph:
         Raises:
             ValueError: If circular dependency detected.
         """
-        in_degree={n: 0 for n in self._nodes}
+        in_degree = {n: 0 for n in self._nodes}
 
         for node, deps in self._edges.items():
             for dep in deps:
@@ -2148,17 +2148,17 @@ class DependencyGraph:
                 pass  # Actually, we track outgoing
 
         # Build reverse graph for topological sort
-        reverse={n: set() for n in self._nodes}
+        reverse = {n: set() for n in self._nodes}
         for node, deps in self._edges.items():
             for dep in deps:
                 reverse[dep].add(node)
 
         # Calculate in-degree based on dependencies
-        in_degree={n: len(self._edges.get(n, set())) for n in self._nodes}
+        in_degree = {n: len(self._edges.get(n, set())) for n in self._nodes}
 
         # Start with nodes that have no dependencies
-        queue=[n for n in self._nodes if in_degree[n] == 0]
-        result=[]
+        queue = [n for n in self._nodes if in_degree[n] == 0]
+        result = []
 
         while queue:
             node=queue.pop(0)
@@ -2222,25 +2222,25 @@ class ProfileManager:
     def _register_defaults(self) -> None:
         """Register default profiles."""
         self._profiles["default"] = ExecutionProfile(
-            name="default",
-            timeout=120,
-            parallel=False,
+            name = "default",
+            timeout = 120,
+            parallel = False,
         )
 
         self._profiles["fast"] = ExecutionProfile(
-            name="fast",
-            max_files=10,
-            timeout=60,
-            parallel=True,
-            workers=4,
+            name = "fast",
+            max_files = 10,
+            timeout = 60,
+            parallel = True,
+            workers = 4,
         )
 
         self._profiles["ci"] = ExecutionProfile(
-            name="ci",
-            timeout=300,
-            parallel=True,
-            workers=2,
-            dry_run=True,
+            name = "ci",
+            timeout = 300,
+            parallel = True,
+            workers = 2,
+            dry_run = True,
         )
 
     def add_profile(self, profile: ExecutionProfile) -> None:
@@ -2386,7 +2386,7 @@ class ResultCache:
         Returns:
             Number of entries invalidated.
         """
-        to_remove=[k for k in self._memory_cache if k.startswith(f"{file_path}:")]
+        to_remove = [k for k in self._memory_cache if k.startswith(f"{file_path}:")]
         for key in to_remove:
             del self._memory_cache[key]
         return len(to_remove)
@@ -2617,8 +2617,8 @@ def setup_logging(verbosity: str) -> None:
     level=levels.get(verbosity.lower(), logging.INFO)
     logging.basicConfig(
         level=level,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        datefmt='%H:%M:%S'
+        format = '%(asctime)s - %(levelname)s - %(message)s',
+        datefmt = '%H:%M:%S'
     )
     logging.debug(f"Logging configured at level: {logging.getLevelName(level)}")
 
@@ -2806,7 +2806,7 @@ class Agent:
         - Runs sub-agents on each file for improvements
         - Optionally commits changes back to git
     """
-    SUPPORTED_EXTENSIONS={'.py', '.sh', '.js', '.ts', '.go', '.rb'}
+    SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
     def __init__(self, repo_root: str='.', agents_only: bool=False,
             max_files: Optional[int] = None, loop: int=1, skip_code_update: bool=False,
@@ -2941,7 +2941,7 @@ class Agent:
         self.metrics['end_time'] = time.time()
         elapsed=self.metrics['end_time'] - self.metrics['start_time']
 
-        summary="""
+        summary = """
 === Agent Execution Summary ===
 Files processed: {self.metrics['files_processed']}
 Files modified:  {self.metrics['files_modified']}
@@ -3123,7 +3123,7 @@ Agents applied:
         try:
             current_time=time.time()
             max_age_seconds=max_age_days * 24 * 60 * 60
-            snapshots_deleted=0
+            snapshots_deleted = 0
 
             # Group snapshots by file
             snapshots_by_file: Dict[str, List[Path]] = {}
@@ -3337,12 +3337,12 @@ Agents applied:
                 result=subprocess.run(
                     cmd,
                     cwd=self.repo_root,
-                    capture_output=True,
-                    text=True,
+                    capture_output = True,
+                    text = True,
                     timeout=timeout,
-                    encoding='utf-8',
-                    errors='replace',
-                    check=False
+                    encoding = 'utf-8',
+                    errors = 'replace',
+                    check = False
                 )
                 logging.debug(f"Command completed with returncode={result.returncode}")
                 return result
@@ -3424,7 +3424,7 @@ Agents applied:
             - Limited by max_files parameter if set
         """
         logging.info("Searching for code files...")
-        code_files=[]
+        code_files = []
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
         logging.debug(f"Found {len(code_files)} files with supported extensions")
@@ -3432,7 +3432,7 @@ Agents applied:
         # Filter to scripts / agent directory if agents_only is True
         if self.agents_only:
             scripts_agent_dir=self.repo_root / 'scripts' / 'agent'
-            code_files=[f for f in code_files if f.is_relative_to(scripts_agent_dir)]
+            code_files = [f for f in code_files if f.is_relative_to(scripts_agent_dir)]
             logging.info(f"Filtered to scripts / agent directory: {len(code_files)} files")
 
         # Apply ignore patterns
@@ -3477,7 +3477,7 @@ Agents applied:
 
     def run_stats_update(self, files: List[Path]) -> None:
         """Run stats update."""
-        file_paths=[str(f) for f in files]
+        file_paths = [str(f) for f in files]
         cmd=[
             sys.executable,
             str(self.repo_root / 'scripts / agent / agent-stats.py'),
@@ -3491,7 +3491,7 @@ Agents applied:
         tests_file=code_file.parent / test_name
         if tests_file.exists():
             logging.info(f"Running tests for {code_file.name}...")
-            cmd=[sys.executable, '-m', 'pytest', str(tests_file), '-v']
+            cmd = [sys.executable, '-m', 'pytest', str(tests_file), '-v']
             result=self._run_command(cmd)
             if result.returncode != 0:
                 logging.warning(f"Tests failed for {code_file.name}:")
@@ -3508,13 +3508,13 @@ Agents applied:
         dir_path=code_file.parent
         errors_file=dir_path / f"{base}.errors.md"
         improvements_file=dir_path / f"{base}.improvements.md"
-        changes_made=False
+        changes_made = False
         # Create errors file if it doesn't exist
         if not errors_file.exists():
             content=f"# Errors\n\nNo errors reported for {code_file.name}.\n"
             errors_file.write_text(fix_markdown_content(content), encoding='utf-8')
             logging.info(f"Created {errors_file.relative_to(self.repo_root)}")
-            changes_made=True
+            changes_made = True
         # Update errors
         prompt=f"Analyze and improve the error report for {code_file.name}"
         cmd=[
@@ -3530,16 +3530,16 @@ Agents applied:
         stderr_ok=not result.stderr or "No changes made" not in result.stderr
 
         if stdout_ok and stderr_ok:
-            changes_made=True
+            changes_made = True
         # Create improvements file if it doesn't exist
         if not improvements_file.exists():
             content=f"# Improvements\n\nNo improvements suggested for {code_file.name}.\n"
             improvements_file.write_text(
                 fix_markdown_content(content),
-                encoding='utf-8'
+                encoding = 'utf-8'
             )
             logging.info(f"Created {improvements_file.relative_to(self.repo_root)}")
-            changes_made=True
+            changes_made = True
         # Update improvements
         prompt=f"Suggest and improve improvements for {code_file.name}"
         cmd=[
@@ -3555,7 +3555,7 @@ Agents applied:
         stderr_ok=not result.stderr or "No changes made" not in result.stderr
 
         if stdout_ok and stderr_ok:
-            changes_made=True
+            changes_made = True
         return bool(changes_made)
 
     def _get_pending_improvements(self, improvements_file: Path) -> List[str]:
@@ -3565,7 +3565,7 @@ Agents applied:
         try:
             content=improvements_file.read_text(encoding='utf-8')
             lines=content.splitlines()
-            pending=[]
+            pending = []
             import re
             # Match "1. ", "1) ", "- [ ]", "- ", "* "
             list_pattern=re.compile(r'^(\d+[\.\)]|\*|\-)\s+(\[ \]\s+)?(.*)')
@@ -3599,18 +3599,18 @@ Agents applied:
         try:
             content=improvements_file.read_text(encoding='utf-8')
             lines=content.splitlines()
-            new_lines=[]
+            new_lines = []
             for line in lines:
-                updated=False
+                updated = False
                 for item in fixed_items:
                     if item in line:
                         if '- [ ]' in line:
                             new_lines.append(line.replace('- [ ]', '- [x]'))
-                            updated=True
+                            updated = True
                             break
                         elif '[x]' not in line and '[Fixed]' not in line:
                             new_lines.append(line + " [Fixed]")
-                            updated=True
+                            updated = True
                             break
                 if not updated:
                     new_lines.append(line)
@@ -3625,7 +3625,7 @@ Agents applied:
             return
         try:
             content=changes_file.read_text(encoding='utf-8')
-            new_entries="\n".join([f"- Fixed: {item}" for item in fixed_items])
+            new_entries = "\n".join([f"- Fixed: {item}" for item in fixed_items])
             # Append to the end or after the header
             if "# Changelog" in content:
                 # Just append to end for now
@@ -3647,7 +3647,7 @@ Agents applied:
         # Limit to top 3 to avoid overwhelming
         target_improvements=pending_improvements[:3]
         if target_improvements:
-            improvements_text="\n".join([f"- {item}" for item in target_improvements])
+            improvements_text = "\n".join([f"- {item}" for item in target_improvements])
             prompt=(
                 f"Improve the code in {code_file.name} by implementing the following specific improvements:\n"
                 f"{improvements_text}\n\n"
@@ -3684,13 +3684,13 @@ Agents applied:
         changes_file=dir_path / f"{base}.changes.md"
         context_file=dir_path / f"{base}.description.md"
         tests_file=dir_path / f"test_{base}.py"
-        changes_made=False
+        changes_made = False
         # Create changelog file if it doesn't exist
         if not changes_file.exists():
             content=f"# Changelog\n\n- Initial version of {code_file.name}\n"
             changes_file.write_text(fix_markdown_content(content), encoding='utf-8')
             logging.info(f"Created {changes_file.relative_to(self.repo_root)}")
-            changes_made=True
+            changes_made = True
         # Update changelog
         prompt=f"Update the changelog for {code_file.name} with recent changes"
         cmd=[
@@ -3706,13 +3706,13 @@ Agents applied:
         stderr_ok=not result.stderr or "No changes made" not in result.stderr
 
         if stdout_ok and stderr_ok:
-            changes_made=True
+            changes_made = True
         # Create context file if it doesn't exist
         if not context_file.exists():
             content=f"# Description\n\n{code_file.name} - Description to be added.\n"
             context_file.write_text(fix_markdown_content(content), encoding='utf-8')
             logging.info(f"Created {context_file.relative_to(self.repo_root)}")
-            changes_made=True
+            changes_made = True
         # Update context
         prompt=f"Update the description for {code_file.name} based on current code"
         cmd=[
@@ -3723,10 +3723,10 @@ Agents applied:
             ]
         result=self._run_command(cmd)
         if result.stdout and "No changes made" not in result.stdout and (not result.stderr or "No changes made" not in result.stderr):
-            changes_made=True
+            changes_made = True
         # Create tests file if it doesn't exist and the code file is not already a test file
         if not tests_file.exists() and not base.startswith('test_'):
-            content="""# Tests for {code_file.name}
+            content = """# Tests for {code_file.name}
 import pytest
 
 def test_placeholder():
@@ -3738,7 +3738,7 @@ def test_placeholder():
             # Tests are Python files; do not run markdown normalization on them
             tests_file.write_text(content, encoding='utf-8')
             logging.info(f"Created {tests_file.relative_to(self.repo_root)}")
-            changes_made=True
+            changes_made = True
         # Update tests - if this is a test file, update it directly; otherwise update the associated test file
         if base.startswith('test_'):
             # This is already a test file, update it directly
@@ -3756,7 +3756,7 @@ def test_placeholder():
         ]
         result=self._run_command(cmd)
         if result.stdout and "No changes made" not in result.stdout and (not result.stderr or "No changes made" not in result.stderr):
-            changes_made=True
+            changes_made = True
         return bool(changes_made)
 
     def _check_files_ready(self, code_file: Path) -> bool:
@@ -3776,7 +3776,7 @@ def test_placeholder():
 
     def _perform_iteration(self, code_file: Path) -> bool:
         """Perform one iteration of improvements on the code file."""
-        changes_made=False
+        changes_made = False
         # Give a Stats update
         self.run_stats_update([code_file])
         # Run the Tests on the Codefile
@@ -3912,7 +3912,7 @@ def test_placeholder():
                 requests.post(
                     webhook_url,
                     json=payload,
-                    timeout=5
+                    timeout = 5
                 )
                 logging.debug(f"Webhook sent successfully to {webhook_url}")
             except Exception as e:
@@ -3976,7 +3976,7 @@ def test_placeholder():
             - File processing happens in separate threads
             - Modified files are tracked in metrics
         """
-        modified_files=[]
+        modified_files = []
 
         async def process_file_async(file_path: Path):
             """Process a single file asynchronously."""
@@ -3990,7 +3990,7 @@ def test_placeholder():
                 logging.error(f"[async] Failed to process {file_path.name}: {e}")
 
         # Create tasks for all files
-        tasks=[process_file_async(f) for f in files]
+        tasks = [process_file_async(f) for f in files]
 
         # Run tasks concurrently
         if tasks:
@@ -4024,7 +4024,7 @@ def test_placeholder():
             - Progress tracking works with tqdm if available
             - Modified count is estimated from total processed
         """
-        processed_files=[]
+        processed_files = []
 
         # Use ThreadPoolExecutor for parallel processing (easier pickling than ProcessPoolExecutor)
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
@@ -4034,11 +4034,11 @@ def test_placeholder():
             results=list(tqdm(
                 executor.map(worker_func, files),
                 total=len(files),
-                desc="Processing files (multiprocessing)"
+                desc = "Processing files (multiprocessing)"
             ) if HAS_TQDM else executor.map(worker_func, files))
 
         # Filter out None results
-        processed_files=[f for f in results if f is not None]
+        processed_files = [f for f in results if f is not None]
         self.metrics['files_processed'] = len(processed_files)
 
         return processed_files
@@ -4067,7 +4067,7 @@ def test_placeholder():
             - Shared state (metrics) is updated from worker threads
             - Progress tracking with tqdm if available
         """
-        processed_files=[]
+        processed_files = []
 
         def worker_thread_process_file(file_path: Path) -> Path:
             """Worker function to process a file in a separate thread."""
@@ -4085,11 +4085,11 @@ def test_placeholder():
             results=list(tqdm(
                 executor.map(worker_thread_process_file, files),
                 total=len(files),
-                desc="Processing files (threaded)"
+                desc = "Processing files (threaded)"
             ) if HAS_TQDM else executor.map(worker_thread_process_file, files))
 
         # Filter out None results
-        processed_files=[f for f in results if f is not None]
+        processed_files = [f for f in results if f is not None]
         self.metrics['files_processed'] = len(processed_files)
 
         return processed_files
@@ -4155,9 +4155,9 @@ def test_placeholder():
                 self.shutdown_handler.set_current_file(code_file)
 
             logging.info(f"Processing {code_file.relative_to(self.repo_root)}...")
-            max_iterations=1
-            iteration=0
-            all_fixed=False
+            max_iterations = 1
+            iteration = 0
+            all_fixed = False
             while not all_fixed and iteration < max_iterations:
                 iteration += 1
                 logging.info(f"Iteration {iteration} for {code_file.name}")
@@ -4167,7 +4167,7 @@ def test_placeholder():
                 changes_made=self._perform_iteration(code_file)
                 # Check if all is marked as fixed (no more changes needed)
                 if not changes_made:
-                    all_fixed=True
+                    all_fixed = True
                     logging.info(f"No changes made in iteration {iteration}, marking as fixed")
                 else:
                     logging.info(f"Changes made in iteration {iteration}, continuing...")
@@ -4264,7 +4264,7 @@ def test_placeholder():
         if not hasattr(self, 'plugins') or not self.plugins:
             return {}
 
-        results={}
+        results = {}
         context={
             'agent': self,
             'repo_root': self.repo_root,
@@ -4345,8 +4345,8 @@ def test_placeholder():
 
         Example:
             agent.enable_rate_limiting(RateLimitConfig(
-                requests_per_second=5.0,
-                burst_size=10
+                requests_per_second = 5.0,
+                burst_size = 10
             ))
         """
         self.rate_limiter=RateLimiter(config)
@@ -4621,52 +4621,52 @@ def test_placeholder():
 
 def main() -> None:
     parser=argparse.ArgumentParser(
-        description='Agent: Orchestrates code improvement agents'
+        description = 'Agent: Orchestrates code improvement agents'
     )
     parser.add_argument('--dir', default='.', help='Directory to process (default: .)')
     parser.add_argument('--agents-only', action='store_true',
-                        help='Only process files in the scripts / agent directory')
+                        help = 'Only process files in the scripts / agent directory')
     parser.add_argument('--max-files', type=int, help='Maximum number of files to process')
     parser.add_argument('--loop', type=int, default=1,
-                        help='Number of times to loop through all files (default: 1)')
+                        help = 'Number of times to loop through all files (default: 1)')
     parser.add_argument('--skip-code-update', action='store_true',
-                        help='Skip code updates and tests, only update documentation')
+                        help = 'Skip code updates and tests, only update documentation')
     parser.add_argument('--verbose', default='normal',
-                        help='Verbosity level: quiet, minimal, normal, elaborate (or 0-3)')
+                        help = 'Verbosity level: quiet, minimal, normal, elaborate (or 0-3)')
     parser.add_argument('--no-git', action='store_true',
-                        help='Skip git commit and push operations')
+                        help = 'Skip git commit and push operations')
     parser.add_argument('--dry-run', action='store_true',
-                        help='Preview changes without modifying files')
+                        help = 'Preview changes without modifying files')
     parser.add_argument('--only-agents', type=str, metavar='AGENTS',
-                        help='Comma-separated list of agents to execute (e.g., coder,tests,documentation)')
+                        help = 'Comma-separated list of agents to execute (e.g., coder,tests,documentation)')
     parser.add_argument('--timeout', type=int, metavar='SECONDS', default=120,
-                        help='Default timeout per agent in seconds (default: 120)')
+                        help = 'Default timeout per agent in seconds (default: 120)')
     # Phase 4c: Parallel execution arguments
     parser.add_argument('--async', dest='enable_async', action='store_true',
-                        help='Enable async file processing for concurrent I / O')
+                        help = 'Enable async file processing for concurrent I / O')
     parser.add_argument('--multiprocessing', dest='enable_multiprocessing', action='store_true',
-                        help='Enable multiprocessing for parallel agent execution')
+                        help = 'Enable multiprocessing for parallel agent execution')
     parser.add_argument('--workers', type=int, default=4,
-                        help='Number of worker threads / processes (default: 4)')
+                        help = 'Number of worker threads / processes (default: 4)')
     parser.add_argument('--webhook', type=str, action='append',
-                        help='Register webhook URL for notifications (can be used multiple times)')
+                        help = 'Register webhook URL for notifications (can be used multiple times)')
     # Phase 6: New feature arguments
     parser.add_argument('--config', type=str, metavar='FILE',
-                        help='Path to configuration file (YAML / TOML / JSON)')
+                        help = 'Path to configuration file (YAML / TOML / JSON)')
     parser.add_argument('--rate-limit', type=float, metavar='RPS',
-                        help='Rate limit API calls to RPS requests per second')
+                        help = 'Rate limit API calls to RPS requests per second')
     parser.add_argument('--enable-file-locking', action='store_true',
-                        help='Enable file locking to prevent concurrent modifications')
+                        help = 'Enable file locking to prevent concurrent modifications')
     parser.add_argument('--incremental', action='store_true',
-                        help='Only process files changed since last run')
+                        help = 'Only process files changed since last run')
     parser.add_argument('--graceful-shutdown', action='store_true',
-                        help='Enable graceful shutdown with state persistence')
+                        help = 'Enable graceful shutdown with state persistence')
     parser.add_argument('--health-check', action='store_true',
-                        help='Run health checks and exit')
+                        help = 'Run health checks and exit')
     parser.add_argument('--resume', action='store_true',
-                        help='Resume from previous interrupted run')
+                        help = 'Resume from previous interrupted run')
     parser.add_argument('--diff-preview', action='store_true',
-                        help='Show diffs before applying changes (requires --dry-run)')
+                        help = 'Show diffs before applying changes (requires --dry-run)')
 
     args=parser.parse_args()
     setup_logging(args.verbose)
@@ -4684,9 +4684,9 @@ def main() -> None:
         agent=Agent.from_config_file(Path(args.config))
     else:
         # Parse selective agents if provided
-        selective_agents=None
+        selective_agents = None
         if args.only_agents:
-            selective_agents=[a.strip() for a in args.only_agents.split(',')]
+            selective_agents = [a.strip() for a in args.only_agents.split(',')]
             logging.info(f"Running with selective agents: {selective_agents}")
 
         agent=Agent(
@@ -4698,7 +4698,7 @@ def main() -> None:
             no_git=args.no_git,
             dry_run=args.dry_run,
             selective_agents=selective_agents,
-            timeout_per_agent={'coder': args.timeout, 'tests': args.timeout},
+            timeout_per_agent = {'coder': args.timeout, 'tests': args.timeout},
             enable_async=args.enable_async,
             enable_multiprocessing=args.enable_multiprocessing,
             max_workers=args.workers

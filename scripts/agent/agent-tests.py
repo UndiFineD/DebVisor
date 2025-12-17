@@ -50,28 +50,28 @@ from base_agent import BaseAgent, create_main_function
 
 class TestPriority(Enum):
     """Test priority levels."""
-    CRITICAL=5
-    HIGH=4
-    MEDIUM=3
-    LOW=2
-    SKIP=1
+    CRITICAL = 5
+    HIGH = 4
+    MEDIUM = 3
+    LOW = 2
+    SKIP = 1
 
 
 class TestStatus(Enum):
     """Test execution status."""
-    PASSED="passed"
-    FAILED="failed"
-    SKIPPED="skipped"
-    ERROR="error"
-    FLAKY="flaky"
+    PASSED = "passed"
+    FAILED = "failed"
+    SKIPPED = "skipped"
+    ERROR = "error"
+    FLAKY = "flaky"
 
 
 class CoverageType(Enum):
     """Types of coverage to track."""
-    LINE="line"
-    BRANCH="branch"
-    FUNCTION="function"
-    CLASS="class"
+    LINE = "line"
+    BRANCH = "branch"
+    FUNCTION = "function"
+    CLASS = "class"
 
 
 # ========== Session 7 Enums ==========
@@ -79,36 +79,36 @@ class CoverageType(Enum):
 
 class BrowserType(Enum):
     """Browser types for cross-browser testing."""
-    CHROME="chrome"
-    FIREFOX="firefox"
-    SAFARI="safari"
-    EDGE="edge"
-    IE="ie"
+    CHROME = "chrome"
+    FIREFOX = "firefox"
+    SAFARI = "safari"
+    EDGE = "edge"
+    IE = "ie"
 
 
 class TestSourceType(Enum):
     """Types of test result sources for aggregation."""
-    PYTEST="pytest"
-    UNITTEST="unittest"
-    JEST="jest"
-    MOCHA="mocha"
-    JUNIT="junit"
+    PYTEST = "pytest"
+    UNITTEST = "unittest"
+    JEST = "jest"
+    MOCHA = "mocha"
+    JUNIT = "junit"
 
 
 class MutationOperator(Enum):
     """Mutation operators for mutation testing."""
-    ARITHMETIC="arithmetic"
-    RELATIONAL="relational"
-    LOGICAL="logical"
-    ASSIGNMENT="assignment"
-    RETURN_VALUE="return_value"
+    ARITHMETIC = "arithmetic"
+    RELATIONAL = "relational"
+    LOGICAL = "logical"
+    ASSIGNMENT = "assignment"
+    RETURN_VALUE = "return_value"
 
 
 class ExecutionMode(Enum):
     """Test execution replay modes."""
-    STEP_BY_STEP="step_by_step"
-    FULL_REPLAY="full_replay"
-    BREAKPOINT="breakpoint"
+    STEP_BY_STEP = "step_by_step"
+    FULL_REPLAY = "full_replay"
+    BREAKPOINT = "breakpoint"
 
 
 @dataclass
@@ -348,7 +348,7 @@ class VisualRegressionTester:
 
         # Simulated comparison
         current_hash=hashlib.md5(current_screenshot.encode()).hexdigest()
-        diff=0.0 if current_hash == baseline else 0.05  # Simulated diff
+        diff = 0.0 if current_hash == baseline else 0.05  # Simulated diff
 
         self._diffs[component_id] = diff
         passed=diff <= self.config.diff_threshold
@@ -368,11 +368,11 @@ class VisualRegressionTester:
         Returns:
             Markdown report of visual differences.
         """
-        report=["# Visual Regression Report\n"]
+        report = ["# Visual Regression Report\n"]
         report.append(f"Threshold: {self.config.diff_threshold * 100}%\n")
 
-        passed=[r for r in self.results if r.get("passed")]
-        failed=[r for r in self.results if not r.get("passed")]
+        passed = [r for r in self.results if r.get("passed")]
+        failed = [r for r in self.results if not r.get("passed")]
 
         report.append(f"## Summary: {len(passed)} passed, {len(failed)} failed\n")
 
@@ -394,7 +394,7 @@ class VisualRegressionTester:
         Returns:
             Results for each browser.
         """
-        results=[]
+        results = []
         for browser in self.config.browsers:
             result={
                 "browser": browser.value,
@@ -593,7 +593,7 @@ class TestSuiteOptimizer:
         Returns:
             List of redundant test IDs.
         """
-        redundant=[]
+        redundant = []
 
         for test_id, coverage in self.coverage_map.items():
             # Check if this test's coverage is subset of others combined
@@ -613,7 +613,7 @@ class TestSuiteOptimizer:
         Returns:
             List of (test_a, test_b, overlap_percentage) tuples.
         """
-        overlaps=[]
+        overlaps = []
 
         test_ids=list(self.coverage_map.keys())
         for i, id_a in enumerate(test_ids):
@@ -638,7 +638,7 @@ class TestSuiteOptimizer:
         Returns:
             List of removal suggestions with reasons.
         """
-        suggestions=[]
+        suggestions = []
 
         # Redundant tests
         for test_id in self.find_redundant_tests():
@@ -872,7 +872,7 @@ class ExecutionReplayer:
         if not trace:
             return []
 
-        replayed=[]
+        replayed = []
         for i, step in enumerate(trace.steps):
             if mode == ExecutionMode.BREAKPOINT and i == breakpoint_step:
                 break
@@ -1042,7 +1042,7 @@ class DependencyInjector:
         Returns:
             All fixtures as code string.
         """
-        fixtures=[]
+        fixtures = []
         for name in self.dependencies:
             fixtures.append(self.get_fixture_code(name))
         return "\n".join(fixtures)
@@ -1106,13 +1106,13 @@ class CrossBrowserRunner:
         Returns:
             Results for each browser.
         """
-        results={}
+        results = {}
 
         for browser in self.config.browsers:
             self.setup_driver(browser)
 
-            retries=0
-            passed=False
+            retries = 0
+            passed = False
 
             while retries <= self.config.retries and not passed:
                 try:
@@ -1214,7 +1214,7 @@ class ResultAggregator:
         """
         try:
             data=json.loads(json_report)
-            count=0
+            count = 0
             for test in data.get("tests", []):
                 status_map={
                     "passed": TestStatus.PASSED,
@@ -1299,7 +1299,7 @@ class MutationTester:
         Returns:
             List of generated mutations.
         """
-        mutations=[]
+        mutations = []
         lines=source_code.split("\n")
 
         for i, line in enumerate(lines, 1):
@@ -1381,7 +1381,7 @@ class MutationTester:
         Returns:
             Markdown report.
         """
-        report=["# Mutation Testing Report\n"]
+        report = ["# Mutation Testing Report\n"]
         report.append(f"Total mutations: {len(self.mutations)}")
         report.append(f"Mutation score: {self.get_mutation_score():.1f}%\n")
 
@@ -1455,7 +1455,7 @@ class TestGenerator:
             name=test_name,
             specification=specification,
             generated_code=code,
-            confidence=0.6
+            confidence = 0.6
         )
         self.generated.append(generated)
         return generated
@@ -1476,7 +1476,7 @@ class TestGenerator:
         """
         test_name=f"test_{function_name}_parametrized"
 
-        params=", ".join(str(tc) for tc in test_cases)
+        params = ", ".join(str(tc) for tc in test_cases)
         code=(
             f"@pytest.mark.parametrize('input_val,expected', [\n"
             f"    {params}\n"
@@ -1490,7 +1490,7 @@ class TestGenerator:
             name=test_name,
             specification=f"Parametrized test for {function_name}",
             generated_code=code,
-            confidence=0.8
+            confidence = 0.8
         )
         self.generated.append(generated)
         return generated
@@ -1520,7 +1520,7 @@ class TestGenerator:
         Returns:
             Combined test code.
         """
-        validated=[g for g in self.generated if g.validated]
+        validated = [g for g in self.generated if g.validated]
         return "\n\n".join(g.generated_code for g in validated)
 
 
@@ -1594,7 +1594,7 @@ class TestCaseMinimizer:
         current=input_list.copy()
 
         # Try removing each element
-        i=0
+        i = 0
         while i < len(current):
             candidate=current[:i] + current[i + 1:]
             if test_fn(candidate):
@@ -1618,7 +1618,7 @@ class TestCaseMinimizer:
         if not self.history:
             return {"total": 0}
 
-        reductions=[h.get("reduction", 0) for h in self.history if "reduction" in h]
+        reductions = [h.get("reduction", 0) for h in self.history if "reduction" in h]
         avg_reduction=sum(reductions) / len(reductions) if reductions else 0
 
         return {
@@ -1694,7 +1694,7 @@ class TestProfiler:
         sorted_profiles=sorted(
             self.profiles.values(),
             key=lambda p: p.cpu_time_ms,
-            reverse=True
+            reverse = True
         )
         return sorted_profiles[:limit]
 
@@ -1710,7 +1710,7 @@ class TestProfiler:
         sorted_profiles=sorted(
             self.profiles.values(),
             key=lambda p: p.memory_peak_mb,
-            reverse=True
+            reverse = True
         )
         return sorted_profiles[:limit]
 
@@ -1720,7 +1720,7 @@ class TestProfiler:
         Returns:
             Markdown report.
         """
-        report=["# Test Profiling Report\n"]
+        report = ["# Test Profiling Report\n"]
         report.append(f"Total profiled: {len(self.profiles)}\n")
 
         report.append("## Slowest Tests\n")
@@ -1804,12 +1804,12 @@ class TestScheduler:
         sorted_tests=sorted(
             tests,
             key=lambda t: self._test_durations.get(t, 1000),
-            reverse=True
+            reverse = True
         )
 
         # Distribute across workers
         worker_loads: List[List[str]] = [[] for _ in range(self.num_workers)]
-        worker_times=[0.0] * self.num_workers
+        worker_times = [0.0] * self.num_workers
 
         for test in sorted_tests:
             # Find worker with least load
@@ -1823,9 +1823,9 @@ class TestScheduler:
             if tests_for_worker:
                 slot=ScheduleSlot(
                     start_time=start_time,
-                    end_time="",  # Would calculate based on duration
+                    end_time = "",  # Would calculate based on duration
                     tests=tests_for_worker,
-                    workers=1
+                    workers = 1
                 )
                 self.schedule.append(slot)
 
@@ -1847,9 +1847,9 @@ class TestScheduler:
         """
         slot=ScheduleSlot(
             start_time=start_time,
-            end_time="",
+            end_time = "",
             tests=tests,
-            workers=1
+            workers = 1
         )
         self.schedule=[slot]
         return self.schedule
@@ -1863,7 +1863,7 @@ class TestScheduler:
         if not self.schedule:
             return 0.0
 
-        max_duration=0.0
+        max_duration = 0.0
         for slot in self.schedule:
             slot_duration=sum(
                 self._test_durations.get(t, 1000) for t in slot.tests
@@ -1878,7 +1878,7 @@ class TestScheduler:
         Returns:
             Dictionary of worker index to test list.
         """
-        assignments={}
+        assignments = {}
         for i, slot in enumerate(self.schedule):
             assignments[i] = slot.tests
         return assignments
@@ -1958,7 +1958,7 @@ class TestsAgent(BaseAgent):
         return sorted(
             self._tests,
             key=lambda t: (t.priority.value, t.failure_count),
-            reverse=True
+            reverse = True
         )
 
     def calculate_priority_score(self, test: TestCase) -> float:
@@ -1995,7 +1995,7 @@ class TestsAgent(BaseAgent):
 
     def detect_flaky_tests(self) -> List[TestCase]:
         """Detect tests that are flaky."""
-        flaky=[]
+        flaky = []
         for test in self._tests:
             score=self.calculate_flakiness(test)
             if score > self._flakiness_threshold:
@@ -2084,7 +2084,7 @@ class TestsAgent(BaseAgent):
 
     def generate_factory_code(self, factory: TestFactory) -> str:
         """Generate code for a factory function."""
-        params=", ".join(f"{k}: {v}" for k, v in factory.parameters.items())
+        params = ", ".join(f"{k}: {v}" for k, v in factory.parameters.items())
         return (
             f"def {factory.name}({params}) -> {factory.return_type}:\n"
             f"    \"\"\"Factory for creating {factory.return_type} instances.\"\"\"\n"
@@ -2168,7 +2168,7 @@ class TestsAgent(BaseAgent):
             if test.id in assigned:
                 continue
 
-            group=[test]
+            group = [test]
             assigned.add(test.id)
 
             # Find other tests that can run with this one
@@ -2189,7 +2189,7 @@ class TestsAgent(BaseAgent):
 
     def generate_test_documentation(self) -> str:
         """Generate documentation for all tests."""
-        docs=["# Test Documentation\n"]
+        docs = ["# Test Documentation\n"]
 
         # Summary
         docs.append("## Summary\n")
@@ -2205,7 +2205,7 @@ class TestsAgent(BaseAgent):
             if tests:
                 docs.append(f"### {priority.name}\n")
                 for test in tests:
-                    status_icon="✓" if test.status == TestStatus.PASSED else "✗"
+                    status_icon = "✓" if test.status == TestStatus.PASSED else "✗"
                     docs.append(f"- [{status_icon}] `{test.name}` (line {test.line_number})")
                 docs.append("")
 
@@ -2235,12 +2235,12 @@ class TestsAgent(BaseAgent):
         if total == 0:
             return {"total_tests": 0}
 
-        by_status={}
+        by_status = {}
         for status in TestStatus:
             count=len([t for t in self._tests if t.status == status])
             by_status[status.name] = count
 
-        by_priority={}
+        by_priority = {}
         for priority in TestPriority:
             count=len([t for t in self._tests if t.priority == priority])
             by_priority[priority.name] = count
@@ -2309,7 +2309,7 @@ class TestsAgent(BaseAgent):
         """Validate pytest / unittest-specific patterns."""
         try:
             tree=ast.parse(content)
-            issues=[]
+            issues = []
 
             # Check 1: All test functions follow naming convention
             for node in ast.walk(tree):
@@ -2319,18 +2319,18 @@ class TestsAgent(BaseAgent):
                         pass
 
             # Check 2: Tests contain assertions
-            test_funcs=[n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name.startswith('test_')]
+            test_funcs = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name.startswith('test_')]
             for func in test_funcs:
                 has_assert=any(isinstance(n, ast.Assert) for n in ast.walk(func))
                 # Simple check for pytest.raises context manager
-                has_raises=False
+                has_raises = False
                 for node in ast.walk(func):
                     if isinstance(node, ast.With):
                         for item in node.items:
                             if isinstance(item.context_expr, ast.Call):
                                 if isinstance(item.context_expr.func, ast.Attribute):
                                     if item.context_expr.func.attr == 'raises':
-                                        has_raises=True
+                                        has_raises = True
 
                 if not (has_assert or has_raises):
                     issues.append(f"Test '{func.name}' lacks assertions")
@@ -2361,7 +2361,7 @@ class TestsAgent(BaseAgent):
                 # Truncate source content if it's too large to avoid context window issues
                 # Assuming ~4 chars per token, 8000 tokens ~ 32000 chars.
                 # Leave room for prompt and response.
-                max_source_chars=20000
+                max_source_chars = 20000
                 if len(source_content) > max_source_chars:
                     source_content=source_content[:max_source_chars] + "\n# ... (truncated)"
 

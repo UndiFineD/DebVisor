@@ -84,9 +84,9 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 
-AGENT_DIR=Path(__file__).resolve().parent
+AGENT_DIR = Path(__file__).resolve().parent
 
-REPO_ROOT=AGENT_DIR.parents[1]
+REPO_ROOT = AGENT_DIR.parents[1]
 
 
 # =============================================================================
@@ -100,135 +100,135 @@ class ReportType(Enum):
 
     """Type of report to generate."""
 
-    DESCRIPTION=auto()
+    DESCRIPTION = auto()
 
-    ERRORS=auto()
+    ERRORS = auto()
 
-    IMPROVEMENTS=auto()
+    IMPROVEMENTS = auto()
 
-    SUMMARY=auto()
+    SUMMARY = auto()
 
 
 class ReportFormat(Enum):
 
     """Output format for reports."""
 
-    MARKDOWN=auto()
+    MARKDOWN = auto()
 
-    JSON=auto()
+    JSON = auto()
 
-    HTML=auto()
+    HTML = auto()
 
 
 class SeverityLevel(Enum):
 
     """Severity level for issues."""
 
-    INFO=1
+    INFO = 1
 
-    WARNING=2
+    WARNING = 2
 
-    ERROR=3
+    ERROR = 3
 
-    CRITICAL=4
+    CRITICAL = 4
 
 
 class IssueCategory(Enum):
 
     """Category of code issue."""
 
-    SYNTAX=auto()
+    SYNTAX = auto()
 
-    TYPE_ANNOTATION=auto()
+    TYPE_ANNOTATION = auto()
 
-    STYLE=auto()
+    STYLE = auto()
 
-    SECURITY=auto()
+    SECURITY = auto()
 
-    PERFORMANCE=auto()
+    PERFORMANCE = auto()
 
-    DOCUMENTATION=auto()
+    DOCUMENTATION = auto()
 
 
 class SubscriptionFrequency(Enum):
 
     """Frequency for report subscriptions."""
 
-    IMMEDIATE="immediate"
+    IMMEDIATE = "immediate"
 
-    HOURLY="hourly"
+    HOURLY = "hourly"
 
-    DAILY="daily"
+    DAILY = "daily"
 
-    WEEKLY="weekly"
+    WEEKLY = "weekly"
 
-    MONTHLY="monthly"
+    MONTHLY = "monthly"
 
 
 class PermissionLevel(Enum):
 
     """Permission levels for report access."""
 
-    NONE=0
+    NONE = 0
 
-    READ=1
+    READ = 1
 
-    WRITE=2
+    WRITE = 2
 
-    ADMIN=3
+    ADMIN = 3
 
 
 class ExportFormat(Enum):
 
     """Export formats for reports."""
 
-    MARKDOWN="markdown"
+    MARKDOWN = "markdown"
 
-    JSON="json"
+    JSON = "json"
 
-    HTML="html"
+    HTML = "html"
 
-    PDF="pdf"
+    PDF = "pdf"
 
-    PPT="ppt"
+    PPT = "ppt"
 
-    CSV="csv"
+    CSV = "csv"
 
 
 class LocaleCode(Enum):
 
     """Supported locales for reports."""
 
-    EN_US="en-US"
+    EN_US = "en-US"
 
-    EN_GB="en-GB"
+    EN_GB = "en-GB"
 
-    DE_DE="de-DE"
+    DE_DE = "de-DE"
 
-    FR_FR="fr-FR"
+    FR_FR = "fr-FR"
 
-    ES_ES="es-ES"
+    ES_ES = "es-ES"
 
-    ZH_CN="zh-CN"
+    ZH_CN = "zh-CN"
 
-    JA_JP="ja-JP"
+    JA_JP = "ja-JP"
 
 
 class AuditAction(Enum):
 
     """Actions for audit logging."""
 
-    CREATE="create"
+    CREATE = "create"
 
-    READ="read"
+    READ = "read"
 
-    UPDATE="update"
+    UPDATE = "update"
 
-    DELETE="delete"
+    DELETE = "delete"
 
-    EXPORT="export"
+    EXPORT = "export"
 
-    SHARE="share"
+    SHARE = "share"
 
 
 # =============================================================================
@@ -983,7 +983,7 @@ class ReportComparator:
         removed=list(old_set - new_set)
 
 
-        summary_parts=[]
+        summary_parts = []
 
         if added:
 
@@ -1006,7 +1006,7 @@ class ReportComparator:
 
             removed_issues=removed,
 
-            summary=", ".join(summary_parts)
+            summary = ", ".join(summary_parts)
 
         )
 
@@ -1015,7 +1015,7 @@ class ReportComparator:
 
         """Extract list items from markdown content."""
 
-        items=[]
+        items = []
 
         for line in content.split('\n'):
 
@@ -1426,14 +1426,14 @@ class ReportArchiver:
 
         """
 
-        removed=0
+        removed = 0
 
         current_time=time.time()
 
 
         for file_path in list(self.archives.keys()):
 
-            valid=[]
+            valid = []
 
             for archive in self.archives[file_path]:
 
@@ -2164,7 +2164,7 @@ class ReportExporter:
 
         """
 
-        lines=["message,category,severity,line_number,function_name"]
+        lines = ["message,category,severity,line_number,function_name"]
 
         for issue in issues:
 
@@ -3240,9 +3240,9 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
 
         shown=imports[:12]
 
-        shown_imports=", ".join(f"`{x}`" for x in shown)
+        shown_imports = ", ".join(f"`{x}`" for x in shown)
 
-        suffix=" …" if len(imports) > len(shown) else ""
+        suffix = " …" if len(imports) > len(shown) else ""
 
         lines.append(f"- Top imports: {shown_imports}{suffix}")
 
@@ -3493,9 +3493,9 @@ def main(argv: Sequence[str]) -> int:
 
         level=logging.INFO,
 
-        format='%(asctime)s - %(levelname)s - %(message)s',
+        format = '%(asctime)s - %(levelname)s - %(message)s',
 
-        datefmt='%H:%M:%S'
+        datefmt = '%H:%M:%S'
 
     )
 
@@ -3508,11 +3508,11 @@ def main(argv: Sequence[str]) -> int:
         return 1
 
 
-    count=0
+    count = 0
 
-    skipped=0
+    skipped = 0
 
-    errors_count=0
+    errors_count = 0
 
 
     for py_path in py_files:

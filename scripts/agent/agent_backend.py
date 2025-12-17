@@ -51,7 +51,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 try:
     import requests
 except ImportError:
-    requests=None  # type: ignore[assignment]
+    requests = None  # type: ignore[assignment]
 
 
 # ============================================================================
@@ -62,55 +62,55 @@ except ImportError:
 class BackendType(Enum):
     """Types of AI backends available."""
 
-    COPILOT_CLI="copilot"
-    GH_COPILOT="gh"
-    GITHUB_MODELS="github-models"
-    AUTO="auto"
+    COPILOT_CLI = "copilot"
+    GH_COPILOT = "gh"
+    GITHUB_MODELS = "github-models"
+    AUTO = "auto"
 
 
 class BackendState(Enum):
     """Health states for backends."""
 
-    HEALTHY="healthy"
-    DEGRADED="degraded"
-    UNHEALTHY="unhealthy"
-    UNKNOWN="unknown"
+    HEALTHY = "healthy"
+    DEGRADED = "degraded"
+    UNHEALTHY = "unhealthy"
+    UNKNOWN = "unknown"
 
 
 class CircuitState(Enum):
     """Circuit breaker states."""
 
-    CLOSED="closed"
-    OPEN="open"
-    HALF_OPEN="half_open"
+    CLOSED = "closed"
+    OPEN = "open"
+    HALF_OPEN = "half_open"
 
 
 class RequestPriority(Enum):
     """Priority levels for request queuing."""
 
-    LOW=0
-    NORMAL=1
-    HIGH=2
-    CRITICAL=3
+    LOW = 0
+    NORMAL = 1
+    HIGH = 2
+    CRITICAL = 3
 
 
 class ResponseTransform(Enum):
     """Types of response transformations."""
 
-    NONE="none"
-    STRIP_WHITESPACE="strip"
-    EXTRACT_CODE="extract_code"
-    EXTRACT_JSON="extract_json"
-    MARKDOWN_TO_TEXT="markdown_to_text"
+    NONE = "none"
+    STRIP_WHITESPACE = "strip"
+    EXTRACT_CODE = "extract_code"
+    EXTRACT_JSON = "extract_json"
+    MARKDOWN_TO_TEXT = "markdown_to_text"
 
 
 class LoadBalanceStrategy(Enum):
     """Load balancing strategies for multiple backends."""
 
-    ROUND_ROBIN="round_robin"
-    LEAST_CONNECTIONS="least_connections"
-    WEIGHTED="weighted"
-    FAILOVER="failover"
+    ROUND_ROBIN = "round_robin"
+    LEAST_CONNECTIONS = "least_connections"
+    WEIGHTED = "weighted"
+    FAILOVER = "failover"
 
 
 # ============================================================================
@@ -619,7 +619,7 @@ class BackendHealthMonitor:
         total=len(history)
         success_rate=successes / total if total > 0 else 0.0
 
-        latencies=[lat for _, lat in history if lat > 0]
+        latencies = [lat for _, lat in history if lat > 0]
         avg_latency=sum(latencies) / len(latencies) if latencies else 0.0
 
         error_count=total - successes
@@ -674,7 +674,7 @@ class BackendHealthMonitor:
                 status=self._status.get(backend)
                 if not status:
                     # Unknown backends get neutral score
-                    score=0.5
+                    score = 0.5
                 else:
                     score=status.success_rate
 
@@ -765,7 +765,7 @@ class LoadBalancer:
             Optional[BackendConfig]: Next backend or None if empty.
         """
         with self._lock:
-            enabled=[b for b in self._backends if b.enabled]
+            enabled = [b for b in self._backends if b.enabled]
             if not enabled:
                 return None
 
@@ -784,7 +784,7 @@ class LoadBalancer:
                 if total_weight == 0:
                     return enabled[0]
                 target=self._index % total_weight
-                current=0
+                current = 0
                 for backend in enabled:
                     current += backend.weight
                     if target < current:
@@ -934,7 +934,7 @@ class RequestTracer:
         context=RequestContext(
             correlation_id=correlation_id or str(uuid.uuid4()),
             priority=priority,
-            metadata={"description": description},
+            metadata = {"description": description},
         )
 
         with self._lock:
@@ -1126,12 +1126,12 @@ def _command_available(command: str) -> bool:
         logging.debug(f"Checking if command is available: {command}")
         subprocess.run(
             [command, '--version'],
-            capture_output=True,
-            text=True,
-            encoding='utf-8',
-            errors='replace',
-            timeout=5,
-            check=True,
+            capture_output = True,
+            text = True,
+            encoding = 'utf-8',
+            errors = 'replace',
+            timeout = 5,
+            check = True,
         )
         logging.debug(f"Command available: {command}")
         return True
@@ -1301,11 +1301,11 @@ def llm_chat_via_github_models(
 
     Example:
         response=llm_chat_via_github_models(
-            prompt="What is Python?",
-            model="gpt-4",
-            base_url="https://api.github.com / models",
-            token="ghp_...",
-            max_retries=3
+            prompt = "What is Python?",
+            model = "gpt-4",
+            base_url = "https://api.github.com / models",
+            token = "ghp_...",
+            max_retries = 3
         )
 
     Note:
@@ -1355,7 +1355,7 @@ def llm_chat_via_github_models(
         "Content-Type": "application / json",
     }
 
-    last_error=None
+    last_error = None
     start_time=time.time()
     _metrics["requests"] += 1
 
@@ -1433,8 +1433,8 @@ def run_subagent(description: str, prompt: str, original_content: str="") -> Opt
 
     Example:
         result=run_subagent(
-            description="Add docstrings to function",
-            prompt="Add Google-style docstrings",
+            description = "Add docstrings to function",
+            prompt = "Add Google-style docstrings",
             original_content=source_code
         )
         if result:
@@ -1456,7 +1456,7 @@ def run_subagent(description: str, prompt: str, original_content: str="") -> Opt
         try:
             max_context_chars=int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
         except ValueError:
-            max_context_chars=12_000
+            max_context_chars = 12_000
         trimmed_original=(original_content or "")[:max_context_chars]
         return (
             f"Task: {description}\n\n"
@@ -1493,13 +1493,13 @@ def run_subagent(description: str, prompt: str, original_content: str="") -> Opt
                     '--stream',
                     'off',
                 ],
-                capture_output=True,
-                text=True,
-                encoding='utf-8',
-                errors='replace',
-                timeout=180,
+                capture_output = True,
+                text = True,
+                encoding = 'utf-8',
+                errors = 'replace',
+                timeout = 180,
                 cwd=str(repo_root),
-                check=False
+                check = False
             )
             stdout=(result.stdout or "").strip()
             if result.returncode == 0 and stdout:
@@ -1547,7 +1547,7 @@ def run_subagent(description: str, prompt: str, original_content: str="") -> Opt
         if not allow_non_command_prompt and not _looks_like_command(prompt):
             logging.debug("Prompt doesn't look like a command, skipping gh copilot")
             return None
-        max_len=2000
+        max_len = 2000
         prompt_to_use=prompt
         if len(prompt) > max_len:
             logging.warning(f"Prompt truncated from {len(prompt)} to {max_len} chars for gh copilot")
@@ -1557,13 +1557,13 @@ def run_subagent(description: str, prompt: str, original_content: str="") -> Opt
             logging.debug("Attempting to use gh copilot backend")
             result=subprocess.run(
                 ['gh', 'copilot', 'explain', prompt_to_use],
-                capture_output=True,
-                text=True,
-                encoding='utf-8',
-                errors='replace',
-                timeout=30,
+                capture_output = True,
+                text = True,
+                encoding = 'utf-8',
+                errors = 'replace',
+                timeout = 30,
                 cwd=str(_resolve_repo_root()),
-                check=False
+                check = False
             )
             if result.returncode == 0 and result.stdout.strip():
                 logging.info("gh copilot backend succeeded")
@@ -1766,7 +1766,7 @@ def get_backend_status() -> dict:
     try:
         max_context_chars=int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
     except ValueError:
-        max_context_chars=12_000
+        max_context_chars = 12_000
     models_base_url=(os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
     models_model=(
         os.environ.get("DV_AGENT_MODEL")
@@ -1823,7 +1823,7 @@ def describe_backends() -> str:
     def yn(value: bool) -> str:
         return "yes" if value else "no"
 
-    result="\n".join(
+    result = "\n".join(
         [
             "Backend diagnostics:",
             f"- selected: {status['selected_backend']}",
@@ -1964,7 +1964,7 @@ class RequestDeduplicator:
 
         with self._lock:
             # Clean expired entries
-            expired=[k for k, t in self._pending.items() if now - t > self.ttl_seconds]
+            expired = [k for k, t in self._pending.items() if now - t > self.ttl_seconds]
             for k in expired:
                 self._pending.pop(k, None)
                 self._events.pop(k, None)
@@ -2310,9 +2310,9 @@ class RequestRecorder:
             recordings=self._recordings.copy()
 
         if backend:
-            recordings=[r for r in recordings if r.backend == backend]
+            recordings = [r for r in recordings if r.backend == backend]
         if success_only:
-            recordings=[r for r in recordings if r.success]
+            recordings = [r for r in recordings if r.success]
 
         return recordings
 
@@ -2464,7 +2464,7 @@ class ConfigHotReloader:
         Returns:
             int: Number of configs reloaded.
         """
-        count=0
+        count = 0
         with self._lock:
             for config_key, env_var in self._env_watches.items():
                 env_value=os.environ.get(env_var)
@@ -2654,7 +2654,7 @@ class BackendAnalytics:
             records=self._records.copy()
 
         if backend:
-            records=[r for r in records if r.backend == backend]
+            records = [r for r in records if r.backend == backend]
 
         if not records:
             return {
@@ -3022,7 +3022,7 @@ class TTLCache:
             int: Number of entries removed.
         """
         now=time.time()
-        expired=[k for k, v in self._cache.items() if now > v.expires_at]
+        expired = [k for k, v in self._cache.items() if now > v.expires_at]
         for key in expired:
             del self._cache[key]
         return len(expired)
@@ -3127,14 +3127,14 @@ class ABTester:
             Tuple[ABTestVariant, ABTestVariant]: The two variants.
         """
         variant_a=ABTestVariant(
-            name="A",
+            name = "A",
             backend=backend_a,
             weight=weight_a,
         )
         variant_b=ABTestVariant(
-            name="B",
+            name = "B",
             backend=backend_b,
-            weight=1.0 - weight_a,
+            weight = 1.0 - weight_a,
         )
 
         with self._lock:
@@ -3174,9 +3174,9 @@ class ABTester:
             import random
             variant_a=test["A"]
             if random.random() < variant_a.weight:
-                variant_name="A"
+                variant_name = "A"
             else:
-                variant_name="B"
+                variant_name = "B"
 
             self._assignments[test_name][user_id] = variant_name
             return test[variant_name]

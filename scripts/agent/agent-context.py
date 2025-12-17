@@ -50,22 +50,22 @@ from base_agent import BaseAgent, create_main_function
 
 class ContextPriority(Enum):
     """Priority levels for context relevance."""
-    CRITICAL=5
-    HIGH=4
-    MEDIUM=3
-    LOW=2
-    MINIMAL=1
+    CRITICAL = 5
+    HIGH = 4
+    MEDIUM = 3
+    LOW = 2
+    MINIMAL = 1
 
 
 class FileCategory(Enum):
     """Categories for context files."""
-    CODE="code"
-    DOCUMENTATION="documentation"
-    CONFIGURATION="configuration"
-    TEST="test"
-    BUILD="build"
-    DATA="data"
-    OTHER="other"
+    CODE = "code"
+    DOCUMENTATION = "documentation"
+    CONFIGURATION = "configuration"
+    TEST = "test"
+    BUILD = "build"
+    DATA = "data"
+    OTHER = "other"
 
 
 @dataclass
@@ -121,10 +121,10 @@ class ContextAnnotation:
 # Default templates for common file types
 DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
     "python": ContextTemplate(
-        name="Python Module",
-        file_type=".py",
-        sections=["Purpose", "Classes", "Functions", "Dependencies", "Usage"],
-        template_content="""# Description: `{filename}`
+        name = "Python Module",
+        file_type = ".py",
+        sections = ["Purpose", "Classes", "Functions", "Dependencies", "Usage"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the module's purpose]
@@ -143,13 +143,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 # Example usage
 ```
 """,
-        required_fields=["Purpose"]
+        required_fields = ["Purpose"]
     ),
     "javascript": ContextTemplate(
-        name="JavaScript Module",
-        file_type=".js",
-        sections=["Purpose", "Exports", "Dependencies", "Usage"],
-        template_content="""# Description: `{filename}`
+        name = "JavaScript Module",
+        file_type = ".js",
+        sections = ["Purpose", "Exports", "Dependencies", "Usage"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the module's purpose]
@@ -165,13 +165,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 // Example usage
 ```
 """,
-        required_fields=["Purpose"]
+        required_fields = ["Purpose"]
     ),
     "shell": ContextTemplate(
-        name="Shell Script",
-        file_type=".sh",
-        sections=["Purpose", "Usage", "Arguments", "Environment Variables"],
-        template_content="""# Description: `{filename}`
+        name = "Shell Script",
+        file_type = ".sh",
+        sections = ["Purpose", "Usage", "Arguments", "Environment Variables"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the script's purpose]
@@ -189,13 +189,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 ## Environment Variables
 [List required environment variables]
 """,
-        required_fields=["Purpose", "Usage"]
+        required_fields = ["Purpose", "Usage"]
     ),
     "config": ContextTemplate(
-        name="Configuration File",
-        file_type=".json/.yaml/.toml",
-        sections=["Purpose", "Schema", "Options"],
-        template_content="""# Description: `{filename}`
+        name = "Configuration File",
+        file_type = ".json/.yaml/.toml",
+        sections = ["Purpose", "Schema", "Options"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe the configuration's purpose]
@@ -208,13 +208,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 |--------|------|---------|-------------|
 |        |      |         |             |
 """,
-        required_fields=["Purpose"]
+        required_fields = ["Purpose"]
     ),
     "test": ContextTemplate(
-        name="Test File",
-        file_type="_test.py / test_.py",
-        sections=["Purpose", "Test Cases", "Fixtures", "Coverage"],
-        template_content="""# Description: `{filename}`
+        name = "Test File",
+        file_type = "_test.py / test_.py",
+        sections = ["Purpose", "Test Cases", "Fixtures", "Coverage"],
+        template_content = """# Description: `{filename}`
 
 ## Purpose
 [Describe what this test file covers]
@@ -228,30 +228,30 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 ## Coverage
 [Note which modules / functions are tested]
 """,
-        required_fields=["Purpose", "Test Cases"]
+        required_fields = ["Purpose", "Test Cases"]
     ),
 }
 
 # Default validation rules
 DEFAULT_VALIDATION_RULES: List[ValidationRule] = [
     ValidationRule(
-        name="has_purpose",
+        name = "has_purpose",
         pattern=r"##\s * Purpose",
-        message="Context should have a Purpose section",
-        severity="error",
-        required=True
+        message = "Context should have a Purpose section",
+        severity = "error",
+        required = True
     ),
     ValidationRule(
-        name="no_empty_sections",
+        name = "no_empty_sections",
         pattern=r"##\s*\w+\s*\n\s*\n##",
-        message="Empty section detected",
-        severity="warning"
+        message = "Empty section detected",
+        severity = "warning"
     ),
     ValidationRule(
-        name="valid_code_blocks",
+        name = "valid_code_blocks",
         pattern=r"```\w*\n[\s\S]*?```",
-        message="Code blocks should have language identifier",
-        severity="info"
+        message = "Code blocks should have language identifier",
+        severity = "info"
     ),
 ]
 
@@ -261,49 +261,49 @@ DEFAULT_VALIDATION_RULES: List[ValidationRule] = [
 
 class SearchAlgorithm(Enum):
     """Algorithms for semantic search."""
-    KEYWORD="keyword"
-    FUZZY="fuzzy"
-    SEMANTIC="semantic"
-    HYBRID="hybrid"
+    KEYWORD = "keyword"
+    FUZZY = "fuzzy"
+    SEMANTIC = "semantic"
+    HYBRID = "hybrid"
 
 
 class ExportFormat(Enum):
     """Formats for context export."""
-    MARKDOWN="markdown"
-    HTML="html"
-    PDF="pdf"
-    DOCX="docx"
-    RST="rst"
+    MARKDOWN = "markdown"
+    HTML = "html"
+    PDF = "pdf"
+    DOCX = "docx"
+    RST = "rst"
 
 
 class InheritanceMode(Enum):
     """Modes for context inheritance."""
-    OVERRIDE="override"
-    MERGE="merge"
-    APPEND="append"
+    OVERRIDE = "override"
+    MERGE = "merge"
+    APPEND = "append"
 
 
 class VisualizationType(Enum):
     """Types of context visualization."""
-    DEPENDENCY_GRAPH="dependency_graph"
-    CALL_HIERARCHY="call_hierarchy"
-    FILE_TREE="file_tree"
-    MIND_MAP="mind_map"
+    DEPENDENCY_GRAPH = "dependency_graph"
+    CALL_HIERARCHY = "call_hierarchy"
+    FILE_TREE = "file_tree"
+    MIND_MAP = "mind_map"
 
 
 class ConflictResolution(Enum):
     """Strategies for merge conflict resolution."""
-    OURS="ours"
-    THEIRS="theirs"
-    MANUAL="manual"
-    AUTO="auto"
+    OURS = "ours"
+    THEIRS = "theirs"
+    MANUAL = "manual"
+    AUTO = "auto"
 
 
 class SharingPermission(Enum):
     """Permission levels for context sharing."""
-    READ_ONLY="read_only"
-    READ_WRITE="read_write"
-    ADMIN="admin"
+    READ_ONLY = "read_only"
+    READ_WRITE = "read_write"
+    ADMIN = "admin"
 
 
 # ========== Session 6 Dataclasses ==========
@@ -628,7 +628,7 @@ class CrossRepoAnalyzer:
         Returns:
             List of related cross-repo contexts.
         """
-        results=[]
+        results = []
         for name, repo in self.repositories.items():
             # Simplified matching
             repo.similarity_score=0.5
@@ -671,7 +671,7 @@ class ContextDiffer:
 
         added=list(sections_to - sections_from)
         removed=list(sections_from - sections_to)
-        modified=[]
+        modified = []
 
         # Check for modified content in common sections
         common=sections_from & sections_to
@@ -776,7 +776,7 @@ class NLQueryEngine:
             NLQueryResult with answer.
         """
         # Simplified NL query - in production, use LLM
-        relevant=[]
+        relevant = []
         keywords=question.lower().split()
 
         for path, content in contexts.items():
@@ -788,7 +788,7 @@ class NLQueryEngine:
             query=question,
             answer=f"Found {len(relevant)} relevant context files",
             relevant_contexts=relevant,
-            confidence=0.7 if relevant else 0.2
+            confidence = 0.7 if relevant else 0.2
         )
 
 
@@ -867,7 +867,7 @@ class ContextRecommender:
         Returns:
             List of recommendations.
         """
-        recommendations=[]
+        recommendations = []
 
         # Analyze common sections in similar files
         section_counts: Dict[str, int] = {}
@@ -881,9 +881,9 @@ class ContextRecommender:
         if common_sections:
             recommendations.append(ContextRecommendation(
                 source_file=list(similar_contexts.keys())[0] if similar_contexts else "",
-                suggested_sections=[s[0] for s in common_sections[:5]],
-                reason="Common sections in similar files",
-                confidence=0.8
+                suggested_sections = [s[0] for s in common_sections[:5]],
+                reason = "Common sections in similar files",
+                confidence = 0.8
             ))
 
         return recommendations
@@ -921,7 +921,7 @@ class CodeGenerator:
         return GeneratedCode(
             language=language,
             code=code,
-            context_used=[context[:50] + "..."] if context else [],
+            context_used = [context[:50] + "..."] if context else [],
             description=prompt
         )
 
@@ -945,7 +945,7 @@ class RefactoringAdvisor:
         Returns:
             List of refactoring suggestions.
         """
-        suggestions=[]
+        suggestions = []
 
         # Look for duplicate descriptions (indicating code duplication)
         descriptions: Dict[str, List[str]] = {}
@@ -960,10 +960,10 @@ class RefactoringAdvisor:
         for desc, files in descriptions.items():
             if len(files) > 1:
                 suggestions.append(RefactoringSuggestion(
-                    suggestion_type="extract_common",
+                    suggestion_type = "extract_common",
                     description=f"Similar purpose found in {len(files)} files",
                     affected_files=files,
-                    estimated_impact="medium"
+                    estimated_impact = "medium"
                 ))
 
         return suggestions
@@ -988,8 +988,8 @@ class ContextVisualizer:
         Returns:
             VisualizationData for rendering.
         """
-        nodes=[]
-        edges=[]
+        nodes = []
+        edges = []
 
         for path, content in contexts.items():
             nodes.append({"id": path, "label": Path(path).name})
@@ -1016,8 +1016,8 @@ class ContextVisualizer:
         Returns:
             VisualizationData for rendering.
         """
-        nodes=[]
-        edges=[]
+        nodes = []
+        edges = []
 
         for path in contexts.keys():
             nodes.append({"id": path, "label": Path(path).name})
@@ -1026,7 +1026,7 @@ class ContextVisualizer:
             viz_type=VisualizationType.CALL_HIERARCHY,
             nodes=nodes,
             edges=edges,
-            layout="tree"
+            layout = "tree"
         )
 
 
@@ -1104,12 +1104,12 @@ class MergeConflictResolver:
         Returns:
             List of detected conflicts.
         """
-        conflicts=[]
+        conflicts = []
         pattern=r"<<<<<<<[^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>>"
 
         for match in re.finditer(pattern, content, re.DOTALL):
             conflicts.append(MergeConflict(
-                section="conflict",
+                section = "conflict",
                 ours=match.group(1),
                 theirs=match.group(2)
             ))
@@ -1167,7 +1167,7 @@ class BranchComparer:
         files_a=set(contexts_a.keys())
         files_b=set(contexts_b.keys())
 
-        modified=[]
+        modified = []
         for f in files_a & files_b:
             if contexts_a[f] != contexts_b[f]:
                 modified.append(f)
@@ -1266,7 +1266,7 @@ class ContextAgent(BaseAgent):
 
     def apply_template(self, template_name: Optional[str] = None) -> str:
         """Apply a template to generate initial content."""
-        template=None
+        template = None
         if template_name:
             template=self._templates.get(template_name)
         else:
@@ -1480,14 +1480,14 @@ class ContextAgent(BaseAgent):
 
     def calculate_priority_score(self) -> float:
         """Calculate a priority score based on various factors."""
-        score=0.0
+        score = 0.0
         content=self.current_content or self.previous_content or ""
 
         # Base score from priority level
         score += self._priority.value * 10
 
         # Add points for content completeness
-        sections=["Purpose", "Usage", "Dependencies", "Examples"]
+        sections = ["Purpose", "Usage", "Dependencies", "Examples"]
         for section in sections:
             if f"## {section}" in content:
                 score += 5
