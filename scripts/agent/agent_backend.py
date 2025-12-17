@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,7 @@ This module provides the infrastructure for communicating with various AI backen
 - GitHub Models API (OpenAI-compatible endpoint)
 
 Supports automatic backend selection with fallback mechanisms.
-Configurable via environment variables for flexibility in CI/CD and development.
+Configurable via environment variables for flexibility in CI / CD and development.
 
 Environment Variables:
     DV_AGENT_BACKEND: Selected backend ('auto', 'copilot', 'gh', 'github-models')
@@ -51,7 +51,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 try:
     import requests
 except ImportError:
-    requests = None  # type: ignore[assignment]
+    requests=None  # type: ignore[assignment]
 
 
 # ============================================================================
@@ -62,55 +62,55 @@ except ImportError:
 class BackendType(Enum):
     """Types of AI backends available."""
 
-    COPILOT_CLI = "copilot"
-    GH_COPILOT = "gh"
-    GITHUB_MODELS = "github-models"
-    AUTO = "auto"
+    COPILOT_CLI="copilot"
+    GH_COPILOT="gh"
+    GITHUB_MODELS="github-models"
+    AUTO="auto"
 
 
 class BackendState(Enum):
     """Health states for backends."""
 
-    HEALTHY = "healthy"
-    DEGRADED = "degraded"
-    UNHEALTHY = "unhealthy"
-    UNKNOWN = "unknown"
+    HEALTHY="healthy"
+    DEGRADED="degraded"
+    UNHEALTHY="unhealthy"
+    UNKNOWN="unknown"
 
 
 class CircuitState(Enum):
     """Circuit breaker states."""
 
-    CLOSED = "closed"
-    OPEN = "open"
-    HALF_OPEN = "half_open"
+    CLOSED="closed"
+    OPEN="open"
+    HALF_OPEN="half_open"
 
 
 class RequestPriority(Enum):
     """Priority levels for request queuing."""
 
-    LOW = 0
-    NORMAL = 1
-    HIGH = 2
-    CRITICAL = 3
+    LOW=0
+    NORMAL=1
+    HIGH=2
+    CRITICAL=3
 
 
 class ResponseTransform(Enum):
     """Types of response transformations."""
 
-    NONE = "none"
-    STRIP_WHITESPACE = "strip"
-    EXTRACT_CODE = "extract_code"
-    EXTRACT_JSON = "extract_json"
-    MARKDOWN_TO_TEXT = "markdown_to_text"
+    NONE="none"
+    STRIP_WHITESPACE="strip"
+    EXTRACT_CODE="extract_code"
+    EXTRACT_JSON="extract_json"
+    MARKDOWN_TO_TEXT="markdown_to_text"
 
 
 class LoadBalanceStrategy(Enum):
     """Load balancing strategies for multiple backends."""
 
-    ROUND_ROBIN = "round_robin"
-    LEAST_CONNECTIONS = "least_connections"
-    WEIGHTED = "weighted"
-    FAILOVER = "failover"
+    ROUND_ROBIN="round_robin"
+    LEAST_CONNECTIONS="least_connections"
+    WEIGHTED="weighted"
+    FAILOVER="failover"
 
 
 # ============================================================================
@@ -134,10 +134,10 @@ class BackendConfig:
 
     name: str
     backend_type: BackendType
-    enabled: bool = True
-    weight: int = 1
-    timeout_s: int = 60
-    max_retries: int = 2
+    enabled: bool=True
+    weight: int=1
+    timeout_s: int=60
+    max_retries: int=2
     rate_limit_rpm: Optional[int] = None
 
 
@@ -153,11 +153,11 @@ class RequestContext:
         metadata: Additional request metadata.
     """
 
-    request_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    request_id: str=field(default_factory=lambda: str(uuid.uuid4()))
     correlation_id: Optional[str] = None
-    priority: RequestPriority = RequestPriority.NORMAL
-    created_at: float = field(default_factory = time.time)
-    metadata: Dict[str, Any] = field(default_factory = dict)
+    priority: RequestPriority=RequestPriority.NORMAL
+    created_at: float=field(default_factory=time.time)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -175,10 +175,10 @@ class BackendResponse:
 
     content: str
     backend: str
-    latency_ms: int = 0
-    cached: bool = False
+    latency_ms: int=0
+    cached: bool=False
     request_id: Optional[str] = None
-    tokens_used: int = 0
+    tokens_used: int=0
 
 
 @dataclass
@@ -196,10 +196,10 @@ class BackendHealthStatus:
 
     backend: str
     state: BackendState
-    last_check: float = field(default_factory = time.time)
-    success_rate: float = 1.0
-    avg_latency_ms: float = 0.0
-    error_count: int = 0
+    last_check: float=field(default_factory=time.time)
+    success_rate: float=1.0
+    avg_latency_ms: float=0.0
+    error_count: int=0
 
 
 @dataclass
@@ -207,7 +207,7 @@ class QueuedRequest:
     """A request waiting in the queue.
 
     Attributes:
-        priority: Request priority (higher = more urgent).
+        priority: Request priority (higher=more urgent).
         timestamp: When request was queued.
         request_id: Unique request identifier.
         prompt: The prompt to send.
@@ -239,9 +239,9 @@ class BatchRequest:
     """
 
     requests: List[str]
-    batch_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    created_at: float = field(default_factory = time.time)
-    processed_count: int = 0
+    batch_id: str=field(default_factory=lambda: str(uuid.uuid4()))
+    created_at: float=field(default_factory=time.time)
+    processed_count: int=0
 
 
 @dataclass
@@ -257,12 +257,12 @@ class UsageQuota:
         reset_hourly_at: When hourly count resets.
     """
 
-    daily_limit: int = 1000
-    hourly_limit: int = 100
-    current_daily: int = 0
-    current_hourly: int = 0
-    reset_daily_at: float = field(default_factory = time.time)
-    reset_hourly_at: float = field(default_factory = time.time)
+    daily_limit: int=1000
+    hourly_limit: int=100
+    current_daily: int=0
+    current_hourly: int=0
+    reset_daily_at: float=field(default_factory=time.time)
+    reset_hourly_at: float=field(default_factory=time.time)
 
 
 # ============================================================================
@@ -333,8 +333,8 @@ class ExtractCodeTransformer(ResponseTransformerBase):
             str: Extracted code without markdown fencing.
         """
         # Match ```language\ncode\n``` blocks
-        code_pattern = r"```(?:\w+)?\n(.*?)```"
-        matches = re.findall(code_pattern, response, re.DOTALL)
+        code_pattern=r"```(?:\w+)?\n(.*?)```"
+        matches=re.findall(code_pattern, response, re.DOTALL)
         if matches:
             return "\n\n".join(matches)
         return response.strip()
@@ -357,8 +357,8 @@ class ExtractJsonTransformer(ResponseTransformerBase):
             str: Extracted JSON string.
         """
         # Try to find JSON object or array
-        json_pattern = r"(\{[^{}]*\}|\[[^\[\]]*\])"
-        matches = re.findall(json_pattern, response, re.DOTALL)
+        json_pattern=r"(\{[^{}]*\}|\[[^\[\]]*\])"
+        matches=re.findall(json_pattern, response, re.DOTALL)
         for match in matches:
             try:
                 json.loads(match)
@@ -384,25 +384,25 @@ class RequestQueue:
     Thread-safe for concurrent access.
 
     Example:
-        queue = RequestQueue()
+        queue=RequestQueue()
         queue.enqueue("prompt", RequestPriority.HIGH)
-        request = queue.dequeue()
+        request=queue.dequeue()
     """
 
-    def __init__(self, max_size: int = 1000) -> None:
+    def __init__(self, max_size: int=1000) -> None:
         """Initialize request queue.
 
         Args:
             max_size: Maximum queue size.
         """
-        self._queue: PriorityQueue[QueuedRequest] = PriorityQueue(maxsize = max_size)
-        self._lock = threading.Lock()
+        self._queue: PriorityQueue[QueuedRequest] = PriorityQueue(maxsize=max_size)
+        self._lock=threading.Lock()
         self._pending: Dict[str, QueuedRequest] = {}
 
     def enqueue(
         self,
         prompt: str,
-        priority: RequestPriority = RequestPriority.NORMAL,
+        priority: RequestPriority=RequestPriority.NORMAL,
         callback: Optional[Callable[[str], None]] = None,
     ) -> str:
         """Add request to queue.
@@ -415,13 +415,13 @@ class RequestQueue:
         Returns:
             str: Request ID for tracking.
         """
-        request_id = str(uuid.uuid4())
-        request = QueuedRequest(
-            priority = priority.value,
-            timestamp = time.time(),
-            request_id = request_id,
-            prompt = prompt,
-            callback = callback,
+        request_id=str(uuid.uuid4())
+        request=QueuedRequest(
+            priority=priority.value,
+            timestamp=time.time(),
+            request_id=request_id,
+            prompt=prompt,
+            callback=callback,
         )
 
         with self._lock:
@@ -438,10 +438,10 @@ class RequestQueue:
             timeout: Maximum wait time in seconds.
 
         Returns:
-            Optional[QueuedRequest]: Next request or None if empty/timeout.
+            Optional[QueuedRequest]: Next request or None if empty / timeout.
         """
         try:
-            request = self._queue.get(timeout = timeout)
+            request=self._queue.get(timeout=timeout)
             with self._lock:
                 self._pending.pop(request.request_id, None)
             return request
@@ -474,16 +474,16 @@ class RequestBatcher:
     size or timeout is reached.
 
     Example:
-        batcher = RequestBatcher(batch_size = 10, timeout_s = 5.0)
+        batcher=RequestBatcher(batch_size=10, timeout_s=5.0)
         batcher.add("prompt1")
         batcher.add("prompt2")
-        batch = batcher.get_batch()  # Returns when ready
+        batch=batcher.get_batch()  # Returns when ready
     """
 
     def __init__(
         self,
-        batch_size: int = 10,
-        timeout_s: float = 5.0,
+        batch_size: int=10,
+        timeout_s: float=5.0,
     ) -> None:
         """Initialize request batcher.
 
@@ -491,10 +491,10 @@ class RequestBatcher:
             batch_size: Requests per batch.
             timeout_s: Max wait time before processing partial batch.
         """
-        self.batch_size = batch_size
-        self.timeout_s = timeout_s
+        self.batch_size=batch_size
+        self.timeout_s=timeout_s
         self._buffer: List[str] = []
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
         self._batch_start: Optional[float] = None
 
     def add(self, prompt: str) -> bool:
@@ -508,7 +508,7 @@ class RequestBatcher:
         """
         with self._lock:
             if not self._buffer:
-                self._batch_start = time.time()
+                self._batch_start=time.time()
             self._buffer.append(prompt)
             return len(self._buffer) >= self.batch_size
 
@@ -530,9 +530,9 @@ class RequestBatcher:
         with self._lock:
             if not self._buffer:
                 return None
-            batch = BatchRequest(requests = self._buffer.copy())
+            batch=BatchRequest(requests=self._buffer.copy())
             self._buffer.clear()
-            self._batch_start = None
+            self._batch_start=None
             return batch
 
     def pending_count(self) -> int:
@@ -549,11 +549,11 @@ class RequestBatcher:
 class BackendHealthMonitor:
     """Monitors backend health and manages failover.
 
-    Tracks success/failure rates, latency, and automatically
+    Tracks success / failure rates, latency, and automatically
     fails over to healthy backends when issues detected.
 
     Example:
-        monitor = BackendHealthMonitor()
+        monitor=BackendHealthMonitor()
         monitor.record_success("github-models", 150)
         if monitor.is_healthy("github-models"):
             # Use backend
@@ -562,8 +562,8 @@ class BackendHealthMonitor:
 
     def __init__(
         self,
-        health_threshold: float = 0.8,
-        window_size: int = 100,
+        health_threshold: float=0.8,
+        window_size: int=100,
     ) -> None:
         """Initialize health monitor.
 
@@ -571,11 +571,11 @@ class BackendHealthMonitor:
             health_threshold: Min success rate for healthy status.
             window_size: Number of recent requests to track.
         """
-        self.health_threshold = health_threshold
-        self.window_size = window_size
+        self.health_threshold=health_threshold
+        self.window_size=window_size
         self._history: Dict[str, List[Tuple[bool, int]]] = {}
         self._status: Dict[str, BackendHealthStatus] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def record_success(self, backend: str, latency_ms: int) -> None:
         """Record successful request.
@@ -591,7 +591,7 @@ class BackendHealthMonitor:
             self._history[backend] = self._history[backend][-self.window_size:]
             self._update_status(backend)
 
-    def record_failure(self, backend: str, latency_ms: int = 0) -> None:
+    def record_failure(self, backend: str, latency_ms: int=0) -> None:
         """Record failed request.
 
         Args:
@@ -607,44 +607,44 @@ class BackendHealthMonitor:
 
     def _update_status(self, backend: str) -> None:
         """Update backend health status."""
-        history = self._history.get(backend, [])
+        history=self._history.get(backend, [])
         if not history:
             self._status[backend] = BackendHealthStatus(
-                backend = backend,
-                state = BackendState.UNKNOWN,
+                backend=backend,
+                state=BackendState.UNKNOWN,
             )
             return
 
-        successes = sum(1 for success, _ in history if success)
-        total = len(history)
-        success_rate = successes / total if total > 0 else 0.0
+        successes=sum(1 for success, _ in history if success)
+        total=len(history)
+        success_rate=successes / total if total > 0 else 0.0
 
-        latencies = [lat for _, lat in history if lat > 0]
-        avg_latency = sum(latencies) / len(latencies) if latencies else 0.0
+        latencies=[lat for _, lat in history if lat > 0]
+        avg_latency=sum(latencies) / len(latencies) if latencies else 0.0
 
-        error_count = total - successes
+        error_count=total - successes
 
         if success_rate >= self.health_threshold:
-            state = BackendState.HEALTHY
+            state=BackendState.HEALTHY
         elif success_rate >= 0.5:
-            state = BackendState.DEGRADED
+            state=BackendState.DEGRADED
         else:
-            state = BackendState.UNHEALTHY
+            state=BackendState.UNHEALTHY
 
         self._status[backend] = BackendHealthStatus(
-            backend = backend,
-            state = state,
-            success_rate = success_rate,
-            avg_latency_ms = avg_latency,
-            error_count = error_count,
+            backend=backend,
+            state=state,
+            success_rate=success_rate,
+            avg_latency_ms=avg_latency,
+            error_count=error_count,
         )
 
     def is_healthy(self, backend: str) -> bool:
         """Check if backend is healthy."""
         with self._lock:
-            status = self._status.get(backend)
+            status=self._status.get(backend)
             if not status:
-                return True  # Unknown = assume healthy
+                return True  # Unknown=assume healthy
             return status.state == BackendState.HEALTHY
 
     def get_status(self, backend: str) -> Optional[BackendHealthStatus]:
@@ -668,19 +668,19 @@ class BackendHealthMonitor:
         """
         with self._lock:
             best: Optional[str] = None
-            best_score = -1.0
+            best_score=-1.0
 
             for backend in backends:
-                status = self._status.get(backend)
+                status=self._status.get(backend)
                 if not status:
                     # Unknown backends get neutral score
-                    score = 0.5
+                    score=0.5
                 else:
-                    score = status.success_rate
+                    score=status.success_rate
 
                 if score > best_score:
-                    best_score = score
-                    best = backend
+                    best_score=score
+                    best=backend
 
             return best
 
@@ -696,29 +696,29 @@ class LoadBalancer:
     Distributes requests across backends using configurable strategies.
 
     Example:
-        lb = LoadBalancer(LoadBalanceStrategy.ROUND_ROBIN)
-        lb.add_backend("backend1", weight = 2)
-        lb.add_backend("backend2", weight = 1)
-        backend = lb.next()
+        lb=LoadBalancer(LoadBalanceStrategy.ROUND_ROBIN)
+        lb.add_backend("backend1", weight=2)
+        lb.add_backend("backend2", weight=1)
+        backend=lb.next()
     """
 
-    def __init__(self, strategy: LoadBalanceStrategy = LoadBalanceStrategy.ROUND_ROBIN) -> None:
+    def __init__(self, strategy: LoadBalanceStrategy=LoadBalanceStrategy.ROUND_ROBIN) -> None:
         """Initialize load balancer.
 
         Args:
             strategy: Load balancing strategy to use.
         """
-        self.strategy = strategy
+        self.strategy=strategy
         self._backends: List[BackendConfig] = []
-        self._index = 0
+        self._index=0
         self._connections: Dict[str, int] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def add_backend(
         self,
         name: str,
-        backend_type: BackendType = BackendType.GITHUB_MODELS,
-        weight: int = 1,
+        backend_type: BackendType=BackendType.GITHUB_MODELS,
+        weight: int=1,
         **kwargs: Any,
     ) -> None:
         """Add backend to load balancer.
@@ -729,10 +729,10 @@ class LoadBalancer:
             weight: Weight for weighted strategy.
             **kwargs: Additional backend config.
         """
-        config = BackendConfig(
-            name = name,
-            backend_type = backend_type,
-            weight = weight,
+        config=BackendConfig(
+            name=name,
+            backend_type=backend_type,
+            weight=weight,
             **kwargs,
         )
         with self._lock:
@@ -765,26 +765,26 @@ class LoadBalancer:
             Optional[BackendConfig]: Next backend or None if empty.
         """
         with self._lock:
-            enabled = [b for b in self._backends if b.enabled]
+            enabled=[b for b in self._backends if b.enabled]
             if not enabled:
                 return None
 
             if self.strategy == LoadBalanceStrategy.ROUND_ROBIN:
-                backend = enabled[self._index % len(enabled)]
+                backend=enabled[self._index % len(enabled)]
                 self._index += 1
                 return backend
 
             elif self.strategy == LoadBalanceStrategy.LEAST_CONNECTIONS:
-                backend = min(enabled, key=lambda b: self._connections.get(b.name, 0))
+                backend=min(enabled, key=lambda b: self._connections.get(b.name, 0))
                 return backend
 
             elif self.strategy == LoadBalanceStrategy.WEIGHTED:
                 # Weighted round robin
-                total_weight = sum(b.weight for b in enabled)
+                total_weight=sum(b.weight for b in enabled)
                 if total_weight == 0:
                     return enabled[0]
-                target = self._index % total_weight
-                current = 0
+                target=self._index % total_weight
+                current=0
                 for backend in enabled:
                     current += backend.weight
                     if target < current:
@@ -814,10 +814,10 @@ class LoadBalancer:
 class UsageQuotaManager:
     """Manages usage quotas and limits.
 
-    Tracks request counts and enforces daily/hourly limits.
+    Tracks request counts and enforces daily / hourly limits.
 
     Example:
-        quota = UsageQuotaManager(daily_limit = 1000, hourly_limit = 100)
+        quota=UsageQuotaManager(daily_limit=1000, hourly_limit=100)
         if quota.can_request():
             quota.record_request()
             # Make request
@@ -825,8 +825,8 @@ class UsageQuotaManager:
 
     def __init__(
         self,
-        daily_limit: int = 1000,
-        hourly_limit: int = 100,
+        daily_limit: int=1000,
+        hourly_limit: int=100,
     ) -> None:
         """Initialize quota manager.
 
@@ -834,25 +834,25 @@ class UsageQuotaManager:
             daily_limit: Max requests per day.
             hourly_limit: Max requests per hour.
         """
-        self._quota = UsageQuota(
-            daily_limit = daily_limit,
-            hourly_limit = hourly_limit,
+        self._quota=UsageQuota(
+            daily_limit=daily_limit,
+            hourly_limit=hourly_limit,
         )
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def _check_reset(self) -> None:
         """Check and reset counters if needed."""
-        now = time.time()
+        now=time.time()
 
         # Reset hourly
         if now - self._quota.reset_hourly_at >= 3600:
-            self._quota.current_hourly = 0
-            self._quota.reset_hourly_at = now
+            self._quota.current_hourly=0
+            self._quota.reset_hourly_at=now
 
         # Reset daily
         if now - self._quota.reset_daily_at >= 86400:
-            self._quota.current_daily = 0
-            self._quota.reset_daily_at = now
+            self._quota.current_daily=0
+            self._quota.reset_daily_at=now
 
     def can_request(self) -> bool:
         """Check if request is allowed under quota."""
@@ -874,8 +874,8 @@ class UsageQuotaManager:
         """Get remaining quota (daily, hourly)."""
         with self._lock:
             self._check_reset()
-            daily_remaining = max(0, self._quota.daily_limit - self._quota.current_daily)
-            hourly_remaining = max(0, self._quota.hourly_limit - self._quota.current_hourly)
+            daily_remaining=max(0, self._quota.daily_limit - self._quota.current_daily)
+            hourly_remaining=max(0, self._quota.hourly_limit - self._quota.current_hourly)
             return daily_remaining, hourly_remaining
 
     def get_usage_report(self) -> Dict[str, Any]:
@@ -904,22 +904,22 @@ class RequestTracer:
     and monitoring request flow.
 
     Example:
-        tracer = RequestTracer()
-        context = tracer.start_trace("my-request")
+        tracer=RequestTracer()
+        context=tracer.start_trace("my-request")
         # Do work
-        tracer.end_trace(context.request_id, success = True)
+        tracer.end_trace(context.request_id, success=True)
     """
 
     def __init__(self) -> None:
         """Initialize request tracer."""
         self._traces: Dict[str, RequestContext] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def start_trace(
         self,
         description: str,
         correlation_id: Optional[str] = None,
-        priority: RequestPriority = RequestPriority.NORMAL,
+        priority: RequestPriority=RequestPriority.NORMAL,
     ) -> RequestContext:
         """Start a new trace.
 
@@ -931,10 +931,10 @@ class RequestTracer:
         Returns:
             RequestContext: Context for this trace.
         """
-        context = RequestContext(
-            correlation_id = correlation_id or str(uuid.uuid4()),
-            priority = priority,
-            metadata = {"description": description},
+        context=RequestContext(
+            correlation_id=correlation_id or str(uuid.uuid4()),
+            priority=priority,
+            metadata={"description": description},
         )
 
         with self._lock:
@@ -947,7 +947,7 @@ class RequestTracer:
         self,
         request_id: str,
         success: bool,
-        response_size: int = 0,
+        response_size: int=0,
     ) -> Optional[float]:
         """End a trace and return duration.
 
@@ -960,15 +960,15 @@ class RequestTracer:
             Optional[float]: Duration in seconds, or None if not found.
         """
         with self._lock:
-            context = self._traces.pop(request_id, None)
+            context=self._traces.pop(request_id, None)
 
         if not context:
             return None
 
-        duration = time.time() - context.created_at
+        duration=time.time() - context.created_at
         logging.debug(
-            f"Ended trace {request_id}: success = {success}, "
-            f"duration = {duration:.3f}s, size = {response_size}"
+            f"Ended trace {request_id}: success={success}, "
+            f"duration={duration:.3f}s, size={response_size}"
         )
         return duration
 
@@ -990,7 +990,7 @@ class AuditLogger:
     audit trail and compliance requirements.
 
     Example:
-        audit = AuditLogger()
+        audit=AuditLogger()
         audit.log_request("github-models", "prompt", "response", 150)
     """
 
@@ -1000,8 +1000,8 @@ class AuditLogger:
         Args:
             log_file: Path to audit log file.
         """
-        self.log_file = log_file
-        self._lock = threading.Lock()
+        self.log_file=log_file
+        self._lock=threading.Lock()
 
     def log_request(
         self,
@@ -1009,7 +1009,7 @@ class AuditLogger:
         prompt: str,
         response: str,
         latency_ms: int,
-        success: bool = True,
+        success: bool=True,
         request_id: Optional[str] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> None:
@@ -1024,7 +1024,7 @@ class AuditLogger:
             request_id: Optional request ID.
             metadata: Additional metadata.
         """
-        entry = {
+        entry={
             "timestamp": datetime.utcnow().isoformat(),
             "request_id": request_id or str(uuid.uuid4()),
             "backend": backend,
@@ -1039,14 +1039,14 @@ class AuditLogger:
         with self._lock:
             if self.log_file:
                 try:
-                    with open(self.log_file, "a", encoding = "utf-8") as f:
+                    with open(self.log_file, "a", encoding="utf-8") as f:
                         f.write(json.dumps(entry) + "\n")
                 except IOError as e:
                     logging.warning(f"Failed to write audit log: {e}")
 
             logging.debug(f"Audit: {entry['request_id']} - {backend} - {latency_ms}ms")
 
-    def get_recent_entries(self, count: int = 100) -> List[Dict[str, Any]]:
+    def get_recent_entries(self, count: int=100) -> List[Dict[str, Any]]:
         """Get recent audit log entries.
 
         Args:
@@ -1061,7 +1061,7 @@ class AuditLogger:
         entries: List[Dict[str, Any]] = []
         with self._lock:
             try:
-                with open(self.log_file, "r", encoding = "utf-8") as f:
+                with open(self.log_file, "r", encoding="utf-8") as f:
                     for line in f:
                         try:
                             entries.append(json.loads(line.strip()))
@@ -1093,11 +1093,11 @@ def _resolve_repo_root() -> Path:
         - Returns CWD if no .git found
         - Path is always resolved to absolute form
     """
-    env_root = os.environ.get("DV_AGENT_REPO_ROOT")
+    env_root=os.environ.get("DV_AGENT_REPO_ROOT")
     if env_root:
         logging.debug(f"Using DV_AGENT_REPO_ROOT: {env_root}")
         return Path(env_root).expanduser().resolve()
-    here = Path(__file__).resolve()
+    here=Path(__file__).resolve()
     for parent in [here.parent, *here.parents]:
         if (parent / ".git").exists():
             logging.debug(f"Found repo root at {parent}")
@@ -1126,12 +1126,12 @@ def _command_available(command: str) -> bool:
         logging.debug(f"Checking if command is available: {command}")
         subprocess.run(
             [command, '--version'],
-            capture_output = True,
-            text = True,
-            encoding = 'utf-8',
-            errors = 'replace',
-            timeout = 5,
-            check = True,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace',
+            timeout=5,
+            check=True,
         )
         logging.debug(f"Command available: {command}")
         return True
@@ -1146,7 +1146,7 @@ def _command_available(command: str) -> bool:
 
 def _get_cache_key(prompt: str, model: str) -> str:
     """Generate a cache key for a prompt-model combination."""
-    content = f"{prompt}:{model}".encode('utf-8')
+    content=f"{prompt}:{model}".encode('utf-8')
     return hashlib.sha256(content).hexdigest()
 
 
@@ -1175,7 +1175,7 @@ def get_metrics() -> Dict[str, Any]:
 def reset_metrics() -> None:
     """Reset metrics to zero."""
     global _metrics
-    _metrics = {
+    _metrics={
         "requests": 0,
         "errors": 0,
         "timeouts": 0,
@@ -1199,7 +1199,7 @@ def validate_response_content(response: str, content_types: Optional[list] = Non
     if not response or not isinstance(response, str):
         return False
 
-    response_lower = response.lower()
+    response_lower=response.lower()
 
     if not content_types:
         # Basic validation: non-empty, not just whitespace
@@ -1232,7 +1232,7 @@ def estimate_tokens(text: str) -> int:
     return max(1, len(text) // 4)
 
 
-def estimate_cost(tokens: int, model: str = "gpt-4", rate_per_1k_input: float = 0.03) -> float:
+def estimate_cost(tokens: int, model: str="gpt-4", rate_per_1k_input: float=0.03) -> float:
     """Estimate cost for API-based backends.
 
     Args:
@@ -1244,7 +1244,7 @@ def estimate_cost(tokens: int, model: str = "gpt-4", rate_per_1k_input: float = 
         float: Estimated cost in USD.
     """
     # Simple estimation: tokens * (rate_per_1k / 1000)
-    cost = (tokens / 1000.0) * rate_per_1k_input
+    cost=(tokens / 1000.0) * rate_per_1k_input
     logging.debug(f"Estimated cost for {tokens} tokens: ${cost:.6f}")
     return cost
 
@@ -1257,7 +1257,7 @@ def configure_timeout_per_backend(backend: str, timeout_s: int) -> None:
         timeout_s: Timeout in seconds.
     """
     # Store in environment for now; could be expanded to persistent config
-    env_key = f"DV_AGENT_TIMEOUT_{backend.upper()}"
+    env_key=f"DV_AGENT_TIMEOUT_{backend.upper()}"
     os.environ[env_key] = str(timeout_s)
     logging.debug(f"Configured {backend} timeout to {timeout_s}s")
 
@@ -1265,14 +1265,14 @@ def configure_timeout_per_backend(backend: str, timeout_s: int) -> None:
 def llm_chat_via_github_models(
     prompt: str,
     model: str,
-    system_prompt: str = "You are a helpful assistant.",
+    system_prompt: str="You are a helpful assistant.",
     base_url: Optional[str] = None,
     token: Optional[str] = None,
-    timeout_s: int = 60,
-    max_retries: int = 2,
-    use_cache: bool = True,
-    stream: bool = False,
-    validate_content: bool = True,
+    timeout_s: int=60,
+    max_retries: int=2,
+    use_cache: bool=True,
+    stream: bool=False,
+    validate_content: bool=True,
 ) -> str:
     """Call a GitHub Models OpenAI-compatible chat endpoint with retry logic.
 
@@ -1300,12 +1300,12 @@ def llm_chat_via_github_models(
         requests.RequestException: If HTTP request fails after all retries.
 
     Example:
-        response = llm_chat_via_github_models(
-            prompt = "What is Python?",
-            model = "gpt-4",
-            base_url = "https://api.github.com/models",
-            token = "ghp_...",
-            max_retries = 3
+        response=llm_chat_via_github_models(
+            prompt="What is Python?",
+            model="gpt-4",
+            base_url="https://api.github.com / models",
+            token="ghp_...",
+            max_retries=3
         )
 
     Note:
@@ -1321,23 +1321,23 @@ def llm_chat_via_github_models(
         raise RuntimeError("Missing dependency: install 'requests' to use GitHub Models backend")
 
     # Check cache first
-    cache_key = _get_cache_key(prompt, model)
+    cache_key=_get_cache_key(prompt, model)
     if use_cache and cache_key in _response_cache:
         _metrics["cache_hits"] += 1
         logging.debug(f"Cache hit for prompt hash: {cache_key}")
         return _response_cache[cache_key]
 
-    resolved_token = token or os.environ.get("GITHUB_TOKEN")
+    resolved_token=token or os.environ.get("GITHUB_TOKEN")
     if not resolved_token:
-        raise RuntimeError("Missing token: set GITHUB_TOKEN env var or pass token = ")
+        raise RuntimeError("Missing token: set GITHUB_TOKEN env var or pass token=")
 
-    resolved_base_url = (base_url or os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
+    resolved_base_url=(base_url or os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
     if not resolved_base_url:
         raise RuntimeError(
-            "Missing base URL: set GITHUB_MODELS_BASE_URL env var or pass base_url = "
+            "Missing base URL: set GITHUB_MODELS_BASE_URL env var or pass base_url="
         )
 
-    url = resolved_base_url.rstrip("/") + "/v1/chat/completions"
+    url=resolved_base_url.rstrip("/") + "/v1 / chat / completions"
     payload: Dict[str, Any] = {
         "model": model,
         "messages": [
@@ -1350,28 +1350,28 @@ def llm_chat_via_github_models(
     if stream:
         payload["stream"] = True
 
-    headers = {
+    headers={
         "Authorization": f"Bearer {resolved_token}",
-        "Content-Type": "application/json",
+        "Content-Type": "application / json",
     }
 
-    last_error = None
-    start_time = time.time()
+    last_error=None
+    start_time=time.time()
     _metrics["requests"] += 1
 
     for attempt in range(max_retries + 1):
         try:
             logging.debug(f"Making GitHub Models API request (attempt {attempt + 1}/{max_retries + 1})")
-            response = requests.post(
+            response=requests.post(
                 url,
-                headers = headers,
-                data = json.dumps(payload),
-                timeout = timeout_s,
+                headers=headers,
+                data=json.dumps(payload),
+                timeout=timeout_s,
             )
             response.raise_for_status()
-            data = response.json()
+            data=response.json()
             try:
-                result = (data["choices"][0]["message"]["content"] or "").strip()
+                result=(data["choices"][0]["message"]["content"] or "").strip()
 
                 # Validate response if requested
                 if validate_content and not validate_response_content(result):
@@ -1382,7 +1382,7 @@ def llm_chat_via_github_models(
                     _response_cache[cache_key] = result
 
                 # Track metrics
-                latency_ms = int((time.time() - start_time) * 1000)
+                latency_ms=int((time.time() - start_time) * 1000)
                 _metrics["total_latency_ms"] += latency_ms
 
                 logging.debug(f"Received {len(result)} bytes from GitHub Models API ({latency_ms}ms)")
@@ -1390,11 +1390,11 @@ def llm_chat_via_github_models(
             except (KeyError, IndexError, TypeError) as e:
                 raise RuntimeError(f"Unexpected response shape from LLM endpoint: {data!r}") from e
         except (requests.Timeout, requests.ConnectionError) as e:
-            last_error = e
+            last_error=e
             _metrics["timeouts"] += 1
             if attempt < max_retries:
-                delay = min(2 ** attempt, 30)  # Exponential backoff, max 30s
-                logging.warning(f"GitHub Models API timeout/connection error, retrying in {delay}s...")
+                delay=min(2 ** attempt, 30)  # Exponential backoff, max 30s
+                logging.warning(f"GitHub Models API timeout / connection error, retrying in {delay}s...")
                 time.sleep(delay)
             else:
                 _metrics["errors"] += 1
@@ -1409,19 +1409,19 @@ def llm_chat_via_github_models(
         raise last_error
 
 
-def run_subagent(description: str, prompt: str, original_content: str = "") -> Optional[str]:
+def run_subagent(description: str, prompt: str, original_content: str="") -> Optional[str]:
     """Run a subagent using one of several AI backends.
 
     Attempts to run a task using available AI backends with automatic selection
     and fallback mechanisms. Tries backends in order of preference:
-    1. GitHub Copilot CLI (if DV_AGENT_BACKEND = copilot)
+    1. GitHub Copilot CLI (if DV_AGENT_BACKEND=copilot)
     2. GitHub Models API (if configured)
     3. gh copilot (if available)
     4. Falls back gracefully if no backend available
 
     Args:
         description: Human-readable task description (e.g., "Improve code quality").
-        prompt: The specific prompt/task to send to the AI backend.
+        prompt: The specific prompt / task to send to the AI backend.
         original_content: Current file content for context (limited by DV_AGENT_MAX_CONTEXT_CHARS).
                          Defaults to empty string.
 
@@ -1432,10 +1432,10 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
         RuntimeError: If explicit backend requested but unavailable.
 
     Example:
-        result = run_subagent(
-            description = "Add docstrings to function",
-            prompt = "Add Google-style docstrings",
-            original_content = source_code
+        result=run_subagent(
+            description="Add docstrings to function",
+            prompt="Add Google-style docstrings",
+            original_content=source_code
         )
         if result:
             print(result)
@@ -1454,10 +1454,10 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
     """
     def _build_full_prompt() -> str:
         try:
-            max_context_chars = int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
+            max_context_chars=int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
         except ValueError:
-            max_context_chars = 12_000
-        trimmed_original = (original_content or "")[:max_context_chars]
+            max_context_chars=12_000
+        trimmed_original=(original_content or "")[:max_context_chars]
         return (
             f"Task: {description}\n\n"
             f"Prompt:\n{prompt}\n\n"
@@ -1469,11 +1469,11 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
         if not _command_available('copilot'):
             logging.debug("Copilot CLI not available")
             return None
-        full_prompt = _build_full_prompt()
-        repo_root = _resolve_repo_root()
+        full_prompt=_build_full_prompt()
+        repo_root=_resolve_repo_root()
         try:
             logging.debug("Attempting to use Copilot CLI backend")
-            result = subprocess.run(
+            result=subprocess.run(
                 [
                     'copilot',
                     '--prompt',
@@ -1493,15 +1493,15 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
                     '--stream',
                     'off',
                 ],
-                capture_output = True,
-                text = True,
-                encoding = 'utf-8',
-                errors = 'replace',
-                timeout = 180,
-                cwd = str(repo_root),
-                check = False
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                errors='replace',
+                timeout=180,
+                cwd=str(repo_root),
+                check=False
             )
-            stdout = (result.stdout or "").strip()
+            stdout=(result.stdout or "").strip()
             if result.returncode == 0 and stdout:
                 logging.info("Copilot CLI backend succeeded")
                 return stdout
@@ -1516,14 +1516,14 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
         return None
 
     def _looks_like_command(text: str) -> bool:
-        t = (text or "").strip()
+        t=(text or "").strip()
         if not t:
             return False
         if "\n" in t:
             return False
         if any(op in t for op in ("|", "&&", ";")):
             return True
-        starters = (
+        starters=(
             "git ",
             "gh ",
             "docker ",
@@ -1547,23 +1547,23 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
         if not allow_non_command_prompt and not _looks_like_command(prompt):
             logging.debug("Prompt doesn't look like a command, skipping gh copilot")
             return None
-        max_len = 2000
-        prompt_to_use = prompt
+        max_len=2000
+        prompt_to_use=prompt
         if len(prompt) > max_len:
             logging.warning(f"Prompt truncated from {len(prompt)} to {max_len} chars for gh copilot")
-            prompt_to_use = prompt[:max_len]
+            prompt_to_use=prompt[:max_len]
 
         try:
             logging.debug("Attempting to use gh copilot backend")
-            result = subprocess.run(
+            result=subprocess.run(
                 ['gh', 'copilot', 'explain', prompt_to_use],
-                capture_output = True,
-                text = True,
-                encoding = 'utf-8',
-                errors = 'replace',
-                timeout = 30,
-                cwd = str(_resolve_repo_root()),
-                check = False
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                errors='replace',
+                timeout=30,
+                cwd=str(_resolve_repo_root()),
+                check=False
             )
             if result.returncode == 0 and result.stdout.strip():
                 logging.info("gh copilot backend succeeded")
@@ -1579,17 +1579,17 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
         return None
 
     def _try_github_models() -> Optional[str]:
-        model = (
+        model=(
             os.environ.get("DV_AGENT_MODEL")
             or os.environ.get("GITHUB_MODELS_MODEL")
             or ""
         ).strip()
-        system_prompt = os.environ.get(
+        system_prompt=os.environ.get(
             "DV_AGENT_SYSTEM_PROMPT",
             "You are a helpful assistant. Follow the user instructions exactly.",
         )
-        base_url = os.environ.get("GITHUB_MODELS_BASE_URL")
-        token = os.environ.get("GITHUB_TOKEN")
+        base_url=os.environ.get("GITHUB_MODELS_BASE_URL")
+        token=os.environ.get("GITHUB_TOKEN")
         if not model:
             logging.debug("No model specified for GitHub Models")
             return None
@@ -1599,54 +1599,54 @@ def run_subagent(description: str, prompt: str, original_content: str = "") -> O
         if not token:
             logging.debug("No GitHub token specified for GitHub Models")
             return None
-        full_prompt = _build_full_prompt()
+        full_prompt=_build_full_prompt()
         try:
             logging.debug("Attempting to use GitHub Models backend")
             return llm_chat_via_github_models(
-                prompt = full_prompt,
-                model = model,
-                system_prompt = system_prompt,
-                base_url = base_url,
-                token = token,
+                prompt=full_prompt,
+                model=model,
+                system_prompt=system_prompt,
+                base_url=base_url,
+                token=token,
             )
         except Exception as e:
             logging.warning(f"GitHub Models backend error: {e}")
             return None
 
-    backend = os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
+    backend=os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
     logging.debug(f"Using backend: {backend}")
 
     if backend in {"copilot", "local", "copilot-cli"}:
-        result = _try_copilot_cli()
+        result=_try_copilot_cli()
         if result is None:
-            raise RuntimeError("Requested DV_AGENT_BACKEND = copilot but local 'copilot' CLI is unavailable")
+            raise RuntimeError("Requested DV_AGENT_BACKEND=copilot but local 'copilot' CLI is unavailable")
         return result
     if backend in {"gh", "gh-copilot"}:
-        result = _try_gh_copilot(allow_non_command_prompt = True)
+        result=_try_gh_copilot(allow_non_command_prompt=True)
         if result is None:
-            raise RuntimeError("Requested DV_AGENT_BACKEND = gh but 'gh copilot' is unavailable")
+            raise RuntimeError("Requested DV_AGENT_BACKEND=gh but 'gh copilot' is unavailable")
         return result
     if backend in {"github-models", "github_models", "models"}:
-        result = _try_github_models()
+        result=_try_github_models()
         if result is None:
             raise RuntimeError(
-                "Requested DV_AGENT_BACKEND = github-models but it is not configured; "
+                "Requested DV_AGENT_BACKEND=github-models but it is not configured; "
                 "set GITHUB_MODELS_BASE_URL, GITHUB_TOKEN, and DV_AGENT_MODEL (or GITHUB_MODELS_MODEL)"
             )
         return result
 
     # auto (default)
     logging.debug("Trying backends in order: copilot, github-models, gh")
-    result = _try_copilot_cli()
+    result=_try_copilot_cli()
     if result is not None:
         return result
     try:
-        result = _try_github_models()
+        result=_try_github_models()
         if result is not None:
             return result
     except Exception:
         pass
-    result = _try_gh_copilot(allow_non_command_prompt = False)
+    result=_try_gh_copilot(allow_non_command_prompt=False)
     if result is not None:
         return result
 
@@ -1670,12 +1670,12 @@ class CircuitBreaker:
     - HALF_OPEN: Recovery attempt, one request allowed
 
     Example:
-        breaker = CircuitBreaker(failure_threshold = 3, recovery_timeout = 60)
+        breaker=CircuitBreaker(failure_threshold=3, recovery_timeout=60)
         if breaker.is_open():
             print("Backend is currently unavailable")
         else:
             try:
-                result = call_backend()
+                result=call_backend()
                 breaker.record_success()
             except Exception:
                 breaker.record_failure()
@@ -1683,9 +1683,9 @@ class CircuitBreaker:
 
     def __init__(
         self,
-        name: str = "default",
-        failure_threshold: int = 5,
-        recovery_timeout: int = 60,
+        name: str="default",
+        failure_threshold: int=5,
+        recovery_timeout: int=60,
     ) -> None:
         """Initialize circuit breaker.
 
@@ -1694,13 +1694,13 @@ class CircuitBreaker:
             failure_threshold: Number of failures before opening circuit.
             recovery_timeout: Seconds to wait before attempting recovery.
         """
-        self.name = name
-        self.failure_threshold = failure_threshold
-        self.recovery_timeout = recovery_timeout
-        self.failure_count = 0
-        self.success_count = 0
+        self.name=name
+        self.failure_threshold=failure_threshold
+        self.recovery_timeout=recovery_timeout
+        self.failure_count=0
+        self.success_count=0
         self.last_failure_time: Optional[float] = None
-        self.state = "CLOSED"  # CLOSED, OPEN, or HALF_OPEN
+        self.state="CLOSED"  # CLOSED, OPEN, or HALF_OPEN
 
     def is_open(self) -> bool:
         """Check if circuit is open (backend should be skipped)."""
@@ -1711,7 +1711,7 @@ class CircuitBreaker:
             if self.last_failure_time is None:
                 return True
             if time.time() - self.last_failure_time >= self.recovery_timeout:
-                self.state = "HALF_OPEN"
+                self.state="HALF_OPEN"
                 logging.info(f"Circuit breaker '{self.name}' attempting recovery (HALF_OPEN)")
                 return False
             return True
@@ -1720,18 +1720,18 @@ class CircuitBreaker:
 
     def record_success(self) -> None:
         """Record a successful request."""
-        self.failure_count = 0
+        self.failure_count=0
         self.success_count += 1
         if self.state == "HALF_OPEN":
-            self.state = "CLOSED"
+            self.state="CLOSED"
             logging.info(f"Circuit breaker '{self.name}' recovered (CLOSED)")
 
     def record_failure(self) -> None:
         """Record a failed request."""
         self.failure_count += 1
-        self.last_failure_time = time.time()
+        self.last_failure_time=time.time()
         if self.failure_count >= self.failure_threshold:
-            self.state = "OPEN"
+            self.state="OPEN"
             logging.warning(
                 f"Circuit breaker '{self.name}' opened after {self.failure_count} failures"
             )
@@ -1752,7 +1752,7 @@ def get_backend_status() -> dict:
             - github_models: Dict with GitHub Models configuration status
 
     Example:
-        status = get_backend_status()
+        status=get_backend_status()
         if status['github_models']['configured']:
             print("GitHub Models is ready to use")
 
@@ -1761,19 +1761,19 @@ def get_backend_status() -> dict:
         - Safe to call for diagnostics
         - Returns info on all backends regardless of selection
     """
-    backend = os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
-    repo_root = str(_resolve_repo_root())
+    backend=os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
+    repo_root=str(_resolve_repo_root())
     try:
-        max_context_chars = int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
+        max_context_chars=int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
     except ValueError:
-        max_context_chars = 12_000
-    models_base_url = (os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
-    models_model = (
+        max_context_chars=12_000
+    models_base_url=(os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
+    models_model=(
         os.environ.get("DV_AGENT_MODEL")
         or os.environ.get("GITHUB_MODELS_MODEL")
         or ""
     ).strip()
-    token_set = bool(os.environ.get("GITHUB_TOKEN"))
+    token_set=bool(os.environ.get("GITHUB_TOKEN"))
     return {
         "selected_backend": backend,
         "repo_root": repo_root,
@@ -1806,7 +1806,7 @@ def describe_backends() -> str:
         # Output:
         # Backend diagnostics:
         # - selected: auto
-        # - repo_root: /home/user/project
+        # - repo_root: /home / user / project
         # - local copilot CLI available: yes
         # - gh CLI available: yes
         # - github-models configured: yes
@@ -1816,14 +1816,14 @@ def describe_backends() -> str:
         - Doesn't require AI backend to be working
         - Shows configuration issues clearly
     """
-    status = get_backend_status()
-    cmd = status["commands"]
-    models = status["github_models"]
+    status=get_backend_status()
+    cmd=status["commands"]
+    models=status["github_models"]
 
     def yn(value: bool) -> str:
         return "yes" if value else "no"
 
-    result = "\n".join(
+    result="\n".join(
         [
             "Backend diagnostics:",
             f"- selected: {status['selected_backend']}",
@@ -1854,8 +1854,8 @@ class RequestSigner:
     that requests haven't been tampered with.
 
     Example:
-        signer = RequestSigner(secret_key = "my-secret")
-        signature = signer.sign("prompt data")
+        signer=RequestSigner(secret_key="my-secret")
+        signature=signer.sign("prompt data")
         assert signer.verify("prompt data", signature)
     """
 
@@ -1866,8 +1866,8 @@ class RequestSigner:
             secret_key: Secret key for signing. If None, uses environment variable.
         """
         import hmac
-        self._hmac = hmac
-        self.secret_key = (secret_key or os.environ.get("DV_AGENT_SIGNING_KEY", "")).encode()
+        self._hmac=hmac
+        self.secret_key=(secret_key or os.environ.get("DV_AGENT_SIGNING_KEY", "")).encode()
         self._signatures: Dict[str, str] = {}
 
     def sign(self, data: str, request_id: Optional[str] = None) -> str:
@@ -1880,7 +1880,7 @@ class RequestSigner:
         Returns:
             str: Hex-encoded signature.
         """
-        signature = self._hmac.new(
+        signature=self._hmac.new(
             self.secret_key,
             data.encode(),
             hashlib.sha256
@@ -1901,7 +1901,7 @@ class RequestSigner:
         Returns:
             bool: True if signature is valid.
         """
-        expected = self._hmac.new(
+        expected=self._hmac.new(
             self.secret_key,
             data.encode(),
             hashlib.sha256
@@ -1922,28 +1922,28 @@ class RequestSigner:
 class RequestDeduplicator:
     """Deduplicates concurrent requests with identical prompts.
 
-    Prevents redundant API calls when multiple threads/processes
+    Prevents redundant API calls when multiple threads / processes
     send the same request simultaneously.
 
     Example:
-        dedup = RequestDeduplicator()
+        dedup=RequestDeduplicator()
         if dedup.is_duplicate("prompt"):
-            result = dedup.wait_for_result("prompt")
+            result=dedup.wait_for_result("prompt")
         else:
-            result = call_api("prompt")
+            result=call_api("prompt")
             dedup.store_result("prompt", result)
     """
 
-    def __init__(self, ttl_seconds: float = 60.0) -> None:
+    def __init__(self, ttl_seconds: float=60.0) -> None:
         """Initialize deduplicator.
 
         Args:
             ttl_seconds: Time-to-live for pending requests.
         """
-        self.ttl_seconds = ttl_seconds
+        self.ttl_seconds=ttl_seconds
         self._pending: Dict[str, float] = {}  # hash -> start_time
         self._results: Dict[str, str] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
         self._events: Dict[str, threading.Event] = {}
 
     def _get_key(self, prompt: str) -> str:
@@ -1959,12 +1959,12 @@ class RequestDeduplicator:
         Returns:
             bool: True if duplicate request is in progress.
         """
-        key = self._get_key(prompt)
-        now = time.time()
+        key=self._get_key(prompt)
+        now=time.time()
 
         with self._lock:
             # Clean expired entries
-            expired = [k for k, t in self._pending.items() if now - t > self.ttl_seconds]
+            expired=[k for k, t in self._pending.items() if now - t > self.ttl_seconds]
             for k in expired:
                 self._pending.pop(k, None)
                 self._events.pop(k, None)
@@ -1978,7 +1978,7 @@ class RequestDeduplicator:
             self._events[key] = threading.Event()
             return False
 
-    def wait_for_result(self, prompt: str, timeout: float = 60.0) -> Optional[str]:
+    def wait_for_result(self, prompt: str, timeout: float=60.0) -> Optional[str]:
         """Wait for result of duplicate request.
 
         Args:
@@ -1988,13 +1988,13 @@ class RequestDeduplicator:
         Returns:
             Optional[str]: Result or None if timeout.
         """
-        key = self._get_key(prompt)
+        key=self._get_key(prompt)
 
         with self._lock:
-            event = self._events.get(key)
+            event=self._events.get(key)
 
         if event:
-            event.wait(timeout = timeout)
+            event.wait(timeout=timeout)
 
         with self._lock:
             return self._results.get(key)
@@ -2006,12 +2006,12 @@ class RequestDeduplicator:
             prompt: Request prompt.
             result: Request result.
         """
-        key = self._get_key(prompt)
+        key=self._get_key(prompt)
 
         with self._lock:
             self._results[key] = result
             self._pending.pop(key, None)
-            event = self._events.get(key)
+            event=self._events.get(key)
             if event:
                 event.set()
 
@@ -2027,9 +2027,9 @@ class BackendVersion:
 
     backend: str
     version: str
-    capabilities: List[str] = field(default_factory = list)
-    api_version: str = "v1"
-    deprecated_features: List[str] = field(default_factory = list)
+    capabilities: List[str] = field(default_factory=list)
+    api_version: str="v1"
+    deprecated_features: List[str] = field(default_factory=list)
 
 
 class VersionNegotiator:
@@ -2039,22 +2039,22 @@ class VersionNegotiator:
     and feature sets.
 
     Example:
-        negotiator = VersionNegotiator()
+        negotiator=VersionNegotiator()
         negotiator.register_backend("api", "2.0", ["streaming", "batching"])
-        version = negotiator.negotiate("api", required = ["streaming"])
+        version=negotiator.negotiate("api", required=["streaming"])
     """
 
     def __init__(self) -> None:
         """Initialize version negotiator."""
         self._versions: Dict[str, BackendVersion] = {}
-        self._client_version = "1.0"
+        self._client_version="1.0"
 
     def register_backend(
         self,
         backend: str,
         version: str,
         capabilities: Optional[List[str]] = None,
-        api_version: str = "v1",
+        api_version: str="v1",
     ) -> BackendVersion:
         """Register backend version information.
 
@@ -2067,11 +2067,11 @@ class VersionNegotiator:
         Returns:
             BackendVersion: Registered version info.
         """
-        backend_version = BackendVersion(
-            backend = backend,
-            version = version,
-            capabilities = capabilities or [],
-            api_version = api_version,
+        backend_version=BackendVersion(
+            backend=backend,
+            version=version,
+            capabilities=capabilities or [],
+            api_version=api_version,
         )
         self._versions[backend] = backend_version
         return backend_version
@@ -2090,12 +2090,12 @@ class VersionNegotiator:
         Returns:
             Optional[BackendVersion]: Negotiated version or None if incompatible.
         """
-        version = self._versions.get(backend)
+        version=self._versions.get(backend)
         if not version:
             return None
 
         if required:
-            missing = set(required) - set(version.capabilities)
+            missing=set(required) - set(version.capabilities)
             if missing:
                 logging.warning(f"Backend {backend} missing capabilities: {missing}")
                 return None
@@ -2118,8 +2118,8 @@ class BackendCapability:
 
     name: str
     description: str
-    enabled: bool = True
-    parameters: Dict[str, Any] = field(default_factory = dict)
+    enabled: bool=True
+    parameters: Dict[str, Any] = field(default_factory=dict)
 
 
 class CapabilityDiscovery:
@@ -2128,7 +2128,7 @@ class CapabilityDiscovery:
     Allows querying what features are available on each backend.
 
     Example:
-        discovery = CapabilityDiscovery()
+        discovery=CapabilityDiscovery()
         discovery.register_capability("github-models", "streaming", "Stream responses")
         if discovery.has_capability("github-models", "streaming"):
             use_streaming()
@@ -2142,8 +2142,8 @@ class CapabilityDiscovery:
         self,
         backend: str,
         name: str,
-        description: str = "",
-        enabled: bool = True,
+        description: str="",
+        enabled: bool=True,
         parameters: Optional[Dict[str, Any]] = None,
     ) -> BackendCapability:
         """Register a backend capability.
@@ -2161,11 +2161,11 @@ class CapabilityDiscovery:
         if backend not in self._capabilities:
             self._capabilities[backend] = {}
 
-        capability = BackendCapability(
-            name = name,
-            description = description,
-            enabled = enabled,
-            parameters = parameters or {},
+        capability=BackendCapability(
+            name=name,
+            description=description,
+            enabled=enabled,
+            parameters=parameters or {},
         )
         self._capabilities[backend][name] = capability
         return capability
@@ -2180,8 +2180,8 @@ class CapabilityDiscovery:
         Returns:
             bool: True if capability exists and is enabled.
         """
-        caps = self._capabilities.get(backend, {})
-        cap = caps.get(name)
+        caps=self._capabilities.get(backend, {})
+        cap=caps.get(name)
         return cap is not None and cap.enabled
 
     def get_capabilities(self, backend: str) -> List[BackendCapability]:
@@ -2221,43 +2221,43 @@ class RecordedRequest:
     prompt: str
     backend: str
     response: Optional[str] = None
-    latency_ms: int = 0
-    success: bool = True
-    metadata: Dict[str, Any] = field(default_factory = dict)
+    latency_ms: int=0
+    success: bool=True
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 class RequestRecorder:
     """Records and replays requests for debugging and testing.
 
-    Captures request/response pairs for later replay, enabling
+    Captures request / response pairs for later replay, enabling
     offline testing and debugging.
 
     Example:
-        recorder = RequestRecorder()
-        recorder.record("prompt", "github-models", "response", latency_ms = 150)
+        recorder=RequestRecorder()
+        recorder.record("prompt", "github-models", "response", latency_ms=150)
 
         # Later, replay:
         for req in recorder.get_recordings():
             print(f"{req.prompt} -> {req.response}")
     """
 
-    def __init__(self, max_recordings: int = 1000) -> None:
+    def __init__(self, max_recordings: int=1000) -> None:
         """Initialize request recorder.
 
         Args:
             max_recordings: Maximum recordings to keep.
         """
-        self.max_recordings = max_recordings
+        self.max_recordings=max_recordings
         self._recordings: List[RecordedRequest] = []
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def record(
         self,
         prompt: str,
         backend: str,
         response: Optional[str] = None,
-        latency_ms: int = 0,
-        success: bool = True,
+        latency_ms: int=0,
+        success: bool=True,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> RecordedRequest:
         """Record a request.
@@ -2273,29 +2273,29 @@ class RequestRecorder:
         Returns:
             RecordedRequest: The recorded request.
         """
-        recording = RecordedRequest(
-            request_id = str(uuid.uuid4()),
-            timestamp = time.time(),
-            prompt = prompt,
-            backend = backend,
-            response = response,
-            latency_ms = latency_ms,
-            success = success,
-            metadata = metadata or {},
+        recording=RecordedRequest(
+            request_id=str(uuid.uuid4()),
+            timestamp=time.time(),
+            prompt=prompt,
+            backend=backend,
+            response=response,
+            latency_ms=latency_ms,
+            success=success,
+            metadata=metadata or {},
         )
 
         with self._lock:
             self._recordings.append(recording)
             # Trim to max size
             if len(self._recordings) > self.max_recordings:
-                self._recordings = self._recordings[-self.max_recordings:]
+                self._recordings=self._recordings[-self.max_recordings:]
 
         return recording
 
     def get_recordings(
         self,
         backend: Optional[str] = None,
-        success_only: bool = False,
+        success_only: bool=False,
     ) -> List[RecordedRequest]:
         """Get recorded requests.
 
@@ -2307,12 +2307,12 @@ class RequestRecorder:
             List[RecordedRequest]: Matching recordings.
         """
         with self._lock:
-            recordings = self._recordings.copy()
+            recordings=self._recordings.copy()
 
         if backend:
-            recordings = [r for r in recordings if r.backend == backend]
+            recordings=[r for r in recordings if r.backend == backend]
         if success_only:
-            recordings = [r for r in recordings if r.success]
+            recordings=[r for r in recordings if r.success]
 
         return recordings
 
@@ -2338,7 +2338,7 @@ class RequestRecorder:
             str: JSON string of recordings.
         """
         with self._lock:
-            data = [
+            data=[
                 {
                     "request_id": r.request_id,
                     "timestamp": r.timestamp,
@@ -2351,7 +2351,7 @@ class RequestRecorder:
                 }
                 for r in self._recordings
             ]
-        return json.dumps(data, indent = 2)
+        return json.dumps(data, indent=2)
 
     def clear(self) -> int:
         """Clear all recordings.
@@ -2360,7 +2360,7 @@ class RequestRecorder:
             int: Number of recordings cleared.
         """
         with self._lock:
-            count = len(self._recordings)
+            count=len(self._recordings)
             self._recordings.clear()
         return count
 
@@ -2376,7 +2376,7 @@ class ConfigHotReloader:
     Monitors configuration sources and applies changes dynamically.
 
     Example:
-        reloader = ConfigHotReloader()
+        reloader=ConfigHotReloader()
         reloader.set_config("timeout_s", 60)
         reloader.watch_env("DV_AGENT_TIMEOUT")
 
@@ -2389,8 +2389,8 @@ class ConfigHotReloader:
         self._config: Dict[str, Any] = {}
         self._env_watches: Dict[str, str] = {}  # config_key -> env_var
         self._callbacks: List[Callable[[str, Any], None]] = []
-        self._lock = threading.Lock()
-        self._last_reload = time.time()
+        self._lock=threading.Lock()
+        self._last_reload=time.time()
 
     def set_config(self, key: str, value: Any) -> None:
         """Set configuration value.
@@ -2400,7 +2400,7 @@ class ConfigHotReloader:
             value: Configuration value.
         """
         with self._lock:
-            old_value = self._config.get(key)
+            old_value=self._config.get(key)
             self._config[key] = value
 
             if old_value != value:
@@ -2410,7 +2410,7 @@ class ConfigHotReloader:
                     except Exception as e:
                         logging.warning(f"Config callback error: {e}")
 
-    def get_config(self, key: str, default: Any = None) -> Any:
+    def get_config(self, key: str, default: Any=None) -> Any:
         """Get configuration value.
 
         Args:
@@ -2436,7 +2436,7 @@ class ConfigHotReloader:
             self._env_watches[config_key or env_var] = env_var
 
         # Load initial value
-        value = os.environ.get(env_var)
+        value=os.environ.get(env_var)
         if value is not None:
             self.set_config(config_key or env_var, value)
 
@@ -2444,7 +2444,7 @@ class ConfigHotReloader:
         """Check for environment variable changes."""
         with self._lock:
             for config_key, env_var in self._env_watches.items():
-                env_value = os.environ.get(env_var)
+                env_value=os.environ.get(env_var)
                 if env_value is not None and self._config.get(config_key) != env_value:
                     self._config[config_key] = env_value
                     logging.debug(f"Config hot-reloaded: {config_key} from {env_var}")
@@ -2464,14 +2464,14 @@ class ConfigHotReloader:
         Returns:
             int: Number of configs reloaded.
         """
-        count = 0
+        count=0
         with self._lock:
             for config_key, env_var in self._env_watches.items():
-                env_value = os.environ.get(env_var)
+                env_value=os.environ.get(env_var)
                 if env_value is not None:
                     self._config[config_key] = env_value
                     count += 1
-            self._last_reload = time.time()
+            self._last_reload=time.time()
         return count
 
 
@@ -2486,27 +2486,27 @@ class RequestCompressor:
     Reduces payload size for large prompts, improving network efficiency.
 
     Example:
-        compressor = RequestCompressor()
-        compressed = compressor.compress("large prompt text...")
-        original = compressor.decompress(compressed)
+        compressor=RequestCompressor()
+        compressed=compressor.compress("large prompt text...")
+        original=compressor.decompress(compressed)
     """
 
-    def __init__(self, compression_level: int = 6) -> None:
+    def __init__(self, compression_level: int=6) -> None:
         """Initialize request compressor.
 
         Args:
             compression_level: Compression level (1-9, default 6).
         """
         import zlib
-        self._zlib = zlib
-        self.compression_level = compression_level
-        self._stats = {
+        self._zlib=zlib
+        self.compression_level=compression_level
+        self._stats={
             "compressed_count": 0,
             "decompressed_count": 0,
             "bytes_saved": 0,
         }
 
-    def compress(self, data: str, threshold: int = 1000) -> bytes:
+    def compress(self, data: str, threshold: int=1000) -> bytes:
         """Compress data if above threshold.
 
         Args:
@@ -2516,13 +2516,13 @@ class RequestCompressor:
         Returns:
             bytes: Compressed data with header byte.
         """
-        encoded = data.encode("utf-8")
+        encoded=data.encode("utf-8")
 
         if len(encoded) < threshold:
             # Return with 0x00 header indicating uncompressed
             return b"\x00" + encoded
 
-        compressed = self._zlib.compress(encoded, self.compression_level)
+        compressed=self._zlib.compress(encoded, self.compression_level)
 
         # Only use compression if it actually saves space
         if len(compressed) < len(encoded):
@@ -2545,8 +2545,8 @@ class RequestCompressor:
         if not data:
             return ""
 
-        header = data[0]
-        payload = data[1:]
+        header=data[0]
+        payload=data[1:]
 
         if header == 0x01:
             # Compressed
@@ -2575,7 +2575,7 @@ class UsageRecord:
     tokens_used: int
     latency_ms: int
     success: bool
-    cost_estimate: float = 0.0
+    cost_estimate: float=0.0
 
 
 class BackendAnalytics:
@@ -2584,30 +2584,30 @@ class BackendAnalytics:
     Tracks usage patterns, performance metrics, and costs.
 
     Example:
-        analytics = BackendAnalytics()
-        analytics.record_usage("github-models", tokens = 500, latency_ms = 150)
+        analytics=BackendAnalytics()
+        analytics.record_usage("github-models", tokens=500, latency_ms=150)
 
-        report = analytics.generate_report()
+        report=analytics.generate_report()
         print(report["total_tokens"])
     """
 
-    def __init__(self, retention_hours: int = 24) -> None:
+    def __init__(self, retention_hours: int=24) -> None:
         """Initialize backend analytics.
 
         Args:
             retention_hours: Hours to retain records.
         """
-        self.retention_hours = retention_hours
+        self.retention_hours=retention_hours
         self._records: List[UsageRecord] = []
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def record_usage(
         self,
         backend: str,
-        tokens: int = 0,
-        latency_ms: int = 0,
-        success: bool = True,
-        cost_estimate: float = 0.0,
+        tokens: int=0,
+        latency_ms: int=0,
+        success: bool=True,
+        cost_estimate: float=0.0,
     ) -> UsageRecord:
         """Record a usage event.
 
@@ -2621,13 +2621,13 @@ class BackendAnalytics:
         Returns:
             UsageRecord: The recorded usage.
         """
-        record = UsageRecord(
-            timestamp = time.time(),
-            backend = backend,
-            tokens_used = tokens,
-            latency_ms = latency_ms,
-            success = success,
-            cost_estimate = cost_estimate,
+        record=UsageRecord(
+            timestamp=time.time(),
+            backend=backend,
+            tokens_used=tokens,
+            latency_ms=latency_ms,
+            success=success,
+            cost_estimate=cost_estimate,
         )
 
         with self._lock:
@@ -2638,8 +2638,8 @@ class BackendAnalytics:
 
     def _cleanup_old_records(self) -> None:
         """Remove records older than retention period."""
-        cutoff = time.time() - (self.retention_hours * 3600)
-        self._records = [r for r in self._records if r.timestamp >= cutoff]
+        cutoff=time.time() - (self.retention_hours * 3600)
+        self._records=[r for r in self._records if r.timestamp >= cutoff]
 
     def generate_report(self, backend: Optional[str] = None) -> Dict[str, Any]:
         """Generate usage report.
@@ -2651,10 +2651,10 @@ class BackendAnalytics:
             Dict[str, Any]: Usage report.
         """
         with self._lock:
-            records = self._records.copy()
+            records=self._records.copy()
 
         if backend:
-            records = [r for r in records if r.backend == backend]
+            records=[r for r in records if r.backend == backend]
 
         if not records:
             return {
@@ -2665,12 +2665,12 @@ class BackendAnalytics:
                 "avg_latency_ms": 0.0,
             }
 
-        total_requests = len(records)
-        total_tokens = sum(r.tokens_used for r in records)
-        total_cost = sum(r.cost_estimate for r in records)
-        successes = sum(1 for r in records if r.success)
-        success_rate = successes / total_requests if total_requests > 0 else 0.0
-        avg_latency = sum(r.latency_ms for r in records) / total_requests
+        total_requests=len(records)
+        total_tokens=sum(r.tokens_used for r in records)
+        total_cost=sum(r.cost_estimate for r in records)
+        successes=sum(1 for r in records if r.success)
+        success_rate=successes / total_requests if total_requests > 0 else 0.0
+        avg_latency=sum(r.latency_ms for r in records) / total_requests
 
         return {
             "total_requests": total_requests,
@@ -2710,8 +2710,8 @@ class ConnectionPool:
     Reduces connection overhead by reusing connections across requests.
 
     Example:
-        pool = ConnectionPool(max_connections = 10)
-        conn = pool.acquire("github-models")
+        pool=ConnectionPool(max_connections=10)
+        conn=pool.acquire("github-models")
         try:
             # Use connection
             pass
@@ -2719,18 +2719,18 @@ class ConnectionPool:
             pool.release("github-models", conn)
     """
 
-    def __init__(self, max_connections: int = 10, timeout_s: float = 30.0) -> None:
+    def __init__(self, max_connections: int=10, timeout_s: float=30.0) -> None:
         """Initialize connection pool.
 
         Args:
             max_connections: Maximum connections per backend.
             timeout_s: Connection timeout.
         """
-        self.max_connections = max_connections
-        self.timeout_s = timeout_s
+        self.max_connections=max_connections
+        self.timeout_s=timeout_s
         self._pools: Dict[str, List[Any]] = {}
         self._in_use: Dict[str, int] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def acquire(self, backend: str) -> Any:
         """Acquire a connection from pool.
@@ -2746,17 +2746,17 @@ class ConnectionPool:
                 self._pools[backend] = []
                 self._in_use[backend] = 0
 
-            pool = self._pools[backend]
+            pool=self._pools[backend]
 
             if pool:
                 # Reuse existing connection
-                conn = pool.pop()
+                conn=pool.pop()
                 self._in_use[backend] += 1
                 return conn
 
             if self._in_use[backend] < self.max_connections:
                 # Create new connection
-                conn = self._create_connection(backend)
+                conn=self._create_connection(backend)
                 self._in_use[backend] += 1
                 return conn
 
@@ -2814,7 +2814,7 @@ class ConnectionPool:
             int: Number of connections closed.
         """
         with self._lock:
-            count = sum(len(pool) for pool in self._pools.values())
+            count=sum(len(pool) for pool in self._pools.values())
             self._pools.clear()
             self._in_use.clear()
         return count
@@ -2831,7 +2831,7 @@ class RequestThrottler:
     Implements token bucket algorithm for rate limiting.
 
     Example:
-        throttler = RequestThrottler(requests_per_second = 10)
+        throttler=RequestThrottler(requests_per_second=10)
         if throttler.allow_request("github-models"):
             make_request()
         else:
@@ -2840,8 +2840,8 @@ class RequestThrottler:
 
     def __init__(
         self,
-        requests_per_second: float = 10.0,
-        burst_size: int = 20,
+        requests_per_second: float=10.0,
+        burst_size: int=20,
     ) -> None:
         """Initialize request throttler.
 
@@ -2849,11 +2849,11 @@ class RequestThrottler:
             requests_per_second: Sustained request rate.
             burst_size: Maximum burst size.
         """
-        self.requests_per_second = requests_per_second
-        self.burst_size = burst_size
+        self.requests_per_second=requests_per_second
+        self.burst_size=burst_size
         self._buckets: Dict[str, float] = {}  # backend -> tokens
         self._last_update: Dict[str, float] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def allow_request(self, backend: str) -> bool:
         """Check if request is allowed.
@@ -2865,7 +2865,7 @@ class RequestThrottler:
             bool: True if request is allowed.
         """
         with self._lock:
-            now = time.time()
+            now=time.time()
 
             # Initialize bucket if needed
             if backend not in self._buckets:
@@ -2873,7 +2873,7 @@ class RequestThrottler:
                 self._last_update[backend] = now
 
             # Replenish tokens
-            elapsed = now - self._last_update[backend]
+            elapsed=now - self._last_update[backend]
             self._buckets[backend] = min(
                 self.burst_size,
                 self._buckets[backend] + elapsed * self.requests_per_second
@@ -2887,7 +2887,7 @@ class RequestThrottler:
 
             return False
 
-    def wait_for_token(self, backend: str, timeout: float = 10.0) -> bool:
+    def wait_for_token(self, backend: str, timeout: float=10.0) -> bool:
         """Wait for a token to become available.
 
         Args:
@@ -2897,7 +2897,7 @@ class RequestThrottler:
         Returns:
             bool: True if token acquired.
         """
-        start = time.time()
+        start=time.time()
 
         while time.time() - start < timeout:
             if self.allow_request(backend):
@@ -2916,7 +2916,7 @@ class RequestThrottler:
             Dict: Throttle status.
         """
         with self._lock:
-            tokens = self._buckets.get(backend, self.burst_size)
+            tokens=self._buckets.get(backend, self.burst_size)
             return {
                 "available_tokens": tokens,
                 "max_tokens": self.burst_size,
@@ -2936,7 +2936,7 @@ class CachedResponse:
     content: str
     created_at: float
     expires_at: float
-    hit_count: int = 0
+    hit_count: int=0
 
 
 class TTLCache:
@@ -2945,16 +2945,16 @@ class TTLCache:
     Caches responses with configurable TTL, automatically expiring stale entries.
 
     Example:
-        cache = TTLCache(default_ttl_seconds = 300)
+        cache=TTLCache(default_ttl_seconds=300)
         cache.set("key", "value")
 
-        result = cache.get("key")  # Returns "value" if not expired
+        result=cache.get("key")  # Returns "value" if not expired
     """
 
     def __init__(
         self,
-        default_ttl_seconds: float = 300.0,
-        max_entries: int = 1000,
+        default_ttl_seconds: float=300.0,
+        max_entries: int=1000,
     ) -> None:
         """Initialize TTL cache.
 
@@ -2962,10 +2962,10 @@ class TTLCache:
             default_ttl_seconds: Default TTL for entries.
             max_entries: Maximum cache entries.
         """
-        self.default_ttl_seconds = default_ttl_seconds
-        self.max_entries = max_entries
+        self.default_ttl_seconds=default_ttl_seconds
+        self.max_entries=max_entries
         self._cache: Dict[str, CachedResponse] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def set(
         self,
@@ -2980,8 +2980,8 @@ class TTLCache:
             value: Value to cache.
             ttl_seconds: Optional custom TTL.
         """
-        now = time.time()
-        ttl = ttl_seconds if ttl_seconds is not None else self.default_ttl_seconds
+        now=time.time()
+        ttl=ttl_seconds if ttl_seconds is not None else self.default_ttl_seconds
 
         with self._lock:
             # Cleanup if at max capacity
@@ -2989,9 +2989,9 @@ class TTLCache:
                 self._cleanup_expired()
 
             self._cache[key] = CachedResponse(
-                content = value,
-                created_at = now,
-                expires_at = now + ttl,
+                content=value,
+                created_at=now,
+                expires_at=now + ttl,
             )
 
     def get(self, key: str) -> Optional[str]:
@@ -3004,7 +3004,7 @@ class TTLCache:
             Optional[str]: Cached value or None.
         """
         with self._lock:
-            entry = self._cache.get(key)
+            entry=self._cache.get(key)
             if not entry:
                 return None
 
@@ -3021,8 +3021,8 @@ class TTLCache:
         Returns:
             int: Number of entries removed.
         """
-        now = time.time()
-        expired = [k for k, v in self._cache.items() if now > v.expires_at]
+        now=time.time()
+        expired=[k for k, v in self._cache.items() if now > v.expires_at]
         for key in expired:
             del self._cache[key]
         return len(expired)
@@ -3049,7 +3049,7 @@ class TTLCache:
             int: Number of entries cleared.
         """
         with self._lock:
-            count = len(self._cache)
+            count=len(self._cache)
             self._cache.clear()
         return count
 
@@ -3060,7 +3060,7 @@ class TTLCache:
             Dict: Cache stats.
         """
         with self._lock:
-            total_hits = sum(e.hit_count for e in self._cache.values())
+            total_hits=sum(e.hit_count for e in self._cache.values())
             return {
                 "entries": len(self._cache),
                 "max_entries": self.max_entries,
@@ -3070,52 +3070,52 @@ class TTLCache:
 
 
 # ============================================================================
-# Session 9: Backend A/B Testing
+# Session 9: Backend A / B Testing
 # ============================================================================
 
 
 @dataclass
 class ABTestVariant:
-    """A variant in an A/B test."""
+    """A variant in an A / B test."""
 
     name: str
     backend: str
-    weight: float = 0.5
-    metrics: Dict[str, float] = field(default_factory = dict)
-    sample_count: int = 0
+    weight: float=0.5
+    metrics: Dict[str, float] = field(default_factory=dict)
+    sample_count: int=0
 
 
 class ABTester:
-    """Conducts A/B tests across backends.
+    """Conducts A / B tests across backends.
 
     Enables comparing performance between different backends or configurations.
 
     Example:
-        tester = ABTester()
+        tester=ABTester()
         tester.create_test("latency_test", "backend_a", "backend_b")
 
         # For each request:
-        variant = tester.assign_variant("latency_test", user_id = "user123")
+        variant=tester.assign_variant("latency_test", user_id="user123")
         # Use variant.backend for request
 
         # Record result:
-        tester.record_result("latency_test", variant.name, latency_ms = 150)
+        tester.record_result("latency_test", variant.name, latency_ms=150)
     """
 
     def __init__(self) -> None:
-        """Initialize A/B tester."""
+        """Initialize A / B tester."""
         self._tests: Dict[str, Dict[str, ABTestVariant]] = {}
         self._assignments: Dict[str, Dict[str, str]] = {}  # test -> user -> variant
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def create_test(
         self,
         test_name: str,
         backend_a: str,
         backend_b: str,
-        weight_a: float = 0.5,
+        weight_a: float=0.5,
     ) -> Tuple[ABTestVariant, ABTestVariant]:
-        """Create an A/B test.
+        """Create an A / B test.
 
         Args:
             test_name: Test identifier.
@@ -3126,15 +3126,15 @@ class ABTester:
         Returns:
             Tuple[ABTestVariant, ABTestVariant]: The two variants.
         """
-        variant_a = ABTestVariant(
-            name = "A",
-            backend = backend_a,
-            weight = weight_a,
+        variant_a=ABTestVariant(
+            name="A",
+            backend=backend_a,
+            weight=weight_a,
         )
-        variant_b = ABTestVariant(
-            name = "B",
-            backend = backend_b,
-            weight = 1.0 - weight_a,
+        variant_b=ABTestVariant(
+            name="B",
+            backend=backend_b,
+            weight=1.0 - weight_a,
         )
 
         with self._lock:
@@ -3161,22 +3161,22 @@ class ABTester:
             Optional[ABTestVariant]: Assigned variant or None.
         """
         with self._lock:
-            test = self._tests.get(test_name)
+            test=self._tests.get(test_name)
             if not test:
                 return None
 
             # Check existing assignment
             if user_id in self._assignments.get(test_name, {}):
-                variant_name = self._assignments[test_name][user_id]
+                variant_name=self._assignments[test_name][user_id]
                 return test.get(variant_name)
 
             # Assign based on weights
             import random
-            variant_a = test["A"]
+            variant_a=test["A"]
             if random.random() < variant_a.weight:
-                variant_name = "A"
+                variant_name="A"
             else:
-                variant_name = "B"
+                variant_name="B"
 
             self._assignments[test_name][user_id] = variant_name
             return test[variant_name]
@@ -3195,11 +3195,11 @@ class ABTester:
             **metrics: Metric values to record.
         """
         with self._lock:
-            test = self._tests.get(test_name)
+            test=self._tests.get(test_name)
             if not test or variant_name not in test:
                 return
 
-            variant = test[variant_name]
+            variant=test[variant_name]
             variant.sample_count += 1
 
             for metric, value in metrics.items():
@@ -3207,7 +3207,7 @@ class ABTester:
                 if metric not in variant.metrics:
                     variant.metrics[metric] = value
                 else:
-                    n = variant.sample_count
+                    n=variant.sample_count
                     variant.metrics[metric] = (
                         variant.metrics[metric] * (n - 1) + value
                     ) / n
@@ -3222,7 +3222,7 @@ class ABTester:
             Optional[Dict]: Test results or None.
         """
         with self._lock:
-            test = self._tests.get(test_name)
+            test=self._tests.get(test_name)
             if not test:
                 return None
 
@@ -3243,7 +3243,7 @@ class ABTester:
         self,
         test_name: str,
         metric: str,
-        higher_is_better: bool = True,
+        higher_is_better: bool=True,
     ) -> Optional[str]:
         """Determine winning variant.
 
@@ -3256,7 +3256,7 @@ class ABTester:
             Optional[str]: Winning variant name or None.
         """
         with self._lock:
-            test = self._tests.get(test_name)
+            test=self._tests.get(test_name)
             if not test:
                 return None
 
@@ -3264,18 +3264,18 @@ class ABTester:
             best_value: Optional[float] = None
 
             for name, variant in test.items():
-                value = variant.metrics.get(metric)
+                value=variant.metrics.get(metric)
                 if value is None:
                     continue
 
                 if best_value is None:
-                    best_name = name
-                    best_value = value
+                    best_name=name
+                    best_value=value
                 elif higher_is_better and value > best_value:
-                    best_name = name
-                    best_value = value
+                    best_name=name
+                    best_value=value
                 elif not higher_is_better and value < best_value:
-                    best_name = name
-                    best_value = value
+                    best_name=name
+                    best_value=value
 
             return best_name

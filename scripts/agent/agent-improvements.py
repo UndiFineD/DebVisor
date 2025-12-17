@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,79 +53,79 @@ from base_agent import BaseAgent, create_main_function
 
 class ImprovementPriority(Enum):
     """Priority levels for improvements."""
-    CRITICAL = 5
-    HIGH = 4
-    MEDIUM = 3
-    LOW = 2
-    NICE_TO_HAVE = 1
+    CRITICAL=5
+    HIGH=4
+    MEDIUM=3
+    LOW=2
+    NICE_TO_HAVE=1
 
 
 class ImprovementCategory(Enum):
     """Categories for improvements."""
-    PERFORMANCE = "performance"
-    SECURITY = "security"
-    MAINTAINABILITY = "maintainability"
-    READABILITY = "readability"
-    TESTING = "testing"
-    DOCUMENTATION = "documentation"
-    ARCHITECTURE = "architecture"
-    REFACTORING = "refactoring"
-    BUG_FIX = "bug_fix"
-    FEATURE = "feature"
-    OTHER = "other"
+    PERFORMANCE="performance"
+    SECURITY="security"
+    MAINTAINABILITY="maintainability"
+    READABILITY="readability"
+    TESTING="testing"
+    DOCUMENTATION="documentation"
+    ARCHITECTURE="architecture"
+    REFACTORING="refactoring"
+    BUG_FIX="bug_fix"
+    FEATURE="feature"
+    OTHER="other"
 
 
 class ImprovementStatus(Enum):
     """Status of an improvement."""
-    SUGGESTED = "suggested"
-    APPROVED = "approved"
-    IN_PROGRESS = "in_progress"
-    COMPLETED = "completed"
-    REJECTED = "rejected"
-    DEFERRED = "deferred"
+    SUGGESTED="suggested"
+    APPROVED="approved"
+    IN_PROGRESS="in_progress"
+    COMPLETED="completed"
+    REJECTED="rejected"
+    DEFERRED="deferred"
 
 
 class EffortEstimate(Enum):
     """Effort estimation levels."""
-    TRIVIAL = 1  # < 1 hour
-    SMALL = 2    # 1-4 hours
-    MEDIUM = 3   # 1-2 days
-    LARGE = 4    # 3-5 days
-    EPIC = 5     # > 1 week
+    TRIVIAL=1  # < 1 hour
+    SMALL=2    # 1-4 hours
+    MEDIUM=3   # 1-2 days
+    LARGE=4    # 3-5 days
+    EPIC=5     # > 1 week
 
 
 class ScheduleStatus(Enum):
     """Status of scheduled improvements."""
-    UNSCHEDULED = "unscheduled"
-    SCHEDULED = "scheduled"
-    IN_SPRINT = "in_sprint"
-    BLOCKED = "blocked"
-    OVERDUE = "overdue"
+    UNSCHEDULED="unscheduled"
+    SCHEDULED="scheduled"
+    IN_SPRINT="in_sprint"
+    BLOCKED="blocked"
+    OVERDUE="overdue"
 
 
 class ValidationSeverity(Enum):
     """Severity of validation issues."""
-    ERROR = "error"
-    WARNING = "warning"
-    INFO = "info"
+    ERROR="error"
+    WARNING="warning"
+    INFO="info"
 
 
 class AnalysisToolType(Enum):
     """Types of code analysis tools."""
-    LINTER = "linter"
-    TYPE_CHECKER = "type_checker"
-    SECURITY_SCANNER = "security_scanner"
-    COVERAGE = "coverage"
-    COMPLEXITY = "complexity"
+    LINTER="linter"
+    TYPE_CHECKER="type_checker"
+    SECURITY_SCANNER="security_scanner"
+    COVERAGE="coverage"
+    COMPLEXITY="complexity"
 
 
 class SLALevel(Enum):
     """SLA priority levels."""
-    P0 = 1   # 24 hours
-    P1 = 2   # 3 days
-    P2 = 3   # 1 week
-    P3 = 4   # 2 weeks
-    P4 = 5   # 1 month
+    P0=1   # 24 hours
+    P1=2   # 3 days
+    P2=3   # 1 week
+    P3=4   # 2 weeks
+    P4=5   # 1 month
 
 
 @dataclass
@@ -135,17 +135,17 @@ class Improvement:
     title: str
     description: str
     file_path: str
-    priority: ImprovementPriority = ImprovementPriority.MEDIUM
-    category: ImprovementCategory = ImprovementCategory.OTHER
-    status: ImprovementStatus = ImprovementStatus.SUGGESTED
-    effort: EffortEstimate = EffortEstimate.MEDIUM
-    impact_score: float = 50.0
-    created_at: str = ""
-    updated_at: str = ""
-    assignee: str = ""
-    tags: List[str] = field(default_factory = list)
-    dependencies: List[str] = field(default_factory = list)
-    votes: int = 0
+    priority: ImprovementPriority=ImprovementPriority.MEDIUM
+    category: ImprovementCategory=ImprovementCategory.OTHER
+    status: ImprovementStatus=ImprovementStatus.SUGGESTED
+    effort: EffortEstimate=EffortEstimate.MEDIUM
+    impact_score: float=50.0
+    created_at: str=""
+    updated_at: str=""
+    assignee: str=""
+    tags: List[str] = field(default_factory=list)
+    dependencies: List[str] = field(default_factory=list)
+    votes: int=0
 
 
 @dataclass
@@ -155,8 +155,8 @@ class ImprovementTemplate:
     category: ImprovementCategory
     title_pattern: str
     description_template: str
-    default_priority: ImprovementPriority = ImprovementPriority.MEDIUM
-    default_effort: EffortEstimate = EffortEstimate.MEDIUM
+    default_priority: ImprovementPriority=ImprovementPriority.MEDIUM
+    default_effort: EffortEstimate=EffortEstimate.MEDIUM
 
 
 @dataclass
@@ -172,11 +172,11 @@ class ScheduledImprovement:
         sprint_id: Optional sprint identifier.
     """
     improvement_id: str
-    scheduled_start: str = ""
-    scheduled_end: str = ""
-    assigned_resources: List[str] = field(default_factory = list)
-    status: ScheduleStatus = ScheduleStatus.UNSCHEDULED
-    sprint_id: str = ""
+    scheduled_start: str=""
+    scheduled_end: str=""
+    assigned_resources: List[str] = field(default_factory=list)
+    status: ScheduleStatus=ScheduleStatus.UNSCHEDULED
+    sprint_id: str=""
 
 
 @dataclass
@@ -192,11 +192,11 @@ class ProgressReport:
         burndown_data: Data for burndown chart.
     """
     report_date: str
-    completed_count: int = 0
-    in_progress_count: int = 0
-    blocked_count: int = 0
-    velocity: float = 0.0
-    burndown_data: List[Tuple[str, int]] = field(default_factory = list)
+    completed_count: int=0
+    in_progress_count: int=0
+    blocked_count: int=0
+    velocity: float=0.0
+    burndown_data: List[Tuple[str, int]] = field(default_factory=list)
 
 
 @dataclass
@@ -210,9 +210,9 @@ class ValidationResult:
         test_results: Results from automated tests.
     """
     improvement_id: str
-    is_valid: bool = True
-    issues: List[Tuple[ValidationSeverity, str]] = field(default_factory = list)
-    test_results: Dict[str, bool] = field(default_factory = dict)
+    is_valid: bool=True
+    issues: List[Tuple[ValidationSeverity, str]] = field(default_factory=list)
+    test_results: Dict[str, bool] = field(default_factory=dict)
 
 
 @dataclass
@@ -227,10 +227,10 @@ class RollbackRecord:
         rollback_commit: Git commit of the rollback.
     """
     improvement_id: str
-    rollback_date: str = ""
-    reason: str = ""
-    previous_state: str = ""
-    rollback_commit: str = ""
+    rollback_date: str=""
+    reason: str=""
+    previous_state: str=""
+    rollback_commit: str=""
 
 
 @dataclass
@@ -250,7 +250,7 @@ class ToolSuggestion:
     file_path: str
     line_number: int
     message: str
-    suggested_fix: str = ""
+    suggested_fix: str=""
 
 
 @dataclass
@@ -266,7 +266,7 @@ class SLAConfiguration:
     level: SLALevel
     max_hours: int
     escalation_hours: int
-    notification_emails: List[str] = field(default_factory = list)
+    notification_emails: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -281,8 +281,8 @@ class MergeCandidate:
     """
     source_id: str
     target_id: str
-    similarity_score: float = 0.0
-    merge_reason: str = ""
+    similarity_score: float=0.0
+    merge_reason: str=""
 
 
 @dataclass
@@ -296,42 +296,42 @@ class ArchivedImprovement:
         archive_reason: Why it was archived.
     """
     improvement: Improvement
-    archived_date: str = ""
-    archived_by: str = ""
-    archive_reason: str = ""
+    archived_date: str=""
+    archived_by: str=""
+    archive_reason: str=""
 
 
 # Default templates
 DEFAULT_TEMPLATES: List[ImprovementTemplate] = [
     ImprovementTemplate(
-        name = "add_tests",
-        category = ImprovementCategory.TESTING,
-        title_pattern = "Add tests for {function_name}",
-        description_template = "Add unit tests to cover {function_name} including edge cases and error handling.",
-        default_effort = EffortEstimate.SMALL
+        name="add_tests",
+        category=ImprovementCategory.TESTING,
+        title_pattern="Add tests for {function_name}",
+        description_template="Add unit tests to cover {function_name} including edge cases and error handling.",
+        default_effort=EffortEstimate.SMALL
     ),
     ImprovementTemplate(
-        name = "add_type_hints",
-        category = ImprovementCategory.MAINTAINABILITY,
-        title_pattern = "Add type hints to {function_name}",
-        description_template = "Add proper type annotations to {function_name} for better IDE support and documentation.",
-        default_effort = EffortEstimate.TRIVIAL
+        name="add_type_hints",
+        category=ImprovementCategory.MAINTAINABILITY,
+        title_pattern="Add type hints to {function_name}",
+        description_template="Add proper type annotations to {function_name} for better IDE support and documentation.",
+        default_effort=EffortEstimate.TRIVIAL
     ),
     ImprovementTemplate(
-        name = "improve_performance",
-        category = ImprovementCategory.PERFORMANCE,
-        title_pattern = "Optimize {target}",
-        description_template = "Improve performance of {target} by {optimization_method}.",
-        default_priority = ImprovementPriority.HIGH,
-        default_effort = EffortEstimate.MEDIUM
+        name="improve_performance",
+        category=ImprovementCategory.PERFORMANCE,
+        title_pattern="Optimize {target}",
+        description_template="Improve performance of {target} by {optimization_method}.",
+        default_priority=ImprovementPriority.HIGH,
+        default_effort=EffortEstimate.MEDIUM
     ),
     ImprovementTemplate(
-        name = "security_fix",
-        category = ImprovementCategory.SECURITY,
-        title_pattern = "Fix security issue in {component}",
-        description_template = "Address security vulnerability: {vulnerability_description}",
-        default_priority = ImprovementPriority.CRITICAL,
-        default_effort = EffortEstimate.MEDIUM
+        name="security_fix",
+        category=ImprovementCategory.SECURITY,
+        title_pattern="Fix security issue in {component}",
+        description_template="Address security vulnerability: {vulnerability_description}",
+        default_priority=ImprovementPriority.CRITICAL,
+        default_effort=EffortEstimate.MEDIUM
     ),
 ]
 
@@ -360,7 +360,7 @@ class ImprovementScheduler:
         improvement: Improvement,
         start_date: str,
         resources: Optional[List[str]] = None,
-        sprint_id: str = ""
+        sprint_id: str=""
     ) -> ScheduledImprovement:
         """Schedule an improvement.
 
@@ -374,24 +374,24 @@ class ImprovementScheduler:
             The scheduled improvement.
         """
         # Calculate end date based on effort
-        effort_days = {
+        effort_days={
             EffortEstimate.TRIVIAL: 1,
             EffortEstimate.SMALL: 2,
             EffortEstimate.MEDIUM: 5,
             EffortEstimate.LARGE: 10,
             EffortEstimate.EPIC: 20,
         }
-        days = effort_days.get(improvement.effort, 5)
-        start_dt = datetime.fromisoformat(start_date)
-        end_dt = start_dt + timedelta(days = days)
+        days=effort_days.get(improvement.effort, 5)
+        start_dt=datetime.fromisoformat(start_date)
+        end_dt=start_dt + timedelta(days=days)
 
-        scheduled = ScheduledImprovement(
-            improvement_id = improvement.id,
-            scheduled_start = start_date,
-            scheduled_end = end_dt.isoformat()[:10],
-            assigned_resources = resources or [],
-            status = ScheduleStatus.SCHEDULED,
-            sprint_id = sprint_id
+        scheduled=ScheduledImprovement(
+            improvement_id=improvement.id,
+            scheduled_start=start_date,
+            scheduled_end=end_dt.isoformat()[:10],
+            assigned_resources=resources or [],
+            status=ScheduleStatus.SCHEDULED,
+            sprint_id=sprint_id
         )
 
         self.schedule[improvement.id] = scheduled
@@ -412,7 +412,7 @@ class ImprovementScheduler:
     ) -> bool:
         """Update schedule status."""
         if improvement_id in self.schedule:
-            self.schedule[improvement_id].status = status
+            self.schedule[improvement_id].status=status
             return True
         return False
 
@@ -422,11 +422,11 @@ class ImprovementScheduler:
 
     def get_overdue(self, current_date: str) -> List[ScheduledImprovement]:
         """Get overdue scheduled items."""
-        overdue = []
+        overdue=[]
         for item in self.schedule.values():
             if (item.status not in [ScheduleStatus.UNSCHEDULED] and
                     item.scheduled_end < current_date):
-                item.status = ScheduleStatus.OVERDUE
+                item.status=ScheduleStatus.OVERDUE
                 overdue.append(item)
         return overdue
 
@@ -434,7 +434,7 @@ class ImprovementScheduler:
         self, resource: str, date: str
     ) -> bool:
         """Check if a resource is available on a date."""
-        busy_dates = self.resources.get(resource, [])
+        busy_dates=self.resources.get(resource, [])
         return date not in busy_dates
 
 
@@ -463,22 +463,22 @@ class ProgressDashboard:
         Returns:
             ProgressReport with current metrics.
         """
-        completed = len([i for i in improvements
+        completed=len([i for i in improvements
                         if i.status == ImprovementStatus.COMPLETED])
-        in_progress = len([i for i in improvements
+        in_progress=len([i for i in improvements
                          if i.status == ImprovementStatus.IN_PROGRESS])
-        blocked = len([i for i in improvements
+        blocked=len([i for i in improvements
                       if i.status == ImprovementStatus.DEFERRED])
 
         # Calculate velocity (avg completions per week)
-        velocity = self._calculate_velocity()
+        velocity=self._calculate_velocity()
 
-        report = ProgressReport(
-            report_date = datetime.now().isoformat()[:10],
-            completed_count = completed,
-            in_progress_count = in_progress,
-            blocked_count = blocked,
-            velocity = velocity
+        report=ProgressReport(
+            report_date=datetime.now().isoformat()[:10],
+            completed_count=completed,
+            in_progress_count=in_progress,
+            blocked_count=blocked,
+            velocity=velocity
         )
 
         self.reports.append(report)
@@ -488,10 +488,10 @@ class ProgressDashboard:
         """Calculate velocity from recent reports."""
         if len(self.reports) < 2:
             return 0.0
-        recent = self.reports[-4:]  # Last 4 reports
+        recent=self.reports[-4:]  # Last 4 reports
         if len(recent) < 2:
             return 0.0
-        completions = [
+        completions=[
             recent[i].completed_count - recent[i-1].completed_count
             for i in range(1, len(recent))
         ]
@@ -501,7 +501,7 @@ class ProgressDashboard:
         self, improvements: List[Improvement]
     ) -> List[Tuple[str, int]]:
         """Generate burndown chart data."""
-        remaining = len([i for i in improvements
+        remaining=len([i for i in improvements
                         if i.status not in [ImprovementStatus.COMPLETED,
                                            ImprovementStatus.REJECTED]])
         return [(datetime.now().isoformat()[:10], remaining)]
@@ -510,17 +510,17 @@ class ProgressDashboard:
         self, improvements: List[Improvement]
     ) -> float:
         """Calculate completion rate."""
-        total = len(improvements)
+        total=len(improvements)
         if total == 0:
             return 0.0
-        completed = len([i for i in improvements
+        completed=len([i for i in improvements
                         if i.status == ImprovementStatus.COMPLETED])
         return (completed / total) * 100
 
     def export_dashboard(self, improvements: List[Improvement]) -> str:
         """Export dashboard as markdown."""
-        report = self.generate_report(improvements)
-        lines = [
+        report=self.generate_report(improvements)
+        lines=[
             "# Improvements Dashboard",
             f"\nGenerated: {report.report_date}",
             "\n## Summary",
@@ -590,12 +590,12 @@ class ImprovementValidator:
         Returns:
             ValidationResult with issues found.
         """
-        result = ValidationResult(improvement_id = improvement.id)
+        result=ValidationResult(improvement_id=improvement.id)
 
         for rule in self.rules:
-            passed, message = rule(improvement)
+            passed, message=rule(improvement)
             if not passed:
-                result.is_valid = False
+                result.is_valid=False
                 result.issues.append((ValidationSeverity.ERROR, message))
 
         return result
@@ -637,7 +637,7 @@ class RollbackTracker:
         self,
         improvement: Improvement,
         reason: str,
-        commit_hash: str = ""
+        commit_hash: str=""
     ) -> RollbackRecord:
         """Record a rollback.
 
@@ -649,12 +649,12 @@ class RollbackTracker:
         Returns:
             The rollback record.
         """
-        record = RollbackRecord(
-            improvement_id = improvement.id,
-            rollback_date = datetime.now().isoformat(),
-            reason = reason,
-            previous_state = self.states.get(improvement.id, ""),
-            rollback_commit = commit_hash
+        record=RollbackRecord(
+            improvement_id=improvement.id,
+            rollback_date=datetime.now().isoformat(),
+            reason=reason,
+            previous_state=self.states.get(improvement.id, ""),
+            rollback_commit=commit_hash
         )
         self.rollbacks.append(record)
         return record
@@ -693,7 +693,7 @@ class ToolIntegration:
         self,
         tool_name: str,
         tool_type: AnalysisToolType,
-        command: str = ""
+        command: str=""
     ) -> None:
         """Configure a tool.
 
@@ -709,35 +709,35 @@ class ToolIntegration:
 
     def parse_pylint_output(self, output: str) -> List[ToolSuggestion]:
         """Parse pylint output into suggestions."""
-        suggestions = []
+        suggestions=[]
         for line in output.split('\n'):
-            match = re.match(
+            match=re.match(
                 r'(.+):(\d+):\d+: (\w+): (.+)',
                 line
             )
             if match:
                 suggestions.append(ToolSuggestion(
-                    tool_type = AnalysisToolType.LINTER,
-                    tool_name = "pylint",
-                    file_path = match.group(1),
-                    line_number = int(match.group(2)),
-                    message = match.group(4)
+                    tool_type=AnalysisToolType.LINTER,
+                    tool_name="pylint",
+                    file_path=match.group(1),
+                    line_number=int(match.group(2)),
+                    message=match.group(4)
                 ))
         self.suggestions.extend(suggestions)
         return suggestions
 
     def parse_mypy_output(self, output: str) -> List[ToolSuggestion]:
         """Parse mypy output into suggestions."""
-        suggestions = []
+        suggestions=[]
         for line in output.split('\n'):
-            match = re.match(r'(.+):(\d+): error: (.+)', line)
+            match=re.match(r'(.+):(\d+): error: (.+)', line)
             if match:
                 suggestions.append(ToolSuggestion(
-                    tool_type = AnalysisToolType.TYPE_CHECKER,
-                    tool_name = "mypy",
-                    file_path = match.group(1),
-                    line_number = int(match.group(2)),
-                    message = match.group(3)
+                    tool_type=AnalysisToolType.TYPE_CHECKER,
+                    tool_name="mypy",
+                    file_path=match.group(1),
+                    line_number=int(match.group(2)),
+                    message=match.group(3)
                 ))
         self.suggestions.extend(suggestions)
         return suggestions
@@ -782,7 +782,7 @@ class SLAManager:
 
     def _setup_default_slas(self) -> None:
         """Set up default SLA configurations."""
-        defaults = [
+        defaults=[
             (SLALevel.P0, 24, 12),
             (SLALevel.P1, 72, 48),
             (SLALevel.P2, 168, 120),
@@ -791,9 +791,9 @@ class SLAManager:
         ]
         for level, max_h, esc_h in defaults:
             self.sla_configs[level] = SLAConfiguration(
-                level = level,
-                max_hours = max_h,
-                escalation_hours = esc_h
+                level=level,
+                max_hours=max_h,
+                escalation_hours=esc_h
             )
 
     def assign_sla(
@@ -805,7 +805,7 @@ class SLAManager:
             improvement: The improvement to track.
             level: SLA priority level.
         """
-        config = self.sla_configs.get(level)
+        config=self.sla_configs.get(level)
         if not config:
             return
 
@@ -813,9 +813,9 @@ class SLAManager:
             "level": level,
             "start_time": datetime.now().isoformat(),
             "deadline": (datetime.now() +
-                        timedelta(hours = config.max_hours)).isoformat(),
+                        timedelta(hours=config.max_hours)).isoformat(),
             "escalation_time": (datetime.now() +
-                               timedelta(hours = config.escalation_hours)).isoformat()
+                               timedelta(hours=config.escalation_hours)).isoformat()
         }
 
     def check_sla_status(
@@ -825,8 +825,8 @@ class SLAManager:
         if improvement_id not in self.tracked:
             return {"status": "not_tracked"}
 
-        tracking = self.tracked[improvement_id]
-        now = datetime.now().isoformat()
+        tracking=self.tracked[improvement_id]
+        now=datetime.now().isoformat()
 
         if now > tracking["deadline"]:
             return {"status": "breached", **tracking}
@@ -837,7 +837,7 @@ class SLAManager:
 
     def get_breached(self) -> List[str]:
         """Get all breached improvement IDs."""
-        now = datetime.now().isoformat()
+        now=datetime.now().isoformat()
         return [
             imp_id for imp_id, tracking in self.tracked.items()
             if now > tracking["deadline"]
@@ -847,7 +847,7 @@ class SLAManager:
         """Calculate SLA compliance rate."""
         if not self.tracked:
             return 100.0
-        breached = len(self.get_breached())
+        breached=len(self.get_breached())
         return ((len(self.tracked) - breached) / len(self.tracked)) * 100
 
 
@@ -860,9 +860,9 @@ class MergeDetector:
         similarity_threshold: Threshold for considering items similar.
     """
 
-    def __init__(self, similarity_threshold: float = 0.7) -> None:
+    def __init__(self, similarity_threshold: float=0.7) -> None:
         """Initialize merge detector."""
-        self.similarity_threshold = similarity_threshold
+        self.similarity_threshold=similarity_threshold
 
     def find_similar(
         self, improvements: List[Improvement]
@@ -875,16 +875,16 @@ class MergeDetector:
         Returns:
             List of merge candidates.
         """
-        candidates = []
+        candidates=[]
         for i, imp1 in enumerate(improvements):
-            for imp2 in improvements[i+1:]:
-                similarity = self._calculate_similarity(imp1, imp2)
+            for imp2 in improvements[i + 1:]:
+                similarity=self._calculate_similarity(imp1, imp2)
                 if similarity >= self.similarity_threshold:
                     candidates.append(MergeCandidate(
-                        source_id = imp1.id,
-                        target_id = imp2.id,
-                        similarity_score = similarity,
-                        merge_reason = self._get_merge_reason(imp1, imp2)
+                        source_id=imp1.id,
+                        target_id=imp2.id,
+                        similarity_score=similarity,
+                        merge_reason=self._get_merge_reason(imp1, imp2)
                     ))
         return candidates
 
@@ -892,14 +892,14 @@ class MergeDetector:
         self, imp1: Improvement, imp2: Improvement
     ) -> float:
         """Calculate similarity between two improvements."""
-        score = 0.0
+        score=0.0
 
         # Title similarity
-        title_words1 = set(imp1.title.lower().split())
-        title_words2 = set(imp2.title.lower().split())
+        title_words1=set(imp1.title.lower().split())
+        title_words2=set(imp2.title.lower().split())
         if title_words1 and title_words2:
-            title_overlap = len(title_words1 & title_words2)
-            title_union = len(title_words1 | title_words2)
+            title_overlap=len(title_words1 & title_words2)
+            title_union=len(title_words1 | title_words2)
             score += (title_overlap / title_union) * 0.4
 
         # Category match
@@ -916,7 +916,7 @@ class MergeDetector:
         self, imp1: Improvement, imp2: Improvement
     ) -> str:
         """Generate merge reason."""
-        reasons = []
+        reasons=[]
         if imp1.category == imp2.category:
             reasons.append(f"same category ({imp1.category.value})")
         if imp1.file_path == imp2.file_path:
@@ -936,14 +936,14 @@ class MergeDetector:
             The merged improvement.
         """
         # Combine descriptions
-        target.description = f"{target.description}\n\nMerged from: {source.title}"
+        target.description=f"{target.description}\n\nMerged from: {source.title}"
 
         # Take higher priority
         if source.priority.value > target.priority.value:
-            target.priority = source.priority
+            target.priority=source.priority
 
         # Combine tags
-        target.tags = list(set(target.tags + source.tags))
+        target.tags=list(set(target.tags + source.tags))
 
         # Add votes
         target.votes += source.votes
@@ -968,7 +968,7 @@ class ImprovementArchive:
         self,
         improvement: Improvement,
         reason: str,
-        archived_by: str = ""
+        archived_by: str=""
     ) -> ArchivedImprovement:
         """Archive an improvement.
 
@@ -980,11 +980,11 @@ class ImprovementArchive:
         Returns:
             The archived improvement record.
         """
-        archived = ArchivedImprovement(
-            improvement = improvement,
-            archived_date = datetime.now().isoformat(),
-            archived_by = archived_by,
-            archive_reason = reason
+        archived=ArchivedImprovement(
+            improvement=improvement,
+            archived_date=datetime.now().isoformat(),
+            archived_by=archived_by,
+            archive_reason=reason
         )
         self.archive.append(archived)
         return archived
@@ -1000,14 +1000,14 @@ class ImprovementArchive:
         """
         for i, archived in enumerate(self.archive):
             if archived.improvement.id == improvement_id:
-                imp = archived.improvement
+                imp=archived.improvement
                 del self.archive[i]
                 return imp
         return None
 
     def search_archive(
         self,
-        query: str = "",
+        query: str="",
         category: Optional[ImprovementCategory] = None
     ) -> List[ArchivedImprovement]:
         """Search the archive.
@@ -1019,9 +1019,9 @@ class ImprovementArchive:
         Returns:
             Matching archived improvements.
         """
-        results = []
+        results=[]
         for archived in self.archive:
-            imp = archived.improvement
+            imp=archived.improvement
             if category and imp.category != category:
                 continue
             if query and query.lower() not in imp.title.lower():
@@ -1033,7 +1033,7 @@ class ImprovementArchive:
         """Get archive statistics."""
         by_category: Dict[str, int] = {}
         for archived in self.archive:
-            cat = archived.improvement.category.value
+            cat=archived.improvement.category.value
             by_category[cat] = by_category.get(cat, 0) + 1
 
         return {
@@ -1049,18 +1049,18 @@ class ImprovementArchive:
 
 class BranchComparisonStatus(Enum):
     """Status of branch comparison."""
-    PENDING = "pending"
-    IN_PROGRESS = "in_progress"
-    COMPLETED = "completed"
-    FAILED = "failed"
+    PENDING="pending"
+    IN_PROGRESS="in_progress"
+    COMPLETED="completed"
+    FAILED="failed"
 
 
 class ImprovementDiffType(Enum):
     """Types of improvement differences between branches."""
-    ADDED = "added"      # Improvement exists only in target branch
-    REMOVED = "removed"  # Improvement exists only in source branch
-    MODIFIED = "modified"  # Improvement exists in both but changed
-    UNCHANGED = "unchanged"  # Improvement is identical in both
+    ADDED="added"      # Improvement exists only in target branch
+    REMOVED="removed"  # Improvement exists only in source branch
+    MODIFIED="modified"  # Improvement exists in both but changed
+    UNCHANGED="unchanged"  # Improvement is identical in both
 
 
 # =============================================================================
@@ -1083,7 +1083,7 @@ class ImprovementDiff:
     diff_type: ImprovementDiffType
     source_version: Optional[Improvement] = None
     target_version: Optional[Improvement] = None
-    change_summary: str = ""
+    change_summary: str=""
 
 
 @dataclass
@@ -1104,12 +1104,12 @@ class BranchComparison:
     source_branch: str
     target_branch: str
     file_path: str
-    status: BranchComparisonStatus = BranchComparisonStatus.PENDING
-    diffs: List[ImprovementDiff] = field(default_factory = list)
-    added_count: int = 0
-    removed_count: int = 0
-    modified_count: int = 0
-    compared_at: float = field(default_factory = time.time)
+    status: BranchComparisonStatus=BranchComparisonStatus.PENDING
+    diffs: List[ImprovementDiff] = field(default_factory=list)
+    added_count: int=0
+    removed_count: int=0
+    modified_count: int=0
+    compared_at: float=field(default_factory=time.time)
 
 
 @dataclass
@@ -1124,8 +1124,8 @@ class ConflictResolution:
     """
     improvement_id: str
     resolution: Improvement
-    strategy: str = "manual"
-    resolved_by: str = ""
+    strategy: str="manual"
+    resolved_by: str=""
 
 
 # =============================================================================
@@ -1144,8 +1144,8 @@ class BranchComparer:
         comparisons: History of comparisons.
 
     Example:
-        comparer = BranchComparer("/path/to/repo")
-        result = comparer.compare("main", "feature/improvements")
+        comparer=BranchComparer("/path / to / repo")
+        result=comparer.compare("main", "feature / improvements")
         for diff in result.diffs:
             print(f"{diff.diff_type.value}: {diff.improvement_id}")
     """
@@ -1156,7 +1156,7 @@ class BranchComparer:
         Args:
             repo_path: Path to git repository. Defaults to current directory.
         """
-        self.repo_path = Path(repo_path) if repo_path else Path.cwd()
+        self.repo_path=Path(repo_path) if repo_path else Path.cwd()
         self.comparisons: List[BranchComparison] = []
         logging.debug(f"BranchComparer initialized for {self.repo_path}")
 
@@ -1176,43 +1176,43 @@ class BranchComparer:
         Returns:
             Comparison result with diffs.
         """
-        comparison = BranchComparison(
-            source_branch = source_branch,
-            target_branch = target_branch,
-            file_path = file_path,
-            status = BranchComparisonStatus.IN_PROGRESS
+        comparison=BranchComparison(
+            source_branch=source_branch,
+            target_branch=target_branch,
+            file_path=file_path,
+            status=BranchComparisonStatus.IN_PROGRESS
         )
 
         try:
             # Get file content from each branch
-            source_content = self._get_file_from_branch(source_branch, file_path)
-            target_content = self._get_file_from_branch(target_branch, file_path)
+            source_content=self._get_file_from_branch(source_branch, file_path)
+            target_content=self._get_file_from_branch(target_branch, file_path)
 
             # Parse improvements from each branch
-            source_improvements = self._parse_improvements(source_content)
-            target_improvements = self._parse_improvements(target_content)
+            source_improvements=self._parse_improvements(source_content)
+            target_improvements=self._parse_improvements(target_content)
 
             # Calculate differences
-            comparison.diffs = self._calculate_diffs(
+            comparison.diffs=self._calculate_diffs(
                 source_improvements, target_improvements
             )
 
             # Count by type
-            comparison.added_count = sum(
+            comparison.added_count=sum(
                 1 for d in comparison.diffs if d.diff_type == ImprovementDiffType.ADDED
             )
-            comparison.removed_count = sum(
+            comparison.removed_count=sum(
                 1 for d in comparison.diffs if d.diff_type == ImprovementDiffType.REMOVED
             )
-            comparison.modified_count = sum(
+            comparison.modified_count=sum(
                 1 for d in comparison.diffs if d.diff_type == ImprovementDiffType.MODIFIED
             )
 
-            comparison.status = BranchComparisonStatus.COMPLETED
+            comparison.status=BranchComparisonStatus.COMPLETED
 
         except Exception as e:
             logging.error(f"Branch comparison failed: {e}")
-            comparison.status = BranchComparisonStatus.FAILED
+            comparison.status=BranchComparisonStatus.FAILED
 
         self.comparisons.append(comparison)
         return comparison
@@ -1228,12 +1228,12 @@ class BranchComparer:
             File content string.
         """
         try:
-            result = subprocess.run(
+            result=subprocess.run(
                 ["git", "show", f"{branch}:{file_path}"],
-                cwd = self.repo_path,
-                capture_output = True,
-                text = True,
-                check = True
+                cwd=self.repo_path,
+                capture_output=True,
+                text=True,
+                check=True
             )
             return result.stdout
         except subprocess.CalledProcessError:
@@ -1251,17 +1251,17 @@ class BranchComparer:
         improvements: Dict[str, Improvement] = {}
 
         # Parse improvement items from markdown
-        pattern = r'- \[[ x]\] (.+?)(?=\n- \[|\n##|\Z)'
-        matches = re.findall(pattern, content, re.DOTALL)
+        pattern=r'- \[[ x]\] (.+?)(?=\n- \[|\n##|\Z)'
+        matches=re.findall(pattern, content, re.DOTALL)
 
         for i, match in enumerate(matches):
-            title = match.strip().split('\n')[0]
-            improvement_id = f"imp_{i}_{hashlib.md5(title.encode()).hexdigest()[:8]}"
+            title=match.strip().split('\n')[0]
+            improvement_id=f"imp_{i}_{hashlib.md5(title.encode()).hexdigest()[:8]}"
 
             improvements[improvement_id] = Improvement(
-                id = improvement_id,
-                title = title,
-                description = match.strip()
+                id=improvement_id,
+                title=title,
+                description=match.strip()
             )
 
         return improvements
@@ -1281,41 +1281,41 @@ class BranchComparer:
             List of improvement differences.
         """
         diffs: List[ImprovementDiff] = []
-        all_ids = set(source.keys()) | set(target.keys())
+        all_ids=set(source.keys()) | set(target.keys())
 
         for imp_id in all_ids:
-            in_source = imp_id in source
-            in_target = imp_id in target
+            in_source=imp_id in source
+            in_target=imp_id in target
 
             if in_source and not in_target:
                 diffs.append(ImprovementDiff(
-                    improvement_id = imp_id,
-                    diff_type = ImprovementDiffType.REMOVED,
-                    source_version = source[imp_id],
-                    change_summary = "Improvement removed in target branch"
+                    improvement_id=imp_id,
+                    diff_type=ImprovementDiffType.REMOVED,
+                    source_version=source[imp_id],
+                    change_summary="Improvement removed in target branch"
                 ))
             elif in_target and not in_source:
                 diffs.append(ImprovementDiff(
-                    improvement_id = imp_id,
-                    diff_type = ImprovementDiffType.ADDED,
-                    target_version = target[imp_id],
-                    change_summary = "New improvement in target branch"
+                    improvement_id=imp_id,
+                    diff_type=ImprovementDiffType.ADDED,
+                    target_version=target[imp_id],
+                    change_summary="New improvement in target branch"
                 ))
             elif source[imp_id].title != target[imp_id].title:
                 diffs.append(ImprovementDiff(
-                    improvement_id = imp_id,
-                    diff_type = ImprovementDiffType.MODIFIED,
-                    source_version = source[imp_id],
-                    target_version = target[imp_id],
-                    change_summary = "Improvement title or content changed"
+                    improvement_id=imp_id,
+                    diff_type=ImprovementDiffType.MODIFIED,
+                    source_version=source[imp_id],
+                    target_version=target[imp_id],
+                    change_summary="Improvement title or content changed"
                 ))
             else:
                 diffs.append(ImprovementDiff(
-                    improvement_id = imp_id,
-                    diff_type = ImprovementDiffType.UNCHANGED,
-                    source_version = source[imp_id],
-                    target_version = target[imp_id],
-                    change_summary = "No changes"
+                    improvement_id=imp_id,
+                    diff_type=ImprovementDiffType.UNCHANGED,
+                    source_version=source[imp_id],
+                    target_version=target[imp_id],
+                    change_summary="No changes"
                 ))
 
         return diffs
@@ -1391,20 +1391,20 @@ class BranchComparer:
         Returns:
             List of conflicting improvement diffs.
         """
-        comp1 = self.compare(base_branch, branch1, file_path)
-        comp2 = self.compare(base_branch, branch2, file_path)
+        comp1=self.compare(base_branch, branch1, file_path)
+        comp2=self.compare(base_branch, branch2, file_path)
 
         # Find improvements modified in both branches
-        modified1 = {
+        modified1={
             d.improvement_id for d in comp1.diffs
             if d.diff_type == ImprovementDiffType.MODIFIED
         }
-        modified2 = {
+        modified2={
             d.improvement_id for d in comp2.diffs
             if d.diff_type == ImprovementDiffType.MODIFIED
         }
 
-        conflicts = modified1 & modified2
+        conflicts=modified1 & modified2
         return [
             d for d in comp1.diffs
             if d.improvement_id in conflicts
@@ -1422,7 +1422,7 @@ class BranchComparer:
         Returns:
             Markdown formatted report.
         """
-        lines = [
+        lines=[
             "# Branch Comparison Report",
             "",
             f"**Source Branch:** {comparison.source_branch}",
@@ -1441,13 +1441,13 @@ class BranchComparer:
             if diff.diff_type == ImprovementDiffType.UNCHANGED:
                 continue
 
-            emoji = {
+            emoji={
                 ImprovementDiffType.ADDED: "➕",
                 ImprovementDiffType.REMOVED: "➖",
                 ImprovementDiffType.MODIFIED: "📝"
             }.get(diff.diff_type, "•")
 
-            title = (
+            title=(
                 diff.target_version.title if diff.target_version
                 else diff.source_version.title if diff.source_version
                 else diff.improvement_id
@@ -1495,17 +1495,17 @@ class ImprovementsAgent(BaseAgent):
 
     def _check_associated_file(self) -> None:
         """Check if the associated code file exists."""
-        name = self.file_path.name
+        name=self.file_path.name
         if name.endswith('.improvements.md'):
-            base_name = name[:-16]  # len('.improvements.md')
+            base_name=name[:-16]  # len('.improvements.md')
             # Try to find the file with common extensions or exact match
-            candidate = self.file_path.parent / base_name
+            candidate=self.file_path.parent / base_name
             if candidate.exists():
                 return
 
             # Try adding extensions
             for ext in ['.py', '.sh', '.js', '.ts', '.md']:
-                candidate = self.file_path.parent / (base_name + ext)
+                candidate=self.file_path.parent / (base_name + ext)
                 if candidate.exists() and candidate != self.file_path:
                     return
 
@@ -1517,30 +1517,30 @@ class ImprovementsAgent(BaseAgent):
         self,
         title: str,
         description: str,
-        file_path: str = "",
-        priority: ImprovementPriority = ImprovementPriority.MEDIUM,
-        category: ImprovementCategory = ImprovementCategory.OTHER,
-        effort: EffortEstimate = EffortEstimate.MEDIUM,
+        file_path: str="",
+        priority: ImprovementPriority=ImprovementPriority.MEDIUM,
+        category: ImprovementCategory=ImprovementCategory.OTHER,
+        effort: EffortEstimate=EffortEstimate.MEDIUM,
         tags: Optional[List[str]] = None,
         dependencies: Optional[List[str]] = None
     ) -> Improvement:
         """Add a new improvement."""
-        improvement_id = hashlib.md5(
+        improvement_id=hashlib.md5(
             f"{title}:{file_path}:{datetime.now().isoformat()}".encode()
         ).hexdigest()[:8]
 
-        improvement = Improvement(
-            id = improvement_id,
-            title = title,
-            description = description,
-            file_path = file_path or str(self.file_path),
-            priority = priority,
-            category = category,
-            effort = effort,
-            created_at = datetime.now().isoformat(),
-            updated_at = datetime.now().isoformat(),
-            tags = tags or [],
-            dependencies = dependencies or []
+        improvement=Improvement(
+            id=improvement_id,
+            title=title,
+            description=description,
+            file_path=file_path or str(self.file_path),
+            priority=priority,
+            category=category,
+            effort=effort,
+            created_at=datetime.now().isoformat(),
+            updated_at=datetime.now().isoformat(),
+            tags=tags or [],
+            dependencies=dependencies or []
         )
 
         self._improvements.append(improvement)
@@ -1560,10 +1560,10 @@ class ImprovementsAgent(BaseAgent):
         status: ImprovementStatus
     ) -> bool:
         """Update the status of an improvement."""
-        improvement = self.get_improvement_by_id(improvement_id)
+        improvement=self.get_improvement_by_id(improvement_id)
         if improvement:
-            improvement.status = status
-            improvement.updated_at = datetime.now().isoformat()
+            improvement.status=status
+            improvement.updated_at=datetime.now().isoformat()
             return True
         return False
 
@@ -1592,10 +1592,10 @@ class ImprovementsAgent(BaseAgent):
 
     def calculate_impact_score(self, improvement: Improvement) -> float:
         """Calculate impact score for an improvement."""
-        score = improvement.priority.value * 20
+        score=improvement.priority.value * 20
 
         # Adjust based on category
-        category_weights = {
+        category_weights={
             ImprovementCategory.SECURITY: 20,
             ImprovementCategory.PERFORMANCE: 15,
             ImprovementCategory.BUG_FIX: 15,
@@ -1616,12 +1616,12 @@ class ImprovementsAgent(BaseAgent):
     def prioritize_improvements(self) -> List[Improvement]:
         """Return improvements sorted by impact score."""
         for imp in self._improvements:
-            imp.impact_score = self.calculate_impact_score(imp)
+            imp.impact_score=self.calculate_impact_score(imp)
 
         return sorted(
             self._improvements,
             key=lambda i: (i.impact_score, i.priority.value),
-            reverse = True
+            reverse=True
         )
 
     # ========== Effort Estimation ==========
@@ -1629,7 +1629,7 @@ class ImprovementsAgent(BaseAgent):
     def estimate_total_effort(self) -> Dict[str, int]:
         """Estimate total effort for all improvements."""
         # Effort in hours
-        effort_hours = {
+        effort_hours={
             EffortEstimate.TRIVIAL: 1,
             EffortEstimate.SMALL: 3,
             EffortEstimate.MEDIUM: 12,
@@ -1637,14 +1637,14 @@ class ImprovementsAgent(BaseAgent):
             EffortEstimate.EPIC: 80,
         }
 
-        total = 0
+        total=0
         by_category: Dict[str, int] = {}
 
         for imp in self._improvements:
             if imp.status not in [ImprovementStatus.COMPLETED, ImprovementStatus.REJECTED]:
-                hours = effort_hours.get(imp.effort, 12)
+                hours=effort_hours.get(imp.effort, 12)
                 total += hours
-                cat_name = imp.category.name
+                cat_name=imp.category.name
                 by_category[cat_name] = by_category.get(cat_name, 0) + hours
 
         return {
@@ -1662,8 +1662,8 @@ class ImprovementsAgent(BaseAgent):
         depends_on_id: str
     ) -> bool:
         """Add a dependency between improvements."""
-        improvement = self.get_improvement_by_id(improvement_id)
-        depends_on = self.get_improvement_by_id(depends_on_id)
+        improvement=self.get_improvement_by_id(improvement_id)
+        depends_on=self.get_improvement_by_id(depends_on_id)
 
         if improvement and depends_on and depends_on_id not in improvement.dependencies:
             improvement.dependencies.append(depends_on_id)
@@ -1672,7 +1672,7 @@ class ImprovementsAgent(BaseAgent):
 
     def get_dependencies(self, improvement_id: str) -> List[Improvement]:
         """Get all dependencies for an improvement."""
-        improvement = self.get_improvement_by_id(improvement_id)
+        improvement=self.get_improvement_by_id(improvement_id)
         if not improvement:
             return []
 
@@ -1691,10 +1691,10 @@ class ImprovementsAgent(BaseAgent):
 
     def get_ready_to_implement(self) -> List[Improvement]:
         """Get improvements that have all dependencies satisfied."""
-        ready = []
+        ready=[]
         for imp in self._improvements:
             if imp.status == ImprovementStatus.SUGGESTED:
-                deps_satisfied = all(
+                deps_satisfied=all(
                     self.get_improvement_by_id(dep_id) and
                     self.get_improvement_by_id(dep_id).status == ImprovementStatus.COMPLETED
                     for dep_id in imp.dependencies
@@ -1717,54 +1717,54 @@ class ImprovementsAgent(BaseAgent):
         self,
         template_name: str,
         variables: Dict[str, str],
-        file_path: str = ""
+        file_path: str=""
     ) -> Optional[Improvement]:
         """Create an improvement from a template."""
-        template = self._templates.get(template_name)
+        template=self._templates.get(template_name)
         if not template:
             return None
 
-        title = template.title_pattern.format(**variables)
-        description = template.description_template.format(**variables)
+        title=template.title_pattern.format(**variables)
+        description=template.description_template.format(**variables)
 
         return self.add_improvement(
-            title = title,
-            description = description,
-            file_path = file_path,
-            priority = template.default_priority,
-            category = template.category,
-            effort = template.default_effort
+            title=title,
+            description=description,
+            file_path=file_path,
+            priority=template.default_priority,
+            category=template.category,
+            effort=template.default_effort
         )
 
     # ========== Voting ==========
 
-    def vote(self, improvement_id: str, vote: int = 1) -> bool:
+    def vote(self, improvement_id: str, vote: int=1) -> bool:
         """Vote for an improvement."""
-        improvement = self.get_improvement_by_id(improvement_id)
+        improvement=self.get_improvement_by_id(improvement_id)
         if improvement:
             improvement.votes += vote
-            improvement.updated_at = datetime.now().isoformat()
+            improvement.updated_at=datetime.now().isoformat()
             return True
         return False
 
-    def get_top_voted(self, limit: int = 10) -> List[Improvement]:
+    def get_top_voted(self, limit: int=10) -> List[Improvement]:
         """Get top voted improvements."""
         return sorted(
             self._improvements,
             key=lambda i: i.votes,
-            reverse = True
+            reverse=True
         )[:limit]
 
     # ========== Assignment ==========
 
     def assign(self, improvement_id: str, assignee: str) -> bool:
         """Assign an improvement to someone."""
-        improvement = self.get_improvement_by_id(improvement_id)
+        improvement=self.get_improvement_by_id(improvement_id)
         if improvement:
-            improvement.assignee = assignee
-            improvement.updated_at = datetime.now().isoformat()
+            improvement.assignee=assignee
+            improvement.updated_at=datetime.now().isoformat()
             if improvement.status == ImprovementStatus.SUGGESTED:
-                improvement.status = ImprovementStatus.IN_PROGRESS
+                improvement.status=ImprovementStatus.IN_PROGRESS
             return True
         return False
 
@@ -1776,7 +1776,7 @@ class ImprovementsAgent(BaseAgent):
 
     def calculate_analytics(self) -> Dict[str, Any]:
         """Calculate analytics for improvements."""
-        total = len(self._improvements)
+        total=len(self._improvements)
         if total == 0:
             return {"total": 0}
 
@@ -1792,12 +1792,12 @@ class ImprovementsAgent(BaseAgent):
         for priority in ImprovementPriority:
             by_priority[priority.name] = len(self.get_improvements_by_priority(priority))
 
-        completed = by_status.get("COMPLETED", 0)
-        completion_rate = (completed / total * 100) if total > 0 else 0
+        completed=by_status.get("COMPLETED", 0)
+        completion_rate=(completed / total * 100) if total > 0 else 0
 
-        effort = self.estimate_total_effort()
+        effort=self.estimate_total_effort()
 
-        self._analytics = {
+        self._analytics={
             "total": total,
             "by_status": by_status,
             "by_category": by_category,
@@ -1811,10 +1811,10 @@ class ImprovementsAgent(BaseAgent):
 
     # ========== Export ==========
 
-    def export_improvements(self, format: str = "json") -> str:
+    def export_improvements(self, format: str="json") -> str:
         """Export improvements to various formats."""
         if format == "json":
-            data = [{
+            data=[{
                 "id": i.id,
                 "title": i.title,
                 "description": i.description,
@@ -1828,15 +1828,15 @@ class ImprovementsAgent(BaseAgent):
                 "dependencies": i.dependencies,
                 "tags": i.tags
             } for i in self._improvements]
-            return json.dumps(data, indent = 2)
+            return json.dumps(data, indent=2)
         elif format == "markdown":
-            lines = ["# Improvements\n"]
+            lines=["# Improvements\n"]
             for priority in ImprovementPriority:
-                imps = self.get_improvements_by_priority(priority)
+                imps=self.get_improvements_by_priority(priority)
                 if imps:
                     lines.append(f"\n## {priority.name}\n")
                     for i in imps:
-                        status_icon = "✓" if i.status == ImprovementStatus.COMPLETED else "○"
+                        status_icon="✓" if i.status == ImprovementStatus.COMPLETED else "○"
                         lines.append(f"- [{status_icon}] **{i.title}** ({i.category.value})")
                         lines.append(f"  - {i.description}")
             return '\n'.join(lines)
@@ -1846,9 +1846,9 @@ class ImprovementsAgent(BaseAgent):
 
     def generate_documentation(self) -> str:
         """Generate documentation for all improvements."""
-        analytics = self.calculate_analytics()
+        analytics=self.calculate_analytics()
 
-        docs = ["# Improvement Documentation\n"]
+        docs=["# Improvement Documentation\n"]
         docs.append("## Summary\n")
         docs.append(f"- Total Improvements: {analytics['total']}")
         docs.append(f"- Completion Rate: {analytics['completion_rate']:.1f}%")
@@ -1885,7 +1885,7 @@ class ImprovementsAgent(BaseAgent):
         """
         logging.info(f"Improving suggestions for {self.file_path}")
         # Add guidance for structured output
-        enhanced_prompt = (
+        enhanced_prompt=(
             f"{prompt}\n\n"
             "Please format the improvements as a markdown list with checkboxes for actionable items:\n"
             "- [ ] Actionable item 1\n"
@@ -1896,7 +1896,7 @@ class ImprovementsAgent(BaseAgent):
 
 
 # Create main function using the helper
-main = create_main_function(
+main=create_main_function(
     ImprovementsAgent,
     'Improvements Agent: Updates code file improvement suggestions',
     'Path to the improvements file (e.g., file.improvements.md)'

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 """
 Tests for agent_context.py improvements.
 
@@ -15,7 +15,7 @@ class TestContextCreation(unittest.TestCase):
 
     def test_create_context_basic(self):
         """Test creating a basic context."""
-        context = {
+        context={
             "user_id": "user123",
             "session_id": "sess123",
             "timestamp": datetime.now(),
@@ -27,7 +27,7 @@ class TestContextCreation(unittest.TestCase):
 
     def test_create_context_with_defaults(self):
         """Test creating context with default values."""
-        context = {
+        context={
             "user_id": "user123",
             "session_id": "sess123",
             "timeout": 3600,
@@ -41,7 +41,7 @@ class TestContextCreation(unittest.TestCase):
 
     def test_create_context_nested(self):
         """Test creating nested context."""
-        context = {
+        context={
             "user": {
                 "id": "user123",
                 "name": "Alice",
@@ -58,7 +58,7 @@ class TestContextCreation(unittest.TestCase):
 
     def test_create_context_with_metadata(self):
         """Test creating context with metadata."""
-        context = {
+        context={
             "id": "ctx123",
             "created_at": datetime.now(),
             "metadata": {
@@ -75,8 +75,8 @@ class TestContextStateTracking(unittest.TestCase):
 
     def test_track_context_state_transitions(self):
         """Test tracking context state transitions."""
-        states = ["initialized", "processing", "completed"]
-        state_history = []
+        states=["initialized", "processing", "completed"]
+        state_history=[]
 
         for state in states:
             state_history.append(state)
@@ -86,8 +86,8 @@ class TestContextStateTracking(unittest.TestCase):
 
     def test_track_modified_fields(self):
         """Test tracking modified fields."""
-        context = {"value": 10}
-        modifications = []
+        context={"value": 10}
+        modifications=[]
 
         context["value"] = 20
         modifications.append(("value", 10, 20))
@@ -97,7 +97,7 @@ class TestContextStateTracking(unittest.TestCase):
 
     def test_track_context_dirty_state(self):
         """Test tracking dirty state."""
-        context = {"name": "Alice", "_dirty": False}
+        context={"name": "Alice", "_dirty": False}
 
         context["name"] = "Bob"
         context["_dirty"] = True
@@ -106,8 +106,8 @@ class TestContextStateTracking(unittest.TestCase):
 
     def test_track_context_read_only_fields(self):
         """Test tracking read-only field violations."""
-        context = {"id": "ctx123", "_read_only": ["id"]}
-        violations = []
+        context={"id": "ctx123", "_read_only": ["id"]}
+        violations=[]
 
         # Attempt to modify read-only field
         if "id" in context.get("_read_only", []):
@@ -121,10 +121,10 @@ class TestContextLifecycle(unittest.TestCase):
 
     def test_context_creation_lifecycle(self):
         """Test context creation lifecycle."""
-        lifecycle = []
+        lifecycle=[]
 
         # Create
-        context = {"id": "ctx1"}
+        context={"id": "ctx1"}
         lifecycle.append("created")
 
         # Initialize
@@ -139,7 +139,7 @@ class TestContextLifecycle(unittest.TestCase):
 
     def test_context_timeout_lifecycle(self):
         """Test context timeout lifecycle."""
-        context = {
+        context={
             "created_at": datetime.now(),
             "timeout": 3600,
             "status": "active",
@@ -154,7 +154,7 @@ class TestContextLifecycle(unittest.TestCase):
 
     def test_context_resource_management(self):
         """Test context resource management."""
-        resources = []
+        resources=[]
 
         # Allocate
         resources.append("connection")
@@ -168,14 +168,14 @@ class TestContextLifecycle(unittest.TestCase):
 
     def test_context_cleanup_on_exception(self):
         """Test context cleanup on exception."""
-        context = {"active": True}
-        cleanup_called = False
+        context={"active": True}
+        cleanup_called=False
 
         try:
             raise ValueError("Error")
         except ValueError:
             context["active"] = False
-            cleanup_called = True
+            cleanup_called=True
 
         assert cleanup_called
         assert context["active"] is False
@@ -186,12 +186,12 @@ class TestContextInheritance(unittest.TestCase):
 
     def test_inherit_context_properties(self):
         """Test inheriting context properties."""
-        parent_context = {
+        parent_context={
             "user_id": "user123",
             "session_id": "sess123",
         }
 
-        child_context = parent_context.copy()
+        child_context=parent_context.copy()
         child_context["request_id"] = "req456"
 
         assert child_context["user_id"] == "user123"
@@ -199,8 +199,8 @@ class TestContextInheritance(unittest.TestCase):
 
     def test_override_inherited_properties(self):
         """Test overriding inherited properties."""
-        parent = {"debug": False, "timeout": 30}
-        child = parent.copy()
+        parent={"debug": False, "timeout": 30}
+        child=parent.copy()
         child["debug"] = True
 
         assert parent["debug"] is False
@@ -208,9 +208,9 @@ class TestContextInheritance(unittest.TestCase):
 
     def test_context_hierarchy(self):
         """Test context hierarchy."""
-        global_context = {"env": "production"}
-        project_context = {**global_context, "project": "app1"}
-        request_context = {**project_context, "request_id": "req1"}
+        global_context={"env": "production"}
+        project_context={**global_context, "project": "app1"}
+        request_context={**project_context, "request_id": "req1"}
 
         assert request_context["env"] == "production"
         assert request_context["project"] == "app1"
@@ -218,8 +218,8 @@ class TestContextInheritance(unittest.TestCase):
 
     def test_context_isolation(self):
         """Test context isolation."""
-        ctx1 = {"id": "ctx1", "data": []}
-        ctx2 = {"id": "ctx2", "data": []}
+        ctx1={"id": "ctx1", "data": []}
+        ctx2={"id": "ctx2", "data": []}
 
         ctx1["data"].append(1)
         ctx2["data"].append(2)
@@ -233,28 +233,28 @@ class TestContextStorage(unittest.TestCase):
 
     def test_store_context_value(self):
         """Test storing context value."""
-        context = {}
+        context={}
         context["key1"] = "value1"
 
         assert context["key1"] == "value1"
 
     def test_retrieve_context_value(self):
         """Test retrieving context value."""
-        context = {"key1": "value1", "key2": "value2"}
+        context={"key1": "value1", "key2": "value2"}
 
-        value = context.get("key1")
+        value=context.get("key1")
         assert value == "value1"
 
     def test_retrieve_nonexistent_with_default(self):
         """Test retrieving nonexistent with default."""
-        context = {"key1": "value1"}
+        context={"key1": "value1"}
 
-        value = context.get("missing", "default")
+        value=context.get("missing", "default")
         assert value == "default"
 
     def test_store_complex_object(self):
         """Test storing complex object."""
-        context = {
+        context={
             "user": {
                 "id": 1,
                 "name": "Alice",
@@ -271,28 +271,28 @@ class TestContextVariables(unittest.TestCase):
 
     def test_set_context_variable(self):
         """Test setting context variable."""
-        context = {}
+        context={}
         context["var1"] = "value1"
 
         assert "var1" in context
 
     def test_get_context_variable(self):
         """Test getting context variable."""
-        context = {"var1": "value1"}
+        context={"var1": "value1"}
 
         assert context["var1"] == "value1"
 
     def test_delete_context_variable(self):
         """Test deleting context variable."""
-        context = {"var1": "value1"}
+        context={"var1": "value1"}
         del context["var1"]
 
         assert "var1" not in context
 
     def test_context_variable_isolation(self):
         """Test context variable isolation."""
-        ctx1_vars = {"var": "ctx1_value"}
-        ctx2_vars = {"var": "ctx2_value"}
+        ctx1_vars={"var": "ctx1_value"}
+        ctx2_vars={"var": "ctx2_value"}
 
         assert ctx1_vars["var"] != ctx2_vars["var"]
 
@@ -302,17 +302,17 @@ class TestContextPropagation(unittest.TestCase):
 
     def test_propagate_context_to_function(self):
         """Test propagating context to function."""
-        context = {"user_id": "user1"}
+        context={"user_id": "user1"}
 
         def process(ctx):
             return ctx["user_id"]
 
-        result = process(context)
+        result=process(context)
         assert result == "user1"
 
     def test_propagate_through_nested_calls(self):
         """Test propagating through nested calls."""
-        context = {"value": 10}
+        context={"value": 10}
 
         def level1(ctx):
             return level2(ctx)
@@ -323,21 +323,21 @@ class TestContextPropagation(unittest.TestCase):
         def level3(ctx):
             return ctx["value"]
 
-        result = level1(context)
+        result=level1(context)
         assert result == 10
 
     def test_propagate_to_async_context(self):
         """Test propagating to async context."""
-        context = {"async_id": "async1"}
+        context={"async_id": "async1"}
 
-        async_contexts = []
+        async_contexts=[]
         async_contexts.append(context)
 
         assert async_contexts[0]["async_id"] == "async1"
 
     def test_propagate_with_implicit_context(self):
         """Test propagating with implicit context."""
-        context_stack = [{"level": 1}]
+        context_stack=[{"level": 1}]
 
         # Add another level
         context_stack.append({**context_stack[-1], "level": 2})
@@ -350,20 +350,20 @@ class TestContextMerging(unittest.TestCase):
 
     def test_merge_contexts(self):
         """Test merging two contexts."""
-        ctx1 = {"key1": "value1"}
-        ctx2 = {"key2": "value2"}
+        ctx1={"key1": "value1"}
+        ctx2={"key2": "value2"}
 
-        merged = {**ctx1, **ctx2}
+        merged={**ctx1, **ctx2}
 
         assert merged["key1"] == "value1"
         assert merged["key2"] == "value2"
 
     def test_merge_with_override(self):
         """Test merging with override."""
-        ctx1 = {"shared": "original", "unique1": "value1"}
-        ctx2 = {"shared": "override", "unique2": "value2"}
+        ctx1={"shared": "original", "unique1": "value1"}
+        ctx2={"shared": "override", "unique2": "value2"}
 
-        merged = {**ctx1, **ctx2}
+        merged={**ctx1, **ctx2}
 
         assert merged["shared"] == "override"
         assert merged["unique1"] == "value1"
@@ -371,19 +371,19 @@ class TestContextMerging(unittest.TestCase):
 
     def test_merge_nested_contexts(self):
         """Test merging nested contexts."""
-        ctx1 = {"data": {"a": 1}}
-        ctx2 = {"data": {"b": 2}}
+        ctx1={"data": {"a": 1}}
+        ctx2={"data": {"b": 2}}
 
         # Simple merge (not recursive)
-        merged = {**ctx1, **ctx2}
+        merged={**ctx1, **ctx2}
         assert merged["data"]["b"] == 2
 
     def test_merge_empty_context(self):
         """Test merging empty context."""
-        ctx = {"key": "value"}
-        empty = {}
+        ctx={"key": "value"}
+        empty={}
 
-        merged = {**ctx, **empty}
+        merged={**ctx, **empty}
         assert merged["key"] == "value"
 
 
@@ -392,29 +392,29 @@ class TestContextValidation(unittest.TestCase):
 
     def test_validate_required_fields(self):
         """Test validating required fields."""
-        context = {"user_id": "user1", "session_id": "sess1"}
-        required = ["user_id", "session_id"]
+        context={"user_id": "user1", "session_id": "sess1"}
+        required=["user_id", "session_id"]
 
-        valid = all(field in context for field in required)
+        valid=all(field in context for field in required)
         assert valid
 
     def test_validate_field_types(self):
         """Test validating field types."""
-        context = {"count": 10, "name": "Alice"}
+        context={"count": 10, "name": "Alice"}
 
         assert isinstance(context["count"], int)
         assert isinstance(context["name"], str)
 
     def test_validate_field_values(self):
         """Test validating field values."""
-        context = {"status": "active"}
-        valid_statuses = ["active", "inactive", "pending"]
+        context={"status": "active"}
+        valid_statuses=["active", "inactive", "pending"]
 
         assert context["status"] in valid_statuses
 
     def test_validate_field_constraints(self):
         """Test validating field constraints."""
-        context = {"age": 25}
+        context={"age": 25}
 
         assert 0 <= context["age"] <= 150
 
@@ -424,42 +424,42 @@ class TestContextSerialization(unittest.TestCase):
 
     def test_serialize_context_to_dict(self):
         """Test serializing context to dict."""
-        context = {
+        context={
             "id": "ctx1",
             "user": "alice",
             "timestamp": datetime.now().isoformat(),
         }
 
-        serialized = dict(context)
+        serialized=dict(context)
         assert isinstance(serialized, dict)
         assert serialized["id"] == "ctx1"
 
     def test_serialize_context_to_json(self):
         """Test serializing context to JSON."""
         import json
-        context = {"id": "ctx1", "name": "test"}
+        context={"id": "ctx1", "name": "test"}
 
-        json_str = json.dumps(context)
+        json_str=json.dumps(context)
         assert "ctx1" in json_str
 
     def test_deserialize_context(self):
         """Test deserializing context."""
         import json
-        json_str = '{"id": "ctx1", "name": "test"}'
+        json_str='{"id": "ctx1", "name": "test"}'
 
-        context = json.loads(json_str)
+        context=json.loads(json_str)
         assert context["id"] == "ctx1"
 
     def test_serialize_with_nested_structures(self):
         """Test serializing with nested structures."""
         import json
-        context = {
+        context={
             "user": {"id": 1, "name": "Alice"},
             "tags": ["tag1", "tag2"],
         }
 
-        json_str = json.dumps(context)
-        restored = json.loads(json_str)
+        json_str=json.dumps(context)
+        restored=json.loads(json_str)
         assert restored["user"]["name"] == "Alice"
 
 
@@ -468,8 +468,8 @@ class TestContextCaching(unittest.TestCase):
 
     def test_cache_context_value(self):
         """Test caching context value."""
-        cache = {}
-        context = {"key": "value"}
+        cache={}
+        context={"key": "value"}
 
         cache["ctx1"] = context
 
@@ -477,7 +477,7 @@ class TestContextCaching(unittest.TestCase):
 
     def test_invalidate_cache(self):
         """Test invalidating cache."""
-        cache = {"ctx1": {"value": 10}}
+        cache={"ctx1": {"value": 10}}
 
         del cache["ctx1"]
 
@@ -485,8 +485,8 @@ class TestContextCaching(unittest.TestCase):
 
     def test_cache_with_expiration(self):
         """Test cache with expiration."""
-        cache = {}
-        context = {
+        cache={}
+        context={
             "value": 10,
             "expires_at": datetime.now() + timedelta(hours=1),
         }
@@ -496,7 +496,7 @@ class TestContextCaching(unittest.TestCase):
 
     def test_cache_hit_miss(self):
         """Test cache hit and miss."""
-        cache = {"ctx1": {"value": 10}}
+        cache={"ctx1": {"value": 10}}
 
         # Hit
         assert "ctx1" in cache
@@ -511,7 +511,7 @@ class TestContextIntegration(unittest.TestCase):
     def test_end_to_end_context_workflow(self):
         """Test end-to-end context workflow."""
         # Create
-        context = {"user_id": "user1", "session_id": "sess1"}
+        context={"user_id": "user1", "session_id": "sess1"}
 
         # Modify
         context["request_id"] = "req1"
@@ -525,7 +525,7 @@ class TestContextIntegration(unittest.TestCase):
 
     def test_multi_context_lifecycle(self):
         """Test multi-context lifecycle."""
-        contexts = []
+        contexts=[]
 
         # Create multiple
         for i in range(3):
@@ -543,8 +543,8 @@ class TestContextIntegration(unittest.TestCase):
 
     def test_context_with_state_machine(self):
         """Test context with state machine."""
-        context = {"state": "init"}
-        transitions = []
+        context={"state": "init"}
+        transitions=[]
 
         # Transition 1
         context["state"] = "processing"

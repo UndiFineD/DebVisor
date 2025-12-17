@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 """
 Tests for agent_stats.py improvements.
 
@@ -18,28 +18,28 @@ class TestTrendAnalysis(unittest.TestCase):
 
     def test_calculate_trend(self):
         """Test trend calculation from time series data."""
-        data = [1, 2, 3, 4, 5]
+        data=[1, 2, 3, 4, 5]
         # Upward trend
         assert data[-1] > data[0]
 
     def test_calculate_delta(self):
         """Test delta calculation between values."""
-        current = 100
-        previous = 80
-        delta = current - previous
+        current=100
+        previous=80
+        delta=current - previous
         assert delta == 20
 
     def test_trend_percentage_change(self):
         """Test percentage change calculation."""
-        old_value = 100
-        new_value = 110
-        percent_change = ((new_value - old_value) / old_value) * 100
+        old_value=100
+        new_value=110
+        percent_change=((new_value - old_value) / old_value) * 100
         assert percent_change == 10.0
 
     def test_trend_direction(self):
         """Test determining trend direction."""
-        values = [5, 4, 3, 2, 1]
-        is_decreasing = values[0] > values[-1]
+        values=[5, 4, 3, 2, 1]
+        is_decreasing=values[0] > values[-1]
         assert is_decreasing
 
 
@@ -48,30 +48,30 @@ class TestCSVExport(unittest.TestCase):
 
     def test_export_stats_to_csv(self):
         """Test exporting stats to CSV format."""
-        stats = [
+        stats=[
             {"date": "2024-12-16", "tests": 100, "pass": 95},
             {"date": "2024-12-17", "tests": 102, "pass": 98},
         ]
 
-        csv_lines = ["date,tests,pass"]
+        csv_lines=["date,tests,pass"]
         for stat in stats:
             csv_lines.append(f"{stat['date']},{stat['tests']},{stat['pass']}")
 
-        csv_content = "\n".join(csv_lines)
+        csv_content="\n".join(csv_lines)
         assert "2024-12-16" in csv_content
         assert "date,tests,pass" in csv_content
 
     def test_csv_escaping(self):
         """Test proper CSV escaping."""
-        value = 'text with "quotes"'
-        escaped = '"{value}"'
+        value='text with "quotes"'
+        escaped='"{value}"'
         assert escaped.startswith('"')
         assert escaped.endswith('"')
 
     def test_csv_with_special_characters(self):
         """Test CSV with special characters."""
-        stats = {"name": "test,with,commas", "value": 123}
-        csv_line = '"{stats["name"]}",{stats["value"]}'
+        stats={"name": "test,with,commas", "value": 123}
+        csv_line='"{stats["name"]}",{stats["value"]}'
         assert "test,with,commas" in csv_line
 
 
@@ -80,14 +80,14 @@ class TestExportFormats(unittest.TestCase):
 
     def test_export_json_format(self):
         """Test exporting to JSON format."""
-        stats = {"tests": 100, "pass": 95, "timestamp": "2024-12-16"}
-        json_str = json.dumps(stats)
+        stats={"tests": 100, "pass": 95, "timestamp": "2024-12-16"}
+        json_str=json.dumps(stats)
         assert '"tests": 100' in json_str
         assert '"pass": 95' in json_str
 
     def test_export_html_format(self):
         """Test exporting to HTML format."""
-        html = """<table>
+        html="""<table>
 <tr><td>Test</td><td>100</td></tr>
 <tr><td>Pass</td><td>95</td></tr>
 </table>"""
@@ -97,7 +97,7 @@ class TestExportFormats(unittest.TestCase):
 
     def test_export_excel_metadata(self):
         """Test Excel export with metadata."""
-        excel_data = {
+        excel_data={
             "sheet": "Statistics",
             "rows": 100,
             "columns": 5
@@ -111,13 +111,13 @@ class TestAggregation(unittest.TestCase):
 
     def test_aggregate_by_file(self):
         """Test aggregating stats by file."""
-        stats = [
+        stats=[
             {"file": "a.py", "lines": 100, "functions": 10},
             {"file": "a.py", "lines": 50, "functions": 5},
             {"file": "b.py", "lines": 200, "functions": 20},
         ]
 
-        aggregated = {}
+        aggregated={}
         for stat in stats:
             if stat["file"] not in aggregated:
                 aggregated[stat["file"]] = []
@@ -128,15 +128,15 @@ class TestAggregation(unittest.TestCase):
 
     def test_aggregate_by_agent(self):
         """Test aggregating stats by agent."""
-        stats = [
+        stats=[
             {"agent": "A", "completed": 5},
             {"agent": "A", "completed": 3},
             {"agent": "B", "completed": 7},
         ]
 
-        totals = {}
+        totals={}
         for stat in stats:
-            agent = stat["agent"]
+            agent=stat["agent"]
             if agent not in totals:
                 totals[agent] = 0
             totals[agent] += stat["completed"]
@@ -146,15 +146,15 @@ class TestAggregation(unittest.TestCase):
 
     def test_aggregate_by_date(self):
         """Test aggregating stats by date."""
-        stats = [
+        stats=[
             {"date": "2024-12-16", "value": 10},
             {"date": "2024-12-16", "value": 15},
             {"date": "2024-12-17", "value": 20},
         ]
 
-        daily_totals = {}
+        daily_totals={}
         for stat in stats:
-            date = stat["date"]
+            date=stat["date"]
             if date not in daily_totals:
                 daily_totals[date] = 0
             daily_totals[date] += stat["value"]
@@ -168,28 +168,28 @@ class TestStatisticalSummaries(unittest.TestCase):
 
     def test_calculate_mean(self):
         """Test mean calculation."""
-        values = [10, 20, 30, 40, 50]
-        mean = sum(values) / len(values)
+        values=[10, 20, 30, 40, 50]
+        mean=sum(values) / len(values)
         assert mean == 30.0
 
     def test_calculate_median(self):
         """Test median calculation."""
-        values = [1, 2, 3, 4, 5]
-        sorted_values = sorted(values)
-        median = sorted_values[len(sorted_values) // 2]
+        values=[1, 2, 3, 4, 5]
+        sorted_values=sorted(values)
+        median=sorted_values[len(sorted_values) // 2]
         assert median == 3
 
     def test_calculate_stddev(self):
         """Test standard deviation calculation."""
-        values = [1, 2, 3, 4, 5]
-        mean = sum(values) / len(values)
-        variance = sum((x - mean) ** 2 for x in values) / len(values)
-        stddev = variance ** 0.5
+        values=[1, 2, 3, 4, 5]
+        mean=sum(values) / len(values)
+        variance=sum((x - mean) ** 2 for x in values) / len(values)
+        stddev=variance ** 0.5
         assert stddev > 0
 
     def test_calculate_min_max(self):
-        """Test min/max calculation."""
-        values = [10, 20, 30, 40, 50]
+        """Test min / max calculation."""
+        values=[10, 20, 30, 40, 50]
         assert min(values) == 10
         assert max(values) == 50
 
@@ -199,24 +199,24 @@ class TestComparison(unittest.TestCase):
 
     def test_compare_current_vs_baseline(self):
         """Test comparing current to baseline."""
-        baseline = 100
-        current = 120
-        improvement = current - baseline
+        baseline=100
+        current=120
+        improvement=current - baseline
         assert improvement == 20
         assert current > baseline
 
     def test_compare_current_vs_previous(self):
         """Test comparing current to previous."""
-        previous = 95
-        current = 100
-        delta = current - previous
+        previous=95
+        current=100
+        delta=current - previous
         assert delta > 0
 
     def test_threshold_detection(self):
         """Test detecting threshold violations."""
-        threshold = 0.8  # 80% pass rate
-        actual = 0.75
-        is_below_threshold = actual < threshold
+        threshold=0.8  # 80% pass rate
+        actual=0.75
+        is_below_threshold=actual < threshold
         assert is_below_threshold
 
 
@@ -225,13 +225,13 @@ class TestVisualization(unittest.TestCase):
 
     def test_generate_chart_data(self):
         """Test generating chart data."""
-        stats = [
+        stats=[
             {"date": "2024-12-16", "value": 100},
             {"date": "2024-12-17", "value": 120},
             {"date": "2024-12-18", "value": 115},
         ]
 
-        chart_data = {
+        chart_data={
             "labels": [s["date"] for s in stats],
             "values": [s["value"] for s in stats]
         }
@@ -241,8 +241,8 @@ class TestVisualization(unittest.TestCase):
 
     def test_format_for_display(self):
         """Test formatting stats for display."""
-        value = 0.856432
-        formatted = f"{value:.2%}"
+        value=0.856432
+        formatted=f"{value:.2%}"
         assert "85.64%" in formatted
 
 
@@ -251,13 +251,13 @@ class TestMetricFiltering(unittest.TestCase):
 
     def test_filter_by_metric_type(self):
         """Test filtering stats by metric type."""
-        all_stats = [
+        all_stats=[
             {"type": "coverage", "value": 85},
             {"type": "performance", "value": 1200},
             {"type": "coverage", "value": 90},
         ]
 
-        coverage_stats = [s for s in all_stats if s["type"] == "coverage"]
+        coverage_stats=[s for s in all_stats if s["type"] == "coverage"]
         assert len(coverage_stats) == 2
         assert all(s["type"] == "coverage" for s in coverage_stats)
 
@@ -265,26 +265,26 @@ class TestMetricFiltering(unittest.TestCase):
         """Test filtering stats by date range."""
 
 
-        stats = [
+        stats=[
             {"date": datetime(2024, 12, 14)},
             {"date": datetime(2024, 12, 16)},
             {"date": datetime(2024, 12, 18)},
         ]
 
-        start = datetime(2024, 12, 15)
-        end = datetime(2024, 12, 17)
-        filtered = [s for s in stats if start <= s["date"] <= end]
+        start=datetime(2024, 12, 15)
+        end=datetime(2024, 12, 17)
+        filtered=[s for s in stats if start <= s["date"] <= end]
         assert len(filtered) == 1
 
     def test_select_top_metrics(self):
         """Test selecting top metrics."""
-        metrics = [
+        metrics=[
             {"name": "metric1", "value": 10},
             {"name": "metric2", "value": 50},
             {"name": "metric3", "value": 30},
         ]
 
-        top_3 = sorted(metrics, key=lambda x: x["value"], reverse=True)[:3]
+        top_3=sorted(metrics, key=lambda x: x["value"], reverse=True)[:3]
         assert top_3[0]["value"] == 50
 
 
@@ -293,7 +293,7 @@ class TestTimeSeries(unittest.TestCase):
 
     def test_persist_time_series_data(self):
         """Test persisting time series data."""
-        data = [
+        data=[
             {"timestamp": "2024-12-16T10:00:00", "value": 100},
             {"timestamp": "2024-12-16T11:00:00", "value": 105},
         ]
@@ -301,11 +301,11 @@ class TestTimeSeries(unittest.TestCase):
         with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json') as f:
             json.dump(data, f)
             f.flush()
-            fname = f.name
+            fname=f.name
 
         try:
             with open(fname) as f:
-                loaded = json.load(f)
+                loaded=json.load(f)
             assert len(loaded) == 2
             assert loaded[0]["value"] == 100
         finally:
@@ -313,7 +313,7 @@ class TestTimeSeries(unittest.TestCase):
 
     def test_load_time_series_data(self):
         """Test loading time series data."""
-        data = [
+        data=[
             {"timestamp": "2024-12-16T10:00:00", "value": 100},
         ]
 
@@ -327,28 +327,28 @@ class TestValidation(unittest.TestCase):
     def test_validate_stat_value(self):
         """Test validating stat values."""
         # Percentage should be 0-100
-        value = 85
-        is_valid = 0 <= value <= 100
+        value=85
+        is_valid=0 <= value <= 100
         assert is_valid
 
     def test_detect_anomaly(self):
         """Test detecting anomalies."""
-        values = [100, 105, 103, 102, 200]  # Last value is anomaly
-        mean = sum(values) / len(values)
-        variance = sum((x - mean) ** 2 for x in values) / len(values)
-        stddev = variance ** 0.5
+        values=[100, 105, 103, 102, 200]  # Last value is anomaly
+        mean=sum(values) / len(values)
+        variance=sum((x - mean) ** 2 for x in values) / len(values)
+        stddev=variance ** 0.5
 
         # The last value (200) is significantly higher than mean
         assert values[-1] > mean * 1.5  # Obvious anomaly
 
     def test_validate_data_consistency(self):
         """Test data consistency validation."""
-        stats = {
+        stats={
             "total": 100,
             "passed": 85,
             "failed": 15,
         }
-        # Verify: passed + failed = total
+        # Verify: passed + failed=total
         assert stats["passed"] + stats["failed"] == stats["total"]
 
 
@@ -358,22 +358,22 @@ class TestPerformanceMetrics(unittest.TestCase):
     def test_track_execution_time(self):
         """Test tracking execution time."""
         import time
-        start = time.time()
+        start=time.time()
         # Simulate work
         time.sleep(0.01)
-        end = time.time()
-        duration = end - start
+        end=time.time()
+        duration=end - start
         assert duration > 0
 
     def test_track_memory_usage(self):
         """Test tracking memory usage."""
         import sys
-        size = sys.getsizeof("hello")
+        size=sys.getsizeof("hello")
         assert size > 0
 
     def test_track_cpu_metrics(self):
         """Test tracking CPU-related metrics."""
-        metrics = {
+        metrics={
             "cpu_percent": 45.2,
             "threads": 8,
         }
@@ -386,24 +386,24 @@ class TestBenchmarking(unittest.TestCase):
 
     def test_aggregate_benchmark_results(self):
         """Test aggregating benchmark results."""
-        benchmarks = [
+        benchmarks=[
             {"name": "test_parse", "time_ms": 10.5},
             {"name": "test_format", "time_ms": 20.3},
             {"name": "test_validate", "time_ms": 5.2},
         ]
 
-        total_time = sum(b["time_ms"] for b in benchmarks)
-        avg_time = total_time / len(benchmarks)
+        total_time=sum(b["time_ms"] for b in benchmarks)
+        avg_time=total_time / len(benchmarks)
 
         assert avg_time > 0
         assert total_time > avg_time
 
     def test_benchmark_comparison(self):
         """Test comparing benchmark results."""
-        baseline = {"operation": "parse", "time_ms": 10.0}
-        current = {"operation": "parse", "time_ms": 12.5}
+        baseline={"operation": "parse", "time_ms": 10.0}
+        current={"operation": "parse", "time_ms": 12.5}
 
-        regression_percent = ((current["time_ms"] - baseline["time_ms"])
+        regression_percent=((current["time_ms"] - baseline["time_ms"])
                             / baseline["time_ms"]) * 100
         assert regression_percent > 0  # Performance regressed
 
@@ -413,7 +413,7 @@ class TestCaching(unittest.TestCase):
 
     def test_cache_stat_results(self):
         """Test caching stat computation results."""
-        cache = {}
+        cache={}
 
         def get_stat(key):
             if key not in cache:
@@ -421,15 +421,15 @@ class TestCaching(unittest.TestCase):
                 cache[key] = sum(range(1000))
             return cache[key]
 
-        result1 = get_stat("test")
-        result2 = get_stat("test")
+        result1=get_stat("test")
+        result2=get_stat("test")
 
         assert result1 == result2
         assert len(cache) == 1
 
     def test_cache_invalidation(self):
         """Test cache invalidation."""
-        cache = {"key": "old_value"}
+        cache={"key": "old_value"}
 
         # Invalidate
         del cache["key"]
@@ -441,7 +441,7 @@ class TestReporting(unittest.TestCase):
 
     def test_generate_stat_report(self):
         """Test generating comprehensive stat report."""
-        report = """
+        report="""
 === Statistics Report ===
 Date: 2024-12-16
 Total Tests: 100
@@ -455,15 +455,15 @@ Pass Rate: 95.0%
 
     def test_generate_insights(self):
         """Test generating insights from stats."""
-        stats = {
+        stats={
             "pass_rate": 0.95,
             "trend": "improving",
         }
 
         if stats["pass_rate"] > 0.90:
-            insight = "Excellent test pass rate"
+            insight="Excellent test pass rate"
         else:
-            insight = "Test pass rate needs improvement"
+            insight="Test pass rate needs improvement"
 
         assert "Excellent" in insight
 
@@ -474,17 +474,17 @@ class TestIntegration(unittest.TestCase):
     def test_end_to_end_stats_workflow(self):
         """Test complete stats workflow."""
         # Collect stats
-        stats = [
+        stats=[
             {"timestamp": "2024-12-16T10:00:00", "tests": 100, "passed": 95},
             {"timestamp": "2024-12-16T11:00:00", "tests": 102, "passed": 98},
         ]
 
         # Aggregate
-        total_tests = sum(s["tests"] for s in stats)
-        total_passed = sum(s["passed"] for s in stats)
+        total_tests=sum(s["tests"] for s in stats)
+        total_passed=sum(s["passed"] for s in stats)
 
         # Calculate metrics
-        pass_rate = (total_passed / total_tests) * 100
+        pass_rate=(total_passed / total_tests) * 100
 
         assert total_tests == 202
         assert pass_rate > 95

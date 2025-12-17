@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 
 # Copyright (c) 2025 DebVisor contributors
 
@@ -8,7 +8,7 @@
 
 # You may obtain a copy of the License at
 
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 
 # Unless required by applicable law or agreed to in writing, software
 
@@ -24,7 +24,7 @@
 """Generate per-file agent reports.
 
 
-For every Python file under `scripts/agent/*.py`, this script writes:
+For every Python file under `scripts / agent/*.py`, this script writes:
 
 - `<stem>.description.md`
 
@@ -35,7 +35,7 @@ For every Python file under `scripts/agent/*.py`, this script writes:
 
 The output is intentionally lightweight and based on static inspection and
 
-basic syntax/compile checks.
+basic syntax / compile checks.
 
 
 Features:
@@ -84,9 +84,9 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 
-AGENT_DIR = Path(__file__).resolve().parent
+AGENT_DIR=Path(__file__).resolve().parent
 
-REPO_ROOT = AGENT_DIR.parents[1]
+REPO_ROOT=AGENT_DIR.parents[1]
 
 
 # =============================================================================
@@ -100,135 +100,135 @@ class ReportType(Enum):
 
     """Type of report to generate."""
 
-    DESCRIPTION = auto()
+    DESCRIPTION=auto()
 
-    ERRORS = auto()
+    ERRORS=auto()
 
-    IMPROVEMENTS = auto()
+    IMPROVEMENTS=auto()
 
-    SUMMARY = auto()
+    SUMMARY=auto()
 
 
 class ReportFormat(Enum):
 
     """Output format for reports."""
 
-    MARKDOWN = auto()
+    MARKDOWN=auto()
 
-    JSON = auto()
+    JSON=auto()
 
-    HTML = auto()
+    HTML=auto()
 
 
 class SeverityLevel(Enum):
 
     """Severity level for issues."""
 
-    INFO = 1
+    INFO=1
 
-    WARNING = 2
+    WARNING=2
 
-    ERROR = 3
+    ERROR=3
 
-    CRITICAL = 4
+    CRITICAL=4
 
 
 class IssueCategory(Enum):
 
     """Category of code issue."""
 
-    SYNTAX = auto()
+    SYNTAX=auto()
 
-    TYPE_ANNOTATION = auto()
+    TYPE_ANNOTATION=auto()
 
-    STYLE = auto()
+    STYLE=auto()
 
-    SECURITY = auto()
+    SECURITY=auto()
 
-    PERFORMANCE = auto()
+    PERFORMANCE=auto()
 
-    DOCUMENTATION = auto()
+    DOCUMENTATION=auto()
 
 
 class SubscriptionFrequency(Enum):
 
     """Frequency for report subscriptions."""
 
-    IMMEDIATE = "immediate"
+    IMMEDIATE="immediate"
 
-    HOURLY = "hourly"
+    HOURLY="hourly"
 
-    DAILY = "daily"
+    DAILY="daily"
 
-    WEEKLY = "weekly"
+    WEEKLY="weekly"
 
-    MONTHLY = "monthly"
+    MONTHLY="monthly"
 
 
 class PermissionLevel(Enum):
 
     """Permission levels for report access."""
 
-    NONE = 0
+    NONE=0
 
-    READ = 1
+    READ=1
 
-    WRITE = 2
+    WRITE=2
 
-    ADMIN = 3
+    ADMIN=3
 
 
 class ExportFormat(Enum):
 
     """Export formats for reports."""
 
-    MARKDOWN = "markdown"
+    MARKDOWN="markdown"
 
-    JSON = "json"
+    JSON="json"
 
-    HTML = "html"
+    HTML="html"
 
-    PDF = "pdf"
+    PDF="pdf"
 
-    PPT = "ppt"
+    PPT="ppt"
 
-    CSV = "csv"
+    CSV="csv"
 
 
 class LocaleCode(Enum):
 
     """Supported locales for reports."""
 
-    EN_US = "en-US"
+    EN_US="en-US"
 
-    EN_GB = "en-GB"
+    EN_GB="en-GB"
 
-    DE_DE = "de-DE"
+    DE_DE="de-DE"
 
-    FR_FR = "fr-FR"
+    FR_FR="fr-FR"
 
-    ES_ES = "es-ES"
+    ES_ES="es-ES"
 
-    ZH_CN = "zh-CN"
+    ZH_CN="zh-CN"
 
-    JA_JP = "ja-JP"
+    JA_JP="ja-JP"
 
 
 class AuditAction(Enum):
 
     """Actions for audit logging."""
 
-    CREATE = "create"
+    CREATE="create"
 
-    READ = "read"
+    READ="read"
 
-    UPDATE = "update"
+    UPDATE="update"
 
-    DELETE = "delete"
+    DELETE="delete"
 
-    EXPORT = "export"
+    EXPORT="export"
 
-    SHARE = "share"
+    SHARE="share"
 
 
 # =============================================================================
@@ -237,10 +237,10 @@ class AuditAction(Enum):
 
 # =============================================================================
 
-@dataclass(frozen = True)
+@dataclass(frozen=True)
 class CompileResult:
 
-    """Result of compile/syntax check."""
+    """Result of compile / syntax check."""
 
     ok: bool
 
@@ -271,7 +271,7 @@ class CodeIssue:
 
     category: IssueCategory
 
-    severity: SeverityLevel = SeverityLevel.INFO
+    severity: SeverityLevel=SeverityLevel.INFO
 
     line_number: Optional[int] = None
 
@@ -300,11 +300,11 @@ class ReportMetadata:
 
     file_path: str
 
-    generated_at: float = field(default_factory = time.time)
+    generated_at: float=field(default_factory=time.time)
 
-    source_hash: str = ""
+    source_hash: str=""
 
-    version: int = 1
+    version: int=1
 
     previous_hash: Optional[str] = None
 
@@ -331,9 +331,9 @@ class ReportTemplate:
 
     sections: List[str] = field(default_factory=lambda: ["purpose", "location", "surface"])
 
-    include_metadata: bool = True
+    include_metadata: bool=True
 
-    include_summary: bool = True
+    include_summary: bool=True
 
 
 @dataclass
@@ -352,11 +352,11 @@ class ReportCache:
 
     """
 
-    reports: Dict[str, Dict[str, Any]] = field(default_factory = dict)
+    reports: Dict[str, Dict[str, Any]] = field(default_factory=dict)
 
-    last_updated: float = field(default_factory = time.time)
+    last_updated: float=field(default_factory=time.time)
 
-    ttl_seconds: int = 3600  # 1 hour default
+    ttl_seconds: int=3600  # 1 hour default
 
 
 @dataclass
@@ -381,13 +381,13 @@ class ReportComparison:
 
     file_path: str
 
-    added_issues: List[str] = field(default_factory = list)
+    added_issues: List[str] = field(default_factory=list)
 
-    removed_issues: List[str] = field(default_factory = list)
+    removed_issues: List[str] = field(default_factory=list)
 
-    changed_issues: List[str] = field(default_factory = list)
+    changed_issues: List[str] = field(default_factory=list)
 
-    summary: str = ""
+    summary: str=""
 
 
 @dataclass
@@ -414,11 +414,11 @@ class FilterCriteria:
 
     date_to: Optional[datetime] = None
 
-    severity_min: SeverityLevel = SeverityLevel.INFO
+    severity_min: SeverityLevel=SeverityLevel.INFO
 
-    categories: List[IssueCategory] = field(default_factory = list)
+    categories: List[IssueCategory] = field(default_factory=list)
 
-    file_patterns: List[str] = field(default_factory = list)
+    file_patterns: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -447,13 +447,13 @@ class ReportSubscription:
 
     email: str
 
-    frequency: SubscriptionFrequency = SubscriptionFrequency.DAILY
+    frequency: SubscriptionFrequency=SubscriptionFrequency.DAILY
 
-    report_types: List[ReportType] = field(default_factory = list)
+    report_types: List[ReportType] = field(default_factory=list)
 
-    file_patterns: List[str] = field(default_factory = list)
+    file_patterns: List[str] = field(default_factory=list)
 
-    enabled: bool = True
+    enabled: bool=True
 
 
 @dataclass
@@ -484,11 +484,11 @@ class ArchivedReport:
 
     content: str
 
-    archived_at: float = field(default_factory = time.time)
+    archived_at: float=field(default_factory=time.time)
 
-    retention_days: int = 90
+    retention_days: int=90
 
-    metadata: Dict[str, Any] = field(default_factory = dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -523,7 +523,7 @@ class ReportAnnotation:
 
     line_number: Optional[int] = None
 
-    created_at: float = field(default_factory = time.time)
+    created_at: float=field(default_factory=time.time)
 
 
 @dataclass
@@ -554,7 +554,7 @@ class ReportSearchResult:
 
     line_number: int
 
-    score: float = 1.0
+    score: float=1.0
 
 
 @dataclass
@@ -581,11 +581,11 @@ class ReportMetric:
 
     value: float
 
-    unit: str = ""
+    unit: str=""
 
     threshold: Optional[float] = None
 
-    trend: str = "="
+    trend: str="="
 
 
 @dataclass
@@ -612,9 +612,9 @@ class ReportPermission:
 
     report_pattern: str
 
-    level: PermissionLevel = PermissionLevel.READ
+    level: PermissionLevel=PermissionLevel.READ
 
-    granted_by: str = ""
+    granted_by: str=""
 
     expires_at: Optional[float] = None
 
@@ -651,7 +651,7 @@ class AuditEntry:
 
     report_id: str
 
-    details: Dict[str, Any] = field(default_factory = dict)
+    details: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -672,9 +672,9 @@ class LocalizedString:
 
     key: str
 
-    translations: Dict[str, str] = field(default_factory = dict)
+    translations: Dict[str, str] = field(default_factory=dict)
 
-    default: str = ""
+    default: str=""
 
 
 @dataclass
@@ -697,11 +697,11 @@ class ValidationResult:
 
     valid: bool
 
-    errors: List[str] = field(default_factory = list)
+    errors: List[str] = field(default_factory=list)
 
-    warnings: List[str] = field(default_factory = list)
+    warnings: List[str] = field(default_factory=list)
 
-    checksum: str = ""
+    checksum: str=""
 
 
 @dataclass
@@ -722,13 +722,13 @@ class AggregatedReport:
 
     """
 
-    sources: List[str] = field(default_factory = list)
+    sources: List[str] = field(default_factory=list)
 
-    combined_issues: List[CodeIssue] = field(default_factory = list)
+    combined_issues: List[CodeIssue] = field(default_factory=list)
 
-    summary: Dict[str, Any] = field(default_factory = dict)
+    summary: Dict[str, Any] = field(default_factory=dict)
 
-    generated_at: float = field(default_factory = time.time)
+    generated_at: float=field(default_factory=time.time)
 
 
 # =============================================================================
@@ -763,9 +763,9 @@ class ReportCacheManager:
 
         """
 
-        self.cache_file = cache_file or AGENT_DIR / ".report_cache.json"
+        self.cache_file=cache_file or AGENT_DIR / ".report_cache.json"
 
-        self.cache = ReportCache()
+        self.cache=ReportCache()
 
         self._load_cache()
 
@@ -778,15 +778,15 @@ class ReportCacheManager:
 
             try:
 
-                data = json.loads(self.cache_file.read_text())
+                data=json.loads(self.cache_file.read_text())
 
-                self.cache = ReportCache(
+                self.cache=ReportCache(
 
-                    reports = data.get('reports', {}),
+                    reports=data.get('reports', {}),
 
-                    last_updated = data.get('last_updated', time.time()),
+                    last_updated=data.get('last_updated', time.time()),
 
-                    ttl_seconds = data.get('ttl_seconds', 3600)
+                    ttl_seconds=data.get('ttl_seconds', 3600)
 
                 )
 
@@ -801,7 +801,7 @@ class ReportCacheManager:
 
         try:
 
-            data = {
+            data={
 
                 'reports': self.cache.reports,
 
@@ -811,7 +811,7 @@ class ReportCacheManager:
 
             }
 
-            self.cache_file.write_text(json.dumps(data, indent = 2))
+            self.cache_file.write_text(json.dumps(data, indent=2))
 
         except Exception as e:
 
@@ -841,7 +841,7 @@ class ReportCacheManager:
             return None
 
 
-        cached = self.cache.reports[file_path]
+        cached=self.cache.reports[file_path]
 
 
         # Check if hash matches
@@ -853,7 +853,7 @@ class ReportCacheManager:
 
         # Check TTL
 
-        cached_time = cached.get('generated_at', 0)
+        cached_time=cached.get('generated_at', 0)
 
         if time.time() - cached_time > self.cache.ttl_seconds:
 
@@ -888,7 +888,7 @@ class ReportCacheManager:
 
         }
 
-        self.cache.last_updated = time.time()
+        self.cache.last_updated=time.time()
 
         self._save_cache()
 
@@ -934,7 +934,7 @@ class ReportComparator:
     """
 
 
-    def __init__(self, reports_dir: Path = AGENT_DIR):
+    def __init__(self, reports_dir: Path=AGENT_DIR):
 
         """Initialize comparator.
 
@@ -945,7 +945,7 @@ class ReportComparator:
 
         """
 
-        self.reports_dir = reports_dir
+        self.reports_dir=reports_dir
 
 
     def compare(self, file_stem: str, old_content: str, new_content: str) -> ReportComparison:
@@ -968,22 +968,22 @@ class ReportComparator:
 
         """
 
-        old_items = self._extract_items(old_content)
+        old_items=self._extract_items(old_content)
 
-        new_items = self._extract_items(new_content)
-
-
-        old_set = set(old_items)
-
-        new_set = set(new_items)
+        new_items=self._extract_items(new_content)
 
 
-        added = list(new_set - old_set)
+        old_set=set(old_items)
 
-        removed = list(old_set - new_set)
+        new_set=set(new_items)
 
 
-        summary_parts = []
+        added=list(new_set - old_set)
+
+        removed=list(old_set - new_set)
+
+
+        summary_parts=[]
 
         if added:
 
@@ -1000,13 +1000,13 @@ class ReportComparator:
 
         return ReportComparison(
 
-            file_path = file_stem,
+            file_path=file_stem,
 
-            added_issues = added,
+            added_issues=added,
 
-            removed_issues = removed,
+            removed_issues=removed,
 
-            summary = ", ".join(summary_parts)
+            summary=", ".join(summary_parts)
 
         )
 
@@ -1015,11 +1015,11 @@ class ReportComparator:
 
         """Extract list items from markdown content."""
 
-        items = []
+        items=[]
 
         for line in content.split('\n'):
 
-            line = line.strip()
+            line=line.strip()
 
             if line.startswith('- '):
 
@@ -1058,7 +1058,7 @@ class ReportFilter:
 
         """
 
-        self.criteria = criteria or FilterCriteria()
+        self.criteria=criteria or FilterCriteria()
 
 
     def matches(self, issue: CodeIssue) -> bool:
@@ -1139,7 +1139,7 @@ class SubscriptionManager:
 
     Example:
 
-        manager = SubscriptionManager()
+        manager=SubscriptionManager()
 
         manager.add_subscription(ReportSubscription("user1", "user@example.com"))
 
@@ -1263,7 +1263,7 @@ class SubscriptionManager:
 
         """
 
-        processed = len(self.delivery_queue)
+        processed=len(self.delivery_queue)
 
         self.delivery_queue.clear()
 
@@ -1287,11 +1287,11 @@ class ReportArchiver:
 
     Example:
 
-        archiver = ReportArchiver(Path("./archives"))
+        archiver=ReportArchiver(Path("./archives"))
 
         archiver.archive("file.py", report_content)
 
-        old_reports = archiver.list_archives("file.py")
+        old_reports=archiver.list_archives("file.py")
 
     """
 
@@ -1307,7 +1307,7 @@ class ReportArchiver:
 
         """
 
-        self.archive_dir = archive_dir or AGENT_DIR / ".archives"
+        self.archive_dir=archive_dir or AGENT_DIR / ".archives"
 
         self.archives: Dict[str, List[ArchivedReport]] = {}
 
@@ -1322,7 +1322,7 @@ class ReportArchiver:
 
         content: str,
 
-        retention_days: int = 90
+        retention_days: int=90
 
     ) -> ArchivedReport:
 
@@ -1344,17 +1344,17 @@ class ReportArchiver:
 
         """
 
-        report_id = f"{file_path}_{int(time.time())}"
+        report_id=f"{file_path}_{int(time.time())}"
 
-        archived = ArchivedReport(
+        archived=ArchivedReport(
 
-            report_id = report_id,
+            report_id=report_id,
 
-            file_path = file_path,
+            file_path=file_path,
 
-            content = content,
+            content=content,
 
-            retention_days = retention_days
+            retention_days=retention_days
 
         )
 
@@ -1426,18 +1426,18 @@ class ReportArchiver:
 
         """
 
-        removed = 0
+        removed=0
 
-        current_time = time.time()
+        current_time=time.time()
 
 
         for file_path in list(self.archives.keys()):
 
-            valid = []
+            valid=[]
 
             for archive in self.archives[file_path]:
 
-                expiry = archive.archived_at + (archive.retention_days * 86400)
+                expiry=archive.archived_at + (archive.retention_days * 86400)
 
                 if current_time < expiry:
 
@@ -1468,11 +1468,11 @@ class AnnotationManager:
 
     Example:
 
-        manager = AnnotationManager()
+        manager=AnnotationManager()
 
         manager.add_annotation("report1", "user", "Important note")
 
-        notes = manager.get_annotations("report1")
+        notes=manager.get_annotations("report1")
 
     """
 
@@ -1520,19 +1520,19 @@ class AnnotationManager:
 
         """
 
-        annotation_id = f"ann_{report_id}_{int(time.time())}"
+        annotation_id=f"ann_{report_id}_{int(time.time())}"
 
-        annotation = ReportAnnotation(
+        annotation=ReportAnnotation(
 
-            annotation_id = annotation_id,
+            annotation_id=annotation_id,
 
-            report_id = report_id,
+            report_id=report_id,
 
-            author = author,
+            author=author,
 
-            content = content,
+            content=content,
 
-            line_number = line_number
+            line_number=line_number
 
         )
 
@@ -1610,11 +1610,11 @@ class ReportSearchEngine:
 
     Example:
 
-        engine = ReportSearchEngine()
+        engine=ReportSearchEngine()
 
         engine.index_report("file.py", ReportType.ERRORS, content)
 
-        results = engine.search("syntax error")
+        results=engine.search("syntax error")
 
     """
 
@@ -1655,7 +1655,7 @@ class ReportSearchEngine:
 
         """
 
-        key = f"{file_path}:{report_type.name}"
+        key=f"{file_path}:{report_type.name}"
 
         self._reports[key] = content
 
@@ -1664,7 +1664,7 @@ class ReportSearchEngine:
 
         for line_num, line in enumerate(content.split("\n"), 1):
 
-            words = re.findall(r'\w+', line.lower())
+            words=re.findall(r'\w+', line.lower())
 
             for word in words:
 
@@ -1675,7 +1675,7 @@ class ReportSearchEngine:
                 self.index[word].append((file_path, report_type, line_num))
 
 
-    def search(self, query: str, max_results: int = 20) -> List[ReportSearchResult]:
+    def search(self, query: str, max_results: int=20) -> List[ReportSearchResult]:
 
         """Search reports.
 
@@ -1693,7 +1693,7 @@ class ReportSearchEngine:
 
         """
 
-        words = re.findall(r'\w+', query.lower())
+        words=re.findall(r'\w+', query.lower())
 
         matches: Dict[str, int] = {}
 
@@ -1704,7 +1704,7 @@ class ReportSearchEngine:
 
                 for file_path, report_type, line_num in self.index[word]:
 
-                    key = f"{file_path}:{report_type.name}:{line_num}"
+                    key=f"{file_path}:{report_type.name}:{line_num}"
 
                     matches[key] = matches.get(key, 0) + 1
 
@@ -1713,37 +1713,37 @@ class ReportSearchEngine:
 
         for key, score in sorted(matches.items(), key=lambda x: -x[1])[:max_results]:
 
-            parts = key.split(":")
+            parts=key.split(":")
 
-            file_path = parts[0]
+            file_path=parts[0]
 
-            report_type = ReportType[parts[1]]
+            report_type=ReportType[parts[1]]
 
-            line_num = int(parts[2])
+            line_num=int(parts[2])
 
 
             # Get match context
 
-            report_key = f"{file_path}:{report_type.name}"
+            report_key=f"{file_path}:{report_type.name}"
 
-            content = self._reports.get(report_key, "")
+            content=self._reports.get(report_key, "")
 
-            lines = content.split("\n")
+            lines=content.split("\n")
 
-            match_text = lines[line_num - 1] if line_num <= len(lines) else ""
+            match_text=lines[line_num - 1] if line_num <= len(lines) else ""
 
 
             results.append(ReportSearchResult(
 
-                file_path = file_path,
+                file_path=file_path,
 
-                report_type = report_type,
+                report_type=report_type,
 
-                match_text = match_text,
+                match_text=match_text,
 
-                line_number = line_num,
+                line_number=line_num,
 
-                score = float(score)
+                score=float(score)
 
             ))
 
@@ -1766,11 +1766,11 @@ class MetricsCollector:
 
     Example:
 
-        collector = MetricsCollector()
+        collector=MetricsCollector()
 
         collector.record("file.py", "issues_count", 5)
 
-        summary = collector.get_summary()
+        summary=collector.get_summary()
 
     """
 
@@ -1794,7 +1794,7 @@ class MetricsCollector:
 
         value: float,
 
-        unit: str = "",
+        unit: str="",
 
         threshold: Optional[float] = None
 
@@ -1822,15 +1822,15 @@ class MetricsCollector:
 
         """
 
-        metric = ReportMetric(
+        metric=ReportMetric(
 
-            name = name,
+            name=name,
 
-            value = value,
+            value=value,
 
-            unit = unit,
+            unit=unit,
 
-            threshold = threshold
+            threshold=threshold
 
         )
 
@@ -1875,9 +1875,9 @@ class MetricsCollector:
 
         """
 
-        total_files = len(self.metrics)
+        total_files=len(self.metrics)
 
-        total_metrics = sum(len(m) for m in self.metrics.values())
+        total_metrics=sum(len(m) for m in self.metrics.values())
 
 
         # Calculate averages by metric name
@@ -1895,7 +1895,7 @@ class MetricsCollector:
                 averages[metric.name].append(metric.value)
 
 
-        avg_summary = {
+        avg_summary={
 
             name: sum(vals) / len(vals) if vals else 0
 
@@ -1930,11 +1930,11 @@ class AccessController:
 
     Example:
 
-        controller = AccessController()
+        controller=AccessController()
 
         controller.grant("user1", "*.md", PermissionLevel.READ)
 
-        can_read = controller.check("user1", "report.md", PermissionLevel.READ)
+        can_read=controller.check("user1", "report.md", PermissionLevel.READ)
 
     """
 
@@ -1958,7 +1958,7 @@ class AccessController:
 
         level: PermissionLevel,
 
-        granted_by: str = "system"
+        granted_by: str="system"
 
     ) -> ReportPermission:
 
@@ -1982,15 +1982,15 @@ class AccessController:
 
         """
 
-        permission = ReportPermission(
+        permission=ReportPermission(
 
-            user_id = user_id,
+            user_id=user_id,
 
-            report_pattern = report_pattern,
+            report_pattern=report_pattern,
 
-            level = level,
+            level=level,
 
-            granted_by = granted_by
+            granted_by=granted_by
 
         )
 
@@ -2090,11 +2090,11 @@ class ReportExporter:
 
     Example:
 
-        exporter = ReportExporter()
+        exporter=ReportExporter()
 
-        html = exporter.to_html(markdown_content)
+        html=exporter.to_html(markdown_content)
 
-        csv_data = exporter.to_csv(issues)
+        csv_data=exporter.to_csv(issues)
 
     """
 
@@ -2106,7 +2106,7 @@ class ReportExporter:
         logging.debug("ReportExporter initialized")
 
 
-    def to_html(self, content: str, title: str = "Report") -> str:
+    def to_html(self, content: str, title: str="Report") -> str:
 
         """Convert markdown to HTML.
 
@@ -2126,15 +2126,15 @@ class ReportExporter:
 
         # Simple markdown to HTML conversion
 
-        html_content = content
+        html_content=content
 
-        html_content = re.sub(r'^  # (.+)$', r'<h1>\1</h1>', html_content, flags = re.MULTILINE)
+        html_content=re.sub(r'^  # (.+)$', r'<h1>\1</h1>', html_content, flags=re.MULTILINE)
 
-        html_content = re.sub(r'^  ## (.+)$', r'<h2>\1</h2>', html_content, flags = re.MULTILINE)
+        html_content=re.sub(r'^  ## (.+)$', r'<h2>\1</h2>', html_content, flags=re.MULTILINE)
 
-        html_content = re.sub(r'^- (.+)$', r'<li>\1</li>', html_content, flags = re.MULTILINE)
+        html_content=re.sub(r'^- (.+)$', r'<li>\1</li>', html_content, flags=re.MULTILINE)
 
-        html_content = re.sub(r'`([^`]+)`', r'<code>\1</code>', html_content)
+        html_content=re.sub(r'`([^`]+)`', r'<code>\1</code>', html_content)
 
 
         return """<!DOCTYPE html>
@@ -2164,7 +2164,7 @@ class ReportExporter:
 
         """
 
-        lines = ["message,category,severity,line_number,function_name"]
+        lines=["message,category,severity,line_number,function_name"]
 
         for issue in issues:
 
@@ -2211,20 +2211,20 @@ class ReportExporter:
 
         if format == ExportFormat.HTML:
 
-            result = self.to_html(content)
+            result=self.to_html(content)
 
         elif format == ExportFormat.JSON:
 
-            result = json.dumps({"content": content})
+            result=json.dumps({"content": content})
 
         else:
 
-            result = content
+            result=content
 
 
         if output_path:
 
-            output_path.write_text(result, encoding = "utf-8")
+            output_path.write_text(result, encoding="utf-8")
 
 
         return result
@@ -2245,11 +2245,11 @@ class AuditLogger:
 
     Example:
 
-        logger = AuditLogger()
+        logger=AuditLogger()
 
         logger.log(AuditAction.READ, "user1", "report.md")
 
-        history = logger.get_history("report.md")
+        history=logger.get_history("report.md")
 
     """
 
@@ -2297,19 +2297,19 @@ class AuditLogger:
 
         """
 
-        entry = AuditEntry(
+        entry=AuditEntry(
 
-            entry_id = f"audit_{int(time.time())}_{len(self.entries)}",
+            entry_id=f"audit_{int(time.time())}_{len(self.entries)}",
 
-            timestamp = time.time(),
+            timestamp=time.time(),
 
-            action = action,
+            action=action,
 
-            user_id = user_id,
+            user_id=user_id,
 
-            report_id = report_id,
+            report_id=report_id,
 
-            details = details or {}
+            details=details or {}
 
         )
 
@@ -2366,9 +2366,9 @@ class ReportValidator:
 
     Example:
 
-        validator = ReportValidator()
+        validator=ReportValidator()
 
-        result = validator.validate(content)
+        result=validator.validate(content)
 
         if not result.valid:
 
@@ -2428,18 +2428,18 @@ class ReportValidator:
 
         # Calculate checksum
 
-        checksum = hashlib.sha256(content.encode()).hexdigest()[:16]
+        checksum=hashlib.sha256(content.encode()).hexdigest()[:16]
 
 
         return ValidationResult(
 
-            valid = len(errors) == 0,
+            valid=len(errors) == 0,
 
-            errors = errors,
+            errors=errors,
 
-            warnings = warnings,
+            warnings=warnings,
 
-            checksum = checksum
+            checksum=checksum
 
         )
 
@@ -2462,7 +2462,7 @@ class ReportValidator:
 
         """
 
-        actual = hashlib.sha256(content.encode()).hexdigest()[:16]
+        actual=hashlib.sha256(content.encode()).hexdigest()[:16]
 
         return actual == expected
 
@@ -2484,16 +2484,16 @@ class ReportLocalizer:
 
     Example:
 
-        localizer = ReportLocalizer()
+        localizer=ReportLocalizer()
 
         localizer.add_string("error.syntax", {"en-US": "Syntax Error"})
 
-        text = localizer.get("error.syntax")
+        text=localizer.get("error.syntax")
 
     """
 
 
-    def __init__(self, locale: LocaleCode = LocaleCode.EN_US) -> None:
+    def __init__(self, locale: LocaleCode=LocaleCode.EN_US) -> None:
 
         """Initialize localizer.
 
@@ -2506,7 +2506,7 @@ class ReportLocalizer:
 
         self.strings: Dict[str, LocalizedString] = {}
 
-        self.current_locale = locale
+        self.current_locale=locale
 
         self._init_defaults()
 
@@ -2517,7 +2517,7 @@ class ReportLocalizer:
 
         """Initialize default strings."""
 
-        defaults = {
+        defaults={
 
             "report.description": {"en-US": "Description", "de-DE": "Beschreibung"},
 
@@ -2551,9 +2551,9 @@ class ReportLocalizer:
 
         """
 
-        default = translations.get("en-US", list(translations.values())[0] if translations else "")
+        default=translations.get("en-US", list(translations.values())[0] if translations else "")
 
-        self.strings[key] = LocalizedString(key = key, translations = translations, default = default)
+        self.strings[key] = LocalizedString(key=key, translations=translations, default=default)
 
 
     def get(self, key: str, locale: Optional[LocaleCode] = None) -> str:
@@ -2574,14 +2574,14 @@ class ReportLocalizer:
 
         """
 
-        loc = locale or self.current_locale
+        loc=locale or self.current_locale
 
         if key not in self.strings:
 
             return key
 
 
-        string = self.strings[key]
+        string=self.strings[key]
 
         return string.translations.get(loc.value, string.default)
 
@@ -2597,7 +2597,7 @@ class ReportLocalizer:
 
         """
 
-        self.current_locale = locale
+        self.current_locale=locale
 
 
 class ReportAPI:
@@ -2610,16 +2610,16 @@ class ReportAPI:
 
     Example:
 
-        api = ReportAPI()
+        api=ReportAPI()
 
-        reports = api.list_reports()
+        reports=api.list_reports()
 
-        report = api.get_report("file.py", ReportType.ERRORS)
+        report=api.get_report("file.py", ReportType.ERRORS)
 
     """
 
 
-    def __init__(self, reports_dir: Path = AGENT_DIR) -> None:
+    def __init__(self, reports_dir: Path=AGENT_DIR) -> None:
 
         """Initialize API.
 
@@ -2630,12 +2630,12 @@ class ReportAPI:
 
         """
 
-        self.reports_dir = reports_dir
+        self.reports_dir=reports_dir
 
         logging.debug(f"ReportAPI initialized for {reports_dir}")
 
 
-    def list_reports(self, file_pattern: str = "*.md") -> List[str]:
+    def list_reports(self, file_pattern: str="*.md") -> List[str]:
 
         """List available reports.
 
@@ -2672,7 +2672,7 @@ class ReportAPI:
 
         """
 
-        suffix_map = {
+        suffix_map={
 
             ReportType.DESCRIPTION: ".description.md",
 
@@ -2682,14 +2682,14 @@ class ReportAPI:
 
         }
 
-        suffix = suffix_map.get(report_type, ".md")
+        suffix=suffix_map.get(report_type, ".md")
 
-        path = self.reports_dir / f"{file_stem}{suffix}"
+        path=self.reports_dir / f"{file_stem}{suffix}"
 
 
         if path.exists():
 
-            return path.read_text(encoding = "utf-8")
+            return path.read_text(encoding="utf-8")
 
         return None
 
@@ -2724,7 +2724,7 @@ class ReportAPI:
 
         """
 
-        suffix_map = {
+        suffix_map={
 
             ReportType.DESCRIPTION: ".description.md",
 
@@ -2734,14 +2734,14 @@ class ReportAPI:
 
         }
 
-        suffix = suffix_map.get(report_type, ".md")
+        suffix=suffix_map.get(report_type, ".md")
 
-        path = self.reports_dir / f"{file_stem}{suffix}"
+        path=self.reports_dir / f"{file_stem}{suffix}"
 
 
         try:
 
-            path.write_text(content, encoding = "utf-8")
+            path.write_text(content, encoding="utf-8")
 
             return True
 
@@ -2765,11 +2765,11 @@ class ReportScheduler:
 
     Example:
 
-        scheduler = ReportScheduler()
+        scheduler=ReportScheduler()
 
         scheduler.add_schedule("daily", "0 8 * * *", ["*.py"])
 
-        due = scheduler.get_due_tasks()
+        due=scheduler.get_due_tasks()
 
     """
 
@@ -2886,13 +2886,13 @@ class ReportAggregator:
 
     Example:
 
-        aggregator = ReportAggregator()
+        aggregator=ReportAggregator()
 
         aggregator.add_source("file1.py", issues1)
 
         aggregator.add_source("file2.py", issues2)
 
-        combined = aggregator.aggregate()
+        combined=aggregator.aggregate()
 
     """
 
@@ -2949,9 +2949,9 @@ class ReportAggregator:
 
         for issue in all_issues:
 
-            sev = issue.severity.name
+            sev=issue.severity.name
 
-            cat = issue.category.name
+            cat=issue.category.name
 
             by_severity[sev] = by_severity.get(sev, 0) + 1
 
@@ -2960,11 +2960,11 @@ class ReportAggregator:
 
         return AggregatedReport(
 
-            sources = list(self.sources.keys()),
+            sources=list(self.sources.keys()),
 
-            combined_issues = all_issues,
+            combined_issues=all_issues,
 
-            summary = {
+            summary={
 
                 "total_issues": len(all_issues),
 
@@ -2995,40 +2995,40 @@ class ReportAggregator:
 
 def _read_text(path: Path) -> str:
 
-    return path.read_text(encoding = "utf-8", errors = "replace")
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
 def _sha256_text(text: str) -> str:
 
-    return hashlib.sha256(text.encode("utf-8", errors = "replace")).hexdigest()
+    return hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()
 
 
 def _try_parse_python(source: str, filename: str) -> Tuple[Optional[ast.AST], Optional[str]]:
 
     try:
 
-        return ast.parse(source, filename = filename), None
+        return ast.parse(source, filename=filename), None
 
     except SyntaxError as exc:
 
-        location = f"{exc.filename}:{exc.lineno}:{exc.offset}" if exc.lineno else exc.filename
+        location=f"{exc.filename}:{exc.lineno}:{exc.offset}" if exc.lineno else exc.filename
 
         return None, f"SyntaxError at {location}: {exc.msg}"
 
 
 def _compile_check(path: Path) -> CompileResult:
 
-    source = _read_text(path)
+    source=_read_text(path)
 
-    tree, err = _try_parse_python(source, str(path))
+    tree, err=_try_parse_python(source, str(path))
 
     if tree is None:
 
-        return CompileResult(ok = False, error = err)
+        return CompileResult(ok=False, error=err)
 
     # If AST parse succeeded, consider syntax check OK.
 
-    return CompileResult(ok = True)
+    return CompileResult(ok=True)
 
 
 def _is_pytest_test_file(path: Path) -> bool:
@@ -3038,9 +3038,9 @@ def _is_pytest_test_file(path: Path) -> bool:
 
 def _looks_like_pytest_import_problem(path: Path) -> Optional[str]:
 
-    # pytest imports test modules; hyphens/dots in the filename make import fail.
+    # pytest imports test modules; hyphens / dots in the filename make import fail.
 
-    name = path.name
+    name=path.name
 
     if not _is_pytest_test_file(path):
 
@@ -3052,7 +3052,7 @@ def _looks_like_pytest_import_problem(path: Path) -> Optional[str]:
 
             "Filename is not import-friendly for pytest collection (contains '-' or extra '.') "
 
-            "and may fail test discovery/import."
+            "and may fail test discovery / import."
 
         )
 
@@ -3096,13 +3096,13 @@ def _find_imports(tree: ast.AST) -> List[str]:
 
         elif isinstance(node, ast.ImportFrom):
 
-            mod = node.module or ""
+            mod=node.module or ""
 
             imports.append(mod)
 
     # De-dupe while preserving order
 
-    seen = set()
+    seen=set()
 
     out: List[str] = []
 
@@ -3133,9 +3133,9 @@ def _placeholder_test_note(path: Path, source: str) -> Optional[str]:
 
         return None
 
-    if re.search(r"def\s+test_placeholder\s*\(", source) and "assert True" in source:
+    if re.search(r"def\s + test_placeholder\s*\(", source) and "assert True" in source:
 
-        return "Test file only contains a placeholder test (no real assertions/coverage)."
+        return "Test file only contains a placeholder test (no real assertions / coverage)."
 
     return None
 
@@ -3144,7 +3144,7 @@ def _write_md(path: Path, content: str) -> None:
 
     # Normalize newlines for Windows repos.
 
-    path.write_text(content.replace("\r\n", "\n").rstrip() + "\n", encoding = "utf-8")
+    path.write_text(content.replace("\r\n", "\n").rstrip() + "\n", encoding="utf-8")
 
 
 def _rel(path: Path) -> str:
@@ -3160,11 +3160,11 @@ def _rel(path: Path) -> str:
 
 def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
 
-    doc = ast.get_docstring(tree) or ""
+    doc=ast.get_docstring(tree) or ""
 
-    functions, classes = _find_top_level_defs(tree)
+    functions, classes=_find_top_level_defs(tree)
 
-    imports = _find_imports(tree)
+    imports=_find_imports(tree)
 
     lines: List[str] = []
 
@@ -3224,7 +3224,7 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
 
     if not behavior_bits:
 
-        behavior_bits.append("Pure module (no obvious CLI/side effects).")
+        behavior_bits.append("Pure module (no obvious CLI / side effects).")
 
     for bit in behavior_bits:
 
@@ -3238,11 +3238,11 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
 
         # Keep it short; imports can be long.
 
-        shown = imports[:12]
+        shown=imports[:12]
 
-        shown_imports = ", ".join(f"`{x}`" for x in shown)
+        shown_imports=", ".join(f"`{x}`" for x in shown)
 
-        suffix = " …" if len(imports) > len(shown) else ""
+        suffix=" …" if len(imports) > len(shown) else ""
 
         lines.append(f"- Top imports: {shown_imports}{suffix}")
 
@@ -3269,9 +3269,9 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
 
     lines.append("  ## Scan scope")
 
-    lines.append("- Static scan (AST parse) + lightweight compile/syntax check")
+    lines.append("- Static scan (AST parse) + lightweight compile / syntax check")
 
-    lines.append("- VS Code/Pylance Problems are not embedded by this script")
+    lines.append("- VS Code / Pylance Problems are not embedded by this script")
 
     lines.append("")
 
@@ -3291,13 +3291,13 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
 
     known: List[str] = []
 
-    pytest_name_issue = _looks_like_pytest_import_problem(py_path)
+    pytest_name_issue=_looks_like_pytest_import_problem(py_path)
 
     if pytest_name_issue:
 
         known.append(pytest_name_issue)
 
-    placeholder_note = _placeholder_test_note(py_path, source)
+    placeholder_note=_placeholder_test_note(py_path, source)
 
     if placeholder_note:
 
@@ -3311,7 +3311,7 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
 
     if "copilot" in source and "subprocess.run" in source:
 
-        known.append("Invokes `copilot` CLI; will be a no-op/fallback if Copilot CLI is not installed.")
+        known.append("Invokes `copilot` CLI; will be a no-op / fallback if Copilot CLI is not installed.")
 
     lines.append("  ## Known issues / hazards")
 
@@ -3343,7 +3343,7 @@ def _find_issues(tree: ast.AST, source: str) -> List[str]:
 
                 if isinstance(default, (ast.List, ast.Dict, ast.Set)):
 
-                    issues.append(f"Function `{node.name}` has a mutable default argument (list/dict/set).")
+                    issues.append(f"Function `{node.name}` has a mutable default argument (list / dict / set).")
 
                     break  # One per function is enough
 
@@ -3354,7 +3354,7 @@ def _find_issues(tree: ast.AST, source: str) -> List[str]:
 
         if isinstance(node, ast.ExceptHandler) and node.type is None:
 
-            issues.append("Contains bare `except:` clause (catches SystemExit/KeyboardInterrupt).")
+            issues.append("Contains bare `except:` clause (catches SystemExit / KeyboardInterrupt).")
 
 
     # 3. Missing type hints
@@ -3365,11 +3365,11 @@ def _find_issues(tree: ast.AST, source: str) -> List[str]:
 
             # Check args
 
-            missing_arg_type = any(arg.annotation is None for arg in node.args.args if arg.arg != 'self')
+            missing_arg_type=any(arg.annotation is None for arg in node.args.args if arg.arg != 'self')
 
             # Check return
 
-            missing_return_type = node.returns is None
+            missing_return_type=node.returns is None
 
             if missing_arg_type or missing_return_type:
 
@@ -3388,7 +3388,7 @@ def _find_issues(tree: ast.AST, source: str) -> List[str]:
 
 def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
 
-    functions, classes = _find_top_level_defs(tree)
+    functions, classes=_find_top_level_defs(tree)
 
     suggestions: List[str] = []
 
@@ -3404,13 +3404,13 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
 
     if "subprocess.run" in source:
 
-        suggestions.append("Add robust subprocess error handling (`check = True`, timeouts, clearer stderr reporting).")
+        suggestions.append("Add robust subprocess error handling (`check=True`, timeouts, clearer stderr reporting).")
 
     if _detect_cli_entry(source) and _detect_argparse(source):
 
         suggestions.append("Add `--help` examples and validate CLI args (paths, required files).")
 
-    if _is_pytest_test_file(py_path) and re.search(r"def\s+test_placeholder\s*\(", source):
+    if _is_pytest_test_file(py_path) and re.search(r"def\s + test_placeholder\s*\(", source):
 
         suggestions.append("Replace placeholder tests with real assertions; target the most important behaviors first.")
 
@@ -3422,11 +3422,11 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
 
     if not ast.get_docstring(tree):
 
-        suggestions.append("Add a concise module docstring describing purpose/usage.")
+        suggestions.append("Add a concise module docstring describing purpose / usage.")
 
     if classes and "__init__" not in source:
 
-        suggestions.append("Consider documenting class construction/expected invariants.")
+        suggestions.append("Consider documenting class construction / expected invariants.")
 
     if "print(" in source and "logging" not in source:
 
@@ -3435,7 +3435,7 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
 
     # Keep it short and deterministic.
 
-    suggestions = sorted(list(set(suggestions)))  # Dedupe and sort
+    suggestions=sorted(list(set(suggestions)))  # Dedupe and sort
 
 
     lines: List[str] = []
@@ -3460,7 +3460,7 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
 
     lines.append("  ## Notes")
 
-    lines.append("- These are suggestions based on static inspection; validate behavior with tests/runs.")
+    lines.append("- These are suggestions based on static inspection; validate behavior with tests / runs.")
 
     lines.append(f"- File: `{_rel(py_path)}`")
 
@@ -3474,15 +3474,15 @@ def iter_agent_py_files() -> Iterable[Path]:
 
 def _get_existing_sha(stem: str) -> Optional[str]:
 
-    desc_path = AGENT_DIR / f"{stem}.description.md"
+    desc_path=AGENT_DIR / f"{stem}.description.md"
 
     if not desc_path.exists():
 
         return None
 
-    content = _read_text(desc_path)
+    content=_read_text(desc_path)
 
-    match = re.search(r"- SHA256\(source\): `([a-f0-9]+)", content)
+    match=re.search(r"- SHA256\(source\): `([a-f0-9]+)", content)
 
     return match.group(1) if match else None
 
@@ -3491,15 +3491,15 @@ def main(argv: Sequence[str]) -> int:
 
     logging.basicConfig(
 
-        level = logging.INFO,
+        level=logging.INFO,
 
-        format = '%(asctime)s - %(levelname)s - %(message)s',
+        format='%(asctime)s - %(levelname)s - %(message)s',
 
-        datefmt = '%H:%M:%S'
+        datefmt='%H:%M:%S'
 
     )
 
-    py_files = list(iter_agent_py_files())
+    py_files=list(iter_agent_py_files())
 
     if not py_files:
 
@@ -3508,27 +3508,27 @@ def main(argv: Sequence[str]) -> int:
         return 1
 
 
-    count = 0
+    count=0
 
-    skipped = 0
+    skipped=0
 
-    errors_count = 0
+    errors_count=0
 
 
     for py_path in py_files:
 
         try:
 
-            source = _read_text(py_path)
+            source=_read_text(py_path)
 
-            current_sha = _sha256_text(source)[:16]
+            current_sha=_sha256_text(source)[:16]
 
-            stem = py_path.stem
+            stem=py_path.stem
 
 
             # Incremental check
 
-            existing_sha = _get_existing_sha(stem)
+            existing_sha=_get_existing_sha(stem)
 
             if existing_sha == current_sha:
 
@@ -3541,16 +3541,16 @@ def main(argv: Sequence[str]) -> int:
 
             logging.info(f"Processing {py_path.name}...")
 
-            tree, parse_err = _try_parse_python(source, str(py_path))
+            tree, parse_err=_try_parse_python(source, str(py_path))
 
-            compile_result = _compile_check(py_path)
+            compile_result=_compile_check(py_path)
 
 
             # If parse failed, still emit minimal files.
 
             if tree is None:
 
-                description = (
+                description=(
 
                     f"  # Description: `{py_path.name}`\n\n"
 
@@ -3560,9 +3560,9 @@ def main(argv: Sequence[str]) -> int:
 
                 )
 
-                errors = render_errors(py_path, source, compile_result)
+                errors=render_errors(py_path, source, compile_result)
 
-                improvements = (
+                improvements=(
 
                     f"  # Improvements: `{py_path.name}`\n\n"
 
@@ -3574,11 +3574,11 @@ def main(argv: Sequence[str]) -> int:
 
             else:
 
-                description = render_description(py_path, source, tree)
+                description=render_description(py_path, source, tree)
 
-                errors = render_errors(py_path, source, compile_result)
+                errors=render_errors(py_path, source, compile_result)
 
-                improvements = render_improvements(py_path, source, tree)
+                improvements=render_improvements(py_path, source, tree)
 
 
             _write_md(AGENT_DIR / f"{stem}.description.md", description)

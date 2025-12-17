@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,58 +44,58 @@ from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple, TypeVar
 class TestStatus(Enum):
     """Status of a test execution."""
 
-    PASSED = "passed"
-    FAILED = "failed"
-    SKIPPED = "skipped"
-    ERROR = "error"
-    PENDING = "pending"
+    PASSED="passed"
+    FAILED="failed"
+    SKIPPED="skipped"
+    ERROR="error"
+    PENDING="pending"
 
 
 class MockResponseType(Enum):
     """Types of mock AI backend responses."""
 
-    SUCCESS = "success"
-    ERROR = "error"
-    TIMEOUT = "timeout"
-    RATE_LIMITED = "rate_limited"
-    EMPTY = "empty"
+    SUCCESS="success"
+    ERROR="error"
+    TIMEOUT="timeout"
+    RATE_LIMITED="rate_limited"
+    EMPTY="empty"
 
 
 class IsolationLevel(Enum):
     """File system isolation levels."""
 
-    NONE = "none"
-    TEMP_DIR = "temp_dir"
-    COPY_ON_WRITE = "copy_on_write"
-    SANDBOX = "sandbox"
+    NONE="none"
+    TEMP_DIR="temp_dir"
+    COPY_ON_WRITE="copy_on_write"
+    SANDBOX="sandbox"
 
 
 class TestDataType(Enum):
     """Types of test data."""
 
-    PYTHON_CODE = "python_code"
-    MARKDOWN = "markdown"
-    JSON = "json"
-    YAML = "yaml"
-    TEXT = "text"
+    PYTHON_CODE="python_code"
+    MARKDOWN="markdown"
+    JSON="json"
+    YAML="yaml"
+    TEXT="text"
 
 
 class PerformanceMetricType(Enum):
     """Types of performance metrics."""
 
-    EXECUTION_TIME = "execution_time"
-    MEMORY_USAGE = "memory_usage"
-    FILE_IO = "file_io"
-    CPU_TIME = "cpu_time"
+    EXECUTION_TIME="execution_time"
+    MEMORY_USAGE="memory_usage"
+    FILE_IO="file_io"
+    CPU_TIME="cpu_time"
 
 
 class CleanupStrategy(Enum):
     """Cleanup strategies for test resources."""
 
-    IMMEDIATE = "immediate"
-    DEFERRED = "deferred"
-    ON_SUCCESS = "on_success"
-    NEVER = "never"
+    IMMEDIATE="immediate"
+    DEFERRED="deferred"
+    ON_SUCCESS="on_success"
+    NEVER="never"
 
 
 # ============================================================================
@@ -118,8 +118,8 @@ class TestFixture:
     name: str
     setup_fn: Optional[Callable[[], Any]] = None
     teardown_fn: Optional[Callable[[Any], None]] = None
-    scope: str = "function"
-    data: Any = None
+    scope: str="function"
+    data: Any=None
 
 
 @dataclass
@@ -134,10 +134,10 @@ class MockResponse:
         error_message: Error message if applicable.
     """
 
-    content: str = ""
-    response_type: MockResponseType = MockResponseType.SUCCESS
-    latency_ms: int = 100
-    tokens_used: int = 0
+    content: str=""
+    response_type: MockResponseType=MockResponseType.SUCCESS
+    latency_ms: int=100
+    tokens_used: int=0
     error_message: Optional[str] = None
 
 
@@ -153,8 +153,8 @@ class TestDataFactory:
     """
 
     data_type: TestDataType
-    template: str = ""
-    variations: int = 1
+    template: str=""
+    variations: int=1
     seed: Optional[int] = None
 
 
@@ -173,10 +173,10 @@ class TestResult:
 
     test_name: str
     status: TestStatus
-    duration_ms: float = 0.0
+    duration_ms: float=0.0
     error_message: Optional[str] = None
-    assertions_count: int = 0
-    timestamp: float = field(default_factory=time.time)
+    assertions_count: int=0
+    timestamp: float=field(default_factory=time.time)
 
 
 @dataclass
@@ -195,7 +195,7 @@ class PerformanceMetric:
     value: float
     unit: str
     test_name: str
-    timestamp: float = field(default_factory=time.time)
+    timestamp: float=field(default_factory=time.time)
 
 
 @dataclass
@@ -213,8 +213,8 @@ class TestEnvironment:
     name: str
     env_vars: Dict[str, str] = field(default_factory=dict)
     temp_dir: Optional[Path] = None
-    isolation_level: IsolationLevel = IsolationLevel.TEMP_DIR
-    cleanup: CleanupStrategy = CleanupStrategy.IMMEDIATE
+    isolation_level: IsolationLevel=IsolationLevel.TEMP_DIR
+    cleanup: CleanupStrategy=CleanupStrategy.IMMEDIATE
 
 
 @dataclass
@@ -231,14 +231,14 @@ class TestSnapshot:
 
     name: str
     content: str
-    content_hash: str = ""
-    created_at: float = field(default_factory=time.time)
-    updated_at: float = field(default_factory=time.time)
+    content_hash: str=""
+    created_at: float=field(default_factory=time.time)
+    updated_at: float=field(default_factory=time.time)
 
     def __post_init__(self) -> None:
         """Compute content hash if not provided."""
         if not self.content_hash:
-            self.content_hash = hashlib.sha256(
+            self.content_hash=hashlib.sha256(
                 self.content.encode("utf-8")
             ).hexdigest()
 
@@ -258,11 +258,11 @@ class TestAssertion:
     name: str
     expected: Any
     actual: Any
-    passed: bool = False
-    message: str = ""
+    passed: bool=False
+    message: str=""
 
 
-AGENT_DIR = Path(__file__).resolve().parent
+AGENT_DIR=Path(__file__).resolve().parent
 
 
 # ============================================================================
@@ -277,15 +277,15 @@ class MockAIBackend:
     without making real API requests.
 
     Example:
-        mock = MockAIBackend()
+        mock=MockAIBackend()
         mock.add_response("prompt1", MockResponse(content="response"))
-        result = mock.call("prompt1")
+        result=mock.call("prompt1")
     """
 
     def __init__(self) -> None:
         """Initialize mock backend."""
         self._responses: Dict[str, MockResponse] = {}
-        self._default_response = MockResponse(content="Mock response")
+        self._default_response=MockResponse(content="Mock response")
         self._call_history: List[Tuple[str, float]] = []
 
     def add_response(
@@ -308,7 +308,7 @@ class MockAIBackend:
         Args:
             response: Default mock response.
         """
-        self._default_response = response
+        self._default_response=response
 
     def call(self, prompt: str) -> str:
         """Call mock backend with prompt.
@@ -326,10 +326,10 @@ class MockAIBackend:
         self._call_history.append((prompt, time.time()))
 
         # Find matching response
-        response = self._default_response
+        response=self._default_response
         for pattern, resp in self._responses.items():
             if pattern in prompt or re.search(pattern, prompt):
-                response = resp
+                response=resp
                 break
 
         # Simulate latency
@@ -367,8 +367,8 @@ class FixtureGenerator:
     """Generates test fixtures for common agent scenarios.
 
     Example:
-        gen = FixtureGenerator()
-        fixture = gen.create_python_file_fixture("test.py", "print('hello')")
+        gen=FixtureGenerator()
+        fixture=gen.create_python_file_fixture("test.py", "print('hello')")
     """
 
     def __init__(self, base_dir: Optional[Path] = None) -> None:
@@ -377,7 +377,7 @@ class FixtureGenerator:
         Args:
             base_dir: Base directory for fixtures.
         """
-        self.base_dir = base_dir or Path(tempfile.mkdtemp())
+        self.base_dir=base_dir or Path(tempfile.mkdtemp())
         self._fixtures: Dict[str, TestFixture] = {}
 
     def create_python_file_fixture(
@@ -394,7 +394,7 @@ class FixtureGenerator:
         Returns:
             TestFixture: Created fixture.
         """
-        file_path = self.base_dir / filename
+        file_path=self.base_dir / filename
 
         def setup() -> Path:
             file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -405,7 +405,7 @@ class FixtureGenerator:
             if path.exists():
                 path.unlink()
 
-        fixture = TestFixture(
+        fixture=TestFixture(
             name=filename,
             setup_fn=setup,
             teardown_fn=teardown,
@@ -427,7 +427,7 @@ class FixtureGenerator:
         Returns:
             TestFixture: Created fixture.
         """
-        dir_path = self.base_dir / dirname
+        dir_path=self.base_dir / dirname
 
         def setup() -> Path:
             dir_path.mkdir(parents=True, exist_ok=True)
@@ -439,7 +439,7 @@ class FixtureGenerator:
             if path.exists():
                 shutil.rmtree(path)
 
-        fixture = TestFixture(
+        fixture=TestFixture(
             name=dirname,
             setup_fn=setup,
             teardown_fn=teardown,
@@ -467,8 +467,8 @@ class TestDataGenerator:
     """Generates realistic test data for agent testing.
 
     Example:
-        gen = TestDataGenerator()
-        code = gen.generate_python_code(with_errors=False)
+        gen=TestDataGenerator()
+        code=gen.generate_python_code(with_errors=False)
     """
 
     def __init__(self, seed: Optional[int] = None) -> None:
@@ -477,16 +477,16 @@ class TestDataGenerator:
         Args:
             seed: Random seed for reproducibility.
         """
-        self.seed = seed
+        self.seed=seed
         if seed:
             import random
             random.seed(seed)
 
     def generate_python_code(
         self,
-        with_errors: bool = False,
-        with_docstrings: bool = True,
-        num_functions: int = 3,
+        with_errors: bool=False,
+        with_docstrings: bool=True,
+        num_functions: int=3,
     ) -> str:
         """Generate sample Python code.
 
@@ -498,7 +498,7 @@ class TestDataGenerator:
         Returns:
             str: Generated Python code.
         """
-        lines = ['"""Generated test module."""', "", "import os", ""]
+        lines=['"""Generated test module."""', "", "import os", ""]
 
         for i in range(num_functions):
             lines.append(f"def function_{i}(arg1, arg2):")
@@ -514,9 +514,9 @@ class TestDataGenerator:
 
     def generate_markdown(
         self,
-        with_headers: bool = True,
-        with_code_blocks: bool = True,
-        num_sections: int = 3,
+        with_headers: bool=True,
+        with_code_blocks: bool=True,
+        num_sections: int=3,
     ) -> str:
         """Generate sample markdown content.
 
@@ -528,7 +528,7 @@ class TestDataGenerator:
         Returns:
             str: Generated markdown.
         """
-        lines = []
+        lines=[]
 
         if with_headers:
             lines.append("# Test Document")
@@ -551,8 +551,8 @@ class TestDataGenerator:
 
     def generate_json(
         self,
-        num_items: int = 5,
-        nested: bool = True,
+        num_items: int=5,
+        nested: bool=True,
     ) -> str:
         """Generate sample JSON content.
 
@@ -563,7 +563,7 @@ class TestDataGenerator:
         Returns:
             str: Generated JSON.
         """
-        data = {
+        data={
             "items": [
                 {
                     "id": i,
@@ -594,19 +594,19 @@ class FileSystemIsolator:
     Example:
         with FileSystemIsolator() as fs:
             fs.write_file("test.txt", "content")
-            content = fs.read_file("test.txt")
+            content=fs.read_file("test.txt")
     """
 
     def __init__(
         self,
-        isolation_level: IsolationLevel = IsolationLevel.TEMP_DIR,
+        isolation_level: IsolationLevel=IsolationLevel.TEMP_DIR,
     ) -> None:
         """Initialize file system isolator.
 
         Args:
             isolation_level: Level of isolation.
         """
-        self.isolation_level = isolation_level
+        self.isolation_level=isolation_level
         self._temp_dir: Optional[Path] = None
         self._original_cwd: Optional[str] = None
         self._created_files: List[Path] = []
@@ -614,8 +614,8 @@ class FileSystemIsolator:
     def __enter__(self) -> "FileSystemIsolator":
         """Enter context and set up isolation."""
         if self.isolation_level == IsolationLevel.TEMP_DIR:
-            self._temp_dir = Path(tempfile.mkdtemp())
-            self._original_cwd = os.getcwd()
+            self._temp_dir=Path(tempfile.mkdtemp())
+            self._original_cwd=os.getcwd()
             os.chdir(self._temp_dir)
         return self
 
@@ -637,9 +637,9 @@ class FileSystemIsolator:
         Returns:
             Path: Path to created file.
         """
-        file_path = Path(path)
+        file_path=Path(path)
         if self._temp_dir:
-            file_path = self._temp_dir / path
+            file_path=self._temp_dir / path
 
         file_path.parent.mkdir(parents=True, exist_ok=True)
         file_path.write_text(content, encoding="utf-8")
@@ -655,9 +655,9 @@ class FileSystemIsolator:
         Returns:
             str: File content.
         """
-        file_path = Path(path)
+        file_path=Path(path)
         if self._temp_dir:
-            file_path = self._temp_dir / path
+            file_path=self._temp_dir / path
         return file_path.read_text(encoding="utf-8")
 
     def get_temp_dir(self) -> Optional[Path]:
@@ -674,10 +674,10 @@ class PerformanceTracker:
     """Tracks test execution performance.
 
     Example:
-        tracker = PerformanceTracker()
+        tracker=PerformanceTracker()
         with tracker.track("test_function"):
             run_test()
-        metrics = tracker.get_metrics()
+        metrics=tracker.get_metrics()
     """
 
     def __init__(self) -> None:
@@ -692,13 +692,13 @@ class PerformanceTracker:
         Args:
             test_name: Name of the test.
         """
-        start = time.time()
+        start=time.time()
         self._start_times[test_name] = start
         try:
             yield
         finally:
-            duration = (time.time() - start) * 1000  # ms
-            metric = PerformanceMetric(
+            duration=(time.time() - start) * 1000  # ms
+            metric=PerformanceMetric(
                 metric_type=PerformanceMetricType.EXECUTION_TIME,
                 value=duration,
                 unit="ms",
@@ -722,7 +722,7 @@ class PerformanceTracker:
             value: Metric value.
             unit: Unit of measurement.
         """
-        metric = PerformanceMetric(
+        metric=PerformanceMetric(
             metric_type=metric_type,
             value=value,
             unit=unit,
@@ -739,7 +739,7 @@ class PerformanceTracker:
         if not self._metrics:
             return {}
 
-        execution_times = [
+        execution_times=[
             m.value for m in self._metrics
             if m.metric_type == PerformanceMetricType.EXECUTION_TIME
         ]
@@ -769,7 +769,7 @@ class SnapshotManager:
     """Manages snapshots for snapshot testing.
 
     Example:
-        mgr = SnapshotManager(Path("snapshots"))
+        mgr=SnapshotManager(Path("snapshots"))
         mgr.assert_match("test1", actual_output)
     """
 
@@ -779,7 +779,7 @@ class SnapshotManager:
         Args:
             snapshot_dir: Directory to store snapshots.
         """
-        self.snapshot_dir = snapshot_dir
+        self.snapshot_dir=snapshot_dir
         self.snapshot_dir.mkdir(parents=True, exist_ok=True)
         self._snapshots: Dict[str, TestSnapshot] = {}
 
@@ -797,8 +797,8 @@ class SnapshotManager:
         Returns:
             TestSnapshot: Created snapshot.
         """
-        snapshot = TestSnapshot(name=name, content=content)
-        path = self._get_snapshot_path(name)
+        snapshot=TestSnapshot(name=name, content=content)
+        path=self._get_snapshot_path(name)
         path.write_text(content, encoding="utf-8")
         self._snapshots[name] = snapshot
         return snapshot
@@ -812,12 +812,12 @@ class SnapshotManager:
         Returns:
             Optional[TestSnapshot]: Loaded snapshot or None.
         """
-        path = self._get_snapshot_path(name)
+        path=self._get_snapshot_path(name)
         if not path.exists():
             return None
 
-        content = path.read_text(encoding="utf-8")
-        snapshot = TestSnapshot(name=name, content=content)
+        content=path.read_text(encoding="utf-8")
+        snapshot=TestSnapshot(name=name, content=content)
         self._snapshots[name] = snapshot
         return snapshot
 
@@ -825,7 +825,7 @@ class SnapshotManager:
         self,
         name: str,
         actual: str,
-        update: bool = False,
+        update: bool=False,
     ) -> bool:
         """Assert that actual matches snapshot.
 
@@ -837,7 +837,7 @@ class SnapshotManager:
         Returns:
             bool: True if match, False otherwise.
         """
-        expected = self.load_snapshot(name)
+        expected=self.load_snapshot(name)
 
         if expected is None:
             # No snapshot exists, create it
@@ -865,7 +865,7 @@ class SnapshotManager:
         """
         import difflib
 
-        expected = self.load_snapshot(name)
+        expected=self.load_snapshot(name)
         if expected is None:
             return ["No snapshot exists"]
 
@@ -887,9 +887,9 @@ class TestResultAggregator:
     """Aggregates test results for reporting.
 
     Example:
-        agg = TestResultAggregator()
+        agg=TestResultAggregator()
         agg.add_result(TestResult(name="test1", status=TestStatus.PASSED))
-        report = agg.get_report()
+        report=agg.get_report()
     """
 
     def __init__(self) -> None:
@@ -914,13 +914,13 @@ class TestResultAggregator:
         Returns:
             Dict containing test statistics.
         """
-        total = len(self._results)
-        passed = sum(1 for r in self._results if r.status == TestStatus.PASSED)
-        failed = sum(1 for r in self._results if r.status == TestStatus.FAILED)
-        skipped = sum(1 for r in self._results if r.status == TestStatus.SKIPPED)
-        errors = sum(1 for r in self._results if r.status == TestStatus.ERROR)
+        total=len(self._results)
+        passed=sum(1 for r in self._results if r.status == TestStatus.PASSED)
+        failed=sum(1 for r in self._results if r.status == TestStatus.FAILED)
+        skipped=sum(1 for r in self._results if r.status == TestStatus.SKIPPED)
+        errors=sum(1 for r in self._results if r.status == TestStatus.ERROR)
 
-        durations = [r.duration_ms for r in self._results]
+        durations=[r.duration_ms for r in self._results]
 
         return {
             "total": total,
@@ -951,7 +951,7 @@ class AgentAssertions:
     """Custom assertion helpers for agent testing.
 
     Example:
-        assertions = AgentAssertions()
+        assertions=AgentAssertions()
         assertions.assert_valid_python("print('hello')")
         assertions.assert_markdown_structure(content, headers=True)
     """
@@ -974,7 +974,7 @@ class AgentAssertions:
         """
         try:
             compile(code, "<string>", "exec")
-            assertion = TestAssertion(
+            assertion=TestAssertion(
                 name="valid_python",
                 expected="valid",
                 actual="valid",
@@ -983,7 +983,7 @@ class AgentAssertions:
             self._assertions.append(assertion)
             return True
         except SyntaxError as e:
-            assertion = TestAssertion(
+            assertion=TestAssertion(
                 name="valid_python",
                 expected="valid",
                 actual=f"invalid: {e}",
@@ -1001,8 +1001,8 @@ class AgentAssertions:
         Returns:
             bool: True if contains docstrings.
         """
-        has_docstring = '"""' in code or "'''" in code
-        assertion = TestAssertion(
+        has_docstring='"""' in code or "'''" in code
+        assertion=TestAssertion(
             name="contains_docstring",
             expected=True,
             actual=has_docstring,
@@ -1017,8 +1017,8 @@ class AgentAssertions:
     def assert_markdown_structure(
         self,
         content: str,
-        headers: bool = True,
-        code_blocks: bool = False,
+        headers: bool=True,
+        code_blocks: bool=False,
     ) -> bool:
         """Assert markdown has expected structure.
 
@@ -1030,7 +1030,7 @@ class AgentAssertions:
         Returns:
             bool: True if structure matches.
         """
-        issues = []
+        issues=[]
 
         if headers and not re.search(r"^#+\s", content, re.MULTILINE):
             issues.append("missing headers")
@@ -1038,8 +1038,8 @@ class AgentAssertions:
         if code_blocks and "```" not in content:
             issues.append("missing code blocks")
 
-        passed = len(issues) == 0
-        assertion = TestAssertion(
+        passed=len(issues) == 0
+        assertion=TestAssertion(
             name="markdown_structure",
             expected="valid structure",
             actual=", ".join(issues) if issues else "valid",
@@ -1062,7 +1062,7 @@ class AgentAssertions:
         """
         try:
             json.loads(content)
-            assertion = TestAssertion(
+            assertion=TestAssertion(
                 name="json_valid",
                 expected="valid",
                 actual="valid",
@@ -1071,7 +1071,7 @@ class AgentAssertions:
             self._assertions.append(assertion)
             return True
         except json.JSONDecodeError as e:
-            assertion = TestAssertion(
+            assertion=TestAssertion(
                 name="json_valid",
                 expected="valid",
                 actual=f"invalid: {e}",
@@ -1113,19 +1113,19 @@ class ParameterizedTestGenerator:
     Generates test cases from parameter combinations for data-driven testing.
 
     Example:
-        gen = ParameterizedTestGenerator()
+        gen=ParameterizedTestGenerator()
         gen.add_parameter("size", [1, 10, 100])
         gen.add_parameter("mode", ["fast", "slow"])
-        cases = gen.generate_cases()  # 6 combinations
+        cases=gen.generate_cases()  # 6 combinations
     """
 
-    def __init__(self, test_name: str = "test") -> None:
+    def __init__(self, test_name: str="test") -> None:
         """Initialize generator.
 
         Args:
             test_name: Base name for generated tests.
         """
-        self.test_name = test_name
+        self.test_name=test_name
         self._parameters: Dict[str, List[Any]] = {}
         self._expected_fn: Optional[Callable[..., Any]] = None
 
@@ -1151,7 +1151,7 @@ class ParameterizedTestGenerator:
         Returns:
             Self for chaining.
         """
-        self._expected_fn = fn
+        self._expected_fn=fn
         return self
 
     def generate_cases(self) -> List[ParameterizedTestCase]:
@@ -1165,14 +1165,14 @@ class ParameterizedTestGenerator:
 
         import itertools
 
-        keys = list(self._parameters.keys())
-        values = [self._parameters[k] for k in keys]
+        keys=list(self._parameters.keys())
+        values=[self._parameters[k] for k in keys]
 
-        cases = []
+        cases=[]
         for i, combo in enumerate(itertools.product(*values)):
-            params = dict(zip(keys, combo))
-            expected = self._expected_fn(params) if self._expected_fn else None
-            case = ParameterizedTestCase(
+            params=dict(zip(keys, combo))
+            expected=self._expected_fn(params) if self._expected_fn else None
+            case=ParameterizedTestCase(
                 name=f"{self.test_name}_{i}",
                 params=params,
                 expected=expected,
@@ -1193,7 +1193,7 @@ class DependencyContainer:
     Manages dependencies for configurable testing with easy mocking.
 
     Example:
-        container = DependencyContainer()
+        container=DependencyContainer()
         container.register("db", MockDatabase())
         container.register("api", MockAPI())
 
@@ -1222,7 +1222,7 @@ class DependencyContainer:
         self,
         name: str,
         factory: Callable[[], Any],
-        singleton: bool = False,
+        singleton: bool=False,
     ) -> None:
         """Register a dependency factory.
 
@@ -1249,10 +1249,10 @@ class DependencyContainer:
             return self._dependencies[name]
 
         if name in self._factories:
-            factory, singleton = self._factories[name]
+            factory, singleton=self._factories[name]
             if singleton and name in self._singletons:
                 return self._singletons[name]
-            instance = factory()
+            instance=factory()
             if singleton:
                 self._singletons[name] = instance
             return instance
@@ -1269,7 +1269,7 @@ class DependencyContainer:
             Wrapped function with injected dependencies.
         """
         import inspect
-        sig = inspect.signature(fn)
+        sig=inspect.signature(fn)
 
         def wrapper(*args: Any, **kwargs: Any) -> T:
             for param in sig.parameters.values():
@@ -1286,7 +1286,7 @@ class DependencyContainer:
         self._singletons.clear()
 
 
-T = TypeVar("T")
+T=TypeVar("T")
 
 
 # ============================================================================
@@ -1321,19 +1321,19 @@ class FlakinessDetector:
     Runs tests multiple times to identify intermittent failures.
 
     Example:
-        detector = FlakinessDetector()
-        report = detector.analyze(test_fn, runs=10)
+        detector=FlakinessDetector()
+        report=detector.analyze(test_fn, runs=10)
         if report.flakiness_score > 0.1:
             print(f"Test is flaky: {report.flakiness_score}")
     """
 
-    def __init__(self, default_runs: int = 5) -> None:
+    def __init__(self, default_runs: int=5) -> None:
         """Initialize detector.
 
         Args:
             default_runs: Default number of test runs.
         """
-        self.default_runs = default_runs
+        self.default_runs=default_runs
         self._history: Dict[str, List[FlakinessReport]] = {}
 
     def analyze(
@@ -1352,11 +1352,11 @@ class FlakinessDetector:
         Returns:
             FlakinessReport with analysis results.
         """
-        runs = runs or self.default_runs
-        test_name = test_name or test_fn.__name__
+        runs=runs or self.default_runs
+        test_name=test_name or test_fn.__name__
 
-        passes = 0
-        failures = 0
+        passes=0
+        failures=0
         failure_messages: List[str] = []
 
         for _ in range(runs):
@@ -1365,19 +1365,19 @@ class FlakinessDetector:
                 passes += 1
             except Exception as e:
                 failures += 1
-                msg = str(e)
+                msg=str(e)
                 if msg not in failure_messages:
                     failure_messages.append(msg)
 
         # Calculate flakiness score
-        # 0 = all same result, 1 = 50/50 split
+        # 0=all same result, 1=50 / 50 split
         if runs > 0:
-            p = passes / runs
-            flakiness = 1 - abs(2 * p - 1)  # 0 at 0% or 100%, 1 at 50%
+            p=passes / runs
+            flakiness=1 - abs(2 * p - 1)  # 0 at 0% or 100%, 1 at 50%
         else:
-            flakiness = 0.0
+            flakiness=0.0
 
-        report = FlakinessReport(
+        report=FlakinessReport(
             test_name=test_name,
             runs=runs,
             passes=passes,
@@ -1397,9 +1397,9 @@ class FlakinessDetector:
         """Get flakiness history for a test."""
         return self._history.get(test_name, [])
 
-    def get_flaky_tests(self, threshold: float = 0.1) -> List[str]:
+    def get_flaky_tests(self, threshold: float=0.1) -> List[str]:
         """Get tests that exceed flakiness threshold."""
-        flaky = []
+        flaky=[]
         for name, reports in self._history.items():
             if reports and reports[-1].flakiness_score > threshold:
                 flaky.append(name)
@@ -1417,25 +1417,25 @@ class TestDataCleaner:
     Manages cleanup of test artifacts with configurable strategies.
 
     Example:
-        cleaner = TestDataCleaner()
+        cleaner=TestDataCleaner()
         cleaner.register_path(temp_dir)
         cleaner.register_file(temp_file)
         cleaner.cleanup_all()
     """
 
-    def __init__(self, strategy: CleanupStrategy = CleanupStrategy.IMMEDIATE) -> None:
+    def __init__(self, strategy: CleanupStrategy=CleanupStrategy.IMMEDIATE) -> None:
         """Initialize cleaner.
 
         Args:
             strategy: Default cleanup strategy.
         """
-        self.strategy = strategy
+        self.strategy=strategy
         self._paths: List[Path] = []
         self._files: List[Path] = []
         self._callbacks: List[Callable[[], None]] = []
-        self._cleanup_done = False
+        self._cleanup_done=False
 
-    def register_path(self, path: Path, recursive: bool = True) -> None:
+    def register_path(self, path: Path, recursive: bool=True) -> None:
         """Register directory for cleanup.
 
         Args:
@@ -1460,7 +1460,7 @@ class TestDataCleaner:
         """
         self._callbacks.append(callback)
 
-    def cleanup_all(self, force: bool = False) -> int:
+    def cleanup_all(self, force: bool=False) -> int:
         """Clean up all registered resources.
 
         Args:
@@ -1472,7 +1472,7 @@ class TestDataCleaner:
         if self._cleanup_done and not force:
             return 0
 
-        cleaned = 0
+        cleaned=0
 
         # Clean files
         for file_path in self._files:
@@ -1503,7 +1503,7 @@ class TestDataCleaner:
             except Exception as e:
                 logging.warning(f"Cleanup callback failed: {e}")
 
-        self._cleanup_done = True
+        self._cleanup_done=True
         return cleaned
 
     def __enter__(self) -> "TestDataCleaner":
@@ -1527,15 +1527,15 @@ class CrossPlatformHelper:
     Provides utilities to handle platform differences in tests.
 
     Example:
-        helper = CrossPlatformHelper()
-        path = helper.normalize_path("/some/path")
+        helper=CrossPlatformHelper()
+        path=helper.normalize_path("/some / path")
         if helper.is_windows():
             # Windows-specific test code
     """
 
     def __init__(self) -> None:
         """Initialize helper."""
-        self._platform = sys.platform
+        self._platform=sys.platform
 
     def is_windows(self) -> bool:
         """Check if running on Windows."""
@@ -1570,7 +1570,7 @@ class CrossPlatformHelper:
             Content with normalized line endings.
         """
         # First normalize to \n, then to platform default
-        normalized = content.replace("\r\n", "\n").replace("\r", "\n")
+        normalized=content.replace("\r\n", "\n").replace("\r", "\n")
         if self.is_windows():
             return normalized.replace("\n", "\r\n")
         return normalized
@@ -1588,7 +1588,7 @@ class CrossPlatformHelper:
         Returns:
             True if should skip.
         """
-        platform_map = {
+        platform_map={
             "windows": self.is_windows(),
             "linux": self.is_linux(),
             "macos": self.is_macos(),
@@ -1615,7 +1615,7 @@ class TestLogEntry:
 
     level: str
     message: str
-    timestamp: float = field(default_factory=time.time)
+    timestamp: float=field(default_factory=time.time)
     test_name: Optional[str] = None
     extra: Dict[str, Any] = field(default_factory=dict)
 
@@ -1626,11 +1626,11 @@ class TestLogger:
     Captures logs during test execution for debugging.
 
     Example:
-        logger = TestLogger()
+        logger=TestLogger()
         with logger.capture("test_name"):
             logger.info("Test started")
             # ... test code ...
-        logs = logger.get_logs("test_name")
+        logs=logger.get_logs("test_name")
     """
 
     def __init__(self) -> None:
@@ -1640,7 +1640,7 @@ class TestLogger:
 
     def _log(self, level: str, message: str, **extra: Any) -> None:
         """Internal log method."""
-        entry = TestLogEntry(
+        entry=TestLogEntry(
             level=level,
             message=message,
             test_name=self._current_test,
@@ -1678,13 +1678,13 @@ class TestLogger:
         Yields:
             Self for logging.
         """
-        old_test = self._current_test
-        self._current_test = test_name
+        old_test=self._current_test
+        self._current_test=test_name
         self._logs[test_name] = []
         try:
             yield self
         finally:
-            self._current_test = old_test
+            self._current_test=old_test
 
     def get_logs(self, test_name: str) -> List[TestLogEntry]:
         """Get logs for a test."""
@@ -1720,7 +1720,7 @@ class ParallelTestResult:
     passed: bool
     duration_ms: float
     error: Optional[str] = None
-    worker_id: int = 0
+    worker_id: int=0
 
 
 class ParallelTestRunner:
@@ -1729,19 +1729,19 @@ class ParallelTestRunner:
     Manages parallel execution of tests with worker pools.
 
     Example:
-        runner = ParallelTestRunner(workers=4)
+        runner=ParallelTestRunner(workers=4)
         runner.add_test("test1", test_func1)
         runner.add_test("test2", test_func2)
-        results = runner.run_all()
+        results=runner.run_all()
     """
 
-    def __init__(self, workers: int = 4) -> None:
+    def __init__(self, workers: int=4) -> None:
         """Initialize runner.
 
         Args:
             workers: Number of worker threads.
         """
-        self.workers = workers
+        self.workers=workers
         self._tests: Dict[str, Callable[[], None]] = {}
         self._results: List[ParallelTestResult] = []
 
@@ -1761,7 +1761,7 @@ class ParallelTestRunner:
         worker_id: int,
     ) -> ParallelTestResult:
         """Run a single test."""
-        start = time.time()
+        start=time.time()
         try:
             test_fn()
             return ParallelTestResult(
@@ -1787,25 +1787,25 @@ class ParallelTestRunner:
         """
         from concurrent.futures import ThreadPoolExecutor, as_completed
 
-        self._results = []
+        self._results=[]
 
         with ThreadPoolExecutor(max_workers=self.workers) as executor:
-            futures = {}
+            futures={}
             for i, (name, test_fn) in enumerate(self._tests.items()):
-                worker_id = i % self.workers
-                future = executor.submit(self._run_test, name, test_fn, worker_id)
+                worker_id=i % self.workers
+                future=executor.submit(self._run_test, name, test_fn, worker_id)
                 futures[future] = name
 
             for future in as_completed(futures):
-                result = future.result()
+                result=future.result()
                 self._results.append(result)
 
         return self._results
 
     def get_summary(self) -> Dict[str, Any]:
         """Get summary of parallel test execution."""
-        total = len(self._results)
-        passed = sum(1 for r in self._results if r.passed)
+        total=len(self._results)
+        passed=sum(1 for r in self._results if r.passed)
         return {
             "total": total,
             "passed": passed,
@@ -1836,8 +1836,8 @@ class RecordedInteraction:
     call_name: str
     args: Tuple[Any, ...] = ()
     kwargs: Dict[str, Any] = field(default_factory=dict)
-    result: Any = None
-    timestamp: float = field(default_factory=time.time)
+    result: Any=None
+    timestamp: float=field(default_factory=time.time)
 
 
 class TestRecorder:
@@ -1846,24 +1846,24 @@ class TestRecorder:
     Useful for recording external calls and replaying in tests.
 
     Example:
-        recorder = TestRecorder()
+        recorder=TestRecorder()
 
         # Recording mode
         with recorder.record():
-            result = api_call("data")  # Records the call
+            result=api_call("data")  # Records the call
         recorder.save("test_recording.json")
 
         # Replay mode
         recorder.load("test_recording.json")
         with recorder.replay():
-            result = api_call("data")  # Returns recorded result
+            result=api_call("data")  # Returns recorded result
     """
 
     def __init__(self) -> None:
         """Initialize recorder."""
         self._recordings: List[RecordedInteraction] = []
-        self._replay_index = 0
-        self._mode: str = "normal"  # "record", "replay", "normal"
+        self._replay_index=0
+        self._mode: str="normal"  # "record", "replay", "normal"
 
     def record_interaction(
         self,
@@ -1883,7 +1883,7 @@ class TestRecorder:
             result: Result of the call.
         """
         if self._mode == "record":
-            interaction = RecordedInteraction(
+            interaction=RecordedInteraction(
                 call_type=call_type,
                 call_name=call_name,
                 args=args,
@@ -1910,7 +1910,7 @@ class TestRecorder:
             return None
 
         if self._replay_index < len(self._recordings):
-            recording = self._recordings[self._replay_index]
+            recording=self._recordings[self._replay_index]
             if recording.call_type == call_type and recording.call_name == call_name:
                 self._replay_index += 1
                 return recording.result
@@ -1920,26 +1920,26 @@ class TestRecorder:
     @contextmanager
     def record(self) -> Iterator["TestRecorder"]:
         """Context manager for recording mode."""
-        self._mode = "record"
-        self._recordings = []
+        self._mode="record"
+        self._recordings=[]
         try:
             yield self
         finally:
-            self._mode = "normal"
+            self._mode="normal"
 
     @contextmanager
     def replay(self) -> Iterator["TestRecorder"]:
         """Context manager for replay mode."""
-        self._mode = "replay"
-        self._replay_index = 0
+        self._mode="replay"
+        self._replay_index=0
         try:
             yield self
         finally:
-            self._mode = "normal"
+            self._mode="normal"
 
     def save(self, path: Path) -> None:
         """Save recordings to file."""
-        data = []
+        data=[]
         for r in self._recordings:
             data.append({
                 "call_type": r.call_type,
@@ -1955,8 +1955,8 @@ class TestRecorder:
     def load(self, path: Path) -> None:
         """Load recordings from file."""
         with open(path) as f:
-            data = json.load(f)
-        self._recordings = [
+            data=json.load(f)
+        self._recordings=[
             RecordedInteraction(
                 call_type=d["call_type"],
                 call_name=d["call_name"],
@@ -1987,8 +1987,8 @@ class TestBaseline:
 
     name: str
     values: Dict[str, Any]
-    created_at: float = field(default_factory=time.time)
-    version: int = 1
+    created_at: float=field(default_factory=time.time)
+    version: int=1
 
 
 class BaselineManager:
@@ -1997,12 +1997,12 @@ class BaselineManager:
     Stores and compares baselines for regression testing.
 
     Example:
-        manager = BaselineManager(baseline_dir)
+        manager=BaselineManager(baseline_dir)
         manager.save_baseline("perf", {"latency": 100, "memory": 50})
 
         # Later...
-        baseline = manager.load_baseline("perf")
-        diff = manager.compare("perf", {"latency": 120, "memory": 50})
+        baseline=manager.load_baseline("perf")
+        diff=manager.compare("perf", {"latency": 120, "memory": 50})
     """
 
     def __init__(self, baseline_dir: Path) -> None:
@@ -2011,7 +2011,7 @@ class BaselineManager:
         Args:
             baseline_dir: Directory for baseline files.
         """
-        self.baseline_dir = baseline_dir
+        self.baseline_dir=baseline_dir
         self.baseline_dir.mkdir(parents=True, exist_ok=True)
 
     def _get_path(self, name: str) -> Path:
@@ -2028,10 +2028,10 @@ class BaselineManager:
         Returns:
             Created baseline.
         """
-        existing = self.load_baseline(name)
-        version = existing.version + 1 if existing else 1
+        existing=self.load_baseline(name)
+        version=existing.version + 1 if existing else 1
 
-        baseline = TestBaseline(name=name, values=values, version=version)
+        baseline=TestBaseline(name=name, values=values, version=version)
 
         with open(self._get_path(name), "w") as f:
             json.dump({
@@ -2052,12 +2052,12 @@ class BaselineManager:
         Returns:
             Loaded baseline or None.
         """
-        path = self._get_path(name)
+        path=self._get_path(name)
         if not path.exists():
             return None
 
         with open(path) as f:
-            data = json.load(f)
+            data=json.load(f)
 
         return TestBaseline(
             name=data["name"],
@@ -2070,35 +2070,35 @@ class BaselineManager:
         self,
         name: str,
         current: Dict[str, Any],
-        tolerance: float = 0.1,
+        tolerance: float=0.1,
     ) -> Dict[str, Any]:
         """Compare current values against baseline.
 
         Args:
             name: Baseline name.
             current: Current values.
-            tolerance: Tolerance for numeric comparisons (0.1 = 10%).
+            tolerance: Tolerance for numeric comparisons (0.1=10%).
 
         Returns:
             Comparison results with diffs.
         """
-        baseline = self.load_baseline(name)
+        baseline=self.load_baseline(name)
         if not baseline:
             return {"error": "no baseline"}
 
-        diffs = {}
+        diffs={}
         for key, current_val in current.items():
             if key not in baseline.values:
                 diffs[key] = {"status": "new", "current": current_val}
                 continue
 
-            baseline_val = baseline.values[key]
+            baseline_val=baseline.values[key]
 
             if isinstance(current_val, (int, float)) and isinstance(baseline_val, (int, float)):
                 if baseline_val == 0:
-                    pct_change = float("inf") if current_val != 0 else 0
+                    pct_change=float("inf") if current_val != 0 else 0
                 else:
-                    pct_change = abs(current_val - baseline_val) / abs(baseline_val)
+                    pct_change=abs(current_val - baseline_val) / abs(baseline_val)
 
                 if pct_change > tolerance:
                     diffs[key] = {
@@ -2140,7 +2140,7 @@ class TestProfile:
     name: str
     settings: Dict[str, Any] = field(default_factory=dict)
     env_vars: Dict[str, str] = field(default_factory=dict)
-    enabled: bool = True
+    enabled: bool=True
 
 
 class TestProfileManager:
@@ -2149,12 +2149,12 @@ class TestProfileManager:
     Allows switching between test configurations easily.
 
     Example:
-        manager = TestProfileManager()
+        manager=TestProfileManager()
         manager.add_profile(TestProfile("ci", settings={"timeout": 60}))
         manager.add_profile(TestProfile("local", settings={"timeout": 300}))
 
         manager.activate("ci")
-        timeout = manager.get_setting("timeout")  # 60
+        timeout=manager.get_setting("timeout")  # 60
     """
 
     def __init__(self) -> None:
@@ -2191,14 +2191,14 @@ class TestProfileManager:
         if self._active:
             self.deactivate()
 
-        profile = self._profiles[name]
+        profile=self._profiles[name]
 
         # Set environment variables
         for key, value in profile.env_vars.items():
             self._original_env[key] = os.environ.get(key)
             os.environ[key] = value
 
-        self._active = name
+        self._active=name
         logging.info(f"Activated test profile: {name}")
 
     def deactivate(self) -> None:
@@ -2214,9 +2214,9 @@ class TestProfileManager:
                 os.environ[key] = value
 
         self._original_env.clear()
-        self._active = None
+        self._active=None
 
-    def get_setting(self, key: str, default: Any = None) -> Any:
+    def get_setting(self, key: str, default: Any=None) -> Any:
         """Get setting from active profile.
 
         Args:
@@ -2229,7 +2229,7 @@ class TestProfileManager:
         if not self._active:
             return default
 
-        profile = self._profiles[self._active]
+        profile=self._profiles[self._active]
         return profile.settings.get(key, default)
 
     def get_active_profile(self) -> Optional[TestProfile]:
@@ -2249,10 +2249,10 @@ def agent_dir_on_path() -> Iterator[None]:
     """Temporarily add the agent directory to sys.path.
 
     Note: This is a legacy helper to support tests that rely on implicit imports
-    from the scripts/agent directory. For new code, prefer using load_agent_module
+    from the scripts / agent directory. For new code, prefer using load_agent_module
     or proper package imports.
     """
-    old_sys_path = list(sys.path)
+    old_sys_path=list(sys.path)
     sys.path.insert(0, str(AGENT_DIR))
     try:
         yield
@@ -2268,11 +2268,11 @@ def get_base_agent_module() -> ModuleType:
 def load_module_from_path(name: str, path: Path) -> ModuleType:
     """Load a module from a specific path."""
     logging.debug(f"Loading module {name} from {path}")
-    spec = importlib.util.spec_from_file_location(name, str(path))
+    spec=importlib.util.spec_from_file_location(name, str(path))
     if spec is None or spec.loader is None:
         logging.error(f"Could not load module {name} from {path}")
         raise ImportError(f"Could not load module {name} from {path}")
-    mod = importlib.util.module_from_spec(spec)
+    mod=importlib.util.module_from_spec(spec)
     sys.modules[name] = mod
     spec.loader.exec_module(mod)
     return mod
@@ -2280,8 +2280,8 @@ def load_module_from_path(name: str, path: Path) -> ModuleType:
 
 @contextmanager
 def agent_sys_path() -> Iterator[None]:
-    """Add scripts/agent to sys.path temporarily."""
-    path = str(AGENT_DIR)
+    """Add scripts / agent to sys.path temporarily."""
+    path=str(AGENT_DIR)
     if path not in sys.path:
         sys.path.insert(0, path)
         try:
@@ -2292,19 +2292,19 @@ def agent_sys_path() -> Iterator[None]:
         yield
 
 
-def load_agent_module(filename: str, module_name: str | None = None) -> ModuleType:
-    """Load an agent module from scripts/agent by filename.
+def load_agent_module(filename: str, module_name: str | None=None) -> ModuleType:
+    """Load an agent module from scripts / agent by filename.
 
     Supports files that are not valid Python identifiers (e.g. `agent-changes.py`).
     """
-    path = AGENT_DIR / filename
+    path=AGENT_DIR / filename
     if not path.exists():
         raise FileNotFoundError(path)
     if module_name is None:
-        safe = re.sub(r"[^0-9a-zA-Z_]+", "_", path.stem)
+        safe=re.sub(r"[^0-9a-zA-Z_]+", "_", path.stem)
         if not safe or safe[0].isdigit():
-            safe = f"m_{safe}"
-        module_name = f"_dv_legacy_{safe}"
+            safe=f"m_{safe}"
+        module_name=f"_dv_legacy_{safe}"
     # Use the helper for consistency
     try:
         return load_module_from_path(module_name, path)

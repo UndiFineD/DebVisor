@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 """
 Tests for agent_changes.py improvements.
 
@@ -15,7 +15,7 @@ class TestChangelogValidation(unittest.TestCase):
 
     def test_valid_keep_a_changelog_format(self):
         """Verify valid Keep a Changelog format is accepted."""
-        changelog = """# Changelog
+        changelog="""# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -30,7 +30,7 @@ All notable changes to this project will be documented in this file.
 
     def test_changelog_has_required_sections(self):
         """Test changelog contains standard sections."""
-        changelog = """## [1.0.0] - 2024-12-16
+        changelog="""## [1.0.0] - 2024-12-16
 
 ### Added
 - Feature A
@@ -47,7 +47,7 @@ All notable changes to this project will be documented in this file.
 
     def test_changelog_version_format(self):
         """Test changelog version header format."""
-        version_header = "## [1.0.0] - 2024-12-16"
+        version_header="## [1.0.0] - 2024-12-16"
         assert "##" in version_header
         assert "[" in version_header and "]" in version_header
         assert "-" in version_header
@@ -58,20 +58,20 @@ class TestVersionParsing(unittest.TestCase):
 
     def test_parse_semantic_version(self):
         """Test parsing semantic version strings."""
-        version = "1.2.3"
-        parts = version.split(".")
+        version="1.2.3"
+        parts=version.split(".")
         assert len(parts) == 3
         assert all(p.isdigit() for p in parts)
 
     def test_parse_prerelease_version(self):
         """Test parsing prerelease versions."""
-        version = "1.0.0-alpha.1"
+        version="1.0.0-alpha.1"
         assert version is not None
         assert "-" in version
 
     def test_version_comparison(self):
         """Test semantic version ordering."""
-        versions = ["1.0.0", "1.1.0", "2.0.0"]
+        versions=["1.0.0", "1.1.0", "2.0.0"]
         assert versions[0] < versions[1] < versions[2]
 
 
@@ -81,7 +81,7 @@ class TestGitIntegration(unittest.TestCase):
     @patch("subprocess.run")
     def test_parse_git_log(self, mock_run):
         """Test parsing git log output."""
-        mock_git_output = """commit abc123
+        mock_git_output="""commit abc123
 Author: John Doe <john@example.com>
 Date:   Mon Dec 16 10:00:00 2024
 
@@ -93,14 +93,14 @@ Date:   Mon Dec 16 10:00:00 2024
     @patch("subprocess.run")
     def test_extract_commit_authors(self, mock_run):
         """Test extracting authors from git commits."""
-        git_output = "Author: John Doe <john@example.com>"
+        git_output="Author: John Doe <john@example.com>"
         assert "Author:" in git_output
         assert "john@example.com" in git_output
 
     @patch("subprocess.run")
     def test_extract_commit_dates(self, mock_run):
         """Test extracting dates from git commits."""
-        git_output = "Date:   Mon Dec 16 10:00:00 2024"
+        git_output="Date:   Mon Dec 16 10:00:00 2024"
         assert "Date:" in git_output
         assert "2024" in git_output
 
@@ -110,27 +110,27 @@ class TestChangelogCategorization(unittest.TestCase):
 
     def test_categorize_added_entry(self):
         """Test identifying Added entries."""
-        entry = "Added new authentication feature"
+        entry="Added new authentication feature"
         assert "added" in entry.lower()
 
     def test_categorize_fixed_entry(self):
         """Test identifying Fixed entries."""
-        entry = "Fixed memory leak in cache"
+        entry="Fixed memory leak in cache"
         assert "fixed" in entry.lower()
 
     def test_categorize_changed_entry(self):
         """Test identifying Changed entries."""
-        entry = "Changed API response format"
+        entry="Changed API response format"
         assert "changed" in entry.lower()
 
     def test_categorize_deprecated_entry(self):
         """Test identifying Deprecated entries."""
-        entry = "Deprecated legacy authentication"
+        entry="Deprecated legacy authentication"
         assert "deprecated" in entry.lower()
 
     def test_categorize_removed_entry(self):
         """Test identifying Removed entries."""
-        entry = "Removed Python 2 support"
+        entry="Removed Python 2 support"
         assert "removed" in entry.lower()
 
 
@@ -139,22 +139,22 @@ class TestChangelogDiffing(unittest.TestCase):
 
     def test_detect_new_entries(self):
         """Test detecting new entries between versions."""
-        old = "- Feature A"
-        new = "- Feature A\n- Feature B"
+        old="- Feature A"
+        new="- Feature A\n- Feature B"
         assert "Feature B" not in old
         assert "Feature B" in new
 
     def test_detect_removed_entries(self):
         """Test detecting removed entries."""
-        old = "- Old Feature"
-        new = "- New Feature"
+        old="- Old Feature"
+        new="- New Feature"
         assert "Old Feature" in old
         assert "Old Feature" not in new
 
     def test_detect_modified_entries(self):
         """Test detecting modified entries."""
-        old = "Fixed bug in parser"
-        new = "Fixed critical security bug in parser"
+        old="Fixed bug in parser"
+        new="Fixed critical security bug in parser"
         assert "security" not in old
         assert "security" in new
 
@@ -164,7 +164,7 @@ class TestMarkdownPreservation(unittest.TestCase):
 
     def test_preserve_code_blocks(self):
         """Test that code blocks are preserved."""
-        markdown = """```python
+        markdown="""```python
 def new_feature():
     return True
 ```"""
@@ -173,20 +173,20 @@ def new_feature():
 
     def test_preserve_markdown_links(self):
         """Test that links are preserved."""
-        markdown = "[Issue #123](https://github.com/org/repo/issues/123)"
+        markdown="[Issue #123](https://github.com / org / repo / issues / 123)"
         assert "[Issue #123]" in markdown
-        assert "https://github.com/org/repo/issues/123" in markdown
+        assert "https://github.com / org / repo / issues / 123" in markdown
 
     def test_preserve_inline_formatting(self):
         """Test that inline formatting is preserved."""
-        markdown = "**Bold** *italic* `code` ~~strikethrough~~"
+        markdown="**Bold** *italic* `code` ~~strikethrough~~"
         assert "**Bold**" in markdown
         assert "*italic*" in markdown
         assert "`code`" in markdown
 
     def test_preserve_list_structure(self):
         """Test that list structure is preserved."""
-        markdown = """- Item 1
+        markdown="""- Item 1
 - Item 2
   - Subitem
 """
@@ -199,7 +199,7 @@ class TestErrorHandling(unittest.TestCase):
 
     def test_handle_missing_version_header(self):
         """Test handling changelog without version."""
-        malformed = """# Changelog
+        malformed="""# Changelog
 
 ### Added
 - Feature without version
@@ -208,17 +208,17 @@ class TestErrorHandling(unittest.TestCase):
 
     def test_handle_duplicate_entries(self):
         """Test detecting duplicate changelog entries."""
-        changelog = """### Added
+        changelog="""### Added
 - Feature A
 - Feature A
 """
-        lines = [line.strip() for line in changelog.split("\n") if line.startswith("- ")]
+        lines=[line.strip() for line in changelog.split("\n") if line.startswith("- ")]
         assert len(lines) == 2
         assert lines[0] == lines[1]
 
     def test_handle_malformed_sections(self):
         """Test detecting malformed section headers."""
-        malformed = """## [1.0.0] - 2024-12-16
+        malformed="""## [1.0.0] - 2024-12-16
 
 Added features
 - Feature
@@ -232,26 +232,26 @@ class TestDateValidation(unittest.TestCase):
 
     def test_valid_iso_date(self):
         """Test validation of ISO date format."""
-        date = "2024-12-16"
-        parts = date.split("-")
+        date="2024-12-16"
+        parts=date.split("-")
         assert len(parts) == 3
-        year, month, day = int(parts[0]), int(parts[1]), int(parts[2])
+        year, month, day=int(parts[0]), int(parts[1]), int(parts[2])
         assert 1900 <= year <= 2100
         assert 1 <= month <= 12
         assert 1 <= day <= 31
 
     def test_invalid_month_too_high(self):
         """Test detection of invalid month."""
-        date = "2024-13-01"
-        parts = date.split("-")
-        month = int(parts[1])
+        date="2024-13-01"
+        parts=date.split("-")
+        month=int(parts[1])
         assert month > 12
 
     def test_invalid_day_too_high(self):
         """Test detection of invalid day."""
-        date = "2024-12-32"
-        parts = date.split("-")
-        day = int(parts[2])
+        date="2024-12-32"
+        parts=date.split("-")
+        day=int(parts[2])
         assert day > 31
 
 
@@ -260,16 +260,16 @@ class TestDuplicateDetection(unittest.TestCase):
 
     def test_detect_duplicate_version(self):
         """Test detecting duplicate version entries."""
-        changelog = """## [1.0.0] - 2024-12-16
+        changelog="""## [1.0.0] - 2024-12-16
 - Feature 1
 
 ## [1.0.0] - 2024-12-15
 - Feature 2
 """
-        versions = []
+        versions=[]
         for line in changelog.split("\n"):
             if line.startswith("## ["):
-                version = line.split("]")[0].replace("## [", "")
+                version=line.split("]")[0].replace("## [", "")
                 versions.append(version)
 
         assert len(versions) == 2
@@ -277,7 +277,7 @@ class TestDuplicateDetection(unittest.TestCase):
 
     def test_detect_version_out_of_order(self):
         """Test detecting out of order versions."""
-        changelog = """## [1.0.1] - 2024-12-16
+        changelog="""## [1.0.1] - 2024-12-16
 ## [1.0.0] - 2024-12-15
 """
         assert changelog.find("1.0.1") < changelog.find("1.0.0")
@@ -288,19 +288,19 @@ class TestFileDetection(unittest.TestCase):
 
     def test_detect_changelog_files(self):
         """Test detecting standard changelog filenames."""
-        files = ["CHANGELOG.md", "changelog.md", "HISTORY.md"]
+        files=["CHANGELOG.md", "changelog.md", "HISTORY.md"]
         for f in files:
             assert "changelog" in f.lower() or "history" in f.lower()
 
     def test_detect_python_file_changes(self):
         """Test detecting Python file changes."""
-        files = ["script.py", "module/package.py", "test_module.py"]
-        py_files = [f for f in files if f.endswith(".py")]
+        files=["script.py", "module / package.py", "test_module.py"]
+        py_files=[f for f in files if f.endswith(".py")]
         assert len(py_files) == 3
 
     def test_detect_multiple_languages(self):
         """Test detecting files across languages."""
-        files_by_lang = {
+        files_by_lang={
             "python": "module.py",
             "javascript": "script.js",
             "java": "Class.java",
@@ -314,17 +314,17 @@ class TestChangelogMerging(unittest.TestCase):
 
     def test_merge_two_changelog_versions(self):
         """Test merging separate changelog versions."""
-        v1 = "## [1.0.0] - 2024-12-16\n- Feature A"
-        v2 = "## [1.0.1] - 2024-12-17\n- Feature B"
-        merged = v1 + "\n" + v2
+        v1="## [1.0.0] - 2024-12-16\n- Feature A"
+        v2="## [1.0.1] - 2024-12-17\n- Feature B"
+        merged=v1 + "\n" + v2
         assert "Feature A" in merged
         assert "Feature B" in merged
 
     def test_merge_changelog_sections(self):
         """Test merging changelog sections."""
-        section1 = "### Added\n- Feature 1"
-        section2 = "### Fixed\n- Bug 1"
-        merged = section1 + "\n" + section2
+        section1="### Added\n- Feature 1"
+        section2="### Fixed\n- Bug 1"
+        merged=section1 + "\n" + section2
         assert "### Added" in merged
         assert "### Fixed" in merged
 
@@ -334,13 +334,13 @@ class TestCustomTemplates(unittest.TestCase):
 
     def test_apply_template(self):
         """Test applying custom template."""
-        template = """# {project}
+        template="""# {project}
 
 ## {version}
 
 {content}
 """
-        rendered = template.format(
+        rendered=template.format(
             project="MyProject",
             version="1.0.0",
             content="Initial release"
@@ -351,13 +351,13 @@ class TestCustomTemplates(unittest.TestCase):
 
     def test_template_with_metadata(self):
         """Test template with metadata."""
-        template = """# {project} Changelog
+        template="""# {project} Changelog
 
 Repository: {repo}
 """
-        rendered = template.format(
+        rendered=template.format(
             project="DebVisor",
-            repo="https://github.com/org/debvisor"
+            repo="https://github.com / org / debvisor"
         )
         assert "DebVisor" in rendered
         assert "github.com" in rendered
@@ -368,7 +368,7 @@ class TestIntegration(unittest.TestCase):
 
     def test_end_to_end_changelog(self):
         """Test complete changelog workflow."""
-        changelog = """# Changelog
+        changelog="""# Changelog
 
 ## [1.0.0] - 2024-12-16
 
@@ -388,7 +388,7 @@ class TestIntegration(unittest.TestCase):
 
     def test_changelog_with_entries(self):
         """Test changelog with multiple entries."""
-        changelog = """## [1.0.0] - 2024-12-16
+        changelog="""## [1.0.0] - 2024-12-16
 
 ### Added
 - Feature 1
@@ -397,7 +397,7 @@ class TestIntegration(unittest.TestCase):
 ### Fixed
 - Bug 1
 """
-        entries = [line.strip() for line in changelog.split("\n") if line.startswith("- ")]
+        entries=[line.strip() for line in changelog.split("\n") if line.startswith("- ")]
         assert len(entries) == 3
         assert "Feature 1" in entries[0]
 

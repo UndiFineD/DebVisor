@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,17 +34,17 @@ def agent_module() -> Any:
 def test_agent_with_large_repository_performance(tmp_path: Path, agent_module: Any) -> None:
     """Test agent behavior with large repository - performance benchmarks."""
     # Create a mock large repo structure
-    files_to_create = 100
+    files_to_create=100
     for i in range(files_to_create):
-        file_path = tmp_path / f"file_{i:03d}.py"
+        file_path=tmp_path / f"file_{i:03d}.py"
         file_path.write_text(f"# Module {i}\ndef func_{i}(): pass\n")
 
     import time
-    start = time.time()
+    start=time.time()
 
     # Create a simple agent runner (mock)
 
-    elapsed = time.time() - start
+    elapsed=time.time() - start
 
     # Should complete within reasonable time (< 5 seconds for 100 files)
     assert elapsed < 5.0, f"Agent initialization took {elapsed:.2f}s"
@@ -58,12 +58,12 @@ def test_git_operations_commit(tmp_path: Path, agent_module: Any) -> None:
     subprocess.run(["git", "config", "user.name", "Test User"], cwd=tmp_path, check=True, capture_output=True)
 
     # Create a file
-    test_file = tmp_path / "test.txt"
+    test_file=tmp_path / "test.txt"
     test_file.write_text("initial content")
 
     # Commit
     subprocess.run(["git", "add", "test.txt"], cwd=tmp_path, check=True, capture_output=True)
-    result = subprocess.run(
+    result=subprocess.run(
         ["git", "commit", "-m", "Initial commit"],
         cwd=tmp_path, capture_output=True, text=True
     )
@@ -75,9 +75,9 @@ def test_git_operations_commit(tmp_path: Path, agent_module: Any) -> None:
 def test_concurrent_file_processing_scenarios(tmp_path: Path, agent_module: Any) -> None:
     """Test concurrent file processing scenarios."""
     # Create multiple files for concurrent processing
-    files = []
+    files=[]
     for i in range(10):
-        file_path = tmp_path / f"concurrent_{i}.py"
+        file_path=tmp_path / f"concurrent_{i}.py"
         file_path.write_text(f"# Concurrent file {i}\nprint('File {i}')\n")
         files.append(file_path)
 
@@ -95,17 +95,17 @@ def test_all_cli_argument_combinations(agent_module: Any) -> None:
     """Test all command-line argument combinations."""
     # Mock parser
     if hasattr(agent_module, 'create_parser'):
-        parser = agent_module.create_parser()
+        parser=agent_module.create_parser()
 
         # Test individual arguments
-        args = parser.parse_args(['--help'] if '--help' in ['-h', '--help'] else [])
+        args=parser.parse_args(['--help'] if '--help' in ['-h', '--help'] else [])
         assert args is not None
 
 
 def test_agent_with_large_file_set(tmp_path: Path, agent_module: Any) -> None:
     """Test agent with large file sets."""
     # Create 50 diverse files
-    file_types = {
+    file_types={
         '.py': 'def test(): pass',
         '.md': '# Test\nContent',
         '.txt': 'Plain text',
@@ -114,11 +114,11 @@ def test_agent_with_large_file_set(tmp_path: Path, agent_module: Any) -> None:
 
     for ext, content in file_types.items():
         for i in range(10):
-            file_path = tmp_path / f"file_{i:02d}{ext}"
+            file_path=tmp_path / f"file_{i:02d}{ext}"
             file_path.write_text(content)
 
     # Verify all files created
-    all_files = list(tmp_path.glob("*"))
+    all_files=list(tmp_path.glob("*"))
     assert len(all_files) == 40
 
 
@@ -132,7 +132,7 @@ def test_logging_output_verbosity(tmp_path: Path, agent_module: Any) -> None:
 
     # Capture logging
     logging.basicConfig(level=logging.DEBUG)
-    logger = logging.getLogger("agent")
+    logger=logging.getLogger("agent")
 
     # Test that logger exists
     assert logger is not None
@@ -149,7 +149,7 @@ def test_verbosity_level_debug(agent_module: Any, caplog: Any) -> None:
     """Test debug verbosity level produces detailed output."""
     import logging
     with caplog.at_level(logging.DEBUG):
-        logger = logging.getLogger("agent_test")
+        logger=logging.getLogger("agent_test")
         logger.debug("Detailed debug info")
 
     assert "Detailed debug info" in caplog.text or len(caplog.records) > 0
@@ -173,7 +173,7 @@ def test_git_operations_branch_switching(tmp_path: Path) -> None:
 
     # Create and switch branch
     subprocess.run(["git", "checkout", "-b", "feature"], cwd=tmp_path, check=True, capture_output=True)
-    result = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"],
+    result=subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"],
                           cwd=tmp_path, capture_output=True, text=True)
     assert "feature" in result.stdout
 
@@ -194,18 +194,18 @@ def test_git_unavailable_graceful_degradation(agent_module: Any, monkeypatch: An
 
 def test_configuration_file_handling(tmp_path: Path, agent_module: Any) -> None:
     """Test configuration file handling."""
-    config_file = tmp_path / "agent.config"
+    config_file=tmp_path / "agent.config"
     config_file.write_text("key=value\nanother=123\n")
 
     # Verify config file can be read
     assert config_file.exists()
-    content = config_file.read_text()
+    content=config_file.read_text()
     assert "key=value" in content
 
 
 def test_config_file_parsing(tmp_path: Path) -> None:
     """Test parsing of configuration files."""
-    config_file = tmp_path / ".agentrc"
+    config_file=tmp_path / ".agentrc"
     config_file.write_text("""
 [settings]
 timeout=60
@@ -214,7 +214,7 @@ workers=4
 """)
 
     assert config_file.exists()
-    content = config_file.read_text()
+    content=config_file.read_text()
     assert "timeout" in content
 
 
@@ -229,11 +229,11 @@ def test_stats_reporting_accuracy(agent_module: Any, tmp_path: Path) -> None:
         (tmp_path / f"test_{i}.py").write_text(f"# File {i}")
 
     # Count files
-    files = list(tmp_path.glob("*.py"))
+    files=list(tmp_path.glob("*.py"))
     assert len(files) == 5
 
     # Stats should accurately reflect this
-    file_count = len(files)
+    file_count=len(files)
     assert file_count == 5
 
 
@@ -250,7 +250,7 @@ def test_stats_reporting_accuracy(agent_module: Any, tmp_path: Path) -> None:
 ])
 def test_agent_with_parametrized_file_types(tmp_path: Path, file_type: str, content: str) -> None:
     """Test agent with parametrized different file types."""
-    test_file = tmp_path / f"test{file_type}"
+    test_file=tmp_path / f"test{file_type}"
     test_file.write_text(content)
 
     assert test_file.exists()
@@ -300,15 +300,15 @@ def test_agent_performance_regression(tmp_path: Path, agent_module: Any) -> None
 
     # Create 20 files
     for i in range(20):
-        (tmp_path / f"file_{i}.py").write_text(f"# File {i}\nx = {i}")
+        (tmp_path / f"file_{i}.py").write_text(f"# File {i}\nx={i}")
 
     # Time the operation
-    start = time.time()
-    files = list(tmp_path.glob("*.py"))
-    elapsed = time.time() - start
+    start=time.time()
+    files=list(tmp_path.glob("*.py"))
+    elapsed=time.time() - start
 
     # Should be fast (< 100ms for 20 files)
-    assert elapsed < 0.1, f"Performance regression: {elapsed*1000:.1f}ms"
+    assert elapsed < 0.1, f"Performance regression: {elapsed * 1000:.1f}ms"
     assert len(files) == 20
 
 
@@ -319,16 +319,16 @@ def test_agent_scaling_performance(tmp_path: Path, file_count: int) -> None:
 
     # Create files
     for i in range(file_count):
-        (tmp_path / f"file_{i:03d}.py").write_text(f"x = {i}")
+        (tmp_path / f"file_{i:03d}.py").write_text(f"x={i}")
 
     # Measure file discovery
-    start = time.time()
-    files = list(tmp_path.glob("*.py"))
-    elapsed = time.time() - start
+    start=time.time()
+    files=list(tmp_path.glob("*.py"))
+    elapsed=time.time() - start
 
     assert len(files) == file_count
     # Should scale linearly
-    assert elapsed < file_count / 1000.0  # Very generous: 1000 files/second minimum
+    assert elapsed < file_count / 1000.0  # Very generous: 1000 files / second minimum
 
 
 # ============================================================================

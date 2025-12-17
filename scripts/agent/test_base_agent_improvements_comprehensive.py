@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 """
 Comprehensive tests for base_agent improvements
 
@@ -15,7 +15,7 @@ class TestTypeIgnoreMigration(unittest.TestCase):
 
     def test_validate_type_hints_complete(self):
         """Test that all functions have type hints."""
-        function_hints = {
+        function_hints={
             "process": ("str", "dict"),
             "analyze": ("list", "dict"),
             "report": ("dict", "str"),
@@ -26,8 +26,8 @@ class TestTypeIgnoreMigration(unittest.TestCase):
 
     def test_fix_underlying_type_issues(self):
         """Test fixing underlying type issues."""
-        value: str = "test"
-        converted: int = int(value) if value.isdigit() else 0
+        value: str="test"
+        converted: int=int(value) if value.isdigit() else 0
 
         assert isinstance(converted, int)
 
@@ -37,7 +37,7 @@ class TestPathlibConsistency(unittest.TestCase):
 
     def test_use_pathlib_consistently(self):
         """Test using pathlib throughout."""
-        file_path = Path("test.py")
+        file_path=Path("test.py")
 
         assert isinstance(file_path, Path)
         assert file_path.suffix == ".py"
@@ -45,14 +45,14 @@ class TestPathlibConsistency(unittest.TestCase):
     def test_replace_string_paths_with_path_objects(self):
         """Test replacing string paths with Path objects."""
 
-        new_style = Path("src/main.py")
+        new_style=Path("src / main.py")
 
         assert isinstance(new_style, Path)
         assert new_style.name == "main.py"
 
     def test_pathlib_file_operations(self):
         """Test file operations with pathlib."""
-        p = Path("test.txt")
+        p=Path("test.txt")
 
         # Test path methods
         assert p.suffix == ".txt"
@@ -61,19 +61,19 @@ class TestPathlibConsistency(unittest.TestCase):
 
     def test_pathlib_directory_operations(self):
         """Test directory operations."""
-        base_dir = Path("src")
-        files = [base_dir / "main.py", base_dir / "utils.py"]
+        base_dir=Path("src")
+        files=[base_dir / "main.py", base_dir / "utils.py"]
 
         assert len(files) == 2
         assert files[0].parent == base_dir
 
     def test_pathlib_glob_patterns(self):
         """Test glob pattern usage."""
-        pattern = "*.py"
+        pattern="*.py"
         # Simulated
-        matching = ["main.py", "utils.py", "test.py"]
+        matching=["main.py", "utils.py", "test.py"]
 
-        py_files = [f for f in matching if f.endswith(".py")]
+        py_files=[f for f in matching if f.endswith(".py")]
         assert len(py_files) == 3
 
 
@@ -82,7 +82,7 @@ class TestConfigurationClass(unittest.TestCase):
 
     def test_create_backend_configuration(self):
         """Test creating backend configuration."""
-        config = {
+        config={
             "backend": "openai",
             "model": "gpt-4",
             "timeout": 30,
@@ -94,7 +94,7 @@ class TestConfigurationClass(unittest.TestCase):
 
     def test_manage_logging_configuration(self):
         """Test managing logging settings."""
-        logging_config = {
+        logging_config={
             "level": "INFO",
             "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             "file": "agent.log",
@@ -104,7 +104,7 @@ class TestConfigurationClass(unittest.TestCase):
 
     def test_configure_timeouts(self):
         """Test configuring timeout values."""
-        timeouts = {
+        timeouts={
             "api_request": 30,
             "file_processing": 60,
             "overall_execution": 300,
@@ -114,7 +114,7 @@ class TestConfigurationClass(unittest.TestCase):
 
     def test_configure_retry_strategy(self):
         """Test retry configuration."""
-        retry_config = {
+        retry_config={
             "max_attempts": 3,
             "initial_delay": 1,
             "max_delay": 60,
@@ -125,7 +125,7 @@ class TestConfigurationClass(unittest.TestCase):
 
     def test_backend_selection_configuration(self):
         """Test backend selection configuration."""
-        backends = {
+        backends={
             "openai": {"api_key": "sk-..."},
             "github_models": {"token": "ghp_..."},
             "custom": {"endpoint": "http://localhost:8000"},
@@ -139,12 +139,12 @@ class TestBackendFactory(unittest.TestCase):
 
     def test_create_backend_via_factory(self):
         """Test creating backends through factory."""
-        backends = {
+        backends={
             "openai": lambda: {"type": "openai"},
             "github": lambda: {"type": "github"},
         }
 
-        backend = backends["openai"]()
+        backend=backends["openai"]()
         assert backend["type"] == "openai"
 
     def test_factory_method_pattern(self):
@@ -157,14 +157,14 @@ class TestBackendFactory(unittest.TestCase):
                 elif backend_type == "github":
                     return {"name": "github", "model": "gpt-3.5"}
 
-        backend = BackendFactory.create("openai")
+        backend=BackendFactory.create("openai")
         assert backend["name"] == "openai"
 
     def test_factory_with_configuration(self):
         """Test factory with configuration."""
         class ConfigurableBackendFactory:
             def __init__(self, config):
-                self.config = config
+                self.config=config
 
             def create(self, backend_type):
                 return {
@@ -172,17 +172,17 @@ class TestBackendFactory(unittest.TestCase):
                     "timeout": self.config.get("timeout", 30),
                 }
 
-        factory = ConfigurableBackendFactory({"timeout": 60})
-        backend = factory.create("test")
+        factory=ConfigurableBackendFactory({"timeout": 60})
+        backend=factory.create("test")
 
         assert backend["timeout"] == 60
 
     def test_factory_method_cleanup(self):
         """Test factory method cleanup."""
-        created_backends = []
+        created_backends=[]
 
         def create_and_track(backend_type):
-            backend = {"type": backend_type}
+            backend={"type": backend_type}
             created_backends.append(backend)
             return backend
 
@@ -200,10 +200,10 @@ class TestDataClassImplementation(unittest.TestCase):
         @dataclass
         class BackendConfig:
             backend_type: str
-            timeout: int = 30
-            max_retries: int = 3
+            timeout: int=30
+            max_retries: int=3
 
-        config = BackendConfig("openai", timeout=60)
+        config=BackendConfig("openai", timeout=60)
 
         assert config.backend_type == "openai"
         assert config.timeout == 60
@@ -215,10 +215,10 @@ class TestDataClassImplementation(unittest.TestCase):
         @dataclass
         class AgentConfig:
             name: str
-            enabled: bool = True
-            priority: int = 5
+            enabled: bool=True
+            priority: int=5
 
-        config = AgentConfig("test_agent")
+        config=AgentConfig("test_agent")
 
         assert config.enabled is True
         assert config.priority == 5
@@ -232,7 +232,7 @@ class TestDataClassImplementation(unittest.TestCase):
         class BackendList:
             backends: List[str] = field(default_factory=list)
 
-        bl = BackendList()
+        bl=BackendList()
         bl.backends.append("openai")
 
         assert len(bl.backends) == 1
@@ -245,15 +245,15 @@ class TestContextManagerPatterns(unittest.TestCase):
         """Test using backend as context manager."""
         class BackendContext:
             def __init__(self, backend_type):
-                self.backend_type = backend_type
-                self.initialized = False
+                self.backend_type=backend_type
+                self.initialized=False
 
             def __enter__(self):
-                self.initialized = True
+                self.initialized=True
                 return self
 
             def __exit__(self, exc_type, exc_val, exc_tb):
-                self.initialized = False
+                self.initialized=False
 
         with BackendContext("test") as backend:
             assert backend.initialized is True
@@ -262,11 +262,11 @@ class TestContextManagerPatterns(unittest.TestCase):
 
     def test_resource_cleanup_in_context(self):
         """Test proper resource cleanup."""
-        resources_cleaned = []
+        resources_cleaned=[]
 
         class ResourceManager:
             def __init__(self, resource_id):
-                self.resource_id = resource_id
+                self.resource_id=resource_id
 
             def __enter__(self):
                 return self
@@ -308,7 +308,7 @@ class TestErrorHandlingImprovement(unittest.TestCase):
 
     def test_error_context_information(self):
         """Test capturing error context."""
-        error_context = {
+        error_context={
             "operation": "backend_call",
             "backend": "openai",
             "timestamp": "2025-12-16T10:00:00",
@@ -322,7 +322,7 @@ class TestIntegrationTesting(unittest.TestCase):
 
     def test_backend_initialization(self):
         """Test backend initialization."""
-        backend = {
+        backend={
             "name": "test_backend",
             "initialized": True,
             "capabilities": ["process", "analyze"],
@@ -332,7 +332,7 @@ class TestIntegrationTesting(unittest.TestCase):
 
     def test_backend_call_workflow(self):
         """Test backend call workflow."""
-        backend_response = {
+        backend_response={
             "status": "success",
             "data": "processed result",
             "duration": 1.5,
@@ -342,8 +342,8 @@ class TestIntegrationTesting(unittest.TestCase):
 
     def test_error_recovery_workflow(self):
         """Test error recovery in backend calls."""
-        attempts = 0
-        max_attempts = 3
+        attempts=0
+        max_attempts=3
 
         while attempts < max_attempts:
             attempts += 1
@@ -365,29 +365,29 @@ class TestIntegrationTesting(unittest.TestCase):
             return {"item": item, "status": "completed"}
 
         with ThreadPoolExecutor(max_workers=2) as executor:
-            results = list(executor.map(mock_api_call, [1, 2, 3]))
+            results=list(executor.map(mock_api_call, [1, 2, 3]))
 
         assert len(results) == 3
 
     def test_batch_processing(self):
         """Test batch processing through backends."""
-        items = list(range(100))
-        batch_size = 10
+        items=list(range(100))
+        batch_size=10
 
-        batches = [items[i:i+batch_size] for i in range(0, len(items), batch_size)]
+        batches=[items[i:i + batch_size] for i in range(0, len(items), batch_size)]
 
         assert len(batches) == 10
 
     def test_end_to_end_backend_workflow(self):
         """Test complete backend workflow."""
         # Configure
-        config = {"backend": "test", "timeout": 30}
+        config={"backend": "test", "timeout": 30}
 
         # Initialize
-        initialized = True
+        initialized=True
 
         # Process
-        result = {"status": "success"}
+        result={"status": "success"}
 
         # Cleanup
         assert initialized
@@ -401,13 +401,13 @@ class TestAdvancedConfiguration(unittest.TestCase):
         import os
 
         os.environ["AGENT_BACKEND"] = "openai"
-        backend = os.environ.get("AGENT_BACKEND", "default")
+        backend=os.environ.get("AGENT_BACKEND", "default")
 
         assert backend == "openai"
 
     def test_config_file_loading(self):
         """Test loading config from file."""
-        config_content = """
+        config_content="""
         backend: openai
         timeout: 60
         retries: 3
@@ -417,23 +417,23 @@ class TestAdvancedConfiguration(unittest.TestCase):
 
     def test_config_validation(self):
         """Test configuration validation."""
-        config = {
+        config={
             "backend": "openai",
             "timeout": 30,
             "max_retries": 3,
         }
 
-        required_keys = ["backend", "timeout"]
-        is_valid = all(k in config for k in required_keys)
+        required_keys=["backend", "timeout"]
+        is_valid=all(k in config for k in required_keys)
 
         assert is_valid
 
     def test_config_merging(self):
         """Test merging configurations."""
-        defaults = {"timeout": 30, "retries": 3}
-        overrides = {"timeout": 60}
+        defaults={"timeout": 30, "retries": 3}
+        overrides={"timeout": 60}
 
-        merged = {**defaults, **overrides}
+        merged={**defaults, **overrides}
 
         assert merged["timeout"] == 60
         assert merged["retries"] == 3

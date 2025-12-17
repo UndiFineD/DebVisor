@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,28 +50,28 @@ from base_agent import BaseAgent, create_main_function
 
 class TestPriority(Enum):
     """Test priority levels."""
-    CRITICAL = 5
-    HIGH = 4
-    MEDIUM = 3
-    LOW = 2
-    SKIP = 1
+    CRITICAL=5
+    HIGH=4
+    MEDIUM=3
+    LOW=2
+    SKIP=1
 
 
 class TestStatus(Enum):
     """Test execution status."""
-    PASSED = "passed"
-    FAILED = "failed"
-    SKIPPED = "skipped"
-    ERROR = "error"
-    FLAKY = "flaky"
+    PASSED="passed"
+    FAILED="failed"
+    SKIPPED="skipped"
+    ERROR="error"
+    FLAKY="flaky"
 
 
 class CoverageType(Enum):
     """Types of coverage to track."""
-    LINE = "line"
-    BRANCH = "branch"
-    FUNCTION = "function"
-    CLASS = "class"
+    LINE="line"
+    BRANCH="branch"
+    FUNCTION="function"
+    CLASS="class"
 
 
 # ========== Session 7 Enums ==========
@@ -79,36 +79,36 @@ class CoverageType(Enum):
 
 class BrowserType(Enum):
     """Browser types for cross-browser testing."""
-    CHROME = "chrome"
-    FIREFOX = "firefox"
-    SAFARI = "safari"
-    EDGE = "edge"
-    IE = "ie"
+    CHROME="chrome"
+    FIREFOX="firefox"
+    SAFARI="safari"
+    EDGE="edge"
+    IE="ie"
 
 
 class TestSourceType(Enum):
     """Types of test result sources for aggregation."""
-    PYTEST = "pytest"
-    UNITTEST = "unittest"
-    JEST = "jest"
-    MOCHA = "mocha"
-    JUNIT = "junit"
+    PYTEST="pytest"
+    UNITTEST="unittest"
+    JEST="jest"
+    MOCHA="mocha"
+    JUNIT="junit"
 
 
 class MutationOperator(Enum):
     """Mutation operators for mutation testing."""
-    ARITHMETIC = "arithmetic"
-    RELATIONAL = "relational"
-    LOGICAL = "logical"
-    ASSIGNMENT = "assignment"
-    RETURN_VALUE = "return_value"
+    ARITHMETIC="arithmetic"
+    RELATIONAL="relational"
+    LOGICAL="logical"
+    ASSIGNMENT="assignment"
+    RETURN_VALUE="return_value"
 
 
 class ExecutionMode(Enum):
     """Test execution replay modes."""
-    STEP_BY_STEP = "step_by_step"
-    FULL_REPLAY = "full_replay"
-    BREAKPOINT = "breakpoint"
+    STEP_BY_STEP="step_by_step"
+    FULL_REPLAY="full_replay"
+    BREAKPOINT="breakpoint"
 
 
 @dataclass
@@ -118,15 +118,15 @@ class TestCase:
     name: str
     file_path: str
     line_number: int
-    priority: TestPriority = TestPriority.MEDIUM
-    status: TestStatus = TestStatus.PASSED
-    duration_ms: float = 0.0
-    flakiness_score: float = 0.0
-    last_run: str = ""
-    run_count: int = 0
-    failure_count: int = 0
-    tags: List[str] = field(default_factory = list)
-    dependencies: List[str] = field(default_factory = list)
+    priority: TestPriority=TestPriority.MEDIUM
+    status: TestStatus=TestStatus.PASSED
+    duration_ms: float=0.0
+    flakiness_score: float=0.0
+    last_run: str=""
+    run_count: int=0
+    failure_count: int=0
+    tags: List[str] = field(default_factory=list)
+    dependencies: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -134,13 +134,13 @@ class TestRun:
     """A test execution run."""
     id: str
     timestamp: str
-    total_tests: int = 0
-    passed: int = 0
-    failed: int = 0
-    skipped: int = 0
-    errors: int = 0
-    duration_ms: float = 0.0
-    test_results: Dict[str, TestStatus] = field(default_factory = dict)
+    total_tests: int=0
+    passed: int=0
+    failed: int=0
+    skipped: int=0
+    errors: int=0
+    duration_ms: float=0.0
+    test_results: Dict[str, TestStatus] = field(default_factory=dict)
 
 
 @dataclass
@@ -150,7 +150,7 @@ class CoverageGap:
     line_start: int
     line_end: int
     coverage_type: CoverageType
-    suggestion: str = ""
+    suggestion: str=""
 
 
 @dataclass
@@ -158,8 +158,8 @@ class TestFactory:
     """A test data factory for generating test data."""
     name: str
     return_type: str
-    parameters: Dict[str, str] = field(default_factory = dict)
-    generator: str = ""  # Code snippet or function name
+    parameters: Dict[str, str] = field(default_factory=dict)
+    generator: str=""  # Code snippet or function name
 
 
 # ========== Session 7 Dataclasses ==========
@@ -169,10 +169,10 @@ class TestFactory:
 class VisualRegressionConfig:
     """Configuration for visual regression testing."""
     baseline_dir: str
-    diff_threshold: float = 0.01
-    browsers: List[BrowserType] = field(default_factory = lambda: [BrowserType.CHROME])
-    viewport_sizes: List[Tuple[int, int]] = field(default_factory = lambda: [(1920, 1080)])
-    ignore_regions: List[Tuple[int, int, int, int]] = field(default_factory = list)
+    diff_threshold: float=0.01
+    browsers: List[BrowserType] = field(default_factory=lambda: [BrowserType.CHROME])
+    viewport_sizes: List[Tuple[int, int]] = field(default_factory=lambda: [(1920, 1080)])
+    ignore_regions: List[Tuple[int, int, int, int]] = field(default_factory=list)
 
 
 @dataclass
@@ -181,20 +181,20 @@ class ContractTest:
     consumer: str
     provider: str
     endpoint: str
-    request_schema: Dict[str, Any] = field(default_factory = dict)
-    response_schema: Dict[str, Any] = field(default_factory = dict)
-    status_code: int = 200
+    request_schema: Dict[str, Any] = field(default_factory=dict)
+    response_schema: Dict[str, Any] = field(default_factory=dict)
+    status_code: int=200
 
 
 @dataclass
 class TestEnvironment:
     """Test environment configuration."""
     name: str
-    base_url: str = ""
-    variables: Dict[str, str] = field(default_factory = dict)
-    fixtures: List[str] = field(default_factory = list)
-    setup_commands: List[str] = field(default_factory = list)
-    teardown_commands: List[str] = field(default_factory = list)
+    base_url: str=""
+    variables: Dict[str, str] = field(default_factory=dict)
+    fixtures: List[str] = field(default_factory=list)
+    setup_commands: List[str] = field(default_factory=list)
+    teardown_commands: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -202,10 +202,10 @@ class ExecutionTrace:
     """Test execution trace for replay."""
     test_id: str
     timestamp: str
-    steps: List[Dict[str, Any]] = field(default_factory = list)
-    variables: Dict[str, Any] = field(default_factory = dict)
-    stdout: str = ""
-    stderr: str = ""
+    steps: List[Dict[str, Any]] = field(default_factory=list)
+    variables: Dict[str, Any] = field(default_factory=dict)
+    stdout: str=""
+    stderr: str=""
 
 
 @dataclass
@@ -213,18 +213,18 @@ class TestDependency:
     """A dependency for test injection."""
     name: str
     dependency_type: str
-    implementation: str = ""
-    mock_behavior: str = ""
+    implementation: str=""
+    mock_behavior: str=""
 
 
 @dataclass
 class CrossBrowserConfig:
     """Cross-browser testing configuration."""
     browsers: List[BrowserType]
-    parallel: bool = True
-    headless: bool = True
-    timeout_seconds: int = 30
-    retries: int = 1
+    parallel: bool=True
+    headless: bool=True
+    timeout_seconds: int=30
+    retries: int=1
 
 
 @dataclass
@@ -235,7 +235,7 @@ class AggregatedResult:
     status: TestStatus
     duration_ms: float
     timestamp: str
-    metadata: Dict[str, Any] = field(default_factory = dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -247,7 +247,7 @@ class Mutation:
     operator: MutationOperator
     original_code: str
     mutated_code: str
-    killed: bool = False
+    killed: bool=False
 
 
 @dataclass
@@ -256,8 +256,8 @@ class GeneratedTest:
     name: str
     specification: str
     generated_code: str
-    confidence: float = 0.0
-    validated: bool = False
+    confidence: float=0.0
+    validated: bool=False
 
 
 @dataclass
@@ -268,7 +268,7 @@ class TestProfile:
     memory_peak_mb: float
     io_operations: int
     function_calls: int
-    timestamp: str = ""
+    timestamp: str=""
 
 
 @dataclass
@@ -276,9 +276,9 @@ class ScheduleSlot:
     """A scheduled time slot for test execution."""
     start_time: str
     end_time: str
-    tests: List[str] = field(default_factory = list)
-    workers: int = 1
-    priority: TestPriority = TestPriority.MEDIUM
+    tests: List[str] = field(default_factory=list)
+    workers: int=1
+    priority: TestPriority=TestPriority.MEDIUM
 
 
 # ========== Session 7 Helper Classes ==========
@@ -302,7 +302,7 @@ class VisualRegressionTester:
         Args:
             config: The configuration to use.
         """
-        self.config = config
+        self.config=config
         self.baselines: Dict[str, str] = {}  # component_id -> hash
         self.results: List[Dict[str, Any]] = []
         self._diffs: Dict[str, float] = {}
@@ -322,7 +322,7 @@ class VisualRegressionTester:
             Hash of the captured image.
         """
         # Simulated capture
-        image_hash = hashlib.md5(
+        image_hash=hashlib.md5(
             f"{component_id}:{screenshot_path}".encode()
         ).hexdigest()
         self.baselines[component_id] = image_hash
@@ -342,18 +342,18 @@ class VisualRegressionTester:
         Returns:
             Comparison result with diff percentage.
         """
-        baseline = self.baselines.get(component_id)
+        baseline=self.baselines.get(component_id)
         if not baseline:
             return {"error": "No baseline found", "passed": False}
 
         # Simulated comparison
-        current_hash = hashlib.md5(current_screenshot.encode()).hexdigest()
-        diff = 0.0 if current_hash == baseline else 0.05  # Simulated diff
+        current_hash=hashlib.md5(current_screenshot.encode()).hexdigest()
+        diff=0.0 if current_hash == baseline else 0.05  # Simulated diff
 
         self._diffs[component_id] = diff
-        passed = diff <= self.config.diff_threshold
+        passed=diff <= self.config.diff_threshold
 
-        result = {
+        result={
             "component_id": component_id,
             "diff_percentage": diff,
             "threshold": self.config.diff_threshold,
@@ -368,11 +368,11 @@ class VisualRegressionTester:
         Returns:
             Markdown report of visual differences.
         """
-        report = ["# Visual Regression Report\n"]
+        report=["# Visual Regression Report\n"]
         report.append(f"Threshold: {self.config.diff_threshold * 100}%\n")
 
-        passed = [r for r in self.results if r.get("passed")]
-        failed = [r for r in self.results if not r.get("passed")]
+        passed=[r for r in self.results if r.get("passed")]
+        failed=[r for r in self.results if not r.get("passed")]
 
         report.append(f"## Summary: {len(passed)} passed, {len(failed)} failed\n")
 
@@ -380,7 +380,7 @@ class VisualRegressionTester:
             report.append("## Failed Components\n")
             for r in failed:
                 report.append(
-                    f"- **{r['component_id']}**: {r['diff_percentage']*100:.2f}% diff"
+                    f"- **{r['component_id']}**: {r['diff_percentage'] * 100:.2f}% diff"
                 )
 
         return "\n".join(report)
@@ -394,9 +394,9 @@ class VisualRegressionTester:
         Returns:
             Results for each browser.
         """
-        results = []
+        results=[]
         for browser in self.config.browsers:
-            result = {
+            result={
                 "browser": browser.value,
                 "component_id": component_id,
                 "passed": True  # Simulated
@@ -428,7 +428,7 @@ class ContractTestRunner:
         endpoint: str,
         request_schema: Optional[Dict[str, Any]] = None,
         response_schema: Optional[Dict[str, Any]] = None,
-        status_code: int = 200
+        status_code: int=200
     ) -> ContractTest:
         """Add a contract definition.
 
@@ -443,14 +443,14 @@ class ContractTestRunner:
         Returns:
             The created contract.
         """
-        contract_id = f"{consumer}:{provider}:{endpoint}"
-        contract = ContractTest(
-            consumer = consumer,
-            provider = provider,
-            endpoint = endpoint,
-            request_schema = request_schema or {},
-            response_schema = response_schema or {},
-            status_code = status_code
+        contract_id=f"{consumer}:{provider}:{endpoint}"
+        contract=ContractTest(
+            consumer=consumer,
+            provider=provider,
+            endpoint=endpoint,
+            request_schema=request_schema or {},
+            response_schema=response_schema or {},
+            status_code=status_code
         )
         self.contracts[contract_id] = contract
         return contract
@@ -469,17 +469,17 @@ class ContractTestRunner:
         Returns:
             Verification result.
         """
-        contract = self.contracts.get(contract_id)
+        contract=self.contracts.get(contract_id)
         if not contract:
             return {"error": "Contract not found", "valid": False}
 
         # Simple schema validation (in real impl use jsonschema)
-        valid = all(
+        valid=all(
             k in actual_request
             for k in contract.request_schema.keys()
         )
 
-        result = {
+        result={
             "contract_id": contract_id,
             "side": "consumer",
             "valid": valid
@@ -503,17 +503,17 @@ class ContractTestRunner:
         Returns:
             Verification result.
         """
-        contract = self.contracts.get(contract_id)
+        contract=self.contracts.get(contract_id)
         if not contract:
             return {"error": "Contract not found", "valid": False}
 
-        status_match = actual_status == contract.status_code
-        schema_valid = all(
+        status_match=actual_status == contract.status_code
+        schema_valid=all(
             k in actual_response
             for k in contract.response_schema.keys()
         )
 
-        result = {
+        result={
             "contract_id": contract_id,
             "side": "provider",
             "valid": status_match and schema_valid,
@@ -542,8 +542,8 @@ class ContractTestRunner:
         Returns:
             JSON string in Pact format.
         """
-        contracts = self.get_contracts_for_consumer(consumer)
-        pact = {
+        contracts=self.get_contracts_for_consumer(consumer)
+        pact={
             "consumer": {"name": consumer},
             "provider": {"name": contracts[0].provider if contracts else ""},
             "interactions": [{
@@ -551,7 +551,7 @@ class ContractTestRunner:
                 "response": {"status": c.status_code}
             } for c in contracts]
         }
-        return json.dumps(pact, indent = 2)
+        return json.dumps(pact, indent=2)
 
 
 class TestSuiteOptimizer:
@@ -576,7 +576,7 @@ class TestSuiteOptimizer:
         Args:
             tests: List of tests to optimize.
         """
-        self.tests = tests
+        self.tests=tests
 
     def add_coverage(self, test_id: str, covered_lines: Set[str]) -> None:
         """Add coverage data for a test.
@@ -593,7 +593,7 @@ class TestSuiteOptimizer:
         Returns:
             List of redundant test IDs.
         """
-        redundant = []
+        redundant=[]
 
         for test_id, coverage in self.coverage_map.items():
             # Check if this test's coverage is subset of others combined
@@ -613,19 +613,19 @@ class TestSuiteOptimizer:
         Returns:
             List of (test_a, test_b, overlap_percentage) tuples.
         """
-        overlaps = []
+        overlaps=[]
 
-        test_ids = list(self.coverage_map.keys())
+        test_ids=list(self.coverage_map.keys())
         for i, id_a in enumerate(test_ids):
-            for id_b in test_ids[i+1:]:
-                cov_a = self.coverage_map[id_a]
-                cov_b = self.coverage_map[id_b]
+            for id_b in test_ids[i + 1:]:
+                cov_a=self.coverage_map[id_a]
+                cov_b=self.coverage_map[id_b]
 
                 if not cov_a or not cov_b:
                     continue
 
-                intersection = cov_a & cov_b
-                overlap = len(intersection) / min(len(cov_a), len(cov_b))
+                intersection=cov_a & cov_b
+                overlap=len(intersection) / min(len(cov_a), len(cov_b))
 
                 if overlap > 0.8:  # 80% overlap threshold
                     overlaps.append((id_a, id_b, overlap))
@@ -638,7 +638,7 @@ class TestSuiteOptimizer:
         Returns:
             List of removal suggestions with reasons.
         """
-        suggestions = []
+        suggestions=[]
 
         # Redundant tests
         for test_id in self.find_redundant_tests():
@@ -650,13 +650,13 @@ class TestSuiteOptimizer:
 
         # High overlap tests (keep the one with more coverage)
         for id_a, id_b, overlap in self.find_overlapping_tests():
-            cov_a = len(self.coverage_map.get(id_a, set()))
-            cov_b = len(self.coverage_map.get(id_b, set()))
-            remove = id_a if cov_a < cov_b else id_b
+            cov_a=len(self.coverage_map.get(id_a, set()))
+            cov_b=len(self.coverage_map.get(id_b, set()))
+            remove=id_a if cov_a < cov_b else id_b
 
             suggestions.append({
                 "test_id": remove,
-                "reason": f"overlaps {overlap*100:.0f}% with {id_a if remove == id_b else id_b}",
+                "reason": f"overlaps {overlap * 100:.0f}% with {id_a if remove == id_b else id_b}",
                 "confidence": 0.7
             })
 
@@ -683,7 +683,7 @@ class EnvironmentProvisioner:
     def register_environment(
         self,
         name: str,
-        base_url: str = "",
+        base_url: str="",
         variables: Optional[Dict[str, str]] = None,
         fixtures: Optional[List[str]] = None,
         setup_commands: Optional[List[str]] = None,
@@ -702,13 +702,13 @@ class EnvironmentProvisioner:
         Returns:
             The registered environment.
         """
-        env = TestEnvironment(
-            name = name,
-            base_url = base_url,
-            variables = variables or {},
-            fixtures = fixtures or [],
-            setup_commands = setup_commands or [],
-            teardown_commands = teardown_commands or []
+        env=TestEnvironment(
+            name=name,
+            base_url=base_url,
+            variables=variables or {},
+            fixtures=fixtures or [],
+            setup_commands=setup_commands or [],
+            teardown_commands=teardown_commands or []
         )
         self.environments[name] = env
         self.active[name] = False
@@ -724,7 +724,7 @@ class EnvironmentProvisioner:
         Returns:
             Provisioning result.
         """
-        env = self.environments.get(name)
+        env=self.environments.get(name)
         if not env:
             return {"error": "Environment not found", "success": False}
 
@@ -751,7 +751,7 @@ class EnvironmentProvisioner:
         Returns:
             Teardown result.
         """
-        env = self.environments.get(name)
+        env=self.environments.get(name)
         if not env:
             return {"error": "Environment not found", "success": False}
 
@@ -771,7 +771,7 @@ class EnvironmentProvisioner:
         return [name for name, active in self.active.items() if active]
 
     def get_logs(self, name: str) -> List[str]:
-        """Get setup/teardown logs for an environment.
+        """Get setup / teardown logs for an environment.
 
         Args:
             name: The environment name.
@@ -807,12 +807,12 @@ class ExecutionReplayer:
         Returns:
             The execution trace being recorded.
         """
-        trace = ExecutionTrace(
-            test_id = test_id,
-            timestamp = datetime.now().isoformat()
+        trace=ExecutionTrace(
+            test_id=test_id,
+            timestamp=datetime.now().isoformat()
         )
         self.traces[test_id] = trace
-        self._current_recording = test_id
+        self._current_recording=test_id
         return trace
 
     def record_step(
@@ -829,9 +829,9 @@ class ExecutionReplayer:
         if not self._current_recording:
             return
 
-        trace = self.traces.get(self._current_recording)
+        trace=self.traces.get(self._current_recording)
         if trace:
-            step = {
+            step={
                 "index": len(trace.steps),
                 "timestamp": datetime.now().isoformat(),
                 "action": action,
@@ -848,15 +848,15 @@ class ExecutionReplayer:
         if not self._current_recording:
             return None
 
-        trace = self.traces.get(self._current_recording)
-        self._current_recording = None
+        trace=self.traces.get(self._current_recording)
+        self._current_recording=None
         return trace
 
     def replay(
         self,
         test_id: str,
-        mode: ExecutionMode = ExecutionMode.FULL_REPLAY,
-        breakpoint_step: int = -1
+        mode: ExecutionMode=ExecutionMode.FULL_REPLAY,
+        breakpoint_step: int=-1
     ) -> List[Dict[str, Any]]:
         """Replay a recorded execution.
 
@@ -868,11 +868,11 @@ class ExecutionReplayer:
         Returns:
             List of replayed steps.
         """
-        trace = self.traces.get(test_id)
+        trace=self.traces.get(test_id)
         if not trace:
             return []
 
-        replayed = []
+        replayed=[]
         for i, step in enumerate(trace.steps):
             if mode == ExecutionMode.BREAKPOINT and i == breakpoint_step:
                 break
@@ -899,7 +899,7 @@ class ExecutionReplayer:
         Returns:
             The step data or None.
         """
-        trace = self.traces.get(test_id)
+        trace=self.traces.get(test_id)
         if trace and 0 <= step_index < len(trace.steps):
             return trace.steps[step_index]
         return None
@@ -913,7 +913,7 @@ class ExecutionReplayer:
         Returns:
             JSON string of the trace.
         """
-        trace = self.traces.get(test_id)
+        trace=self.traces.get(test_id)
         if not trace:
             return "{}"
 
@@ -922,7 +922,7 @@ class ExecutionReplayer:
             "timestamp": trace.timestamp,
             "steps": trace.steps,
             "variables": trace.variables
-        }, indent = 2)
+        }, indent=2)
 
 
 class DependencyInjector:
@@ -946,27 +946,27 @@ class DependencyInjector:
         self,
         name: str,
         dependency_type: str,
-        implementation: str = "",
-        mock_behavior: str = "",
-        scope: str = "function"
+        implementation: str="",
+        mock_behavior: str="",
+        scope: str="function"
     ) -> TestDependency:
         """Register a dependency.
 
         Args:
             name: Dependency name.
             dependency_type: Type of the dependency.
-            implementation: Implementation code/reference.
+            implementation: Implementation code / reference.
             mock_behavior: Mock behavior if mocking.
             scope: Scope (function, class, module, session).
 
         Returns:
             The registered dependency.
         """
-        dep = TestDependency(
-            name = name,
-            dependency_type = dependency_type,
-            implementation = implementation,
-            mock_behavior = mock_behavior
+        dep=TestDependency(
+            name=name,
+            dependency_type=dependency_type,
+            implementation=implementation,
+            mock_behavior=mock_behavior
         )
         self.dependencies[name] = dep
         self._scopes[name] = scope
@@ -1008,7 +1008,7 @@ class DependencyInjector:
         if name in self.overrides:
             return self.overrides[name]
 
-        dep = self.dependencies.get(name)
+        dep=self.dependencies.get(name)
         if not dep:
             return None
 
@@ -1024,13 +1024,13 @@ class DependencyInjector:
         Returns:
             Fixture code string.
         """
-        dep = self.dependencies.get(name)
+        dep=self.dependencies.get(name)
         if not dep:
             return ""
 
-        scope = self._scopes.get(name, "function")
+        scope=self._scopes.get(name, "function")
         return (
-            f"@pytest.fixture(scope = '{scope}')\n"
+            f"@pytest.fixture(scope='{scope}')\n"
             f"def {name}() -> {dep.dependency_type}:\n"
             f"    \"\"\"{name} fixture.\"\"\"\n"
             f"    {dep.implementation or 'pass'}\n"
@@ -1042,7 +1042,7 @@ class DependencyInjector:
         Returns:
             All fixtures as code string.
         """
-        fixtures = []
+        fixtures=[]
         for name in self.dependencies:
             fixtures.append(self.get_fixture_code(name))
         return "\n".join(fixtures)
@@ -1065,7 +1065,7 @@ class CrossBrowserRunner:
         Args:
             config: The configuration to use.
         """
-        self.config = config
+        self.config=config
         self.results: Dict[BrowserType, List[Dict[str, Any]]] = {
             b: [] for b in config.browsers
         }
@@ -1106,21 +1106,21 @@ class CrossBrowserRunner:
         Returns:
             Results for each browser.
         """
-        results = {}
+        results={}
 
         for browser in self.config.browsers:
             self.setup_driver(browser)
 
-            retries = 0
-            passed = False
+            retries=0
+            passed=False
 
             while retries <= self.config.retries and not passed:
                 try:
-                    passed = test_code()
+                    passed=test_code()
                 except Exception:
                     retries += 1
 
-            result = {
+            result={
                 "test": test_name,
                 "passed": passed,
                 "retries": retries,
@@ -1142,7 +1142,7 @@ class CrossBrowserRunner:
         summary: Dict[str, Any] = {"browsers": {}}
 
         for browser, results in self.results.items():
-            passed = sum(1 for r in results if r.get("passed"))
+            passed=sum(1 for r in results if r.get("passed"))
             summary["browsers"][browser.value] = {
                 "total": len(results),
                 "passed": passed,
@@ -1187,13 +1187,13 @@ class ResultAggregator:
         Returns:
             The aggregated result.
         """
-        result = AggregatedResult(
-            source = source,
-            test_name = test_name,
-            status = status,
-            duration_ms = duration_ms,
-            timestamp = datetime.now().isoformat(),
-            metadata = metadata or {}
+        result=AggregatedResult(
+            source=source,
+            test_name=test_name,
+            status=status,
+            duration_ms=duration_ms,
+            timestamp=datetime.now().isoformat(),
+            metadata=metadata or {}
         )
         self.results.append(result)
 
@@ -1213,19 +1213,19 @@ class ResultAggregator:
             Number of results imported.
         """
         try:
-            data = json.loads(json_report)
-            count = 0
+            data=json.loads(json_report)
+            count=0
             for test in data.get("tests", []):
-                status_map = {
+                status_map={
                     "passed": TestStatus.PASSED,
                     "failed": TestStatus.FAILED,
                     "skipped": TestStatus.SKIPPED
                 }
                 self.add_result(
-                    source = TestSourceType.PYTEST,
-                    test_name = test.get("nodeid", ""),
-                    status = status_map.get(test.get("outcome", ""), TestStatus.ERROR),
-                    duration_ms = test.get("duration", 0) * 1000
+                    source=TestSourceType.PYTEST,
+                    test_name=test.get("nodeid", ""),
+                    status=status_map.get(test.get("outcome", ""), TestStatus.ERROR),
+                    duration_ms=test.get("duration", 0) * 1000
                 )
                 count += 1
             return count
@@ -1238,10 +1238,10 @@ class ResultAggregator:
         Returns:
             Summary statistics.
         """
-        total = len(self.results)
-        passed = sum(1 for r in self.results if r.status == TestStatus.PASSED)
-        failed = sum(1 for r in self.results if r.status == TestStatus.FAILED)
-        total_duration = sum(r.duration_ms for r in self.results)
+        total=len(self.results)
+        passed=sum(1 for r in self.results if r.status == TestStatus.PASSED)
+        failed=sum(1 for r in self.results if r.status == TestStatus.FAILED)
+        total_duration=sum(r.duration_ms for r in self.results)
 
         return {
             "total_tests": total,
@@ -1266,7 +1266,7 @@ class ResultAggregator:
                 "status": r.status.value,
                 "duration_ms": r.duration_ms
             } for r in self.results]
-        }, indent = 2)
+        }, indent=2)
 
 
 class MutationTester:
@@ -1299,44 +1299,44 @@ class MutationTester:
         Returns:
             List of generated mutations.
         """
-        mutations = []
-        lines = source_code.split("\n")
+        mutations=[]
+        lines=source_code.split("\n")
 
         for i, line in enumerate(lines, 1):
             # Arithmetic mutations
             if "+" in line:
-                mut_id = hashlib.md5(f"{file_path}:{i}:+->-".encode()).hexdigest()[:8]
+                mut_id=hashlib.md5(f"{file_path}:{i}:+->-".encode()).hexdigest()[:8]
                 mutations.append(Mutation(
-                    id = mut_id,
-                    file_path = file_path,
-                    line_number = i,
-                    operator = MutationOperator.ARITHMETIC,
-                    original_code = line,
-                    mutated_code = line.replace("+", "-", 1)
+                    id=mut_id,
+                    file_path=file_path,
+                    line_number=i,
+                    operator=MutationOperator.ARITHMETIC,
+                    original_code=line,
+                    mutated_code=line.replace("+", "-", 1)
                 ))
 
             # Relational mutations
             if "==" in line:
-                mut_id = hashlib.md5(f"{file_path}:{i}:==->!=".encode()).hexdigest()[:8]
+                mut_id=hashlib.md5(f"{file_path}:{i}:==->!=".encode()).hexdigest()[:8]
                 mutations.append(Mutation(
-                    id = mut_id,
-                    file_path = file_path,
-                    line_number = i,
-                    operator = MutationOperator.RELATIONAL,
-                    original_code = line,
-                    mutated_code = line.replace("==", "!=", 1)
+                    id=mut_id,
+                    file_path=file_path,
+                    line_number=i,
+                    operator=MutationOperator.RELATIONAL,
+                    original_code=line,
+                    mutated_code=line.replace("==", "!=", 1)
                 ))
 
             # Logical mutations
             if " and " in line:
-                mut_id = hashlib.md5(f"{file_path}:{i}:and->or".encode()).hexdigest()[:8]
+                mut_id=hashlib.md5(f"{file_path}:{i}:and->or".encode()).hexdigest()[:8]
                 mutations.append(Mutation(
-                    id = mut_id,
-                    file_path = file_path,
-                    line_number = i,
-                    operator = MutationOperator.LOGICAL,
-                    original_code = line,
-                    mutated_code = line.replace(" and ", " or ", 1)
+                    id=mut_id,
+                    file_path=file_path,
+                    line_number=i,
+                    operator=MutationOperator.LOGICAL,
+                    original_code=line,
+                    mutated_code=line.replace(" and ", " or ", 1)
                 ))
 
         self.mutations.extend(mutations)
@@ -1352,7 +1352,7 @@ class MutationTester:
         self.results[mutation_id] = killed
         for mut in self.mutations:
             if mut.id == mutation_id:
-                mut.killed = killed
+                mut.killed=killed
                 break
 
     def get_mutation_score(self) -> float:
@@ -1364,7 +1364,7 @@ class MutationTester:
         if not self.mutations:
             return 0.0
 
-        killed = sum(1 for m in self.mutations if m.killed)
+        killed=sum(1 for m in self.mutations if m.killed)
         return (killed / len(self.mutations)) * 100
 
     def get_surviving_mutations(self) -> List[Mutation]:
@@ -1381,11 +1381,11 @@ class MutationTester:
         Returns:
             Markdown report.
         """
-        report = ["# Mutation Testing Report\n"]
+        report=["# Mutation Testing Report\n"]
         report.append(f"Total mutations: {len(self.mutations)}")
         report.append(f"Mutation score: {self.get_mutation_score():.1f}%\n")
 
-        surviving = self.get_surviving_mutations()
+        surviving=self.get_surviving_mutations()
         if surviving:
             report.append("## Surviving Mutations\n")
             for mut in surviving[:10]:  # Limit to first 10
@@ -1425,8 +1425,8 @@ class TestGenerator:
         self,
         specification: str,
         function_name: str,
-        input_type: str = "Any",
-        output_type: str = "Any"
+        input_type: str="Any",
+        output_type: str="Any"
     ) -> GeneratedTest:
         """Generate test from specification.
 
@@ -1439,10 +1439,10 @@ class TestGenerator:
         Returns:
             The generated test.
         """
-        test_name = f"test_{function_name}_{len(self.generated)}"
+        test_name=f"test_{function_name}_{len(self.generated)}"
 
         # Simple template-based generation
-        code = (
+        code=(
             f"def {test_name}():\n"
             f"    \"\"\"{specification}\"\"\"\n"
             f"    # TODO: Implement test for {function_name}\n"
@@ -1451,11 +1451,11 @@ class TestGenerator:
             f"    pass\n"
         )
 
-        generated = GeneratedTest(
-            name = test_name,
-            specification = specification,
-            generated_code = code,
-            confidence = 0.6
+        generated=GeneratedTest(
+            name=test_name,
+            specification=specification,
+            generated_code=code,
+            confidence=0.6
         )
         self.generated.append(generated)
         return generated
@@ -1474,23 +1474,23 @@ class TestGenerator:
         Returns:
             The generated test.
         """
-        test_name = f"test_{function_name}_parametrized"
+        test_name=f"test_{function_name}_parametrized"
 
-        params = ", ".join(str(tc) for tc in test_cases)
-        code = (
+        params=", ".join(str(tc) for tc in test_cases)
+        code=(
             f"@pytest.mark.parametrize('input_val,expected', [\n"
             f"    {params}\n"
             f"])\n"
             f"def {test_name}(input_val, expected):\n"
-            f"    result = {function_name}(input_val)\n"
+            f"    result={function_name}(input_val)\n"
             f"    assert result == expected\n"
         )
 
-        generated = GeneratedTest(
-            name = test_name,
-            specification = f"Parametrized test for {function_name}",
-            generated_code = code,
-            confidence = 0.8
+        generated=GeneratedTest(
+            name=test_name,
+            specification=f"Parametrized test for {function_name}",
+            generated_code=code,
+            confidence=0.8
         )
         self.generated.append(generated)
         return generated
@@ -1509,7 +1509,7 @@ class TestGenerator:
 
         try:
             ast.parse(self.generated[test_id].generated_code)
-            self.generated[test_id].validated = True
+            self.generated[test_id].validated=True
             return True
         except SyntaxError:
             return False
@@ -1520,7 +1520,7 @@ class TestGenerator:
         Returns:
             Combined test code.
         """
-        validated = [g for g in self.generated if g.validated]
+        validated=[g for g in self.generated if g.validated]
         return "\n\n".join(g.generated_code for g in validated)
 
 
@@ -1553,18 +1553,18 @@ class TestCaseMinimizer:
             Minimized string that still causes failure.
         """
         # Delta debugging approach
-        current = input_str
+        current=input_str
 
         while len(current) > 1:
             # Try removing half
-            mid = len(current) // 2
-            left = current[:mid]
-            right = current[mid:]
+            mid=len(current) // 2
+            left=current[:mid]
+            right=current[mid:]
 
             if test_fn(left):
-                current = left
+                current=left
             elif test_fn(right):
-                current = right
+                current=right
             else:
                 # Can't reduce further at this granularity
                 break
@@ -1591,14 +1591,14 @@ class TestCaseMinimizer:
         Returns:
             Minimized list that still causes failure.
         """
-        current = input_list.copy()
+        current=input_list.copy()
 
         # Try removing each element
-        i = 0
+        i=0
         while i < len(current):
-            candidate = current[:i] + current[i+1:]
+            candidate=current[:i] + current[i + 1:]
             if test_fn(candidate):
-                current = candidate
+                current=candidate
             else:
                 i += 1
 
@@ -1618,8 +1618,8 @@ class TestCaseMinimizer:
         if not self.history:
             return {"total": 0}
 
-        reductions = [h.get("reduction", 0) for h in self.history if "reduction" in h]
-        avg_reduction = sum(reductions) / len(reductions) if reductions else 0
+        reductions=[h.get("reduction", 0) for h in self.history if "reduction" in h]
+        avg_reduction=sum(reductions) / len(reductions) if reductions else 0
 
         return {
             "total_minimizations": len(self.history),
@@ -1653,36 +1653,36 @@ class TestProfiler:
     def stop_profiling(
         self,
         test_id: str,
-        memory_peak_mb: float = 0.0,
-        io_operations: int = 0,
-        function_calls: int = 0
+        memory_peak_mb: float=0.0,
+        io_operations: int=0,
+        function_calls: int=0
     ) -> TestProfile:
         """Stop profiling and record results.
 
         Args:
             test_id: The test identifier.
             memory_peak_mb: Peak memory usage.
-            io_operations: Number of I/O operations.
+            io_operations: Number of I / O operations.
             function_calls: Number of function calls.
 
         Returns:
             The test profile.
         """
-        start = self._start_times.pop(test_id, time.time())
-        cpu_time = (time.time() - start) * 1000  # ms
+        start=self._start_times.pop(test_id, time.time())
+        cpu_time=(time.time() - start) * 1000  # ms
 
-        profile = TestProfile(
-            test_id = test_id,
-            cpu_time_ms = cpu_time,
-            memory_peak_mb = memory_peak_mb,
-            io_operations = io_operations,
-            function_calls = function_calls,
-            timestamp = datetime.now().isoformat()
+        profile=TestProfile(
+            test_id=test_id,
+            cpu_time_ms=cpu_time,
+            memory_peak_mb=memory_peak_mb,
+            io_operations=io_operations,
+            function_calls=function_calls,
+            timestamp=datetime.now().isoformat()
         )
         self.profiles[test_id] = profile
         return profile
 
-    def get_slowest_tests(self, limit: int = 10) -> List[TestProfile]:
+    def get_slowest_tests(self, limit: int=10) -> List[TestProfile]:
         """Get the slowest tests.
 
         Args:
@@ -1691,14 +1691,14 @@ class TestProfiler:
         Returns:
             List of slowest test profiles.
         """
-        sorted_profiles = sorted(
+        sorted_profiles=sorted(
             self.profiles.values(),
             key=lambda p: p.cpu_time_ms,
-            reverse = True
+            reverse=True
         )
         return sorted_profiles[:limit]
 
-    def get_memory_heavy_tests(self, limit: int = 10) -> List[TestProfile]:
+    def get_memory_heavy_tests(self, limit: int=10) -> List[TestProfile]:
         """Get tests with highest memory usage.
 
         Args:
@@ -1707,10 +1707,10 @@ class TestProfiler:
         Returns:
             List of memory-heavy test profiles.
         """
-        sorted_profiles = sorted(
+        sorted_profiles=sorted(
             self.profiles.values(),
             key=lambda p: p.memory_peak_mb,
-            reverse = True
+            reverse=True
         )
         return sorted_profiles[:limit]
 
@@ -1720,7 +1720,7 @@ class TestProfiler:
         Returns:
             Markdown report.
         """
-        report = ["# Test Profiling Report\n"]
+        report=["# Test Profiling Report\n"]
         report.append(f"Total profiled: {len(self.profiles)}\n")
 
         report.append("## Slowest Tests\n")
@@ -1744,13 +1744,13 @@ class TestScheduler:
         workers: Available workers.
     """
 
-    def __init__(self, num_workers: int = 4) -> None:
+    def __init__(self, num_workers: int=4) -> None:
         """Initialize test scheduler.
 
         Args:
             num_workers: Number of available workers.
         """
-        self.num_workers = num_workers
+        self.num_workers=num_workers
         self.schedule: List[ScheduleSlot] = []
         self._test_durations: Dict[str, float] = {}
 
@@ -1767,7 +1767,7 @@ class TestScheduler:
         self,
         tests: List[str],
         start_time: str,
-        strategy: str = "load_balanced"
+        strategy: str="load_balanced"
     ) -> List[ScheduleSlot]:
         """Create a test execution schedule.
 
@@ -1801,31 +1801,31 @@ class TestScheduler:
             Scheduled slots.
         """
         # Sort by duration (longest first for better balancing)
-        sorted_tests = sorted(
+        sorted_tests=sorted(
             tests,
             key=lambda t: self._test_durations.get(t, 1000),
-            reverse = True
+            reverse=True
         )
 
         # Distribute across workers
         worker_loads: List[List[str]] = [[] for _ in range(self.num_workers)]
-        worker_times = [0.0] * self.num_workers
+        worker_times=[0.0] * self.num_workers
 
         for test in sorted_tests:
             # Find worker with least load
-            min_worker = worker_times.index(min(worker_times))
+            min_worker=worker_times.index(min(worker_times))
             worker_loads[min_worker].append(test)
             worker_times[min_worker] += self._test_durations.get(test, 1000)
 
         # Create slots
-        self.schedule = []
+        self.schedule=[]
         for i, tests_for_worker in enumerate(worker_loads):
             if tests_for_worker:
-                slot = ScheduleSlot(
-                    start_time = start_time,
-                    end_time = "",  # Would calculate based on duration
-                    tests = tests_for_worker,
-                    workers = 1
+                slot=ScheduleSlot(
+                    start_time=start_time,
+                    end_time="",  # Would calculate based on duration
+                    tests=tests_for_worker,
+                    workers=1
                 )
                 self.schedule.append(slot)
 
@@ -1845,13 +1845,13 @@ class TestScheduler:
         Returns:
             Scheduled slots.
         """
-        slot = ScheduleSlot(
-            start_time = start_time,
-            end_time = "",
-            tests = tests,
-            workers = 1
+        slot=ScheduleSlot(
+            start_time=start_time,
+            end_time="",
+            tests=tests,
+            workers=1
         )
-        self.schedule = [slot]
+        self.schedule=[slot]
         return self.schedule
 
     def estimate_total_duration(self) -> float:
@@ -1863,12 +1863,12 @@ class TestScheduler:
         if not self.schedule:
             return 0.0
 
-        max_duration = 0.0
+        max_duration=0.0
         for slot in self.schedule:
-            slot_duration = sum(
+            slot_duration=sum(
                 self._test_durations.get(t, 1000) for t in slot.tests
             )
-            max_duration = max(max_duration, slot_duration)
+            max_duration=max(max_duration, slot_duration)
 
         return max_duration
 
@@ -1878,7 +1878,7 @@ class TestScheduler:
         Returns:
             Dictionary of worker index to test list.
         """
-        assignments = {}
+        assignments={}
         for i, slot in enumerate(self.schedule):
             assignments[i] = slot.tests
         return assignments
@@ -1902,9 +1902,9 @@ class TestsAgent(BaseAgent):
         self._factories: Dict[str, TestFactory] = {}
 
         # Configuration
-        self._flakiness_threshold: float = 0.1  # 10% failure rate = flaky
-        self._parallel_enabled: bool = False
-        self._max_parallel: int = 4
+        self._flakiness_threshold: float=0.1  # 10% failure rate=flaky
+        self._parallel_enabled: bool=False
+        self._max_parallel: int=4
 
     # ========== Test Management ==========
 
@@ -1913,20 +1913,20 @@ class TestsAgent(BaseAgent):
         name: str,
         file_path: str,
         line_number: int,
-        priority: TestPriority = TestPriority.MEDIUM,
+        priority: TestPriority=TestPriority.MEDIUM,
         tags: Optional[List[str]] = None,
         dependencies: Optional[List[str]] = None
     ) -> TestCase:
         """Add a new test case."""
-        test_id = hashlib.md5(f"{name}:{file_path}".encode()).hexdigest()[:8]
-        test = TestCase(
-            id = test_id,
-            name = name,
-            file_path = file_path,
-            line_number = line_number,
-            priority = priority,
-            tags = tags or [],
-            dependencies = dependencies or []
+        test_id=hashlib.md5(f"{name}:{file_path}".encode()).hexdigest()[:8]
+        test=TestCase(
+            id=test_id,
+            name=name,
+            file_path=file_path,
+            line_number=line_number,
+            priority=priority,
+            tags=tags or [],
+            dependencies=dependencies or []
         )
         self._tests.append(test)
         return test
@@ -1958,16 +1958,16 @@ class TestsAgent(BaseAgent):
         return sorted(
             self._tests,
             key=lambda t: (t.priority.value, t.failure_count),
-            reverse = True
+            reverse=True
         )
 
     def calculate_priority_score(self, test: TestCase) -> float:
         """Calculate a priority score for a test."""
-        score = test.priority.value * 20
+        score=test.priority.value * 20
 
         # Boost score for tests that fail often
         if test.run_count > 0:
-            failure_rate = test.failure_count / test.run_count
+            failure_rate=test.failure_count / test.run_count
             score += failure_rate * 30
 
         # Boost score for faster tests (they're cheaper to run)
@@ -1990,29 +1990,29 @@ class TestsAgent(BaseAgent):
         if test.run_count < 5:
             return 0.0  # Not enough data
 
-        failure_rate = test.failure_count / test.run_count
+        failure_rate=test.failure_count / test.run_count
         return failure_rate
 
     def detect_flaky_tests(self) -> List[TestCase]:
         """Detect tests that are flaky."""
-        flaky = []
+        flaky=[]
         for test in self._tests:
-            score = self.calculate_flakiness(test)
+            score=self.calculate_flakiness(test)
             if score > self._flakiness_threshold:
-                test.flakiness_score = score
-                test.status = TestStatus.FLAKY
+                test.flakiness_score=score
+                test.status=TestStatus.FLAKY
                 flaky.append(test)
         return flaky
 
     def set_flakiness_threshold(self, threshold: float) -> None:
         """Set the flakiness threshold."""
-        self._flakiness_threshold = max(0.0, min(1.0, threshold))
+        self._flakiness_threshold=max(0.0, min(1.0, threshold))
 
     def quarantine_flaky_test(self, test_id: str) -> bool:
         """Quarantine a flaky test by marking it for skip."""
-        test = self.get_test_by_id(test_id)
+        test=self.get_test_by_id(test_id)
         if test:
-            test.priority = TestPriority.SKIP
+            test.priority=TestPriority.SKIP
             test.tags.append("quarantined")
             return True
         return False
@@ -2024,16 +2024,16 @@ class TestsAgent(BaseAgent):
         file_path: str,
         line_start: int,
         line_end: int,
-        coverage_type: CoverageType = CoverageType.LINE,
-        suggestion: str = ""
+        coverage_type: CoverageType=CoverageType.LINE,
+        suggestion: str=""
     ) -> CoverageGap:
         """Add a coverage gap."""
-        gap = CoverageGap(
-            file_path = file_path,
-            line_start = line_start,
-            line_end = line_end,
-            coverage_type = coverage_type,
-            suggestion = suggestion
+        gap=CoverageGap(
+            file_path=file_path,
+            line_start=line_start,
+            line_end=line_end,
+            coverage_type=coverage_type,
+            suggestion=suggestion
         )
         self._coverage_gaps.append(gap)
         return gap
@@ -2062,14 +2062,14 @@ class TestsAgent(BaseAgent):
         name: str,
         return_type: str,
         parameters: Optional[Dict[str, str]] = None,
-        generator: str = ""
+        generator: str=""
     ) -> TestFactory:
         """Add a test data factory."""
-        factory = TestFactory(
-            name = name,
-            return_type = return_type,
-            parameters = parameters or {},
-            generator = generator
+        factory=TestFactory(
+            name=name,
+            return_type=return_type,
+            parameters=parameters or {},
+            generator=generator
         )
         self._factories[name] = factory
         return factory
@@ -2084,7 +2084,7 @@ class TestsAgent(BaseAgent):
 
     def generate_factory_code(self, factory: TestFactory) -> str:
         """Generate code for a factory function."""
-        params = ", ".join(f"{k}: {v}" for k, v in factory.parameters.items())
+        params=", ".join(f"{k}: {v}" for k, v in factory.parameters.items())
         return (
             f"def {factory.name}({params}) -> {factory.return_type}:\n"
             f"    \"\"\"Factory for creating {factory.return_type} instances.\"\"\"\n"
@@ -2096,37 +2096,37 @@ class TestsAgent(BaseAgent):
     def record_test_run(
         self,
         test_results: Dict[str, TestStatus],
-        duration_ms: float = 0.0
+        duration_ms: float=0.0
     ) -> TestRun:
         """Record a test execution run."""
-        run_id = hashlib.md5(
+        run_id=hashlib.md5(
             f"{datetime.now().isoformat()}:{len(test_results)}".encode()
         ).hexdigest()[:8]
 
-        passed = sum(1 for s in test_results.values() if s == TestStatus.PASSED)
-        failed = sum(1 for s in test_results.values() if s == TestStatus.FAILED)
-        skipped = sum(1 for s in test_results.values() if s == TestStatus.SKIPPED)
-        errors = sum(1 for s in test_results.values() if s == TestStatus.ERROR)
+        passed=sum(1 for s in test_results.values() if s == TestStatus.PASSED)
+        failed=sum(1 for s in test_results.values() if s == TestStatus.FAILED)
+        skipped=sum(1 for s in test_results.values() if s == TestStatus.SKIPPED)
+        errors=sum(1 for s in test_results.values() if s == TestStatus.ERROR)
 
-        run = TestRun(
-            id = run_id,
-            timestamp = datetime.now().isoformat(),
-            total_tests = len(test_results),
-            passed = passed,
-            failed = failed,
-            skipped = skipped,
-            errors = errors,
-            duration_ms = duration_ms,
-            test_results = test_results
+        run=TestRun(
+            id=run_id,
+            timestamp=datetime.now().isoformat(),
+            total_tests=len(test_results),
+            passed=passed,
+            failed=failed,
+            skipped=skipped,
+            errors=errors,
+            duration_ms=duration_ms,
+            test_results=test_results
         )
         self._test_runs.append(run)
 
         # Update individual test statistics
         for test_name, status in test_results.items():
-            test = self.get_test_by_name(test_name)
+            test=self.get_test_by_name(test_name)
             if test:
                 test.run_count += 1
-                test.last_run = run.timestamp
+                test.last_run=run.timestamp
                 if status == TestStatus.FAILED:
                     test.failure_count += 1
 
@@ -2142,14 +2142,14 @@ class TestsAgent(BaseAgent):
 
     # ========== Parallel Execution ==========
 
-    def enable_parallel(self, max_workers: int = 4) -> None:
+    def enable_parallel(self, max_workers: int=4) -> None:
         """Enable parallel test execution."""
-        self._parallel_enabled = True
-        self._max_parallel = max_workers
+        self._parallel_enabled=True
+        self._max_parallel=max_workers
 
     def disable_parallel(self) -> None:
         """Disable parallel test execution."""
-        self._parallel_enabled = False
+        self._parallel_enabled=False
 
     def is_parallel_enabled(self) -> bool:
         """Check if parallel execution is enabled."""
@@ -2168,7 +2168,7 @@ class TestsAgent(BaseAgent):
             if test.id in assigned:
                 continue
 
-            group = [test]
+            group=[test]
             assigned.add(test.id)
 
             # Find other tests that can run with this one
@@ -2189,7 +2189,7 @@ class TestsAgent(BaseAgent):
 
     def generate_test_documentation(self) -> str:
         """Generate documentation for all tests."""
-        docs = ["# Test Documentation\n"]
+        docs=["# Test Documentation\n"]
 
         # Summary
         docs.append("## Summary\n")
@@ -2201,20 +2201,20 @@ class TestsAgent(BaseAgent):
         # Tests by priority
         docs.append("## Tests by Priority\n")
         for priority in TestPriority:
-            tests = self.get_tests_by_priority(priority)
+            tests=self.get_tests_by_priority(priority)
             if tests:
                 docs.append(f"### {priority.name}\n")
                 for test in tests:
-                    status_icon = "✓" if test.status == TestStatus.PASSED else "✗"
+                    status_icon="✓" if test.status == TestStatus.PASSED else "✗"
                     docs.append(f"- [{status_icon}] `{test.name}` (line {test.line_number})")
                 docs.append("")
 
         return '\n'.join(docs)
 
-    def export_tests(self, format: str = "json") -> str:
+    def export_tests(self, format: str="json") -> str:
         """Export tests to various formats."""
         if format == "json":
-            data = [{
+            data=[{
                 "id": t.id,
                 "name": t.name,
                 "file": t.file_path,
@@ -2224,29 +2224,29 @@ class TestsAgent(BaseAgent):
                 "flakiness": t.flakiness_score,
                 "tags": t.tags
             } for t in self._tests]
-            return json.dumps(data, indent = 2)
+            return json.dumps(data, indent=2)
         return ""
 
     # ========== Statistics ==========
 
     def calculate_statistics(self) -> Dict[str, Any]:
         """Calculate test statistics."""
-        total = len(self._tests)
+        total=len(self._tests)
         if total == 0:
             return {"total_tests": 0}
 
-        by_status = {}
+        by_status={}
         for status in TestStatus:
-            count = len([t for t in self._tests if t.status == status])
+            count=len([t for t in self._tests if t.status == status])
             by_status[status.name] = count
 
-        by_priority = {}
+        by_priority={}
         for priority in TestPriority:
-            count = len([t for t in self._tests if t.priority == priority])
+            count=len([t for t in self._tests if t.priority == priority])
             by_priority[priority.name] = count
 
-        avg_duration = sum(t.duration_ms for t in self._tests) / total if total > 0 else 0
-        flaky_count = len([t for t in self._tests if t.flakiness_score > self._flakiness_threshold])
+        avg_duration=sum(t.duration_ms for t in self._tests) / total if total > 0 else 0
+        flaky_count=len([t for t in self._tests if t.flakiness_score > self._flakiness_threshold])
 
         return {
             "total_tests": total,
@@ -2275,22 +2275,22 @@ class TestsAgent(BaseAgent):
         if not self.file_path.name.startswith('test_'):
             return None
 
-        source_name = self.file_path.name[5:]  # Remove test_ prefix
+        source_name=self.file_path.name[5:]  # Remove test_ prefix
         # Try to find source file in common locations
         # 1. Same directory
-        source_path = self.file_path.parent / source_name
+        source_path=self.file_path.parent / source_name
         if source_path.exists():
             return source_path
 
         # 2. Parent directory (if tests are in tests/)
         if self.file_path.parent.name == 'tests':
-            source_path = self.file_path.parent.parent / source_name
+            source_path=self.file_path.parent.parent / source_name
             if source_path.exists():
                 return source_path
 
-        # 3. scripts/agent directory (specific to this project structure)
-        agent_dir = self.file_path.parent.parent / 'scripts' / 'agent'
-        source_path = agent_dir / source_name
+        # 3. scripts / agent directory (specific to this project structure)
+        agent_dir=self.file_path.parent.parent / 'scripts' / 'agent'
+        source_path=agent_dir / source_name
         if source_path.exists():
             return source_path
 
@@ -2306,10 +2306,10 @@ class TestsAgent(BaseAgent):
             return False
 
     def _validate_test_structure(self, content: str) -> bool:
-        """Validate pytest/unittest-specific patterns."""
+        """Validate pytest / unittest-specific patterns."""
         try:
-            tree = ast.parse(content)
-            issues = []
+            tree=ast.parse(content)
+            issues=[]
 
             # Check 1: All test functions follow naming convention
             for node in ast.walk(tree):
@@ -2319,18 +2319,18 @@ class TestsAgent(BaseAgent):
                         pass
 
             # Check 2: Tests contain assertions
-            test_funcs = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name.startswith('test_')]
+            test_funcs=[n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name.startswith('test_')]
             for func in test_funcs:
-                has_assert = any(isinstance(n, ast.Assert) for n in ast.walk(func))
+                has_assert=any(isinstance(n, ast.Assert) for n in ast.walk(func))
                 # Simple check for pytest.raises context manager
-                has_raises = False
+                has_raises=False
                 for node in ast.walk(func):
                     if isinstance(node, ast.With):
                         for item in node.items:
                             if isinstance(item.context_expr, ast.Call):
                                 if isinstance(item.context_expr.func, ast.Attribute):
                                     if item.context_expr.func.attr == 'raises':
-                                        has_raises = True
+                                        has_raises=True
 
                 if not (has_assert or has_raises):
                     issues.append(f"Test '{func.name}' lacks assertions")
@@ -2352,20 +2352,20 @@ class TestsAgent(BaseAgent):
         """
         logging.info(f"Improving tests for {self.file_path}")
         # Enhance prompt with source code context if available
-        source_path = self._find_source_file()
-        enhanced_prompt = prompt
+        source_path=self._find_source_file()
+        enhanced_prompt=prompt
         if source_path and source_path.exists():
             logging.debug(f"Using source file context: {source_path}")
             try:
-                source_content = source_path.read_text(encoding = 'utf-8')
+                source_content=source_path.read_text(encoding='utf-8')
                 # Truncate source content if it's too large to avoid context window issues
                 # Assuming ~4 chars per token, 8000 tokens ~ 32000 chars.
                 # Leave room for prompt and response.
-                max_source_chars = 20000
+                max_source_chars=20000
                 if len(source_content) > max_source_chars:
-                    source_content = source_content[:max_source_chars] + "\n# ... (truncated)"
+                    source_content=source_content[:max_source_chars] + "\n# ... (truncated)"
 
-                enhanced_prompt = (
+                enhanced_prompt=(
                     f"{prompt}\n\n"
                     f"# Source Code being tested ({source_path.name}):\n"
                     f"```python\n{source_content}\n```\n\n"
@@ -2374,12 +2374,12 @@ class TestsAgent(BaseAgent):
             except Exception as e:
                 logging.warning(f"Failed to read source file context: {e}")
 
-        new_content = super().improve_content(enhanced_prompt)
+        new_content=super().improve_content(enhanced_prompt)
 
         # Validate syntax
         if not self._validate_syntax(new_content):
             logging.error("Generated tests failed syntax validation. Reverting.")
-            self.current_content = self.previous_content
+            self.current_content=self.previous_content
             return self.previous_content
 
         logging.debug("Syntax validation passed")
@@ -2391,12 +2391,12 @@ class TestsAgent(BaseAgent):
 
     def update_file(self) -> None:
         """Write the improved content back to the file (no markdown fixing for test files)."""
-        self.file_path.write_text(self.current_content, encoding = 'utf-8')
+        self.file_path.write_text(self.current_content, encoding='utf-8')
 
 
 # Create main function using the helper
 
-main = create_main_function(
+main=create_main_function(
     TestsAgent,
     'Tests Agent: Updates code file test suites',
     'Path to the tests file (e.g., test_file.py)'

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 """
 Tests for agent_tests.py improvements.
 
@@ -15,7 +15,7 @@ class TestParametrizedTestGeneration(unittest.TestCase):
 
     def test_generate_parametrized_tests(self):
         """Test generating parametrized tests."""
-        test_cases = [
+        test_cases=[
             ("input1", "expected1"),
             ("input2", "expected2"),
             ("input3", "expected3"),
@@ -28,19 +28,19 @@ class TestParametrizedTestGeneration(unittest.TestCase):
 
     def test_parametrized_numeric_values(self):
         """Test parametrized tests with numeric values."""
-        values = [1, 2, 3, -1, 0, 100]
+        values=[1, 2, 3, -1, 0, 100]
         for val in values:
             assert isinstance(val, int)
 
     def test_parametrized_string_values(self):
         """Test parametrized tests with string values."""
-        strings = ["abc", "def", "xyz", ""]
+        strings=["abc", "def", "xyz", ""]
         for s in strings:
             assert isinstance(s, str)
 
     def test_parametrized_edge_cases(self):
         """Test parametrized tests with edge cases."""
-        edge_cases = [0, -1, 999999, "", None]
+        edge_cases=[0, -1, 999999, "", None]
         for case in edge_cases:
             # Each should be handled
             assert case is not None or case is None
@@ -51,7 +51,7 @@ class TestFixtureGeneration(unittest.TestCase):
 
     def test_generate_setup_fixture(self):
         """Test generating setup fixture."""
-        setup_code = """
+        setup_code="""
 def setup_test_data():
     return {"key": "value"}
 """
@@ -60,8 +60,8 @@ def setup_test_data():
 
     def test_generate_mock_fixture(self):
         """Test generating mock fixture."""
-        mock = MagicMock()
-        mock.method.return_value = "test_value"
+        mock=MagicMock()
+        mock.method.return_value="test_value"
         assert mock.method() == "test_value"
 
     def test_generate_temporary_fixture(self):
@@ -72,9 +72,9 @@ def setup_test_data():
 
     def test_fixture_with_teardown(self):
         """Test fixture with teardown."""
-        resource_created = True
+        resource_created=True
         # cleanup would happen here
-        resource_cleaned = True
+        resource_cleaned=True
         assert resource_created and resource_cleaned
 
 
@@ -96,10 +96,10 @@ class TestCoverageGuidedGeneration(unittest.TestCase):
 
     def test_identify_uncovered_lines(self):
         """Test identifying uncovered lines."""
-        code = """
+        code="""
 def process(data):
     if data:
-        result = transform(data)  # Line 4
+        result=transform(data)  # Line 4
         log(result)  # Line 5 - may be uncovered
     return None
 """
@@ -142,7 +142,7 @@ class TestErrorPathTesting(unittest.TestCase):
 
     def test_test_error_recovery(self):
         """Test error recovery paths."""
-        errors_handled = []
+        errors_handled=[]
 
         def safe_operation():
             try:
@@ -151,7 +151,7 @@ class TestErrorPathTesting(unittest.TestCase):
                 errors_handled.append("error_recovered")
                 return "recovered"
 
-        result = safe_operation()
+        result=safe_operation()
         assert result == "recovered"
         assert len(errors_handled) == 1
 
@@ -177,38 +177,38 @@ class TestPerformanceTestGeneration(unittest.TestCase):
     def test_generate_timing_test(self):
         """Test generating timing tests."""
         import time
-        start = time.time()
+        start=time.time()
         # Operation
-        x = sum(range(1000))
-        end = time.time()
+        x=sum(range(1000))
+        end=time.time()
 
-        elapsed = end - start
+        elapsed=end - start
         assert elapsed < 1.0  # Should be fast
 
     def test_generate_throughput_test(self):
         """Test generating throughput tests."""
-        iterations = 1000
-        success_count = 0
+        iterations=1000
+        success_count=0
 
         for i in range(iterations):
             success_count += 1
 
-        throughput = success_count / iterations
+        throughput=success_count / iterations
         assert throughput == 1.0
 
     def test_generate_memory_test(self):
         """Test generating memory tests."""
         import sys
-        data = [i for i in range(1000)]
-        size = sys.getsizeof(data)
+        data=[i for i in range(1000)]
+        size=sys.getsizeof(data)
         assert size > 0
 
     def test_benchmark_comparison(self):
         """Test benchmark comparison."""
-        impl_a_time = 10.0
-        impl_b_time = 15.0
+        impl_a_time=10.0
+        impl_b_time=15.0
 
-        improvement = (impl_b_time - impl_a_time) / impl_a_time * 100
+        improvement=(impl_b_time - impl_a_time) / impl_a_time * 100
         assert improvement > 0  # impl_a is faster
 
 
@@ -218,31 +218,31 @@ class TestIntegrationTestGeneration(unittest.TestCase):
     def test_generate_component_integration(self):
         """Test generating component integration tests."""
         # Simulate components
-        component_a = {"status": "ok"}
-        component_b = {"status": "ok"}
+        component_a={"status": "ok"}
+        component_b={"status": "ok"}
 
-        integrated = component_a["status"] == component_b["status"]
+        integrated=component_a["status"] == component_b["status"]
         assert integrated
 
     def test_generate_database_integration(self):
         """Test generating database integration tests."""
         # Simulate database
-        database = {"users": [{"id": 1, "name": "Alice"}]}
+        database={"users": [{"id": 1, "name": "Alice"}]}
 
         assert len(database["users"]) > 0
         assert database["users"][0]["name"] == "Alice"
 
     def test_generate_api_integration(self):
         """Test generating API integration tests."""
-        mock_response = {"status": 200, "data": {"result": "ok"}}
+        mock_response={"status": 200, "data": {"result": "ok"}}
 
         assert mock_response["status"] == 200
         assert "result" in mock_response["data"]
 
     def test_generate_workflow_test(self):
         """Test generating workflow integration tests."""
-        steps = ["init", "process", "finalize"]
-        completed = []
+        steps=["init", "process", "finalize"]
+        completed=[]
 
         for step in steps:
             completed.append(step)
@@ -255,7 +255,7 @@ class TestPropertyBasedTesting(unittest.TestCase):
 
     def test_property_list_length(self):
         """Test list length property."""
-        test_lists = [[], [1], [1, 2, 3], list(range(100))]
+        test_lists=[[], [1], [1, 2, 3], list(range(100))]
 
         for lst in test_lists:
             # Property: length >= 0
@@ -263,22 +263,22 @@ class TestPropertyBasedTesting(unittest.TestCase):
 
     def test_property_reversibility(self):
         """Test reversibility property."""
-        data = [1, 2, 3, 4, 5]
-        reversed_data = list(reversed(data))
-        double_reversed = list(reversed(reversed_data))
+        data=[1, 2, 3, 4, 5]
+        reversed_data=list(reversed(data))
+        double_reversed=list(reversed(reversed_data))
 
         # Property: reverse(reverse(x)) == x
         assert double_reversed == data
 
     def test_property_commutativity(self):
         """Test commutativity property."""
-        a, b = 5, 3
+        a, b=5, 3
         # Property: a + b == b + a
         assert a + b == b + a
 
     def test_property_associativity(self):
         """Test associativity property."""
-        a, b, c = 2, 3, 4
+        a, b, c=2, 3, 4
         # Property: (a + b) + c == a + (b + c)
         assert (a + b) + c == a + (b + c)
 
@@ -287,7 +287,7 @@ class TestPropertyBasedTesting(unittest.TestCase):
         def abs_val(x):
             return abs(x)
 
-        value = -5
+        value=-5
         # Property: abs(abs(x)) == abs(x)
         assert abs_val(abs_val(value)) == abs_val(value)
 
@@ -307,21 +307,21 @@ class TestMultipleFrameworkSupport(unittest.TestCase):
         self.assertEqual(1 + 1, 2)
 
     def test_nose_style_setup_teardown(self):
-        """Test nose-style setup/teardown."""
-        setup_called = False
-        teardown_called = False
+        """Test nose-style setup / teardown."""
+        setup_called=False
+        teardown_called=False
 
         # Simulating nose behavior
-        setup_called = True
+        setup_called=True
         assert setup_called
-        teardown_called = True
+        teardown_called=True
         assert teardown_called
 
     def test_framework_detection(self):
         """Test detecting test framework."""
         import sys
-        has_pytest = 'pytest' in sys.modules
-        has_unittest = 'unittest' in sys.modules
+        has_pytest='pytest' in sys.modules
+        has_unittest='unittest' in sys.modules
 
         # At least one should be available
         assert has_unittest or has_pytest
@@ -332,7 +332,7 @@ class TestTestDataGeneration(unittest.TestCase):
 
     def test_generate_user_data(self):
         """Test generating user test data."""
-        users = [
+        users=[
             {"id": 1, "name": "Alice", "email": "alice@example.com"},
             {"id": 2, "name": "Bob", "email": "bob@example.com"},
         ]
@@ -343,14 +343,14 @@ class TestTestDataGeneration(unittest.TestCase):
     def test_generate_numeric_patterns(self):
         """Test generating numeric patterns."""
         # Boundary values
-        boundaries = [0, 1, -1, 999999, -999999]
+        boundaries=[0, 1, -1, 999999, -999999]
 
         for boundary in boundaries:
             assert isinstance(boundary, int)
 
     def test_generate_string_patterns(self):
         """Test generating string patterns."""
-        strings = ["", "a", "abc", "x" * 1000]
+        strings=["", "a", "abc", "x" * 1000]
 
         for s in strings:
             assert isinstance(s, str)
@@ -359,9 +359,9 @@ class TestTestDataGeneration(unittest.TestCase):
         """Test generating datetime patterns."""
         from datetime import datetime, timedelta
 
-        now = datetime.now()
-        past = now - timedelta(days=1)
-        future = now + timedelta(days=1)
+        now=datetime.now()
+        past=now - timedelta(days=1)
+        future=now + timedelta(days=1)
 
         assert past < now < future
 
@@ -371,22 +371,22 @@ class TestSnapshotTesting(unittest.TestCase):
 
     def test_snapshot_creation(self):
         """Test creating a snapshot."""
-        result = {"status": "ok", "data": [1, 2, 3]}
-        snapshot = result.copy()
+        result={"status": "ok", "data": [1, 2, 3]}
+        snapshot=result.copy()
 
         assert snapshot == result
 
     def test_snapshot_comparison(self):
         """Test comparing to snapshot."""
-        current = {"value": 100}
-        snapshot = {"value": 100}
+        current={"value": 100}
+        snapshot={"value": 100}
 
         assert current == snapshot
 
     def test_snapshot_update_detection(self):
         """Test detecting snapshot updates."""
-        old_snapshot = {"value": 100}
-        new_result = {"value": 110}
+        old_snapshot={"value": 100}
+        new_result={"value": 110}
 
         assert old_snapshot != new_result
 
@@ -396,21 +396,21 @@ class TestSecurityTestGeneration(unittest.TestCase):
 
     def test_owasp_sql_injection(self):
         """Test OWASP SQL injection pattern."""
-        user_input = "'; DROP TABLE users; --"
+        user_input="'; DROP TABLE users; --"
         # Should be sanitized
-        safe_input = user_input.replace("'", "''")
+        safe_input=user_input.replace("'", "''")
         assert "DROP TABLE" in safe_input
 
     def test_owasp_xss_prevention(self):
         """Test OWASP XSS prevention."""
-        user_input = "<script>alert('xss')</script>"
+        user_input="<script>alert('xss')</script>"
         # Should be escaped
-        safe_input = user_input.replace("<", "&lt;").replace(">", "&gt;")
-        assert "&lt;script&gt;" in safe_input
+        safe_input=user_input.replace("<", "&lt;").replace(">", "&gt;")
+        assert "&lt;script & gt;" in safe_input
 
     def test_owasp_csrf_protection(self):
         """Test OWASP CSRF protection."""
-        csrf_token = "abc123xyz"
+        csrf_token="abc123xyz"
         assert len(csrf_token) > 0
 
     def test_input_validation(self):
@@ -428,22 +428,22 @@ class TestMutationTesting(unittest.TestCase):
     def test_mutation_arithmetic(self):
         """Test mutation of arithmetic operations."""
         # Original: a + b
-        a, b = 5, 3
+        a, b=5, 3
 
         # Mutation: a - b
-        original = a + b  # 8
-        mutated = a - b   # 2
+        original=a + b  # 8
+        mutated=a - b   # 2
 
         assert original != mutated
 
     def test_mutation_comparison(self):
         """Test mutation of comparison operations."""
-        x = 5
+        x=5
 
         # Original: x > 3
-        original = x > 3  # True
+        original=x > 3  # True
         # Mutation: x < 3
-        mutated = x < 3   # False
+        mutated=x < 3   # False
 
         assert original != mutated
 
@@ -456,7 +456,7 @@ class TestMutationTesting(unittest.TestCase):
         assert add(2, 3) == 5
 
         # Mutated version (would fail)
-        # return a - b would give 2 - 3 = -1
+        # return a - b would give 2 - 3=-1
         assert add(2, 3) != -1
 
 
@@ -512,7 +512,7 @@ class TestIntegration(unittest.TestCase):
             return a + b
 
         # Generate tests
-        test_cases = [(2, 3, 5), (-1, 1, 0), (0, 0, 0)]
+        test_cases=[(2, 3, 5), (-1, 1, 0), (0, 0, 0)]
 
         for a, b, expected in test_cases:
             assert add(a, b) == expected

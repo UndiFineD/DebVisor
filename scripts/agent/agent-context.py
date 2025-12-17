@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,22 +50,22 @@ from base_agent import BaseAgent, create_main_function
 
 class ContextPriority(Enum):
     """Priority levels for context relevance."""
-    CRITICAL = 5
-    HIGH = 4
-    MEDIUM = 3
-    LOW = 2
-    MINIMAL = 1
+    CRITICAL=5
+    HIGH=4
+    MEDIUM=3
+    LOW=2
+    MINIMAL=1
 
 
 class FileCategory(Enum):
     """Categories for context files."""
-    CODE = "code"
-    DOCUMENTATION = "documentation"
-    CONFIGURATION = "configuration"
-    TEST = "test"
-    BUILD = "build"
-    DATA = "data"
-    OTHER = "other"
+    CODE="code"
+    DOCUMENTATION="documentation"
+    CONFIGURATION="configuration"
+    TEST="test"
+    BUILD="build"
+    DATA="data"
+    OTHER="other"
 
 
 @dataclass
@@ -75,15 +75,15 @@ class ContextTemplate:
     file_type: str
     sections: List[str]
     template_content: str
-    required_fields: List[str] = field(default_factory = list)
+    required_fields: List[str] = field(default_factory=list)
 
 
 @dataclass
 class ContextTag:
     """A tag for categorizing context."""
     name: str
-    description: str = ""
-    color: str = "#666666"
+    description: str=""
+    color: str="#666666"
     parent: Optional[str] = None
 
 
@@ -93,8 +93,8 @@ class ContextVersion:
     version: str
     timestamp: str
     content_hash: str
-    changes: List[str] = field(default_factory = list)
-    author: str = ""
+    changes: List[str] = field(default_factory=list)
+    author: str=""
 
 
 @dataclass
@@ -103,28 +103,28 @@ class ValidationRule:
     name: str
     pattern: str
     message: str
-    severity: str = "warning"
-    required: bool = False
+    severity: str="warning"
+    required: bool=False
 
 
 @dataclass
 class ContextAnnotation:
-    """An annotation/comment on context."""
+    """An annotation / comment on context."""
     id: str
     line_number: int
     content: str
-    author: str = ""
-    timestamp: str = ""
-    resolved: bool = False
+    author: str=""
+    timestamp: str=""
+    resolved: bool=False
 
 
 # Default templates for common file types
 DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
     "python": ContextTemplate(
-        name = "Python Module",
-        file_type = ".py",
-        sections = ["Purpose", "Classes", "Functions", "Dependencies", "Usage"],
-        template_content = """# Description: `{filename}`
+        name="Python Module",
+        file_type=".py",
+        sections=["Purpose", "Classes", "Functions", "Dependencies", "Usage"],
+        template_content="""# Description: `{filename}`
 
 ## Purpose
 [Describe the module's purpose]
@@ -143,13 +143,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 # Example usage
 ```
 """,
-        required_fields = ["Purpose"]
+        required_fields=["Purpose"]
     ),
     "javascript": ContextTemplate(
-        name = "JavaScript Module",
-        file_type = ".js",
-        sections = ["Purpose", "Exports", "Dependencies", "Usage"],
-        template_content = """# Description: `{filename}`
+        name="JavaScript Module",
+        file_type=".js",
+        sections=["Purpose", "Exports", "Dependencies", "Usage"],
+        template_content="""# Description: `{filename}`
 
 ## Purpose
 [Describe the module's purpose]
@@ -165,13 +165,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 // Example usage
 ```
 """,
-        required_fields = ["Purpose"]
+        required_fields=["Purpose"]
     ),
     "shell": ContextTemplate(
-        name = "Shell Script",
-        file_type = ".sh",
-        sections = ["Purpose", "Usage", "Arguments", "Environment Variables"],
-        template_content = """# Description: `{filename}`
+        name="Shell Script",
+        file_type=".sh",
+        sections=["Purpose", "Usage", "Arguments", "Environment Variables"],
+        template_content="""# Description: `{filename}`
 
 ## Purpose
 [Describe the script's purpose]
@@ -189,13 +189,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 ## Environment Variables
 [List required environment variables]
 """,
-        required_fields = ["Purpose", "Usage"]
+        required_fields=["Purpose", "Usage"]
     ),
     "config": ContextTemplate(
-        name = "Configuration File",
-        file_type = ".json/.yaml/.toml",
-        sections = ["Purpose", "Schema", "Options"],
-        template_content = """# Description: `{filename}`
+        name="Configuration File",
+        file_type=".json/.yaml/.toml",
+        sections=["Purpose", "Schema", "Options"],
+        template_content="""# Description: `{filename}`
 
 ## Purpose
 [Describe the configuration's purpose]
@@ -208,13 +208,13 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 |--------|------|---------|-------------|
 |        |      |         |             |
 """,
-        required_fields = ["Purpose"]
+        required_fields=["Purpose"]
     ),
     "test": ContextTemplate(
-        name = "Test File",
-        file_type = "_test.py/test_.py",
-        sections = ["Purpose", "Test Cases", "Fixtures", "Coverage"],
-        template_content = """# Description: `{filename}`
+        name="Test File",
+        file_type="_test.py / test_.py",
+        sections=["Purpose", "Test Cases", "Fixtures", "Coverage"],
+        template_content="""# Description: `{filename}`
 
 ## Purpose
 [Describe what this test file covers]
@@ -226,32 +226,32 @@ DEFAULT_TEMPLATES: Dict[str, ContextTemplate] = {
 [Describe test fixtures used]
 
 ## Coverage
-[Note which modules/functions are tested]
+[Note which modules / functions are tested]
 """,
-        required_fields = ["Purpose", "Test Cases"]
+        required_fields=["Purpose", "Test Cases"]
     ),
 }
 
 # Default validation rules
 DEFAULT_VALIDATION_RULES: List[ValidationRule] = [
     ValidationRule(
-        name = "has_purpose",
-        pattern = r"##\s*Purpose",
-        message = "Context should have a Purpose section",
-        severity = "error",
-        required = True
+        name="has_purpose",
+        pattern=r"##\s * Purpose",
+        message="Context should have a Purpose section",
+        severity="error",
+        required=True
     ),
     ValidationRule(
-        name = "no_empty_sections",
-        pattern = r"##\s*\w+\s*\n\s*\n##",
-        message = "Empty section detected",
-        severity = "warning"
+        name="no_empty_sections",
+        pattern=r"##\s*\w+\s*\n\s*\n##",
+        message="Empty section detected",
+        severity="warning"
     ),
     ValidationRule(
-        name = "valid_code_blocks",
-        pattern = r"```\w*\n[\s\S]*?```",
-        message = "Code blocks should have language identifier",
-        severity = "info"
+        name="valid_code_blocks",
+        pattern=r"```\w*\n[\s\S]*?```",
+        message="Code blocks should have language identifier",
+        severity="info"
     ),
 ]
 
@@ -261,49 +261,49 @@ DEFAULT_VALIDATION_RULES: List[ValidationRule] = [
 
 class SearchAlgorithm(Enum):
     """Algorithms for semantic search."""
-    KEYWORD = "keyword"
-    FUZZY = "fuzzy"
-    SEMANTIC = "semantic"
-    HYBRID = "hybrid"
+    KEYWORD="keyword"
+    FUZZY="fuzzy"
+    SEMANTIC="semantic"
+    HYBRID="hybrid"
 
 
 class ExportFormat(Enum):
     """Formats for context export."""
-    MARKDOWN = "markdown"
-    HTML = "html"
-    PDF = "pdf"
-    DOCX = "docx"
-    RST = "rst"
+    MARKDOWN="markdown"
+    HTML="html"
+    PDF="pdf"
+    DOCX="docx"
+    RST="rst"
 
 
 class InheritanceMode(Enum):
     """Modes for context inheritance."""
-    OVERRIDE = "override"
-    MERGE = "merge"
-    APPEND = "append"
+    OVERRIDE="override"
+    MERGE="merge"
+    APPEND="append"
 
 
 class VisualizationType(Enum):
     """Types of context visualization."""
-    DEPENDENCY_GRAPH = "dependency_graph"
-    CALL_HIERARCHY = "call_hierarchy"
-    FILE_TREE = "file_tree"
-    MIND_MAP = "mind_map"
+    DEPENDENCY_GRAPH="dependency_graph"
+    CALL_HIERARCHY="call_hierarchy"
+    FILE_TREE="file_tree"
+    MIND_MAP="mind_map"
 
 
 class ConflictResolution(Enum):
     """Strategies for merge conflict resolution."""
-    OURS = "ours"
-    THEIRS = "theirs"
-    MANUAL = "manual"
-    AUTO = "auto"
+    OURS="ours"
+    THEIRS="theirs"
+    MANUAL="manual"
+    AUTO="auto"
 
 
 class SharingPermission(Enum):
     """Permission levels for context sharing."""
-    READ_ONLY = "read_only"
-    READ_WRITE = "read_write"
-    ADMIN = "admin"
+    READ_ONLY="read_only"
+    READ_WRITE="read_write"
+    ADMIN="admin"
 
 
 # ========== Session 6 Dataclasses ==========
@@ -323,7 +323,7 @@ class SemanticSearchResult:
     file_path: str
     content_snippet: str
     similarity_score: float
-    context_type: str = ""
+    context_type: str=""
     line_range: Tuple[int, int] = (0, 0)
 
 
@@ -340,9 +340,9 @@ class CrossRepoContext:
     """
     repo_name: str
     repo_url: str
-    related_files: List[str] = field(default_factory = list)
-    similarity_score: float = 0.0
-    common_patterns: List[str] = field(default_factory = list)
+    related_files: List[str] = field(default_factory=list)
+    similarity_score: float=0.0
+    common_patterns: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -359,10 +359,10 @@ class ContextDiff:
     """
     version_from: str
     version_to: str
-    added_sections: List[str] = field(default_factory = list)
-    removed_sections: List[str] = field(default_factory = list)
-    modified_sections: List[str] = field(default_factory = list)
-    change_summary: str = ""
+    added_sections: List[str] = field(default_factory=list)
+    removed_sections: List[str] = field(default_factory=list)
+    modified_sections: List[str] = field(default_factory=list)
+    change_summary: str=""
 
 
 @dataclass
@@ -376,9 +376,9 @@ class InheritedContext:
         overrides: Sections that override parent.
     """
     parent_path: str
-    inherited_sections: List[str] = field(default_factory = list)
-    mode: InheritanceMode = InheritanceMode.MERGE
-    overrides: List[str] = field(default_factory = list)
+    inherited_sections: List[str] = field(default_factory=list)
+    mode: InheritanceMode=InheritanceMode.MERGE
+    overrides: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -393,8 +393,8 @@ class NLQueryResult:
     """
     query: str
     answer: str
-    relevant_contexts: List[str] = field(default_factory = list)
-    confidence: float = 0.0
+    relevant_contexts: List[str] = field(default_factory=list)
+    confidence: float=0.0
 
 
 @dataclass
@@ -409,8 +409,8 @@ class ExportedContext:
     """
     format: ExportFormat
     content: str
-    metadata: Dict[str, Any] = field(default_factory = dict)
-    created_at: str = ""
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    created_at: str=""
 
 
 @dataclass
@@ -424,9 +424,9 @@ class ContextRecommendation:
         confidence: Recommendation confidence.
     """
     source_file: str
-    suggested_sections: List[str] = field(default_factory = list)
-    reason: str = ""
-    confidence: float = 0.0
+    suggested_sections: List[str] = field(default_factory=list)
+    reason: str=""
+    confidence: float=0.0
 
 
 @dataclass
@@ -441,8 +441,8 @@ class GeneratedCode:
     """
     language: str
     code: str
-    context_used: List[str] = field(default_factory = list)
-    description: str = ""
+    context_used: List[str] = field(default_factory=list)
+    description: str=""
 
 
 @dataclass
@@ -457,8 +457,8 @@ class RefactoringSuggestion:
     """
     suggestion_type: str
     description: str
-    affected_files: List[str] = field(default_factory = list)
-    estimated_impact: str = "medium"
+    affected_files: List[str] = field(default_factory=list)
+    estimated_impact: str="medium"
 
 
 @dataclass
@@ -472,9 +472,9 @@ class VisualizationData:
         layout: Layout algorithm to use.
     """
     viz_type: VisualizationType
-    nodes: List[Dict[str, Any]] = field(default_factory = list)
-    edges: List[Tuple[str, str]] = field(default_factory = list)
-    layout: str = "hierarchical"
+    nodes: List[Dict[str, Any]] = field(default_factory=list)
+    edges: List[Tuple[str, str]] = field(default_factory=list)
+    layout: str="hierarchical"
 
 
 @dataclass
@@ -490,9 +490,9 @@ class SharedContext:
     """
     context_id: str
     owner: str
-    shared_with: List[str] = field(default_factory = list)
-    permission: SharingPermission = SharingPermission.READ_ONLY
-    last_sync: str = ""
+    shared_with: List[str] = field(default_factory=list)
+    permission: SharingPermission=SharingPermission.READ_ONLY
+    last_sync: str=""
 
 
 @dataclass
@@ -524,9 +524,9 @@ class BranchComparison:
     """
     branch_a: str
     branch_b: str
-    files_only_in_a: List[str] = field(default_factory = list)
-    files_only_in_b: List[str] = field(default_factory = list)
-    modified_files: List[str] = field(default_factory = list)
+    files_only_in_a: List[str] = field(default_factory=list)
+    files_only_in_b: List[str] = field(default_factory=list)
+    modified_files: List[str] = field(default_factory=list)
 
 
 # ========== Session 6 Helper Classes ==========
@@ -543,8 +543,8 @@ class SemanticSearchEngine:
         index: Index of embedded content.
 
     Example:
-        >>> engine = SemanticSearchEngine()
-        >>> results = engine.search("function that handles authentication")
+        >>> engine=SemanticSearchEngine()
+        >>> results=engine.search("function that handles authentication")
     """
 
     def __init__(self) -> None:
@@ -560,10 +560,10 @@ class SemanticSearchEngine:
             content: File content to index.
         """
         # Simplified embedding (in production, use actual embeddings)
-        words = set(content.lower().split())
+        words=set(content.lower().split())
         self.index[file_path] = [hash(w) % 1000 / 1000 for w in list(words)[:100]]
 
-    def search(self, query: str, algorithm: SearchAlgorithm = SearchAlgorithm.SEMANTIC) -> List[SemanticSearchResult]:
+    def search(self, query: str, algorithm: SearchAlgorithm=SearchAlgorithm.SEMANTIC) -> List[SemanticSearchResult]:
         """Search for related code.
 
         Args:
@@ -573,17 +573,17 @@ class SemanticSearchEngine:
         Returns:
             List of search results.
         """
-        self.results = []
-        query_words = set(query.lower().split())
+        self.results=[]
+        query_words=set(query.lower().split())
 
         for file_path, _ in self.index.items():
             # Simplified similarity calculation
-            score = len(query_words) / 10
+            score=len(query_words) / 10
             if score > 0.1:
                 self.results.append(SemanticSearchResult(
-                    file_path = file_path,
-                    content_snippet = f"Content from {file_path}",
-                    similarity_score = min(score, 1.0)
+                    file_path=file_path,
+                    content_snippet=f"Content from {file_path}",
+                    similarity_score=min(score, 1.0)
                 ))
 
         return sorted(self.results, key=lambda r: r.similarity_score, reverse=True)
@@ -596,9 +596,9 @@ class CrossRepoAnalyzer:
     across different repositories.
 
     Example:
-        >>> analyzer = CrossRepoAnalyzer()
-        >>> analyzer.add_repository("owner/repo", "https://github.com/owner/repo")
-        >>> results = analyzer.find_related_contexts("auth.py")
+        >>> analyzer=CrossRepoAnalyzer()
+        >>> analyzer.add_repository("owner / repo", "https://github.com / owner / repo")
+        >>> results=analyzer.find_related_contexts("auth.py")
     """
 
     def __init__(self) -> None:
@@ -615,7 +615,7 @@ class CrossRepoAnalyzer:
         Returns:
             Created CrossRepoContext.
         """
-        context = CrossRepoContext(repo_name = name, repo_url = url)
+        context=CrossRepoContext(repo_name=name, repo_url=url)
         self.repositories[name] = context
         return context
 
@@ -628,10 +628,10 @@ class CrossRepoAnalyzer:
         Returns:
             List of related cross-repo contexts.
         """
-        results = []
+        results=[]
         for name, repo in self.repositories.items():
             # Simplified matching
-            repo.similarity_score = 0.5
+            repo.similarity_score=0.5
             repo.related_files.append(file_path)
             results.append(repo)
         return results
@@ -643,16 +643,16 @@ class ContextDiffer:
     Provides detailed diff visualization between context versions.
 
     Example:
-        >>> differ = ContextDiffer()
-        >>> diff = differ.diff_versions(old_content, new_content)
+        >>> differ=ContextDiffer()
+        >>> diff=differ.diff_versions(old_content, new_content)
     """
 
     def diff_versions(
         self,
         content_from: str,
         content_to: str,
-        version_from: str = "v1",
-        version_to: str = "v2"
+        version_from: str="v1",
+        version_to: str="v2"
     ) -> ContextDiff:
         """Create diff between two content versions.
 
@@ -666,26 +666,26 @@ class ContextDiffer:
             ContextDiff with changes.
         """
         # Extract sections
-        sections_from = set(re.findall(r"##\s+(\w+)", content_from))
-        sections_to = set(re.findall(r"##\s+(\w+)", content_to))
+        sections_from=set(re.findall(r"##\s+(\w+)", content_from))
+        sections_to=set(re.findall(r"##\s+(\w+)", content_to))
 
-        added = list(sections_to - sections_from)
-        removed = list(sections_from - sections_to)
-        modified = []
+        added=list(sections_to - sections_from)
+        removed=list(sections_from - sections_to)
+        modified=[]
 
         # Check for modified content in common sections
-        common = sections_from & sections_to
+        common=sections_from & sections_to
         for section in common:
             if content_from.count(section) != content_to.count(section):
                 modified.append(section)
 
         return ContextDiff(
-            version_from = version_from,
-            version_to = version_to,
-            added_sections = added,
-            removed_sections = removed,
-            modified_sections = modified,
-            change_summary = f"Added {len(added)}, removed {len(removed)}, modified {len(modified)} sections"
+            version_from=version_from,
+            version_to=version_to,
+            added_sections=added,
+            removed_sections=removed,
+            modified_sections=modified,
+            change_summary=f"Added {len(added)}, removed {len(removed)}, modified {len(modified)} sections"
         )
 
 
@@ -696,8 +696,8 @@ class ContextInheritance:
     from parent contexts.
 
     Example:
-        >>> inheritance = ContextInheritance()
-        >>> inherited = inheritance.inherit_from("parent.description.md", "child.description.md")
+        >>> inheritance=ContextInheritance()
+        >>> inherited=inheritance.inherit_from("parent.description.md", "child.description.md")
     """
 
     def __init__(self) -> None:
@@ -708,7 +708,7 @@ class ContextInheritance:
         self,
         parent_path: str,
         child_path: str,
-        mode: InheritanceMode = InheritanceMode.MERGE
+        mode: InheritanceMode=InheritanceMode.MERGE
     ) -> InheritedContext:
         """Set up inheritance relationship.
 
@@ -720,9 +720,9 @@ class ContextInheritance:
         Returns:
             InheritedContext configuration.
         """
-        inherited = InheritedContext(
-            parent_path = parent_path,
-            mode = mode
+        inherited=InheritedContext(
+            parent_path=parent_path,
+            mode=mode
         )
         self.inheritance_map[child_path] = inherited
         return inherited
@@ -744,12 +744,12 @@ class ContextInheritance:
             return parent_content + "\n\n" + child_content
         else:  # MERGE
             # Simple merge: keep child sections, add missing from parent
-            child_sections = set(re.findall(r"##\s+(\w+)", child_content))
-            parent_sections = re.findall(r"(##\s+\w+.*?)(?=##|\Z)", parent_content, re.DOTALL)
+            child_sections=set(re.findall(r"##\s+(\w+)", child_content))
+            parent_sections=re.findall(r"(##\s+\w+.*?)(?=##|\Z)", parent_content, re.DOTALL)
 
-            result = child_content
+            result=child_content
             for section in parent_sections:
-                section_name = re.search(r"##\s+(\w+)", section)
+                section_name=re.search(r"##\s+(\w+)", section)
                 if section_name and section_name.group(1) not in child_sections:
                     result += "\n" + section.strip()
             return result
@@ -761,8 +761,8 @@ class NLQueryEngine:
     Provides natural language interface for searching context.
 
     Example:
-        >>> engine = NLQueryEngine()
-        >>> result = engine.query("How does authentication work?", contexts)
+        >>> engine=NLQueryEngine()
+        >>> result=engine.query("How does authentication work?", contexts)
     """
 
     def query(self, question: str, contexts: Dict[str, str]) -> NLQueryResult:
@@ -776,19 +776,19 @@ class NLQueryEngine:
             NLQueryResult with answer.
         """
         # Simplified NL query - in production, use LLM
-        relevant = []
-        keywords = question.lower().split()
+        relevant=[]
+        keywords=question.lower().split()
 
         for path, content in contexts.items():
-            content_lower = content.lower()
+            content_lower=content.lower()
             if any(kw in content_lower for kw in keywords):
                 relevant.append(path)
 
         return NLQueryResult(
-            query = question,
-            answer = f"Found {len(relevant)} relevant context files",
-            relevant_contexts = relevant,
-            confidence = 0.7 if relevant else 0.2
+            query=question,
+            answer=f"Found {len(relevant)} relevant context files",
+            relevant_contexts=relevant,
+            confidence=0.7 if relevant else 0.2
         )
 
 
@@ -798,8 +798,8 @@ class ContextExporter:
     Provides functionality to export context to various formats.
 
     Example:
-        >>> exporter = ContextExporter()
-        >>> exported = exporter.export(content, ExportFormat.HTML)
+        >>> exporter=ContextExporter()
+        >>> exported=exporter.export(content, ExportFormat.HTML)
     """
 
     def export(self, content: str, format: ExportFormat) -> ExportedContext:
@@ -812,34 +812,34 @@ class ContextExporter:
         Returns:
             ExportedContext with exported content.
         """
-        exported_content = content
+        exported_content=content
 
         if format == ExportFormat.HTML:
-            exported_content = self._to_html(content)
+            exported_content=self._to_html(content)
         elif format == ExportFormat.RST:
-            exported_content = self._to_rst(content)
+            exported_content=self._to_rst(content)
 
         return ExportedContext(
-            format = format,
-            content = exported_content,
-            created_at = datetime.now().isoformat()
+            format=format,
+            content=exported_content,
+            created_at=datetime.now().isoformat()
         )
 
     def _to_html(self, content: str) -> str:
         """Convert markdown to HTML."""
         # Simplified conversion
-        html = content
-        html = re.sub(r"^# (.+)$", r"<h1>\1</h1>", html, flags = re.M)
-        html = re.sub(r"^## (.+)$", r"<h2>\1</h2>", html, flags = re.M)
-        html = re.sub(r"^- (.+)$", r"<li>\1</li>", html, flags = re.M)
+        html=content
+        html=re.sub(r"^# (.+)$", r"<h1>\1</h1>", html, flags=re.M)
+        html=re.sub(r"^## (.+)$", r"<h2>\1</h2>", html, flags=re.M)
+        html=re.sub(r"^- (.+)$", r"<li>\1</li>", html, flags=re.M)
         return f"<html><body>{html}</body></html>"
 
     def _to_rst(self, content: str) -> str:
         """Convert markdown to RST."""
-        rst = content
+        rst=content
         # Convert headers
-        rst = re.sub(r"^# (.+)$", lambda m: m.group(1) + "\n" + "=" * len(m.group(1)), rst, flags=re.M)
-        rst = re.sub(r"^## (.+)$", lambda m: m.group(1) + "\n" + "-" * len(m.group(1)), rst, flags=re.M)
+        rst=re.sub(r"^# (.+)$", lambda m: m.group(1) + "\n" + "=" * len(m.group(1)), rst, flags=re.M)
+        rst=re.sub(r"^## (.+)$", lambda m: m.group(1) + "\n" + "-" * len(m.group(1)), rst, flags=re.M)
         return rst
 
 
@@ -849,8 +849,8 @@ class ContextRecommender:
     Analyzes similar files to suggest context improvements.
 
     Example:
-        >>> recommender = ContextRecommender()
-        >>> recommendations = recommender.recommend("auth.py", similar_contexts)
+        >>> recommender=ContextRecommender()
+        >>> recommendations=recommender.recommend("auth.py", similar_contexts)
     """
 
     def recommend(
@@ -867,23 +867,23 @@ class ContextRecommender:
         Returns:
             List of recommendations.
         """
-        recommendations = []
+        recommendations=[]
 
         # Analyze common sections in similar files
         section_counts: Dict[str, int] = {}
         for _, content in similar_contexts.items():
-            sections = re.findall(r"##\s+(\w+)", content)
+            sections=re.findall(r"##\s+(\w+)", content)
             for section in sections:
                 section_counts[section] = section_counts.get(section, 0) + 1
 
         # Recommend most common sections
-        common_sections = sorted(section_counts.items(), key=lambda x: x[1], reverse=True)
+        common_sections=sorted(section_counts.items(), key=lambda x: x[1], reverse=True)
         if common_sections:
             recommendations.append(ContextRecommendation(
-                source_file = list(similar_contexts.keys())[0] if similar_contexts else "",
-                suggested_sections = [s[0] for s in common_sections[:5]],
-                reason = "Common sections in similar files",
-                confidence = 0.8
+                source_file=list(similar_contexts.keys())[0] if similar_contexts else "",
+                suggested_sections=[s[0] for s in common_sections[:5]],
+                reason="Common sections in similar files",
+                confidence=0.8
             ))
 
         return recommendations
@@ -895,15 +895,15 @@ class CodeGenerator:
     Uses context information to generate relevant code.
 
     Example:
-        >>> generator = CodeGenerator()
-        >>> code = generator.generate("Create a login function", context)
+        >>> generator=CodeGenerator()
+        >>> code=generator.generate("Create a login function", context)
     """
 
     def generate(
         self,
         prompt: str,
         context: str,
-        language: str = "python"
+        language: str="python"
     ) -> GeneratedCode:
         """Generate code based on context.
 
@@ -916,13 +916,13 @@ class CodeGenerator:
             GeneratedCode with generated content.
         """
         # Simplified generation - in production, use LLM
-        code = f"# Generated for: {prompt}\n# Based on context\n\ndef generated_function():\n    pass"
+        code=f"# Generated for: {prompt}\n# Based on context\n\ndef generated_function():\n    pass"
 
         return GeneratedCode(
-            language = language,
-            code = code,
-            context_used = [context[:50] + "..."] if context else [],
-            description = prompt
+            language=language,
+            code=code,
+            context_used=[context[:50] + "..."] if context else [],
+            description=prompt
         )
 
 
@@ -932,8 +932,8 @@ class RefactoringAdvisor:
     Analyzes context to suggest code refactoring opportunities.
 
     Example:
-        >>> advisor = RefactoringAdvisor()
-        >>> suggestions = advisor.analyze(contexts)
+        >>> advisor=RefactoringAdvisor()
+        >>> suggestions=advisor.analyze(contexts)
     """
 
     def analyze(self, contexts: Dict[str, str]) -> List[RefactoringSuggestion]:
@@ -945,14 +945,14 @@ class RefactoringAdvisor:
         Returns:
             List of refactoring suggestions.
         """
-        suggestions = []
+        suggestions=[]
 
         # Look for duplicate descriptions (indicating code duplication)
         descriptions: Dict[str, List[str]] = {}
         for path, content in contexts.items():
-            purpose = re.search(r"##\s*Purpose\s*\n(.+?)(?=##|\Z)", content, re.DOTALL)
+            purpose=re.search(r"##\s * Purpose\s*\n(.+?)(?=##|\Z)", content, re.DOTALL)
             if purpose:
-                desc = purpose.group(1).strip()[:100]
+                desc=purpose.group(1).strip()[:100]
                 if desc not in descriptions:
                     descriptions[desc] = []
                 descriptions[desc].append(path)
@@ -960,10 +960,10 @@ class RefactoringAdvisor:
         for desc, files in descriptions.items():
             if len(files) > 1:
                 suggestions.append(RefactoringSuggestion(
-                    suggestion_type = "extract_common",
-                    description = f"Similar purpose found in {len(files)} files",
-                    affected_files = files,
-                    estimated_impact = "medium"
+                    suggestion_type="extract_common",
+                    description=f"Similar purpose found in {len(files)} files",
+                    affected_files=files,
+                    estimated_impact="medium"
                 ))
 
         return suggestions
@@ -975,8 +975,8 @@ class ContextVisualizer:
     Creates visual representations of context dependencies and hierarchies.
 
     Example:
-        >>> visualizer = ContextVisualizer()
-        >>> data = visualizer.create_dependency_graph(contexts)
+        >>> visualizer=ContextVisualizer()
+        >>> data=visualizer.create_dependency_graph(contexts)
     """
 
     def create_dependency_graph(self, contexts: Dict[str, str]) -> VisualizationData:
@@ -988,8 +988,8 @@ class ContextVisualizer:
         Returns:
             VisualizationData for rendering.
         """
-        nodes = []
-        edges = []
+        nodes=[]
+        edges=[]
 
         for path, content in contexts.items():
             nodes.append({"id": path, "label": Path(path).name})
@@ -997,14 +997,14 @@ class ContextVisualizer:
             # Find references to other files
             for other_path in contexts.keys():
                 if other_path != path:
-                    other_name = Path(other_path).stem
+                    other_name=Path(other_path).stem
                     if other_name in content:
                         edges.append((path, other_path))
 
         return VisualizationData(
-            viz_type = VisualizationType.DEPENDENCY_GRAPH,
-            nodes = nodes,
-            edges = edges
+            viz_type=VisualizationType.DEPENDENCY_GRAPH,
+            nodes=nodes,
+            edges=edges
         )
 
     def create_call_hierarchy(self, contexts: Dict[str, str]) -> VisualizationData:
@@ -1016,17 +1016,17 @@ class ContextVisualizer:
         Returns:
             VisualizationData for rendering.
         """
-        nodes = []
-        edges = []
+        nodes=[]
+        edges=[]
 
         for path in contexts.keys():
             nodes.append({"id": path, "label": Path(path).name})
 
         return VisualizationData(
-            viz_type = VisualizationType.CALL_HIERARCHY,
-            nodes = nodes,
-            edges = edges,
-            layout = "tree"
+            viz_type=VisualizationType.CALL_HIERARCHY,
+            nodes=nodes,
+            edges=edges,
+            layout="tree"
         )
 
 
@@ -1036,8 +1036,8 @@ class ContextSharingManager:
     Provides functionality for sharing and synchronizing context.
 
     Example:
-        >>> manager = ContextSharingManager()
-        >>> shared = manager.share("context.md", ["user1", "user2"])
+        >>> manager=ContextSharingManager()
+        >>> shared=manager.share("context.md", ["user1", "user2"])
     """
 
     def __init__(self) -> None:
@@ -1048,8 +1048,8 @@ class ContextSharingManager:
         self,
         context_id: str,
         users: List[str],
-        owner: str = "current_user",
-        permission: SharingPermission = SharingPermission.READ_ONLY
+        owner: str="current_user",
+        permission: SharingPermission=SharingPermission.READ_ONLY
     ) -> SharedContext:
         """Share context with users.
 
@@ -1062,12 +1062,12 @@ class ContextSharingManager:
         Returns:
             SharedContext configuration.
         """
-        shared = SharedContext(
-            context_id = context_id,
-            owner = owner,
-            shared_with = users,
-            permission = permission,
-            last_sync = datetime.now().isoformat()
+        shared=SharedContext(
+            context_id=context_id,
+            owner=owner,
+            shared_with=users,
+            permission=permission,
+            last_sync=datetime.now().isoformat()
         )
         self.shared_contexts[context_id] = shared
         return shared
@@ -1081,7 +1081,7 @@ class ContextSharingManager:
         Returns:
             List of usernames.
         """
-        shared = self.shared_contexts.get(context_id)
+        shared=self.shared_contexts.get(context_id)
         return shared.shared_with if shared else []
 
 
@@ -1091,8 +1091,8 @@ class MergeConflictResolver:
     Provides strategies for resolving conflicts during context merges.
 
     Example:
-        >>> resolver = MergeConflictResolver()
-        >>> resolved = resolver.resolve(conflict, ConflictResolution.OURS)
+        >>> resolver=MergeConflictResolver()
+        >>> resolved=resolver.resolve(conflict, ConflictResolution.OURS)
     """
 
     def detect_conflicts(self, content: str) -> List[MergeConflict]:
@@ -1104,14 +1104,14 @@ class MergeConflictResolver:
         Returns:
             List of detected conflicts.
         """
-        conflicts = []
-        pattern = r"<<<<<<<[^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>>"
+        conflicts=[]
+        pattern=r"<<<<<<<[^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>>"
 
         for match in re.finditer(pattern, content, re.DOTALL):
             conflicts.append(MergeConflict(
-                section = "conflict",
-                ours = match.group(1),
-                theirs = match.group(2)
+                section="conflict",
+                ours=match.group(1),
+                theirs=match.group(2)
             ))
 
         return conflicts
@@ -1142,8 +1142,8 @@ class BranchComparer:
     Provides functionality to compare context files between branches.
 
     Example:
-        >>> comparer = BranchComparer()
-        >>> comparison = comparer.compare("main", "feature")
+        >>> comparer=BranchComparer()
+        >>> comparison=comparer.compare("main", "feature")
     """
 
     def compare(
@@ -1164,20 +1164,20 @@ class BranchComparer:
         Returns:
             BranchComparison with differences.
         """
-        files_a = set(contexts_a.keys())
-        files_b = set(contexts_b.keys())
+        files_a=set(contexts_a.keys())
+        files_b=set(contexts_b.keys())
 
-        modified = []
+        modified=[]
         for f in files_a & files_b:
             if contexts_a[f] != contexts_b[f]:
                 modified.append(f)
 
         return BranchComparison(
-            branch_a = branch_a,
-            branch_b = branch_b,
-            files_only_in_a = list(files_a - files_b),
-            files_only_in_b = list(files_b - files_a),
-            modified_files = modified
+            branch_a=branch_a,
+            branch_b=branch_b,
+            files_only_in_a=list(files_a - files_b),
+            files_only_in_b=list(files_b - files_a),
+            modified_files=modified
         )
 
 
@@ -1187,7 +1187,7 @@ class ContextAgent(BaseAgent):
     def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
         self._validate_file_extension()
-        self.source_path = self._derive_source_path()
+        self.source_path=self._derive_source_path()
 
         # New features
         self._templates: Dict[str, ContextTemplate] = dict(DEFAULT_TEMPLATES)
@@ -1195,8 +1195,8 @@ class ContextAgent(BaseAgent):
         self._versions: List[ContextVersion] = []
         self._validation_rules: List[ValidationRule] = list(DEFAULT_VALIDATION_RULES)
         self._annotations: List[ContextAnnotation] = []
-        self._priority: ContextPriority = ContextPriority.MEDIUM
-        self._category: FileCategory = FileCategory.OTHER
+        self._priority: ContextPriority=ContextPriority.MEDIUM
+        self._category: FileCategory=FileCategory.OTHER
         self._compressed_content: Optional[bytes] = None
         self._metadata: Dict[str, Any] = {}
 
@@ -1209,10 +1209,10 @@ class ContextAgent(BaseAgent):
     def _derive_source_path(self) -> Optional[Path]:
         """Derive source file path from .description.md filename."""
         if self.file_path.name.endswith('.description.md'):
-            stem = self.file_path.name.replace('.description.md', '')
+            stem=self.file_path.name.replace('.description.md', '')
             # Try common extensions
             for ext in ['.py', '.js', '.ts', '.go', '.rs', '.java', '.sh']:
-                source = self.file_path.parent / f"{stem}{ext}"
+                source=self.file_path.parent / f"{stem}{ext}"
                 if source.exists():
                     return source
         return None
@@ -1241,15 +1241,15 @@ class ContextAgent(BaseAgent):
         if not self.source_path:
             return None
 
-        ext = self.source_path.suffix.lower()
-        name = self.source_path.name.lower()
+        ext=self.source_path.suffix.lower()
+        name=self.source_path.name.lower()
 
         # Check test files first
         if "test" in name or name.startswith("test_"):
             return self._templates.get("test")
 
         # Match by extension
-        ext_mapping = {
+        ext_mapping={
             ".py": "python",
             ".js": "javascript",
             ".ts": "javascript",
@@ -1261,22 +1261,22 @@ class ContextAgent(BaseAgent):
             ".toml": "config",
         }
 
-        template_name = ext_mapping.get(ext)
+        template_name=ext_mapping.get(ext)
         return self._templates.get(template_name) if template_name else None
 
     def apply_template(self, template_name: Optional[str] = None) -> str:
         """Apply a template to generate initial content."""
-        template = None
+        template=None
         if template_name:
-            template = self._templates.get(template_name)
+            template=self._templates.get(template_name)
         else:
-            template = self.get_template_for_file()
+            template=self.get_template_for_file()
 
         if not template:
             return self._get_default_content()
 
-        filename = self.file_path.name.replace('.description.md', '')
-        return template.template_content.format(filename = filename)
+        filename=self.file_path.name.replace('.description.md', '')
+        return template.template_content.format(filename=filename)
 
     # ========== Tagging ==========
 
@@ -1309,18 +1309,18 @@ class ContextAgent(BaseAgent):
         self,
         version: str,
         changes: Optional[List[str]] = None,
-        author: str = ""
+        author: str=""
     ) -> ContextVersion:
         """Create a new version snapshot."""
-        content = self.current_content or self.previous_content or ""
-        content_hash = hashlib.sha256(content.encode()).hexdigest()[:12]
+        content=self.current_content or self.previous_content or ""
+        content_hash=hashlib.sha256(content.encode()).hexdigest()[:12]
 
-        version_obj = ContextVersion(
-            version = version,
-            timestamp = datetime.now().isoformat(),
-            content_hash = content_hash,
-            changes = changes or [],
-            author = author
+        version_obj=ContextVersion(
+            version=version,
+            timestamp=datetime.now().isoformat(),
+            content_hash=content_hash,
+            changes=changes or [],
+            author=author
         )
 
         self._versions.append(version_obj)
@@ -1337,8 +1337,8 @@ class ContextAgent(BaseAgent):
 
     def get_version_diff(self, v1: str, v2: str) -> Dict[str, Any]:
         """Get diff between two versions."""
-        ver1 = next((v for v in self._versions if v.version == v1), None)
-        ver2 = next((v for v in self._versions if v.version == v2), None)
+        ver1=next((v for v in self._versions if v.version == v1), None)
+        ver2=next((v for v in self._versions if v.version == v2), None)
 
         if not ver1 or not ver2:
             return {"error": "Version not found"}
@@ -1357,15 +1357,15 @@ class ContextAgent(BaseAgent):
     def compress_content(self, content: Optional[str] = None) -> bytes:
         """Compress content for storage."""
         if content is None:
-            content = self.current_content or self.previous_content or ""
+            content=self.current_content or self.previous_content or ""
 
-        self._compressed_content = zlib.compress(content.encode(), level = 9)
+        self._compressed_content=zlib.compress(content.encode(), level=9)
         return self._compressed_content
 
     def decompress_content(self, compressed: Optional[bytes] = None) -> str:
         """Decompress stored content."""
         if compressed is None:
-            compressed = self._compressed_content
+            compressed=self._compressed_content
 
         if compressed is None:
             return ""
@@ -1374,13 +1374,13 @@ class ContextAgent(BaseAgent):
 
     def get_compression_ratio(self) -> float:
         """Get the compression ratio."""
-        content = self.current_content or self.previous_content or ""
+        content=self.current_content or self.previous_content or ""
         if not content:
             return 0.0
 
-        original_size = len(content.encode())
-        compressed = self.compress_content(content)
-        compressed_size = len(compressed)
+        original_size=len(content.encode())
+        compressed=self.compress_content(content)
+        compressed_size=len(compressed)
 
         return 1 - (compressed_size / original_size) if original_size > 0 else 0.0
 
@@ -1393,7 +1393,7 @@ class ContextAgent(BaseAgent):
     def validate_content(self, content: Optional[str] = None) -> List[Dict[str, Any]]:
         """Validate content against all rules."""
         if content is None:
-            content = self.current_content or self.previous_content or ""
+            content=self.current_content or self.previous_content or ""
 
         issues: List[Dict[str, Any]] = []
 
@@ -1409,7 +1409,7 @@ class ContextAgent(BaseAgent):
                     })
             else:
                 # Non-required patterns are warnings when matched
-                matches = re.findall(rule.pattern, content)
+                matches=re.findall(rule.pattern, content)
                 if matches and rule.severity != "info":
                     issues.append({
                         "rule": rule.name,
@@ -1422,7 +1422,7 @@ class ContextAgent(BaseAgent):
 
     def is_valid(self, content: Optional[str] = None) -> bool:
         """Check if content passes all required validations."""
-        issues = self.validate_content(content)
+        issues=self.validate_content(content)
         return not any(i.get("severity") == "error" for i in issues)
 
     # ========== Annotations ==========
@@ -1431,15 +1431,15 @@ class ContextAgent(BaseAgent):
         self,
         line_number: int,
         content: str,
-        author: str = ""
+        author: str=""
     ) -> ContextAnnotation:
         """Add an annotation to the context."""
-        annotation = ContextAnnotation(
-            id = hashlib.md5(f"{line_number}:{content}".encode()).hexdigest()[:8],
-            line_number = line_number,
-            content = content,
-            author = author,
-            timestamp = datetime.now().isoformat()
+        annotation=ContextAnnotation(
+            id=hashlib.md5(f"{line_number}:{content}".encode()).hexdigest()[:8],
+            line_number=line_number,
+            content=content,
+            author=author,
+            timestamp=datetime.now().isoformat()
         )
         self._annotations.append(annotation)
         return annotation
@@ -1456,7 +1456,7 @@ class ContextAgent(BaseAgent):
         """Mark an annotation as resolved."""
         for annotation in self._annotations:
             if annotation.id == annotation_id:
-                annotation.resolved = True
+                annotation.resolved=True
                 return True
         return False
 
@@ -1472,7 +1472,7 @@ class ContextAgent(BaseAgent):
 
     def set_priority(self, priority: ContextPriority) -> None:
         """Set the priority level."""
-        self._priority = priority
+        self._priority=priority
 
     def get_priority(self) -> ContextPriority:
         """Get the priority level."""
@@ -1480,27 +1480,27 @@ class ContextAgent(BaseAgent):
 
     def calculate_priority_score(self) -> float:
         """Calculate a priority score based on various factors."""
-        score = 0.0
-        content = self.current_content or self.previous_content or ""
+        score=0.0
+        content=self.current_content or self.previous_content or ""
 
         # Base score from priority level
         score += self._priority.value * 10
 
         # Add points for content completeness
-        sections = ["Purpose", "Usage", "Dependencies", "Examples"]
+        sections=["Purpose", "Usage", "Dependencies", "Examples"]
         for section in sections:
             if f"## {section}" in content:
                 score += 5
 
         # Add points for code examples
-        code_blocks = re.findall(r"```\w+", content)
+        code_blocks=re.findall(r"```\w+", content)
         score += min(len(code_blocks) * 3, 15)
 
         # Add points for having tags
         score += min(len(self._tags) * 2, 10)
 
         # Penalize for validation issues
-        issues = self.validate_content(content)
+        issues=self.validate_content(content)
         score -= len([i for i in issues if i.get("severity") == "error"]) * 10
         score -= len([i for i in issues if i.get("severity") == "warning"]) * 5
 
@@ -1510,7 +1510,7 @@ class ContextAgent(BaseAgent):
 
     def set_category(self, category: FileCategory) -> None:
         """Set the file category."""
-        self._category = category
+        self._category=category
 
     def get_category(self) -> FileCategory:
         """Get the file category."""
@@ -1521,29 +1521,29 @@ class ContextAgent(BaseAgent):
         if not self.source_path:
             return FileCategory.OTHER
 
-        name = self.source_path.name.lower()
-        ext = self.source_path.suffix.lower()
+        name=self.source_path.name.lower()
+        ext=self.source_path.suffix.lower()
 
         # Test files
         if "test" in name or name.startswith("test_"):
-            self._category = FileCategory.TEST
+            self._category=FileCategory.TEST
         # Configuration files
         elif ext in [".json", ".yaml", ".yml", ".toml", ".ini", ".cfg"]:
-            self._category = FileCategory.CONFIGURATION
+            self._category=FileCategory.CONFIGURATION
         # Build files
         elif name in ["makefile", "dockerfile", "cmakelists.txt"] or ext in [".mk"]:
-            self._category = FileCategory.BUILD
+            self._category=FileCategory.BUILD
         # Documentation
         elif ext in [".md", ".rst", ".txt"]:
-            self._category = FileCategory.DOCUMENTATION
+            self._category=FileCategory.DOCUMENTATION
         # Data files
         elif ext in [".csv", ".xml", ".sql"]:
-            self._category = FileCategory.DATA
+            self._category=FileCategory.DATA
         # Code files
         elif ext in [".py", ".js", ".ts", ".go", ".rs", ".java", ".cpp", ".c"]:
-            self._category = FileCategory.CODE
+            self._category=FileCategory.CODE
         else:
-            self._category = FileCategory.OTHER
+            self._category=FileCategory.OTHER
 
         return self._category
 
@@ -1563,7 +1563,7 @@ class ContextAgent(BaseAgent):
 
     def export_metadata(self) -> str:
         """Export metadata as JSON."""
-        data = {
+        data={
             "priority": self._priority.value,
             "category": self._category.value,
             "tags": [t.name for t in self._tags.values()],
@@ -1571,13 +1571,13 @@ class ContextAgent(BaseAgent):
             "annotations": len(self._annotations),
             "custom": self._metadata
         }
-        return json.dumps(data, indent = 2)
+        return json.dumps(data, indent=2)
 
     # ========== Core Methods ==========
 
     def _get_default_content(self) -> str:
         """Return rich, structured template for new descriptions."""
-        filename = self.file_path.name.replace('.description.md', '')
+        filename=self.file_path.name.replace('.description.md', '')
         return """# Description: `{filename}`
 
 ## Purpose
@@ -1611,8 +1611,8 @@ class ContextAgent(BaseAgent):
             logging.debug(f"Using source file: {self.source_path}")
             try:
                 # Limit source code to 8000 chars to avoid token limits
-                source_code = self.source_path.read_text(encoding = 'utf-8')[:8000]
-                enhanced_prompt = (
+                source_code=self.source_path.read_text(encoding='utf-8')[:8000]
+                enhanced_prompt=(
                     f"{prompt}\n\n"
                     f"Source code to analyze ({self.source_path.name}):\n"
                     f"```\n{source_code}\n```\n\n"
@@ -1626,7 +1626,7 @@ class ContextAgent(BaseAgent):
 
 
 # Create main function using the helper
-main = create_main_function(
+main=create_main_function(
     ContextAgent,
     'Context Agent: Updates code file descriptions',
     'Path to the context file (e.g., file.description.md)'

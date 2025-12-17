@@ -27,7 +27,7 @@ class TestYAMLFrontMatterParsing(unittest.TestCase):
 
     def test_yaml_frontmatter_extraction(self):
         """Test extracting YAML front-matter from improvements."""
-        content = """---
+        content="""---
 priority: high
 category: performance
 effort: medium
@@ -37,18 +37,18 @@ Add caching to reduce database queries.
         """
 
         # Extract frontmatter
-        lines = content.split('\n')
+        lines=content.split('\n')
         if lines[0] == '---' and '---' in lines[1:]:
-            end_idx = next(i for i, l in enumerate(lines[1:], 1) if l == '---')
-            yaml_content = '\n'.join(lines[1:end_idx])
+            end_idx=next(i for i, l in enumerate(lines[1:], 1) if l == '---')
+            yaml_content='\n'.join(lines[1:end_idx])
 
-            frontmatter = yaml.safe_load(yaml_content)
+            frontmatter=yaml.safe_load(yaml_content)
             self.assertEqual(frontmatter['priority'], 'high')
             self.assertEqual(frontmatter['category'], 'performance')
 
     def test_improvement_metadata_extraction(self):
         """Test extracting improvement metadata."""
-        improvement = {
+        improvement={
             'title': 'Add caching layer',
             'priority': 'high',
             'category': 'performance',
@@ -66,26 +66,26 @@ class TestPriorityFiltering(unittest.TestCase):
 
     def test_filter_by_priority(self):
         """Test filtering improvements by priority."""
-        improvements = [
+        improvements=[
             {'id': 1, 'title': 'Critical fix', 'priority': 'high'},
             {'id': 2, 'title': 'Nice to have', 'priority': 'low'},
             {'id': 3, 'title': 'Important feature', 'priority': 'high'},
             {'id': 4, 'title': 'Optimization', 'priority': 'medium'}
         ]
 
-        high_priority = [i for i in improvements if i['priority'] == 'high']
+        high_priority=[i for i in improvements if i['priority'] == 'high']
         self.assertEqual(len(high_priority), 2)
 
     def test_priority_level_validation(self):
         """Test validating priority level values."""
-        valid_priorities = ['critical', 'high', 'medium', 'low', 'info']
+        valid_priorities=['critical', 'high', 'medium', 'low', 'info']
 
-        improvement = {'priority': 'high'}
+        improvement={'priority': 'high'}
         self.assertIn(improvement['priority'], valid_priorities)
 
     def test_multiple_priority_filter(self):
         """Test filtering by multiple priority levels."""
-        improvements = [
+        improvements=[
             {'id': 1, 'priority': 'high'},
             {'id': 2, 'priority': 'low'},
             {'id': 3, 'priority': 'medium'},
@@ -93,8 +93,8 @@ class TestPriorityFiltering(unittest.TestCase):
             {'id': 5, 'priority': 'low'}
         ]
 
-        selected_priorities = ['high', 'medium']
-        filtered = [i for i in improvements if i['priority'] in selected_priorities]
+        selected_priorities=['high', 'medium']
+        filtered=[i for i in improvements if i['priority'] in selected_priorities]
 
         self.assertEqual(len(filtered), 3)
 
@@ -104,40 +104,40 @@ class TestImprovementRanking(unittest.TestCase):
 
     def test_impact_score_calculation(self):
         """Test calculating impact score."""
-        improvement = {
+        improvement={
             'files_affected': 5,
             'complexity': 8,
             'benefit': 9,
             'risk': 2
         }
 
-        # Impact = benefit / (risk + complexity)
-        impact = improvement['benefit'] / (improvement['risk'] + improvement['complexity'])
+        # Impact=benefit / (risk + complexity)
+        impact=improvement['benefit'] / (improvement['risk'] + improvement['complexity'])
         self.assertGreater(impact, 0)
 
     def test_ranking_by_impact(self):
         """Test ranking improvements by impact."""
-        improvements = [
+        improvements=[
             {'id': 1, 'impact_score': 5.2},
             {'id': 2, 'impact_score': 8.7},
             {'id': 3, 'impact_score': 3.1},
             {'id': 4, 'impact_score': 9.5}
         ]
 
-        ranked = sorted(improvements, key=lambda x: x['impact_score'], reverse=True)
+        ranked=sorted(improvements, key=lambda x: x['impact_score'], reverse=True)
         self.assertEqual(ranked[0]['id'], 4)
 
     def test_complexity_consideration(self):
         """Test considering complexity in ranking."""
-        improvements = [
-            {'id': 1, 'impact': 8, 'complexity': 2, 'score': 8/2},
-            {'id': 2, 'impact': 8, 'complexity': 8, 'score': 8/8},
-            {'id': 3, 'impact': 5, 'complexity': 1, 'score': 5/1}
+        improvements=[
+            {'id': 1, 'impact': 8, 'complexity': 2, 'score': 8 / 2},
+            {'id': 2, 'impact': 8, 'complexity': 8, 'score': 8 / 8},
+            {'id': 3, 'impact': 5, 'complexity': 1, 'score': 5 / 1}
         ]
 
         # Higher score is better (higher impact to complexity ratio)
-        best = max(improvements, key=lambda x: x['score'])
-        self.assertEqual(best['id'], 3)  # 5/1 = 5.0 is highest ratio
+        best=max(improvements, key=lambda x: x['score'])
+        self.assertEqual(best['id'], 3)  # 5 / 1=5.0 is highest ratio
 
 
 class TestMetricsCollection(unittest.TestCase):
@@ -145,7 +145,7 @@ class TestMetricsCollection(unittest.TestCase):
 
     def test_applied_improvements_tracking(self):
         """Test tracking applied improvements."""
-        metrics = {
+        metrics={
             'total_improvements': 50,
             'applied': 25,
             'pending': 20,
@@ -156,24 +156,24 @@ class TestMetricsCollection(unittest.TestCase):
 
     def test_success_rate_calculation(self):
         """Test calculating improvement success rate."""
-        metrics = {
+        metrics={
             'attempted': 30,
             'successful': 27,
             'failed': 3
         }
 
-        success_rate = (metrics['successful'] / metrics['attempted']) * 100
+        success_rate=(metrics['successful'] / metrics['attempted']) * 100
         self.assertEqual(success_rate, 90.0)
 
     def test_implementation_time_tracking(self):
         """Test tracking time to implement improvements."""
-        improvements = [
+        improvements=[
             {'id': 1, 'estimated_hours': 4, 'actual_hours': 3.5},
             {'id': 2, 'estimated_hours': 8, 'actual_hours': 9.2},
             {'id': 3, 'estimated_hours': 2, 'actual_hours': 2.1}
         ]
 
-        avg_variance = sum((i['actual_hours'] - i['estimated_hours']) for i in improvements) / len(improvements)
+        avg_variance=sum((i['actual_hours'] - i['estimated_hours']) for i in improvements) / len(improvements)
         self.assertNotEqual(avg_variance, 0)
 
 
@@ -182,7 +182,7 @@ class TestImprovementTemplates(unittest.TestCase):
 
     def test_performance_template(self):
         """Test performance improvement template."""
-        template = {
+        template={
             'category': 'performance',
             'sections': [
                 'Current bottleneck',
@@ -197,7 +197,7 @@ class TestImprovementTemplates(unittest.TestCase):
 
     def test_security_template(self):
         """Test security improvement template."""
-        template = {
+        template={
             'category': 'security',
             'sections': [
                 'Vulnerability description',
@@ -212,7 +212,7 @@ class TestImprovementTemplates(unittest.TestCase):
 
     def test_refactoring_template(self):
         """Test refactoring improvement template."""
-        template = {
+        template={
             'category': 'refactoring',
             'sections': [
                 'Current code structure',
@@ -231,27 +231,27 @@ class TestAIPoweredPrioritization(unittest.TestCase):
 
     def test_priority_scoring(self):
         """Test scoring improvements for priority."""
-        analysis = {
+        analysis={
             'code_duplication': 0.4,
             'test_coverage_gap': 0.3,
             'performance_impact': 0.2,
             'security_risk': 0.1
         }
 
-        weights = {'duplication': 0.2, 'coverage': 0.3, 'perf': 0.3, 'security': 0.2}
+        weights={'duplication': 0.2, 'coverage': 0.3, 'perf': 0.3, 'security': 0.2}
 
         # Weighted score would be calculated
         self.assertEqual(sum(weights.values()), 1.0)
 
     def test_priority_adjustment_based_on_frequency(self):
         """Test adjusting priority based on issue frequency."""
-        issues = [
+        issues=[
             {'type': 'TypeError', 'frequency': 15},
             {'type': 'ValueError', 'frequency': 5},
             {'type': 'KeyError', 'frequency': 8}
         ]
 
-        most_frequent = max(issues, key=lambda x: x['frequency'])
+        most_frequent=max(issues, key=lambda x: x['frequency'])
         self.assertEqual(most_frequent['type'], 'TypeError')
 
 
@@ -260,7 +260,7 @@ class TestDependencyDetection(unittest.TestCase):
 
     def test_improvement_dependencies(self):
         """Test identifying improvement prerequisites."""
-        improvements = {
+        improvements={
             'improve_a': {'depends_on': []},
             'improve_b': {'depends_on': ['improve_a']},
             'improve_c': {'depends_on': ['improve_a', 'improve_b']},
@@ -272,7 +272,7 @@ class TestDependencyDetection(unittest.TestCase):
 
     def test_dependency_chain_resolution(self):
         """Test resolving dependency chains."""
-        deps = {
+        deps={
             'a': [],
             'b': ['a'],
             'c': ['b'],
@@ -282,13 +282,13 @@ class TestDependencyDetection(unittest.TestCase):
         def get_all_deps(item, deps_dict):
             if not deps_dict.get(item):
                 return []
-            direct = deps_dict[item]
-            all_deps = direct.copy()
+            direct=deps_dict[item]
+            all_deps=direct.copy()
             for dep in direct:
                 all_deps.extend(get_all_deps(dep, deps_dict))
             return list(set(all_deps))
 
-        all_deps_of_d = get_all_deps('d', deps)
+        all_deps_of_d=get_all_deps('d', deps)
         self.assertIn('c', all_deps_of_d)
         self.assertIn('a', all_deps_of_d)
 
@@ -298,7 +298,7 @@ class TestImprovementStatusTracking(unittest.TestCase):
 
     def test_status_transitions(self):
         """Test valid status transitions."""
-        statuses = {
+        statuses={
             'review': ['in-progress', 'declined'],
             'in-progress': ['completed', 'blocked'],
             'blocked': ['in-progress', 'declined'],
@@ -310,7 +310,7 @@ class TestImprovementStatusTracking(unittest.TestCase):
 
     def test_review_status_tracking(self):
         """Test tracking reviewed improvements."""
-        improvement = {
+        improvement={
             'id': 'IMP_001',
             'status': 'review',
             'reviewed_by': 'developer@example.com',
@@ -322,7 +322,7 @@ class TestImprovementStatusTracking(unittest.TestCase):
 
     def test_completion_tracking(self):
         """Test tracking completed improvements."""
-        improvement = {
+        improvement={
             'id': 'IMP_001',
             'status': 'completed',
             'completed_date': '2025-12-16',
@@ -338,7 +338,7 @@ class TestImprovementReportGeneration(unittest.TestCase):
 
     def test_report_summary(self):
         """Test generating report summary."""
-        report = {
+        report={
             'period': '2025-Q4',
             'total_improvements_identified': 50,
             'improvements_applied': 25,
@@ -356,18 +356,18 @@ class TestImprovementReportGeneration(unittest.TestCase):
 
     def test_trend_analysis(self):
         """Test analyzing improvement trends."""
-        monthly = [
+        monthly=[
             {'month': 'Oct', 'improvements_applied': 5, 'success_rate': 0.80},
             {'month': 'Nov', 'improvements_applied': 8, 'success_rate': 0.87},
             {'month': 'Dec', 'improvements_applied': 12, 'success_rate': 0.92}
         ]
 
-        total = sum(m['improvements_applied'] for m in monthly)
+        total=sum(m['improvements_applied'] for m in monthly)
         self.assertEqual(total, 25)
 
     def test_category_distribution(self):
         """Test showing category distribution."""
-        distribution = {
+        distribution={
             'performance': 15,
             'security': 10,
             'refactoring': 12,
@@ -382,26 +382,26 @@ class TestCrossFileImprovementDetection(unittest.TestCase):
 
     def test_duplicate_pattern_detection(self):
         """Test detecting duplicate patterns across files."""
-        patterns = {
+        patterns={
             'file_a.py': ['pattern_x', 'pattern_y'],
             'file_b.py': ['pattern_x', 'pattern_z'],
             'file_c.py': ['pattern_x', 'pattern_y'],
         }
 
         # Find patterns appearing in multiple files
-        pattern_files = {}
+        pattern_files={}
         for file, patterns_list in patterns.items():
             for pattern in patterns_list:
                 if pattern not in pattern_files:
                     pattern_files[pattern] = []
                 pattern_files[pattern].append(file)
 
-        common_patterns = [p for p, files in pattern_files.items() if len(files) > 1]
+        common_patterns=[p for p, files in pattern_files.items() if len(files) > 1]
         self.assertEqual(len(common_patterns), 2)  # pattern_x and pattern_y appear in multiple files
 
     def test_cross_file_improvement_suggestion(self):
         """Test suggesting improvements across multiple files."""
-        improvement = {
+        improvement={
             'type': 'extract_utility',
             'files_affected': ['utils_a.py', 'utils_b.py', 'utils_c.py'],
             'suggestion': 'Extract common utility to shared module',
@@ -416,31 +416,31 @@ class TestNLPCategorization(unittest.TestCase):
 
     def test_category_keyword_matching(self):
         """Test categorizing improvements by keywords."""
-        keywords = {
+        keywords={
             'performance': ['cache', 'optimize', 'efficient', 'faster', 'latency'],
             'security': ['vulnerability', 'exploit', 'encrypt', 'secure', 'attack'],
             'refactoring': ['extract', 'simplify', 'clean', 'decouple', 'modularity'],
             'testing': ['coverage', 'unit test', 'integration', 'mock', 'fixture']
         }
 
-        text = "Add caching to reduce database query latency"
+        text="Add caching to reduce database query latency"
 
         for category, words in keywords.items():
             if any(word in text.lower() for word in words):
-                matched_category = category
+                matched_category=category
 
         self.assertEqual(matched_category, 'performance')
 
     def test_improvement_description_parsing(self):
         """Test parsing improvement descriptions."""
-        descriptions = [
+        descriptions=[
             "Extract common validation logic to shared utility",
             "Implement JWT token refresh mechanism",
             "Add unit tests for edge cases"
         ]
 
         # Simple classification
-        categories = []
+        categories=[]
         for desc in descriptions:
             if 'extract' in desc or 'refactor' in desc:
                 categories.append('refactoring')
@@ -457,7 +457,7 @@ class TestAgentSpecificTemplates(unittest.TestCase):
 
     def test_coder_agent_template(self):
         """Test template for coder agent improvements."""
-        template = {
+        template={
             'agent_type': 'coder',
             'sections': [
                 'Code quality',
@@ -471,7 +471,7 @@ class TestAgentSpecificTemplates(unittest.TestCase):
 
     def test_analyzer_agent_template(self):
         """Test template for analyzer agent improvements."""
-        template = {
+        template={
             'agent_type': 'analyzer',
             'sections': [
                 'Analysis depth',
@@ -485,7 +485,7 @@ class TestAgentSpecificTemplates(unittest.TestCase):
 
     def test_reporter_agent_template(self):
         """Test template for reporter agent improvements."""
-        template = {
+        template={
             'agent_type': 'reporter',
             'sections': [
                 'Report format',
@@ -503,18 +503,18 @@ class TestGitIntegration(unittest.TestCase):
 
     def test_git_commit_tracking(self):
         """Test tracking improvements in git commits."""
-        commits = [
+        commits=[
             {'hash': 'abc123', 'message': '[IMP-001] Add caching layer'},
             {'hash': 'def456', 'message': '[IMP-002] Refactor parser'},
             {'hash': 'ghi789', 'message': 'Update documentation'}  # Not an improvement
         ]
 
-        improvement_commits = [c for c in commits if '[IMP-' in c['message']]
+        improvement_commits=[c for c in commits if '[IMP-' in c['message']]
         self.assertEqual(len(improvement_commits), 2)
 
     def test_improvement_to_commit_mapping(self):
         """Test mapping improvements to commits."""
-        mapping = {
+        mapping={
             'IMP_001': {
                 'status': 'completed',
                 'commits': ['abc123', 'def456'],
@@ -535,7 +535,7 @@ class TestBulkApplication(unittest.TestCase):
 
     def test_bulk_application_workflow(self):
         """Test workflow for applying multiple improvements."""
-        improvements_to_apply = [
+        improvements_to_apply=[
             {'id': 'IMP_001', 'title': 'Add caching', 'status': 'pending'},
             {'id': 'IMP_002', 'title': 'Refactor parser', 'status': 'pending'},
             {'id': 'IMP_003', 'title': 'Add tests', 'status': 'pending'}
@@ -545,23 +545,23 @@ class TestBulkApplication(unittest.TestCase):
 
     def test_checkpoint_system(self):
         """Test checkpoint system for bulk application."""
-        checkpoints = [
+        checkpoints=[
             {'step': 1, 'description': 'Validate dependencies', 'completed': True},
             {'step': 2, 'description': 'Create backups', 'completed': True},
             {'step': 3, 'description': 'Apply improvements', 'completed': False},
             {'step': 4, 'description': 'Run tests', 'completed': False}
         ]
 
-        completed = sum(1 for c in checkpoints if c['completed'])
+        completed=sum(1 for c in checkpoints if c['completed'])
         self.assertEqual(completed, 2)
 
     def test_rollback_capability(self):
         """Test rollback capability for applied improvements."""
-        application_log = {
+        application_log={
             'improvement': 'IMP_001',
             'status': 'applied',
             'files_modified': ['file_a.py', 'file_b.py'],
-            'backup_location': '/tmp/backup_abc123',
+            'backup_location': '/tmp / backup_abc123',
             'can_rollback': True
         }
 
@@ -573,19 +573,19 @@ class TestImpactAnalysis(unittest.TestCase):
 
     def test_lines_changed_estimation(self):
         """Test estimating lines changed by improvement."""
-        improvement = {
+        improvement={
             'id': 'IMP_001',
             'estimated_additions': 45,
             'estimated_deletions': 12,
             'affected_files': 3
         }
 
-        net_change = improvement['estimated_additions'] - improvement['estimated_deletions']
+        net_change=improvement['estimated_additions'] - improvement['estimated_deletions']
         self.assertEqual(net_change, 33)
 
     def test_complexity_impact(self):
         """Test analyzing complexity impact."""
-        analysis = {
+        analysis={
             'current_complexity': 8.2,
             'projected_complexity': 9.1,
             'complexity_increase': 0.9,
@@ -596,7 +596,7 @@ class TestImpactAnalysis(unittest.TestCase):
 
     def test_performance_impact_estimation(self):
         """Test estimating performance impact."""
-        impact = {
+        impact={
             'metric': 'query_time',
             'current': 250,  # ms
             'projected': 150,  # ms

@@ -30,7 +30,7 @@ class TestCodeQualityValidation(unittest.TestCase):
 
     def test_mypy_type_checking_integration(self):
         """Test mypy type checking for generated code."""
-        mypy_config = {
+        mypy_config={
             'enabled': True,
             'strict': False,
             'ignore_missing_imports': True
@@ -39,26 +39,26 @@ class TestCodeQualityValidation(unittest.TestCase):
 
     def test_pylint_support_with_strictness_levels(self):
         """Test pylint with configurable strictness levels."""
-        strictness_levels = {
-            'lenient': 7.0,  # Allow code quality 7/10+
-            'moderate': 8.0,  # Require 8/10+
-            'strict': 9.0    # Require 9/10+
+        strictness_levels={
+            'lenient': 7.0,  # Allow code quality 7 / 10+
+            'moderate': 8.0,  # Require 8 / 10+
+            'strict': 9.0    # Require 9 / 10+
         }
         self.assertEqual(len(strictness_levels), 3)
 
     def test_bandit_security_scanning(self):
         """Test bandit security scanning for generated code."""
-        security_issues = [
+        security_issues=[
             {'type': 'hardcoded_sql_string', 'severity': 'high'},
             {'type': 'hardcoded_password', 'severity': 'critical'},
             {'type': 'insecure_random', 'severity': 'medium'}
         ]
-        critical_issues = [i for i in security_issues if i['severity'] == 'critical']
+        critical_issues=[i for i in security_issues if i['severity'] == 'critical']
         self.assertEqual(len(critical_issues), 1)
 
     def test_cyclomatic_complexity_validation(self):
         """Test cyclomatic complexity metrics validation."""
-        complexity_limits = {
+        complexity_limits={
             'function': 10,
             'class': 15,
             'module': 30
@@ -67,12 +67,12 @@ class TestCodeQualityValidation(unittest.TestCase):
 
     def test_incremental_validation(self):
         """Test validating only changed sections."""
-        file_changes = {
+        file_changes={
             'unchanged_functions': ['func_a', 'func_b'],
             'changed_functions': ['func_c'],
             'new_functions': ['func_d']
         }
-        to_validate = file_changes['changed_functions'] + file_changes['new_functions']
+        to_validate=file_changes['changed_functions'] + file_changes['new_functions']
         self.assertEqual(len(to_validate), 2)
 
 
@@ -83,8 +83,8 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
         """Test multi-attempt retry when syntax validation fails."""
         class RetryMechanism:
             def __init__(self, max_retries=3):
-                self.max_retries = max_retries
-                self.attempt_count = 0
+                self.max_retries=max_retries
+                self.attempt_count=0
 
             def attempt_fix(self):
                 self.attempt_count += 1
@@ -92,11 +92,11 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
                     raise SyntaxError("Invalid syntax")
                 return "fixed code"
 
-        retry = RetryMechanism(max_retries=3)
-        result = None
+        retry=RetryMechanism(max_retries=3)
+        result=None
         for _ in range(3):
             try:
-                result = retry.attempt_fix()
+                result=retry.attempt_fix()
                 break
             except SyntaxError:
                 pass
@@ -105,7 +105,7 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
 
     def test_ai_powered_syntax_error_autofix(self):
         """Test AI-powered syntax error auto-fix."""
-        syntax_errors = [
+        syntax_errors=[
             {'error': 'missing colon', 'fix': 'add colon to if statement'},
             {'error': 'unmatched parenthesis', 'fix': 'add closing parenthesis'},
             {'error': 'invalid indentation', 'fix': 'fix indentation'}
@@ -114,7 +114,7 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
 
     def test_fallback_chain(self):
         """Test fallback chain: syntax fix -> style fix -> revert."""
-        fallback_chain = [
+        fallback_chain=[
             'syntax_fix',
             'style_fix',
             'revert_to_original'
@@ -124,7 +124,7 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
 
     def test_retry_attempt_logging(self):
         """Test logging of all retry attempts with error context."""
-        retry_log = [
+        retry_log=[
             {'attempt': 1, 'error': 'SyntaxError: invalid syntax', 'timestamp': '2025-12-16T10:00:00'},
             {'attempt': 2, 'error': 'SyntaxError: missing colon', 'timestamp': '2025-12-16T10:00:01'},
             {'attempt': 3, 'error': 'Success', 'timestamp': '2025-12-16T10:00:02'}
@@ -133,7 +133,7 @@ class TestAIRetryAndErrorRecovery(unittest.TestCase):
 
     def test_configurable_retry_timeout(self):
         """Test configurable timeout for AI retry operations."""
-        retry_config = {
+        retry_config={
             'max_retries': 3,
             'timeout_seconds': 30,
             'backoff_multiplier': 2.0
@@ -146,7 +146,7 @@ class TestCodeFormatting(unittest.TestCase):
 
     def test_black_formatter_integration(self):
         """Test black formatter integration with custom line length."""
-        black_config = {
+        black_config={
             'enabled': True,
             'line_length': 120,
             'target_version': 'py311'
@@ -163,7 +163,7 @@ import requests
 from pathlib import Path
         """
         # isort would organize these
-        expected_organized = """
+        expected_organized="""
 import os
 import sys
 from pathlib import Path
@@ -175,7 +175,7 @@ import requests
 
     def test_formatting_after_validation(self):
         """Test applying formatting after successful validation."""
-        pipeline = [
+        pipeline=[
             'validate_syntax',
             'validate_security',
             'apply_formatting',
@@ -185,16 +185,16 @@ import requests
 
     def test_configurable_formatter_selection(self):
         """Test configurable formatter selection."""
-        formatter_options = ['black', 'autopep8', 'none']
+        formatter_options=['black', 'autopep8', 'none']
         self.assertIn('black', formatter_options)
 
     def test_preserve_minimal_changes(self):
         """Test preserving original formatting if changes are minimal."""
-        original = "def func():\n    pass\n"
-        formatted = "def func():\n    pass\n"
+        original="def func():\n    pass\n"
+        formatted="def func():\n    pass\n"
 
         if original == formatted:
-            result = original
+            result=original
         self.assertEqual(original, result)
 
 
@@ -203,16 +203,16 @@ class TestSecurityValidation(unittest.TestCase):
 
     def test_secret_detection_patterns(self):
         """Test detecting hardcoded secrets (API keys, passwords, tokens)."""
-        secret_patterns = {
-            'api_key': r'api[_-]?key[\'"]?\s*[:=]\s*[\'"][a-zA-Z0-9]{20,}[\'"]',
-            'password': r'password[\'"]?\s*[:=]\s*[\'"][^\'\"]+[\'"]',
-            'token': r'token[\'"]?\s*[:=]\s*[\'"][a-zA-Z0-9\-_.]+[\'"]'
+        secret_patterns={
+            'api_key': r'api[_-]?key[\'"]?\s * [:=]\s * [\'"][a-zA-Z0-9]{20,}[\'"]',
+            'password': r'password[\'"]?\s * [:=]\s * [\'"][^\'\"]+[\'"]',
+            'token': r'token[\'"]?\s * [:=]\s * [\'"][a-zA-Z0-9\-_.]+[\'"]'
         }
         self.assertEqual(len(secret_patterns), 3)
 
     def test_owasp_security_guidelines(self):
         """Test validation against OWASP Python security guidelines."""
-        security_checks = [
+        security_checks=[
             'SQL injection prevention',
             'Command injection prevention',
             'Path traversal prevention',
@@ -223,34 +223,34 @@ class TestSecurityValidation(unittest.TestCase):
 
     def test_unsafe_function_detection(self):
         """Test detection of unsafe function usage."""
-        unsafe_functions = ['eval', 'exec', 'pickle.loads', '__import__']
-        code_sample = "result = eval(user_input)"
+        unsafe_functions=['eval', 'exec', 'pickle.loads', '__import__']
+        code_sample="result=eval(user_input)"
 
-        unsafe_detected = any(func in code_sample for func in unsafe_functions)
+        unsafe_detected=any(func in code_sample for func in unsafe_functions)
         self.assertTrue(unsafe_detected)
 
     def test_sql_injection_detection(self):
         """Test detecting SQL injection in string concatenation."""
-        vulnerable_code = 'query = f"SELECT * FROM users WHERE id={user_id}"'
+        vulnerable_code='query=f"SELECT * FROM users WHERE id={user_id}"'
 
         # Check for f-string with variable in SQL
-        is_vulnerable = 'SELECT' in vulnerable_code and '{' in vulnerable_code
+        is_vulnerable='SELECT' in vulnerable_code and '{' in vulnerable_code
         self.assertTrue(is_vulnerable)
 
     def test_insecure_network_calls(self):
         """Test flagging HTTP instead of HTTPS."""
-        network_calls = [
+        network_calls=[
             {'url': 'http://api.example.com', 'secure': False},
             {'url': 'https://api.example.com', 'secure': True},
             {'url': 'http://localhost:8000', 'secure': False}
         ]
-        insecure = [c for c in network_calls if not c['secure']]
+        insecure=[c for c in network_calls if not c['secure']]
         self.assertEqual(len(insecure), 2)
 
     def test_hardcoded_credentials_detection(self):
         """Test detecting hardcoded credentials or connection strings."""
-        credentials_patterns = [
-            'mongodb+srv://user:password@host',
+        credentials_patterns=[
+            'mongodb + srv://user:password@host',
             'postgres://user:password@localhost',
             'mysql://user:password@host'
         ]
@@ -262,11 +262,11 @@ class TestDiffAndChangeManagement(unittest.TestCase):
 
     def test_diff_based_code_application(self):
         """Test diff-based code application (edit mode vs full rewrite)."""
-        original = "def func():\n    pass\n"
-        new = "def func():\n    return None\n"
+        original="def func():\n    pass\n"
+        new="def func():\n    return None\n"
 
         # Compute diff
-        diff_lines = [
+        diff_lines=[
             '- def func():',
             '-     pass',
             '+ def func():',
@@ -276,7 +276,7 @@ class TestDiffAndChangeManagement(unittest.TestCase):
 
     def test_unified_diff_output(self):
         """Test unified diff output for review."""
-        unified_diff = """--- original.py
+        unified_diff="""--- original.py
 +++ modified.py
 @@ -1,3 +1,3 @@
  def func():
@@ -287,9 +287,9 @@ class TestDiffAndChangeManagement(unittest.TestCase):
 
     def test_patch_file_generation(self):
         """Test generating patch files for version control."""
-        patch_content = """
---- a/file.py
-+++ b/file.py
+        patch_content="""
+--- a / file.py
++++ b / file.py
 @@ -1,1 +1,1 @@
 -old line
 +new line
@@ -298,7 +298,7 @@ class TestDiffAndChangeManagement(unittest.TestCase):
 
     def test_rollback_mechanism(self):
         """Test rollback mechanism for failed changes."""
-        change_history = [
+        change_history=[
             {'timestamp': '10:00:00', 'status': 'success'},
             {'timestamp': '10:00:05', 'status': 'failed'}
         ]
@@ -308,14 +308,14 @@ class TestDiffAndChangeManagement(unittest.TestCase):
     def test_timestamped_backup_files(self):
         """Test creating backup files with timestamps."""
 
-        backup_file = 'code.py.backup.20251216_100000'
+        backup_file='code.py.backup.20251216_100000'
 
         self.assertIn('backup', backup_file)
         self.assertIn('20251216', backup_file)
 
     def test_change_history_tracking(self):
         """Test tracking change history per file."""
-        change_history = {
+        change_history={
             'file': 'code.py',
             'changes': [
                 {'what': 'added function foo', 'when': '2025-12-16 10:00:00', 'why': 'requested feature'},
@@ -329,10 +329,10 @@ class TestDocumentationAndClarity(unittest.TestCase):
     """Test documentation and code clarity improvements."""
 
     def test_auto_generate_docstrings(self):
-        """Test auto-generating docstrings (Google/NumPy style)."""
+        """Test auto-generating docstrings (Google / NumPy style)."""
 
 
-        google_style_docstring = '''
+        google_style_docstring='''
         """Calculate total with tax.
 
         Args:
@@ -348,7 +348,7 @@ class TestDocumentationAndClarity(unittest.TestCase):
     def test_validate_docstring_completeness(self):
         """Test validating existing docstrings for completeness."""
 
-        complete_docstring = '''"""Calculate total with tax.
+        complete_docstring='''"""Calculate total with tax.
 
         Args:
             items: List of prices.
@@ -363,24 +363,24 @@ class TestDocumentationAndClarity(unittest.TestCase):
     def test_add_missing_type_annotations(self):
         """Test adding type annotations to function signatures."""
 
-        typed = "def calculate(x: float, y: float) -> float:\n    return x + y"
+        typed="def calculate(x: float, y: float) -> float:\n    return x + y"
 
         self.assertIn(':', typed)
 
     def test_inline_comments_for_complex_logic(self):
         """Test generating inline comments for complex logic."""
 
-result = [x for x in items if x > threshold and x % 2 == 0]
+result=[x for x in items if x > threshold and x % 2 == 0]
         """
-        commented_code = """
+        commented_code="""
 # Filter items: keep values above threshold that are even
-result = [x for x in items if x > threshold and x % 2 == 0]
+result=[x for x in items if x > threshold and x % 2 == 0]
         """
         self.assertIn('Filter items', commented_code)
 
     def test_module_level_documentation(self):
         """Test creating module-level documentation headers."""
-        module_doc = '''
+        module_doc='''
 """Agent coder module for automated code generation.
 
 This module provides intelligent code generation, validation, and formatting
@@ -394,26 +394,26 @@ class TestMultiLanguageSupport(unittest.TestCase):
     """Test extending validation beyond Python to multiple languages."""
 
     def test_javascript_typescript_eslint(self):
-        """Test ESLint integration for JavaScript/TypeScript."""
-        eslint_config = {
+        """Test ESLint integration for JavaScript / TypeScript."""
+        eslint_config={
             'enabled': True,
             'rules': {'semi': 'error', 'quotes': ['error', 'single']},
-            'parser': '@typescript-eslint/parser'
+            'parser': '@typescript-eslint / parser'
         }
         self.assertEqual(eslint_config['rules']['quotes'][0], 'error')
 
     def test_shell_script_validation(self):
         """Test shellcheck for shell script validation."""
-        shellcheck_issues = [
+        shellcheck_issues=[
             {'code': 'SC2086', 'message': 'Double quote to prevent globbing'},
             {'code': 'SC2181', 'message': 'Check exit code directly'}
         ]
         self.assertEqual(len(shellcheck_issues), 2)
 
     def test_yaml_json_syntax_validation(self):
-        """Test YAML/JSON syntax validation."""
-        invalid_json = '{"key": "value",}'  # Trailing comma
-        valid_json = '{"key": "value"}'
+        """Test YAML / JSON syntax validation."""
+        invalid_json='{"key": "value",}'  # Trailing comma
+        valid_json='{"key": "value"}'
 
         self.assertNotEqual(invalid_json, valid_json)
 
@@ -421,7 +421,7 @@ class TestMultiLanguageSupport(unittest.TestCase):
         """Test pluggable validator architecture for extensibility."""
         class ValidatorRegistry:
             def __init__(self):
-                self.validators = {}
+                self.validators={}
 
             def register(self, language, validator):
                 self.validators[language] = validator
@@ -429,7 +429,7 @@ class TestMultiLanguageSupport(unittest.TestCase):
             def get_validator(self, language):
                 return self.validators.get(language)
 
-        registry = ValidatorRegistry()
+        registry=ValidatorRegistry()
         self.assertEqual(len(registry.validators), 0)
 
 
@@ -438,7 +438,7 @@ class TestPerformanceOptimization(unittest.TestCase):
 
     def test_validation_result_caching(self):
         """Test caching validation results to avoid redundant checks."""
-        cache = {
+        cache={
             'file_hash_abc123': {'valid': True, 'timestamp': 1000},
             'file_hash_def456': {'valid': False, 'timestamp': 1000}
         }
@@ -451,9 +451,9 @@ class TestPerformanceOptimization(unittest.TestCase):
         def validate_file(filepath):
             return {'file': filepath, 'valid': True}
 
-        files = ['file1.py', 'file2.py', 'file3.py']
+        files=['file1.py', 'file2.py', 'file3.py']
         with ThreadPoolExecutor(max_workers=3) as executor:
-            results = list(executor.map(validate_file, files))
+            results=list(executor.map(validate_file, files))
 
         self.assertEqual(len(results), 3)
 
@@ -461,32 +461,32 @@ class TestPerformanceOptimization(unittest.TestCase):
         """Test progress indicators for long-running operations."""
         class ProgressTracker:
             def __init__(self, total):
-                self.total = total
-                self.current = 0
+                self.total=total
+                self.current=0
 
             def progress_percent(self):
                 return (self.current / self.total) * 100 if self.total > 0 else 0
 
-        tracker = ProgressTracker(100)
-        tracker.current = 50
+        tracker=ProgressTracker(100)
+        tracker.current=50
         self.assertEqual(tracker.progress_percent(), 50.0)
 
     def test_ast_parsing_optimization(self):
         """Test optimizing AST parsing for large files."""
-        large_file_size = 15000  # lines
-        batch_size = 1000
+        large_file_size=15000  # lines
+        batch_size=1000
 
-        batches = (large_file_size // batch_size) + (1 if large_file_size % batch_size else 0)
+        batches=(large_file_size // batch_size) + (1 if large_file_size % batch_size else 0)
         self.assertEqual(batches, 15)
 
     def test_streaming_large_file_processing(self):
         """Test streaming large file processing to reduce memory."""
         def process_file_in_chunks(filepath, chunk_size=1024):
-            chunks = []
+            chunks=[]
             # Simulate streaming
             with open(filepath, 'r') as f:
                 while True:
-                    chunk = f.read(chunk_size)
+                    chunk=f.read(chunk_size)
                     if not chunk:
                         break
                     chunks.append(chunk)
@@ -501,34 +501,34 @@ class TestTestingAndQA(unittest.TestCase):
 
     def test_edge_case_handling_empty_files(self):
         """Test edge case: empty files."""
-        empty_file = ""
+        empty_file=""
         self.assertEqual(len(empty_file), 0)
 
     def test_files_with_only_comments(self):
         """Test files with only comments."""
-        comment_only = "# This is a comment\n# Another comment\n"
+        comment_only="# This is a comment\n# Another comment\n"
         self.assertNotIn('def', comment_only)
 
     def test_files_with_syntax_errors(self):
         """Test files with syntax errors in original."""
-        invalid_code = "def func(\n    pass"
+        invalid_code="def func(\n    pass"
         self.assertIn('pass', invalid_code)
 
     def test_very_large_files(self):
         """Test handling very large files (>10,000 lines)."""
-        large_file_lines = 15000
-        chunk_size = 1000
-        chunks = large_file_lines // chunk_size
+        large_file_lines=15000
+        chunk_size=1000
+        chunks=large_file_lines // chunk_size
         self.assertGreater(chunks, 10)
 
     def test_unicode_and_special_characters(self):
         """Test unicode and special character handling."""
-        unicode_content = "# Comment with émojis 🚀 and ñames"
+        unicode_content="# Comment with émojis 🚀 and ñames"
         self.assertIn('🚀', unicode_content)
 
     def test_concurrent_file_modifications(self):
         """Test handling concurrent file modifications."""
-        concurrent_tasks = [
+        concurrent_tasks=[
             {'file': 'f1.py', 'operation': 'write'},
             {'file': 'f1.py', 'operation': 'read'},
             {'file': 'f1.py', 'operation': 'validate'}
@@ -541,7 +541,7 @@ class TestConfigurationAndCustomization(unittest.TestCase):
 
     def test_configurable_validation_rules(self):
         """Test making validation rules configurable via config file."""
-        config = {
+        config={
             'pylint_threshold': 8.0,
             'complexity_limit': 10,
             'enable_security_checks': True,
@@ -551,7 +551,7 @@ class TestConfigurationAndCustomization(unittest.TestCase):
 
     def test_per_project_validation_profiles(self):
         """Test per-project validation profiles."""
-        profiles = {
+        profiles={
             'strict': {'pylint_threshold': 9.5, 'complexity_limit': 5},
             'moderate': {'pylint_threshold': 8.0, 'complexity_limit': 10},
             'lenient': {'pylint_threshold': 7.0, 'complexity_limit': 15}
@@ -562,17 +562,17 @@ class TestConfigurationAndCustomization(unittest.TestCase):
         """Test support for custom validation plugins."""
         class PluginRegistry:
             def __init__(self):
-                self.plugins = {}
+                self.plugins={}
 
             def register_plugin(self, name, plugin):
                 self.plugins[name] = plugin
 
-        registry = PluginRegistry()
+        registry=PluginRegistry()
         self.assertEqual(len(registry.plugins), 0)
 
     def test_user_defined_ignore_patterns(self):
         """Test user-defined ignore patterns."""
-        ignore_patterns = [
+        ignore_patterns=[
             '*.test.py',
             'migrations/*.py',
             '__pycache__/*'
@@ -581,7 +581,7 @@ class TestConfigurationAndCustomization(unittest.TestCase):
 
     def test_validation_severity_levels(self):
         """Test severity levels for validation warnings."""
-        severity_levels = ['error', 'warning', 'info', 'debug']
+        severity_levels=['error', 'warning', 'info', 'debug']
         self.assertIn('error', severity_levels)
 
 
@@ -589,8 +589,8 @@ class TestReportingAndAnalytics(unittest.TestCase):
     """Test reporting and analytics improvements."""
 
     def test_validation_reports_html_json(self):
-        """Test generating detailed validation reports in HTML/JSON."""
-        report = {
+        """Test generating detailed validation reports in HTML / JSON."""
+        report={
             'format': ['html', 'json'],
             'timestamp': '2025-12-16T10:00:00',
             'summary': {'total_checks': 100, 'passed': 95, 'failed': 5}
@@ -599,7 +599,7 @@ class TestReportingAndAnalytics(unittest.TestCase):
 
     def test_metrics_tracking(self):
         """Test tracking metrics: success rate, common errors, retry counts."""
-        metrics = {
+        metrics={
             'total_validations': 1000,
             'successful': 950,
             'failed': 50,
@@ -611,7 +611,7 @@ class TestReportingAndAnalytics(unittest.TestCase):
 
     def test_performance_dashboard(self):
         """Test dashboard for agent performance monitoring."""
-        dashboard_metrics = {
+        dashboard_metrics={
             'processing_time_ms': 1500,
             'files_processed': 150,
             'avg_time_per_file': 10,
@@ -621,7 +621,7 @@ class TestReportingAndAnalytics(unittest.TestCase):
 
     def test_critical_failure_notifications(self):
         """Test notification support for critical failures."""
-        notification_config = {
+        notification_config={
             'email_on_critical': True,
             'slack_on_critical': True,
             'pagerduty_threshold': 'critical'
@@ -630,7 +630,7 @@ class TestReportingAndAnalytics(unittest.TestCase):
 
     def test_audit_logging(self):
         """Test audit logging for all code modifications."""
-        audit_log = [
+        audit_log=[
             {'timestamp': '10:00:00', 'action': 'validate', 'file': 'code.py', 'result': 'success'},
             {'timestamp': '10:00:05', 'action': 'modify', 'file': 'code.py', 'changes': 5},
             {'timestamp': '10:00:10', 'action': 'write', 'file': 'code.py', 'bytes': 1024}
@@ -643,7 +643,7 @@ class TestDeveloperExperience(unittest.TestCase):
 
     def test_verbose_debug_output(self):
         """Test verbose mode with detailed debug output."""
-        verbose_output = {
+        verbose_output={
             'enabled': True,
             'level': 'DEBUG',
             'output_format': 'json'
@@ -651,8 +651,8 @@ class TestDeveloperExperience(unittest.TestCase):
         self.assertEqual(verbose_output['level'], 'DEBUG')
 
     def test_interactive_review_mode(self):
-        """Test interactive mode for manual review/approval."""
-        interactive_config = {
+        """Test interactive mode for manual review / approval."""
+        interactive_config={
             'enabled': True,
             'ask_before_write': True,
             'show_diff': True
@@ -661,7 +661,7 @@ class TestDeveloperExperience(unittest.TestCase):
 
     def test_dry_run_mode(self):
         """Test dry-run mode (show changes without applying)."""
-        dry_run = {
+        dry_run={
             'enabled': True,
             'apply_changes': False,
             'show_preview': True
@@ -670,7 +670,7 @@ class TestDeveloperExperience(unittest.TestCase):
 
     def test_command_line_flags_for_workflows(self):
         """Test command-line flags for common workflows."""
-        cli_args = [
+        cli_args=[
             '--validate-only',
             '--format-only',
             '--dry-run',
@@ -681,7 +681,7 @@ class TestDeveloperExperience(unittest.TestCase):
 
     def test_helpful_error_messages(self):
         """Test helpful error messages with fix suggestions."""
-        error_message = {
+        error_message={
             'error': 'SyntaxError: invalid syntax',
             'location': 'line 42, column 10',
             'suggestion': 'Add missing colon after if statement',
@@ -691,7 +691,7 @@ class TestDeveloperExperience(unittest.TestCase):
 
     def test_ide_integration_support(self):
         """Test IDE integration support (LSP server)."""
-        lsp_config = {
+        lsp_config={
             'enabled': True,
             'port': 4389,
             'protocol': 'jsonrpc'
@@ -712,7 +712,7 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
             def validate(self, code):
                 return {'syntax': 'valid'}
 
-        validator = SyntaxValidator()
+        validator=SyntaxValidator()
         self.assertTrue(hasattr(validator, 'validate'))
 
     def test_abstract_base_class_for_validators(self):
@@ -734,7 +734,7 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
             def format(self, code): return code
             def write(self, code, path): pass
 
-        pipeline = CodePipeline()
+        pipeline=CodePipeline()
         self.assertTrue(hasattr(pipeline, 'parse'))
 
     def test_custom_exception_hierarchy(self):
@@ -753,7 +753,7 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
             def __exit__(self, *args):
                 pass
 
-        manager = FileManager()
+        manager=FileManager()
         self.assertTrue(hasattr(manager, '__enter__'))
 
     def test_reduced_coupling(self):
@@ -763,9 +763,9 @@ class TestTechnicalDebtRefactoring(unittest.TestCase):
 
         class CoderAgent:
             def __init__(self, base_agent=None):
-                self.base_agent = base_agent
+                self.base_agent=base_agent
 
-        coder = CoderAgent()
+        coder=CoderAgent()
         self.assertIsNone(coder.base_agent)
 
 
@@ -774,7 +774,7 @@ class TestFutureEnhancements(unittest.TestCase):
 
     def test_ml_code_quality_prediction(self):
         """Test ML-based code quality prediction before changes."""
-        ml_model = {
+        ml_model={
             'type': 'neural_network',
             'features': ['cyclomatic_complexity', 'line_count', 'test_coverage'],
             'prediction': 'high_quality'
@@ -782,8 +782,8 @@ class TestFutureEnhancements(unittest.TestCase):
         self.assertEqual(ml_model['prediction'], 'high_quality')
 
     def test_github_actions_ci_cd_integration(self):
-        """Test GitHub Actions integration for CI/CD validation."""
-        workflow_config = {
+        """Test GitHub Actions integration for CI / CD validation."""
+        workflow_config={
             'on': ['push', 'pull_request'],
             'jobs': ['validate', 'format', 'test'],
             'auto_fix': False
@@ -792,7 +792,7 @@ class TestFutureEnhancements(unittest.TestCase):
 
     def test_multi_file_refactoring(self):
         """Test support for multi-file refactoring operations."""
-        refactoring_scope = {
+        refactoring_scope={
             'files': ['module1.py', 'module2.py', 'module3.py'],
             'type': 'extract_interface',
             'cross_file_references': True
@@ -801,7 +801,7 @@ class TestFutureEnhancements(unittest.TestCase):
 
     def test_code_smell_detection(self):
         """Test code smell detection (duplicated code, long methods)."""
-        code_smells = [
+        code_smells=[
             {'type': 'duplicated_code', 'occurrences': 3},
             {'type': 'long_method', 'lines': 150},
             {'type': 'large_class', 'methods': 40}
@@ -810,7 +810,7 @@ class TestFutureEnhancements(unittest.TestCase):
 
     def test_automatic_dependency_management(self):
         """Test automatic dependency management (imports)."""
-        dependency_ops = [
+        dependency_ops=[
             'add_missing_imports',
             'remove_unused_imports',
             'organize_imports',
@@ -820,7 +820,7 @@ class TestFutureEnhancements(unittest.TestCase):
 
     def test_visual_diff_viewer(self):
         """Test visual diff viewer for code changes."""
-        diff_viewer = {
+        diff_viewer={
             'format': 'html',
             'side_by_side': True,
             'syntax_highlighting': True,
@@ -830,7 +830,7 @@ class TestFutureEnhancements(unittest.TestCase):
 
     def test_code_review_workflow_support(self):
         """Test integration with code review workflows."""
-        review_workflow = {
+        review_workflow={
             'require_approval': True,
             'min_reviewers': 1,
             'auto_comment_on_issues': True,
@@ -840,7 +840,7 @@ class TestFutureEnhancements(unittest.TestCase):
 
     def test_pyproject_toml_linter_integration(self):
         """Test integration with project linters in pyproject.toml."""
-        pyproject = {
+        pyproject={
             'tool': {
                 'pylint': {'disable': ['C0111']},
                 'mypy': {'strict': True},

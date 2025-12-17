@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr / bin / env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org / licenses / LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,50 +52,50 @@ from base_agent import BaseAgent, create_main_function
 
 class ErrorSeverity(Enum):
     """Error severity levels."""
-    CRITICAL = 5
-    HIGH = 4
-    MEDIUM = 3
-    LOW = 2
-    INFO = 1
+    CRITICAL=5
+    HIGH=4
+    MEDIUM=3
+    LOW=2
+    INFO=1
 
 
 class ErrorCategory(Enum):
     """Error categories."""
-    SYNTAX = "syntax"
-    RUNTIME = "runtime"
-    LOGIC = "logic"
-    TYPE = "type"
-    SECURITY = "security"
-    PERFORMANCE = "performance"
-    STYLE = "style"
-    DEPRECATION = "deprecation"
-    OTHER = "other"
+    SYNTAX="syntax"
+    RUNTIME="runtime"
+    LOGIC="logic"
+    TYPE="type"
+    SECURITY="security"
+    PERFORMANCE="performance"
+    STYLE="style"
+    DEPRECATION="deprecation"
+    OTHER="other"
 
 
 class NotificationChannel(Enum):
     """Notification channel types."""
-    SLACK = "slack"
-    TEAMS = "teams"
-    EMAIL = "email"
-    WEBHOOK = "webhook"
-    DISCORD = "discord"
+    SLACK="slack"
+    TEAMS="teams"
+    EMAIL="email"
+    WEBHOOK="webhook"
+    DISCORD="discord"
 
 
 class ExternalReporter(Enum):
     """External error reporting systems."""
-    SENTRY = "sentry"
-    ROLLBAR = "rollbar"
-    BUGSNAG = "bugsnag"
-    DATADOG = "datadog"
-    NEWRELIC = "newrelic"
+    SENTRY="sentry"
+    ROLLBAR="rollbar"
+    BUGSNAG="bugsnag"
+    DATADOG="datadog"
+    NEWRELIC="newrelic"
 
 
 class TrendDirection(Enum):
     """Trend direction indicators."""
-    INCREASING = "increasing"
-    DECREASING = "decreasing"
-    STABLE = "stable"
-    VOLATILE = "volatile"
+    INCREASING="increasing"
+    DECREASING="decreasing"
+    STABLE="stable"
+    VOLATILE="volatile"
 
 
 @dataclass
@@ -105,14 +105,14 @@ class ErrorEntry:
     message: str
     file_path: str
     line_number: int
-    severity: ErrorSeverity = ErrorSeverity.MEDIUM
-    category: ErrorCategory = ErrorCategory.OTHER
-    timestamp: str = ""
-    stack_trace: str = ""
-    suggested_fix: str = ""
-    resolved: bool = False
-    resolution_timestamp: str = ""
-    tags: List[str] = field(default_factory = list)
+    severity: ErrorSeverity=ErrorSeverity.MEDIUM
+    category: ErrorCategory=ErrorCategory.OTHER
+    timestamp: str=""
+    stack_trace: str=""
+    suggested_fix: str=""
+    resolved: bool=False
+    resolution_timestamp: str=""
+    tags: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -121,8 +121,8 @@ class ErrorCluster:
     id: str
     name: str
     pattern: str
-    error_ids: List[str] = field(default_factory = list)
-    description: str = ""
+    error_ids: List[str] = field(default_factory=list)
+    description: str=""
 
 
 @dataclass
@@ -132,8 +132,8 @@ class ErrorPattern:
     regex: str
     severity: ErrorSeverity
     category: ErrorCategory
-    suggested_fix: str = ""
-    occurrences: int = 0
+    suggested_fix: str=""
+    occurrences: int=0
 
 
 @dataclass
@@ -143,8 +143,8 @@ class SuppressionRule:
     pattern: str
     reason: str
     expires: Optional[str] = None
-    created_by: str = ""
-    created_at: str = ""
+    created_by: str=""
+    created_at: str=""
 
 
 @dataclass
@@ -160,9 +160,9 @@ class NotificationConfig:
     """
     channel: NotificationChannel
     endpoint: str
-    min_severity: ErrorSeverity = ErrorSeverity.HIGH
-    enabled: bool = True
-    template: str = "Error: {message} in {file}:{line}"
+    min_severity: ErrorSeverity=ErrorSeverity.HIGH
+    enabled: bool=True
+    template: str="Error: {message} in {file}:{line}"
 
 
 @dataclass
@@ -177,10 +177,10 @@ class ErrorImpact:
         impact_score: Overall impact score (0-100).
     """
     error_id: str
-    affected_files: List[str] = field(default_factory = list)
-    affected_functions: List[str] = field(default_factory = list)
-    downstream_effects: List[str] = field(default_factory = list)
-    impact_score: float = 0.0
+    affected_files: List[str] = field(default_factory=list)
+    affected_functions: List[str] = field(default_factory=list)
+    downstream_effects: List[str] = field(default_factory=list)
+    impact_score: float=0.0
 
 
 @dataclass
@@ -196,7 +196,7 @@ class TimelineEvent:
     timestamp: str
     event_type: str
     error_id: str
-    details: str = ""
+    details: str=""
 
 
 @dataclass
@@ -210,9 +210,9 @@ class RegressionInfo:
         occurrences: Number of times this error has regressed.
     """
     error_id: str
-    original_fix_commit: str = ""
-    regression_commit: str = ""
-    occurrences: int = 1
+    original_fix_commit: str=""
+    regression_commit: str=""
+    occurrences: int=1
 
 
 @dataclass
@@ -228,9 +228,9 @@ class FixSuggestion:
     """
     error_id: str
     suggestion: str
-    confidence: float = 0.0
-    code_snippet: str = ""
-    source: str = "pattern_match"
+    confidence: float=0.0
+    code_snippet: str=""
+    source: str="pattern_match"
 
 
 @dataclass
@@ -246,9 +246,9 @@ class ErrorBudget:
     """
     budget_name: str
     total_budget: float
-    consumed: float = 0.0
-    period_start: str = ""
-    period_end: str = ""
+    consumed: float=0.0
+    period_start: str=""
+    period_end: str=""
 
 
 @dataclass
@@ -263,9 +263,9 @@ class TrendData:
         prediction: Predicted next value.
     """
     metric_name: str
-    values: List[float] = field(default_factory = list)
-    timestamps: List[str] = field(default_factory = list)
-    direction: TrendDirection = TrendDirection.STABLE
+    values: List[float] = field(default_factory=list)
+    timestamps: List[str] = field(default_factory=list)
+    direction: TrendDirection=TrendDirection.STABLE
     prediction: Optional[float] = None
 
 
@@ -281,10 +281,10 @@ class BlameInfo:
         commit_message: Commit message.
     """
     error_id: str
-    commit_hash: str = ""
-    author: str = ""
-    commit_date: str = ""
-    commit_message: str = ""
+    commit_hash: str=""
+    author: str=""
+    commit_date: str=""
+    commit_message: str=""
 
 
 @dataclass
@@ -300,47 +300,47 @@ class BranchComparison:
     """
     branch_a: str
     branch_b: str
-    errors_only_in_a: List[str] = field(default_factory = list)
-    errors_only_in_b: List[str] = field(default_factory = list)
-    common_errors: List[str] = field(default_factory = list)
+    errors_only_in_a: List[str] = field(default_factory=list)
+    errors_only_in_b: List[str] = field(default_factory=list)
+    common_errors: List[str] = field(default_factory=list)
 
 
 # Default error patterns
 DEFAULT_ERROR_PATTERNS: List[ErrorPattern] = [
     ErrorPattern(
-        name = "undefined_variable",
-        regex = r"NameError: name '(\w+)' is not defined",
-        severity = ErrorSeverity.HIGH,
-        category = ErrorCategory.RUNTIME,
-        suggested_fix = "Define the variable before use or check for typos"
+        name="undefined_variable",
+        regex=r"NameError: name '(\w+)' is not defined",
+        severity=ErrorSeverity.HIGH,
+        category=ErrorCategory.RUNTIME,
+        suggested_fix="Define the variable before use or check for typos"
     ),
     ErrorPattern(
-        name = "syntax_error",
-        regex = r"SyntaxError: (.*)",
-        severity = ErrorSeverity.CRITICAL,
-        category = ErrorCategory.SYNTAX,
-        suggested_fix = "Fix the syntax according to the error message"
+        name="syntax_error",
+        regex=r"SyntaxError: (.*)",
+        severity=ErrorSeverity.CRITICAL,
+        category=ErrorCategory.SYNTAX,
+        suggested_fix="Fix the syntax according to the error message"
     ),
     ErrorPattern(
-        name = "type_error",
-        regex = r"TypeError: (.*)",
-        severity = ErrorSeverity.HIGH,
-        category = ErrorCategory.TYPE,
-        suggested_fix = "Check type compatibility of operands"
+        name="type_error",
+        regex=r"TypeError: (.*)",
+        severity=ErrorSeverity.HIGH,
+        category=ErrorCategory.TYPE,
+        suggested_fix="Check type compatibility of operands"
     ),
     ErrorPattern(
-        name = "import_error",
-        regex = r"ImportError: (.*)",
-        severity = ErrorSeverity.HIGH,
-        category = ErrorCategory.RUNTIME,
-        suggested_fix = "Ensure the module is installed and accessible"
+        name="import_error",
+        regex=r"ImportError: (.*)",
+        severity=ErrorSeverity.HIGH,
+        category=ErrorCategory.RUNTIME,
+        suggested_fix="Ensure the module is installed and accessible"
     ),
     ErrorPattern(
-        name = "attribute_error",
-        regex = r"AttributeError: (.*)",
-        severity = ErrorSeverity.MEDIUM,
-        category = ErrorCategory.RUNTIME,
-        suggested_fix = "Check if the attribute exists on the object"
+        name="attribute_error",
+        regex=r"AttributeError: (.*)",
+        severity=ErrorSeverity.MEDIUM,
+        category=ErrorCategory.RUNTIME,
+        suggested_fix="Check if the attribute exists on the object"
     ),
 ]
 
@@ -399,7 +399,7 @@ class NotificationManager:
             if not config.enabled:
                 continue
             if error.severity.value >= config.min_severity.value:
-                message = self._format_message(error, config.template)
+                message=self._format_message(error, config.template)
                 if self._send(config, message):
                     notified.append(config.channel.value)
         return notified
@@ -407,11 +407,11 @@ class NotificationManager:
     def _format_message(self, error: ErrorEntry, template: str) -> str:
         """Format notification message from template."""
         return template.format(
-            message = error.message,
-            file = error.file_path,
-            line = error.line_number,
-            severity = error.severity.name,
-            category = error.category.value
+            message=error.message,
+            file=error.file_path,
+            line=error.line_number,
+            severity=error.severity.name,
+            category=error.category.value
         )
 
     def _send(self, config: NotificationConfig, message: str) -> bool:
@@ -466,27 +466,27 @@ class ImpactAnalyzer:
         Returns:
             ErrorImpact with affected files and functions.
         """
-        affected_files = self._find_affected_files(error.file_path)
-        affected_functions = self.function_map.get(error.file_path, [])
-        downstream = self._find_downstream_effects(error.file_path)
+        affected_files=self._find_affected_files(error.file_path)
+        affected_functions=self.function_map.get(error.file_path, [])
+        downstream=self._find_downstream_effects(error.file_path)
 
-        impact_score = self._calculate_impact_score(
+        impact_score=self._calculate_impact_score(
             len(affected_files),
             len(affected_functions),
             error.severity
         )
 
         return ErrorImpact(
-            error_id = error.id,
-            affected_files = affected_files,
-            affected_functions = affected_functions,
-            downstream_effects = downstream,
-            impact_score = impact_score
+            error_id=error.id,
+            affected_files=affected_files,
+            affected_functions=affected_functions,
+            downstream_effects=downstream,
+            impact_score=impact_score
         )
 
     def _find_affected_files(self, file_path: str) -> List[str]:
         """Find files that depend on the given file."""
-        affected = []
+        affected=[]
         for file, deps in self.file_dependencies.items():
             if file_path in deps:
                 affected.append(file)
@@ -494,7 +494,7 @@ class ImpactAnalyzer:
 
     def _find_downstream_effects(self, file_path: str) -> List[str]:
         """Find downstream effects recursively."""
-        effects = []
+        effects=[]
         visited: Set[str] = set()
         self._find_downstream_recursive(file_path, effects, visited)
         return effects
@@ -515,9 +515,9 @@ class ImpactAnalyzer:
         self, file_count: int, func_count: int, severity: ErrorSeverity
     ) -> float:
         """Calculate an impact score."""
-        base = severity.value * 10
-        file_impact = min(file_count * 5, 30)
-        func_impact = min(func_count * 2, 20)
+        base=severity.value * 10
+        file_impact=min(file_count * 5, 30)
+        func_impact=min(func_count * 2, 20)
         return min(100, base + file_impact + func_impact)
 
 
@@ -536,7 +536,7 @@ class TimelineTracker:
         self.events: List[TimelineEvent] = []
 
     def record_event(
-        self, error_id: str, event_type: str, details: str = ""
+        self, error_id: str, event_type: str, details: str=""
     ) -> TimelineEvent:
         """Record a timeline event.
 
@@ -548,11 +548,11 @@ class TimelineTracker:
         Returns:
             The recorded TimelineEvent.
         """
-        event = TimelineEvent(
-            timestamp = datetime.now().isoformat(),
-            event_type = event_type,
-            error_id = error_id,
-            details = details
+        event=TimelineEvent(
+            timestamp=datetime.now().isoformat(),
+            event_type=event_type,
+            error_id=error_id,
+            details=details
         )
         self.events.append(event)
         return event
@@ -574,7 +574,7 @@ class TimelineTracker:
         """Generate timeline data for visualization."""
         by_date: Dict[str, int] = {}
         for event in self.events:
-            date = event.timestamp[:10]  # YYYY-MM-DD
+            date=event.timestamp[:10]  # YYYY-MM-DD
             by_date[date] = by_date.get(date, 0) + 1
 
         return {
@@ -585,7 +585,7 @@ class TimelineTracker:
 
     def clear(self) -> None:
         """Clear all timeline events."""
-        self.events = []
+        self.events=[]
 
 
 class RegressionDetector:
@@ -610,11 +610,11 @@ class RegressionDetector:
             error: The fixed error.
             commit_hash: The commit that fixed the error.
         """
-        signature = self._get_error_signature(error)
+        signature=self._get_error_signature(error)
         self.fixed_errors[signature] = commit_hash
 
     def check_regression(
-        self, error: ErrorEntry, current_commit: str = ""
+        self, error: ErrorEntry, current_commit: str=""
     ) -> Optional[RegressionInfo]:
         """Check if an error is a regression.
 
@@ -625,12 +625,12 @@ class RegressionDetector:
         Returns:
             RegressionInfo if this is a regression, None otherwise.
         """
-        signature = self._get_error_signature(error)
+        signature=self._get_error_signature(error)
         if signature in self.fixed_errors:
-            regression = RegressionInfo(
-                error_id = error.id,
-                original_fix_commit = self.fixed_errors[signature],
-                regression_commit = current_commit
+            regression=RegressionInfo(
+                error_id=error.id,
+                original_fix_commit=self.fixed_errors[signature],
+                regression_commit=current_commit
             )
             # Check if already tracked
             for r in self.regressions:
@@ -643,7 +643,7 @@ class RegressionDetector:
 
     def _get_error_signature(self, error: ErrorEntry) -> str:
         """Generate a signature for an error."""
-        normalized = re.sub(r"\d+", "N", error.message)
+        normalized=re.sub(r"\d+", "N", error.message)
         return f"{error.file_path}:{normalized}"
 
     def get_regressions(self) -> List[RegressionInfo]:
@@ -703,15 +703,15 @@ class AutoFixSuggester:
             FixSuggestion if a fix is available, None otherwise.
         """
         for pattern, template in self.fix_patterns.items():
-            match = re.search(pattern, error.message)
+            match=re.search(pattern, error.message)
             if match:
-                groups = match.groups()
-                suggestion = template.format(*groups) if groups else template
+                groups=match.groups()
+                suggestion=template.format(*groups) if groups else template
                 return FixSuggestion(
-                    error_id = error.id,
-                    suggestion = suggestion,
-                    confidence = 0.8,
-                    source = "pattern_match"
+                    error_id=error.id,
+                    suggestion=suggestion,
+                    confidence=0.8,
+                    source="pattern_match"
                 )
         return None
 
@@ -719,9 +719,9 @@ class AutoFixSuggester:
         self, errors: List[ErrorEntry]
     ) -> List[FixSuggestion]:
         """Generate suggestions for multiple errors."""
-        suggestions = []
+        suggestions=[]
         for error in errors:
-            sugg = self.suggest(error)
+            sugg=self.suggest(error)
             if sugg:
                 suggestions.append(sugg)
         return suggestions
@@ -739,7 +739,7 @@ class ExternalReportingClient:
     """
 
     def __init__(
-        self, system: ExternalReporter, dsn: str = ""
+        self, system: ExternalReporter, dsn: str=""
     ) -> None:
         """Initialize the external reporting client.
 
@@ -747,9 +747,9 @@ class ExternalReportingClient:
             system: The external system type.
             dsn: Data source name or API key.
         """
-        self.system = system
-        self.dsn = dsn
-        self.enabled = bool(dsn)
+        self.system=system
+        self.dsn=dsn
+        self.enabled=bool(dsn)
 
     def report(self, error: ErrorEntry) -> bool:
         """Report an error to the external system.
@@ -762,7 +762,7 @@ class ExternalReportingClient:
         """
         if not self.enabled:
             return False
-        payload = self._build_payload(error)
+        payload=self._build_payload(error)
         logging.info(
             f"Reporting to {self.system.value}: {error.id}"
         )
@@ -778,7 +778,7 @@ class ExternalReportingClient:
         Returns:
             Number of errors successfully reported.
         """
-        count = 0
+        count=0
         for error in errors:
             if self.report(error):
                 count += 1
@@ -819,7 +819,7 @@ class ErrorBudgetManager:
         self,
         name: str,
         total: float,
-        period_days: int = 30
+        period_days: int=30
     ) -> ErrorBudget:
         """Create an error budget.
 
@@ -831,13 +831,13 @@ class ErrorBudgetManager:
         Returns:
             The created ErrorBudget.
         """
-        now = datetime.now()
-        end = now + timedelta(days = period_days)
-        budget = ErrorBudget(
-            budget_name = name,
-            total_budget = total,
-            period_start = now.isoformat(),
-            period_end = end.isoformat()
+        now=datetime.now()
+        end=now + timedelta(days=period_days)
+        budget=ErrorBudget(
+            budget_name=name,
+            total_budget=total,
+            period_start=now.isoformat(),
+            period_end=end.isoformat()
         )
         self.budgets[name] = budget
         return budget
@@ -854,7 +854,7 @@ class ErrorBudgetManager:
         """
         if name not in self.budgets:
             return False
-        budget = self.budgets[name]
+        budget=self.budgets[name]
         if budget.consumed + amount > budget.total_budget:
             return False
         budget.consumed += amount
@@ -871,14 +871,14 @@ class ErrorBudgetManager:
         """
         if name not in self.budgets:
             return 0.0
-        budget = self.budgets[name]
+        budget=self.budgets[name]
         return budget.total_budget - budget.consumed
 
     def get_consumption_rate(self, name: str) -> float:
         """Get budget consumption rate as percentage."""
         if name not in self.budgets:
             return 0.0
-        budget = self.budgets[name]
+        budget=self.budgets[name]
         if budget.total_budget == 0:
             return 100.0
         return (budget.consumed / budget.total_budget) * 100
@@ -887,7 +887,7 @@ class ErrorBudgetManager:
         """Check if budget is exceeded."""
         if name not in self.budgets:
             return True
-        budget = self.budgets[name]
+        budget=self.budgets[name]
         return budget.consumed >= budget.total_budget
 
 
@@ -913,8 +913,8 @@ class TrendAnalyzer:
             value: Value to record.
         """
         if metric not in self.data_points:
-            self.data_points[metric] = TrendData(metric_name = metric)
-        data = self.data_points[metric]
+            self.data_points[metric] = TrendData(metric_name=metric)
+        data=self.data_points[metric]
         data.values.append(value)
         data.timestamps.append(datetime.now().isoformat())
 
@@ -928,33 +928,33 @@ class TrendAnalyzer:
             TrendData with direction and prediction.
         """
         if metric not in self.data_points:
-            return TrendData(metric_name = metric)
+            return TrendData(metric_name=metric)
 
-        data = self.data_points[metric]
+        data=self.data_points[metric]
         if len(data.values) < 2:
-            data.direction = TrendDirection.STABLE
+            data.direction=TrendDirection.STABLE
             return data
 
         # Calculate direction
-        recent = data.values[-5:] if len(data.values) >= 5 else data.values
-        avg_change = sum(
+        recent=data.values[-5:] if len(data.values) >= 5 else data.values
+        avg_change=sum(
             recent[i] - recent[i-1]
             for i in range(1, len(recent))
         ) / (len(recent) - 1)
 
         if avg_change > 0.1:
-            data.direction = TrendDirection.INCREASING
+            data.direction=TrendDirection.INCREASING
         elif avg_change < -0.1:
-            data.direction = TrendDirection.DECREASING
+            data.direction=TrendDirection.DECREASING
         else:
-            data.direction = TrendDirection.STABLE
+            data.direction=TrendDirection.STABLE
 
         # Simple prediction
-        data.prediction = data.values[-1] + avg_change
+        data.prediction=data.values[-1] + avg_change
 
         return data
 
-    def predict(self, metric: str, periods: int = 1) -> List[float]:
+    def predict(self, metric: str, periods: int=1) -> List[float]:
         """Predict future values.
 
         Args:
@@ -964,19 +964,19 @@ class TrendAnalyzer:
         Returns:
             List of predicted values.
         """
-        data = self.analyze(metric)
+        data=self.analyze(metric)
         if not data.values:
             return []
 
-        predictions = []
-        last_value = data.values[-1]
-        avg_change = 0.0
+        predictions=[]
+        last_value=data.values[-1]
+        avg_change=0.0
         if len(data.values) >= 2:
-            changes = [
+            changes=[
                 data.values[i] - data.values[i-1]
                 for i in range(1, len(data.values))
             ]
-            avg_change = sum(changes) / len(changes)
+            avg_change=sum(changes) / len(changes)
 
         for i in range(periods):
             predictions.append(last_value + avg_change * (i + 1))
@@ -1007,23 +1007,23 @@ class BlameTracker:
         Returns:
             BlameInfo with commit and author details.
         """
-        cache_key = f"{error.file_path}:{error.line_number}"
+        cache_key=f"{error.file_path}:{error.line_number}"
         if cache_key in self.blame_cache:
             return self.blame_cache[cache_key]
 
-        blame_info = BlameInfo(error_id = error.id)
+        blame_info=BlameInfo(error_id=error.id)
 
         try:
-            result = subprocess.run(
+            result=subprocess.run(
                 ["git", "blame", "-L",
                  f"{error.line_number},{error.line_number}",
                  "--porcelain", error.file_path],
-                capture_output = True,
-                text = True,
-                timeout = 10
+                capture_output=True,
+                text=True,
+                timeout=10
             )
             if result.returncode == 0:
-                blame_info = self._parse_blame_output(
+                blame_info=self._parse_blame_output(
                     error.id, result.stdout
                 )
         except (subprocess.TimeoutExpired, FileNotFoundError):
@@ -1036,29 +1036,29 @@ class BlameTracker:
         self, error_id: str, output: str
     ) -> BlameInfo:
         """Parse git blame output."""
-        lines = output.strip().split('\n')
-        info = BlameInfo(error_id = error_id)
+        lines=output.strip().split('\n')
+        info=BlameInfo(error_id=error_id)
 
         if lines:
-            parts = lines[0].split()
+            parts=lines[0].split()
             if parts:
-                info.commit_hash = parts[0]
+                info.commit_hash=parts[0]
 
         for line in lines:
             if line.startswith("author "):
-                info.author = line[7:]
+                info.author=line[7:]
             elif line.startswith("author-time "):
-                timestamp = int(line[12:])
-                info.commit_date = datetime.fromtimestamp(
+                timestamp=int(line[12:])
+                info.commit_date=datetime.fromtimestamp(
                     timestamp
                 ).isoformat()
             elif line.startswith("summary "):
-                info.commit_message = line[8:]
+                info.commit_message=line[8:]
 
         return info
 
     def get_top_contributors(
-        self, errors: List[ErrorEntry], limit: int = 5
+        self, errors: List[ErrorEntry], limit: int=5
     ) -> List[Tuple[str, int]]:
         """Get top contributors to errors.
 
@@ -1071,16 +1071,16 @@ class BlameTracker:
         """
         author_counts: Dict[str, int] = {}
         for error in errors:
-            blame = self.get_blame(error)
+            blame=self.get_blame(error)
             if blame.author:
                 author_counts[blame.author] = (
                     author_counts.get(blame.author, 0) + 1
                 )
 
-        sorted_authors = sorted(
+        sorted_authors=sorted(
             author_counts.items(),
             key=lambda x: x[1],
-            reverse = True
+            reverse=True
         )
         return sorted_authors[:limit]
 
@@ -1120,15 +1120,15 @@ class BranchComparer:
         Returns:
             BranchComparison with differences.
         """
-        errors_a = self.branch_errors.get(branch_a, set())
-        errors_b = self.branch_errors.get(branch_b, set())
+        errors_a=self.branch_errors.get(branch_a, set())
+        errors_b=self.branch_errors.get(branch_b, set())
 
         return BranchComparison(
-            branch_a = branch_a,
-            branch_b = branch_b,
-            errors_only_in_a = list(errors_a - errors_b),
-            errors_only_in_b = list(errors_b - errors_a),
-            common_errors = list(errors_a & errors_b)
+            branch_a=branch_a,
+            branch_b=branch_b,
+            errors_only_in_a=list(errors_a - errors_b),
+            errors_only_in_b=list(errors_b - errors_a),
+            common_errors=list(errors_a & errors_b)
         )
 
     def get_new_errors(
@@ -1143,7 +1143,7 @@ class BranchComparer:
         Returns:
             List of error IDs only in feature branch.
         """
-        comparison = self.compare(base_branch, feature_branch)
+        comparison=self.compare(base_branch, feature_branch)
         return comparison.errors_only_in_b
 
     def get_fixed_errors(
@@ -1158,7 +1158,7 @@ class BranchComparer:
         Returns:
             List of error IDs fixed in feature branch.
         """
-        comparison = self.compare(base_branch, feature_branch)
+        comparison=self.compare(base_branch, feature_branch)
         return comparison.errors_only_in_a
 
 
@@ -1184,16 +1184,16 @@ class ErrorsAgent(BaseAgent):
 
     def _check_associated_file(self) -> None:
         """Check if the associated code file exists."""
-        name = self.file_path.name
+        name=self.file_path.name
         if name.endswith('.errors.md'):
-            base_name = name[:-10]  # len('.errors.md')
+            base_name=name[:-10]  # len('.errors.md')
             # Try to find the file with common extensions or exact match
-            candidate = self.file_path.parent / base_name
+            candidate=self.file_path.parent / base_name
             if candidate.exists():
                 return
             # Try adding extensions
             for ext in ['.py', '.sh', '.js', '.ts', '.md']:
-                candidate = self.file_path.parent / (base_name + ext)
+                candidate=self.file_path.parent / (base_name + ext)
                 if candidate.exists() and candidate != self.file_path:
                     return
             logging.warning(f"Could not find associated code file for {self.file_path.name}")
@@ -1204,25 +1204,25 @@ class ErrorsAgent(BaseAgent):
         message: str,
         file_path: str,
         line_number: int,
-        severity: ErrorSeverity = ErrorSeverity.MEDIUM,
-        category: ErrorCategory = ErrorCategory.OTHER,
-        stack_trace: str = "",
-        suggested_fix: str = ""
+        severity: ErrorSeverity=ErrorSeverity.MEDIUM,
+        category: ErrorCategory=ErrorCategory.OTHER,
+        stack_trace: str="",
+        suggested_fix: str=""
     ) -> ErrorEntry:
         """Add a new error entry."""
-        error_id = hashlib.md5(
+        error_id=hashlib.md5(
             f"{message}:{file_path}:{line_number}".encode()
         ).hexdigest()[:8]
-        error = ErrorEntry(
-            id = error_id,
-            message = message,
-            file_path = file_path,
-            line_number = line_number,
-            severity = severity,
-            category = category,
-            timestamp = datetime.now().isoformat(),
-            stack_trace = stack_trace,
-            suggested_fix = suggested_fix
+        error=ErrorEntry(
+            id=error_id,
+            message=message,
+            file_path=file_path,
+            line_number=line_number,
+            severity=severity,
+            category=category,
+            timestamp=datetime.now().isoformat(),
+            stack_trace=stack_trace,
+            suggested_fix=suggested_fix
         )
         # Check if suppressed
         if not self._is_suppressed(error):
@@ -1238,12 +1238,12 @@ class ErrorsAgent(BaseAgent):
         """Get an error by ID."""
         return next((e for e in self._errors if e.id == error_id), None)
 
-    def resolve_error(self, error_id: str, resolution_note: str = "") -> bool:
+    def resolve_error(self, error_id: str, resolution_note: str="") -> bool:
         """Mark an error as resolved."""
-        error = self.get_error_by_id(error_id)
+        error=self.get_error_by_id(error_id)
         if error:
-            error.resolved = True
-            error.resolution_timestamp = datetime.now().isoformat()
+            error.resolved=True
+            error.resolution_timestamp=datetime.now().isoformat()
             if resolution_note:
                 self.add_annotation(error_id, f"Resolution: {resolution_note}")
             return True
@@ -1264,7 +1264,7 @@ class ErrorsAgent(BaseAgent):
     # ========== Severity Scoring ==========
     def calculate_severity_score(self, error: ErrorEntry) -> float:
         """Calculate a severity score for an error."""
-        base_score = error.severity.value * 20
+        base_score=error.severity.value * 20
         # Adjust based on factors
         if error.category == ErrorCategory.SECURITY:
             base_score += 15
@@ -1281,7 +1281,7 @@ class ErrorsAgent(BaseAgent):
         return sorted(
             self._errors,
             key=lambda e: self.calculate_severity_score(e),
-            reverse = True
+            reverse=True
         )
 
     # ========== Error Clustering ==========
@@ -1290,29 +1290,29 @@ class ErrorsAgent(BaseAgent):
         clusters: Dict[str, List[ErrorEntry]] = {}
         for error in self._errors:
             # Create cluster key from error pattern
-            cluster_key = self._get_cluster_key(error)
+            cluster_key=self._get_cluster_key(error)
             if cluster_key not in clusters:
                 clusters[cluster_key] = []
             clusters[cluster_key].append(error)
         # Convert to ErrorCluster objects
-        self._clusters = {}
+        self._clusters={}
         for key, errors in clusters.items():
             if len(errors) > 1:
-                cluster_id = hashlib.md5(key.encode()).hexdigest()[:8]
+                cluster_id=hashlib.md5(key.encode()).hexdigest()[:8]
                 self._clusters[cluster_id] = ErrorCluster(
-                    id = cluster_id,
-                    name = key[:50],
-                    pattern = key,
-                    error_ids = [e.id for e in errors],
-                    description = f"Cluster of {len(errors)} similar errors"
+                    id=cluster_id,
+                    name=key[:50],
+                    pattern=key,
+                    error_ids=[e.id for e in errors],
+                    description=f"Cluster of {len(errors)} similar errors"
                 )
         return self._clusters
 
     def _get_cluster_key(self, error: ErrorEntry) -> str:
         """Generate a clustering key for an error."""
         # Normalize the message by removing variable parts
-        normalized = re.sub(r"'[^']*'", "'<var>'", error.message)
-        normalized = re.sub(r"\d+", "<num>", normalized)
+        normalized=re.sub(r"'[^']*'", "'<var>'", error.message)
+        normalized=re.sub(r"\d+", "<num>", normalized)
         return f"{error.category.value}:{normalized}"
 
     def get_cluster(self, cluster_id: str) -> Optional[ErrorCluster]:
@@ -1321,7 +1321,7 @@ class ErrorsAgent(BaseAgent):
 
     def get_errors_in_cluster(self, cluster_id: str) -> List[ErrorEntry]:
         """Get all errors in a cluster."""
-        cluster = self._clusters.get(cluster_id)
+        cluster=self._clusters.get(cluster_id)
         if not cluster:
             return []
         return [e for e in self._errors if e.id in cluster.error_ids]
@@ -1341,12 +1341,12 @@ class ErrorsAgent(BaseAgent):
 
     def _auto_categorize_error(self, error: ErrorEntry) -> None:
         """Auto-categorize an error based on patterns."""
-        pattern = self.recognize_pattern(error)
+        pattern=self.recognize_pattern(error)
         if pattern:
             if error.category == ErrorCategory.OTHER:
-                error.category = pattern.category
+                error.category=pattern.category
             if not error.suggested_fix:
-                error.suggested_fix = pattern.suggested_fix
+                error.suggested_fix=pattern.suggested_fix
 
     def get_pattern_statistics(self) -> Dict[str, int]:
         """Get statistics on pattern occurrences."""
@@ -1358,16 +1358,16 @@ class ErrorsAgent(BaseAgent):
         pattern: str,
         reason: str,
         expires: Optional[str] = None,
-        created_by: str = ""
+        created_by: str=""
     ) -> SuppressionRule:
         """Add a suppression rule."""
-        rule = SuppressionRule(
-            id = hashlib.md5(pattern.encode()).hexdigest()[:8],
-            pattern = pattern,
-            reason = reason,
-            expires = expires,
-            created_by = created_by,
-            created_at = datetime.now().isoformat()
+        rule=SuppressionRule(
+            id=hashlib.md5(pattern.encode()).hexdigest()[:8],
+            pattern=pattern,
+            reason=reason,
+            expires=expires,
+            created_by=created_by,
+            created_at=datetime.now().isoformat()
         )
         self._suppression_rules.append(rule)
         return rule
@@ -1386,7 +1386,7 @@ class ErrorsAgent(BaseAgent):
             # Check expiration
             if rule.expires:
                 try:
-                    expires_dt = datetime.fromisoformat(rule.expires)
+                    expires_dt=datetime.fromisoformat(rule.expires)
                     if datetime.now() > expires_dt:
                         continue
                 except ValueError:
@@ -1419,31 +1419,31 @@ class ErrorsAgent(BaseAgent):
         """Remove duplicate errors, returns count removed."""
         seen: Set[str] = set()
         unique: List[ErrorEntry] = []
-        removed = 0
+        removed=0
         for error in self._errors:
-            key = f"{error.message}:{error.file_path}:{error.line_number}"
+            key=f"{error.message}:{error.file_path}:{error.line_number}"
             if key not in seen:
                 seen.add(key)
                 unique.append(error)
             else:
                 removed += 1
-        self._errors = unique
+        self._errors=unique
         return removed
 
     # ========== Statistics ==========
     def calculate_statistics(self) -> Dict[str, Any]:
         """Calculate error statistics."""
-        total = len(self._errors)
-        resolved = len([e for e in self._errors if e.resolved])
-        by_severity = {}
+        total=len(self._errors)
+        resolved=len([e for e in self._errors if e.resolved])
+        by_severity={}
         for severity in ErrorSeverity:
-            count = len([e for e in self._errors if e.severity == severity])
+            count=len([e for e in self._errors if e.severity == severity])
             by_severity[severity.name] = count
-        by_category = {}
+        by_category={}
         for category in ErrorCategory:
-            count = len([e for e in self._errors if e.category == category])
+            count=len([e for e in self._errors if e.category == category])
             by_category[category.name] = count
-        self._statistics = {
+        self._statistics={
             "total_errors": total,
             "resolved_errors": resolved,
             "unresolved_errors": total - resolved,
@@ -1458,8 +1458,8 @@ class ErrorsAgent(BaseAgent):
     # ========== Documentation Generation ==========
     def generate_documentation(self) -> str:
         """Generate documentation for all errors."""
-        docs = ["# Error Documentation\n"]
-        stats = self.calculate_statistics()
+        docs=["# Error Documentation\n"]
+        stats=self.calculate_statistics()
         docs.append("## Summary\n")
         docs.append(f"- Total Errors: {stats['total_errors']}")
         docs.append(f"- Resolved: {stats['resolved_errors']}")
@@ -1468,19 +1468,19 @@ class ErrorsAgent(BaseAgent):
         # Group by category
         docs.append("## Errors by Category\n")
         for category in ErrorCategory:
-            errors = self.get_errors_by_category(category)
+            errors=self.get_errors_by_category(category)
             if errors:
                 docs.append(f"### {category.value.title()}\n")
                 for error in errors:
-                    status = "✓" if error.resolved else "✗"
+                    status="✓" if error.resolved else "✗"
                     docs.append(f"- [{status}] {error.message} (line {error.line_number})")
                 docs.append("")
         return '\n'.join(docs)
 
-    def export_errors(self, format: str = "json") -> str:
+    def export_errors(self, format: str="json") -> str:
         """Export errors to various formats."""
         if format == "json":
-            data = [{
+            data=[{
                 "id": e.id,
                 "message": e.message,
                 "file": e.file_path,
@@ -1489,9 +1489,9 @@ class ErrorsAgent(BaseAgent):
                 "category": e.category.name,
                 "resolved": e.resolved
             } for e in self._errors]
-            return json.dumps(data, indent = 2)
+            return json.dumps(data, indent=2)
         elif format == "csv":
-            lines = ["id,message,file,line,severity,category,resolved"]
+            lines=["id,message,file,line,severity,category,resolved"]
             for e in self._errors:
                 lines.append(f"{e.id},{e.message},{e.file_path},{e.line_number},{e.severity.name},{e.category.name},{e.resolved}")
             return '\n'.join(lines)
@@ -1535,7 +1535,7 @@ class ErrorsAgent(BaseAgent):
 
 
 # Create main function using the helper
-main = create_main_function(
+main=create_main_function(
     ErrorsAgent,
     'Errors Agent: Updates code file error reports',
     'Path to the errors file (e.g., file.errors.md)'
