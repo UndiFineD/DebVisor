@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
     - name: Check Spelling
-      uses: crate-ci/typos@5c19779cb52ea50e151f5a10333ccd269227b5ae
+      uses: crate-ci/typos@bb4666ad77b539a6b4ce4eda7ebb6de553704021
       with:
         files: ./**/*.md
 'on':
