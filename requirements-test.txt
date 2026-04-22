@@ -43,7 +43,7 @@ kubernetes>=28.1.0
 cryptography>=44.0.1
 
 # Rate limiting
-flask-limiter>=3.5.0
+flask-limiter>=4.1.1
 limits>=3.10.0
 
 # Vault integration
