@@ -15,7 +15,7 @@ pytest-html>=4.1.0
 
 # Testing utilities
 hypothesis>=6.90.0
-faker>=20.0.0
+faker>=40.15.0
 freezegun>=1.4.0
 
 # Async testing
